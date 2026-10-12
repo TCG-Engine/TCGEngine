@@ -1,0 +1,116 @@
+{
+    "first": {
+        "counts": {
+            "games": 500,
+            "rotom": 370,
+            "colressBeforeSuccess": 160,
+            "lillieBeforeSuccess": 89,
+            "opponentStadiumSuccess": 84,
+            "naturalEnergyAtTurn1": 348,
+            "invalidResources": 0
+        },
+        "examples": [
+            {
+                "seed": 20001,
+                "ownTurn": 2,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20003,
+                "ownTurn": 2,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20004,
+                "ownTurn": 2,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20005,
+                "ownTurn": 2,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 2,
+                "colress": true,
+                "lillie": false
+            }
+        ]
+    },
+    "second": {
+        "counts": {
+            "games": 500,
+            "rotom": 328,
+            "colressBeforeSuccess": 125,
+            "lillieBeforeSuccess": 78,
+            "opponentStadiumSuccess": 140,
+            "naturalEnergyAtTurn1": 348,
+            "invalidResources": 0
+        },
+        "examples": [
+            {
+                "seed": 20001,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20003,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20004,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "sv08-177",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20005,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 2,
+                "colress": false,
+                "lillie": false
+            }
+        ]
+    }
+}

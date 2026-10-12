@@ -1,0 +1,1805 @@
+{
+    "policy": "4e4a301e5637dbbe",
+    "games": [
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60001,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60005,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60006,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60007,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60009,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60013,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60014,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60016,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60017,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60018,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60020,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60022,
+            "winner": 1,
+            "status": "complete",
+            "reason": "deck-out"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60024,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60025,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60001,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60006,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60007,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60009,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60013,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60014,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60016,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60017,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60018,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60023,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60024,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60001,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60006,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60007,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60009,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60013,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60014,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60016,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60017,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60018,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60024,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60001,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60006,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60007,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60009,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60012,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60013,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60014,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60016,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60017,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60018,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60024,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "original",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60001,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60003,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60006,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60007,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60009,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60013,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60014,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60016,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60017,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60018,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60019,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60020,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60023,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60024,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 1,
+            "seed": 60025,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60001,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60006,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60007,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60008,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60009,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60013,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60014,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60016,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60017,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60018,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60024,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "brisbane-lopunny",
+            "first": 2,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60001,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60005,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60006,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60007,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60009,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60012,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60013,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60014,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60016,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60017,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60018,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60024,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 1,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60001,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60002,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60003,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60004,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60005,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60006,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60007,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60008,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60009,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60010,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60011,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60012,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60013,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60014,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60015,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60016,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60017,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60018,
+            "winner": 1,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60019,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60020,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60021,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60022,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60023,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60024,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        },
+        {
+            "variant": "no-jamming",
+            "opponent": "dhelmise-v2",
+            "first": 2,
+            "seed": 60025,
+            "winner": 2,
+            "status": "complete",
+            "reason": "prizes-or-no-pokemon"
+        }
+    ]
+}

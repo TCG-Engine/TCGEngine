@@ -1,0 +1,59 @@
+{
+    "second": {
+        "counts": {
+            "games": 500,
+            "rotom": 304,
+            "colressBeforeSuccess": 149,
+            "lillieBeforeSuccess": 69,
+            "opponentStadiumSuccess": 0,
+            "naturalEnergyAtTurn1": 348,
+            "invalidResources": 0
+        },
+        "examples": [
+            {
+                "seed": 20001,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20003,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20004,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "sv08-177",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            },
+            {
+                "seed": 20005,
+                "ownTurn": 1,
+                "energy": [
+                    "mee-005"
+                ],
+                "stadium": "me02-085",
+                "stadiumOwner": 1,
+                "colress": true,
+                "lillie": false
+            }
+        ]
+    }
+}

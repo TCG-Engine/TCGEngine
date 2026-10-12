@@ -66,3 +66,9 @@ function PokeSelfKnockoutAbilityBlocked($obj,int $index): bool {
     if (!preg_match('/this Pok.mon.*(?:Knocked Out|Knock Out this)/iu',$effect)) return false;
     return PokeFieldModifier('SelfKnockoutAbilityLock',1,$obj,$obj)+PokeFieldModifier('SelfKnockoutAbilityLock',2,$obj,$obj)>0;
 }
+
+/** Stadium effects apply to both players, including tools already attached. */
+function PokeToolsEnabled(): bool { return (PokeStadium()->CardID ?? '') !== 'sv06-153'; }
+function PokeCurrentHP($obj): int {
+    return max(0, (int)CardHp($obj->CardID) - ((PokeStadium()->CardID ?? '') === 'sv08-177' && CardStage($obj->CardID) === 'Stage2' ? 30 : 0));
+}

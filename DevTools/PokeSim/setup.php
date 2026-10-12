@@ -15,6 +15,7 @@ $authored = array_replace($authored, require 'PokeSim/CardCode/MeowthAbilities.p
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthDrawAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/RelicanthColressAbilities.php');
+$authored = array_replace($authored, require 'PokeSim/CardCode/FanRotomAbilities.php');
 foreach ($authored as $id => $abilities) {
     $repository->replaceCardAbilities($rootName, $id, $abilities, true, $repository->revisionForCard($rootName, $id));
 }

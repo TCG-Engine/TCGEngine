@@ -1,5 +1,12 @@
 # CardEditor Feature - Complete Implementation Summary
 
+## Hosted card editing MCP
+
+The Card Editor now has a separate hosted authoring MCP at `CardEditor/Mcp/index.php`, for cards,
+sets, templates, fields, and artwork. Create account-scoped read/write tokens through **AI access**
+in the editor sidebar. See [deployment, client configuration, and tests](Mcp/README.md).
+The game programming MCP in `McpServer/` remains independent.
+
 ## Optional hosted Card Code backend
 
 Card ability code can remain in local MySQL (the default) or use the hosted API at
