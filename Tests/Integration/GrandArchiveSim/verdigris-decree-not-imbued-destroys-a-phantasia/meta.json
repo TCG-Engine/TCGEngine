@@ -1,0 +1,22 @@
+{
+    "name": "verdigris-decree-not-imbued-destroys-a-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:15:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7cx66hjlgx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7cx66hjlgx"
+        ],
+        "mechanics": [
+            "modal-choice",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "\u2022 Destroy up to one target phantasia."
+        ]
+    }
+}

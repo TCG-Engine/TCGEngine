@@ -280,3 +280,153 @@ gaScenario('enhance-potency-without-the-class-bonus-pays-three-and-the-copy-stil
     ->tested('Enhance Potency')
     ->covers(['class-bonus', 'cost-reduction'], '[Class Bonus] This card costs 1 less to activate.')
     ->register();
+
+// ---- Skirting Step (Imbue 2) ----
+// Imbue: the YESNO comes before payment; YES reveals the reserved cards (hand picks), and two Wind cards among them make the card imbued.
+
+gaScenario('skirting-step-imbued-makes-the-unit-distant-prevents-one-damage-and-draws')
+    ->standardDeck('Skirting Step')
+    ->readyFor('Skirting Step')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Skirting Step')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->play('Skirting Step')->answer(1, 'YES')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->pass(1)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT","PREVENT_ALL_1"]', 'Distant, plus the next-1-damage prevention')
+    ->expectZoneCount('myHand', 8, 1, 'Imbued: a card was drawn (7 left after the play and the payment, +1)')
+    ->tested('Skirting Step')
+    ->covers(['imbue', 'distant', 'prevent-damage', 'draw-discard', 'targeting'], 'Target unit becomes **distant**. If CARDNAME is **imbued**, prevent the next 1 damage that would be dealt to that unit this turn and draw a card.')
+    ->register();
+
+gaScenario('skirting-step-not-imbued-only-makes-the-unit-distant')
+    ->standardDeck('Skirting Step')
+    ->readyFor('Skirting Step')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Skirting Step')
+    ->play('Skirting Step')->answer(1, 'NO')->pay(2)->pass(1)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'Only distant')
+    ->expectZoneCount('myHand', 5, 1, 'Not imbued: no card drawn')
+    ->tested('Skirting Step')
+    ->covers(['imbue', 'distant', 'targeting'], 'Target unit becomes **distant**.')
+    ->register();
+
+gaScenario('skirting-step-one-wind-card-revealed-is-not-enough-to-imbue')
+    ->standardDeck('Skirting Step')
+    ->readyFor('Skirting Step')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Skirting Step')
+    ->seed('myHand', 'Fairy Whispers')
+    ->play('Skirting Step')->answer(1, 'YES')->answer(1, 'myHand-7')->pay(1)->pass(1)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'Only distant: one Wind card of two revealed')
+    ->tested('Skirting Step')
+    ->covers(['imbue'], 'If at least two of them are wind element, this card becomes **imbued**.')
+    ->register();
+
+// ---- Cultivate (Imbue 1) ----
+
+foreach ([
+    ['cultivate-imbued-with-three-herbs-gathers-twice', 3, true, 5, 'Three herbs: one gather, plus one more because it is imbued'],
+    ['cultivate-not-imbued-with-three-herbs-gathers-once', 3, false, 4, 'Three herbs: one gather'],
+    ['cultivate-not-imbued-with-two-herbs-does-not-gather', 2, false, 2, 'Two herbs are not enough for a gather'],
+    ['cultivate-imbued-without-herbs-gathers-once', 0, true, 1, 'No herbs: only the imbued gather'],
+] as [$slug, $herbs, $imbue, $expect, $why]) {
+    $g = gaScenario($slug)
+        ->standardDeck('Cultivate')
+        ->readyFor('Cultivate');
+    for ($h = 0; $h < $herbs; $h++) $g->seed('myField', 'Blightroot');
+    if ($imbue) {
+        $g->seed('myHand', 'Cultivate')->seed('myHand', 'Fairy Whispers')
+          ->play('Cultivate')->answer(1, 'YES')->answer(1, 'myHand-7')->pay(1)->pass(1);
+    } else {
+        $g->seed('myHand', 'Cultivate')
+          ->play('Cultivate')->answer(1, 'NO')->pay(2)->pass(1);
+    }
+    $g->expectZoneCount('myField', $expect + 1, 1, $why)
+      ->tested('Cultivate')
+      ->covers(['imbue', 'gather', 'condition'], 'For every three Herb items you control,  **gather**. Then if CARDNAME is **imbued**, **gather** an additional time.')
+      ->register();
+}
+
+// ---- Squallbind Pounce (Imbue 2, Reaction) ----
+
+gaScenario('squallbind-pounce-imbued-makes-the-ranger-distant-and-suppresses-the-attacking-ally')
+    ->standardDeck('Squallbind Pounce')
+    ->readyFor('Squallbind Pounce', classBonus: true)
+    ->seed('myHand', 'Squallbind Pounce')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(1, 'myHand-7')->answer(1, 'YES')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->pass(1)->answer(1, 'myField-0')->answer(1, 'theirField-1')->pass(1)->pass(1)
+    ->expectProperty('p1Field-0', 'TurnEffects', '["WAS_ATTACKED","vz4kc558yx-ACTION_ACTIVATED","DISTANT"]', 'The Ranger champion became distant (a Ranger champion is a Ranger unit)')
+    ->expectCardExists('theirBanish', 'Giant Tortoise', 'Imbued: the attacking ally was suppressed (banished)')
+    ->expectDamage('p1Field-0', 0, 'The suppressed attacker dealt no damage')
+    ->tested('Squallbind Pounce')
+    ->covers(['imbue', 'distant', 'suppress', 'targeting'], 'Up to one target Ranger unit becomes **distant**.', 'If Squallbind Pounce is **imbued**, **suppress** up to one target attacking ally.')
+    ->register();
+
+gaScenario('squallbind-pounce-not-imbued-only-makes-the-ranger-distant')
+    ->standardDeck('Squallbind Pounce')
+    ->readyFor('Squallbind Pounce', classBonus: true)
+    ->seed('myHand', 'Squallbind Pounce')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(1, 'myHand-7')->answer(1, 'NO')->pay(2)->pass(1)->answer(1, 'myField-0')->pass(1)->pass(1)
+    ->expectProperty('p1Field-0', 'TurnEffects', '["WAS_ATTACKED","vz4kc558yx-ACTION_ACTIVATED","DISTANT","DAMAGED_SINCE_LAST_TURN"]', 'The Ranger champion became distant (a Ranger champion is a Ranger unit)')
+    ->expectDamage('p1Field-0', 1, 'Not imbued: the attack was not stopped (1 damage)')
+    ->tested('Squallbind Pounce')
+    ->covers(['imbue', 'distant', 'condition'], 'If Squallbind Pounce is **imbued**, **suppress** up to one target attacking ally.')
+    ->register();
+
+// ---- Verdigris Decree (Imbue 3, modal) ----
+// MZMODAL answers are mode indexes; two imbued modes are comma-separated ('1,2').
+
+gaScenario('verdigris-decree-not-imbued-suppresses-an-ally')
+    ->standardDeck('Verdigris Decree')
+    ->readyFor('Verdigris Decree')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Verdigris Decree')
+    ->play('Verdigris Decree')->answer(1, 'NO')->pay(3)->pass(1)->answer(1, '0')->answer(1, 'myField-1')
+    ->expectZoneCount('myBanish', 1, 1, 'Suppress banished the ally')
+    ->expectZoneCount('myField', 1, 1, 'Only the champion remains')
+    ->tested('Verdigris Decree')
+    ->covers(['imbue', 'modal-choice', 'suppress', 'targeting'], 'Choose one. If CARDNAME is **imbued**, choose two instead—', '• **Suppress** up to one target ally.')
+    ->register();
+
+gaScenario('verdigris-decree-not-imbued-gives-an-ally-plus-two-power')
+    ->standardDeck('Verdigris Decree')
+    ->readyFor('Verdigris Decree')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Verdigris Decree')
+    ->play('Verdigris Decree')->answer(1, 'NO')->pay(3)->pass(1)->answer(1, '1')->answer(1, 'myField-1')
+    ->expectPower('p1Field-1', 3, 'Giant Tortoise 1 + 2 power')
+    ->tested('Verdigris Decree')
+    ->covers(['modal-choice', 'stat-change', 'targeting'], '• Up to one target ally gets +2 [POWER] until end of turn.')
+    ->register();
+
+gaScenario('verdigris-decree-not-imbued-destroys-a-phantasia')
+    ->standardDeck('Verdigris Decree')
+    ->readyFor('Verdigris Decree')
+    ->seed('myField', 'Maiden of Glimmer\'s Dusk', player: 2)
+    ->seed('myHand', 'Verdigris Decree')
+    ->play('Verdigris Decree')->answer(1, 'NO')->pay(3)->pass(1)->answer(1, '2')->answer(1, 'theirField-1')
+    ->expectZoneCount('theirField', 1, 1, 'The phantasia was destroyed: only their champion remains')
+    ->tested('Verdigris Decree')
+    ->covers(['modal-choice', 'destroy', 'targeting'], '• Destroy up to one target phantasia.')
+    ->register();
+
+gaScenario('verdigris-decree-imbued-chooses-two-modes-power-and-destroy')
+    ->standardDeck('Verdigris Decree')
+    ->readyFor('Verdigris Decree')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myField', 'Maiden of Glimmer\'s Dusk', player: 2)
+    ->seed('myHand', 'Verdigris Decree')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->play('Verdigris Decree')->answer(1, 'YES')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->pass(1)->answer(1, '1,2')->answer(1, 'myField-1')->answer(1, 'theirField-1')
+    ->expectPower('p1Field-1', 3, 'Imbued: the +2 power mode happened')
+    ->expectZoneCount('theirField', 1, 1, 'Imbued: the destroy mode happened too')
+    ->tested('Verdigris Decree')
+    ->covers(['imbue', 'modal-choice'], 'Choose one. If CARDNAME is **imbued**, choose two instead—')
+    ->register();

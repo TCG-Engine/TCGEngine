@@ -451,7 +451,7 @@ $cardActivatedAbilities["hy83sghwfi:0"] = function($player) { // Exploit Vulnera
 $customDQHandlers["GAExploitVulnerabilityResolve"] = function($player, $parts, $lastDecision) {
     Draw($player, 1);
     if(DecisionQueueController::GetVariable("wasPrepared") !== "YES") return;
-    $assassins = ZoneSearch("myField", ["ALLY", "CHAMPION"], cardSubtypes: ["ASSASSIN"]);
+    $assassins = ZoneSearch("myField", ["ALLY", "CHAMPION"], cardClasses: ["ASSASSIN"]);
     if(empty($assassins)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $assassins), 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "GAExploitVulnerabilityGrant", 1, dontSkipOnPass:1);
@@ -2721,6 +2721,50 @@ $cardActivatedAbilities["jgyx38zpl0:0"] = function($player) { //Bagua of Cardina
             if($obj->Status == 1) WakeupCard($player, $mz);
             AddTurnEffect($mz, "jgyx38zpl0_POWER");
         }
+    }
+};
+
+// "Ranger unit" cards: the generated macros searched with cardSubtypes: ["RANGER"]. An ally carries its class in its subtypes, a CHAMPION does not
+// (its classes are only in the class list), so a Ranger champion was never offered. They now search by class, which both kinds of unit have.
+// Sleety Retreat (j9fkuzgg9i), Tinderflare Pivot (s3bqtjayfn), Squallbind Pounce (ep3ajxiyd3); Exploit Vulnerability's Assassin search is fixed in place above.
+function GARangerUnits() {
+    return FilterSpellshroudTargets(array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"], cardClasses: ["RANGER"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"], cardClasses: ["RANGER"])
+    ));
+}
+$playCardAbilities["j9fkuzgg9i:0"] = function($player) { //Sleety Retreat
+    $targets = GARangerUnits();
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "j9fkuzgg9i:0:PlayCard-1", 1);
+};
+$cardActivatedAbilities["s3bqtjayfn:0"] = function($player) { //Tinderflare Pivot
+    $rangers = GARangerUnits();
+    if(empty($rangers)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $rangers), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "s3bqtjayfn:0:CardActivated-1", 1);
+};
+$cardActivatedAbilities["ep3ajxiyd3:0"] = function($player) { //Squallbind Pounce
+    $rangers = GARangerUnits();
+    if(!empty($rangers)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $rangers), 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SquallbindPounceDistant", 1);
+    }
+    if(DecisionQueueController::GetVariable("isImbued") !== "YES") return;
+    $attackingAllies = [];
+    foreach(["theirField", "myField"] as $zone) {
+        $field = GetZone($zone);
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && PropertyContains(CardType($field[$i]->CardID), "ALLY") && IsUnitAttacking($zone . "-" . $i)) {
+                $attackingAllies[] = $zone . "-" . $i;
+            }
+        }
+    }
+    $attackingAllies = FilterSpellshroudTargets($attackingAllies);
+    if(!empty($attackingAllies)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $attackingAllies), 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SquallbindPounceSuppress", 1);
     }
 };
 

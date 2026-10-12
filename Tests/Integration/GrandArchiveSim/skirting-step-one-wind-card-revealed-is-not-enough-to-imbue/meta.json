@@ -1,0 +1,20 @@
+{
+    "name": "skirting-step-one-wind-card-revealed-is-not-enough-to-imbue",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:11:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "brq9x9z2k2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "brq9x9z2k2"
+        ],
+        "mechanics": [
+            "imbue"
+        ],
+        "rulesClauses": [
+            "If at least two of them are wind element, this card becomes **imbued**."
+        ]
+    }
+}

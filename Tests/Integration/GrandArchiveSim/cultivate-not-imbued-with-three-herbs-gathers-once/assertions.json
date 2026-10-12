@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Three herbs: one gather"
+    }
+]

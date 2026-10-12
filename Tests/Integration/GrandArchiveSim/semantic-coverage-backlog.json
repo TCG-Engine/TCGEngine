@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T20:09:39+00:00",
+    "generatedAt": "2026-10-12T20:15:22+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1427,
+        "cardsWithExistingFixtures": 1431,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1050,
+        "cardsNeedingSemanticCoverage": 1046,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3656,27 +3656,6 @@
             "priority": 15
         },
         {
-            "cardId": "brq9x9z2k2",
-            "name": "Skirting Step",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "du4df43ci2",
             "name": "Soutirer Vortex",
             "type": "UNIQUE,PHANTASIA",
@@ -6567,24 +6546,6 @@
             "priority": 14
         },
         {
-            "cardId": "ep3ajxiyd3",
-            "name": "Squallbind Pounce",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ao1cfkhbp6",
             "name": "Stand Fast",
             "type": "ACTION",
@@ -6900,24 +6861,6 @@
                 "targeting",
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "7cx66hjlgx",
-            "name": "Verdigris Decree",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7932,23 +7875,6 @@
                 "cost",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "cy3gme0xxw",
-            "name": "Cultivate",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -37416,6 +37342,35 @@
             "priority": 35
         },
         {
+            "cardId": "brq9x9z2k2",
+            "name": "Skirting Step",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "skirting-step-imbued-makes-the-unit-distant-prevents-one-damage-and-draws",
+                "skirting-step-not-imbued-only-makes-the-unit-distant",
+                "skirting-step-one-wind-card-revealed-is-not-enough-to-imbue"
+            ],
+            "semanticFixtures": [
+                "skirting-step-imbued-makes-the-unit-distant-prevents-one-damage-and-draws",
+                "skirting-step-not-imbued-only-makes-the-unit-distant",
+                "skirting-step-one-wind-card-revealed-is-not-enough-to-imbue"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "88rx6p3p5i",
             "name": "Smashing Force",
             "type": "ATTACK",
@@ -41123,6 +41078,30 @@
             "priority": 34
         },
         {
+            "cardId": "ep3ajxiyd3",
+            "name": "Squallbind Pounce",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "squallbind-pounce-imbued-makes-the-ranger-distant-and-suppresses-the-attacking-ally",
+                "squallbind-pounce-not-imbued-only-makes-the-ranger-distant"
+            ],
+            "semanticFixtures": [
+                "squallbind-pounce-imbued-makes-the-ranger-distant-and-suppresses-the-attacking-ally",
+                "squallbind-pounce-not-imbued-only-makes-the-ranger-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ao8bki6fxx",
             "name": "Steel Slug",
             "type": "REGALIA,ITEM",
@@ -41556,6 +41535,34 @@
                 "vengeful-gust-below-level-three-the-ally-returns-without-the-damage",
                 "vengeful-gust-level-three-returning-ally-deals-four-damage-to-its-controllers-champion",
                 "vengeful-gust-suppresses-an-opposing-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "7cx66hjlgx",
+            "name": "Verdigris Decree",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "verdigris-decree-imbued-chooses-two-modes-power-and-destroy",
+                "verdigris-decree-not-imbued-destroys-a-phantasia",
+                "verdigris-decree-not-imbued-gives-an-ally-plus-two-power",
+                "verdigris-decree-not-imbued-suppresses-an-ally"
+            ],
+            "semanticFixtures": [
+                "verdigris-decree-imbued-chooses-two-modes-power-and-destroy",
+                "verdigris-decree-not-imbued-destroys-a-phantasia",
+                "verdigris-decree-not-imbued-gives-an-ally-plus-two-power",
+                "verdigris-decree-not-imbued-suppresses-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42639,6 +42646,33 @@
             ],
             "semanticFixtures": [
                 "crystal-accretion-adds-sheen-to-units-with-sheen"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "cy3gme0xxw",
+            "name": "Cultivate",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cultivate-imbued-with-three-herbs-gathers-twice",
+                "cultivate-imbued-without-herbs-gathers-once",
+                "cultivate-not-imbued-with-three-herbs-gathers-once",
+                "cultivate-not-imbued-with-two-herbs-does-not-gather"
+            ],
+            "semanticFixtures": [
+                "cultivate-imbued-with-three-herbs-gathers-twice",
+                "cultivate-imbued-without-herbs-gathers-once",
+                "cultivate-not-imbued-with-three-herbs-gathers-once",
+                "cultivate-not-imbued-with-two-herbs-does-not-gather"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,21 @@
+{
+    "name": "verdigris-decree-imbued-chooses-two-modes-power-and-destroy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:15:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7cx66hjlgx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7cx66hjlgx"
+        ],
+        "mechanics": [
+            "imbue",
+            "modal-choice"
+        ],
+        "rulesClauses": [
+            "Choose one. If CARDNAME is **imbued**, choose two instead\u2014"
+        ]
+    }
+}

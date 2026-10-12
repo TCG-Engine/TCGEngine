@@ -124,6 +124,7 @@ Greater Boon of Vritra (pantheon), Bombard Flarecannon and Polkhawk, Bombastic S
 Fixed (each has a fixture): Byakko's Command (searched only `myField`), Primeval Ritual (sacrifice cost never paid; now in `GenericSacrificeCostCandidates`), Ensnaring Fumes
 (remove-three-preparation-counters alternate cost never offered), Ravaging Tempest (opposing allies never banished: MZMove frame), Purging Tempest / Sasha (a *resolved action* entered
 the graveyard; only discard and mill were redirected), Bagua of Cardinal Fate (West drew before the glimpse prompt; East woke and pumped every ally instead of the defending ones).
+Ranger-unit searches (Squallbind Pounce, Sleety Retreat, Tinderflare Pivot) and Exploit Vulnerability's Assassin search used `cardSubtypes`, which a CHAMPION does not carry its class in: a Ranger/Assassin champion was never offered. They now use `cardClasses` (card-local overrides; `ZoneSearch` itself is unchanged). Sleety Retreat and Tinderflare Pivot have no Ranger-champion fixture yet.
 Open: additional-cost cards the engine never mentions (Molten Impact, Powerforged Burst, Cremation Ritual, Umbilical Ritual, Penumbral Waltz, Sparkling Adornment, Horticounter),
 alternate-cost cards without wiring (Combustible Potion, Glacial Binding), Veiled Dash (parked), Calming Breeze's `[Level 1+]` Floating Memory twin, Diablerie's Vanitas floating memory.
 Purging Tempest's own card is already in the graveyard when its effect begins (the engine moves the action before running its ability); attack cards still go to the graveyard under the

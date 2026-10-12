@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"DISTANT\",\"PREVENT_ALL_1\"]",
+        "semantic": true,
+        "label": "Distant, plus the next-1-damage prevention"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Imbued: a card was drawn (7 left after the play and the payment, +1)"
+    }
+]

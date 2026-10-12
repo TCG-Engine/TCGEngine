@@ -1,0 +1,20 @@
+[
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"vz4kc558yx-ACTION_ACTIVATED\",\"DISTANT\",\"DAMAGED_SINCE_LAST_TURN\"]",
+        "semantic": true,
+        "label": "The Ranger champion became distant (a Ranger champion is a Ranger unit)"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "Not imbued: the attack was not stopped (1 damage)"
+    }
+]
