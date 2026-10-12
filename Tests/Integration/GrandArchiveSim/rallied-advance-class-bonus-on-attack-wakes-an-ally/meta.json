@@ -1,0 +1,24 @@
+{
+    "name": "rallied-advance-class-bonus-on-attack-wakes-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:29:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SPESFtKHLw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SPESFtKHLw"
+        ],
+        "mechanics": [
+            "combat",
+            "on-attack",
+            "class-bonus",
+            "status",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** Wake up target ally you control."
+        ]
+    }
+}

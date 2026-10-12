@@ -6,6 +6,9 @@
 global $gaDeckTemplates;
 $gaDeckTemplates = [
     'standard' => "# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n# Main\n4 {MAIN}\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep",
+    // The standard deck with the fast Fairy Whispers swapped for Dungeon Guide: with no fast card in either opening hand no priority window opens at
+    // phase changes, so turn handovers need no extra passes (see reachTurnThree).
+    'quiet' => "# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n# Main\n4 {MAIN}\n8 Dungeon Guide\n4 Fluffy Shopkeep",
     'lorraine-windslice' => "# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n# Main\n4 {MAIN}\n4 Fairy Whispers\n4 Fluffy Shopkeep\n4 Windslice",
     'clarent-windslice' => "# Material\n1 Spirit of Fire\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n# Main\n4 {MAIN}\n4 Fairy Whispers\n4 Fluffy Shopkeep\n4 Windslice",
     'rai-windslice' => "# Material\n1 Spirit of Fire\n1 Rai, Archmage\n1 Clarent, Sword of Peace\n1 Backup Charger\n1 Purifying Thurible\n# Main\n4 {MAIN}\n4 Fairy Whispers\n4 Fluffy Shopkeep\n4 Windslice",

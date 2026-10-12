@@ -1,0 +1,11 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "[Class Bonus] On Attack: a buff counter on the attacker"
+    }
+]

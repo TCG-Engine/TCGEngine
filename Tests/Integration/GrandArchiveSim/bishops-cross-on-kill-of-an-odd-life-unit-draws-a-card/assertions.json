@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The 1-life Owl Familiar was killed by the commanded Pawn Piece (2 POWER)"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Odd life stat (1): a card was drawn (8 - Bishop's Cross - 2 paid + 1)"
+    }
+]

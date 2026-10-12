@@ -1,0 +1,22 @@
+{
+    "name": "rallied-advance-without-the-class-bonus-leaves-the-ally-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:27:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SPESFtKHLw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SPESFtKHLw"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** Wake up target ally you control."
+        ]
+    }
+}

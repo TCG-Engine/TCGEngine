@@ -1,0 +1,25 @@
+{
+    "name": "eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WRDbeFfnar"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WRDbeFfnar"
+        ],
+        "mechanics": [
+            "command-chessman",
+            "class-bonus",
+            "on-attack",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Command Automaton**",
+            "[Class Bonus] **On Attack:** Put a **buff** counter on the attacker."
+        ]
+    }
+}

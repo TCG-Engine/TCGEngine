@@ -7281,6 +7281,12 @@ function OnCardActivated($player, $mzCard) {
         // Attack cards resolve and enter the champion's intent zone
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
+        // The imbued state lives in a decision-queue variable that is reset when this stack entry finishes, long before the
+        // attack's On Hit / On Kill resolves: remember it on the card (Razorblade Execution reads it at On Kill).
+        if(DecisionQueueController::GetVariable("isImbued") === "YES") {
+            if(!is_array($obj->TurnEffects)) $obj->TurnEffects = [];
+            $obj->TurnEffects[] = "IMBUED";
+        }
         // Sacrifice Play (1jmQ9XSLph): +2 POWER for each ally sacrificed as its additional cost (an Intent object has no counters: the count rides on its TurnEffects, read by the power calculation)
         if($obj->CardID === "1jmQ9XSLph") {
             $sacrificedForPlay = intval(DecisionQueueController::GetVariable("sacrificePlayCount"));

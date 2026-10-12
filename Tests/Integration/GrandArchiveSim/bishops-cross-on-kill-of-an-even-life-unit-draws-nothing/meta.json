@@ -1,0 +1,21 @@
+{
+    "name": "bishops-cross-on-kill-of-an-even-life-unit-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lsKJCCuFJV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lsKJCCuFJV"
+        ],
+        "mechanics": [
+            "on-kill",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Kill:** If the killed unit had an odd life stat, draw a card."
+        ]
+    }
+}

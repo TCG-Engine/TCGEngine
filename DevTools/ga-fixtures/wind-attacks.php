@@ -1,0 +1,200 @@
+<?php
+/**
+ * Phase 3b (Wind): attack cards. Turn 3, play the attack from the first seeded slot (7), pay its cost, target the opposing champion.
+ */
+
+// ---- Rallied Advance ----
+// Player 2 attacks on turn 2 with no recollection phase before it (their seeded rested ally stays rested), which is why the wake-up
+// attacks are written from their seat.
+
+gaScenario('rallied-advance-class-bonus-on-attack-wakes-an-ally')
+    ->deckTemplate('quiet', 'Rallied Advance')
+    ->readyFor('Rallied Advance', classBonus: true, player: 2)
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 1])
+    ->seed('myHand', 'Rallied Advance', player: 2)
+    ->endTurn()
+    ->play('Rallied Advance', 2)->pay(2, 2)->target('theirField-0', 2)->answer(2, 'myField-1')
+    ->expectProperty('p2Field-1', 'Status', '2', '[Class Bonus] On Attack: the rested ally woke up')
+    ->tested('Rallied Advance')
+    ->covers(['combat', 'on-attack', 'class-bonus', 'status', 'targeting'], '[Class Bonus] **On Attack:** Wake up target ally you control.')
+    ->register();
+
+gaScenario('rallied-advance-without-the-class-bonus-leaves-the-ally-rested')
+    ->deckTemplate('quiet', 'Rallied Advance')
+    ->readyFor('Rallied Advance', player: 2)
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 1])
+    ->seed('myHand', 'Rallied Advance', player: 2)
+    ->endTurn()
+    ->play('Rallied Advance', 2)->pay(2, 2)->target('theirField-0', 2)
+    ->expectProperty('p2Field-1', 'Status', '1', 'No class bonus: the ally stays rested')
+    ->expectDamage('p1Field-0', 1, 'The attack dealt its 1 POWER to the champion')
+    ->tested('Rallied Advance')
+    ->covers(['on-attack', 'class-bonus', 'condition'], '[Class Bonus] **On Attack:** Wake up target ally you control.')
+    ->register();
+
+// ---- Crosswind Cuts ----
+
+gaScenario('crosswind-cuts-class-bonus-costs-two-less-and-deals-its-power')
+    ->deckTemplate('quiet', 'Crosswind Cuts')
+    ->readyFor('Crosswind Cuts', classBonus: true, player: 2)
+    ->seed('myHand', 'Crosswind Cuts', player: 2)
+    ->endTurn()
+    ->play('Crosswind Cuts', 2)->pay(3, 2)->target('theirField-0', 2)
+    ->expectDamage('p1Field-0', 2, 'The attack dealt its 2 POWER')
+    ->expectZoneCount('myMemory', 3, 2, 'Class Bonus: cost 5 - 2 = 3')
+    ->tested('Crosswind Cuts')
+    ->covers(['combat', 'class-bonus', 'cost-reduction'], '[Class Bonus] This card costs 2 less to activate.')
+    ->register();
+
+gaScenario('crosswind-cuts-without-the-class-bonus-pays-the-full-five')
+    ->deckTemplate('quiet', 'Crosswind Cuts')
+    ->readyFor('Crosswind Cuts', player: 2)
+    ->seed('myHand', 'Crosswind Cuts', player: 2)
+    ->endTurn()
+    ->play('Crosswind Cuts', 2)->pay(5, 2)->target('theirField-0', 2)
+    ->expectDamage('p1Field-0', 2, 'The attack dealt its 2 POWER')
+    ->expectZoneCount('myMemory', 5, 2, 'No class bonus: full cost 5')
+    ->tested('Crosswind Cuts')
+    ->covers(['combat', 'class-bonus', 'cost-reduction'], '[Class Bonus] This card costs 2 less to activate.')
+    ->register();
+
+// ---- Poised Strike ----
+
+gaScenario('poised-strike-prepared-class-bonus-on-hit-wakes-the-champion')
+    ->deckTemplate('quiet', 'Poised Strike')
+    ->readyFor('Poised Strike', classBonus: true, player: 2)
+    ->patch('myField-0', ['Counters' => ['preparation' => 1, '_overrides' => ['classes' => 'ASSASSIN']]], player: 2)
+    ->seed('myHand', 'Poised Strike', player: 2)
+    ->endTurn()
+    ->play('Poised Strike', 2)->pay(2, 2)->answer(2, 'YES')->target('theirField-0', 2)
+    ->expectProperty('p2Field-0', 'Status', '2', 'Prepared + Class Bonus + hit: the attacking champion woke up')
+    ->expectDamage('p1Field-0', 3, 'The attack dealt its 3 POWER')
+    ->tested('Poised Strike')
+    ->covers(['combat', 'prepare', 'class-bonus', 'on-hit', 'status'], '**Prepare 1**', '[Class Bonus] **On Hit:** If CARDNAME was prepared, wake up your champion.')
+    ->register();
+
+gaScenario('poised-strike-unprepared-on-hit-leaves-the-champion-rested')
+    ->deckTemplate('quiet', 'Poised Strike')
+    ->readyFor('Poised Strike', classBonus: true, player: 2)
+    ->seed('myHand', 'Poised Strike', player: 2)
+    ->endTurn()
+    ->play('Poised Strike', 2)->pay(2, 2)->target('theirField-0', 2)
+    ->expectProperty('p2Field-0', 'Status', '1', 'Not prepared: the champion stays rested after attacking')
+    ->expectDamage('p1Field-0', 3, 'The attack dealt its 3 POWER')
+    ->tested('Poised Strike')
+    ->covers(['prepare', 'condition'], '[Class Bonus] **On Hit:** If CARDNAME was prepared, wake up your champion.')
+    ->register();
+
+// ---- Command attacks (an ally performs the attack) ----
+gaScenario('bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card')
+    ->deckTemplate('quiet', 'Bishop\'s Cross')
+    ->readyFor('Bishop\'s Cross')
+    ->seed('myField', 'Pawn Piece')
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->seed('myHand', 'Bishop\'s Cross')
+    ->reachTurnThree()
+    ->play('Bishop\'s Cross')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The 1-life Owl Familiar was killed by the commanded Pawn Piece (2 POWER)')
+    ->expectZoneCount('myHand', 7, 1, 'Odd life stat (1): a card was drawn (8 - Bishop\'s Cross - 2 paid + 1)')
+    ->tested('Bishop\'s Cross')
+    ->covers(['command-chessman', 'on-kill', 'draw-discard', 'combat', 'targeting'], '**Command Chessman**', '**On Kill:** If the killed unit had an odd life stat, draw a card.')
+    ->register();
+
+gaScenario('bishops-cross-on-kill-of-an-even-life-unit-draws-nothing')
+    ->deckTemplate('quiet', 'Bishop\'s Cross')
+    ->readyFor('Bishop\'s Cross')
+    ->seed('myField', 'Pawn Piece')
+    ->seed('myField', 'Gray Wolf', player: 2)
+    ->seed('myHand', 'Bishop\'s Cross')
+    ->reachTurnThree()
+    ->play('Bishop\'s Cross')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The 2-life Gray Wolf was killed')
+    ->expectZoneCount('myHand', 6, 1, 'Even life stat (2): no card drawn (8 - Bishop\'s Cross - 2 paid)')
+    ->tested('Bishop\'s Cross')
+    ->covers(['on-kill', 'condition'], '**On Kill:** If the killed unit had an odd life stat, draw a card.')
+    ->register();
+
+// ---- En Passant ----
+
+gaScenario('en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters')
+    ->deckTemplate('quiet', 'En Passant')
+    ->readyFor('En Passant')
+    ->seed('myField', 'Pawn Piece')
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->seed('myHand', 'En Passant')
+    ->reachTurnThree()
+    ->play('En Passant')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":2}', 'On Kill with no buff counters: two buff counters on the Pawn')
+    ->tested('En Passant')
+    ->covers(['command-chessman', 'on-kill', 'counter', 'combat'], 'As long as a Chessman Pawn ally is attacking with CARDNAME, it has "**On Kill: **If there are no **buff** counters on this ally, put two **buff** counters on it."')
+    ->register();
+
+gaScenario('en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more')
+    ->deckTemplate('quiet', 'En Passant')
+    ->readyFor('En Passant')
+    ->seed('myField', 'Pawn Piece', properties: ['Counters' => ['buff' => 1]])
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->seed('myHand', 'En Passant')
+    ->reachTurnThree()
+    ->play('En Passant')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Already has a buff counter: the On Kill adds nothing')
+    ->tested('En Passant')
+    ->covers(['on-kill', 'condition'], 'If there are no **buff** counters on this ally, put two **buff** counters on it.')
+    ->register();
+
+// ---- Eternal Directive ----
+
+gaScenario('eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton')
+    ->deckTemplate('quiet', 'Eternal Directive')
+    ->readyFor('Eternal Directive', classBonus: true)
+    ->seed('myField', 'Automaton Drone')
+    ->seed('myHand', 'Eternal Directive')
+    ->reachTurnThree()
+    ->play('Eternal Directive')->pay(2)->target('myField-1')->target('theirField-0')->pass(2)
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', '[Class Bonus] On Attack: a buff counter on the attacker')
+    ->tested('Eternal Directive')
+    ->covers(['command-chessman', 'class-bonus', 'on-attack', 'counter', 'combat'], '**Command Automaton**', '[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.')
+    ->register();
+
+gaScenario('eternal-directive-without-the-class-bonus-adds-no-counter')
+    ->deckTemplate('quiet', 'Eternal Directive')
+    ->readyFor('Eternal Directive')
+    ->seed('myField', 'Automaton Drone')
+    ->seed('myHand', 'Eternal Directive')
+    ->reachTurnThree()
+    ->play('Eternal Directive')->pay(2)->target('myField-1')->target('theirField-0')->pass(2)
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'No class bonus: no counter')
+    ->tested('Eternal Directive')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.')
+    ->register();
+
+// ---- Razorblade Execution (Imbue 3) ----
+
+gaScenario('razorblade-execution-imbued-class-bonus-on-kill-puts-a-preparation-counter-on-the-champion')
+    ->deckTemplate('quiet', 'Razorblade Execution')
+    ->readyFor('Razorblade Execution', classBonus: true)
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->seed('myHand', 'Razorblade Execution')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->seed('myHand', 'Fairy Whispers')
+    ->reachTurnThree(fastCardInHand: true)
+    ->play('Razorblade Execution')->answer(1, 'YES')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->answer(1, 'myHand-7')->target('theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The 1-life Owl Familiar was killed by 4 POWER')
+    ->expectProperty('p1Field-0', 'Counters', '{"_overrides":{"classes":"ASSASSIN"},"preparation":1}', 'Imbued + Class Bonus On Kill: a preparation counter on the champion')
+    ->tested('Razorblade Execution')
+    ->covers(['imbue', 'class-bonus', 'on-kill', 'counter', 'combat'], '**Imbue 3**', '[Class Bonus] **On Kill**: If Razorblade Execution is **imbued**, put a **preparation** counter on your champion.')
+    ->register();
+
+gaScenario('razorblade-execution-not-imbued-on-kill-adds-no-preparation-counter')
+    ->deckTemplate('quiet', 'Razorblade Execution')
+    ->readyFor('Razorblade Execution', classBonus: true)
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->seed('myHand', 'Razorblade Execution')
+    ->reachTurnThree()
+    ->play('Razorblade Execution')->answer(1, 'NO')->pay(3)->target('theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The Owl Familiar was killed')
+    ->expectProperty('p1Field-0', 'Counters', '{"_overrides":{"classes":"ASSASSIN"}}', 'Not imbued: no preparation counter (only the class override from readyFor)')
+    ->tested('Razorblade Execution')
+    ->covers(['imbue', 'condition'], '[Class Bonus] **On Kill**: If Razorblade Execution is **imbued**, put a **preparation** counter on your champion.')
+    ->register();

@@ -231,7 +231,10 @@ class GaScenario {
 
     // Player 1's first turn cannot attack (rule 1.h): both players end a turn, then player 1 declines the materialize offer
     // of their own turn 3 and is back in the main phase with the board unchanged.
-    public function reachTurnThree(): self {
+    // $fastCardInHand: player 1 holds a fast card on those turns (any Wind Fairy Whispers-style card), which opens a priority window at
+    // every phase change: the same route needs a pass in each of them. Check with dump-fixture-state.php if the first play is refused.
+    public function reachTurnThree(bool $fastCardInHand = false): self {
+        if ($fastCardInHand) return $this->endTurn(1)->pass(1)->pass(1)->endTurn(2)->pass(1)->pass(1)->pass(1)->pass(1);
         return $this->endTurn(1)->endTurn(2)->pass(1);
     }
 

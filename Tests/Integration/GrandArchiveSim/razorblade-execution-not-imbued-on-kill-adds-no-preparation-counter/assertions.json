@@ -1,0 +1,20 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Owl Familiar was killed"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"classes\":\"ASSASSIN\"}}",
+        "semantic": true,
+        "label": "Not imbued: no preparation counter (only the class override from readyFor)"
+    }
+]

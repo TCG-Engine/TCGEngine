@@ -1,0 +1,21 @@
+{
+    "name": "razorblade-execution-not-imbued-on-kill-adds-no-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "myvztzk3v8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "myvztzk3v8"
+        ],
+        "mechanics": [
+            "imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Kill**: If Razorblade Execution is **imbued**, put a **preparation** counter on your champion."
+        ]
+    }
+}

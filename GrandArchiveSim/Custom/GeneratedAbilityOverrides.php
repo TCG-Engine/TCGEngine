@@ -2768,6 +2768,16 @@ $cardActivatedAbilities["ep3ajxiyd3:0"] = function($player) { //Squallbind Pounc
     }
 };
 
+// Razorblade Execution (myvztzk3v8): "[Class Bonus] On Kill: If Razorblade Execution is imbued, put a preparation counter on your champion."
+// The generated body read the isImbued decision variable, which is reset when the attack card leaves the stack, so it was never "YES" by the
+// time the kill happened. The attack card now carries an IMBUED turn effect from the moment it enters the intent zone.
+$onKillAbilities["myvztzk3v8:0"] = function($player) { //Razorblade Execution
+    if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
+    $source = GetZoneObject(DecisionQueueController::GetVariable("mzID"));
+    if($source === null || !in_array("IMBUED", $source->TurnEffects ?? [])) return;
+    AddPrepCounter($player, 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

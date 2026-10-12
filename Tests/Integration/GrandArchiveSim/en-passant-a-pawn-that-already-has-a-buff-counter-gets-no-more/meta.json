@@ -1,0 +1,21 @@
+{
+    "name": "en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pZAA0nHyXM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pZAA0nHyXM"
+        ],
+        "mechanics": [
+            "on-kill",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If there are no **buff** counters on this ally, put two **buff** counters on it."
+        ]
+    }
+}

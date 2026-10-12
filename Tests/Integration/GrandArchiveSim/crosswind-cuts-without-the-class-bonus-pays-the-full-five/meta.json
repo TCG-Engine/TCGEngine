@@ -1,0 +1,22 @@
+{
+    "name": "crosswind-cuts-without-the-class-bonus-pays-the-full-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:29:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S0YCKJcU5e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "S0YCKJcU5e"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

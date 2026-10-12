@@ -180,6 +180,14 @@ must still state the actual rule clause and expected outcome.
 assertions, replays the fixture and requires it to fail; the file is restored afterwards. A surviving mutant means the
 assertion is not checking what its label claims (wrong step, wrong zone, unreachable value). Run it after writing a batch.
 
+### Priority windows and the `quiet` deck
+
+A player who holds a fast card (the standard deck's four Fairy Whispers are fast) is offered a priority window at every phase change, so
+turn handovers need extra `pass()` steps and a seat that is not expected to act still has to pass. Write new scenarios on
+`deckTemplate('quiet', 'Card')` (Fairy Whispers swapped for Dungeon Guide): `endTurn()` / `reachTurnThree()` then work as written and an
+attack is `play(card, seat)->pay(n, seat)->target(...)`. Use `reachTurnThree(fastCardInHand: true)` only when a seeded fast card forces
+the windows. Player 2 attacks on turn 2 with no recollection before it, which is the way to test a rested seeded ally.
+
 ### Silently ignored steps: `--audit-noops`
 
 Mutation checks only prove that an *assertion* is evaluated; they cannot see a scenario that never did what it says. The engine

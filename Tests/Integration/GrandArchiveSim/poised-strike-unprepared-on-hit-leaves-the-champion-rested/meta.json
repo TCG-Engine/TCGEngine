@@ -1,0 +1,21 @@
+{
+    "name": "poised-strike-unprepared-on-hit-leaves-the-champion-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:29:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mj3WSrghUH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mj3WSrghUH"
+        ],
+        "mechanics": [
+            "prepare",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** If CARDNAME was prepared, wake up your champion."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "crosswind-cuts-class-bonus-costs-two-less-and-deals-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:29:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S0YCKJcU5e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "S0YCKJcU5e"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

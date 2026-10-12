@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T21:25:54+00:00",
+    "generatedAt": "2026-10-12T21:33:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1446,
+        "cardsWithExistingFixtures": 1453,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1031,
+        "cardsNeedingSemanticCoverage": 1024,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1508,23 +1508,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "mj3WSrghUH",
-            "name": "Poised Strike",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5954,42 +5937,6 @@
             "priority": 14
         },
         {
-            "cardId": "SPESFtKHLw",
-            "name": "Rallied Advance",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "myvztzk3v8",
-            "name": "Razorblade Execution",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "xWqduqhMNp",
             "name": "Reactivate Drone",
             "type": "ACTION",
@@ -7166,23 +7113,6 @@
             "priority": 13
         },
         {
-            "cardId": "lsKJCCuFJV",
-            "name": "Bishop's Cross",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "iqs2hipwsc",
             "name": "Blade of Creation",
             "type": "ATTACK",
@@ -7744,23 +7674,6 @@
             "priority": 13
         },
         {
-            "cardId": "S0YCKJcU5e",
-            "name": "Crosswind Cuts",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "gpmJdGYqoC",
             "name": "Crowd's Favor",
             "type": "STATUS",
@@ -8007,23 +7920,6 @@
             "mechanics": [
                 "targeting",
                 "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "WRDbeFfnar",
-            "name": "Eternal Directive",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -11646,22 +11542,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "pZAA0nHyXM",
-            "name": "En Passant",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -34610,6 +34490,29 @@
             "priority": 43
         },
         {
+            "cardId": "mj3WSrghUH",
+            "name": "Poised Strike",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "poised-strike-prepared-class-bonus-on-hit-wakes-the-champion",
+                "poised-strike-unprepared-on-hit-leaves-the-champion-rested"
+            ],
+            "semanticFixtures": [
+                "poised-strike-prepared-class-bonus-on-hit-wakes-the-champion",
+                "poised-strike-unprepared-on-hit-leaves-the-champion-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "fan41iqm8b",
             "name": "Primeval Ritual",
             "type": "ACTION",
@@ -40229,6 +40132,30 @@
             "priority": 34
         },
         {
+            "cardId": "SPESFtKHLw",
+            "name": "Rallied Advance",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rallied-advance-class-bonus-on-attack-wakes-an-ally",
+                "rallied-advance-without-the-class-bonus-leaves-the-ally-rested"
+            ],
+            "semanticFixtures": [
+                "rallied-advance-class-bonus-on-attack-wakes-an-ally",
+                "rallied-advance-without-the-class-bonus-leaves-the-ally-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "3WQKmqDgtA",
             "name": "Rampant Bladehand",
             "type": "ALLY",
@@ -40245,6 +40172,30 @@
             ],
             "semanticFixtures": [
                 "rampant-bladehand-class-bonus-attack-removes-a-durability-counter-for-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "myvztzk3v8",
+            "name": "Razorblade Execution",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "razorblade-execution-imbued-class-bonus-on-kill-puts-a-preparation-counter-on-the-champion",
+                "razorblade-execution-not-imbued-on-kill-adds-no-preparation-counter"
+            ],
+            "semanticFixtures": [
+                "razorblade-execution-imbued-class-bonus-on-kill-puts-a-preparation-counter-on-the-champion",
+                "razorblade-execution-not-imbued-on-kill-adds-no-preparation-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42060,6 +42011,29 @@
             "priority": 33
         },
         {
+            "cardId": "lsKJCCuFJV",
+            "name": "Bishop's Cross",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bishops-cross-on-kill-of-an-even-life-unit-draws-nothing",
+                "bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "bishops-cross-on-kill-of-an-even-life-unit-draws-nothing",
+                "bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "eanbrfnrow",
             "name": "Blast Shield",
             "type": "REGALIA,ITEM",
@@ -42514,6 +42488,29 @@
             "priority": 33
         },
         {
+            "cardId": "S0YCKJcU5e",
+            "name": "Crosswind Cuts",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "combat"
+            ],
+            "existingFixtures": [
+                "crosswind-cuts-class-bonus-costs-two-less-and-deals-its-power",
+                "crosswind-cuts-without-the-class-bonus-pays-the-full-five"
+            ],
+            "semanticFixtures": [
+                "crosswind-cuts-class-bonus-costs-two-less-and-deals-its-power",
+                "crosswind-cuts-without-the-class-bonus-pays-the-full-five"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "EFelNCz3Zv",
             "name": "Crumbling Reign",
             "type": "ACTION",
@@ -42842,6 +42839,29 @@
             ],
             "semanticFixtures": [
                 "escharotomy-prevents-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "WRDbeFfnar",
+            "name": "Eternal Directive",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton",
+                "eternal-directive-without-the-class-bonus-adds-no-counter"
+            ],
+            "semanticFixtures": [
+                "eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton",
+                "eternal-directive-without-the-class-bonus-adds-no-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46739,6 +46759,28 @@
             ],
             "semanticFixtures": [
                 "embershield-keeper-class-bonus-fostered-gets-plus-two-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "pZAA0nHyXM",
+            "name": "En Passant",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more",
+                "en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters"
+            ],
+            "semanticFixtures": [
+                "en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more",
+                "en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
