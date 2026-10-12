@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:13:07+00:00",
+    "generatedAt": "2026-10-12T01:13:16+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 1113,
@@ -39887,8 +39887,7 @@
             "existingFixtures": [
                 "suffocating-ash-class-bonus-costs-two-less-to-activate",
                 "suffocating-ash-controller-declines-and-the-activation-is-negated",
-                "suffocating-ash-controller-takes-the-damage-and-the-activation-resolves",
-                "suffocating-ash-negates-the-activation-unless-its-controller-takes-the-damage"
+                "suffocating-ash-controller-takes-the-damage-and-the-activation-resolves"
             ],
             "semanticFixtures": [
                 "suffocating-ash-class-bonus-costs-two-less-to-activate",
