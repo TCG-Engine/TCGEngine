@@ -1,0 +1,20 @@
+{
+    "name": "rondo-of-the-wind-no-ally-within-six-cards-finds-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:22:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4hbW1LvBRr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4hbW1LvBRr"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 6** for an ally card."
+        ]
+    }
+}

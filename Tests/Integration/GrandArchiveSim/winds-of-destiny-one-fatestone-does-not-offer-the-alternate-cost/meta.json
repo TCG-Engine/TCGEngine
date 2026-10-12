@@ -1,0 +1,21 @@
+{
+    "name": "winds-of-destiny-one-fatestone-does-not-offer-the-alternate-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:22:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nhk5d19n82"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nhk5d19n82"
+        ],
+        "mechanics": [
+            "alt-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You may rest two Fatestones you control"
+        ]
+    }
+}

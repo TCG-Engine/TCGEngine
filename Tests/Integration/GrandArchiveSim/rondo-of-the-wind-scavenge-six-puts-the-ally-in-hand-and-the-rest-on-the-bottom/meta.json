@@ -1,0 +1,24 @@
+{
+    "name": "rondo-of-the-wind-scavenge-six-puts-the-ally-in-hand-and-the-rest-on-the-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:21:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4hbW1LvBRr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4hbW1LvBRr"
+        ],
+        "mechanics": [
+            "scavenge",
+            "class-bonus",
+            "cost-reduction",
+            "melody"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "**Scavenge 6** for an ally card."
+        ]
+    }
+}

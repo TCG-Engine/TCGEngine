@@ -1,0 +1,20 @@
+{
+    "name": "winds-of-destiny-declining-the-alternate-cost-pays-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:22:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nhk5d19n82"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nhk5d19n82"
+        ],
+        "mechanics": [
+            "alt-cost"
+        ],
+        "rulesClauses": [
+            "You may rest two Fatestones you control rather than pay this card's reserve cost."
+        ]
+    }
+}

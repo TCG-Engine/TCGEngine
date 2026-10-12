@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally 4th from the top was found within six cards (the revealed cards are offered from a temp zone)"
+    }
+]

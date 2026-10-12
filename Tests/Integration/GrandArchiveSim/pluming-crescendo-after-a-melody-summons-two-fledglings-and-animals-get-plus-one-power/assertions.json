@@ -1,0 +1,28 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Harmonize: the champion, the Tortoise and two Fledgling tokens"
+    },
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "oswzpvvog0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Fledgling token was summoned"
+    },
+    {
+        "step": 10,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Giant Tortoise 1 + 1 (Animals get +1 power)"
+    }
+]

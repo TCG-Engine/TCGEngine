@@ -1,0 +1,25 @@
+{
+    "name": "anthem-of-vitality-without-a-melody-gives-life-and-spellshroud-but-no-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:19:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vbgl6ffqsu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vbgl6ffqsu"
+        ],
+        "mechanics": [
+            "stat-change",
+            "spellshroud",
+            "melody",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target Animal or Beast ally gets +3 [LIFE] and gains **spellshroud** until end of turn.",
+            "***Harmonize*** \u2014 If you've activated a Melody card this turn, put two **buff** counters on an Animal or Beast ally you control."
+        ]
+    }
+}

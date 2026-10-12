@@ -21118,6 +21118,18 @@ function IsElementBonusActive($player, $cardID) {
     return false;
 }
 
+// "[Class Bonus] Efficiency" / "[Level N+] Efficiency": the generated $Efficiency_Cards table lists each card's conditions
+// (HasKeyword_Efficiency checks them for a live object); the cost calculation only needs the card id and the player.
+function EfficiencyConditionsMet($player, $cardID) {
+    global $Efficiency_Cards;
+    if(!isset($Efficiency_Cards[$cardID])) return false;
+    foreach($Efficiency_Cards[$cardID]['conditions'] as $cond) {
+        if($cond['name'] === 'Class Bonus' && !IsClassBonusActive($player, explode(",", CardClasses($cardID)))) return false;
+        if($cond['name'] === 'Level' && !(PlayerLevel($player) >= $cond['value'])) return false;
+    }
+    return true;
+}
+
 // Lookup for cards with "[Class Bonus] This card costs N less to activate"
 // Returns the flat discount amount (0 if card has no class bonus cost reduction)
 //
@@ -28748,6 +28760,11 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         $reserveCost = max(0, $reserveCost - $classBonusDiscount);
     }
 
+    // Wuthering Sforzando (Nlw3ZpjSxw): [Class Bonus] as long as you've activated a Melody card this turn, it costs 3 less (never wired)
+    if($cardID === "Nlw3ZpjSxw" && IsClassBonusActive($player, explode(",", CardClasses($cardID))) && IsHarmonizeActive($player)) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
+
     $isSpellActivation = PropertyContains(CardSubtypes($cardID), "SPELL");
     $pendingEmpowerLevel = 0;
     if($isSpellActivation) {
@@ -28761,7 +28778,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     }
 
     // Efficiency: reduce cost by champion's current level
-    if(isset($Efficiency_Cards[$cardID])) {
+    if(isset($Efficiency_Cards[$cardID]) && EfficiencyConditionsMet($player, $cardID)) {
         foreach(GetZone("myField") as $fieldObj) {
             if($fieldObj !== null && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
                 $effectiveLevel = ObjectCurrentLevel($fieldObj) + $pendingEmpowerLevel;

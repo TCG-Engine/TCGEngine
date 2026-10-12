@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T20:18:38+00:00",
+    "generatedAt": "2026-10-12T21:23:19+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1436,
+        "cardsWithExistingFixtures": 1444,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1041,
+        "cardsNeedingSemanticCoverage": 1033,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1125,24 +1125,6 @@
             "priority": 24
         },
         {
-            "cardId": "Nlw3ZpjSxw",
-            "name": "Wuthering Sforzando",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "mwfrfo3wzq",
             "name": "Zhao Yun, Dragonsblood",
             "type": "UNIQUE,ALLY",
@@ -2021,22 +2003,6 @@
         {
             "cardId": "pwscn0esog",
             "name": "Orchestrated Seizure",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "4hbW1LvBRr",
-            "name": "Rondo of the Wind",
             "type": "ACTION",
             "abilityCount": 2,
             "listenerCount": 0,
@@ -6636,24 +6602,6 @@
             "priority": 14
         },
         {
-            "cardId": "ZgA7cWNKGy",
-            "name": "Summon Gale",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "SM2A2o5hru",
             "name": "Summon Pawn",
             "type": "ACTION",
@@ -9957,23 +9905,6 @@
             "priority": 13
         },
         {
-            "cardId": "7QmyDecqkk",
-            "name": "Sinfonia of Hope",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "IcxG2jsqmu",
             "name": "Sinister Composure",
             "type": "ACTION",
@@ -10603,23 +10534,6 @@
             "priority": 13
         },
         {
-            "cardId": "nhk5d19n82",
-            "name": "Winds of Destiny",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "lzfkc8ntn4",
             "name": "Windspire Crest",
             "type": "REGALIA,ITEM",
@@ -10873,22 +10787,6 @@
             "mechanics": [
                 "recover",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "vbgl6ffqsu",
-            "name": "Anthem of Vitality",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13297,22 +13195,6 @@
             "priority": 12
         },
         {
-            "cardId": "xgi39z49tu",
-            "name": "Pluming Crescendo",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "9ZapXmmBc9",
             "name": "Portly Raccoon",
             "type": "ALLY",
@@ -13416,22 +13298,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ypwc8tuhuy",
-            "name": "Rapid Reload",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "condition"
             ],
             "existingFixtures": [],
@@ -34040,6 +33906,32 @@
             "priority": 44
         },
         {
+            "cardId": "Nlw3ZpjSxw",
+            "name": "Wuthering Sforzando",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wuthering-sforzando-class-bonus-after-a-melody-costs-three-less-and-gives-the-next-attack-plus-six",
+                "wuthering-sforzando-class-bonus-without-a-melody-pays-the-full-seven",
+                "wuthering-sforzando-without-the-class-bonus-a-melody-does-not-reduce-the-cost"
+            ],
+            "semanticFixtures": [
+                "wuthering-sforzando-class-bonus-after-a-melody-costs-three-less-and-gives-the-next-attack-plus-six",
+                "wuthering-sforzando-class-bonus-without-a-melody-pays-the-full-seven",
+                "wuthering-sforzando-without-the-class-bonus-a-melody-does-not-reduce-the-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "3GjTPUfsp3",
             "name": "Aenean Cyclic Winds",
             "type": "ACTION",
@@ -35427,6 +35319,28 @@
             "semanticFixtures": [
                 "riveting-winds-class-bonus-costs-two-less-and-wakes-the-champion",
                 "riveting-winds-without-the-class-bonus-costs-the-full-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "4hbW1LvBRr",
+            "name": "Rondo of the Wind",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "rondo-of-the-wind-no-ally-within-six-cards-finds-nothing",
+                "rondo-of-the-wind-scavenge-six-puts-the-ally-in-hand-and-the-rest-on-the-bottom"
+            ],
+            "semanticFixtures": [
+                "rondo-of-the-wind-no-ally-within-six-cards-finds-nothing",
+                "rondo-of-the-wind-scavenge-six-puts-the-ally-in-hand-and-the-rest-on-the-bottom"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41113,6 +41027,30 @@
             "priority": 34
         },
         {
+            "cardId": "ZgA7cWNKGy",
+            "name": "Summon Gale",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "summon-gale-class-bonus-efficiency-returns-the-ally-to-its-owners-hand",
+                "summon-gale-without-the-class-bonus-pays-the-full-three"
+            ],
+            "semanticFixtures": [
+                "summon-gale-class-bonus-efficiency-returns-the-ally-to-its-owners-hand",
+                "summon-gale-without-the-class-bonus-pays-the-full-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "qhBecpDUO9",
             "name": "Supernova Divination",
             "type": "UNIQUE,PHANTASIA",
@@ -45071,6 +45009,29 @@
             "priority": 33
         },
         {
+            "cardId": "7QmyDecqkk",
+            "name": "Sinfonia of Hope",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sinfonia-of-hope-class-bonus-gives-life-and-makes-the-next-harmony-cost-two-less",
+                "sinfonia-of-hope-without-the-class-bonus-the-harmony-costs-full"
+            ],
+            "semanticFixtures": [
+                "sinfonia-of-hope-class-bonus-gives-life-and-makes-the-next-harmony-cost-two-less",
+                "sinfonia-of-hope-without-the-class-bonus-the-harmony-costs-full"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "YFCfIOwNQ5",
             "name": "Singeing Leap",
             "type": "ACTION",
@@ -45906,6 +45867,31 @@
             "priority": 33
         },
         {
+            "cardId": "nhk5d19n82",
+            "name": "Winds of Destiny",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "winds-of-destiny-declining-the-alternate-cost-pays-three",
+                "winds-of-destiny-one-fatestone-does-not-offer-the-alternate-cost",
+                "winds-of-destiny-resting-two-fatestones-replaces-the-reserve-cost-and-suppresses"
+            ],
+            "semanticFixtures": [
+                "winds-of-destiny-declining-the-alternate-cost-pays-three",
+                "winds-of-destiny-one-fatestone-does-not-offer-the-alternate-cost",
+                "winds-of-destiny-resting-two-fatestones-replaces-the-reserve-cost-and-suppresses"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "3hgldrogit",
             "name": "Xiao Qiao, Cinderkeeper",
             "type": "UNIQUE,ALLY",
@@ -46013,6 +45999,26 @@
             ],
             "semanticFixtures": [
                 "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "vbgl6ffqsu",
+            "name": "Anthem of Vitality",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "anthem-of-vitality-without-a-melody-gives-life-and-spellshroud-but-no-counters"
+            ],
+            "semanticFixtures": [
+                "anthem-of-vitality-without-a-melody-gives-life-and-spellshroud-but-no-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47895,6 +47901,28 @@
             "priority": 32
         },
         {
+            "cardId": "xgi39z49tu",
+            "name": "Pluming Crescendo",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pluming-crescendo-after-a-melody-summons-two-fledglings-and-animals-get-plus-one-power",
+                "pluming-crescendo-without-a-melody-only-gives-animals-power"
+            ],
+            "semanticFixtures": [
+                "pluming-crescendo-after-a-melody-summons-two-fledglings-and-animals-get-plus-one-power",
+                "pluming-crescendo-without-a-melody-only-gives-animals-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "D79VKF2uOg",
             "name": "Polishing Flourish",
             "type": "ACTION",
@@ -48031,6 +48059,28 @@
             ],
             "semanticFixtures": [
                 "rapid-deployment-nexus-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ypwc8tuhuy",
+            "name": "Rapid Reload",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rapid-reload-class-bonus-efficiency-materializes-a-bullet",
+                "rapid-reload-without-the-class-bonus-pays-the-full-three"
+            ],
+            "semanticFixtures": [
+                "rapid-reload-class-bonus-efficiency-materializes-a-bullet",
+                "rapid-reload-without-the-class-bonus-pays-the-full-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
