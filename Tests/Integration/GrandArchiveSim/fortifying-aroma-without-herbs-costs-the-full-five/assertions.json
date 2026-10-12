@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "No Herbs: the printed cost 5 was paid"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":2}",
+        "semantic": true,
+        "label": "Two buff counters on the target ally"
+    }
+]

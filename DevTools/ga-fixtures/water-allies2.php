@@ -4,24 +4,6 @@
  * champion level-up is paid entirely by banishing the card from the graveyard.
  */
 
-if (!function_exists('gaFloatingPays')) {
-    // $card sits in the graveyard with no memory seeded; levelling up banishes it as the memory payment. $classes overrides the champion class.
-    function gaFloatingPays(string $slug, string $card, string $clause, ?string $classes = null, bool $pays = true, string $label = ''): void {
-        $s = gaScenario($slug)->deckTemplate('lorraine-windslice', 'Dungeon Guide');
-        if ($classes !== null) $s->champion(classes: $classes);
-        $s->seed('myGraveyard', $card)->endTurn()->endTurn(2)->target('myMaterial-0');
-        if ($pays) {
-            $s->target('myGraveyard-0')
-              ->expectProperty('myField-0', 'CardID', 'DpHDGaX2Pn', 'The champion levelled up, so the 1-memory cost was paid')
-              ->expectZoneCount('myGraveyard', 0, 1, $label !== '' ? $label : "$card was banished from the graveyard as the floating memory payment");
-        } else {
-            $s->expectZoneCount('myGraveyard', 1, 1, $label !== '' ? $label : "$card stays in the graveyard: its Floating Memory needs the class bonus")
-              ->expectZoneCount('myMaterial', 4, 1, 'No memory could be paid, so no champion was materialized');
-        }
-        $s->tested($card)->covers(['floating-memory', 'memory-cost', 'banish'] + ($classes !== null || !$pays ? [3 => 'class-bonus'] : []), $clause)->register();
-    }
-}
-
 gaFloatingPays('croaking-webfoot-floating-memory-pays-a-memory-cost', 'Croaking Webfoot', '**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*');
 gaFloatingPays('evercurrent-raider-floating-memory-pays-a-memory-cost', 'Evercurrent Raider', '**Floating Memory**');
 gaFloatingPays('shademist-priestess-floating-memory-pays-a-memory-cost', 'Shademist Priestess', '**Floating Memory**');

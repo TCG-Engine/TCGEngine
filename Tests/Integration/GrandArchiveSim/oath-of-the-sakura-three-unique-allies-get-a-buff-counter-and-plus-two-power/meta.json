@@ -1,0 +1,23 @@
+{
+    "name": "oath-of-the-sakura-three-unique-allies-get-a-buff-counter-and-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vlno9ankzi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vlno9ankzi"
+        ],
+        "mechanics": [
+            "counter",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on each ally you control.",
+            "If you control exactly three allies that are all unique, they each get +2 [POWER] until end of turn."
+        ]
+    }
+}

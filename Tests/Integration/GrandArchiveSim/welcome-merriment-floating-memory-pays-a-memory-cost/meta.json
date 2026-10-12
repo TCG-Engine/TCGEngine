@@ -1,0 +1,22 @@
+{
+    "name": "welcome-merriment-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:35:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mUyzPPc0nc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mUyzPPc0nc"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

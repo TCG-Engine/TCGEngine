@@ -1,0 +1,20 @@
+{
+    "name": "extortion-scheme-without-the-class-bonus-adds-no-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WdkZU2wwnw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WdkZU2wwnw"
+        ],
+        "mechanics": [
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put a **preparation** counter on your champion."
+        ]
+    }
+}

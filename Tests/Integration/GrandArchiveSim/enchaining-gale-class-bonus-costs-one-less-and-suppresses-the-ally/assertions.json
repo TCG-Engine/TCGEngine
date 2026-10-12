@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Suppress banishes the ally now"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion remains on the field"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Class Bonus: cost 2 - 1 = 1 was paid"
+    }
+]

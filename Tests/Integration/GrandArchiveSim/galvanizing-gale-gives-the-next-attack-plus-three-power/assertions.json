@@ -1,0 +1,20 @@
+[
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The next attack: 1 POWER + 3 = 4 damage"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Not empowered: nothing was drawn into memory"
+    }
+]

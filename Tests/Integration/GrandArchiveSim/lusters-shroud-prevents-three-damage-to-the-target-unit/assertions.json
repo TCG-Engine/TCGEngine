@@ -1,0 +1,11 @@
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "3 damage would be dealt: 3 of it is prevented"
+    }
+]

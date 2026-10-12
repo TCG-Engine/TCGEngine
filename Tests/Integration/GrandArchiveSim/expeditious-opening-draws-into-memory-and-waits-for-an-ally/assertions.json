@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "w1wgpeifd0",
+        "value": 1,
+        "semantic": true,
+        "label": "The fast-activation effect waits for the next ally card"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two paid cards plus the card drawn into memory"
+    }
+]

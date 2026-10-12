@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The ephemeral ally was destroyed: only the champion remains"
+    }
+]

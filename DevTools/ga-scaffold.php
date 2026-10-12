@@ -152,7 +152,7 @@ function gsSkeleton(string $id, array $backlog, array $byId, bool $probe = false
     $lines[] = "gaScenario(" . gsQuote(gsSlug($name)) . ")";
     $lines[] = "    ->standardDeck(" . gsQuote($name) . ")";
     $lines[] = "    ->readyFor(" . implode(', ', $readyArgs) . ")";
-    if ($target) foreach ($target[1] as [$zone, $card, $p]) $lines[] = "    ->seed('{$zone}', '{$card}'" . ($zone === 'theirField' || $zone === 'theirGraveyard' ? ', player: 2' : '') . ")   // TODO: board for target {$target[0]}";
+    if ($target) foreach ($target[1] as [$zone, $card, $p]) $lines[] = "    ->seed('" . (str_starts_with($zone, 'their') ? 'my' . substr($zone, 5) : $zone) . "', '{$card}'" . (str_starts_with($zone, 'their') ? ', player: 2' : '') . ")   // TODO: board for target {$target[0]} (an opponent's card is seeded into THEIR own 'my' zone with player: 2)";
     $lines[] = "    ->seed('myHand', " . gsQuote($name) . ")";
 
     if ($probe) {

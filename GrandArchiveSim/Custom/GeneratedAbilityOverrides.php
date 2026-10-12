@@ -2668,6 +2668,17 @@ $customDQHandlers["9f92917r84:0:OnAttack-2"] = function($player, $parts, $lastDe
     }
 };
 
+// Byakko's Command (l4rdualc8p): "Put a buff counter on target Beast ally. If that ally is a Shenju, wake it up."
+// The text says "target Beast ally" -- not "you control" -- but the generated ability only searched myField, so an
+// opposing Beast could never be chosen. The generated l4rdualc8p:0:CardActivated-1 handler (counter, Shenju wake-up)
+// already works on any target mzID, so only the target list is widened here.
+$cardActivatedAbilities["l4rdualc8p:0"] = function($player) { //Byakko's Command: any Beast ally
+    $beastAllies = array_merge(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]), ZoneSearch("theirField", ["ALLY"], cardSubtypes: ["BEAST"]));
+    if(empty($beastAllies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $beastAllies), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "l4rdualc8p:0:CardActivated-1", 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

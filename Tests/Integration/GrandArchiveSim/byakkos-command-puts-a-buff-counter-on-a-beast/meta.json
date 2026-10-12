@@ -1,0 +1,21 @@
+{
+    "name": "byakkos-command-puts-a-buff-counter-on-a-beast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l4rdualc8p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l4rdualc8p"
+        ],
+        "mechanics": [
+            "targeting",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on target Beast ally. If that ally is a Shenju, wake it up."
+        ]
+    }
+}

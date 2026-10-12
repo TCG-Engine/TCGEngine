@@ -484,6 +484,24 @@ function gaSpellshroudCase(string $slug, array $holders, string $spell, array $h
 
 // Add a built definition to the generator's $fixtures. If an inline definition of the same slug still exists
 // (mid-migration), the two must produce the same fixture -- setup, actions, deck and tested cards -- or the run stops.
+// $card sits in the graveyard with no memory seeded; levelling up banishes it as the memory payment. $classes overrides the champion class.
+// Layer 2 shape helper (moved here from water-allies2.php so every element file can use it): $card sits in the graveyard with no
+// memory seeded; levelling up banishes it as the memory payment. $classes overrides the champion class; $pays=false is the no-bonus twin.
+function gaFloatingPays(string $slug, string $card, string $clause, ?string $classes = null, bool $pays = true, string $label = ''): void {
+    $s = gaScenario($slug)->deckTemplate('lorraine-windslice', 'Dungeon Guide');
+    if ($classes !== null) $s->champion(classes: $classes);
+    $s->seed('myGraveyard', $card)->endTurn()->endTurn(2)->target('myMaterial-0');
+    if ($pays) {
+        $s->target('myGraveyard-0')
+          ->expectProperty('myField-0', 'CardID', 'DpHDGaX2Pn', 'The champion levelled up, so the 1-memory cost was paid')
+          ->expectZoneCount('myGraveyard', 0, 1, $label !== '' ? $label : "$card was banished from the graveyard as the floating memory payment");
+    } else {
+        $s->expectZoneCount('myGraveyard', 1, 1, $label !== '' ? $label : "$card stays in the graveyard: its Floating Memory needs the class bonus")
+          ->expectZoneCount('myMaterial', 4, 1, 'No memory could be paid, so no champion was materialized');
+    }
+    $s->tested($card)->covers(['floating-memory', 'memory-cost', 'banish'] + ($classes !== null || !$pays ? [3 => 'class-bonus'] : []), $clause)->register();
+}
+
 function gaRegisterFixture(string $slug, array $def): void {
     global $fixtures;
     if (isset($fixtures[$slug])) {

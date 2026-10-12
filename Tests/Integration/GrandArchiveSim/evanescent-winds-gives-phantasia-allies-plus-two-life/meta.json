@@ -1,0 +1,21 @@
+{
+    "name": "evanescent-winds-gives-phantasia-allies-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "90i1prp63s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "90i1prp63s"
+        ],
+        "mechanics": [
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Phantasia allies you control get +2 [LIFE] until end of turn."
+        ]
+    }
+}

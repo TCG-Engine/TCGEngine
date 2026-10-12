@@ -1,0 +1,21 @@
+{
+    "name": "favorable-omens-gives-allies-plus-one-life-per-wind-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tqy0rwvxgs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tqy0rwvxgs"
+        ],
+        "mechanics": [
+            "omen",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "For each wind element **omen** you have, allies you control get +1[LIFE] until end of turn."
+        ]
+    }
+}

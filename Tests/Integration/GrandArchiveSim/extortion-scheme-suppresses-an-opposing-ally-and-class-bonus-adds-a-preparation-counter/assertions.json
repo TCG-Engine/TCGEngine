@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The opposing ally was banished"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the opposing champion remains"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"classes\":\"ASSASSIN\"},\"preparation\":1}",
+        "semantic": true,
+        "label": "Class Bonus: a preparation counter on the champion"
+    }
+]

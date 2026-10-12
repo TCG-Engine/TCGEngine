@@ -1,0 +1,22 @@
+{
+    "name": "expeditious-opening-draws-into-memory-and-waits-for-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w1wgpeifd0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w1wgpeifd0"
+        ],
+        "mechanics": [
+            "draw-into-memory",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "The next ally card you activate this turn can be activated as though it had **fast activation**.",
+            "Draw a card into your memory."
+        ]
+    }
+}

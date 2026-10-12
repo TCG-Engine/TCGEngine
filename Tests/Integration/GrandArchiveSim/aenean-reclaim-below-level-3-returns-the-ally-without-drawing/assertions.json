@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally still returned to hand"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Level 2: no card was drawn into memory"
+    }
+]

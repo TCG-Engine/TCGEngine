@@ -1,0 +1,20 @@
+{
+    "name": "fortifying-aroma-without-herbs-costs-the-full-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "doo4sk9q9e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "doo4sk9q9e"
+        ],
+        "mechanics": [
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "This card costs 1 less to activate for each Herb you control."
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "One ally is not unique: only the buff counter (1 base + 1)"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "The non-unique ally still got a buff counter"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "calming-breeze-prevents-three-or-less-damage-to-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:30:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XgJ72Ot13P"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XgJ72Ot13P"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if 3 or less damage would be dealt to your champion, prevent that damage."
+        ]
+    }
+}

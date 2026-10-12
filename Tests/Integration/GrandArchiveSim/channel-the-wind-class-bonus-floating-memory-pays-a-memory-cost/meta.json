@@ -1,0 +1,23 @@
+{
+    "name": "channel-the-wind-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:35:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6YiMaCGsfV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6YiMaCGsfV"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}
