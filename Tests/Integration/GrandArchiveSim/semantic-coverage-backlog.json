@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T13:53:27+00:00",
+    "generatedAt": "2026-10-12T13:59:55+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1226,
+        "cardsWithExistingFixtures": 1249,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1251,
+        "cardsNeedingSemanticCoverage": 1228,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1889,23 +1889,6 @@
             "priority": 23
         },
         {
-            "cardId": "1tzgcxyky2",
-            "name": "Riptide Slash",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "9urNxU7SZw",
             "name": "Royal Line Defense",
             "type": "ACTION",
@@ -2443,22 +2426,6 @@
             "mechanics": [
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "at3fn2idd6",
-            "name": "Sudden Deluge",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3699,26 +3666,6 @@
             "priority": 15
         },
         {
-            "cardId": "welp9q7c5l",
-            "name": "Inundating Clash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "yicNKtzC3H",
             "name": "Jabberwocky, Calamity's Call",
             "type": "UNIQUE,ALLY",
@@ -4141,26 +4088,6 @@
             "priority": 15
         },
         {
-            "cardId": "oLGzDmCBQ9",
-            "name": "Refreshing Slice",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "recover",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "o6gb0op3nq",
             "name": "Resolute Stand",
             "type": "ACTION",
@@ -4366,25 +4293,6 @@
                 "prevention",
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "5u5m8xblmd",
-            "name": "Snow White, Weiss Queen",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5569,24 +5477,6 @@
                 "targeting",
                 "damage",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "7xgwve1d47",
-            "name": "Dahlia, Idyllic Dreamer",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7414,24 +7304,6 @@
             "priority": 14
         },
         {
-            "cardId": "e8nFGSSvgc",
-            "name": "Restorative Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "fNlJ0MaxiI",
             "name": "Return to the Depths",
             "type": "ACTION",
@@ -7856,24 +7728,6 @@
                 "draw-discard",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "6XDoCxQuoH",
-            "name": "Soaked Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8620,24 +8474,6 @@
             "priority": 14
         },
         {
-            "cardId": "09axbotwlz",
-            "name": "Zhang He, Cloak of Night",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "55d7vo62fc",
             "name": "Zhou Yu, Enlightened Sage",
             "type": "UNIQUE,ALLY",
@@ -9022,23 +8858,6 @@
                 "damage",
                 "prevention",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "k5Kid67duu",
-            "name": "Bleu, Ace of Diamonds",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9846,23 +9665,6 @@
             "priority": 13
         },
         {
-            "cardId": "2djBo4ecDL",
-            "name": "Drowned Cut",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "hohkep3vi9",
             "name": "Dyadic Fletcher",
             "type": "ALLY",
@@ -10237,23 +10039,6 @@
             "priority": 13
         },
         {
-            "cardId": "kat9hreqhj",
-            "name": "Fragmented Spirit of Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "1trn0yetae",
             "name": "Fragmented Spirit of Wind",
             "type": "CHAMPION",
@@ -10280,23 +10065,6 @@
                 "cost",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "k2c7wklzjm",
-            "name": "Frigid Bash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12481,23 +12249,6 @@
             "priority": 13
         },
         {
-            "cardId": "zq9ox7u6wz",
-            "name": "Spirit of Serene Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "h973fdt8pt",
             "name": "Spirit of Serene Wind",
             "type": "CHAMPION",
@@ -12830,23 +12581,6 @@
                 "cost",
                 "targeting",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "GuDKuPKNgh",
-            "name": "Tidal Sweep",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15667,22 +15401,6 @@
             "priority": 12
         },
         {
-            "cardId": "TqCo3xlf93",
-            "name": "Lunete, Frostbinder Priest",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "kDCEtGnZZe",
             "name": "Lunge of Evoking Winds",
             "type": "ATTACK",
@@ -15803,38 +15521,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "U5rkT0JRzC",
-            "name": "Miao, Spirit of Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "tiynu4lxnj",
-            "name": "Minthe, Spirit of Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -16691,22 +16377,6 @@
             "priority": 12
         },
         {
-            "cardId": "tk3ir1o0qt",
-            "name": "Sabrina, Spirit of Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "5mnvohcd0o",
             "name": "Savage Sunder",
             "type": "ATTACK",
@@ -16949,22 +16619,6 @@
         {
             "cardId": "AYe0neu31W",
             "name": "Spirit of Chess",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "q6prapdczd",
-            "name": "Spirit of Fortuitous Water",
             "type": "CHAMPION",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -17835,22 +17489,6 @@
             "mechanics": [
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "gc18dq28my",
-            "name": "Xia Hou Dun, Gloryseeker",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19190,21 +18828,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "5wLtoxd4Wc",
-            "name": "Floodborne Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20780,21 +20403,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "EwUKdNL4bk",
-            "name": "Tweedledee, Contrarian Poet",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -38026,6 +37634,27 @@
             "priority": 43
         },
         {
+            "cardId": "1tzgcxyky2",
+            "name": "Riptide Slash",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "riptide-slash-class-bonus-glimpses-two-on-attack"
+            ],
+            "semanticFixtures": [
+                "riptide-slash-class-bonus-glimpses-two-on-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "vm4kj3q2sv",
             "name": "Shadow's Claw",
             "type": "REGALIA,WEAPON",
@@ -38533,6 +38162,28 @@
             ],
             "semanticFixtures": [
                 "stonescale-band-enter-discard-one-ally-then-decline-draws-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "at3fn2idd6",
+            "name": "Sudden Deluge",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sudden-deluge-prepared-class-bonus-champion-hit-mills-ten",
+                "sudden-deluge-unprepared-champion-hit-mills-nothing"
+            ],
+            "semanticFixtures": [
+                "sudden-deluge-prepared-class-bonus-champion-hit-mills-ten",
+                "sudden-deluge-unprepared-champion-hit-mills-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39515,6 +39166,32 @@
             "priority": 35
         },
         {
+            "cardId": "welp9q7c5l",
+            "name": "Inundating Clash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inundating-clash-against-an-awake-unit-deals-only-its-printed-power",
+                "inundating-clash-class-bonus-gets-plus-three-power-against-a-rested-unit"
+            ],
+            "semanticFixtures": [
+                "inundating-clash-against-an-awake-unit-deals-only-its-printed-power",
+                "inundating-clash-class-bonus-gets-plus-three-power-against-a-rested-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "ot4nmxqsm4",
             "name": "Inzali, Unshackled Blaze",
             "type": "UNIQUE,ALLY",
@@ -39755,6 +39432,30 @@
             "priority": 35
         },
         {
+            "cardId": "oLGzDmCBQ9",
+            "name": "Refreshing Slice",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "refreshing-slice-class-bonus-pays-three-to-recover"
+            ],
+            "semanticFixtures": [
+                "refreshing-slice-class-bonus-pays-three-to-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "FnTT1G4OQg",
             "name": "Restoring Embers",
             "type": "ACTION",
@@ -39964,6 +39665,29 @@
             "semanticFixtures": [
                 "smashing-force-banishes-two-fire-cards-and-destroys-a-low-cost-item",
                 "smashing-force-declined-banish-keeps-the-fire-cards-and-the-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "5u5m8xblmd",
+            "name": "Snow White, Weiss Queen",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "snow-white-weiss-queen-level-one-enter-rests-a-champion"
+            ],
+            "semanticFixtures": [
+                "snow-white-weiss-queen-level-one-enter-rests-a-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40901,6 +40625,30 @@
             "semanticFixtures": [
                 "da-qiao-cinderbinder-class-bonus-rest-empowers-by-the-allies-with-frenzy-counters",
                 "da-qiao-cinderbinder-class-bonus-rest-puts-a-frenzy-counter-on-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "7xgwve1d47",
+            "name": "Dahlia, Idyllic Dreamer",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dahlia-idyllic-dreamer-ranged-x-counts-water-cards-in-the-graveyard",
+                "dahlia-idyllic-dreamer-with-no-water-cards-has-no-ranged-bonus"
+            ],
+            "semanticFixtures": [
+                "dahlia-idyllic-dreamer-ranged-x-counts-water-cards-in-the-graveyard",
+                "dahlia-idyllic-dreamer-with-no-water-cards-has-no-ranged-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42383,6 +42131,28 @@
             "priority": 34
         },
         {
+            "cardId": "e8nFGSSvgc",
+            "name": "Restorative Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "restorative-slash-attack-recovers-three"
+            ],
+            "semanticFixtures": [
+                "restorative-slash-attack-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Tx3kHOY6vh",
             "name": "Rig for Detonation",
             "type": "ACTION",
@@ -42761,6 +42531,28 @@
             "semanticFixtures": [
                 "smoke-out-deals-four-damage-to-a-unit-with-stealth",
                 "smoke-out-deals-one-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "6XDoCxQuoH",
+            "name": "Soaked Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "soaked-slash-deluge-two-gets-plus-two-power-and-class-bonus-mills"
+            ],
+            "semanticFixtures": [
+                "soaked-slash-deluge-two-gets-plus-two-power-and-class-bonus-mills"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43150,6 +42942,28 @@
             ],
             "semanticFixtures": [
                 "volatile-fusilier-class-bonus-enter-deals-four-to-your-champion-and-becomes-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "09axbotwlz",
+            "name": "Zhang He, Cloak of Night",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zhang-he-cloak-of-night-class-bonus-enter-gives-another-ally-stealth"
+            ],
+            "semanticFixtures": [
+                "zhang-he-cloak-of-night-class-bonus-enter-gives-another-ally-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43604,6 +43418,27 @@
             "priority": 33
         },
         {
+            "cardId": "k5Kid67duu",
+            "name": "Bleu, Ace of Diamonds",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bleu-ace-of-diamonds-total-suited-reserve-cost-six-generates-one-bolt"
+            ],
+            "semanticFixtures": [
+                "bleu-ace-of-diamonds-total-suited-reserve-cost-six-generates-one-bolt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qYH9PJP7uM",
             "name": "Blinding Orb",
             "type": "REGALIA,ITEM",
@@ -43887,6 +43722,27 @@
             ],
             "semanticFixtures": [
                 "dire-requiem-summons-a-direwolf"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "2djBo4ecDL",
+            "name": "Drowned Cut",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "drowned-cut-deals-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "drowned-cut-deals-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44303,6 +44159,52 @@
             ],
             "semanticFixtures": [
                 "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "kat9hreqhj",
+            "name": "Fragmented Spirit of Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fragmented-spirit-of-water-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "semanticFixtures": [
+                "fragmented-spirit-of-water-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "k2c7wklzjm",
+            "name": "Frigid Bash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frigid-bash-class-bonus-hit-keeps-the-target-asleep-when-its-controller-declines-to-pay",
+                "frigid-bash-class-bonus-hit-wakes-normally-when-its-controller-pays-two",
+                "frigid-bash-costs-two-less-while-you-control-a-shield-item"
+            ],
+            "semanticFixtures": [
+                "frigid-bash-class-bonus-hit-keeps-the-target-asleep-when-its-controller-declines-to-pay",
+                "frigid-bash-class-bonus-hit-wakes-normally-when-its-controller-pays-two",
+                "frigid-bash-costs-two-less-while-you-control-a-shield-item"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45692,6 +45594,29 @@
             "priority": 33
         },
         {
+            "cardId": "zq9ox7u6wz",
+            "name": "Spirit of Serene Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-serene-water-enter-glimpses-and-draws-six",
+                "spirit-of-serene-water-lineage-release-recovers-six"
+            ],
+            "semanticFixtures": [
+                "spirit-of-serene-water-enter-glimpses-and-draws-six",
+                "spirit-of-serene-water-lineage-release-recovers-six"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ba08K8VZnF",
             "name": "Splashing Perch",
             "type": "ACTION",
@@ -45797,6 +45722,27 @@
                 "tether-in-flames-class-bonus-costs-two-less-to-activate",
                 "tether-in-flames-controller-declines-and-the-activation-is-negated",
                 "tether-in-flames-controller-takes-one-plus-level-damage-and-the-activation-resolves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "GuDKuPKNgh",
+            "name": "Tidal Sweep",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "tidal-sweep-cleave-hits-every-unit-an-opponent-controls"
+            ],
+            "semanticFixtures": [
+                "tidal-sweep-cleave-hits-every-unit-an-opponent-controls"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47235,6 +47181,28 @@
             "priority": 32
         },
         {
+            "cardId": "TqCo3xlf93",
+            "name": "Lunete, Frostbinder Priest",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lunete-frostbinder-priest-opponents-allies-enter-rested",
+                "lunete-frostbinder-priest-your-own-allies-enter-awake"
+            ],
+            "semanticFixtures": [
+                "lunete-frostbinder-priest-opponents-allies-enter-rested",
+                "lunete-frostbinder-priest-your-own-allies-enter-awake"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "smse0zjalx",
             "name": "Manabolt Convergence",
             "type": "ACTION",
@@ -47299,6 +47267,26 @@
             "priority": 32
         },
         {
+            "cardId": "U5rkT0JRzC",
+            "name": "Miao, Spirit of Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "miao-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "miao-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "L9o11y7yfa",
             "name": "Mind Freeze",
             "type": "ACTION",
@@ -47313,6 +47301,26 @@
             ],
             "semanticFixtures": [
                 "mind-freeze-banishes-level-cards-from-their-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "tiynu4lxnj",
+            "name": "Minthe, Spirit of Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "minthe-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "minthe-spirit-of-water-enter-draws-seven-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47705,6 +47713,26 @@
             "priority": 32
         },
         {
+            "cardId": "tk3ir1o0qt",
+            "name": "Sabrina, Spirit of Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sabrina-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "sabrina-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "QvQhg1EOBR",
             "name": "Sacred Engulfment",
             "type": "ACTION",
@@ -48082,6 +48110,26 @@
             ],
             "semanticFixtures": [
                 "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "q6prapdczd",
+            "name": "Spirit of Fortuitous Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-fortuitous-water-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "semanticFixtures": [
+                "spirit-of-fortuitous-water-enter-glimpses-and-draws-seven-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48488,6 +48536,28 @@
             "semanticFixtures": [
                 "water-herbs-mills-two-and-class-bonus-gathers",
                 "water-herbs-without-the-class-bonus-does-not-gather"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "gc18dq28my",
+            "name": "Xia Hou Dun, Gloryseeker",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "xia-hou-dun-class-bonus-with-a-sword-gets-plus-one-power",
+                "xia-hou-dun-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "xia-hou-dun-class-bonus-with-a-sword-gets-plus-one-power",
+                "xia-hou-dun-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48973,6 +49043,27 @@
             ],
             "semanticFixtures": [
                 "flashfire-horse-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "5wLtoxd4Wc",
+            "name": "Floodborne Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "floodborne-swing-class-bonus-deluge-three-gets-plus-four-power",
+                "floodborne-swing-with-two-water-cards-deals-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "floodborne-swing-class-bonus-deluge-three-gets-plus-four-power",
+                "floodborne-swing-with-two-water-cards-deals-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49552,6 +49643,27 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "EwUKdNL4bk",
+            "name": "Tweedledee, Contrarian Poet",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "tweedledee-contrarian-poet-class-bonus-taunt-protects-the-champion",
+                "tweedledee-contrarian-poet-on-hit-loses-three-power-permanently"
+            ],
+            "semanticFixtures": [
+                "tweedledee-contrarian-poet-class-bonus-taunt-protects-the-champion",
+                "tweedledee-contrarian-poet-on-hit-loses-three-power-permanently"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

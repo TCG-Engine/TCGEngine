@@ -47,6 +47,8 @@ against these lists and lists the known gaps.
 | On Enter conditions (`$enterPrereqs`) | Nine generated On Enter "If ..." guards were never consulted (Hydrocask Droid got +2 POWER with no floating-memory card). `FireEnterTriggeredAbility` now refuses on an explicit false. |
 | Repeated `MZMove($player, "myDeck-0", ...)` | MZMove only flags a slot removed, so every pass of a loop after the first moved nothing (Breakwater Cadet milled 1 of 2; about 20 generated abilities: mill N, look at the top N, banish 4, draw to memory). New opt-in generator module `SkipRemovedMZMoves=myDeck,theirDeck` (zzGameCodeGenerator.php + GrandArchiveSim schema): a flagged deck slot is skipped to the next live one. Other schemas generate byte-identical code. Needs `php zzGameCodeGenerator.php rootName=GrandArchiveSim` after deploy. |
 
+| Frigid Bash | The [Class Bonus] On Hit ("doesn't wake up ... unless that player pays (2)") was never implemented; only the cost reduction existed. Override queues the controller's pay-or-skip choice; fixtures for paying and declining. |
+
 ### Decided and fixed after review
 | Item | Change |
 |---|---|

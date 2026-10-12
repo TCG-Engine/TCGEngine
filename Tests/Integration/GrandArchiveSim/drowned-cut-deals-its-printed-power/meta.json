@@ -1,0 +1,20 @@
+{
+    "name": "drowned-cut-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:54:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2djBo4ecDL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2djBo4ecDL"
+        ],
+        "mechanics": [
+            "combat"
+        ],
+        "rulesClauses": [
+            "Drowned Cut deals its printed POWER to the attacked champion."
+        ]
+    }
+}

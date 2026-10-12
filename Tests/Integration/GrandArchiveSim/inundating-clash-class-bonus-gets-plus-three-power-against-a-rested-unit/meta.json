@@ -1,0 +1,24 @@
+{
+    "name": "inundating-clash-class-bonus-gets-plus-three-power-against-a-rested-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:54:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "welp9q7c5l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "welp9q7c5l"
+        ],
+        "mechanics": [
+            "combat",
+            "on-attack",
+            "class-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** If the attacker is attacking a rested unit, CARDNAME gets +3 [POWER]."
+        ]
+    }
+}

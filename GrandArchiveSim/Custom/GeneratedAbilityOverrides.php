@@ -2044,6 +2044,34 @@ foreach(["imcmo3l3th:0", "40lgjj1yS3:0", "SGsDKB9CN5:0", "cc0jmpmman:0", "uvgfla
         return $gaSlowOnlyPrereq === null ? true : $gaSlowOnlyPrereq($player, $mzID, $abilityIndex);
     };
 }
+// Frigid Bash (k2c7wklzjm): "[Class Bonus] On Hit: The hit object doesn't wake up during its controller's next wake up phase unless that player pays (2). (The optional cost is paid upon the resolution of this trigger.)"
+// Only the cost reduction existed; the On Hit never did anything. The hit object's controller decides on resolution: pay (2) and it wakes up normally, otherwise it gets the one-time SKIP_WAKEUP.
+$onHitAbilities["k2c7wklzjm:0"] = function($player) {
+  if(!IsClassBonusActive($player, ["GUARDIAN"])) return;
+  $target = DecisionQueueController::GetVariable("CombatTarget");
+  if($target === null || $target === "" || $target === "-") return;
+  $targetObj = GetZoneObject($target);
+  if($targetObj === null) return;
+  $uniqueID = intval($targetObj->UniqueID ?? 0);
+  $controller = intval($targetObj->Controller);
+  if(CountAvailableReservePayments($controller) >= 2) {
+      DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_(2)_so_that_it_wakes_up_normally?_(Frigid_Bash)");
+      DecisionQueueController::AddDecision($controller, "CUSTOM", "FrigidBashPayChoice|" . $uniqueID, 1);
+  } else {
+      AddTurnEffect($target, "SKIP_WAKEUP");
+  }
+};
+$customDQHandlers["FrigidBashPayChoice"] = function($payer, $parts, $lastDecision) {
+  $uniqueID = intval($parts[0] ?? 0);
+  if($lastDecision === "YES" && QueuePreventNegateReserveSelection($payer, 2, "FrigidBashPaid|" . $uniqueID, 1)) return;
+  $mz = FindFieldMzByUniqueID($uniqueID);
+  if($mz !== "") AddTurnEffect($mz, "SKIP_WAKEUP");
+};
+$customDQHandlers["FrigidBashPaid"] = function($payer, $parts, $lastDecision) {
+  if(ProcessReservePaymentSelections($payer, $lastDecision, 2)) return;
+  $mz = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
+  if($mz !== "") AddTurnEffect($mz, "SKIP_WAKEUP");
+};
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

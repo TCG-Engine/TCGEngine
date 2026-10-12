@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Not prepared: no milling"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "dahlia-idyllic-dreamer-ranged-x-counts-water-cards-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7xgwve1d47"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7xgwve1d47"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "scaling",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Dahlia has **ranged X**, where **X** is the amount of water element cards in your graveyard."
+        ]
+    }
+}

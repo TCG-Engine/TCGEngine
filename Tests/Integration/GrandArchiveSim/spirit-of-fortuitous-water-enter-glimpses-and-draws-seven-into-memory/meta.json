@@ -1,0 +1,23 @@
+{
+    "name": "spirit-of-fortuitous-water-enter-glimpses-and-draws-seven-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q6prapdczd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q6prapdczd"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw-into-memory",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter**: **Glimpse 7**. Draw seven cards into your memory."
+        ]
+    }
+}

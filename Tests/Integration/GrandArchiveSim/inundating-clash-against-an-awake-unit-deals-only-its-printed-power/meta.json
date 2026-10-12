@@ -1,0 +1,22 @@
+{
+    "name": "inundating-clash-against-an-awake-unit-deals-only-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:55:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "welp9q7c5l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "welp9q7c5l"
+        ],
+        "mechanics": [
+            "combat",
+            "on-attack",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** If the attacker is attacking a rested unit, CARDNAME gets +3 [POWER]."
+        ]
+    }
+}

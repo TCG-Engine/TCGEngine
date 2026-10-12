@@ -1,0 +1,22 @@
+{
+    "name": "xia-hou-dun-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gc18dq28my"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gc18dq28my"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    }
+}

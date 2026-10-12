@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "[Class Bonus] Attacking a rested unit: 1 + 3 = 4 POWER killed the 3 LIFE Dungeon Guide"
+    }
+]

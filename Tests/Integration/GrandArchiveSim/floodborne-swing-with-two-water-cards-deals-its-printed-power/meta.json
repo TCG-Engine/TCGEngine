@@ -1,0 +1,22 @@
+{
+    "name": "floodborne-swing-with-two-water-cards-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:54:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5wLtoxd4Wc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5wLtoxd4Wc"
+        ],
+        "mechanics": [
+            "combat",
+            "deluge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus]***Deluge 3 --*** As long as you have three or more water element cards in your graveyard, CARDNAME gets +4[POWER]."
+        ]
+    }
+}

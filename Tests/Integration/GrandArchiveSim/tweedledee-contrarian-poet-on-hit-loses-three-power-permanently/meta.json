@@ -1,0 +1,22 @@
+{
+    "name": "tweedledee-contrarian-poet-on-hit-loses-three-power-permanently",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EwUKdNL4bk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EwUKdNL4bk"
+        ],
+        "mechanics": [
+            "on-hit",
+            "stat-change",
+            "permanent"
+        ],
+        "rulesClauses": [
+            "**On Hit:** CARDNAME gets -3 [POWER]. (This effect lasts indefinitely.)"
+        ]
+    }
+}

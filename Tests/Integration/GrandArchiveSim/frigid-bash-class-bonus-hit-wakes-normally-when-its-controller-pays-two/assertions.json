@@ -1,0 +1,20 @@
+[
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Paid (2): the hit Dungeon Guide woke up as usual"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "The two payment cards went to their memory"
+    }
+]

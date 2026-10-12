@@ -1,0 +1,22 @@
+{
+    "name": "sabrina-spirit-of-water-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tk3ir1o0qt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tk3ir1o0qt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}
