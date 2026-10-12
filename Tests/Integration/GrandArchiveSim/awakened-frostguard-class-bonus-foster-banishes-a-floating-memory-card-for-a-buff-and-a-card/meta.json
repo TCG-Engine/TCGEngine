@@ -1,0 +1,26 @@
+{
+    "name": "awakened-frostguard-class-bonus-foster-banishes-a-floating-memory-card-for-a-buff-and-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:01:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mnu1xhs5jw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mnu1xhs5jw"
+        ],
+        "mechanics": [
+            "foster",
+            "on-foster",
+            "class-bonus",
+            "floating-memory",
+            "buff-counter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Foster**",
+            "**On Foster:** You may banish up to two cards with **floating memory** from your graveyard. For each card banished this way, put a **buff** counter on CARDNAME and draw a card."
+        ]
+    }
+}

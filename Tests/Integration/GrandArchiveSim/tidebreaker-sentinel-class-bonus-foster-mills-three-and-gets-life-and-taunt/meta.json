@@ -1,0 +1,27 @@
+{
+    "name": "tidebreaker-sentinel-class-bonus-foster-mills-three-and-gets-life-and-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3kwkn38b7v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3kwkn38b7v"
+        ],
+        "mechanics": [
+            "foster",
+            "on-foster",
+            "class-bonus",
+            "mill",
+            "stat-change",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Foster**",
+            "**On Foster**: Put the top three cards of your deck into your graveyard.",
+            "As long as Tidebreaker Sentinel is **fostered**, it gets +2 [LIFE] and has **taunt**."
+        ]
+    }
+}

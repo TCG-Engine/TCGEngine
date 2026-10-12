@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "On Enter: a buff counter went on the Terrapin"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Drew a card (8 - Terrapin - 4 paid + 1)"
+    }
+]

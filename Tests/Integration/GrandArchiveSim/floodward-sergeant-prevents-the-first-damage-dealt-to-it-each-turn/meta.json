@@ -1,0 +1,22 @@
+{
+    "name": "floodward-sergeant-prevents-the-first-damage-dealt-to-it-each-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:01:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "64xGWbG9Xf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "64xGWbG9Xf"
+        ],
+        "mechanics": [
+            "replacement-effect",
+            "prevention",
+            "once-per-turn"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to CARDNAME, prevent that damage. Apply this replacement effect only once each turn."
+        ]
+    }
+}

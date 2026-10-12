@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "On Foster: a buff counter went on the Patrol"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"FOSTERED\"]",
+        "semantic": true,
+        "label": "It is fostered"
+    }
+]

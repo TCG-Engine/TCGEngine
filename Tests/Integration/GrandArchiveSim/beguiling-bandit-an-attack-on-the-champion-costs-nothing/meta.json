@@ -1,0 +1,22 @@
+{
+    "name": "beguiling-bandit-an-attack-on-the-champion-costs-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jyrqgyj9vn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jyrqgyj9vn"
+        ],
+        "mechanics": [
+            "static-ability",
+            "attack-tax",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Players can't declare attacks targeting Beguiling Bandit unless they pay (1) for each attack declaration."
+        ]
+    }
+}

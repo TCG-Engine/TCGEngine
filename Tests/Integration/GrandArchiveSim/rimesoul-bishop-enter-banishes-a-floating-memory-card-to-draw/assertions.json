@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The floating memory card was banished"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Drew a card (8 - Bishop - 3 paid + 1)"
+    }
+]

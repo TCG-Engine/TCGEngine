@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "Retaliating it had 1 + 3 = 4 POWER and destroyed the 3 LIFE attacker"
+    }
+]

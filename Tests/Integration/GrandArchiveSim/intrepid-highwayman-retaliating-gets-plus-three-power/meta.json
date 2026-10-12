@@ -1,0 +1,22 @@
+{
+    "name": "intrepid-highwayman-retaliating-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WUAOMTZ7P2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WUAOMTZ7P2"
+        ],
+        "mechanics": [
+            "retaliation",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is retaliating, it gets +3 [POWER]."
+        ]
+    }
+}

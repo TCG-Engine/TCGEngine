@@ -1,0 +1,23 @@
+{
+    "name": "drowned-exorcist-level-two-enter-banishes-non-water-cards-from-both-graveyards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qe1pkerbi3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qe1pkerbi3"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level",
+            "banish",
+            "graveyard"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **On Enter:** Each player banishes all non-water element cards from their graveyard."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "three-of-diamonds-cardistry-looks-at-three-and-mills-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IZ2IiPsxe9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IZ2IiPsxe9"
+        ],
+        "mechanics": [
+            "cardistry",
+            "look",
+            "mill",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** -- (3): Look at the top three cards of your deck. Put one of them into your graveyard and the rest back on top of your deck in any order."
+        ]
+    }
+}
