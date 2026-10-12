@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "qzzadf9q1v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Class Bonus] On Death: a Powercell token was summoned"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "f8uqrptjej",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Swordsman died"
+    }
+]

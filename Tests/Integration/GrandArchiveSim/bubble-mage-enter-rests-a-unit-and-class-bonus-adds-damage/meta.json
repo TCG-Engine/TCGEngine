@@ -1,0 +1,23 @@
+{
+    "name": "bubble-mage-enter-rests-a-unit-and-class-bonus-adds-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0n0DM1T9gz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0n0DM1T9gz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "class-bonus",
+            "damage-modifier"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Rest target unit. **Class Bonus:** Until end of turn, if that unit would take damage, it takes that much damage plus 1 instead."
+        ]
+    }
+}

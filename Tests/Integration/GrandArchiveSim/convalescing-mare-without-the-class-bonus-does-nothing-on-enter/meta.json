@@ -1,0 +1,22 @@
+{
+    "name": "convalescing-mare-without-the-class-bonus-does-nothing-on-enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ysj63dw50a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ysj63dw50a"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: **Recover 1**. Other allies you control get +1 [LIFE] until end of turn."
+        ]
+    }
+}

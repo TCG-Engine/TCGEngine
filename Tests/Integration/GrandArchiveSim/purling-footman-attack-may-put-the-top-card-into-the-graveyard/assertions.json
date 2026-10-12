@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The looked-at top card went into the graveyard"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "benevolent-battle-priest-class-bonus-attack-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "776yt8UxhU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "776yt8UxhU"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** **Recover 1**."
+        ]
+    }
+}

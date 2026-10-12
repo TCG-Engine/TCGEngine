@@ -40,6 +40,13 @@ against these lists and lists the known gaps.
 | Duchess, Six of Hearts | Using Cardistry fataled the engine (`stdClass::Remove()`), and Exalted fire actions were never offered. |
 | Gloamspire, Black Market | "Influence" was counted as memory only, in both the draw ability (every player drew) and the Upkeep (never sacrificed). |
 
+### Found while covering Water
+| Item | Change |
+|---|---|
+| Hidden-card choices (Extricating Touch, Death Essence Amulet, Pristine Scourge, Seep into the Mind, ...) | `StageHiddenMZChoicesToTemp` stored raw mzIDs, but the staging handler and the consuming handler run for different players, so Extricating Touch discarded the caster's own card. The map now records the staging perspective and `ResolveTempChoiceToSourceMZ` returns the mzID in the consumer's perspective. |
+| On Enter conditions (`$enterPrereqs`) | Nine generated On Enter "If ..." guards were never consulted (Hydrocask Droid got +2 POWER with no floating-memory card). `FireEnterTriggeredAbility` now refuses on an explicit false. |
+| Repeated `MZMove($player, "myDeck-0", ...)` | MZMove only flags a slot removed, so every pass of a loop after the first moved nothing (Breakwater Cadet milled 1 of 2; about 20 generated abilities: mill N, look at the top N, banish 4, draw to memory). New opt-in generator module `SkipRemovedMZMoves=myDeck,theirDeck` (zzGameCodeGenerator.php + GrandArchiveSim schema): a flagged deck slot is skipped to the next live one. Other schemas generate byte-identical code. Needs `php zzGameCodeGenerator.php rootName=GrandArchiveSim` after deploy. |
+
 ### Decided and fixed after review
 | Item | Change |
 |---|---|

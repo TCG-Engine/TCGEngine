@@ -1,0 +1,22 @@
+{
+    "name": "floodward-steed-enter-puts-a-bulwark-counter-on-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b8CsivHOkC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b8CsivHOkC"
+        ],
+        "mechanics": [
+            "on-enter",
+            "bulwark",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **bulwark** counter on target ally."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "balmshot-nurse-rest-recovers-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:49:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jetWcli3ZL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jetWcli3ZL"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST]: **Recover 3**. Activate this ability only if CARDNAME is **distant**."
+        ]
+    }
+}

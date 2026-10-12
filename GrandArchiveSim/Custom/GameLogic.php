@@ -9455,8 +9455,14 @@ function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copie
         }
     }
 
-    if($hasBaseEnter) $enterAbilities[$cardID . ":0"]($player);
-    if($hasCopiedEnter) $enterAbilities[$copiedCardID . ":0"]($player);
+    // The generated "If <condition>" guards of 9 On Enter abilities live in $enterPrereqs, which nothing consulted, so the effect always ran (Hydrocask Droid got +2 POWER with no floating memory card in the graveyard).
+    global $enterPrereqs;
+    foreach([[$cardID, $hasBaseEnter], [$copiedCardID, $hasCopiedEnter]] as [$enterCardID, $hasThisEnter]) {
+        if(!$hasThisEnter) continue;
+        $prereq = $enterPrereqs[$enterCardID . ":0"] ?? null;
+        if($prereq !== null && $prereq($player, $sourceMzID) === false) continue; // only an explicit false refuses: Dante's prereq tags the card and returns nothing
+        $enterAbilities[$enterCardID . ":0"]($player);
+    }
 }
 
 function QueueEnterTriggeredAbility($player, $mzID, $copiedCardID = "") {

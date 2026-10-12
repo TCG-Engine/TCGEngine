@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "[Class Bonus] Recover 1: 3 damage down to 2"
+    },
+    {
+        "step": 5,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "semantic": true,
+        "label": "The other ally got +1 LIFE until end of turn"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "froglet-footman-enter-banishes-a-floating-memory-card-for-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fbvt9rdhkj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fbvt9rdhkj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "floating-memory",
+            "banish",
+            "buff-counter"
+        ],
+        "rulesClauses": [
+            "**On Enter**: You may banish a card with **floating memory** from your graveyard. If you do, put a **buff** counter on Froglet Footman."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "misteye-archer-class-bonus-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:46:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m6c8xy4cje"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m6c8xy4cje"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "class-bonus",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    }
+}

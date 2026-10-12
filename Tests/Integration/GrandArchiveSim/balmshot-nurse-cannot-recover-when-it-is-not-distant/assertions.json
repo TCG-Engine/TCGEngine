@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "5",
+        "semantic": true,
+        "label": "Not distant: the ability cannot be activated"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "It did not rest"
+    }
+]

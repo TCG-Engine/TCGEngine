@@ -1,0 +1,22 @@
+{
+    "name": "floodborne-warrior-one-water-card-keeps-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:43:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KFfmJZMdZN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KFfmJZMdZN"
+        ],
+        "mechanics": [
+            "static-ability",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Deluge 2 --*** As long as you have two or more water element cards in your graveyard, CARDNAME gets +1[POWER] and +1[LIFE]."
+        ]
+    }
+}

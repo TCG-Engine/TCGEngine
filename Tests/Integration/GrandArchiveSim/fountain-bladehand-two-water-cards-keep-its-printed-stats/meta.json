@@ -1,0 +1,22 @@
+{
+    "name": "fountain-bladehand-two-water-cards-keep-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:43:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3pG1rks3rv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3pG1rks3rv"
+        ],
+        "mechanics": [
+            "static-ability",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Deluge 3 --*** As long as there are three or more water element cards in your graveyard, CARDNAME gets +1[POWER] and +1[LIFE]."
+        ]
+    }
+}

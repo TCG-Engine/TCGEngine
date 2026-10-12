@@ -1,0 +1,10 @@
+[
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "A floating memory card in the graveyard: 1 + 2 = 3 POWER until end of turn"
+    }
+]

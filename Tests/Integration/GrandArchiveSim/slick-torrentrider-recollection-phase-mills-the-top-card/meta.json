@@ -1,0 +1,21 @@
+{
+    "name": "slick-torrentrider-recollection-phase-mills-the-top-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:49:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u4q9qrmpef"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "u4q9qrmpef"
+        ],
+        "mechanics": [
+            "recollection-phase",
+            "mill"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put the top card of your deck into your graveyard."
+        ]
+    }
+}

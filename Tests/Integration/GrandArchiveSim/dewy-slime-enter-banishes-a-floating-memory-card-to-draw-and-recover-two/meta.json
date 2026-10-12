@@ -1,0 +1,24 @@
+{
+    "name": "dewy-slime-enter-banishes-a-floating-memory-card-to-draw-and-recover-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NSNozlKKmW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NSNozlKKmW"
+        ],
+        "mechanics": [
+            "on-enter",
+            "floating-memory",
+            "banish",
+            "draw",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may banish a card with **floating memory** from your graveyard. If you do, draw a card and **recover 2**."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "You put your own top two cards into your graveyard"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Not the opponent"
+    }
+]

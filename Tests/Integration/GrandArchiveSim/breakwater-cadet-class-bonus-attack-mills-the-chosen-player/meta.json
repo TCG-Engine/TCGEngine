@@ -1,0 +1,23 @@
+{
+    "name": "breakwater-cadet-class-bonus-attack-mills-the-chosen-player",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5lNjnBTT5h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5lNjnBTT5h"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "mill",
+            "targeting-player"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** Target player puts the top two cards of their deck into their graveyard."
+        ]
+    }
+}

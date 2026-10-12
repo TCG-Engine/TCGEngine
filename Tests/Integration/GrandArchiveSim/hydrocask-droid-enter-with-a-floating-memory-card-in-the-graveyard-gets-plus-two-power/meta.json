@@ -1,0 +1,23 @@
+{
+    "name": "hydrocask-droid-enter-with-a-floating-memory-card-in-the-graveyard-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GdCFiPyKyM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GdCFiPyKyM"
+        ],
+        "mechanics": [
+            "on-enter",
+            "floating-memory",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If you have one or more cards with **floating memory** in your graveyard, CARDNAME gets +2[POWER] until end of turn."
+        ]
+    }
+}

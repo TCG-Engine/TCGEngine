@@ -1,0 +1,22 @@
+{
+    "name": "acheron-express-officer-ranged-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9fRWmhqsNS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9fRWmhqsNS"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 3**"
+        ]
+    }
+}

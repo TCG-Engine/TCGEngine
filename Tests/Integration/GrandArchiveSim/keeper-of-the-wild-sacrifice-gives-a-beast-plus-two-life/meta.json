@@ -1,0 +1,23 @@
+{
+    "name": "keeper-of-the-wild-sacrifice-gives-a-beast-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9krp8brw64"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9krp8brw64"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Sacrifice Keeper of the Wild**: Up to one target Animal or Beast ally you control gets +2 [LIFE] until end of turn."
+        ]
+    }
+}

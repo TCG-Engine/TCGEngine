@@ -1,0 +1,23 @@
+{
+    "name": "black-ice-spellweaver-sacrifice-gives-a-unit-minus-three-power-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "M5LHimBiCn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "M5LHimBiCn"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Target unit's attacks get -3[POWER] until end of turn."
+        ]
+    }
+}

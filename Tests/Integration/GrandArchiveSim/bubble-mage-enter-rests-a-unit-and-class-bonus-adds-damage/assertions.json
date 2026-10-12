@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The target unit is rested"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"0n0DM1T9gz\"]",
+        "semantic": true,
+        "label": "[Class Bonus] It takes 1 extra damage until end of turn"
+    }
+]

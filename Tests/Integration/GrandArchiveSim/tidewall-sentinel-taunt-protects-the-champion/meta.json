@@ -1,0 +1,21 @@
+{
+    "name": "tidewall-sentinel-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ncod1l0Oby"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ncod1l0Oby"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "**Taunt**"
+        ]
+    }
+}

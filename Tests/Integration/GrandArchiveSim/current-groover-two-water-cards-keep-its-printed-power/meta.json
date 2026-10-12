@@ -1,0 +1,22 @@
+{
+    "name": "current-groover-two-water-cards-keep-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:43:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3lMV08BClz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3lMV08BClz"
+        ],
+        "mechanics": [
+            "static-ability",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Deluge 3 --*** As long as you have three or more water element cards in your graveyard, CARDNAME gets +1[POWER]."
+        ]
+    }
+}
