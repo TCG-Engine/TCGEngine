@@ -291,3 +291,15 @@ verified by regenerating and comparing by meaning.
 - `ENGINE-FINDINGS.md` is the whole-picture review of the engine bugs found so far: what was fixed, the six behaviour-wide items that need a decision, and the cards whose text is not implemented.
 - Decisions taken at the end of Fire (see `ENGINE-FINDINGS.md`): slow-speed-only abilities are now enforced centrally; `[Class Bonus]` / `[Merlin Bonus]` Kindle is gated; Spellshroud keeps blocking
   your own spells; the Exalted dual-element fix is parked as its own batch.
+
+### Phase 3b (Water) -- wrap-up (2026-10-12)
+- Files: `water-actions.php`, `water-actions2.php`, `water-negates.php`, `water-negates2.php`, `water-attacks.php`, `water-allies.php`, `water-allies2.php`, `water-uniques.php`, `water-items.php`, `water-items2.php`.
+  Floating Memory is covered for every card that has it with `gaFloatingPays` (a Lorraine level-up paid by banishing the card; [Class Bonus] cards also get a "cannot pay" twin).
+- 36 Water cards remain; they need a bonus champion or mastery (Ciel omens: Pristine Scourge, Obsequious Blow, Frozen Divinity; Alice: Drown in Sorrow, Drifting Abysshell; Nico: Nico, Sablemere, Magebane Lash bonus, Ravishing Finale bonus;
+  Merlin: Burnished Obelith; Kongming / Shifting Currents: Ceasing Edict, Ebbing Tide; Diao Chan: Captivating Opulence bonus; Guo Jia: Submerged / Pelagic Fatestone bonuses; Chessman / Pawn tokens: Weiss Bishop, Weiss Knight,
+  Hunt, Skewering Advance), Gun/Bow loading (Purified Shot, Cascading Round, Loaded Thoughts, Mana's Cascade, Seafletched Serpent), Advanced Imbue (Fount Seraphim), level-up text with no observable (Fractal of Waves, Submerged Fatestone,
+  Treacle), name-choosing cards (Nia, Jianyu, Total Whiteout), or unimplemented text (Calculated Foresight, Reconnaissance Field). Greater Boon of Kanaloa, Avalon, Xuchang, Frostbitten Etui, Confidant's Oath, Wildheart Lyre, Vaporjet Shield, Tideholder Claymore, Burnished Obelith have no fixture yet.
+- Engine bugs fixed (each with a fixture): see the "Found while covering Water" and "Decided and fixed" tables in `ENGINE-FINDINGS.md` -- Hailfinch On Hit, Innervate Knowledge cost, Surging Obstruction (unimplemented), Song of Frost / Ravishing Finale / Intervention
+  alternate costs never offered, Aenean Cryosalvo's Fractal bonus, level-up recovery healing the removed champion, Martial Flowstate sacrificing the new champion, hidden-card choice perspective, enterPrereqs, repeated deck-0 MZMove loops, Frigid Bash On Hit.
+- Harness: scenario fixtures can no longer be silently truncated (`strictActions`, `--audit-actions`); `expectGlobalEffect`; remember that an `expect*` without a step is evaluated after the LAST action.
+- Server note: run `php zzGameCodeGenerator.php rootName=GrandArchiveSim` after deploying (the `SkipRemovedMZMoves` generator module changes generated code).
