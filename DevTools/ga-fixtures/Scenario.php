@@ -402,6 +402,10 @@ class GaScenario {
     }
 
     public function register(?string $slug = null): void {
+        // DevTools/ga-scaffold.php skeletons start with 'todo-': finish the scenario and give it a slug that describes the behaviour.
+        if (str_starts_with($slug ?? $this->slug, 'todo-')) {
+            throw new RuntimeException("GaScenario[{$this->slug}]: unfinished scaffold -- replace the todo- slug with one that describes the behaviour");
+        }
         gaRegisterFixture($slug ?? $this->slug, $this->build());
     }
 }

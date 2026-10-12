@@ -156,7 +156,7 @@ Exit: every implemented card has at least one semantic fixture or is listed in `
 
 ## Phase 4: Scaffolding and automation (runs alongside 3)
 
-- **`DevTools/ga-scaffold.php <card>`**: read the backlog JSON and the card dictionary, emit a scenario skeleton
+- **`DevTools/ga-scaffold.php <card>`** -- DONE 2026-10-12 (built after Fire and Water, before Wind; see the guide's "Starting a fixture"; `--probe`, `--list`, `--write`, `todo-` slug guard in `register()`, plus `DevTools/ga-fixture-run.sh`): read the backlog JSON and the card dictionary, emit a scenario skeleton
   (deck, seed, play/pay from printed cost, `covers()` with rules text prefilled) for a human or Claude to finish.
 - **Generated-from-card-data fixtures, limited to what card data fully determines:** printed-cost fixtures (cost paid = printed reserve) and the 27 keyword-only/vanilla allies (enters with printed power/life, enters rested for Hindered, keyword behaviours). Everything with rules text beyond that is hand-written.
 - **Probe integration**: promote `_smoke_probe.php` into `DevTools/probes/` with a mode that lists cards whose probe run

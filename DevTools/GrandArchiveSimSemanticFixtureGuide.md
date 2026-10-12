@@ -189,6 +189,25 @@ assertion is not checking what its label claims (wrong step, wrong zone, unreach
   damage that was dealt. The audit counts any non-queue assertion as observable evidence.
 - Seeded weapons enter with their printed durability counters.
 
+## Starting a fixture: `ga-scaffold.php`
+
+`php DevTools/ga-scaffold.php "Card Name"` prints a scenario skeleton from card data: the deck, `readyFor()` (element access,
+`[Class Bonus]`, `[Level N+]`), the seed, the play with the printed cost (reduced by a printed "costs N less" when the bonus is on),
+a guessed target, `tested()` and `covers()` with the mechanics and the printed clauses prefilled. Above it, comments list the twins the
+text implies (no-bonus, below-the-level gate, refusal at the reduced cost, optional branch declined), mechanic hints, and exemplar
+fixtures of covered cards that share a mechanic (same element and type first), so a proven prompt order can be copied.
+
+- `--element=WIND --type=ACTION --limit=10` scaffolds the next uncovered cards of a shape; `--list --element=WIND` groups all uncovered cards
+  of an element by type and mechanic (the batching view); `--exalted` selects the Exalted cards instead.
+- `--probe` builds a throwaway fixture of just the play and payment, runs `ga-autoplay.php` on it and prints the real prompt order and
+  final board, then deletes the throwaway files. Use it before writing the `window:` / `answer()` steps.
+- `--write=DevTools/ga-fixtures/<file>.php` appends the skeletons to a fixture file.
+- Every skeleton slug starts with `todo-`, and `register()` refuses it: an unfinished skeleton cannot be committed. Rename the slug to
+  describe the behaviour when the scenario is finished. The skeleton does NOT know the window passes, the real prompt order or the
+  observable result; those, the negative twins and a mutation check are still the author's work.
+
+`DevTools/ga-fixture-run.sh [--play] slug...` regenerates and runs scenarios (add `--play` for the autoplay prompt order and final state).
+
 ## Finding the real prompt order
 
 Do not guess it. Write the scenario as just `->seed('myHand', 'Card')->play('Card')`, generate it with
