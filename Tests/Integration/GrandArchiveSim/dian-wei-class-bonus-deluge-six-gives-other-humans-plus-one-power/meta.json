@@ -1,0 +1,23 @@
+{
+    "name": "dian-wei-class-bonus-deluge-six-gives-other-humans-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:00:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h42l1w67ry"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h42l1w67ry"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Deluge 6*** \u2014 As long as you have six or more water element cards in your graveyard, other Human allies you control get +1 [POWER]."
+        ]
+    }
+}

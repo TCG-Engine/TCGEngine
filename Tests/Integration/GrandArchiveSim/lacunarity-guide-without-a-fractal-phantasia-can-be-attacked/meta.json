@@ -1,0 +1,22 @@
+{
+    "name": "lacunarity-guide-without-a-fractal-phantasia-can-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:58:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6rheGKZGyG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6rheGKZGyG"
+        ],
+        "mechanics": [
+            "static-ability",
+            "stealth",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more Fractal phantasias, CARDNAME has **stealth**."
+        ]
+    }
+}

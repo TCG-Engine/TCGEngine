@@ -1,0 +1,22 @@
+{
+    "name": "aqueous-armor-links-to-an-ally-and-class-bonus-gives-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:55:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t3q2svd53z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t3q2svd53z"
+        ],
+        "mechanics": [
+            "ally-link",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Linked ally gets +2 [LIFE]."
+        ]
+    }
+}

@@ -54,6 +54,7 @@ against these lists and lists the known gaps.
 | Aenean Cryosalvo | The [Class Bonus][Level 5+] "Fractal sources deal +1" was applied only inside the Spell-source damage block; Fractals are phantasias, so the bonus never applied. Now applied to any Fractal source (two sites in CombatLogic). |
 | Wavekeeper's Bond, Hydrating Fractal | "Whenever your champion levels up, recover N" healed the flagged-removed old champion (first CHAMPION in the field array) instead of the new one, so it never healed. `RecoverChampion` skips removed objects. |
 | Martial Flowstate | Its [Class Bonus] level-up trigger sacrificed by raw field index while the removed old champion still occupied slot 0; the sacrifice compacted the field and hit the NEW champion. It now purges first and finds the Flowstate by unique id. |
+| Ravishing Finale, Intervention | The additional cost "banish two cards with floating memory from your graveyard" and the [Class Bonus] "rest your champion to pay for 2 of the cost" had their handlers (`RavishingFinaleBanish1/2`, `InterventionRestCost`) but nothing queued them, so both cards ignored the cost. Ravishing Finale now goes through `GenericGraveyardBanishCostSpec` (new `floating` spec); Intervention's offer is queued in the 1.3 cost block. |
 | Frigid Bash | The [Class Bonus] On Hit ("doesn't wake up ... unless that player pays (2)") was never implemented; only the cost reduction existed. Override queues the controller's pay-or-skip choice; fixtures for paying and declining. |
 
 ### Decided and fixed after review
@@ -66,6 +67,9 @@ against these lists and lists the known gaps.
 | Item | Decision |
 |---|---|
 | Spellshroud also stops your own spells | Keep. Suzaku's Command's Shenju clause stays unreachable (every Shenju has Spellshroud). |
+
+### Open: orphaned alternate-cost handlers
+`$hasDominatingStrikeAltCost` is declared but never set, and `DominatingStrikeAltCost` is never queued: Dominating Strike's [Vanitas Bonus] "reveal three wind cards from memory rather than pay" is unreachable (Wind batch). Cards whose handlers exist but were never queued have now been fixed for Song of Frost, Ravishing Finale and Intervention.
 
 ### Open: target-dependent cost reductions
 - Slipstream Vault is in the flat Class Bonus discount table (`GameLogic.php`, "costs 1 less (if targets unique ally)"), so it is discounted even when it targets a non-unique ally. Coronation Ceremony shows the right shape (CalculateActivationReserveCost + `CoronationCeremonyChoice`); Astral Seal ("targets an activation of a card with the same name as a banished card") and Spectral Haunting ("targets a Specter") need the same look when their elements are covered. The Slipstream Vault fixture uses a unique ally so it does not depend on the bug.

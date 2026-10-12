@@ -1,0 +1,24 @@
+{
+    "name": "shatterfall-keep-rest-banish-a-floating-memory-card-to-mill-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:01:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n1voy5ttkk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n1voy5ttkk"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "floating-memory",
+            "banish",
+            "mill"
+        ],
+        "rulesClauses": [
+            "[REST]**, Banish a card with floating memory from your graveyard:** Put the top two cards of your deck into your graveyard."
+        ]
+    }
+}

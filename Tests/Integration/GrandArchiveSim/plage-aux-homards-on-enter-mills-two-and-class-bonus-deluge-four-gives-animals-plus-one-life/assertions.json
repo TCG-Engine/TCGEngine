@@ -1,0 +1,19 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "On Enter: two more cards milled"
+    },
+    {
+        "step": 1,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 7,
+        "semantic": true,
+        "label": "Deluge 4: the Animal ally gets +1 LIFE (6 + 1)"
+    }
+]

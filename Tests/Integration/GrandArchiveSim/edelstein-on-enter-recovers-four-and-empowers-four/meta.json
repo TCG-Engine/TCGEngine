@@ -1,0 +1,24 @@
+{
+    "name": "edelstein-on-enter-recovers-four-and-empowers-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:00:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AxHzxEHBHZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AxHzxEHBHZ"
+        ],
+        "mechanics": [
+            "on-enter",
+            "recover",
+            "empower",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Recover 4** and **empower 4**.",
+            "Whenever you **empower** an amount, CARDNAME gets **+X** [POWER] until end of turn, where **X** is that amount."
+        ]
+    }
+}

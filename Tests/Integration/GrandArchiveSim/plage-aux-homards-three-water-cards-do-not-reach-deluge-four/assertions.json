@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 6,
+        "semantic": true,
+        "label": "Three water cards: the Animal keeps its printed 6 LIFE"
+    }
+]

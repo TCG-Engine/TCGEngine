@@ -1,0 +1,21 @@
+{
+    "name": "ravishing-finale-cannot-be-activated-with-fewer-than-two-floating-memory-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:56:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jlgx72rfgv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jlgx72rfgv"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish two cards with **floating memory** from your graveyard."
+        ]
+    }
+}

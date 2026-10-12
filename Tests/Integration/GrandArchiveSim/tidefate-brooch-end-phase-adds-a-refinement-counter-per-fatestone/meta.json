@@ -1,0 +1,23 @@
+{
+    "name": "tidefate-brooch-end-phase-adds-a-refinement-counter-per-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:57:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vubaywkr69"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vubaywkr69"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "end-phase",
+            "refinement-counter",
+            "fatestone"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, put **X** **refinement** counters on Tidefate Brooch, where **X** is the amount of Fatestone and/or Fatebound objects you control."
+        ]
+    }
+}

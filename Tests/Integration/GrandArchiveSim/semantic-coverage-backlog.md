@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1358**
+Cards linked to an existing fixture: **1375**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1119**
+Implemented cards still needing semantic coverage: **1102**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **1119**
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
-| Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1119**
 | Peaceful Reunion (`wr42i6eifn`) | ACTION | 2 | targeting, zone-movement, combat, condition | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
+| Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |

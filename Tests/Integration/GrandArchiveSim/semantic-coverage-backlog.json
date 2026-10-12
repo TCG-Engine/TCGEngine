@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T15:00:05+00:00",
+    "generatedAt": "2026-10-12T18:58:59+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1358,
+        "cardsWithExistingFixtures": 1375,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1119,
+        "cardsNeedingSemanticCoverage": 1102,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -213,27 +213,6 @@
                 "targeting",
                 "zone-movement",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "d5og6z31q9",
-            "name": "Cao Cao, Aspirant of Chaos",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -940,24 +919,6 @@
                 "draw-discard",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "jlgx72rfgv",
-            "name": "Ravishing Finale",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2182,22 +2143,6 @@
             "mechanics": [
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "vubaywkr69",
-            "name": "Tidefate Brooch",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5092,24 +5037,6 @@
             "priority": 14
         },
         {
-            "cardId": "AxHzxEHBHZ",
-            "name": "Edelstein, Queen of Diamonds",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "JQQXhhIla9",
             "name": "Embryonic Hemosynth",
             "type": "ALLY",
@@ -5434,24 +5361,6 @@
             "priority": 14
         },
         {
-            "cardId": "7kr1haizu8",
-            "name": "Forgetful Concoction",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "k4pjo6lVMO",
             "name": "Fount Seraphim",
             "type": "ALLY",
@@ -5480,24 +5389,6 @@
                 "status",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "3zb9p4lgdl",
-            "name": "Fractal of Rain",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5946,24 +5837,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "l83tuzrl2a",
-            "name": "Lily, Marine Castellan",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -6720,24 +6593,6 @@
             "mechanics": [
                 "targeting",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "0cnn1eh85y",
-            "name": "Sheath of Faceted Lapis",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
                 "trigger",
                 "condition"
             ],
@@ -7765,23 +7620,6 @@
             "priority": 13
         },
         {
-            "cardId": "t3q2svd53z",
-            "name": "Aqueous Armor",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "zk96yd609g",
             "name": "Armored Valkyrie",
             "type": "ALLY",
@@ -8114,23 +7952,6 @@
                 "targeting",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "tnl3qr42vp",
-            "name": "Captivating Opulence",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8649,23 +8470,6 @@
             "priority": 13
         },
         {
-            "cardId": "h42l1w67ry",
-            "name": "Dian Wei, Valorant Fury",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "svd53zc9p4",
             "name": "Dominating Strike",
             "type": "ATTACK",
@@ -9125,23 +8929,6 @@
             "priority": 13
         },
         {
-            "cardId": "wuir99sx6q",
-            "name": "Geni, Gifted Mechanist",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cthZxfkdsY",
             "name": "Glacial Binding",
             "type": "ACTION",
@@ -9474,23 +9261,6 @@
                 "cost",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "6rheGKZGyG",
-            "name": "Lacunarity Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10128,23 +9898,6 @@
             "priority": 13
         },
         {
-            "cardId": "s25QNTvfem",
-            "name": "Plage aux Homards",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "wkz77mbyj0",
             "name": "Poised Bowman",
             "type": "ALLY",
@@ -10766,23 +10519,6 @@
                 "draw-discard",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "EIpkYYSP3s",
-            "name": "Senaris, Six of Diamonds",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14811,22 +14547,6 @@
             "priority": 12
         },
         {
-            "cardId": "n1voy5ttkk",
-            "name": "Shatterfall Keep",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "1gpd7mbroj",
             "name": "Shira, Lost Spirit",
             "type": "CHAMPION",
@@ -17355,21 +17075,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ULHGVVpQoH",
-            "name": "Indissoluble Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34145,6 +33850,31 @@
             "priority": 45
         },
         {
+            "cardId": "d5og6z31q9",
+            "name": "Cao Cao, Aspirant of Chaos",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cao-cao-class-bonus-on-attack-banishes-a-floating-memory-card-to-hit-rested-units"
+            ],
+            "semanticFixtures": [
+                "cao-cao-class-bonus-on-attack-banishes-a-floating-memory-card-to-hit-rested-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "2ha4dk88zq",
             "name": "Cloak of Stillwater",
             "type": "REGALIA,ITEM",
@@ -35039,6 +34769,30 @@
             ],
             "semanticFixtures": [
                 "pupil-of-sacred-flames-class-bonus-attack-banishes-a-fire-card-to-empower-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "jlgx72rfgv",
+            "name": "Ravishing Finale",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "ravishing-finale-banishes-two-floating-memory-cards-as-an-additional-cost-and-deals-six",
+                "ravishing-finale-cannot-be-activated-with-fewer-than-two-floating-memory-cards"
+            ],
+            "semanticFixtures": [
+                "ravishing-finale-banishes-two-floating-memory-cards-as-an-additional-cost-and-deals-six",
+                "ravishing-finale-cannot-be-activated-with-fewer-than-two-floating-memory-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36637,6 +36391,26 @@
             "priority": 42
         },
         {
+            "cardId": "vubaywkr69",
+            "name": "Tidefate Brooch",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tidefate-brooch-end-phase-adds-a-refinement-counter-per-fatestone"
+            ],
+            "semanticFixtures": [
+                "tidefate-brooch-end-phase-adds-a-refinement-counter-per-fatestone"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "cnqsm3n9yv",
             "name": "Turbo Charge",
             "type": "ACTION",
@@ -37787,9 +37561,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "intervention-class-bonus-rests-the-champion-to-pay-for-two-of-the-cost",
                 "intervention-prevents-the-next-four-damage-to-a-unit"
             ],
             "semanticFixtures": [
+                "intervention-class-bonus-rests-the-champion-to-pay-for-two-of-the-cost",
                 "intervention-prevents-the-next-four-damage-to-a-unit"
             ],
             "starterDecks": [],
@@ -39592,6 +39368,28 @@
             "priority": 34
         },
         {
+            "cardId": "AxHzxEHBHZ",
+            "name": "Edelstein, Queen of Diamonds",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "edelstein-on-enter-recovers-four-and-empowers-four"
+            ],
+            "semanticFixtures": [
+                "edelstein-on-enter-recovers-four-and-empowers-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "W1vZwOXfG3",
             "name": "Embertail Squirrel",
             "type": "ALLY",
@@ -40014,6 +39812,50 @@
             ],
             "semanticFixtures": [
                 "forgelight-shieldmaiden-foster-draws-two-and-discards-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "7kr1haizu8",
+            "name": "Forgetful Concoction",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "forgetful-concoction-rest-sacrifice-banishes-two-cards-from-their-memory-and-draws"
+            ],
+            "semanticFixtures": [
+                "forgetful-concoction-rest-sacrifice-banishes-two-cards-from-their-memory-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "3zb9p4lgdl",
+            "name": "Fractal of Rain",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fractal-of-rain-imbued-mills-the-target-player-at-your-recollection-phase"
+            ],
+            "semanticFixtures": [
+                "fractal-of-rain-imbued-mills-the-target-player-at-your-recollection-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40728,6 +40570,28 @@
                 "lena-rest-look-four-decline-all-four-bottom",
                 "lena-rest-look-four-no-ranger-all-four-bottom",
                 "lena-rest-look-four-reveal-deep-ranger-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "l83tuzrl2a",
+            "name": "Lily, Marine Castellan",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lily-attacking-an-even-life-unit-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "lily-attacking-an-even-life-unit-gets-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41568,6 +41432,28 @@
             "priority": 34
         },
         {
+            "cardId": "0cnn1eh85y",
+            "name": "Sheath of Faceted Lapis",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sheath-of-faceted-lapis-on-enter-draws-and-class-bonus-level-two-gives-the-weapon-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "sheath-of-faceted-lapis-on-enter-draws-and-class-bonus-level-two-gives-the-weapon-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "TieUdzJ2B2",
             "name": "Singed Emotions",
             "type": "ACTION",
@@ -42384,6 +42270,27 @@
             "priority": 33
         },
         {
+            "cardId": "t3q2svd53z",
+            "name": "Aqueous Armor",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aqueous-armor-links-to-an-ally-and-class-bonus-gives-plus-two-life"
+            ],
+            "semanticFixtures": [
+                "aqueous-armor-links-to-an-ally-and-class-bonus-gives-plus-two-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "29xxoo7dl5",
             "name": "Arondight, Azure Blade",
             "type": "REGALIA,WEAPON",
@@ -42788,6 +42695,27 @@
             "priority": 33
         },
         {
+            "cardId": "tnl3qr42vp",
+            "name": "Captivating Opulence",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "captivating-opulence-on-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "captivating-opulence-on-enter-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "r5uyjq37zh",
             "name": "Caretaker Horse",
             "type": "ALLY",
@@ -43050,6 +42978,31 @@
             "semanticFixtures": [
                 "demons-bargain-gains-control-when-the-opponent-declines",
                 "demons-bargain-the-opponent-pays-two-cards-to-keep-their-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "h42l1w67ry",
+            "name": "Dian Wei, Valorant Fury",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dian-wei-class-bonus-deluge-six-gives-other-humans-plus-one-power",
+                "dian-wei-class-bonus-five-water-cards-do-not-reach-deluge-six",
+                "dian-wei-class-bonus-on-enter-mills-one-card-per-human-ally"
+            ],
+            "semanticFixtures": [
+                "dian-wei-class-bonus-deluge-six-gives-other-humans-plus-one-power",
+                "dian-wei-class-bonus-five-water-cards-do-not-reach-deluge-six",
+                "dian-wei-class-bonus-on-enter-mills-one-card-per-human-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43671,6 +43624,27 @@
             "priority": 33
         },
         {
+            "cardId": "wuir99sx6q",
+            "name": "Geni, Gifted Mechanist",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "geni-banishing-an-automaton-ally-card-summons-a-drone"
+            ],
+            "semanticFixtures": [
+                "geni-banishing-an-automaton-ally-card-summons-a-drone"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "THjSE7caau",
             "name": "Gleaming Smolder",
             "type": "ACTION",
@@ -43948,6 +43922,29 @@
             "semanticFixtures": [
                 "kongming-erudite-strategist-enter-banishes-four-top-cards",
                 "kongming-erudite-strategist-tags-expire-at-the-beginning-of-the-next-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "6rheGKZGyG",
+            "name": "Lacunarity Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lacunarity-guide-with-a-fractal-phantasia-has-stealth",
+                "lacunarity-guide-without-a-fractal-phantasia-can-be-attacked"
+            ],
+            "semanticFixtures": [
+                "lacunarity-guide-with-a-fractal-phantasia-has-stealth",
+                "lacunarity-guide-without-a-fractal-phantasia-can-be-attacked"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44532,6 +44529,29 @@
             "priority": 33
         },
         {
+            "cardId": "s25QNTvfem",
+            "name": "Plage aux Homards",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plage-aux-homards-on-enter-mills-two-and-class-bonus-deluge-four-gives-animals-plus-one-life",
+                "plage-aux-homards-three-water-cards-do-not-reach-deluge-four"
+            ],
+            "semanticFixtures": [
+                "plage-aux-homards-on-enter-mills-two-and-class-bonus-deluge-four-gives-animals-plus-one-life",
+                "plage-aux-homards-three-water-cards-do-not-reach-deluge-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "8eyeqhc37y",
             "name": "Polkhawk, Boisterous Riot",
             "type": "CHAMPION",
@@ -45073,6 +45093,27 @@
             ],
             "semanticFixtures": [
                 "seaside-ringleader-graveyard-ability-draws-into-memory-and-buffs-animal-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "EIpkYYSP3s",
+            "name": "Senaris, Six of Diamonds",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "status"
+            ],
+            "existingFixtures": [
+                "senaris-cardistry-adds-three-damage-to-the-next-suited-spell-sources"
+            ],
+            "semanticFixtures": [
+                "senaris-cardistry-adds-three-damage-to-the-next-suited-spell-sources"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48176,6 +48217,26 @@
             "priority": 32
         },
         {
+            "cardId": "n1voy5ttkk",
+            "name": "Shatterfall Keep",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shatterfall-keep-rest-banish-a-floating-memory-card-to-mill-two"
+            ],
+            "semanticFixtures": [
+                "shatterfall-keep-rest-banish-a-floating-memory-card-to-mill-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "gvXQa57cxe",
             "name": "Shout at Your Pets",
             "type": "ACTION",
@@ -49729,6 +49790,25 @@
             "semanticFixtures": [
                 "ignis-deus-needs-a-spirit-champion-to-activate",
                 "ignis-deus-spirit-champion-materializes-a-level-one-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ULHGVVpQoH",
+            "name": "Indissoluble Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "indissoluble-fractal-class-bonus-ephemerate-returns-it-from-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "indissoluble-fractal-class-bonus-ephemerate-returns-it-from-the-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

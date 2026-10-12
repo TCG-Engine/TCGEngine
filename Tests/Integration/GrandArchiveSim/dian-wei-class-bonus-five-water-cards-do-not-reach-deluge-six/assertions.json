@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 0,
+        "semantic": true,
+        "label": "Five water cards: the Human keeps its printed 0 POWER"
+    }
+]

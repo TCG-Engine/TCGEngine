@@ -1,0 +1,25 @@
+{
+    "name": "plage-aux-homards-on-enter-mills-two-and-class-bonus-deluge-four-gives-animals-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:01:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s25QNTvfem"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s25QNTvfem"
+        ],
+        "mechanics": [
+            "on-enter",
+            "mill",
+            "class-bonus",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put the top two cards of your deck into your graveyard.",
+            "[Class Bonus] ***Deluge 4 \u2014*** As long as you have four or more water element cards in your graveyard, Animal and Beast allies you control get +1 [LIFE]."
+        ]
+    }
+}

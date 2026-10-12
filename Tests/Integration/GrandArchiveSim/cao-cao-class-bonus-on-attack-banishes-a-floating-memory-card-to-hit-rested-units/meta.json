@@ -1,0 +1,24 @@
+{
+    "name": "cao-cao-class-bonus-on-attack-banishes-a-floating-memory-card-to-hit-rested-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:01:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d5og6z31q9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d5og6z31q9"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "floating-memory",
+            "banish",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** You may banish a card with **floating memory** from your graveyard. If you do, deal 2 damage to each rested unit you don't control."
+        ]
+    }
+}

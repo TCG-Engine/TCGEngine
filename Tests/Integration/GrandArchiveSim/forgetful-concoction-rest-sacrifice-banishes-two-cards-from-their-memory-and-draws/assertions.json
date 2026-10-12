@@ -1,0 +1,29 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Two of their three memory cards were banished (they return at the end phase)"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Drew a card"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "7kr1haizu8",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Concoction was sacrificed as a cost"
+    }
+]

@@ -3212,6 +3212,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs -- Intervention (vmqe225jkb): "[Class Bonus] While paying for this card's reserve cost, you may rest your champion to pay for 2 of that cost."
+    // InterventionRestCost existed but nothing queued the offer.
+    if($obj->CardID === "vmqe225jkb" && !$ignoreCost && $reserveCost > 0 && IsClassBonusActive($player, ["WARRIOR"])) {
+        $interventionChampion = FindChampionMZ($player);
+        $interventionChampionObj = $interventionChampion !== null ? GetZoneObject($interventionChampion) : null;
+        if($interventionChampionObj !== null && intval($interventionChampionObj->Status) === 2) {
+            $hasInterventionCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Rest_your_champion_to_pay_for_2_of_the_reserve_cost?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "InterventionRestCost|" . $reserveCost, 100);
+        }
+    }
+
     //1.3 Declaring Costs -- Song of Frost (t1cn1tzgcx): "[Class Bonus] You may banish a card with floating memory from your graveyard rather than pay this card's reserve cost."
     // The SongOfFrostAltCost / SongOfFrostBanish handlers existed and the flag was declared, but nothing ever queued the offer, so the alternate cost could not be used.
     if($obj->CardID === "t1cn1tzgcx" && !$ignoreCost && $reserveCost > 0 && IsClassBonusActive($player, ["TAMER"])) {
@@ -3418,9 +3430,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasGenericGraveyardBanishCost = false;
     if(!$ignoreCost && function_exists('GenericGraveyardBanishCostSpec') && GenericGraveyardBanishCostSpec($obj->CardID) !== null) {
         $banishSpec = GenericGraveyardBanishCostSpec($obj->CardID);
-        $banishCandidates = ZoneSearch("myGraveyard", cardElements: $banishSpec["elements"]);
+        $banishCandidates = GenericGraveyardBanishCandidates($banishSpec);
         if(count($banishCandidates) < $banishSpec["count"]) {
-            SetFlashMessage(CardName($obj->CardID) . " requires " . $banishSpec["count"] . " " . strtolower(implode("/", $banishSpec["elements"])) . " element cards in your graveyard to banish.");
+            SetFlashMessage(CardName($obj->CardID) . " requires " . $banishSpec["count"] . " " . (!empty($banishSpec["floating"]) ? "floating memory" : strtolower(implode("/", $banishSpec["elements"])) . " element") . " cards in your graveyard to banish.");
             return;
         }
         $hasGenericGraveyardBanishCost = true;
@@ -3883,14 +3895,16 @@ $customDQHandlers["GenericGraveyardBanishCost"] = function($player, $parts, $las
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $spec = GenericGraveyardBanishCostSpec($cardID);
     if($spec === null) return;
-    $candidates = ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
+    $candidates = GenericGraveyardBanishCandidates($spec);
     if(!in_array($lastDecision, $candidates, true)) return;
 
+    $banishedFloating = !empty($spec["floating"]);
     MZMove($player, $lastDecision, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
+    if($banishedFloating) NicoOnFloatingMemoryBanished($player);
     --$remaining;
     if($remaining > 0) {
-        $candidates = ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
+        $candidates = GenericGraveyardBanishCandidates($spec);
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
         DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $baseReserve . "|" . $cardID . "|" . $remaining, 100);
         return;
@@ -3934,11 +3948,18 @@ function GenericDiscardCostSpec($cardID) {
 
 // "Banish N <element> cards from your graveyard" additional costs handled by GenericGraveyardBanishCost, or null.
 // Fireblooded Oath: three fire element cards.
+// Ravishing Finale (jlgx72rfgv): two cards with floating memory ("floating" specs ignore "elements").
 function GenericGraveyardBanishCostSpec($cardID) {
     switch($cardID) {
         case "bmoqk2c7wk": return ["count" => 3, "elements" => ["FIRE"]];
+        case "jlgx72rfgv": return ["count" => 2, "elements" => [], "floating" => true];
     }
     return null;
+}
+
+function GenericGraveyardBanishCandidates($spec) {
+    if(!empty($spec["floating"])) return ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+    return ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
 }
 
 $customDQHandlers["ConvergeReflectionsCost"] = function($player, $parts, $lastDecision) {

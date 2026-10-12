@@ -1,0 +1,22 @@
+{
+    "name": "indissoluble-fractal-class-bonus-ephemerate-returns-it-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:55:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ULHGVVpQoH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ULHGVVpQoH"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "class-bonus",
+            "phantasia"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ephemerate \u2014** (5)"
+        ]
+    }
+}

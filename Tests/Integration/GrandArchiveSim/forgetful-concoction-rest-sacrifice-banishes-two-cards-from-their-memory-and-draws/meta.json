@@ -1,0 +1,25 @@
+{
+    "name": "forgetful-concoction-rest-sacrifice-banishes-two-cards-from-their-memory-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:55:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7kr1haizu8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7kr1haizu8"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "sacrifice",
+            "banish",
+            "memory",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[REST], **Sacrifice Forgetful Concoction**: Banish two cards at random from target opponent's memory. Return those cards to their memory at the beginning of their next end phase. Draw a card."
+        ]
+    }
+}
