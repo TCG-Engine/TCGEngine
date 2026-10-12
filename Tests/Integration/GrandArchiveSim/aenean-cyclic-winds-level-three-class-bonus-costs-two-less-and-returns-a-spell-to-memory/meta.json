@@ -1,0 +1,25 @@
+{
+    "name": "aenean-cyclic-winds-level-three-class-bonus-costs-two-less-and-returns-a-spell-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:08:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3GjTPUfsp3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3GjTPUfsp3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "cost-reduction",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] This card costs 2 less to activate.",
+            "Return target Spell card from your graveyard to your memory."
+        ]
+    }
+}

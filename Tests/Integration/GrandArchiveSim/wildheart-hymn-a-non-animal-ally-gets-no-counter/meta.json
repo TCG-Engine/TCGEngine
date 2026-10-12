@@ -1,0 +1,21 @@
+{
+    "name": "wildheart-hymn-a-non-animal-ally-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:02:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f05n4ulo84"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f05n4ulo84"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "whenever an Animal enters the field under your control"
+        ]
+    }
+}

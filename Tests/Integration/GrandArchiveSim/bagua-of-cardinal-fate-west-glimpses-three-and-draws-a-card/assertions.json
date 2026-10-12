@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "West: glimpse 3 put the Wolf on top, then the draw took it"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "beseech-the-winds-materializes-a-card-and-you-pay-its-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:02:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8qW1koLOK6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8qW1koLOK6"
+        ],
+        "mechanics": [
+            "cost",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "Materialize a card from your material deck. *(You still pay for its costs.)*"
+        ]
+    }
+}

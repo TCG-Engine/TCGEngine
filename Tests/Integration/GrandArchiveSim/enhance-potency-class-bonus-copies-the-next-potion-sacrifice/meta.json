@@ -1,0 +1,22 @@
+{
+    "name": "enhance-potency-class-bonus-copies-the-next-potion-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:09:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "df9q1wl8ao"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "df9q1wl8ao"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "status"
+        ],
+        "rulesClauses": [
+            "Rest target Potion. If you do, the next time you activate an ability of that Potion this turn, copy that ability."
+        ]
+    }
+}

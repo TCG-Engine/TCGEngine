@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "6W5AJwF3Y3",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The new top card (Woodland Squirrels, formerly last of the four) was drawn"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myDeck",
+        "cardID": "WShYN9M3lU",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The rest stayed on top in the chosen order"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "vajycopxgf",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Target player is you: the resolved Blast was banished instead of entering the graveyard"
+    },
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "yuo7dbge3b",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Only the Tempest itself is in the graveyard (it moved there before its own effect began)"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Blast did not join it"
+    }
+]

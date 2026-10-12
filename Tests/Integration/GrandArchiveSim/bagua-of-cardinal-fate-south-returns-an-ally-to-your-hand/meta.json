@@ -1,0 +1,21 @@
+{
+    "name": "bagua-of-cardinal-fate-south-returns-an-ally-to-your-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:05:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jgyx38zpl0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jgyx38zpl0"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "\u2022 South\u2014 Return an ally you control to your owner's hand."
+        ]
+    }
+}

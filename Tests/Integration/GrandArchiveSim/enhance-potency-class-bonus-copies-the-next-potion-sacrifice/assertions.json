@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Potion was rested (checked before it is sacrificed)"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The sacrifice recovered 5 twice (the copy): 12 - 5 - 5"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Class Bonus: cost 3 - 1 = 2"
+    }
+]

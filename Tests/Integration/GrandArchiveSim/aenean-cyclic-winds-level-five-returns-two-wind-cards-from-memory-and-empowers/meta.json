@@ -1,0 +1,23 @@
+{
+    "name": "aenean-cyclic-winds-level-five-returns-two-wind-cards-from-memory-and-empowers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:08:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3GjTPUfsp3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3GjTPUfsp3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "reveal-look",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 5+] Reveal up to two wind element cards from your memory and return them to your hand. Then **empower 2**."
+        ]
+    }
+}

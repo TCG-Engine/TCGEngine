@@ -120,6 +120,15 @@ Need a bonus champion or a harder setup: Feu Awakening (Ciel), Conflagrative Tro
 Bill and Mantle of the Abyss (Alice), Sigil of Budding Embers (Diao Chan), Zinn (Arisanna), Crimson Tear (level 1/2), Cauterizing Seraphim (Advanced Imbue),
 Greater Boon of Vritra (pantheon), Bombard Flarecannon and Polkhawk, Bombastic Shot (Polkhawk), Contraband Revolver (loaded Gun), Lacuna's Grasp (Ciel omens).
 
+## 5. Wind (Phase 3c): fixed, and still open
+Fixed (each has a fixture): Byakko's Command (searched only `myField`), Primeval Ritual (sacrifice cost never paid; now in `GenericSacrificeCostCandidates`), Ensnaring Fumes
+(remove-three-preparation-counters alternate cost never offered), Ravaging Tempest (opposing allies never banished: MZMove frame), Purging Tempest / Sasha (a *resolved action* entered
+the graveyard; only discard and mill were redirected), Bagua of Cardinal Fate (West drew before the glimpse prompt; East woke and pumped every ally instead of the defending ones).
+Open: additional-cost cards the engine never mentions (Molten Impact, Powerforged Burst, Cremation Ritual, Umbilical Ritual, Penumbral Waltz, Sparkling Adornment, Horticounter),
+alternate-cost cards without wiring (Combustible Potion, Glacial Binding), Veiled Dash (parked), Calming Breeze's `[Level 1+]` Floating Memory twin, Diablerie's Vanitas floating memory.
+Purging Tempest's own card is already in the graveyard when its effect begins (the engine moves the action before running its ability); attack cards still go to the graveyard under the
+effect because only the action path was changed.
+
 ## Tools
 `audit-ga-keyword-registries.php` (keyword lists), `mutation-spot-check.php` (do assertions fail when the engine is broken), `lint-fixture-coverage.php`,
 `audit-ga-semantic-coverage.php`, `build-ga-semantic-backlog.php`. The pattern audits above are plain greps; they are worth turning into a script

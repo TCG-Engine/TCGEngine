@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The suppressed ally re-entered with the On Enter: 4 damage to its controller's champion"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "It returned at the end phase"
+    }
+]

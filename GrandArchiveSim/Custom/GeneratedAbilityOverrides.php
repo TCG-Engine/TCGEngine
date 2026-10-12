@@ -2696,6 +2696,34 @@ $cardActivatedAbilities["WsunZX4IlW:0"] = function($player) { //Ravaging Tempest
     if($theirCount > 0) Draw($opponent, $theirCount);
 };
 
+// Bagua of Cardinal Fate (jgyx38zpl0): the generated macro had two defects.
+//   West: "Glimpse 3. Draw a card." drew immediately, before the glimpse prompt was answered, so the card drawn was not the one the player had
+//         just arranged on top. The draw is now queued after the glimpse.
+//   East: "Wake up each defending ally. They each get +2 [POWER] until end of turn." woke and pumped every ally on the field (a global
+//         effect that also reached allies entering later). It now marks only the allies that are defending (the combat target) with a
+//         turn effect that the power calculation reads.
+$cardActivatedAbilities["jgyx38zpl0:0"] = function($player) { //Bagua of Cardinal Fate: branch on Shifting Currents
+    $dir = GetShiftingCurrents($player);
+    if($dir === "NORTH" || $dir === "SOUTH") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) return;
+        $north = ($dir === "NORTH");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1, tooltip:($north ? "Put_a_buff_counter" : "Return_an_ally_to_hand"));
+        DecisionQueueController::AddDecision($player, "CUSTOM", $north ? "BaguaNorthBuff" : "BaguaSouthReturn", 1);
+    } else if($dir === "WEST") {
+        Glimpse($player, 3);
+        QueueDrawAfterGlimpse($player, 1);
+    } else if($dir === "EAST") {
+        foreach(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])) as $mz) {
+            if(!IsUnitDefending($mz)) continue;
+            $obj = GetZoneObject($mz);
+            if($obj === null || $obj->removed) continue;
+            if($obj->Status == 1) WakeupCard($player, $mz);
+            AddTurnEffect($mz, "jgyx38zpl0_POWER");
+        }
+    }
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

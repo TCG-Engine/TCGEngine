@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "vajycopxgf",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Target player is the opponent: your Blast still enters your graveyard"
+    }
+]

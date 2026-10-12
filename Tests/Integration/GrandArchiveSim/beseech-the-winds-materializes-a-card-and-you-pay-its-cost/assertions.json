@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "DpHDGaX2Pn",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The chosen material card was materialized (the champion levelled into it)"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "It left the material deck"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Beseech put 3 cards into memory; materializing paid one of them"
+    }
+]

@@ -7270,6 +7270,9 @@ function OnCardActivated($player, $mzCard) {
         } else if($obj->CardID === "imdj3c7oh0" && GetShiftingCurrents($player) === "EAST") {
             // Bagua of Vital Demise: if SC faces East, return to material deck preserved
             $obj = MZMove($player, $mzCard, "myMaterial");
+        } else if(GraveyardEntryIsBanished($player)) {
+            // Purging Tempest / Sasha, Purifying Acolyte: a resolved action would enter the graveyard, so it is banished instead
+            $obj = MZMove($player, $mzCard, "myBanish");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
             GAMarkResolvingAction($player, $obj);
@@ -15448,9 +15451,6 @@ function ObjectCurrentPower($obj) {
             case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT
                 $power += 1;
                 break;
-            case "jgyx38zpl0-east": // Bagua East: allies get +2 POWER until EOT
-                $power += 2;
-                break;
             case "aKgdkLSBza": // Wilderness Harpist: +1 level (actually power) from Melody/Harmony activation
                 $power += 1;
                 break;
@@ -15583,6 +15583,10 @@ function ObjectCurrentPower($obj) {
     // Usurp the Winds (ulzrh3pmxq): +1 POWER until end of turn
     if(in_array("ulzrh3pmxq", $obj->TurnEffects)) {
         $power += 1;
+    }
+    // Bagua of Cardinal Fate (jgyx38zpl0), East: each defending ally gets +2 POWER until end of turn
+    if(in_array("jgyx38zpl0_POWER", $obj->TurnEffects)) {
+        $power += 2;
     }
     // Flamebreak Chorus (yky280mtts): +2 POWER until end of turn
     if(in_array("yky280mtts_POWER", $obj->TurnEffects)) {
@@ -18056,6 +18060,16 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
         DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
         DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
     }
+}
+
+// Replacement effects on "would enter your graveyard": Purging Tempest (until end of turn) and a fostered Sasha, Purifying Acolyte.
+// DoDiscardCard and MillCards carry the same checks inline; this is the one the stack-resolution path uses.
+function GraveyardEntryIsBanished($player) {
+    if(GlobalEffectCount($player, "yuo7dbge3b") > 0) return true;
+    foreach(GetField($player) as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "GRlUlcYRmV" && !HasNoAbilities($fObj) && IsFostered($fObj)) return true;
+    }
+    return false;
 }
 
 function DoDiscardCard($player, $mzCard) {
@@ -20729,10 +20743,6 @@ $doesGlobalEffectApply["5joh300z2s"] = function($obj) { //Manaroot: champion get
 
 $doesGlobalEffectApply["9g44vm5kt3"] = function($obj) { // Empowering Tincture sacrifice: champion +2 level until end of turn
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: allies +2 POWER until end of turn
-    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["fPtTKILV7f"] = function($obj) { // Inspiring Aethercharge: allies +1 POWER until end of turn

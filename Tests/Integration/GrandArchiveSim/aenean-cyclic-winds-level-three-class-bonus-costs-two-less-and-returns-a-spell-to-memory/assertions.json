@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "vajycopxgf",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Spell card moved from the graveyard to memory"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the Cyclic Winds itself is left in the graveyard"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Class Bonus at Level 3+: cost 5 - 2 = 3, plus the returned Spell"
+    }
+]

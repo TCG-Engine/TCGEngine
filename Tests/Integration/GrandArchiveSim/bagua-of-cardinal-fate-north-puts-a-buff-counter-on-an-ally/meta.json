@@ -1,0 +1,22 @@
+{
+    "name": "bagua-of-cardinal-fate-north-puts-a-buff-counter-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:05:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jgyx38zpl0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jgyx38zpl0"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Depending on your Shifting Currents' direction\u2014",
+            "\u2022 North\u2014 Put a **buff** counter on an ally you control."
+        ]
+    }
+}

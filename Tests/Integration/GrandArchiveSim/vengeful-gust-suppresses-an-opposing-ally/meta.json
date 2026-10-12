@@ -1,0 +1,22 @@
+{
+    "name": "vengeful-gust-suppresses-an-opposing-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:04:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q4dvnn3zp1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q4dvnn3zp1"
+        ],
+        "mechanics": [
+            "suppress",
+            "targeting",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "**Suppress** target ally you don't control."
+        ]
+    }
+}
