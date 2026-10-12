@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Pride is lost, so it attacked: 3 POWER"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "On Attack: discarded a card..."
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "...and drew one: net hand size unchanged (8 after the turn draw)"
+    }
+]

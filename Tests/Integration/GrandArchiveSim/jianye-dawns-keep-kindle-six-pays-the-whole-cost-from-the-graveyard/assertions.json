@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Kindle 6: six fire cards banished from the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The whole reserve cost of 6 was paid by Kindle"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "4ms1r3hjxp",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The domain entered"
+    }
+]

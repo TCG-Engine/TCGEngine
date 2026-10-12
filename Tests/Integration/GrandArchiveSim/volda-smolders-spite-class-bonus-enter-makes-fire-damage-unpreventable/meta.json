@@ -1,0 +1,22 @@
+{
+    "name": "volda-smolders-spite-class-bonus-enter-makes-fire-damage-unpreventable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:28:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ecZsQQAYJJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ecZsQQAYJJ"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Until end of turn, damage dealt by fire element sources you control can't be prevented."
+        ]
+    }
+}

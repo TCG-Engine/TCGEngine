@@ -1,0 +1,25 @@
+{
+    "name": "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:30:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5du8f077ua"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5du8f077ua"
+        ],
+        "mechanics": [
+            "keyword",
+            "pride",
+            "condition",
+            "granted-ability",
+            "on-attack",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "As long as you control a fire or tera element unique Human ally, CARDNAME loses **pride**, and has \"**On Attack**: You may discard a card. If you do, draw a card.\""
+        ]
+    }
+}

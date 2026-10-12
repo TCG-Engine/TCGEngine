@@ -1,0 +1,23 @@
+{
+    "name": "jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on-death",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:36:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ms1r3hjxp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ms1r3hjxp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "granted-ability",
+            "on-death",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fire element allies you control have **On Death**: If your **influence** is six or less, draw a card."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "verita-queen-of-hearts-other-suited-allies-have-immortality",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:32:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4qc47amgpp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4qc47amgpp"
+        ],
+        "mechanics": [
+            "static-ability",
+            "immortality",
+            "suited"
+        ],
+        "rulesClauses": [
+            "Other Suited allies you control have **immortality**."
+        ]
+    }
+}

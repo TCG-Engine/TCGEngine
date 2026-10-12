@@ -1,0 +1,24 @@
+{
+    "name": "lu-xun-pyre-strategist-kindle-three-and-the-enter-puts-an-enlighten-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:31:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xllhbjr20n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xllhbjr20n"
+        ],
+        "mechanics": [
+            "keyword",
+            "kindle",
+            "on-enter",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**Kindle 3**",
+            "**On Enter**: Put an **enlighten** counter on your champion."
+        ]
+    }
+}

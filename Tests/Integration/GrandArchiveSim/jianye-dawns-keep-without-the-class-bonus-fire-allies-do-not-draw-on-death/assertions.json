@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No Class Bonus: the dying Rouge drew nothing"
+    }
+]

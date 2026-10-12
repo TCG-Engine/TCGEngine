@@ -275,3 +275,13 @@ verified by regenerating and comparing by meaning.
   (the Baby Red Slime now lands in the graveyard and three cards, not four, go to memory).
 - Finding: the starting champion enters with `SuppressNextEnter`, so a level 0 champion's printed On Enter (Fragmented / Fortuitous / Serene Spirit of Fire: Glimpse + draw, Hanabi / Vyra / Aithne: draw seven)
   never runs at game start; the opening hand is always seven. The fixtures seed the champion onto the field to exercise the ability.
+
+### Phase 3a (Fire) -- unique allies and domains (2026-10-11)
+- `fire-uniques.php`: Rouge (four thresholds), Plutus, Arthur, Volda, Xiao Qiao, Inzali, Red Hare, Tweedledum, Da Qiao, Lu Xun, March Hare, Verita, Duchess, Varuck, Gloamspire, Jianye.
+- Engine bugs fixed (each with a fixture):
+  - Duchess, Six of Hearts' Cardistry fataled the engine ("Call to undefined method stdClass::Remove()") the first time it was used, and ignored Exalted fire actions.
+  - Gloamspire counted only memory as influence (both for its draw ability, so every player drew, and for its Upkeep, so it was never sacrificed).
+  - The new discard additional cost listed the activated card itself as a discard choice, and Plutus / Dichroic Scorch / Firetuned Automaton lost the card if there was nothing to discard (refusal gate added).
+- New findings (not fixed, need a decision): (1) 14 "EXALTED,FIRE" cards (Alizarin Longbowman, Queen's Cinderhog, Blaze Alight, Suffocating Ash, Tyrannical Denigration, Lavastorm, ...) are not "fire element"
+  to ~33 exact `CardElement(...) === "FIRE"` comparisons: Kindle payment, fire discards, fire-source unpreventable damage, fire ally death triggers. (2) Abilities printed "Activate only at slow speed"
+  (14 cards) are offered and usable in fast response windows: Gloamspire's draw resolved from the end-of-turn window. (3) Eight of Hearts / Duchess "Activate this ability only once" is offered again in the same window.

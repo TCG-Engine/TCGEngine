@@ -1,0 +1,24 @@
+{
+    "name": "jianye-dawns-keep-class-bonus-fire-allies-draw-a-card-on-death-with-low-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:36:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ms1r3hjxp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ms1r3hjxp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "granted-ability",
+            "on-death",
+            "draw",
+            "influence"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Fire element allies you control have **On Death**: If your **influence** is six or less, draw a card."
+        ]
+    }
+}

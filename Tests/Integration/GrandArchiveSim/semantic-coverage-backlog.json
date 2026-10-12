@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:26:04+00:00",
+    "generatedAt": "2026-10-12T01:37:37+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1139,
+        "cardsWithExistingFixtures": 1155,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1338,
+        "cardsNeedingSemanticCoverage": 1322,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3924,25 +3924,6 @@
             "priority": 15
         },
         {
-            "cardId": "ot4nmxqsm4",
-            "name": "Inzali, Unshackled Blaze",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "yicNKtzC3H",
             "name": "Jabberwocky, Calamity's Call",
             "type": "UNIQUE,ALLY",
@@ -6083,24 +6064,6 @@
             "priority": 14
         },
         {
-            "cardId": "ugl6g5znia",
-            "name": "Da Qiao, Cinderbinder",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "7xgwve1d47",
             "name": "Dahlia, Idyllic Dreamer",
             "type": "UNIQUE,ALLY",
@@ -7523,24 +7486,6 @@
             "priority": 14
         },
         {
-            "cardId": "7w4v1hgl3e",
-            "name": "March Hare, Mottled Host",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "9dqou3vgi8",
             "name": "Marksman Captain",
             "type": "ALLY",
@@ -7811,24 +7756,6 @@
             "priority": 14
         },
         {
-            "cardId": "bgbhr5vm38",
-            "name": "Plutus, Fortune's Favor",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "lhtiymuyv3",
             "name": "Possessed Remnant",
             "type": "ALLY",
@@ -8045,24 +7972,6 @@
             "priority": 14
         },
         {
-            "cardId": "5du8f077ua",
-            "name": "Red Hare, Unrivaled Stallion",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "por7ch2bbm",
             "name": "Relentless Hexchaser",
             "type": "ALLY",
@@ -8217,24 +8126,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "h68dr63eo5",
-            "name": "Rouge, Ace of Hearts",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9616,23 +9507,6 @@
             "priority": 13
         },
         {
-            "cardId": "GjM8b5fxqj",
-            "name": "Arthur, Young Heir",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "dwirzelaqo",
             "name": "Austere Priestess",
             "type": "ALLY",
@@ -10687,23 +10561,6 @@
             "priority": 13
         },
         {
-            "cardId": "qzv380ujf5",
-            "name": "Duchess, Six of Hearts",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "hohkep3vi9",
             "name": "Dyadic Fletcher",
             "type": "ALLY",
@@ -11639,23 +11496,6 @@
             "priority": 13
         },
         {
-            "cardId": "4ms1r3hjxp",
-            "name": "Jianye, Dawn's Keep",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "bKSlyTrW41",
             "name": "Jovial Tinkerer",
             "type": "ALLY",
@@ -11919,23 +11759,6 @@
             "mechanics": [
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "xllhbjr20n",
-            "name": "Lu Xun, Pyre Strategist",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14087,23 +13910,6 @@
             "priority": 13
         },
         {
-            "cardId": "UmZpK4rt2M",
-            "name": "Tweedledum, Rattled Dancer",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "icvkegsdve",
             "name": "Unrelenting Warden",
             "type": "ALLY",
@@ -14215,23 +14021,6 @@
                 "status",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "4qc47amgpp",
-            "name": "Verita, Queen of Hearts",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14470,23 +14259,6 @@
                 "targeting",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "3hgldrogit",
-            "name": "Xiao Qiao, Cinderkeeper",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18994,22 +18766,6 @@
             "priority": 12
         },
         {
-            "cardId": "IyM7IBCQeb",
-            "name": "Varuck, Smoldering Spire",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WaoGzrPGyd",
             "name": "Vascular Collapse",
             "type": "ACTION",
@@ -19050,22 +18806,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ecZsQQAYJJ",
-            "name": "Volda, Smolder's Spite",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20853,21 +20593,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "waf8urrqtj",
-            "name": "Gloamspire, Black Market",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -40769,6 +40494,29 @@
             "priority": 35
         },
         {
+            "cardId": "ot4nmxqsm4",
+            "name": "Inzali, Unshackled Blaze",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inzali-unshackled-blaze-class-bonus-attack-banishes-a-fire-card-to-damage-every-other-unit"
+            ],
+            "semanticFixtures": [
+                "inzali-unshackled-blaze-class-bonus-attack-banishes-a-fire-card-to-damage-every-other-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "o98vn1voy5",
             "name": "Lavaheated Brew",
             "type": "ACTION",
@@ -41751,6 +41499,30 @@
             ],
             "semanticFixtures": [
                 "cyclical-breeze-cannot-return-itself-while-resolving"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ugl6g5znia",
+            "name": "Da Qiao, Cinderbinder",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "combat"
+            ],
+            "existingFixtures": [
+                "da-qiao-cinderbinder-class-bonus-rest-empowers-by-the-allies-with-frenzy-counters",
+                "da-qiao-cinderbinder-class-bonus-rest-puts-a-frenzy-counter-on-an-ally"
+            ],
+            "semanticFixtures": [
+                "da-qiao-cinderbinder-class-bonus-rest-empowers-by-the-allies-with-frenzy-counters",
+                "da-qiao-cinderbinder-class-bonus-rest-puts-a-frenzy-counter-on-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42765,6 +42537,28 @@
             "priority": 34
         },
         {
+            "cardId": "7w4v1hgl3e",
+            "name": "March Hare, Mottled Host",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "march-hare-element-bonus-banished-from-the-graveyard-to-pay-a-cost-it-enters-the-field"
+            ],
+            "semanticFixtures": [
+                "march-hare-element-bonus-banished-from-the-graveyard-to-pay-a-cost-it-enters-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ka5av43ehj",
             "name": "Morgan, Soul Guide",
             "type": "UNIQUE,ALLY",
@@ -42855,6 +42649,34 @@
                 "piccarda-decline-further-static-removal-pays-rest-of-cost",
                 "piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her",
                 "piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "bgbhr5vm38",
+            "name": "Plutus, Fortune's Favor",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plutus-fortunes-favor-cannot-be-activated-with-no-other-card-to-discard",
+                "plutus-fortunes-favor-class-bonus-low-influence-gets-plus-two-power",
+                "plutus-fortunes-favor-discards-a-card-as-an-additional-cost",
+                "plutus-fortunes-favor-high-influence-keeps-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "plutus-fortunes-favor-cannot-be-activated-with-no-other-card-to-discard",
+                "plutus-fortunes-favor-class-bonus-low-influence-gets-plus-two-power",
+                "plutus-fortunes-favor-discards-a-card-as-an-additional-cost",
+                "plutus-fortunes-favor-high-influence-keeps-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42977,6 +42799,30 @@
             "priority": 34
         },
         {
+            "cardId": "5du8f077ua",
+            "name": "Red Hare, Unrivaled Stallion",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
+                "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack"
+            ],
+            "semanticFixtures": [
+                "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
+                "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "i8g5013x9j",
             "name": "Relic of Dancing Embers",
             "type": "PHANTASIA",
@@ -43083,6 +42929,34 @@
             ],
             "semanticFixtures": [
                 "rosewinged-hollow-graveyard-ability-pays-two-adds-haunt-and-buffs-a-specter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "h68dr63eo5",
+            "name": "Rouge, Ace of Hearts",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "rouge-ace-of-hearts-total-suited-reserve-cost-five-does-nothing",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-six-deals-two-damage",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-ten-deals-four-damage",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-twenty-one-deals-eight-damage"
+            ],
+            "semanticFixtures": [
+                "rouge-ace-of-hearts-total-suited-reserve-cost-five-does-nothing",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-six-deals-two-damage",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-ten-deals-four-damage",
+                "rouge-ace-of-hearts-total-suited-reserve-cost-twenty-one-deals-eight-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43860,6 +43734,29 @@
             "priority": 33
         },
         {
+            "cardId": "GjM8b5fxqj",
+            "name": "Arthur, Young Heir",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arthur-young-heir-declining-the-rest-gives-no-bonus",
+                "arthur-young-heir-enter-rests-for-immortality-and-pumps-other-allies"
+            ],
+            "semanticFixtures": [
+                "arthur-young-heir-declining-the-rest-gives-no-bonus",
+                "arthur-young-heir-enter-rests-for-immortality-and-pumps-other-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jjGLZKfRn5",
             "name": "Avatar of Suzaku",
             "type": "UNIQUE,ALLY",
@@ -44006,11 +43903,13 @@
             ],
             "existingFixtures": [
                 "blaze-alight-class-bonus-deals-five-instead",
-                "blaze-alight-deals-three-unpreventable-damage"
+                "blaze-alight-deals-three-unpreventable-damage",
+                "verita-queen-of-hearts-control-without-her-the-suited-ally-dies"
             ],
             "semanticFixtures": [
                 "blaze-alight-class-bonus-deals-five-instead",
-                "blaze-alight-deals-three-unpreventable-damage"
+                "blaze-alight-deals-three-unpreventable-damage",
+                "verita-queen-of-hearts-control-without-her-the-suited-ally-dies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44342,6 +44241,29 @@
             ],
             "semanticFixtures": [
                 "dire-requiem-summons-a-direwolf"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "qzv380ujf5",
+            "name": "Duchess, Six of Hearts",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "duchess-six-of-hearts-cardistry-copies-a-cheap-fire-action-from-the-graveyard-for-free",
+                "duchess-six-of-hearts-kindle-six-pays-the-whole-cost-from-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "duchess-six-of-hearts-cardistry-copies-a-cheap-fire-action-from-the-graveyard-for-free",
+                "duchess-six-of-hearts-kindle-six-pays-the-whole-cost-from-the-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44800,6 +44722,31 @@
             "priority": 33
         },
         {
+            "cardId": "4ms1r3hjxp",
+            "name": "Jianye, Dawn's Keep",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "jianye-dawns-keep-class-bonus-fire-allies-draw-a-card-on-death-with-low-influence",
+                "jianye-dawns-keep-kindle-six-pays-the-whole-cost-from-the-graveyard",
+                "jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on-death"
+            ],
+            "semanticFixtures": [
+                "jianye-dawns-keep-class-bonus-fire-allies-draw-a-card-on-death-with-low-influence",
+                "jianye-dawns-keep-kindle-six-pays-the-whole-cost-from-the-graveyard",
+                "jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on-death"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qy34r8gffr",
             "name": "Kingdom's Divide",
             "type": "ACTION",
@@ -44884,6 +44831,27 @@
             ],
             "semanticFixtures": [
                 "lost-in-thought-decline-still-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "xllhbjr20n",
+            "name": "Lu Xun, Pyre Strategist",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lu-xun-pyre-strategist-kindle-three-and-the-enter-puts-an-enlighten-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "lu-xun-pyre-strategist-kindle-three-and-the-enter-puts-an-enlighten-counter-on-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45883,6 +45851,52 @@
             "priority": 33
         },
         {
+            "cardId": "UmZpK4rt2M",
+            "name": "Tweedledum, Rattled Dancer",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "tweedledum-attack-lets-the-opponent-choose-the-defender"
+            ],
+            "semanticFixtures": [
+                "tweedledum-attack-lets-the-opponent-choose-the-defender"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "4qc47amgpp",
+            "name": "Verita, Queen of Hearts",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "verita-queen-of-hearts-banishes-suited-allies-from-the-graveyard-instead-of-paying-ten",
+                "verita-queen-of-hearts-on-death-suited-allies-get-plus-one-power",
+                "verita-queen-of-hearts-other-suited-allies-have-immortality"
+            ],
+            "semanticFixtures": [
+                "verita-queen-of-hearts-banishes-suited-allies-from-the-graveyard-instead-of-paying-ten",
+                "verita-queen-of-hearts-on-death-suited-allies-get-plus-one-power",
+                "verita-queen-of-hearts-other-suited-allies-have-immortality"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "23yfzk96yd",
             "name": "Veteran Blazebearer",
             "type": "ALLY",
@@ -46007,6 +46021,31 @@
                 "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control",
                 "sundering-moon-enter-with-two-wind-allies-gets-plus-one-power",
                 "windrider-invoker-enter-removes-two-enlighten-draws-and-gains-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "3hgldrogit",
+            "name": "Xiao Qiao, Cinderkeeper",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "xiao-qiao-cinderkeeper-banishes-a-unit-it-would-kill-instead-of-letting-it-die",
+                "xiao-qiao-cinderkeeper-class-bonus-attack-cannot-be-retaliated",
+                "xiao-qiao-cinderkeeper-without-the-class-bonus-the-attack-is-retaliated"
+            ],
+            "semanticFixtures": [
+                "xiao-qiao-cinderkeeper-banishes-a-unit-it-would-kill-instead-of-letting-it-die",
+                "xiao-qiao-cinderkeeper-class-bonus-attack-cannot-be-retaliated",
+                "xiao-qiao-cinderkeeper-without-the-class-bonus-the-attack-is-retaliated"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48126,6 +48165,26 @@
             "priority": 32
         },
         {
+            "cardId": "IyM7IBCQeb",
+            "name": "Varuck, Smoldering Spire",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card"
+            ],
+            "semanticFixtures": [
+                "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "rZSnsLUzEd",
             "name": "Vel-ocity Punch",
             "type": "ITEM",
@@ -48140,6 +48199,26 @@
             ],
             "semanticFixtures": [
                 "vel-ocity-punch-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ecZsQQAYJJ",
+            "name": "Volda, Smolder's Spite",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "volda-smolders-spite-class-bonus-enter-makes-fire-damage-unpreventable"
+            ],
+            "semanticFixtures": [
+                "volda-smolders-spite-class-bonus-enter-makes-fire-damage-unpreventable"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48681,6 +48760,29 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "waf8urrqtj",
+            "name": "Gloamspire, Black Market",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "gloamspire-black-market-a-player-with-seven-influence-does-not-draw",
+                "gloamspire-black-market-is-sacrificed-at-recollection-with-influence-eight-or-more",
+                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence"
+            ],
+            "semanticFixtures": [
+                "gloamspire-black-market-a-player-with-seven-influence-does-not-draw",
+                "gloamspire-black-market-is-sacrificed-at-recollection-with-influence-eight-or-more",
+                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

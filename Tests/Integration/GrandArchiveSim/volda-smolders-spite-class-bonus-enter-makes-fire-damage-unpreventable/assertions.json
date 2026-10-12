@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGlobalEffects",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "On Enter registered the until-end-of-turn \"fire damage cannot be prevented\" effect"
+    }
+]

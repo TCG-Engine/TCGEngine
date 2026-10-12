@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "waf8urrqtj",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Upkeep: influence 9 is eight or greater at the beginning of the recollection phase, so it was sacrificed"
+    }
+]

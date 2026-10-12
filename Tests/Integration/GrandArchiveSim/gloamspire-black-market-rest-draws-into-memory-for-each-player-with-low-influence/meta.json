@@ -1,0 +1,23 @@
+{
+    "name": "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:34:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "waf8urrqtj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "waf8urrqtj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "influence",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[REST]: Each player with **influence** less than seven draws a card into their memory."
+        ]
+    }
+}

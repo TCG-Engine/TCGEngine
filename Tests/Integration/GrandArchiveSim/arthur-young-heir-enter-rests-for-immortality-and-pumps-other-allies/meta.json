@@ -1,0 +1,25 @@
+{
+    "name": "arthur-young-heir-enter-rests-for-immortality-and-pumps-other-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:28:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GjM8b5fxqj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GjM8b5fxqj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "immortality",
+            "static-ability",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may rest Arthur. If you do, Arthur gains **immortality** until the beginning of your next turn.",
+            "As long as Arthur is rested, other allies you control get +1 [POWER]."
+        ]
+    }
+}

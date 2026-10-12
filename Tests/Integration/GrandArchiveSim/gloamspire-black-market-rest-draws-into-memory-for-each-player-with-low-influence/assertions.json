@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Influence 2 is less than seven: you drew a card into memory"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Their influence 1 is less than seven: they drew a card into memory too"
+    }
+]

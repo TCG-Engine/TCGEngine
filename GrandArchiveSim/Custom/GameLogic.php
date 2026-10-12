@@ -2271,6 +2271,19 @@ function MandatoryActivationCostBlocker($player, $sourceObject) {
         case "ri955ygd5v": // Devotion's Price: discard two cards
             if(ActivationHandCardsExcludingSource($player, $sourceObject) < 2) return "Devotion's Price requires two cards to discard.";
             break;
+        case "lzjmwuir99": // Firetuned Automaton: discard a fire element card
+        case "TlhsnnRhGK": // Dichroic Scorch: discard a fire element card
+        case "bgbhr5vm38": // Plutus, Fortune's Favor: discard a card
+            $discardSpec = GenericDiscardCostSpec($sourceObject->CardID);
+            $discardable = 0;
+            foreach(GetHand($player) as $handObj) {
+                if($handObj === null || !empty($handObj->removed)) continue;
+                if($sourceObject !== null && ($sourceObject->Location ?? "") === "Hand" && ($handObj->UniqueID ?? null) === ($sourceObject->UniqueID ?? 0)) continue;
+                if(!empty($discardSpec["elements"]) && !in_array(CardElement($handObj->CardID), $discardSpec["elements"], true)) continue;
+                ++$discardable;
+            }
+            if($discardable < 1) return CardName($sourceObject->CardID) . " requires " . (!empty($discardSpec["elements"]) ? "a fire element " : "a ") . "card in your hand to discard.";
+            break;
         case "uWLKGJz1GY": // Unmake Duality: sacrifice a divine relic regalia
             if(empty(GetDivineRelicRegaliaChoices($player))) return "Unmake Duality requires a divine relic regalia to sacrifice.";
             break;
@@ -3387,7 +3400,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasGenericDiscardCost = false;
     if(!$ignoreCost && GenericDiscardCostSpec($obj->CardID) !== null) {
         $discardSpec = GenericDiscardCostSpec($obj->CardID);
-        $discardCandidates = ZoneSearch("myHand", cardElements: $discardSpec["elements"] ?? []);
+        // The activated card has already been announced but its hand slot is still listed: it cannot pay for itself.
+        $discardCandidates = array_values(array_filter(ZoneSearch("myHand", cardElements: !empty($discardSpec["elements"]) ? $discardSpec["elements"] : null), fn($candidateMZ) => $candidateMZ !== $mzCard));
         if(empty($discardCandidates)) {
             SetFlashMessage(CardName($obj->CardID) . " requires a card in your hand to discard.");
             return;
@@ -3860,7 +3874,7 @@ $customDQHandlers["GenericDiscardCost"] = function($player, $parts, $lastDecisio
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $spec = GenericDiscardCostSpec($cardID);
     if($spec === null) return;
-    $candidates = ZoneSearch("myHand", cardElements: $spec["elements"] ?? []);
+    $candidates = ZoneSearch("myHand", cardElements: !empty($spec["elements"]) ? $spec["elements"] : null);
     if(!in_array($lastDecision, $candidates, true)) return;
 
     DoDiscardCard($player, $lastDecision);
@@ -27914,9 +27928,8 @@ function DomainRecollectionUpkeep($player) {
                 break;
             case "waf8urrqtj": // Gloamspire, Black Market: sacrifice if influence >= 8
                 {
-                    global $playerID;
-                    $memZone = $player == $playerID ? "myMemory" : "theirMemory";
-                    $influence = count(GetZone($memZone));
+                    // Influence is the cards in hand AND memory; this used to count the memory zone alone, so Gloamspire never went away in practice.
+                    $influence = GetInfluence($player);
                     if($influence >= 8) {
                         DoSacrificeFighter($player, "myField-" . $i);
                         DecisionQueueController::CleanupRemovedCards();

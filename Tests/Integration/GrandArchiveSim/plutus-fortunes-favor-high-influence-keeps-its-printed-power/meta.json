@@ -1,0 +1,23 @@
+{
+    "name": "plutus-fortunes-favor-high-influence-keeps-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:27:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bgbhr5vm38"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bgbhr5vm38"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as your **influence** is four or less, CARDNAME gets +2[POWER] and damage dealt by CARDNAME is unpreventable."
+        ]
+    }
+}

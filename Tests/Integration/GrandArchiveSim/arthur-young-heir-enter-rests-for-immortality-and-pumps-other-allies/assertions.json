@@ -1,0 +1,10 @@
+[
+    {
+        "step": 7,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "As long as Arthur is rested, other allies get +1 POWER: 1 + 1 = 2"
+    }
+]

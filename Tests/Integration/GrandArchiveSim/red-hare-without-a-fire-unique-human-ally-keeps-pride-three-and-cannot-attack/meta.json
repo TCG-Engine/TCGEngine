@@ -1,0 +1,23 @@
+{
+    "name": "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:30:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5du8f077ua"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5du8f077ua"
+        ],
+        "mechanics": [
+            "keyword",
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 3**",
+            "As long as you control a fire or tera element unique Human ally, CARDNAME loses **pride**"
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "A card was discarded as the additional cost"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The 2 reserve cost was paid on top of it"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "bgbhr5vm38",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally entered"
+    }
+]

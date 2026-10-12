@@ -1,0 +1,22 @@
+{
+    "name": "gloamspire-black-market-is-sacrificed-at-recollection-with-influence-eight-or-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:35:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "waf8urrqtj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "waf8urrqtj"
+        ],
+        "mechanics": [
+            "upkeep",
+            "influence",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "***Upkeep*** -- At the beginning of your recollection phase, if your **influence** is eight or greater, sacrifice CARDNAME."
+        ]
+    }
+}

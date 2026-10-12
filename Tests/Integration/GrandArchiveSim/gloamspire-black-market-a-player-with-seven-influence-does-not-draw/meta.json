@@ -1,0 +1,22 @@
+{
+    "name": "gloamspire-black-market-a-player-with-seven-influence-does-not-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:35:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "waf8urrqtj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "waf8urrqtj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST]: Each player with **influence** less than seven draws a card into their memory."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "jianye-dawns-keep-kindle-six-pays-the-whole-cost-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:36:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ms1r3hjxp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ms1r3hjxp"
+        ],
+        "mechanics": [
+            "keyword",
+            "kindle"
+        ],
+        "rulesClauses": [
+            "**Kindle 6**"
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "7w4v1hgl3e",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Banished from the graveyard to pay for a reserve cost, March Hare was put onto the field"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Only the two Red Slimes stayed banished"
+    }
+]

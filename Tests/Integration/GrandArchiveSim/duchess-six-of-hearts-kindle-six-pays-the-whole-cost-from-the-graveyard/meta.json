@@ -1,0 +1,21 @@
+{
+    "name": "duchess-six-of-hearts-kindle-six-pays-the-whole-cost-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:34:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qzv380ujf5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qzv380ujf5"
+        ],
+        "mechanics": [
+            "keyword",
+            "kindle"
+        ],
+        "rulesClauses": [
+            "**Kindle 6**"
+        ]
+    }
+}

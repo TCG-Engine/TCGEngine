@@ -1,0 +1,24 @@
+{
+    "name": "inzali-unshackled-blaze-class-bonus-attack-banishes-a-fire-card-to-damage-every-other-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:28:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ot4nmxqsm4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ot4nmxqsm4"
+        ],
+        "mechanics": [
+            "on-attack",
+            "class-bonus",
+            "banish",
+            "damage",
+            "area"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** You may banish a fire element card from your graveyard. If you do, deal 1 damage to each other unit."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "duchess-six-of-hearts-cardistry-copies-a-cheap-fire-action-from-the-graveyard-for-free",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:34:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qzv380ujf5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qzv380ujf5"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "banish",
+            "copy",
+            "free-activation"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** -- (6): Banish a fire element action card with reserve cost 2 or less from your graveyard. If you do, copy it and you may activate that copy without paying its reserve cost."
+        ]
+    }
+}

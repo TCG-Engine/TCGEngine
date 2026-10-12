@@ -1,0 +1,24 @@
+{
+    "name": "da-qiao-cinderbinder-class-bonus-rest-empowers-by-the-allies-with-frenzy-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:31:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ugl6g5znia"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ugl6g5znia"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "class-bonus",
+            "empower",
+            "modal"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Choose one -- **Empower X**, where **X** is the amount of allies on the field with a **frenzy** counter on them."
+        ]
+    }
+}

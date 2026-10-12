@@ -1,0 +1,21 @@
+{
+    "name": "xiao-qiao-cinderkeeper-class-bonus-attack-cannot-be-retaliated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:29:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3hgldrogit"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3hgldrogit"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "retaliation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME's attacks can't be retaliated."
+        ]
+    }
+}

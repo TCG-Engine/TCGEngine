@@ -1972,6 +1972,38 @@ $cardActivatedPrereqs["wpbhigka5a:0"] = function($player, $mzID) {
     }
     return false;
 };
+// Duchess, Six of Hearts (qzv380ujf5) Cardistry: "Banish a fire element action card with reserve cost 2 or less from your graveyard. If you do, copy it and you may activate that copy without paying its reserve cost."
+// The generated handler pushed a bare stdClass onto the hand and activated it, which fatals in MZMove ("Call to undefined method stdClass::Remove()") -- using the ability crashed the engine. It also compared the
+// element to exactly "FIRE", so Exalted fire actions ("EXALTED,FIRE": Blaze Alight, Lavastorm, ...) were never offered. The copy is now a proper temporary card activated with its cost ignored.
+$activateAbilityAbilities["qzv380ujf5:0"] = function($player) { //Cardistry
+  $validGY = [];
+  foreach(GetZone("myGraveyard") as $gi => $gyObj) {
+      if($gyObj->removed) continue;
+      $cID = $gyObj->CardID;
+      if(!PropertyContains(CardElement($cID), "FIRE") || !PropertyContains(CardType($cID), "ACTION") || intval(CardCost_reserve($cID)) > 2) continue;
+      $validGY[] = "myGraveyard-" . $gi;
+  }
+  if(empty($validGY)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $validGY), 1, "Banish_a_fire_action_to_copy");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "qzv380ujf5:0:ActivateAbility-1", 1);
+};
+$customDQHandlers["qzv380ujf5:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Cardistry
+  if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+  $chosenObj = GetZoneObject($lastDecision);
+  if($chosenObj === null || $chosenObj->removed) return;
+  $chosenCardID = $chosenObj->CardID;
+  MZMove($player, $lastDecision, "myBanish");
+  DecisionQueueController::CleanupRemovedCards();
+  ActivateTemporaryCardCopy($player, $chosenCardID);
+};
+// Gloamspire, Black Market (waf8urrqtj): "Each player with influence less than seven draws a card into their memory." Influence is the total of cards in hand AND memory. The generated body counted only the memory zone
+// (and read "theirMemory" through the activating player's perspective), so every player with fewer than seven cards in memory -- always -- drew.
+$activateAbilityAbilities["waf8urrqtj:0"] = function($player) { //Draw
+  $opponent = $player == 1 ? 2 : 1;
+  foreach([$player, $opponent] as $drawingPlayer) {
+      if(GetInfluence($drawingPlayer) < 7) DrawIntoMemory($drawingPlayer, 1);
+  }
+};
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

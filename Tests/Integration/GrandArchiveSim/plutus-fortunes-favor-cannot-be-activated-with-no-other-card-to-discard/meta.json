@@ -1,0 +1,21 @@
+{
+    "name": "plutus-fortunes-favor-cannot-be-activated-with-no-other-card-to-discard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:28:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bgbhr5vm38"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bgbhr5vm38"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, discard a card."
+        ]
+    }
+}
