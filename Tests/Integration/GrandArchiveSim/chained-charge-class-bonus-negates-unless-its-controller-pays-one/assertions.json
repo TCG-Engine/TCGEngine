@@ -1,0 +1,29 @@
+[
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Declined to pay (1): the Dungeon Guide was negated"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "It never entered the field"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Class Bonus: Chained Charge cost 2 - 1 = 1"
+    }
+]

@@ -2340,6 +2340,7 @@ function ActivationHasAlternativeReserveCost($cardID) {
         '4qc47amgpp' => true, // Verita: banish Suited allies from graveyard instead of paying reserve
         'AxHzxEHBHZ' => true, // Edelstein: banish Suited spells from graveyard instead of paying reserve
         'irt72g89zc' => true, // Brusque Neige: sacrifice an ally instead of paying reserve
+        't1cn1tzgcx' => true, // Song of Frost: [Class Bonus] banish a floating memory card from the graveyard instead of paying reserve
         'cri23mf3vs' => true, // Refabrication: sacrifice two tokens instead of paying reserve
         '9rbziyasag' => true, // Clash of Fates: remove a quest counter instead of paying reserve
         'nhk5d19n82' => true, // Winds of Destiny: rest two Fatestones instead of paying reserve
@@ -3208,6 +3209,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostChoice|" . $reserveCost, 100);
         } else {
             SetFlashMessage("Not enough suited Spell cards in graveyard to pay Edelstein's alternate cost.");
+        }
+    }
+
+    //1.3 Declaring Costs -- Song of Frost (t1cn1tzgcx): "[Class Bonus] You may banish a card with floating memory from your graveyard rather than pay this card's reserve cost."
+    // The SongOfFrostAltCost / SongOfFrostBanish handlers existed and the flag was declared, but nothing ever queued the offer, so the alternate cost could not be used.
+    if($obj->CardID === "t1cn1tzgcx" && !$ignoreCost && $reserveCost > 0 && IsClassBonusActive($player, ["TAMER"])) {
+        $songFloating = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+        if(!empty($songFloating)) {
+            $hasSongOfFrostAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_a_floating_memory_card_instead_of_paying_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SongOfFrostAltCost|" . $reserveCost, 100);
         }
     }
 
@@ -21337,6 +21349,8 @@ function RecoverChampion($player, $amount=1) {
 
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
+        // A champion that just levelled up is still in the zone, flagged removed, while its "whenever your champion levels up, recover N" listeners run: skip it (Wavekeeper's Bond and Hydrating Fractal healed the dead champion).
+        if($obj->removed) continue;
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             $actualRecovered = $obj->Damage - max(0, $obj->Damage - $amount);
             $obj->Damage = max(0, $obj->Damage - $amount);
@@ -25624,8 +25638,19 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
         }
     }
 
-    if($mode === "activate") $currentCost += GAVoltaicSphereDiscount($player, $subjectObj);
+    if($mode === "activate") $currentCost += GAVoltaicSphereDiscount($player, $subjectObj) + GASurgingObstructionDiscount($player, $subjectObj);
     return max(0, $currentCost);
+}
+
+// Surging Obstruction (VpM6CAp4ts): "As long as you control a Chessman Bishop ally, this card costs 1 less to activate."
+function GASurgingObstructionDiscount($player, $subjectObj) {
+    if($subjectObj === null || $subjectObj->CardID !== "VpM6CAp4ts") return 0;
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "ALLY")) continue;
+        $subtypes = CardSubtypes($fieldObj->CardID);
+        if(PropertyContains($subtypes, "CHESSMAN") && PropertyContains($subtypes, "BISHOP")) return -1;
+    }
+    return 0;
 }
 
 // Voltaic Sphere (0op3nq0ymv), banished from the graveyard: "The next arcane element Spell card you activate this turn costs 1 less to activate." A global effect with the card's own id;

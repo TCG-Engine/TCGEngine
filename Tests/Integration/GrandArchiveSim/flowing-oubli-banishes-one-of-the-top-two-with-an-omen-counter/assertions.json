@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "{\"omen\":1}",
+        "semantic": true,
+        "label": "The chosen card was banished with an omen counter"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "One banished, the other went to the bottom: the deck is one card shorter"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Level 1+: cost 3 - 1 = 2"
+    }
+]

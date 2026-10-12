@@ -1,0 +1,22 @@
+{
+    "name": "song-of-frost-class-bonus-banishes-a-floating-memory-card-instead-of-paying",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:34:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t1cn1tzgcx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t1cn1tzgcx"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "floating-memory",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may banish a card with **floating memory** from your graveyard rather than pay this card's reserve cost."
+        ]
+    }
+}

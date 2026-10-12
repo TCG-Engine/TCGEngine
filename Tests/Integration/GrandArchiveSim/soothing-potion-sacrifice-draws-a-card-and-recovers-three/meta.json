@@ -1,0 +1,22 @@
+{
+    "name": "soothing-potion-sacrifice-draws-a-card-and-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:49:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gnYM2V6TTw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gnYM2V6TTw"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "draw",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Draw a card and **recover 3**."
+        ]
+    }
+}

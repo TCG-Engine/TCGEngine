@@ -1,6 +1,6 @@
 [
     {
-        "step": 2,
+        "step": 4,
         "type": "card_property_equals",
         "mzId": "p1Memory-0",
         "property": "CardID",
@@ -9,7 +9,7 @@
         "label": "The unique ally was returned to memory with no reserve paid: the spell cost 1 less"
     },
     {
-        "step": 2,
+        "step": 4,
         "type": "zone_count",
         "zone": "myMemory",
         "viewerPlayerID": 1,
@@ -18,7 +18,7 @@
         "label": "Nothing was paid into memory"
     },
     {
-        "step": 2,
+        "step": 4,
         "type": "zone_count",
         "zone": "myField",
         "viewerPlayerID": 1,
@@ -27,7 +27,7 @@
         "label": "The unique ally left the field"
     },
     {
-        "step": 2,
+        "step": 4,
         "type": "decision_queue_empty",
         "player": "all"
     }

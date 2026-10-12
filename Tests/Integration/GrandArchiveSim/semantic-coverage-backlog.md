@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1319**
+Cards linked to an existing fixture: **1358**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1158**
+Implemented cards still needing semantic coverage: **1119**
 
 ## Mechanic groups
 
@@ -66,7 +66,6 @@ Implemented cards still needing semantic coverage: **1158**
 | Dorumegian Foundry (`CzwVavXMQU`) | DOMAIN | 2 | cost, counter, token, trigger | — | — |
 | Enveloping Soulmist (`kYG1EDltdI`) | ACTION | 2 | cost, counter, status, condition | — | — |
 | Escape the Wreckage (`q2svd53zc9`) | ACTION | 2 | targeting, draw-discard, zone-movement, condition | — | — |
-| Flowing Oubli (`vcxw3yh2t4`) | ACTION | 2 | cost, zone-movement, counter, condition | — | — |
 | Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
 | Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1158**
 | Oneiric Key (`pY1TImPn8g`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, trigger | — | — |
 | Peaceful Reunion (`wr42i6eifn`) | ACTION | 2 | targeting, zone-movement, combat, condition | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
+| Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |

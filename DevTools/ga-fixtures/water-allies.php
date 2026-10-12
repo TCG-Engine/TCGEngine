@@ -201,13 +201,15 @@ gaScenario('halocline-scout-without-the-class-bonus-does-not-rest')
 
 // ---- ranged keyword family (the ally attacks from player 2 while distant) ----
 if (!function_exists('gaWaterRanged')) {
-    function gaWaterRanged(string $slug, string $ally, int $damage, string $label, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'ranged', 'combat']): void {
-        gaScenario($slug)
+    // $turnEndPasses: player 2's priority passes while the turn changes hands, for an ally that has a fast ability (it opens a response window at each step).
+    function gaWaterRanged(string $slug, string $ally, int $damage, string $label, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'ranged', 'combat'], int $turnEndPasses = 0): void {
+        $s = gaScenario($slug)
             ->standardDeck($ally)
             ->readyFor($ally, classBonus: $classBonus, player: 2)
             ->seed('myField', $ally, player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
-            ->endTurn()
-            ->attack('myField-1', 'theirField-0', player: 2)->pass(2)->pass(1)
+            ->endTurn();
+        for ($i = 0; $i < $turnEndPasses; ++$i) $s->pass(2);
+        $s->attack('myField-1', 'theirField-0', player: 2)->pass(2)->pass(1)
             ->expectDamage('p1Field-0', $damage, $label)
             ->tested($ally)
             ->covers($mechanics, $clause)
@@ -229,8 +231,8 @@ gaWaterRanged('outrider-of-waves-ranged-two-while-distant', 'Outrider of Waves',
 gaWaterRanged('imperial-scout-ranged-two-while-distant', 'Imperial Scout', 3, 'Ranged 2 while distant: 1 + 2 = 3 damage', '**Ranged 2**');
 gaWaterRanged('waterlogged-ranger-ranged-two-while-distant', 'Waterlogged Ranger', 4, 'Ranged 2 while distant: 2 + 2 = 4 damage', '**Ranged 2**');
 gaWaterRanged('cell-sharpshooter-ranged-two-while-distant', 'Cell Sharpshooter', 3, 'Ranged 2 while distant: 1 + 2 = 3 damage', '**Ranged 2**');
-gaWaterRanged('misteye-archer-class-bonus-ranged-two-while-distant', 'Misteye Archer', 3, '[Class Bonus] Ranged 2 while distant: 1 + 2 = 3 damage', '[Class Bonus] **Ranged 2**', true, ['keyword', 'ranged', 'class-bonus', 'combat']);
-gaWaterRanged('misteye-archer-without-the-class-bonus-has-no-ranged', 'Misteye Archer', 1, 'No Class Bonus: only its printed 1 POWER', '[Class Bonus] **Ranged 2**', false, ['keyword', 'ranged', 'class-bonus', 'condition']);
+gaWaterRanged('misteye-archer-class-bonus-ranged-two-while-distant', 'Misteye Archer', 3, '[Class Bonus] Ranged 2 while distant: 1 + 2 = 3 damage', '[Class Bonus] **Ranged 2**', true, ['keyword', 'ranged', 'class-bonus', 'combat'], 2);
+gaWaterRanged('misteye-archer-without-the-class-bonus-has-no-ranged', 'Misteye Archer', 1, 'No Class Bonus: only its printed 1 POWER', '[Class Bonus] **Ranged 2**', false, ['keyword', 'ranged', 'class-bonus', 'condition'], 2);
 gaWaterRanged('krustallan-archer-class-bonus-ranged-three-while-distant', 'Krustallan Archer', 4, '[Class Bonus] Ranged 3 while distant: 1 + 3 = 4 damage', '[Class Bonus] **Ranged 3**', true, ['keyword', 'ranged', 'class-bonus', 'combat']);
 gaWaterRanged('krustallan-archer-without-the-class-bonus-has-no-ranged', 'Krustallan Archer', 1, 'No Class Bonus: only its printed 1 POWER', '[Class Bonus] **Ranged 3**', false, ['keyword', 'ranged', 'class-bonus', 'condition']);
 gaWaterRanged('acheron-express-officer-ranged-three-while-distant', 'Acheron Express Officer', 4, 'Ranged 3 while distant: 1 + 3 = 4 damage', '**Ranged 3**');

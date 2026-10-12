@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T14:29:34+00:00",
+    "generatedAt": "2026-10-12T15:00:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1319,
+        "cardsWithExistingFixtures": 1358,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1158,
+        "cardsNeedingSemanticCoverage": 1119,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -768,24 +768,6 @@
             "priority": 24
         },
         {
-            "cardId": "vcxw3yh2t4",
-            "name": "Flowing Oubli",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "SpENiP3jbN",
             "name": "Focusing Gem",
             "type": "REGALIA,ITEM",
@@ -1038,24 +1020,6 @@
             "priority": 24
         },
         {
-            "cardId": "gnYM2V6TTw",
-            "name": "Soothing Potion",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "Dtr3jPRAFJ",
             "name": "Spectral Haunting",
             "type": "ACTION",
@@ -1164,24 +1128,6 @@
             "priority": 24
         },
         {
-            "cardId": "etobC7HEHw",
-            "name": "Unmoored Call",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "xF9phlSAkE",
             "name": "Waited Accord",
             "type": "UNIQUE,PHANTASIA",
@@ -1192,24 +1138,6 @@
                 "draw-discard",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "n0wpbhigka",
-            "name": "Wand of Frost",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1485,23 +1413,6 @@
                 "cost",
                 "recover",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "3h93tgm72l",
-            "name": "Fluvial Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1901,23 +1812,6 @@
             "priority": 23
         },
         {
-            "cardId": "ww4akrkn1d",
-            "name": "Temptation's Facade",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "O4mD40xpbY",
             "name": "Total Whiteout",
             "type": "UNIQUE,PHANTASIA",
@@ -2168,22 +2062,6 @@
             "priority": 22
         },
         {
-            "cardId": "r7ch2bbmoq",
-            "name": "Freezing Round",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "n9yvn1uoy5",
             "name": "Geldus, Terror of Dorumegia",
             "type": "UNIQUE,ALLY",
@@ -2383,23 +2261,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "QZT9pQQltw",
-            "name": "AquaTech Shell",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "recover",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2831,25 +2692,6 @@
             "priority": 15
         },
         {
-            "cardId": "ipl6gt7lh9",
-            "name": "Cerulean Decree",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "3bxtj3te9i",
             "name": "Combat Training",
             "type": "ACTION",
@@ -3190,25 +3032,6 @@
                 "zone-movement",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "cfpwakb1k0",
-            "name": "Fractal of Intrusion",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4927,24 +4750,6 @@
             "priority": 14
         },
         {
-            "cardId": "irt72g89zc",
-            "name": "Brusque Neige",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "mz1dJZExOk",
             "name": "Burnished Obelith",
             "type": "ALLY",
@@ -6259,24 +6064,6 @@
             "priority": 14
         },
         {
-            "cardId": "oh300z2sns",
-            "name": "Magebane Lash",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "jK7LRuTSPh",
             "name": "Manifest Threat",
             "type": "ACTION",
@@ -6521,24 +6308,6 @@
                 "targeting",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "tqkkyf4ktr",
-            "name": "Pelagic Fatestone",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7339,24 +7108,6 @@
             "priority": 14
         },
         {
-            "cardId": "id0ybub247",
-            "name": "Strategem of Myriad Ice",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "uxhmucm8si",
             "name": "Suited Trickery",
             "type": "ACTION",
@@ -7681,24 +7432,6 @@
             "priority": 14
         },
         {
-            "cardId": "WWlknyTxGA",
-            "name": "Wavekeeper's Bond",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "porhlq2kkv",
             "name": "Wayfinder's Map",
             "type": "REGALIA,ITEM",
@@ -7887,23 +7620,6 @@
             "mechanics": [
                 "targeting",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "NHTouMzz3o",
-            "name": "Aenean Cryosalvo",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8882,23 +8598,6 @@
             "priority": 13
         },
         {
-            "cardId": "hjdu50pces",
-            "name": "Deep Sea Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "chnppup4iz",
             "name": "Defender's Maul",
             "type": "REGALIA,WEAPON",
@@ -8957,23 +8656,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "2d7rgchttu",
-            "name": "Dissonant Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "trigger",
                 "condition"
             ],
@@ -9596,23 +9278,6 @@
             "priority": 13
         },
         {
-            "cardId": "5hns3byfm8",
-            "name": "Hoarfrost Spine",
-            "type": "WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "v1iyt8rugx",
             "name": "Huaji of Heaven's Rise",
             "type": "REGALIA,WEAPON",
@@ -9622,23 +9287,6 @@
                 "cost",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "LAfJuHgUbm",
-            "name": "Hydrating Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10098,23 +9746,6 @@
                 "cost",
                 "zone-movement",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "fekR8D4FpB",
-            "name": "Martial Flowstate",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10854,23 +10485,6 @@
             "priority": 13
         },
         {
-            "cardId": "7nk45swaf8",
-            "name": "Refresh Chamber",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "XK3NiQ5MdR",
             "name": "Remnant of Will",
             "type": "ACTION",
@@ -11296,23 +10910,6 @@
             "priority": 13
         },
         {
-            "cardId": "yrzexkW5Ej",
-            "name": "Sink the Mind",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "no5tu5412v",
             "name": "Skewering Advance",
             "type": "ATTACK",
@@ -11338,23 +10935,6 @@
             "mechanics": [
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "t1cn1tzgcx",
-            "name": "Song of Frost",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11585,23 +11165,6 @@
             "priority": 13
         },
         {
-            "cardId": "VpM6CAp4ts",
-            "name": "Surging Obstruction",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pi3DyYU6Sa",
             "name": "Surprise Reveal",
             "type": "ACTION",
@@ -11662,23 +11225,6 @@
                 "cost",
                 "recover",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "zRG5hmBcsP",
-            "name": "Tidal Fractal ",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12369,22 +11915,6 @@
             "priority": 12
         },
         {
-            "cardId": "C89p0c3Sqb",
-            "name": "AquaTech Shield",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "EKiMJfgvSI",
             "name": "Ardus, Floodborne Deacon",
             "type": "UNIQUE,ALLY",
@@ -12833,22 +12363,6 @@
             "priority": 12
         },
         {
-            "cardId": "grlpk1akxj",
-            "name": "Chained Charge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "AxUVNNipII",
             "name": "Charger X Ultra",
             "type": "ITEM",
@@ -13153,22 +12667,6 @@
             "priority": 12
         },
         {
-            "cardId": "lVvU9lpJ3M",
-            "name": "Diamond Ribbon",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "du4eaktghh",
             "name": "Dilu, Auspicious Charger",
             "type": "UNIQUE,ALLY",
@@ -13192,22 +12690,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "OQVvVANhJh",
-            "name": "Doubled Pawns",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13513,38 +12995,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "5fnmnpavo4",
-            "name": "Fractal of Polar Depths",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "uhuy4xippo",
-            "name": "Fractal of Snow",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14849,22 +14299,6 @@
             "priority": 12
         },
         {
-            "cardId": "4muq2r6v37",
-            "name": "Ocean's Blessing",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "P7hHZBVScB",
             "name": "Orb of Glitter",
             "type": "REGALIA,ITEM",
@@ -15161,38 +14595,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "OvihPzTqcP",
-            "name": "Regal Expulsion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "dqqwey9xys",
-            "name": "Relic of Sunken Past",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -17811,21 +17213,6 @@
             "priority": 11
         },
         {
-            "cardId": "vftUL7ZjFM",
-            "name": "Glacier Remnants",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "6hjlgx72rf",
             "name": "Gloamspire Sniper",
             "type": "ALLY",
@@ -17908,21 +17295,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "1vk8ao8bki",
-            "name": "Hidden Enclave",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18028,36 +17400,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "cxwjbqjdmt",
-            "name": "Krustallan Longsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "fei7chsbal",
-            "name": "Krustallan Ruins",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -35417,6 +34759,28 @@
             "priority": 44
         },
         {
+            "cardId": "vcxw3yh2t4",
+            "name": "Flowing Oubli",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flowing-oubli-banishes-one-of-the-top-two-with-an-omen-counter"
+            ],
+            "semanticFixtures": [
+                "flowing-oubli-banishes-one-of-the-top-two-with-an-omen-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "7yacwhzzfb",
             "name": "Focusing Round",
             "type": "ITEM",
@@ -35750,6 +35114,28 @@
             "priority": 44
         },
         {
+            "cardId": "gnYM2V6TTw",
+            "name": "Soothing Potion",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "soothing-potion-sacrifice-draws-a-card-and-recovers-three"
+            ],
+            "semanticFixtures": [
+                "soothing-potion-sacrifice-draws-a-card-and-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "4etkr73opc",
             "name": "Tempest Downfall",
             "type": "ACTION",
@@ -35822,6 +35208,28 @@
             "priority": 44
         },
         {
+            "cardId": "etobC7HEHw",
+            "name": "Unmoored Call",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "unmoored-call-during-the-opponents-recollection-phase-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "unmoored-call-during-the-opponents-recollection-phase-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "qtzsekkjn3",
             "name": "Vainglory Retribution",
             "type": "ACTION",
@@ -35860,6 +35268,30 @@
             ],
             "semanticFixtures": [
                 "veiled-gambit-sacrifices-a-chessman-and-shields-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "n0wpbhigka",
+            "name": "Wand of Frost",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "wand-of-frost-banish-gives-a-units-attacks-minus-three-power",
+                "wand-of-frost-class-bonus-on-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "wand-of-frost-banish-gives-a-units-attacks-minus-three-power",
+                "wand-of-frost-class-bonus-on-enter-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36231,6 +35663,27 @@
             "semanticFixtures": [
                 "five-of-hearts-cardistry-puts-a-buff-counter-on-each-suited-ally-and-only-once",
                 "five-of-hearts-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "3h93tgm72l",
+            "name": "Fluvial Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fluvial-fatestone-on-enter-gives-an-ally-plus-two-life"
+            ],
+            "semanticFixtures": [
+                "fluvial-fatestone-on-enter-gives-an-ally-plus-two-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36654,6 +36107,27 @@
             "priority": 43
         },
         {
+            "cardId": "ww4akrkn1d",
+            "name": "Temptation's Facade",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "temptations-facade-on-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "temptations-facade-on-enter-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "bEXmm4rKOs",
             "name": "The Duchess's Thornes",
             "type": "REGALIA,ITEM",
@@ -36858,6 +36332,28 @@
             ],
             "semanticFixtures": [
                 "freezing-gambit-sacrifices-a-chessman-and-debuffs-the-target"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "r7ch2bbmoq",
+            "name": "Freezing Round",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "freezing-round-class-bonus-floating-memory-pays-a-memory-cost",
+                "freezing-round-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "freezing-round-class-bonus-floating-memory-pays-a-memory-cost",
+                "freezing-round-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37221,6 +36717,31 @@
             "priority": 42
         },
         {
+            "cardId": "QZT9pQQltw",
+            "name": "AquaTech Shell",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "recover",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "aquatech-shell-class-bonus-floating-memory-pays-a-memory-cost",
+                "aquatech-shell-links-to-an-ally-for-plus-two-life",
+                "aquatech-shell-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "aquatech-shell-class-bonus-floating-memory-pays-a-memory-cost",
+                "aquatech-shell-links-to-an-ally-for-plus-two-life",
+                "aquatech-shell-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "dlx7mdk0xh",
             "name": "Atmos Armor Type-Hermes",
             "type": "UNIQUE,ALLY",
@@ -37530,6 +37051,31 @@
             ],
             "semanticFixtures": [
                 "cell-sharpshooter-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "ipl6gt7lh9",
+            "name": "Cerulean Decree",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cerulean-decree-not-imbued-chooses-draw-into-memory",
+                "cerulean-decree-not-imbued-chooses-minus-three-power-for-a-units-attacks"
+            ],
+            "semanticFixtures": [
+                "cerulean-decree-not-imbued-chooses-draw-into-memory",
+                "cerulean-decree-not-imbued-chooses-minus-three-power-for-a-units-attacks"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37911,6 +37457,29 @@
             ],
             "semanticFixtures": [
                 "hand-activation-unaffordable-leftover-after-real-play-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "cfpwakb1k0",
+            "name": "Fractal of Intrusion",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fractal-of-intrusion-on-enter-banishes-a-floating-memory-card-to-discard-from-their-memory"
+            ],
+            "semanticFixtures": [
+                "fractal-of-intrusion-on-enter-banishes-a-floating-memory-card-to-discard-from-their-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39555,6 +39124,28 @@
             "priority": 34
         },
         {
+            "cardId": "irt72g89zc",
+            "name": "Brusque Neige",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "status"
+            ],
+            "existingFixtures": [
+                "brusque-neige-allies-enter-the-field-rested-this-turn"
+            ],
+            "semanticFixtures": [
+                "brusque-neige-allies-enter-the-field-rested-this-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "0n0DM1T9gz",
             "name": "Bubble Mage",
             "type": "ALLY",
@@ -41143,6 +40734,28 @@
             "priority": 34
         },
         {
+            "cardId": "oh300z2sns",
+            "name": "Magebane Lash",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "magebane-lash-class-bonus-on-enter-puts-a-lash-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "magebane-lash-class-bonus-on-enter-puts-a-lash-counter-on-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Tx6iJQNSA6",
             "name": "Majestic Spirit's Crest",
             "type": "REGALIA,ITEM",
@@ -41255,6 +40868,30 @@
             "semanticFixtures": [
                 "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
                 "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "tqkkyf4ktr",
+            "name": "Pelagic Fatestone",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "pelagic-fatestone-floating-memory-pays-a-memory-cost",
+                "pelagic-fatestone-on-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "pelagic-fatestone-floating-memory-pays-a-memory-cost",
+                "pelagic-fatestone-on-enter-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42113,6 +41750,28 @@
             "priority": 34
         },
         {
+            "cardId": "id0ybub247",
+            "name": "Strategem of Myriad Ice",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "strategem-of-myriad-ice-banishes-floating-memory-cards-for-three-damage-each"
+            ],
+            "semanticFixtures": [
+                "strategem-of-myriad-ice-banishes-floating-memory-cards-for-three-damage-each"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "dxAEI20h8F",
             "name": "Sudden Snow",
             "type": "ACTION",
@@ -42502,6 +42161,28 @@
             "priority": 34
         },
         {
+            "cardId": "WWlknyTxGA",
+            "name": "Wavekeeper's Bond",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wavekeepers-bond-recovers-two-when-your-champion-levels-up"
+            ],
+            "semanticFixtures": [
+                "wavekeepers-bond-recovers-two-when-your-champion-levels-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "i1BCY4T5fL",
             "name": "Weight of Looking Up",
             "type": "ACTION",
@@ -42514,9 +42195,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "weight-of-looking-up-banishes-a-high-level-champion-to-draw-into-memory",
                 "weight-of-looking-up-floating-memory-pays-a-memory-cost"
             ],
             "semanticFixtures": [
+                "weight-of-looking-up-banishes-a-high-level-champion-to-draw-into-memory",
                 "weight-of-looking-up-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
@@ -42607,6 +42290,29 @@
             "semanticFixtures": [
                 "advent-of-the-stormcaller-decline-banish-rearranges-all-three-no-damage",
                 "advent-of-the-stormcaller-reveals-three-banishes-two-arcane-damages-two-units-rearranges-rest"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "NHTouMzz3o",
+            "name": "Aenean Cryosalvo",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aenean-cryosalvo-class-bonus-level-five-fractals-deal-one-extra-damage-each",
+                "aenean-cryosalvo-each-fractal-deals-one-damage-to-the-target-unit"
+            ],
+            "semanticFixtures": [
+                "aenean-cryosalvo-class-bonus-level-five-fractals-deal-one-extra-damage-each",
+                "aenean-cryosalvo-each-fractal-deals-one-damage-to-the-target-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43047,10 +42753,12 @@
                 "damage"
             ],
             "existingFixtures": [
-                "burst-asunder-class-bonus-costs-two-less-and-deals-two-damage"
+                "burst-asunder-class-bonus-costs-two-less-and-deals-two-damage",
+                "burst-asunder-sacrificed-fractals-deal-two-more-damage-each"
             ],
             "semanticFixtures": [
-                "burst-asunder-class-bonus-costs-two-less-and-deals-two-damage"
+                "burst-asunder-class-bonus-costs-two-less-and-deals-two-damage",
+                "burst-asunder-sacrificed-fractals-deal-two-more-damage-each"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43304,6 +43012,27 @@
             "priority": 33
         },
         {
+            "cardId": "hjdu50pces",
+            "name": "Deep Sea Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "deep-sea-fractal-on-enter-mills-the-top-card-of-each-deck"
+            ],
+            "semanticFixtures": [
+                "deep-sea-fractal-on-enter-mills-the-top-card-of-each-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "nRtmc2wmBI",
             "name": "Demon's Bargain",
             "type": "ACTION",
@@ -43342,6 +43071,27 @@
             ],
             "semanticFixtures": [
                 "dire-requiem-summons-a-direwolf"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "2d7rgchttu",
+            "name": "Dissonant Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dissonant-fractal-on-enter-glimpses-four"
+            ],
+            "semanticFixtures": [
+                "dissonant-fractal-on-enter-glimpses-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43963,6 +43713,50 @@
             "priority": 33
         },
         {
+            "cardId": "5hns3byfm8",
+            "name": "Hoarfrost Spine",
+            "type": "WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "hoarfrost-spine-declining-keeps-the-top-card-on-the-deck",
+                "hoarfrost-spine-on-enter-looks-at-the-top-card-and-may-mill-it"
+            ],
+            "semanticFixtures": [
+                "hoarfrost-spine-declining-keeps-the-top-card-on-the-deck",
+                "hoarfrost-spine-on-enter-looks-at-the-top-card-and-may-mill-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "LAfJuHgUbm",
+            "name": "Hydrating Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "hydrating-fractal-recovers-one-when-your-champion-levels-up"
+            ],
+            "semanticFixtures": [
+                "hydrating-fractal-recovers-one-when-your-champion-levels-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "267kgpwjmc",
             "name": "Ignite Fate",
             "type": "ACTION",
@@ -44357,6 +44151,31 @@
             "priority": 33
         },
         {
+            "cardId": "fekR8D4FpB",
+            "name": "Martial Flowstate",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "martial-flowstate-class-bonus-floating-memory-pays-a-memory-cost",
+                "martial-flowstate-class-bonus-sacrifices-itself-when-your-champion-levels-up",
+                "martial-flowstate-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "martial-flowstate-class-bonus-floating-memory-pays-a-memory-cost",
+                "martial-flowstate-class-bonus-sacrifices-itself-when-your-champion-levels-up",
+                "martial-flowstate-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7imoz7vrlr",
             "name": "Mire Reparation",
             "type": "ACTION",
@@ -44369,10 +44188,12 @@
             ],
             "existingFixtures": [
                 "mire-reparation-class-bonus-floating-memory-pays-a-memory-cost",
+                "mire-reparation-recovers-an-amount-equal-to-your-omens",
                 "mire-reparation-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "semanticFixtures": [
                 "mire-reparation-class-bonus-floating-memory-pays-a-memory-cost",
+                "mire-reparation-recovers-an-amount-equal-to-your-omens",
                 "mire-reparation-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
@@ -45034,6 +44855,29 @@
             "priority": 33
         },
         {
+            "cardId": "7nk45swaf8",
+            "name": "Refresh Chamber",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "refresh-chamber-declining-the-banish-sends-it-to-the-graveyard",
+                "refresh-chamber-materializes-a-bullet-card"
+            ],
+            "semanticFixtures": [
+                "refresh-chamber-declining-the-banish-sends-it-to-the-graveyard",
+                "refresh-chamber-materializes-a-bullet-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "TZxw1pPmHD",
             "name": "Refreshing Charge",
             "type": "ACTION",
@@ -45046,10 +44890,12 @@
             ],
             "existingFixtures": [
                 "refreshing-charge-class-bonus-floating-memory-pays-a-memory-cost",
+                "refreshing-charge-recovers-three",
                 "refreshing-charge-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "semanticFixtures": [
                 "refreshing-charge-class-bonus-floating-memory-pays-a-memory-cost",
+                "refreshing-charge-recovers-three",
                 "refreshing-charge-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
@@ -45365,6 +45211,27 @@
             "priority": 33
         },
         {
+            "cardId": "yrzexkW5Ej",
+            "name": "Sink the Mind",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sink-the-mind-class-bonus-mills-when-the-opponent-takes-a-card-from-memory"
+            ],
+            "semanticFixtures": [
+                "sink-the-mind-class-bonus-mills-when-the-opponent-takes-a-card-from-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "HtxzN0sQCJ",
             "name": "Smoldering Cook",
             "type": "ALLY",
@@ -45380,6 +45247,31 @@
             ],
             "semanticFixtures": [
                 "smoldering-cook-sacrifices-a-food-to-deal-three-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "t1cn1tzgcx",
+            "name": "Song of Frost",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "song-of-frost-class-bonus-banishes-a-floating-memory-card-instead-of-paying",
+                "song-of-frost-ends-the-combat-phase-of-an-attack",
+                "song-of-frost-without-the-class-bonus-must-pay-the-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "song-of-frost-class-bonus-banishes-a-floating-memory-card-instead-of-paying",
+                "song-of-frost-ends-the-combat-phase-of-an-attack",
+                "song-of-frost-without-the-class-bonus-must-pay-the-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45420,10 +45312,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "spalling-cleanse-floating-memory-pays-a-memory-cost"
+                "spalling-cleanse-floating-memory-pays-a-memory-cost",
+                "spalling-cleanse-without-the-mastery-recovers-three"
             ],
             "semanticFixtures": [
-                "spalling-cleanse-floating-memory-pays-a-memory-cost"
+                "spalling-cleanse-floating-memory-pays-a-memory-cost",
+                "spalling-cleanse-without-the-mastery-recovers-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45631,6 +45525,31 @@
             "priority": 33
         },
         {
+            "cardId": "VpM6CAp4ts",
+            "name": "Surging Obstruction",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "surging-obstruction-an-even-cost-card-only-has-to-pay-one",
+                "surging-obstruction-an-odd-cost-card-must-pay-three",
+                "surging-obstruction-with-a-chessman-bishop-ally-costs-one-less"
+            ],
+            "semanticFixtures": [
+                "surging-obstruction-an-even-cost-card-only-has-to-pay-one",
+                "surging-obstruction-an-odd-cost-card-must-pay-three",
+                "surging-obstruction-with-a-chessman-bishop-ally-costs-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "lve1my3486",
             "name": "Sword Saint of Eventide",
             "type": "ALLY",
@@ -45671,6 +45590,27 @@
                 "tether-in-flames-class-bonus-costs-two-less-to-activate",
                 "tether-in-flames-controller-declines-and-the-activation-is-negated",
                 "tether-in-flames-controller-takes-one-plus-level-damage-and-the-activation-resolves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "zRG5hmBcsP",
+            "name": "Tidal Fractal ",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tidal-fractal-on-enter-mills-two-from-the-target-player"
+            ],
+            "semanticFixtures": [
+                "tidal-fractal-on-enter-mills-two-from-the-target-player"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45911,10 +45851,12 @@
             ],
             "existingFixtures": [
                 "weaving-manastream-class-bonus-floating-memory-pays-a-memory-cost",
+                "weaving-manastream-makes-your-champion-distant",
                 "weaving-manastream-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "semanticFixtures": [
                 "weaving-manastream-class-bonus-floating-memory-pays-a-memory-cost",
+                "weaving-manastream-makes-your-champion-distant",
                 "weaving-manastream-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
@@ -46096,6 +46038,26 @@
             ],
             "semanticFixtures": [
                 "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "C89p0c3Sqb",
+            "name": "AquaTech Shield",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "aquatech-shield-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "aquatech-shield-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46410,6 +46372,28 @@
             "priority": 32
         },
         {
+            "cardId": "grlpk1akxj",
+            "name": "Chained Charge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "chained-charge-class-bonus-negates-unless-its-controller-pays-one",
+                "chained-charge-the-controller-pays-one-and-the-ally-resolves"
+            ],
+            "semanticFixtures": [
+                "chained-charge-class-bonus-negates-unless-its-controller-pays-one",
+                "chained-charge-the-controller-pays-one-and-the-ally-resolves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "5giGYm8WlR",
             "name": "Cheetah of Bound Fury",
             "type": "ALLY",
@@ -46552,6 +46536,26 @@
             "priority": 32
         },
         {
+            "cardId": "lVvU9lpJ3M",
+            "name": "Diamond Ribbon",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "diamond-ribbon-banish-generates-two-bolts-of-diamonds-into-memory"
+            ],
+            "semanticFixtures": [
+                "diamond-ribbon-banish-generates-two-bolts-of-diamonds-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "wAq6lxxwBA",
             "name": "Discharger",
             "type": "REGALIA,ITEM",
@@ -46608,6 +46612,26 @@
             ],
             "semanticFixtures": [
                 "discover-the-divine-removes-four-enlighten-counters-to-level-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "OQVvVANhJh",
+            "name": "Doubled Pawns",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "doubled-pawns-summons-two-pawn-piece-tokens"
+            ],
+            "semanticFixtures": [
+                "doubled-pawns-summons-two-pawn-piece-tokens"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46878,6 +46902,46 @@
             ],
             "semanticFixtures": [
                 "four-of-diamonds-cardistry-generates-a-bolt-for-each-revealed-suited-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "5fnmnpavo4",
+            "name": "Fractal of Polar Depths",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "fractal-of-polar-depths-class-bonus-sacrifice-mills-the-target-player"
+            ],
+            "semanticFixtures": [
+                "fractal-of-polar-depths-class-bonus-sacrifice-mills-the-target-player"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "uhuy4xippo",
+            "name": "Fractal of Snow",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status"
+            ],
+            "existingFixtures": [
+                "fractal-of-snow-class-bonus-sacrifice-makes-allies-enter-rested"
+            ],
+            "semanticFixtures": [
+                "fractal-of-snow-class-bonus-sacrifice-makes-allies-enter-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47522,10 +47586,36 @@
                 "damage"
             ],
             "existingFixtures": [
+                "nipping-kicker-adds-three-to-the-next-suited-spell-damage",
                 "nipping-kicker-floating-memory-pays-a-memory-cost"
             ],
             "semanticFixtures": [
+                "nipping-kicker-adds-three-to-the-next-suited-spell-damage",
                 "nipping-kicker-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "4muq2r6v37",
+            "name": "Ocean's Blessing",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "oceans-blessing-class-bonus-floating-memory-pays-a-memory-cost",
+                "oceans-blessing-links-to-an-ally-for-plus-one-life-and-taunt",
+                "oceans-blessing-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "oceans-blessing-class-bonus-floating-memory-pays-a-memory-cost",
+                "oceans-blessing-links-to-an-ally-for-plus-one-life-and-taunt",
+                "oceans-blessing-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47796,6 +47886,26 @@
             "priority": 32
         },
         {
+            "cardId": "OvihPzTqcP",
+            "name": "Regal Expulsion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "regal-expulsion-does-not-negate-a-card-activated-from-the-hand"
+            ],
+            "semanticFixtures": [
+                "regal-expulsion-does-not-negate-a-card-activated-from-the-hand"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "KVbuQJyWsU",
             "name": "Regal Inquisition",
             "type": "ACTION",
@@ -47810,6 +47920,30 @@
             ],
             "semanticFixtures": [
                 "regal-inquisition-declined-discard-clears-the-staged-copies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "dqqwey9xys",
+            "name": "Relic of Sunken Past",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "relic-of-sunken-past-class-bonus-floating-memory-pays-a-memory-cost",
+                "relic-of-sunken-past-recollection-sacrifices-itself-to-draw-with-three-water-cards",
+                "relic-of-sunken-past-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "relic-of-sunken-past-class-bonus-floating-memory-pays-a-memory-cost",
+                "relic-of-sunken-past-recollection-sacrifices-itself-to-draw-with-three-water-cards",
+                "relic-of-sunken-past-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49408,10 +49542,12 @@
                 "targeting"
             ],
             "existingFixtures": [
-                "fracturize-floating-memory-pays-a-memory-cost"
+                "fracturize-floating-memory-pays-a-memory-cost",
+                "fracturize-turns-an-item-into-a-fractal-phantasia"
             ],
             "semanticFixtures": [
-                "fracturize-floating-memory-pays-a-memory-cost"
+                "fracturize-floating-memory-pays-a-memory-cost",
+                "fracturize-turns-an-item-into-a-fractal-phantasia"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49469,6 +49605,27 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "vftUL7ZjFM",
+            "name": "Glacier Remnants",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "glacier-remnants-floating-memory-pays-a-memory-cost",
+                "glacier-remnants-recollection-removes-durability-counters-and-recovers"
+            ],
+            "semanticFixtures": [
+                "glacier-remnants-floating-memory-pays-a-memory-cost",
+                "glacier-remnants-recollection-removes-durability-counters-and-recovers"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49538,6 +49695,25 @@
             "priority": 31
         },
         {
+            "cardId": "1vk8ao8bki",
+            "name": "Hidden Enclave",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "hidden-enclave-mills-the-turn-players-top-card-at-their-recollection"
+            ],
+            "semanticFixtures": [
+                "hidden-enclave-mills-the-turn-players-top-card-at-their-recollection"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "rxdon8uwza",
             "name": "Ignis Deus",
             "type": "ACTION",
@@ -49553,6 +49729,48 @@
             "semanticFixtures": [
                 "ignis-deus-needs-a-spirit-champion-to-activate",
                 "ignis-deus-spirit-champion-materializes-a-level-one-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "cxwjbqjdmt",
+            "name": "Krustallan Longsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "krustallan-longsword-class-bonus-gets-plus-one-power-with-four-water-cards",
+                "krustallan-longsword-with-three-water-cards-keeps-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "krustallan-longsword-class-bonus-gets-plus-one-power-with-four-water-cards",
+                "krustallan-longsword-with-three-water-cards-keeps-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "fei7chsbal",
+            "name": "Krustallan Ruins",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "krustallan-ruins-rests-an-entering-ally-unless-its-controller-pays-one",
+                "krustallan-ruins-the-controller-pays-one-and-the-ally-stays-awake"
+            ],
+            "semanticFixtures": [
+                "krustallan-ruins-rests-an-entering-ally-unless-its-controller-pays-one",
+                "krustallan-ruins-the-controller-pays-one-and-the-ally-stays-awake"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

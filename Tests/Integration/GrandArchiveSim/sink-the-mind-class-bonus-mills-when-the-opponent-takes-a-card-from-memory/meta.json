@@ -1,0 +1,23 @@
+{
+    "name": "sink-the-mind-class-bonus-mills-when-the-opponent-takes-a-card-from-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:37:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yrzexkW5Ej"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yrzexkW5Ej"
+        ],
+        "mechanics": [
+            "timing-restriction",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase.",
+            "Until end of turn, whenever a card from the turn player's memory is put into their hand, that player puts the top card of their deck into their graveyard."
+        ]
+    }
+}

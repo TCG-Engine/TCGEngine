@@ -2102,6 +2102,22 @@ $customDQHandlers["HailfinchHitChoice"] = function($player, $parts, $lastDecisio
   RestCard($player, $targetMZ);
   AddTurnEffect($targetMZ, "SKIP_WAKEUP");
 };
+// Surging Obstruction (VpM6CAp4ts): "As long as you control a Chessman Bishop ally, this card costs 1 less to activate. Negate target card activation unless its controller pays (1). If that card has an odd reserve cost,
+// negate its activation unless its controller pays (3) instead. (Zero is considered even.)" The card had no implementation at all: it resolved with no effect. The pay amount depends on the chosen target, so the
+// target handler works it out and hands over to the shared negate-unless-pays flow (the same one Chained Charge and Frozen Dismissal use). The Chessman Bishop discount is GASurgingObstructionDiscount()
+// (GameLogic.php): the card has no row in the generated cost-modifier tables, so a generated-style modifier here would never be consulted.
+$cardActivatedAbilities["VpM6CAp4ts:0"] = function($player) {
+  QueueNegateActivation($player, [], "default", -1, "SurgingObstructionNegate");
+};
+$customDQHandlers["SurgingObstructionNegate"] = function($player, $parts, $lastDecision) {
+  global $customDQHandlers;
+  if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+  $target = GetZoneObject($lastDecision);
+  if($target === null || $target->removed) return;
+  $reserveCost = intval(CardCost_reserve($target->CardID));
+  $payAmount = ($reserveCost > 0 && $reserveCost % 2 === 1) ? 3 : 1;
+  $customDQHandlers["NegateActivationResolve"]($player, [$parts[0] ?? "default", $payAmount], $lastDecision);
+};
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

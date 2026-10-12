@@ -5072,9 +5072,10 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $sourceSpellCardID = $sourceInfoSpell["cardID"];
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
+        // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
+        if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
-            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
@@ -5412,9 +5413,10 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         $sourceSpellCardID = $sourceInfoSpell["cardID"];
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
+        // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
+        if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
-            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
 
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;

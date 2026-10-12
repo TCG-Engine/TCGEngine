@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No Class Bonus: the floating memory card was not offered"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The reserve cost was paid"
+    }
+]

@@ -376,6 +376,9 @@ class GaScenario {
             'deck' => $this->deck,
             'setup' => $this->setup,
             'actions' => $this->actions,
+            // The generator stops replaying at the first action the engine refuses and records only the actions before it, so a wrong step silently
+            // truncated a scenario (its later assertions then passed vacuously). A scenario step that fails is an error unless it was declared with rejects().
+            'strictActions' => true,
         ];
         if ($this->baseFixture !== null) $def['baseFixture'] = $this->baseFixture;
         if (isset($this->meta['semanticCoverage']) && empty($def['testedCards'])) {

@@ -16,11 +16,13 @@ $seed = 42;
 $dryRun = false;
 $onlyFixture = null;
 $resetMeta = false;
+$auditActions = false;
 
 foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--seed=')) $seed = intval(substr($arg, 7));
     elseif ($arg === '--dry-run') $dryRun = true;
     elseif ($arg === '--reset-meta') $resetMeta = true;
+    elseif ($arg === '--audit-actions') $auditActions = true;
     elseif (str_starts_with($arg, '--fixture=')) $onlyFixture = substr($arg, 10);
 }
 // Regenerating a fixture used to wipe its directory, including the hand-written assertions.json and the meta.json notes / semanticCoverage / engineBug records. They are now carried over unless
@@ -1131,6 +1133,21 @@ foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $scenarioFile) {
     if (!in_array(basename($scenarioFile), ['Scenario.php', 'decks.php'], true)) require_once $scenarioFile;
 }
 
+// --audit-actions: list saved fixtures whose actions.json has fewer actions than their definition (an older generator silently dropped every action after the first refused one).
+if ($auditActions) {
+    $checked = 0; $truncated = 0;
+    foreach ($fixtures as $auditSlug => $auditDef) {
+        $auditFile = "$repoRoot/Tests/Integration/$rootName/$auditSlug/actions.json";
+        if (!is_file($auditFile)) continue;
+        ++$checked;
+        $recorded = json_decode(file_get_contents($auditFile), true) ?: [];
+        $want = count($auditDef['actions'] ?? []);
+        if (count($recorded) !== $want) { ++$truncated; echo "TRUNCATED $auditSlug: definition has $want actions, saved fixture has " . count($recorded) . "\n"; }
+    }
+    echo "$checked fixtures checked, $truncated truncated\n";
+    exit($truncated === 0 ? 0 : 1);
+}
+
 if ($onlyFixture) {
     if (!isset($fixtures[$onlyFixture])) {
         echo "Unknown fixture: $onlyFixture\n";
@@ -1404,6 +1421,9 @@ foreach ($fixtures as $slug => $def) {
             if (!$result['success']) {
                 echo "  [WARN] Action $i failed: " . ($result['message'] ?? 'unknown') . "\n";
                 echo "  Action: " . json_encode($action) . "\n";
+                if (!empty($def['strictActions'])) {
+                    throw new \RuntimeException("Scenario action $i (" . json_encode($action['cardID'] ?? '') . ") was refused: " . ($result['message'] ?? 'unknown') . " -- the remaining actions would have been dropped silently; fix the step order (use rejects() for an intended refusal)");
+                }
                 // Continue anyway - some actions may not be legal in all seeds
                 break;
             }

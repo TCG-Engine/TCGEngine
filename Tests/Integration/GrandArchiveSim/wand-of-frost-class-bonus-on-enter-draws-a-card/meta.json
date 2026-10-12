@@ -1,0 +1,22 @@
+{
+    "name": "wand-of-frost-class-bonus-on-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:55:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n0wpbhigka"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n0wpbhigka"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Draw a card."
+        ]
+    }
+}

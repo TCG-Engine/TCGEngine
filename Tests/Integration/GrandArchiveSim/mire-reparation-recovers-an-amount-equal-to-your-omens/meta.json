@@ -1,0 +1,21 @@
+{
+    "name": "mire-reparation-recovers-an-amount-equal-to-your-omens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:29:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7imoz7vrlr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7imoz7vrlr"
+        ],
+        "mechanics": [
+            "recover",
+            "omen"
+        ],
+        "rulesClauses": [
+            "**Recover** **X**, where **X** is the amount of omens you have."
+        ]
+    }
+}

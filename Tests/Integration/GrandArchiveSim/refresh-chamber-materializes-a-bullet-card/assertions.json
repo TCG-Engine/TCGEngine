@@ -1,0 +1,38 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "l75tlzsmw3",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Bullet card was materialized"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The floating memory card was banished"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Refresh Chamber itself was put into memory instead of the graveyard"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two paid cards plus Refresh Chamber"
+    }
+]

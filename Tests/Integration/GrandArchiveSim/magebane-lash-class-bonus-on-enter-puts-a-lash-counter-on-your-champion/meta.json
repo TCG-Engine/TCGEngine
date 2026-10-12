@@ -1,0 +1,24 @@
+{
+    "name": "magebane-lash-class-bonus-on-enter-puts-a-lash-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:55:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oh300z2sns"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oh300z2sns"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "lash-counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Put a **lash** counter on your champion.",
+            "CARDNAME gets +1 [POWER] for each **lash** counter on your champion."
+        ]
+    }
+}

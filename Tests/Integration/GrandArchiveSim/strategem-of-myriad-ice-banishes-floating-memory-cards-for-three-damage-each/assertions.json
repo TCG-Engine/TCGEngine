@@ -1,0 +1,29 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Both floating memory cards were banished"
+    },
+    {
+        "step": 12,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Two banishes: 3 + 3 damage destroyed the 6 LIFE Tortoise"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Six reserve cards were paid"
+    }
+]

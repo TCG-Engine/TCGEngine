@@ -1422,7 +1422,12 @@ function DoMaterialize($player, $mzCard) {
             $field = &GetZone($fZone);
             for($mfi = 0; $mfi < count($field); ++$mfi) {
                 if($field[$mfi]->removed || $field[$mfi]->CardID !== "fekR8D4FpB" || HasNoAbilities($field[$mfi])) continue;
-                DoSacrificeFighter($player, $fZone . "-" . $mfi);
+                // The champion that just levelled up left a removed husk at the front of the field: purge it first and find Martial Flowstate again by unique id, or the sacrifice (which compacts the field) hits the NEW champion.
+                $flowstateUniqueID = intval($field[$mfi]->UniqueID ?? 0);
+                DecisionQueueController::CleanupRemovedCards();
+                $flowstateMZ = FindFieldMzByUniqueID($flowstateUniqueID);
+                if($flowstateMZ === "") break;
+                DoSacrificeFighter($player, $flowstateMZ);
                 DecisionQueueController::CleanupRemovedCards();
                 DrawIntoMemory($player, 1);
                 $champMZ = FindChampionMZ($player);

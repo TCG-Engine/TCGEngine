@@ -49,6 +49,11 @@ against these lists and lists the known gaps.
 
 | Hailfinch | [Class Bonus] On Hit asked its YESNO and then read `CombatTarget` in the answer handler, but the combat variables are only restored while the trigger itself resolves. The buff counter was removed and the hit object was never rested. Override freezes Hailfinch and the hit object by unique id (`HailfinchHitChoice`); no other generated `:OnHit-N` answer handler reads the combat variables. |
 | Innervate Knowledge | Same gap as Innervate Fury: "As an additional cost, delevel your champion and recover 5" was never paid (and a champion with no lineage could still cast it). Added to the shared cost block and prereq. |
+| Surging Obstruction | Had no implementation at all (it resolved with no effect). Now negates unless the controller pays (1), or (3) when the target has an odd reserve cost; `GASurgingObstructionDiscount()` gives the Chessman Bishop discount (the card has no row in the generated cost-modifier tables). |
+| Song of Frost | The [Class Bonus] alternate cost ("banish a floating memory card rather than pay") had its handlers but nothing ever queued the offer. Queued in the 1.3 cost block and listed in `ActivationHasAlternativeReserveCost`. |
+| Aenean Cryosalvo | The [Class Bonus][Level 5+] "Fractal sources deal +1" was applied only inside the Spell-source damage block; Fractals are phantasias, so the bonus never applied. Now applied to any Fractal source (two sites in CombatLogic). |
+| Wavekeeper's Bond, Hydrating Fractal | "Whenever your champion levels up, recover N" healed the flagged-removed old champion (first CHAMPION in the field array) instead of the new one, so it never healed. `RecoverChampion` skips removed objects. |
+| Martial Flowstate | Its [Class Bonus] level-up trigger sacrificed by raw field index while the removed old champion still occupied slot 0; the sacrifice compacted the field and hit the NEW champion. It now purges first and finds the Flowstate by unique id. |
 | Frigid Bash | The [Class Bonus] On Hit ("doesn't wake up ... unless that player pays (2)") was never implemented; only the cost reduction existed. Override queues the controller's pay-or-skip choice; fixtures for paying and declining. |
 
 ### Decided and fixed after review
@@ -70,6 +75,13 @@ against these lists and lists the known gaps.
 | Item | Decision |
 |---|---|
 | Exalted dual-element cards fail exact-match element checks (section 2A) | Will be an "Exalted" batch with its own fixtures, not folded into the element batches. |
+
+### Harness: scenario fixtures can no longer be silently truncated
+The generator stopped at the first action the engine refused and saved only the actions before it, so a wrong step order left a fixture whose later assertions passed vacuously (found in Burst Asunder, Conjure Downpour, Slipstream Vault, Scars of Old, Rescue the Heir, Seeker's Aetherwing, Misteye Archer). `GaScenario::build()` now sets `strictActions`; the generator throws on a refused scenario action unless it was declared with `rejects()`. `php DevTools/create-prd-ability-fixtures.php --audit-actions` lists saved fixtures whose `actions.json` is shorter than their definition (0 now). Note: a failed strict regeneration wipes the fixture directory, restore it with `git checkout` if needed.
+New assertion type `global_effect_present` (`expectGlobalEffect(player, effect, label, count, step)`) for per-player until-end-of-turn effects that leave no per-object trace (Shroud in Mist, Freezing Steel, Sudden Snow, Conjure Downpour, Unmoored Call ...). An `expect*` without a step is evaluated after the LAST action: pin early checks with the step argument.
+
+### Open question: a player 2 first-turn recollection phase is skipped
+`RecollectionPhase()` returns when `GetTurnNumber() === 1`, but the turn number counts rounds, so player 2's first turn (turn 1) also skips its recollection phase (memory is not returned to hand, Hidden Enclave / Glacier Remnants style triggers do not fire). If the intent was only "player 1's first turn has no recollection", this is a bug; not changed pending a rules check.
 
 ## 2. Open: behaviour-wide, needs a decision
 

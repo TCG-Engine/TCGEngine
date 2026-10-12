@@ -1,0 +1,11 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"ipl6gt7lh9-debuff\"]",
+        "semantic": true,
+        "label": "The unit's attacks get -3 POWER until end of turn"
+    }
+]

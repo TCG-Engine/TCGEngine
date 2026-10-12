@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "dqqwey9xys",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Three water cards: the Relic was sacrificed"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "Drew a card: 8 + turn draw 1 + 1"
+    }
+]

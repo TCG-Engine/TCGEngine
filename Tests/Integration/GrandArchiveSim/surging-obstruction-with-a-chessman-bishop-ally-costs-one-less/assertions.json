@@ -1,0 +1,20 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "A Chessman Bishop ally: Surging Obstruction cost 3 - 1 = 2"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Dungeon Guide was negated"
+    }
+]

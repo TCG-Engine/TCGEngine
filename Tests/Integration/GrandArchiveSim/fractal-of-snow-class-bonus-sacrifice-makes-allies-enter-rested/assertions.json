@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "uhuy4xippo",
+        "value": 1,
+        "semantic": true,
+        "label": "The next allies to enter the field this turn enter rested"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Fractal was sacrificed"
+    }
+]

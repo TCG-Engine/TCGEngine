@@ -1,0 +1,29 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The floating memory card was banished instead of paying"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No reserve card was paid"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The combat phase ended: the champion took no damage"
+    }
+]

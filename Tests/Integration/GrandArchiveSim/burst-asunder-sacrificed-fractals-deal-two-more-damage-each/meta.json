@@ -1,0 +1,22 @@
+{
+    "name": "burst-asunder-sacrificed-fractals-deal-two-more-damage-each",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:38:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rzsr6aw4hz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rzsr6aw4hz"
+        ],
+        "mechanics": [
+            "damage",
+            "sacrifice",
+            "fractal"
+        ],
+        "rulesClauses": [
+            "Then you may sacrifice any amount of Fractals. For each Fractal sacrificed this way, deal an additional 2 damage to that unit."
+        ]
+    }
+}

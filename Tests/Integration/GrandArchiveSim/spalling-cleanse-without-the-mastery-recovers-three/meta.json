@@ -1,0 +1,22 @@
+{
+    "name": "spalling-cleanse-without-the-mastery-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:29:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t3Yb097xpJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t3Yb097xpJ"
+        ],
+        "mechanics": [
+            "recover",
+            "mastery",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your Fractured Memories has six or less **sheen** counters on it, put two **sheen** counters on it. Otherwise, **recover 3**. *(If you don't have the mastery, **recover 3**.)*"
+        ]
+    }
+}

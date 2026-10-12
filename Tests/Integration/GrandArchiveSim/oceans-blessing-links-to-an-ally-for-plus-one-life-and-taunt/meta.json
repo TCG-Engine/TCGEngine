@@ -1,0 +1,22 @@
+{
+    "name": "oceans-blessing-links-to-an-ally-for-plus-one-life-and-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4muq2r6v37"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4muq2r6v37"
+        ],
+        "mechanics": [
+            "ally-link",
+            "stat-change",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "Linked ally gets +1 [LIFE] and has **taunt**."
+        ]
+    }
+}

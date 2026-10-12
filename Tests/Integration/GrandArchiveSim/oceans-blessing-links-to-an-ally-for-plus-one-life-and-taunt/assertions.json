@@ -1,0 +1,19 @@
+[
+    {
+        "step": 6,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 7,
+        "semantic": true,
+        "label": "The linked 1/6 ally gets +1 LIFE"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"linkedToAlly\":\"L0RmNaDzhk\"}",
+        "semantic": true,
+        "label": "Linked to the Giant Tortoise"
+    }
+]

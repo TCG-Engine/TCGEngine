@@ -1,0 +1,23 @@
+{
+    "name": "hidden-enclave-mills-the-turn-players-top-card-at-their-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1vk8ao8bki"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1vk8ao8bki"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "recollection",
+            "mill",
+            "domain"
+        ],
+        "rulesClauses": [
+            "At the beginning of each player's recollection phase, that player puts the top card of their deck into their graveyard."
+        ]
+    }
+}

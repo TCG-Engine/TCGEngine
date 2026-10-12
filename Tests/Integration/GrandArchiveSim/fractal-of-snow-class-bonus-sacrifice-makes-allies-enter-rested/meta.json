@@ -1,0 +1,22 @@
+{
+    "name": "fractal-of-snow-class-bonus-sacrifice-makes-allies-enter-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uhuy4xippo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uhuy4xippo"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "enters-rested",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Sacrifice CARDNAME:** The next time one or more allies would enter the field this turn, they enter the field rested instead."
+        ]
+    }
+}

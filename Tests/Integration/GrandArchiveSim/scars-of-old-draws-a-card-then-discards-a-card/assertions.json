@@ -1,6 +1,6 @@
 [
     {
-        "step": 5,
+        "step": 6,
         "type": "zone_count",
         "zone": "myGraveyard",
         "viewerPlayerID": 1,
@@ -9,7 +9,7 @@
         "label": "Scars of Old and the discarded card are in the graveyard"
     },
     {
-        "step": 5,
+        "step": 6,
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
@@ -18,7 +18,7 @@
         "label": "Hand: 8 - Scars of Old - 2 reserve + 1 drawn - 1 discarded = 5"
     },
     {
-        "step": 5,
+        "step": 6,
         "type": "decision_queue_empty",
         "player": "all"
     }

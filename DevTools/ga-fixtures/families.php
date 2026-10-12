@@ -104,9 +104,18 @@ foreach ([true, false] as $gaSeekerRanger) {
     if ($gaSeekerRanger) $scenario->champion(classes: 'RANGER');
     $scenario->seed('myField', "Seeker's Aetherwing")->seed('myHand', 'Ghastly Corrosion', 2)
         ->endTurn(1)->play('Ghastly Corrosion', 2)->pay(4, 2);
-    if ($gaSeekerRanger) $scenario->rejects(2, 'theirField-1', "Seeker's Aetherwing has spellshroud (Ranger champion): not a legal Spell target");
-    else $scenario->answer(2, 'theirField-1');
-    $scenario->tested("Seeker's Aetherwing")->register();
+    if ($gaSeekerRanger) {
+        // The Aetherwing is the only legal item / weapon and it has spellshroud: nothing can be targeted, so the Spell fizzles and the weapon stays on the field.
+        $scenario->pass(2)->pass(1)
+            ->expectZoneCount('myField', 2, 1, "Seeker's Aetherwing (spellshroud with a Ranger champion) was not a legal Spell target and is still on the field")
+            ->expectDqEmpty();
+    } else {
+        $scenario->answer(2, 'theirField-1')
+            ->expectZoneCount('myField', 1, 1, "Without the Class Bonus the Aetherwing has no spellshroud: Ghastly Corrosion destroyed it");
+    }
+    $scenario->tested("Seeker's Aetherwing")
+        ->covers(['spellshroud', 'class-bonus', 'targeting'], '[Class Bonus] **Spellshroud** *(This object can\'t be targeted by Spells.)*')
+        ->register();
 }
 
 // --- Fractal of Insight: On Enter -- decline to rest self, Glimpse does not happen ---

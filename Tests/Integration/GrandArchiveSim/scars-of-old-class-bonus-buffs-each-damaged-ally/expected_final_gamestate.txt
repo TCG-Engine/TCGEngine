@@ -1,35 +1,33 @@
 1
 0
-9
-lD0sK81PZT
-px60u5n1do
-px60u5n1do
-lD0sK81PZT
-em6eEh9q8y
-lD0sK81PZT
-px60u5n1do
-n8wyfG9hbY
-em6eEh9q8y
-9
-em6eEh9q8y
-lD0sK81PZT
-em6eEh9q8y
-em6eEh9q8y
-n8wyfG9hbY
-n8wyfG9hbY
-n8wyfG9hbY
-lD0sK81PZT
-n8wyfG9hbY
-0
-0
-0
-0
-0
-0
 8
-n8wyfG9hbY
+px60u5n1do
+px60u5n1do
+lD0sK81PZT
+em6eEh9q8y
+lD0sK81PZT
+px60u5n1do
 n8wyfG9hbY
 em6eEh9q8y
+9
+em6eEh9q8y
+lD0sK81PZT
+em6eEh9q8y
+em6eEh9q8y
+n8wyfG9hbY
+n8wyfG9hbY
+n8wyfG9hbY
+lD0sK81PZT
+n8wyfG9hbY
+0
+0
+2
+lD0sK81PZT
+em6eEh9q8y
+0
+0
+0
+5
 em6eEh9q8y
 px60u5n1do
 lD0sK81PZT
@@ -44,14 +42,16 @@ px60u5n1do
 px60u5n1do
 em6eEh9q8y
 3
-LMyKyVC2O9 2 1 0 1 - eyJfb3ZlcnJpZGVzIjp7ImNsYXNzZXMiOiJXQVJSSU9SIn19 - 1
-em6eEh9q8y 2 1 1 1 ENTERED_THIS_TURN - - 3
-px60u5n1do 2 1 0 1 ENTERED_THIS_TURN - - 4
+LMyKyVC2O9 2 1 0 1 vz4kc558yx-ACTION_ACTIVATED eyJfb3ZlcnJpZGVzIjp7ImNsYXNzZXMiOiJXQVJSSU9SIn19 - 1
+em6eEh9q8y 2 1 1 1 ENTERED_THIS_TURN eyJidWZmIjoxfQ== - 3
+mttsvbgl6f 2 1 0 1 ENTERED_THIS_TURN - - 4
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0
 0
-0
+2
+n8wyfG9hbY
+n8wyfG9hbY
 0
 4
 DpHDGaX2Pn
@@ -69,15 +69,10 @@ LeyUk5auEP
 0
 0
 0
-5
-MZMAYCHOOSE myMaterial-0&myMaterial-1&myMaterial-2&myMaterial-3 1  0
-CUSTOM px60u5n1do:0:Enter-1 1  0
-PASSPARAMETER  99  0
-SYSTEM Enter_AfterAction 99  0
-CUSTOM PostResolutionCheck 200  0
+0
 0
 1
-0:Pregame Starting Champion<vname>1<v0>WU<v0>1<v0>-<v0><v0><v0><v0>n8wyfG9hbY<v1>n8wyfG9hbY<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>lD0sK81PZT<v1>n8wyfG9hbY<v1>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>lD0sK81PZT<v1>em6eEh9q8y<v1>lD0sK81PZT<v1>px60u5n1do<v1>n8wyfG9hbY<v1>em6eEh9q8y<v0>MZCHOOSE<v2>myMaterial-0<v2>1<v2>Reveal_your_starting_Lv_0_champion<v2>0<v1>CUSTOM<v2>PREGAME_CHOOSE_STARTING_CHAMPION|2<v2>1<v2><v2>0<v0>0<v0><v0><v0>LMyKyVC2O9<v1>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0><v0><v0><v0><v0><v0><v0><v0>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>lD0sK81PZT<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>lD0sK81PZT<v1>n8wyfG9hbY<v0><v0>0<v0><v0><v0>LMyKyVC2O9<v1>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0><v0><v0><v0><v0>-<v0><v0>-<v0>0<v0>-<v0>72<v0>-
+0:1<v0>MAIN<v0>1<v0><v0>n8wyfG9hbY<v1>n8wyfG9hbY<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>lD0sK81PZT<v1>n8wyfG9hbY<v1>lD0sK81PZT<v0><v0><v0>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>lD0sK81PZT<v1>em6eEh9q8y<v1>lD0sK81PZT<v1>px60u5n1do<v1>n8wyfG9hbY<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJfb3ZlcnJpZGVzIjp7ImNsYXNzZXMiOiJXQVJSSU9SIn19<v2>-<v2>1<v1>em6eEh9q8y<v2>2<v2>1<v2>1<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>3<v1>mttsvbgl6f<v2>2<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>4<v0><v0><v0><v0>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>lD0sK81PZT<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v0><v0><v0>em6eEh9q8y<v1>lD0sK81PZT<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>lD0sK81PZT<v1>n8wyfG9hbY<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-2","isImbued":"NO","amount":7}<v0><v0>{"EnterCalls":{"1":2},"Enter":{"1":{"em6eEh9q8y":1,"mttsvbgl6f":1}}}<v0>4<v0>{"EnterCalls":{"1":2},"Enter":{"1":{"em6eEh9q8y":1,"mttsvbgl6f":1}}}<v0>72<v0>{"cards":{"1":{"n8wyfG9hbY":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"lD0sK81PZT":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}},"2":{"lD0sK81PZT":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":[],"combatEvents":[]}
 0
 -
 -

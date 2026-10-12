@@ -1,0 +1,22 @@
+{
+    "name": "weight-of-looking-up-banishes-a-high-level-champion-to-draw-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:30:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1BCY4T5fL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1BCY4T5fL"
+        ],
+        "mechanics": [
+            "banish",
+            "draw-into-memory",
+            "material-deck"
+        ],
+        "rulesClauses": [
+            "You may banish a champion card with base level 3 or higher from your material deck. If you do, draw a card into your memory."
+        ]
+    }
+}

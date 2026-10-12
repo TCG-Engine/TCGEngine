@@ -1,12 +1,11 @@
 {
     "name": "seekers-aetherwing-without-the-class-bonus-can-be-targeted-by-a-spell",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-10-07T13:40:46+00:00",
-    "createdBy": "Claude Sonnet 5.5",
+    "createdAt": "2026-10-12T14:44:52+00:00",
+    "createdBy": "batch-script",
     "testedCards": [
         "bf7yzaqes4"
     ],
-    "notes": "Control: no Ranger class, so no spellshroud (the target list no longer contains the weapon twice).",
     "semanticCoverage": {
         "testedCards": [
             "bf7yzaqes4"
@@ -17,7 +16,7 @@
             "targeting"
         ],
         "rulesClauses": [
-            "[Class Bonus] Spellshroud"
+            "[Class Bonus] **Spellshroud** *(This object can't be targeted by Spells.)*"
         ]
     }
 }

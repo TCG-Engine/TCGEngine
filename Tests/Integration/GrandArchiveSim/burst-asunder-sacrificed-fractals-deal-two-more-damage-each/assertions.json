@@ -1,0 +1,20 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "2 damage, plus 2 more for each of the two sacrificed Fractals"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Both Fractals were sacrificed"
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 14,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Activated from the hand, not a material deck: it was not negated"
+    }
+]

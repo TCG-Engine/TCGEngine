@@ -1,0 +1,20 @@
+[
+    {
+        "step": 18,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Even reserve cost (4): paying only (1) kept the Giant Tortoise"
+    },
+    {
+        "step": 18,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Four for the ally, then the one card paid to keep it"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Our recollection phase: we put the top card of our deck into our graveyard"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Their recollection phase: they put the top card of their deck into their graveyard"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Ours is unchanged by their recollection"
+    }
+]

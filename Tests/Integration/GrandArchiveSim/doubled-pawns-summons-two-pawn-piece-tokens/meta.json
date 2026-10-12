@@ -1,0 +1,21 @@
+{
+    "name": "doubled-pawns-summons-two-pawn-piece-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:36:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OQVvVANhJh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OQVvVANhJh"
+        ],
+        "mechanics": [
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**Summon** two Pawn Piece tokens."
+        ]
+    }
+}

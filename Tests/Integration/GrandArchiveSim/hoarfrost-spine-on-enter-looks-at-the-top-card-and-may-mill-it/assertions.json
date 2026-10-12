@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The looked-at top card was put into the graveyard"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The deck is one card shorter"
+    }
+]

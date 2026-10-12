@@ -1,0 +1,29 @@
+[
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Each of the two memory cards the turn player took into their hand milled the top card of their deck"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 2,
+        "value": 5,
+        "semantic": true,
+        "label": "Their deck is two cards shorter"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Class Bonus: Sink the Mind cost 3 - 1 = 2"
+    }
+]

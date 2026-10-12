@@ -1,0 +1,23 @@
+{
+    "name": "krustallan-ruins-rests-an-entering-ally-unless-its-controller-pays-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fei7chsbal"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fei7chsbal"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "enters-rested",
+            "pay-or-else",
+            "domain"
+        ],
+        "rulesClauses": [
+            "Whenever an ally enters the field under a player's control, rest that ally unless that player pays (1)."
+        ]
+    }
+}

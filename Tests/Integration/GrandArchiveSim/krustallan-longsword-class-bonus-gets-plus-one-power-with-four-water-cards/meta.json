@@ -1,0 +1,22 @@
+{
+    "name": "krustallan-longsword-class-bonus-gets-plus-one-power-with-four-water-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cxwjbqjdmt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cxwjbqjdmt"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you have four or more water element cards in your graveyard, Krustallan Longsword gets +1 [POWER]."
+        ]
+    }
+}

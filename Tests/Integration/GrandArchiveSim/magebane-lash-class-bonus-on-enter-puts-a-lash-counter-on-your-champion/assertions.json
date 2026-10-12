@@ -1,0 +1,19 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"classes\":\"GUARDIAN\"},\"lash\":1}",
+        "semantic": true,
+        "label": "On Enter: a lash counter went on the champion"
+    },
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 1,
+        "semantic": true,
+        "label": "Magebane Lash gets +1 POWER for the lash counter: 0 + 1"
+    }
+]
