@@ -1,0 +1,21 @@
+{
+    "name": "water-herbs-without-the-class-bonus-does-not-gather",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1lyk1dvdlh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1lyk1dvdlh"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Gather**."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "LV 2: two random cards left their memory"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "One card is left in their memory"
+    }
+]

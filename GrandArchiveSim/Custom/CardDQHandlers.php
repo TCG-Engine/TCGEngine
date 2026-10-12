@@ -5245,7 +5245,11 @@ function ClearMyTempZoneCards($player) {
     while(count($tempZone) > 0) array_pop($tempZone);
 }
 
+// The temp-zone map remembers which $playerID the source mzIDs were written from ("myHand-3" means a different hand to each player), so ResolveTempChoiceToSourceMZ() can hand back an mzID in the perspective of
+// whoever consumes it. The staging and the consuming handler often run for different players (the target answers one prompt, the caster the next), and a raw "theirMemory-2" resolved against the other player
+// pointed at the wrong card: Extricating Touch discarded the caster's own card.
 function StageHiddenMZChoicesToTemp($player, $sourceMZs, $mapVarName) {
+    global $playerID;
     ClearMyTempZoneCards($player);
     $indexToSource = [];
     $tempChoices = [];
@@ -5255,7 +5259,7 @@ function StageHiddenMZChoicesToTemp($player, $sourceMZs, $mapVarName) {
         if($obj === null || $obj->removed) continue;
         MZAddZone($player, "myTempZone", $obj->CardID);
         $tempChoices[] = "myTempZone-" . $tempIndex;
-        $indexToSource[strval($tempIndex)] = $sourceMZ;
+        $indexToSource[strval($tempIndex)] = ["mz" => $sourceMZ, "pid" => intval($playerID)];
         ++$tempIndex;
     }
     if(empty($tempChoices)) {
@@ -5275,7 +5279,12 @@ function ResolveTempChoiceToSourceMZ($tempChoiceMZ, $mapVarName) {
     if($raw === null || $raw === "") return null;
     $map = json_decode($raw, true);
     if(!is_array($map) || !isset($map[$tempIndex])) return null;
-    return $map[$tempIndex];
+    $entry = $map[$tempIndex];
+    if(!is_array($entry)) return $entry;
+    global $playerID;
+    // Deck positions are consumed by index against the owner's deck (Twisted Verdict), never as a perspective-relative mzID.
+    if(intval($entry["pid"]) === intval($playerID) || strpos($entry["mz"], "Deck") !== false) return $entry["mz"];
+    return FlipZonePerspective($entry["mz"]);
 }
 
 function DiscardMappedSourceMZ($ownerPlayer, $sourceMZ) {
@@ -5285,14 +5294,11 @@ function DiscardMappedSourceMZ($ownerPlayer, $sourceMZ) {
     $resolvedOwner = ($sourceObj !== null && isset($sourceObj->PlayerID) && intval($sourceObj->PlayerID) > 0)
         ? intval($sourceObj->PlayerID)
         : $ownerPlayer;
-    $normalizedSourceMZ = $sourceMZ;
+    // $sourceMZ already comes back in the current player's perspective (ResolveTempChoiceToSourceMZ), which is what DoDiscardCard() resolves it in.
     if($resolvedOwner != $ownerPlayer) {
         $resolvedOwner = $ownerPlayer;
     }
-    if($resolvedOwner != $playerID) {
-        $normalizedSourceMZ = FlipZonePerspective($sourceMZ);
-    }
-    DoDiscardCard($resolvedOwner, $normalizedSourceMZ);
+    DoDiscardCard($resolvedOwner, $sourceMZ);
 }
 
 $customDQHandlers["ExtricatingTouchZoneChoice"] = function($player, $parts, $lastDecision) {
@@ -7029,7 +7035,7 @@ function TwistedVerdictFinish($owner) {
         return;
     }
     $remaining = [];
-    foreach($map as $sourceMZ) $remaining[] = $sourceMZ;
+    foreach($map as $mapEntry) $remaining[] = is_array($mapEntry) ? $mapEntry["mz"] : $mapEntry;
     ClearMyTempZoneCards($chooser);
     if(empty($remaining)) return;
     $remainingCardIDs = [];

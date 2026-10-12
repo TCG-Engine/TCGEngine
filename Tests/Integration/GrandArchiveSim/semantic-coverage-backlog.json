@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:57:25+00:00",
+    "generatedAt": "2026-10-12T13:43:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1158,
+        "cardsWithExistingFixtures": 1193,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1319,
+        "cardsNeedingSemanticCoverage": 1292,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,6 +26,25 @@
         }
     },
     "cards": [
+        {
+            "cardId": "xw9w6y7vtz",
+            "name": "Think Deep",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "think-deep-glimpses-two-then-mills-up-to-two"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 43
+        },
         {
             "cardId": "5xjzPh6l2M",
             "name": "Cardiac Vessel",
@@ -86,6 +105,46 @@
             "priority": 35
         },
         {
+            "cardId": "r0zadf9q1w",
+            "name": "Conjure Downpour",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "conjure-downpour-attacks-get-minus-two-power"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
+        },
+        {
+            "cardId": "dxAEI20h8F",
+            "name": "Sudden Snow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sudden-snow-banishes-a-floating-memory-card-to-draw"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 34
+        },
+        {
             "cardId": "2sn7hlyrkw",
             "name": "Fatestone of Progress",
             "type": "ITEM",
@@ -120,6 +179,82 @@
             "priority": 33
         },
         {
+            "cardId": "HLcmZLe7Xr",
+            "name": "Pearled Prayer",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pearled-prayer-main-phase-recovers-seven"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
+            "cardId": "DBJ4DuLABr",
+            "name": "Shroud in Mist",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shroud-in-mist-gives-units-stealth"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
+            "cardId": "t1cn1tzgcx",
+            "name": "Song of Frost",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "song-of-frost-ends-the-combat-phase-of-an-attack"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
+            "cardId": "39i1f0ht2t",
+            "name": "Storm of Thorns",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "storm-of-thorns-prevents-one-damage-to-units-you-control"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -136,6 +271,23 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 32
+        },
+        {
+            "cardId": "8ydxeQcp50",
+            "name": "Dynastic Whirlpool",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "dynastic-whirlpool-mills-fifteen-from-each-opponent"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 31
         },
         {
             "cardId": "PboHrwPZgP",
@@ -272,25 +424,6 @@
                 "targeting",
                 "damage",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "o7eanl1gxr",
-            "name": "Diffusive Block",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
                 "condition"
             ],
             "existingFixtures": [],
@@ -790,24 +923,6 @@
             "priority": 24
         },
         {
-            "cardId": "IPmK09iEIT",
-            "name": "Engulf",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "kYG1EDltdI",
             "name": "Enveloping Soulmist",
             "type": "ACTION",
@@ -1204,24 +1319,6 @@
             "priority": 24
         },
         {
-            "cardId": "c4poa10ezw",
-            "name": "Tidal Lock",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "uLuofHw9os",
             "name": "Tomb Sweep",
             "type": "ACTION",
@@ -1460,23 +1557,6 @@
                 "damage",
                 "recover",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "ek5r5YlFQv",
-            "name": "Bolt of Diamonds",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2089,23 +2169,6 @@
                 "targeting",
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "xw9w6y7vtz",
-            "name": "Think Deep",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5974,42 +6037,6 @@
             "priority": 14
         },
         {
-            "cardId": "r0zadf9q1w",
-            "name": "Conjure Downpour",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "2b2w1ydw5z",
-            "name": "Conniving Plans",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "1vt1cn1tzg",
             "name": "Covenant of Thorns",
             "type": "REGALIA,ITEM",
@@ -6092,24 +6119,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "2ghdzy9tz7",
-            "name": "Delusional Vapors",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6676,24 +6685,6 @@
             "priority": 14
         },
         {
-            "cardId": "TTKicbMVMU",
-            "name": "Frigid Embrittlement",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "x7u6wzh973",
             "name": "Frostbinder Apostle",
             "type": "ALLY",
@@ -6811,42 +6802,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "mr1lmsbjcf",
-            "name": "Glacial Evocation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "6IOxuftyVv",
-            "name": "Glacial Guidance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8638,24 +8593,6 @@
             "priority": 14
         },
         {
-            "cardId": "dxAEI20h8F",
-            "name": "Sudden Snow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "uxhmucm8si",
             "name": "Suited Trickery",
             "type": "ACTION",
@@ -8737,24 +8674,6 @@
                 "targeting",
                 "draw-discard",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "sn0ye3aebj",
-            "name": "Tactical Retreat",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -9999,23 +9918,6 @@
             "priority": 13
         },
         {
-            "cardId": "4K2pT3RmTJ",
-            "name": "Chilling Touch",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "wsqvfsyid4",
             "name": "Chrysalis, Hazy Caterpillar",
             "type": "UNIQUE,ALLY",
@@ -10798,23 +10700,6 @@
             "priority": 13
         },
         {
-            "cardId": "4a8hl5dben",
-            "name": "Extricating Touch",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "OgqsRSQVX6",
             "name": "False Tidings",
             "type": "ACTION",
@@ -10841,23 +10726,6 @@
                 "targeting",
                 "recover",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "0s4xe169m2",
-            "name": "Floating Peace",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11045,23 +10913,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "8qgr2drym1",
-            "name": "Frozen Dismissal",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11300,23 +11151,6 @@
                 "cost",
                 "recover",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "QQaOgurnjX",
-            "name": "Imbue in Frost",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11674,40 +11508,6 @@
                 "targeting",
                 "zone-movement",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "b6BFtEqtQM",
-            "name": "Liquidation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "x1c9ob6jva",
-            "name": "Lively Chorale",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12302,23 +12102,6 @@
             "mechanics": [
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "HLcmZLe7Xr",
-            "name": "Pearled Prayer",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13144,23 +12927,6 @@
             "priority": 13
         },
         {
-            "cardId": "xipHhhsgJy",
-            "name": "Set the Traps",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "8bRp3n2IAn",
             "name": "Shardwing Searchlight",
             "type": "ACTION",
@@ -13204,23 +12970,6 @@
                 "targeting",
                 "draw-discard",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "DBJ4DuLABr",
-            "name": "Shroud in Mist",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13322,23 +13071,6 @@
             "mechanics": [
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "t1cn1tzgcx",
-            "name": "Song of Frost",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13450,23 +13182,6 @@
             "priority": 13
         },
         {
-            "cardId": "ba08K8VZnF",
-            "name": "Splashing Perch",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "69iq4d5vet",
             "name": "Springleaf",
             "type": "TOKEN,ITEM",
@@ -13560,23 +13275,6 @@
             "mechanics": [
                 "status",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "39i1f0ht2t",
-            "name": "Storm of Thorns",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14347,22 +14045,6 @@
             "priority": 12
         },
         {
-            "cardId": "10zrMmtUg2",
-            "name": "Aenean Swelling Tides",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "yd56vkebu9",
             "name": "Aetheric Reforging",
             "type": "ACTION",
@@ -14563,22 +14245,6 @@
             "mechanics": [
                 "cost",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "fMv7tIOZwL",
-            "name": "Aqueous Enchanting",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15931,22 +15597,6 @@
             "priority": 12
         },
         {
-            "cardId": "qyRKqSkAQX",
-            "name": "Freeze Stiff",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "7dedg616r0",
             "name": "Freydis, Master Tactician",
             "type": "UNIQUE,ALLY",
@@ -15955,22 +15605,6 @@
             "mechanics": [
                 "counter",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "IyXuaLKjSA",
-            "name": "Frozen Nova",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -16883,22 +16517,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "L9o11y7yfa",
-            "name": "Mind Freeze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -17947,22 +17565,6 @@
             "priority": 12
         },
         {
-            "cardId": "Qx0kV7SbsN",
-            "name": "Sift",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "fsudPn5GQH",
             "name": "Signal Gunner",
             "type": "ALLY",
@@ -18771,22 +18373,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "1lyk1dvdlh",
-            "name": "Water Herbs",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19943,21 +19529,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "8ydxeQcp50",
-            "name": "Dynastic Whirlpool",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21743,21 +21314,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "a8I89SP24E",
-            "name": "Sink into Oblivion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -37681,6 +37237,29 @@
             "priority": 45
         },
         {
+            "cardId": "o7eanl1gxr",
+            "name": "Diffusive Block",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "diffusive-block-prevents-two-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "diffusive-block-prevents-two-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "gn1b2sbrq9",
             "name": "Echoic Guard",
             "type": "ACTION",
@@ -38026,6 +37605,28 @@
             ],
             "semanticFixtures": [
                 "crossroads-specter-champion-hit-opponent-banishes-a-material-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "IPmK09iEIT",
+            "name": "Engulf",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "engulf-negates-a-non-attack-card-activation"
+            ],
+            "semanticFixtures": [
+                "engulf-negates-a-non-attack-card-activation"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38487,6 +38088,30 @@
             "priority": 44
         },
         {
+            "cardId": "c4poa10ezw",
+            "name": "Tidal Lock",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tidal-lock-the-controller-declines-and-the-activation-is-negated-and-banished",
+                "tidal-lock-three-water-cards-in-the-graveyard-make-it-cost-two-less"
+            ],
+            "semanticFixtures": [
+                "tidal-lock-the-controller-declines-and-the-activation-is-negated-and-banished",
+                "tidal-lock-three-water-cards-in-the-graveyard-make-it-cost-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "qtzsekkjn3",
             "name": "Vainglory Retribution",
             "type": "ACTION",
@@ -38591,6 +38216,29 @@
             ],
             "semanticFixtures": [
                 "annul-spell-negate-spell-activation"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "ek5r5YlFQv",
+            "name": "Bolt of Diamonds",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "bolt-of-diamonds-deals-one-damage-to-a-unit",
+                "bolt-of-diamonds-level-two-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "bolt-of-diamonds-deals-one-damage-to-a-unit",
+                "bolt-of-diamonds-level-two-costs-two-less"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41431,6 +41079,30 @@
             "priority": 34
         },
         {
+            "cardId": "2b2w1ydw5z",
+            "name": "Conniving Plans",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "conniving-plans-mills-two-and-deluge-four-prepares",
+                "conniving-plans-with-three-water-cards-only-mills"
+            ],
+            "semanticFixtures": [
+                "conniving-plans-mills-two-and-deluge-four-prepares",
+                "conniving-plans-with-three-water-cards-only-mills"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "5qWWpkgQLl",
             "name": "Coup de Grace",
             "type": "ATTACK",
@@ -41499,6 +41171,28 @@
             "semanticFixtures": [
                 "da-qiao-cinderbinder-class-bonus-rest-empowers-by-the-allies-with-frenzy-counters",
                 "da-qiao-cinderbinder-class-bonus-rest-puts-a-frenzy-counter-on-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "2ghdzy9tz7",
+            "name": "Delusional Vapors",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "delusional-vapors-mills-eight"
+            ],
+            "semanticFixtures": [
+                "delusional-vapors-mills-eight"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42047,6 +41741,28 @@
             "priority": 34
         },
         {
+            "cardId": "TTKicbMVMU",
+            "name": "Frigid Embrittlement",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "frigid-embrittlement-deals-two-damage-to-a-rested-unit"
+            ],
+            "semanticFixtures": [
+                "frigid-embrittlement-deals-two-damage-to-a-rested-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "iqzaNLhqk4",
             "name": "Genuflecting Execution",
             "type": "ACTION",
@@ -42089,6 +41805,54 @@
             "semanticFixtures": [
                 "gilded-pyre-deals-four-damage-to-a-unit-with-a-buff-counter",
                 "gilded-pyre-deals-two-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "mr1lmsbjcf",
+            "name": "Glacial Evocation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glacial-evocation-an-awake-ally-takes-only-two",
+                "glacial-evocation-deals-three-damage-to-a-rested-ally"
+            ],
+            "semanticFixtures": [
+                "glacial-evocation-an-awake-ally-takes-only-two",
+                "glacial-evocation-deals-three-damage-to-a-rested-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "6IOxuftyVv",
+            "name": "Glacial Guidance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glacial-guidance-rests-an-ally-and-class-bonus-adds-an-enlighten-counter",
+                "glacial-guidance-without-the-class-bonus-adds-no-counter"
+            ],
+            "semanticFixtures": [
+                "glacial-guidance-rests-an-ally-and-class-bonus-adds-an-enlighten-counter",
+                "glacial-guidance-without-the-class-bonus-adds-no-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43366,6 +43130,28 @@
             "priority": 34
         },
         {
+            "cardId": "sn0ye3aebj",
+            "name": "Tactical Retreat",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tactical-retreat-makes-a-unit-distant"
+            ],
+            "semanticFixtures": [
+                "tactical-retreat-makes-a-unit-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "K15jWbHAMY",
             "name": "Teardrop Diadem",
             "type": "REGALIA,ITEM",
@@ -44062,6 +43848,27 @@
             "priority": 33
         },
         {
+            "cardId": "4K2pT3RmTJ",
+            "name": "Chilling Touch",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "chilling-touch-banishes-a-random-card-from-their-memory"
+            ],
+            "semanticFixtures": [
+                "chilling-touch-banishes-a-random-card-from-their-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "lgdlx7mdk0",
             "name": "Cinderbloom Tender",
             "type": "ALLY",
@@ -44354,6 +44161,27 @@
             "priority": 33
         },
         {
+            "cardId": "4a8hl5dben",
+            "name": "Extricating Touch",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "extricating-touch-discards-a-revealed-card"
+            ],
+            "semanticFixtures": [
+                "extricating-touch-discards-a-revealed-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ekkjn37cx6",
             "name": "Final Stroke",
             "type": "ATTACK",
@@ -44490,6 +44318,27 @@
             "priority": 33
         },
         {
+            "cardId": "0s4xe169m2",
+            "name": "Floating Peace",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "floating-peace-recovers-one-plus-fatestone-and-fatebound-objects"
+            ],
+            "semanticFixtures": [
+                "floating-peace-recovers-one-plus-fatestone-and-fatebound-objects"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "IM2SpTAKfp",
             "name": "Focal Intensity",
             "type": "ACTION",
@@ -44574,6 +44423,31 @@
             "priority": 33
         },
         {
+            "cardId": "8qgr2drym1",
+            "name": "Frozen Dismissal",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "frozen-dismissal-class-bonus-costs-one-less",
+                "frozen-dismissal-the-controller-declines-and-the-ally-is-negated-and-banished",
+                "frozen-dismissal-the-controller-pays-four-and-the-ally-resolves"
+            ],
+            "semanticFixtures": [
+                "frozen-dismissal-class-bonus-costs-one-less",
+                "frozen-dismissal-the-controller-declines-and-the-ally-is-negated-and-banished",
+                "frozen-dismissal-the-controller-pays-four-and-the-ally-resolves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "iqcknwa2vl",
             "name": "Frozen Quill",
             "type": "ITEM",
@@ -44652,6 +44526,27 @@
             ],
             "semanticFixtures": [
                 "ignite-fate-deals-two-damage-to-each-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "QQaOgurnjX",
+            "name": "Imbue in Frost",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "imbue-in-frost-gives-a-sword-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "imbue-in-frost-gives-a-sword-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44788,6 +44683,50 @@
             "semanticFixtures": [
                 "leran-pastoral-hymns-end-phase-damages-a-champion-with-influence-eight",
                 "leran-pastoral-hymns-end-phase-with-influence-seven-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "b6BFtEqtQM",
+            "name": "Liquidation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "liquidation-deluge-ten-deals-seven-damage",
+                "liquidation-with-nine-water-cards-does-nothing"
+            ],
+            "semanticFixtures": [
+                "liquidation-deluge-ten-deals-seven-damage",
+                "liquidation-with-nine-water-cards-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "x1c9ob6jva",
+            "name": "Lively Chorale",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lively-chorale-gives-a-beast-plus-three-life"
+            ],
+            "semanticFixtures": [
+                "lively-chorale-gives-a-beast-plus-three-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45559,6 +45498,29 @@
             "priority": 33
         },
         {
+            "cardId": "xipHhhsgJy",
+            "name": "Set the Traps",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "set-the-traps-mills-two-and-class-bonus-prepares",
+                "set-the-traps-without-the-class-bonus-adds-no-counter"
+            ],
+            "semanticFixtures": [
+                "set-the-traps-mills-two-and-class-bonus-prepares",
+                "set-the-traps-without-the-class-bonus-adds-no-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "nduIoPhZr1",
             "name": "Seven of Hearts",
             "type": "ALLY",
@@ -45710,6 +45672,27 @@
             "semanticFixtures": [
                 "spirit-of-serene-fire-enter-glimpses-and-draws-six",
                 "spirit-of-serene-fire-lineage-release-recovers-six"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ba08K8VZnF",
+            "name": "Splashing Perch",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "splashing-perch-makes-your-champion-distant"
+            ],
+            "semanticFixtures": [
+                "splashing-perch-makes-your-champion-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46101,6 +46084,26 @@
             "priority": 32
         },
         {
+            "cardId": "10zrMmtUg2",
+            "name": "Aenean Swelling Tides",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover"
+            ],
+            "existingFixtures": [
+                "aenean-swelling-tides-recovers-three"
+            ],
+            "semanticFixtures": [
+                "aenean-swelling-tides-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "eb3ib5el99",
             "name": "Aithne, Spirit of Fire",
             "type": "CHAMPION",
@@ -46115,6 +46118,28 @@
             ],
             "semanticFixtures": [
                 "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "fMv7tIOZwL",
+            "name": "Aqueous Enchanting",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "aqueous-enchanting-can-give-plus-one-life-instead",
+                "aqueous-enchanting-gives-allies-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "aqueous-enchanting-can-give-plus-one-life-instead",
+                "aqueous-enchanting-gives-allies-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46693,6 +46718,46 @@
             "priority": 32
         },
         {
+            "cardId": "qyRKqSkAQX",
+            "name": "Freeze Stiff",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "freeze-stiff-rests-up-to-two-allies"
+            ],
+            "semanticFixtures": [
+                "freeze-stiff-rests-up-to-two-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "IyXuaLKjSA",
+            "name": "Frozen Nova",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "frozen-nova-damages-and-rests-all-allies"
+            ],
+            "semanticFixtures": [
+                "frozen-nova-damages-and-rests-all-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "r3bmriltuw",
             "name": "Fumant Shieldmaiden",
             "type": "ALLY",
@@ -47129,6 +47194,26 @@
                 "mercenarys-blade-activates-from-the-material-deck-by-removing-a-preparation-counter",
                 "mercenarys-blade-is-not-activated-from-the-material-deck-without-a-preparation-counter",
                 "mercenarys-blade-is-not-activated-from-the-material-deck-without-the-class-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "L9o11y7yfa",
+            "name": "Mind Freeze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "mind-freeze-banishes-level-cards-from-their-memory"
+            ],
+            "semanticFixtures": [
+                "mind-freeze-banishes-level-cards-from-their-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47641,6 +47726,26 @@
             ],
             "semanticFixtures": [
                 "shout-at-your-pets-gives-level-with-an-animal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "Qx0kV7SbsN",
+            "name": "Sift",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sift-mills-one-then-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "sift-mills-one-then-draws-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48242,6 +48347,28 @@
             ],
             "semanticFixtures": [
                 "vyra-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "1lyk1dvdlh",
+            "name": "Water Herbs",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "water-herbs-mills-two-and-class-bonus-gathers",
+                "water-herbs-without-the-class-bonus-does-not-gather"
+            ],
+            "semanticFixtures": [
+                "water-herbs-mills-two-and-class-bonus-gathers",
+                "water-herbs-without-the-class-bonus-does-not-gather"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49163,6 +49290,27 @@
             "semanticFixtures": [
                 "serpentine-judicator-its-controller-can-still-recover",
                 "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "a8I89SP24E",
+            "name": "Sink into Oblivion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "sink-into-oblivion-can-target-yourself",
+                "sink-into-oblivion-mills-three-from-the-target-player"
+            ],
+            "semanticFixtures": [
+                "sink-into-oblivion-can-target-yourself",
+                "sink-into-oblivion-mills-three-from-the-target-player"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

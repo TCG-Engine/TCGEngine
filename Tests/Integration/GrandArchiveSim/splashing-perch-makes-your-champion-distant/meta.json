@@ -1,0 +1,21 @@
+{
+    "name": "splashing-perch-makes-your-champion-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ba08K8VZnF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ba08K8VZnF"
+        ],
+        "mechanics": [
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your champion is **distant**, draw a card. Otherwise, your champion becomes **distant**."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "imbue-in-frost-gives-a-sword-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "QQaOgurnjX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "QQaOgurnjX"
+        ],
+        "mechanics": [
+            "stat-change",
+            "targeting",
+            "weapon"
+        ],
+        "rulesClauses": [
+            "Target Sword weapon you control gets +2 [POWER] until end of turn."
+        ]
+    }
+}

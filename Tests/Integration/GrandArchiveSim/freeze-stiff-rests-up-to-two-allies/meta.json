@@ -1,0 +1,21 @@
+{
+    "name": "freeze-stiff-rests-up-to-two-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qyRKqSkAQX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qyRKqSkAQX"
+        ],
+        "mechanics": [
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Rest up to two target allies."
+        ]
+    }
+}

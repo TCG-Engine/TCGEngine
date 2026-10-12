@@ -1,0 +1,21 @@
+{
+    "name": "diffusive-block-prevents-two-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o7eanl1gxr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o7eanl1gxr"
+        ],
+        "mechanics": [
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to target unit this turn."
+        ]
+    }
+}

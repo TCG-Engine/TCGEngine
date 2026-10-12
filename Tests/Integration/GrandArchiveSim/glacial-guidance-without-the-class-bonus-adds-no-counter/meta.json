@@ -1,0 +1,21 @@
+{
+    "name": "glacial-guidance-without-the-class-bonus-adds-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:31:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6IOxuftyVv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6IOxuftyVv"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put an **enlighten** counter on your champion."
+        ]
+    }
+}

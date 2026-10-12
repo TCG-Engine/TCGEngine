@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "The chosen revealed card was discarded from their hand"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 6,
+        "semantic": true,
+        "label": "Their hand lost one card"
+    }
+]

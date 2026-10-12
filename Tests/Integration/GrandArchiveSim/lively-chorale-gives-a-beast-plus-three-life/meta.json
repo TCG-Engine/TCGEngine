@@ -1,0 +1,21 @@
+{
+    "name": "lively-chorale-gives-a-beast-plus-three-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x1c9ob6jva"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x1c9ob6jva"
+        ],
+        "mechanics": [
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Animal or Beast ally you control gets +3 [LIFE] until end of turn."
+        ]
+    }
+}

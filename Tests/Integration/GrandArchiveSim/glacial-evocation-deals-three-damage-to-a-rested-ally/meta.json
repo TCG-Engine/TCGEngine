@@ -1,0 +1,22 @@
+{
+    "name": "glacial-evocation-deals-three-damage-to-a-rested-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:29:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mr1lmsbjcf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mr1lmsbjcf"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "rested"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to target ally. If that unit is rested, deal 3 damage to it instead."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "frozen-nova-damages-and-rests-all-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IyXuaLKjSA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IyXuaLKjSA"
+        ],
+        "mechanics": [
+            "damage",
+            "rest",
+            "area",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to all allies and rest them. Those allies don't wake up during their controller's next wake up phase."
+        ]
+    }
+}

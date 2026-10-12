@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "Their top three cards went to their graveyard"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Your own graveyard only holds the spell"
+    }
+]

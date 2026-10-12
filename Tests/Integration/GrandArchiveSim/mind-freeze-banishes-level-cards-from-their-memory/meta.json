@@ -1,0 +1,22 @@
+{
+    "name": "mind-freeze-banishes-level-cards-from-their-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "L9o11y7yfa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "L9o11y7yfa"
+        ],
+        "mechanics": [
+            "banish",
+            "memory",
+            "level-scaling"
+        ],
+        "rulesClauses": [
+            "Banish **LV** cards at random from target opponent's memory. Return those cards to their memory at the beginning of their next end phase."
+        ]
+    }
+}

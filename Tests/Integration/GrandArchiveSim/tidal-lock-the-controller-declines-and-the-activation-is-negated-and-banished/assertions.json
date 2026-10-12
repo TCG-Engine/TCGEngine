@@ -1,0 +1,20 @@
+[
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Declined: the negated card was banished"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "Tidal Lock cost its full 3"
+    }
+]

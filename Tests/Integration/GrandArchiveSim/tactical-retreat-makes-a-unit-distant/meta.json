@@ -1,0 +1,21 @@
+{
+    "name": "tactical-retreat-makes-a-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:33:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sn0ye3aebj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sn0ye3aebj"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**."
+        ]
+    }
+}
