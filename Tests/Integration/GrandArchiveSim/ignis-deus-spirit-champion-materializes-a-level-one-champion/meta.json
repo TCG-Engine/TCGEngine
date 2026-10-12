@@ -1,0 +1,22 @@
+{
+    "name": "ignis-deus-spirit-champion-materializes-a-level-one-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:09:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rxdon8uwza"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rxdon8uwza"
+        ],
+        "mechanics": [
+            "materialize",
+            "champion",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Materialize a champion card with base level 1 from your material deck."
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Kindle 7: seven fire cards were banished from the graveyard, each paying 1"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The whole cost was paid from the graveyard: no hand cards went to memory"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "8",
+        "semantic": true,
+        "label": "[Class Bonus] 4 POWER + 4 = 8 damage"
+    }
+]

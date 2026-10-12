@@ -1,0 +1,21 @@
+{
+    "name": "ignis-deus-needs-a-spirit-champion-to-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:10:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rxdon8uwza"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rxdon8uwza"
+        ],
+        "mechanics": [
+            "restriction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this card only if your champion is a Spirit."
+        ]
+    }
+}

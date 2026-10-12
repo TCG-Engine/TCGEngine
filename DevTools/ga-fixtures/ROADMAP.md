@@ -253,3 +253,15 @@ verified by regenerating and comparing by meaning.
   memory) and Everflame Staff. The Dragon's Dawn "discard went to banish" worry was test setup (an unanswered prompt); the card goes to the graveyard.
 - Still to do in Fire: remaining regalia (Beastsoul Visage, Blast Shield, Fanned Synchron, Infernal Vessel, Mantle of the Abyss, Sigil of
   Budding Embers, Bombard Flarecannon, Contraband Revolver, Lacuna's Grasp), 8 champions, ~12 odd actions, ~15 allies, ~19 uniques.
+
+### Phase 3a (Fire) -- actions batch (2026-10-11)
+- `fire-actions.php`: Tyrannical Denigration (x2), Spontaneous Combustion, Suffocating Ash (x3), Tether in Flames (x3), Suzaku's Command, Attune with Flames (x3),
+  Oppressive Presence, Surge Protector, Potion Infusion: Blaze, Ignis Deus (x2), Innervate Fury (x2).
+- Engine bugs fixed (each with a fixture):
+  - Oppressive Presence could never be activated: its generated prereq was inverted (refused the one window it is meant for).
+  - Innervate Fury never paid its "additional cost: delevel your champion and recover 5" (Innervate Agility had it, the sibling did not); also has a prereq now.
+  - Split damage (Innervate Fury, Spirit Blade: Dispersion, ...) left a later target alive when an earlier one died, because the zone compacted and the next index shifted; damage is now dealt highest index first.
+  - Potion Infusion: Blaze read the raw "CombatAttacker" mz (attacker's perspective) and so never hit the opponent's attacking ally.
+- New findings (not fixed): ~20 other raw `GetVariable("CombatAttacker")` readers in GameLogic.php/GeneratedMacroCode.php resolve the attacker from the acting player's perspective; any
+  defender-side reaction that uses it can mis-resolve (audit list in the end-of-Fire report). Suzaku's Command's Shenju clause is unreachable: every Shenju has Spellshroud and
+  `FilterSpellshroudTargets` also hides it from its controller's own spells (rules question: does Spellshroud stop your own spells?).

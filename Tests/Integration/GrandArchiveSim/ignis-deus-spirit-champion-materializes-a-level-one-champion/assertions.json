@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn",
+        "semantic": true,
+        "label": "The level 1 champion from the material deck was materialized"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "It came out of the material deck"
+    }
+]

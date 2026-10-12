@@ -1,0 +1,25 @@
+{
+    "name": "innervate-fury-delevels-your-champion-and-splits-seven-damage-among-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:10:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wpbhigka5a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wpbhigka5a"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "delevel",
+            "recover",
+            "damage",
+            "split-damage"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, **delevel** your champion and **recover 5**.",
+            "Deal 7 damage split among any amount of target allies."
+        ]
+    }
+}

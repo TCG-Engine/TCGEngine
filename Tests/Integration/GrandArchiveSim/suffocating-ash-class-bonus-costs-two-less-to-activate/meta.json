@@ -1,0 +1,21 @@
+{
+    "name": "suffocating-ash-class-bonus-costs-two-less-to-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:58:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d6xkecLJ5S"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d6xkecLJ5S"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The controller let Tether in Flames deal 1 + LV 0 = 1 damage to their champion"
+    },
+    {
+        "step": 15,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The activation was not negated: the ally entered"
+    }
+]

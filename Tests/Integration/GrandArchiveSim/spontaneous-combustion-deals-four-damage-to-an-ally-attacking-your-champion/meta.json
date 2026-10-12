@@ -1,0 +1,22 @@
+{
+    "name": "spontaneous-combustion-deals-four-damage-to-an-ally-attacking-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:56:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cQlxapCsxQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cQlxapCsxQ"
+        ],
+        "mechanics": [
+            "reaction",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target ally attacking your champion."
+        ]
+    }
+}

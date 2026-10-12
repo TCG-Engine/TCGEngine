@@ -1960,9 +1960,23 @@ $activateCardPrereqs["pwscn0esog:0"] = function($player, $mzID, $ignoreCost) { /
 };
 $cardActivatedPrereqs["dfchplzf6m:0"] = function($player, $mzID) { return GAIsEndPhaseWindow() && GetTurnPlayer() != $player; }; // Ingress of Sanguine Ire: only during an opponent's end phase
 $cardActivatedPrereqs["ao1cfkhbp6:0"] = function($player, $mzID) { return GAIsEndPhaseWindow() && GetTurnPlayer() == $player; };  // Stand Fast: only during your end phase
-foreach(["vm5kt3q2sv", "nvx7mnu1xh", "PR4OkzJBVr"] as $gaRecollectionOnlyID) { // Vanish from Sight, Attune with Flames, Hemorrhaged Intimidation: only during an opponent's recollection phase
+foreach(["vm5kt3q2sv", "nvx7mnu1xh", "PR4OkzJBVr", "j9hjjvkyyr"] as $gaRecollectionOnlyID) { // Vanish from Sight, Attune with Flames, Hemorrhaged Intimidation, Oppressive Presence: only during an opponent's recollection phase
     $cardActivatedPrereqs[$gaRecollectionOnlyID . ":0"] = function($player, $mzID) { return GetCurrentPhase() === "BREC" && GetTurnPlayer() != $player; };
 }
+// Innervate Fury (wpbhigka5a): "As an additional cost to activate this card, delevel your champion and recover 5." Innervate Agility had the cost wired in (GameLogic.php, InnervateAgilityActivationCost) and a prereq; its sibling had neither, so
+// Fury cast for its reserve cost alone, with no delevel and no recover, from a level 1 champion. The cost block now covers both cards; this is Agility's prereq: a champion with no lineage cannot pay it.
+$cardActivatedPrereqs["wpbhigka5a:0"] = function($player, $mzID) {
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") || ($fieldObj->Controller ?? 0) != $player) continue;
+        return !empty(is_array($fieldObj->Subcards) ? $fieldObj->Subcards : []);
+    }
+    return false;
+};
+// Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
+$activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
+    if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }
+    return true;
+};
 
 // Sidereal Spellshot (xwwkxq0vp3): "[Class Bonus] Glimpse X. Then you may load Sidereal Spellshot into an Aetherwing weapon you control." The Class Bonus covers the Glimpse sentence only; the generated body returned
 // before the optional load for a non-Ranger champion (unlike every other Aethercharge card, e.g. Constellation's Blessing).

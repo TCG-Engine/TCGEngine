@@ -1,0 +1,11 @@
+[
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "[Class Bonus] Only 1 of the 3 reserve cost was paid"
+    }
+]

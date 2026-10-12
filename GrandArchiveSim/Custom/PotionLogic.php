@@ -615,7 +615,8 @@ function ProcessPotionInfusionTriggers($player, $potionMZ) {
                 DecisionQueueController::StoreVariable("enhancePotency", "YES");
                 break;
             case "INFUSION_BLAZE": // Potion Infusion: Blaze — deal 4 to target attacking ally
-                $atkMZ = DecisionQueueController::GetVariable("CombatAttacker");
+                // "CombatAttacker" is stored from the attacker's perspective; the potion's controller is usually the defender, so read it through the viewer-relative accessor (the raw variable pointed at the defender's own zone and the damage never landed).
+                $atkMZ = GetCombatAttackerMZ();
                 if($atkMZ !== null && $atkMZ !== "-" && $atkMZ !== "") {
                     $atkObj = GetZoneObject($atkMZ);
                     if($atkObj !== null && !$atkObj->removed

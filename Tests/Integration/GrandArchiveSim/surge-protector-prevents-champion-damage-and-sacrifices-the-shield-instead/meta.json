@@ -1,0 +1,23 @@
+{
+    "name": "surge-protector-prevents-champion-damage-and-sacrifices-the-shield-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:06:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qigcom2ry2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qigcom2ry2"
+        ],
+        "mechanics": [
+            "prevention",
+            "sacrifice",
+            "granted-ability",
+            "reaction"
+        ],
+        "rulesClauses": [
+            "Until end of turn, target Shield item you control gains \"If damage would be dealt to your champion, prevent that damage and sacrifice this object instead.\""
+        ]
+    }
+}

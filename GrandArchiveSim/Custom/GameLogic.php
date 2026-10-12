@@ -2879,8 +2879,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    //1.3 Declaring Costs — Innervate Agility (v43ehjdu50): mandatory delevel + recover 5
-    if($obj->CardID === "v43ehjdu50" && !$ignoreCost) {
+    //1.3 Declaring Costs — Innervate Agility (v43ehjdu50) and Innervate Fury (wpbhigka5a): mandatory delevel + recover 5
+    if(in_array($obj->CardID, ["v43ehjdu50", "wpbhigka5a"], true) && !$ignoreCost) {
         $canDelevel = false;
         $field = GetField($player);
         foreach($field as $fieldObj) {
@@ -28098,6 +28098,14 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
 function ProcessSplitDamage($player, $source, $assignmentStr) {
     if(empty($assignmentStr) || $assignmentStr === "-") return;
     $pairs = explode(",", $assignmentStr);
+    // A target that dies is removed from its zone and the zone is compacted, which shifts every later index: assigning 3 to theirField-1 and 4 to theirField-2 left the second ally damaged but alive. Deal to the highest index in each zone first so the
+    // remaining mzIDs stay valid (Innervate Fury, Spirit Blade: Dispersion and every other split-damage card go through here).
+    usort($pairs, function($a, $b) {
+        $ap = explode(":", $a)[0]; $bp = explode(":", $b)[0];
+        $aZone = substr($ap, 0, (int)strrpos($ap, "-")); $bZone = substr($bp, 0, (int)strrpos($bp, "-"));
+        if($aZone !== $bZone) return strcmp($aZone, $bZone);
+        return intval(substr($bp, (int)strrpos($bp, "-") + 1)) <=> intval(substr($ap, (int)strrpos($ap, "-") + 1));
+    });
     foreach($pairs as $pair) {
         $parts = explode(":", $pair);
         if(count($parts) < 2) continue;

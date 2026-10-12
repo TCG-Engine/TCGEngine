@@ -1,0 +1,23 @@
+{
+    "name": "tyrannical-denigration-class-bonus-kindle-seven-pays-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:55:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OjOcXBiO0b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OjOcXBiO0b"
+        ],
+        "mechanics": [
+            "kindle",
+            "class-bonus",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Kindle 7**",
+            "[Class Bonus] CARDNAME gets +4 [POWER] and can't be retaliated."
+        ]
+    }
+}

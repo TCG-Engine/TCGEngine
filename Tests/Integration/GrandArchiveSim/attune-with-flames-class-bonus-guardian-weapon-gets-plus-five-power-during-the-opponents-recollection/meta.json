@@ -1,0 +1,25 @@
+{
+    "name": "attune-with-flames-class-bonus-guardian-weapon-gets-plus-five-power-during-the-opponents-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:03:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nvx7mnu1xh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nvx7mnu1xh"
+        ],
+        "mechanics": [
+            "stat-change",
+            "timing-restriction",
+            "cost-reduction",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase.",
+            "Target Guardian weapon you control gets +5 [POWER] until the end of your next turn.",
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "step": 14,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 7,
+        "semantic": true,
+        "label": "No Class Bonus: 2 + 5 = 7 POWER"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "The full cost of 6 was paid"
+    }
+]
