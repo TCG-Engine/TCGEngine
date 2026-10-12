@@ -1,0 +1,20 @@
+{
+    "name": "fellowships-gale-loads-into-the-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:18:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "payjps7DkB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "payjps7DkB"
+        ],
+        "mechanics": [
+            "load"
+        ],
+        "rulesClauses": [
+            "Load CARDNAME into an Aetherwing weapon you control."
+        ]
+    }
+}

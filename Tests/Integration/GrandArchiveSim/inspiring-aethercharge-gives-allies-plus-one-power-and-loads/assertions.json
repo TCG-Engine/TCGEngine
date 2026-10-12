@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Giant Tortoise 1 + 1 power"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Subcards",
+        "value": "[\"fPtTKILV7f\"]",
+        "semantic": true,
+        "label": "Loaded into the Aetherwing"
+    }
+]

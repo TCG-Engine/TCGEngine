@@ -430,3 +430,105 @@ gaScenario('verdigris-decree-imbued-chooses-two-modes-power-and-destroy')
     ->tested('Verdigris Decree')
     ->covers(['imbue', 'modal-choice'], 'Choose one. If CARDNAME is **imbued**, choose two instead—')
     ->register();
+
+// ---- Aethercharge actions: the load clause ----
+// "You may load CARDNAME into an Aetherwing weapon you control": a YESNO after the effect; YES moves the card into the weapon's Subcards.
+
+gaScenario('teasing-aerocharge-suppresses-an-ally-then-loads-into-the-aetherwing')
+    ->standardDeck('Teasing Aerocharge')
+    ->readyFor('Teasing Aerocharge')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Teasing Aerocharge')
+    ->castSpell('Teasing Aerocharge', pay: 2, window: 'me', target: 'myField-1')->answer(1, 'YES')
+    ->expectProperty('p1Field-1', 'Subcards', '["6lkv3tu69l"]', 'The Aerocharge is loaded in the weapon (the weapon moved down a slot when the ally was suppressed)')
+    ->expectZoneCount('myGraveyard', 0, 1, 'It left the graveyard')
+    ->expectZoneCount('myBanish', 1, 1, 'The suppressed ally is banished')
+    ->tested('Teasing Aerocharge')
+    ->covers(['suppress', 'load', 'targeting'], '**Suppress** target ally.', 'Then you may load Teasing Aerocharge into an Aetherwing weapon you control.')
+    ->register();
+
+gaScenario('teasing-aerocharge-declining-the-load-leaves-it-in-the-graveyard')
+    ->standardDeck('Teasing Aerocharge')
+    ->readyFor('Teasing Aerocharge')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Teasing Aerocharge')
+    ->castSpell('Teasing Aerocharge', pay: 2, window: 'me', target: 'myField-1')->answer(1, 'NO')
+    ->expectProperty('p1Field-1', 'Subcards', '[]', 'Nothing loaded')
+    ->expectCardExists('myGraveyard', 'Teasing Aerocharge', 'The card stays in the graveyard')
+    ->tested('Teasing Aerocharge')
+    ->covers(['load'], 'you may load Teasing Aerocharge')
+    ->register();
+
+gaScenario('aethers-embrace-makes-a-unit-distant-and-loads-into-the-aetherwing')
+    ->standardDeck('Aether\'s Embrace')
+    ->readyFor('Aether\'s Embrace')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Aether\'s Embrace')
+    ->castSpell('Aether\'s Embrace', pay: 2, window: 'me', target: 'myField-0')->answer(1, 'YES')
+    ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","DISTANT"]', 'The champion became distant')
+    ->expectProperty('p1Field-1', 'Subcards', '["wd7nuab7f3"]', 'Loaded into the Aetherwing')
+    ->tested('Aether\'s Embrace')
+    ->covers(['distant', 'load', 'targeting'], 'Target unit becomes **distant**.', 'You may load Aether\'s Embrace into an Aetherwing weapon you control.')
+    ->register();
+
+gaScenario('aethers-embrace-a-defending-ranger-ally-wakes-up-and-gets-plus-two-power-and-life')
+    ->standardDeck('Aether\'s Embrace')
+    ->readyFor('Aether\'s Embrace')
+    ->seed('myField', 'Lone Gunslinger', properties: ['Status' => 1])
+    ->seed('myHand', 'Aether\'s Embrace')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, 'myHand-7')->pay(2)->pass(1)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Status', '2', 'The defending Ranger ally woke up')
+    ->expectPower('p1Field-1', 3, 'Lone Gunslinger 1 + 2 power')
+    ->expectLife('p1Field-1', 3, 'Lone Gunslinger 1 + 2 life')
+    ->tested('Aether\'s Embrace')
+    ->covers(['status', 'stat-change', 'condition'], 'If that unit is a defending Ranger ally, wake it up and it gets +2[POWER] and +2[LIFE] until end of turn.')
+    ->register();
+
+// ---- Inspiring Aethercharge ----
+
+gaScenario('inspiring-aethercharge-gives-allies-plus-one-power-and-loads')
+    ->standardDeck('Inspiring Aethercharge')
+    ->readyFor('Inspiring Aethercharge')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Inspiring Aethercharge')
+    ->castSpell('Inspiring Aethercharge', pay: 2, window: 'me')->answer(1, 'YES')
+    ->expectPower('p1Field-1', 2, 'Giant Tortoise 1 + 1 power')
+    ->expectProperty('p1Field-2', 'Subcards', '["fPtTKILV7f"]', 'Loaded into the Aetherwing')
+    ->tested('Inspiring Aethercharge')
+    ->covers(['stat-change', 'load'], 'Allies you control get +1[POWER] until end of turn.', 'You may load CARDNAME into an Aetherwing weapon you control.')
+    ->register();
+
+// ---- Charging Galeshot ----
+
+gaScenario('charging-galeshot-returns-the-attacking-ally-to-its-owners-memory-and-loads')
+    ->standardDeck('Charging Galeshot')
+    ->readyFor('Charging Galeshot')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Charging Galeshot')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(1, 'myHand-7')->pay(2)->pass(1)->answer(1, 'theirField-1')->answer(1, 'YES')
+    ->expectZoneCount('theirField', 1, 1, 'The attacking ally left the field')
+    ->expectCardExists('theirMemory', 'Giant Tortoise', 'It went to its owner\'s memory')
+    ->expectProperty('p1Field-1', 'Subcards', '["qu9wwsi17b"]', 'Loaded into the Aetherwing')
+    ->tested('Charging Galeshot')
+    ->covers(['zone-movement', 'load', 'targeting'], 'Return target attacking ally to its owner\'s memory.', 'Then you may load Charging Galeshot into an Aetherwing weapon you control.')
+    ->register();
+
+// ---- Fellowship's Gale ----
+
+gaScenario('fellowships-gale-loads-into-the-aetherwing')
+    ->standardDeck('Fellowship\'s Gale')
+    ->readyFor('Fellowship\'s Gale')
+    ->seed('myField', 'Seeker\'s Aetherwing')
+    ->seed('myHand', 'Fellowship\'s Gale')
+    ->castSpell('Fellowship\'s Gale', pay: 1, window: 'me')
+    ->expectProperty('p1Field-1', 'Subcards', '["payjps7DkB"]', 'Loaded into the Aetherwing (not optional)')
+    ->tested('Fellowship\'s Gale')
+    ->covers(['load'], 'Load CARDNAME into an Aetherwing weapon you control.')
+    ->register();

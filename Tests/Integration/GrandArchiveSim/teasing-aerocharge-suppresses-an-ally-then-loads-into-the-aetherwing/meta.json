@@ -1,0 +1,23 @@
+{
+    "name": "teasing-aerocharge-suppresses-an-ally-then-loads-into-the-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:17:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6lkv3tu69l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6lkv3tu69l"
+        ],
+        "mechanics": [
+            "suppress",
+            "load",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Suppress** target ally.",
+            "Then you may load Teasing Aerocharge into an Aetherwing weapon you control."
+        ]
+    }
+}

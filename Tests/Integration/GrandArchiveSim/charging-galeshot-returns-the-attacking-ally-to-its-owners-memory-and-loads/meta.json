@@ -1,0 +1,23 @@
+{
+    "name": "charging-galeshot-returns-the-attacking-ally-to-its-owners-memory-and-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:17:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qu9wwsi17b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qu9wwsi17b"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "load",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Return target attacking ally to its owner's memory.",
+            "Then you may load Charging Galeshot into an Aetherwing weapon you control."
+        ]
+    }
+}

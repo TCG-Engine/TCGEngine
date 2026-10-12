@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T20:15:22+00:00",
+    "generatedAt": "2026-10-12T20:18:38+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1431,
+        "cardsWithExistingFixtures": 1436,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1046,
+        "cardsNeedingSemanticCoverage": 1041,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -7067,23 +7067,6 @@
             "priority": 13
         },
         {
-            "cardId": "wd7nuab7f3",
-            "name": "Aether's Embrace",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "YPaL2BxDSN",
             "name": "Allen, Beast Beckoner",
             "type": "CHAMPION",
@@ -11426,22 +11409,6 @@
             "priority": 12
         },
         {
-            "cardId": "qu9wwsi17b",
-            "name": "Charging Galeshot",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "CyiA6N2geQ",
             "name": "Chasing Shadows",
             "type": "PHANTASIA",
@@ -14050,22 +14017,6 @@
             "priority": 12
         },
         {
-            "cardId": "6lkv3tu69l",
-            "name": "Teasing Aerocharge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "xp6qqi6vwf",
             "name": "Tempus Stalker",
             "type": "ALLY",
@@ -15691,21 +15642,6 @@
             "priority": 11
         },
         {
-            "cardId": "payjps7DkB",
-            "name": "Fellowship's Gale",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "8bls6g7xgw",
             "name": "Fertile Grounds",
             "type": "PHANTASIA",
@@ -16133,21 +16069,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "fPtTKILV7f",
-            "name": "Inspiring Aethercharge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -41886,6 +41807,29 @@
             "priority": 33
         },
         {
+            "cardId": "wd7nuab7f3",
+            "name": "Aether's Embrace",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aethers-embrace-a-defending-ranger-ally-wakes-up-and-gets-plus-two-power-and-life",
+                "aethers-embrace-makes-a-unit-distant-and-loads-into-the-aetherwing"
+            ],
+            "semanticFixtures": [
+                "aethers-embrace-a-defending-ranger-ally-wakes-up-and-gets-plus-two-power-and-life",
+                "aethers-embrace-makes-a-unit-distant-and-loads-into-the-aetherwing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "1mvv1f83ls",
             "name": "Aethercloak Sentinel",
             "type": "ALLY",
@@ -46425,6 +46369,26 @@
             "priority": 32
         },
         {
+            "cardId": "qu9wwsi17b",
+            "name": "Charging Galeshot",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "charging-galeshot-returns-the-attacking-ally-to-its-owners-memory-and-loads"
+            ],
+            "semanticFixtures": [
+                "charging-galeshot-returns-the-attacking-ally-to-its-owners-memory-and-loads"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "5giGYm8WlR",
             "name": "Cheetah of Bound Fury",
             "type": "ALLY",
@@ -48968,6 +48932,28 @@
             "priority": 32
         },
         {
+            "cardId": "6lkv3tu69l",
+            "name": "Teasing Aerocharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "teasing-aerocharge-declining-the-load-leaves-it-in-the-graveyard",
+                "teasing-aerocharge-suppresses-an-ally-then-loads-into-the-aetherwing"
+            ],
+            "semanticFixtures": [
+                "teasing-aerocharge-declining-the-load-leaves-it-in-the-graveyard",
+                "teasing-aerocharge-suppresses-an-ally-then-loads-into-the-aetherwing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "wjzg76zofp",
             "name": "Temper in Flames",
             "type": "ACTION",
@@ -49822,6 +49808,25 @@
             "priority": 31
         },
         {
+            "cardId": "payjps7DkB",
+            "name": "Fellowship's Gale",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "fellowships-gale-loads-into-the-aetherwing"
+            ],
+            "semanticFixtures": [
+                "fellowships-gale-loads-into-the-aetherwing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "LUfgfsWTTO",
             "name": "Fiery Momentum",
             "type": "ATTACK",
@@ -50138,6 +50143,25 @@
             ],
             "semanticFixtures": [
                 "indissoluble-fractal-class-bonus-ephemerate-returns-it-from-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "fPtTKILV7f",
+            "name": "Inspiring Aethercharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "inspiring-aethercharge-gives-allies-plus-one-power-and-loads"
+            ],
+            "semanticFixtures": [
+                "inspiring-aethercharge-gives-allies-plus-one-power-and-loads"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

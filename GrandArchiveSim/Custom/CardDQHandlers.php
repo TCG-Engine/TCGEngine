@@ -6126,6 +6126,10 @@ $customDQHandlers["MayLoadAetherwingConfirm"] = function($player, $parts, $lastD
     if($lastDecision !== "YES") return;
     $sourceMZ = DecisionQueueController::GetVariable("MLAE_sourceMZ");
     $wingMZ = DecisionQueueController::GetVariable("MLAE_wingMZ");
+    // The weapon's field index was recorded when the offer was queued. An effect resolved in between can shift it (Teasing Aerocharge
+    // suppresses an ally first, so the Aetherwing moved down a slot and the load silently went nowhere): ask again, there is only one.
+    $wings = GetAetherwingWeapons($player);
+    if(count($wings) === 1) $wingMZ = $wings[0];
     if($sourceMZ !== null && $wingMZ !== null) {
         LoadIntoAetherwing($player, $sourceMZ, $wingMZ);
     }

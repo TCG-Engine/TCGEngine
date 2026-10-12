@@ -1,0 +1,22 @@
+{
+    "name": "inspiring-aethercharge-gives-allies-plus-one-power-and-loads",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:17:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fPtTKILV7f"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fPtTKILV7f"
+        ],
+        "mechanics": [
+            "stat-change",
+            "load"
+        ],
+        "rulesClauses": [
+            "Allies you control get +1[POWER] until end of turn.",
+            "You may load CARDNAME into an Aetherwing weapon you control."
+        ]
+    }
+}
