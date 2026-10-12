@@ -84,8 +84,8 @@ against these lists and lists the known gaps.
 The generator stopped at the first action the engine refused and saved only the actions before it, so a wrong step order left a fixture whose later assertions passed vacuously (found in Burst Asunder, Conjure Downpour, Slipstream Vault, Scars of Old, Rescue the Heir, Seeker's Aetherwing, Misteye Archer). `GaScenario::build()` now sets `strictActions`; the generator throws on a refused scenario action unless it was declared with `rejects()`. `php DevTools/create-prd-ability-fixtures.php --audit-actions` lists saved fixtures whose `actions.json` is shorter than their definition (0 now). Note: a failed strict regeneration wipes the fixture directory, restore it with `git checkout` if needed.
 New assertion type `global_effect_present` (`expectGlobalEffect(player, effect, label, count, step)`) for per-player until-end-of-turn effects that leave no per-object trace (Shroud in Mist, Freezing Steel, Sudden Snow, Conjure Downpour, Unmoored Call ...). An `expect*` without a step is evaluated after the LAST action: pin early checks with the step argument.
 
-### Open question: a player 2 first-turn recollection phase is skipped
-`RecollectionPhase()` returns when `GetTurnNumber() === 1`, but the turn number counts rounds, so player 2's first turn (turn 1) also skips its recollection phase (memory is not returned to hand, Hidden Enclave / Glacier Remnants style triggers do not fire). If the intent was only "player 1's first turn has no recollection", this is a bug; not changed pending a rules check.
+### Confirmed intended: player 2 skips recollection on their first turn
+`RecollectionPhase()` returns when `GetTurnNumber() === 1`, which skips the recollection phase for both players' first turns (memory is not returned to hand, recollection triggers do not fire). Confirmed as the rule by the owner (2026-10-12): player 2 does not recollect on their first turn. No change needed; fixtures that reach player 2's first turn must not expect recollection effects.
 
 ## 2. Open: behaviour-wide, needs a decision
 
