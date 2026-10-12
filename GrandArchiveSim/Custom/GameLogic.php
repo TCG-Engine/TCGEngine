@@ -10064,6 +10064,19 @@ function DoAllyDestroyed($player, $mzCard) {
         && GetCounterCount($destroyedObj, "static") > 0) {
         DrawIntoMemory($controller, 1);
     }
+    // Turbulent Bounty Hunter (h7c79xRobA): the generated AllyDestroyed listener is never dispatched (DispatchMacroListeners has no caller for it),
+    // so the death of an ally it damaged this turn is handled here, from the snapshot of the dying ally.
+    if(PropertyContains(EffectiveCardType($destroyedObj), "ALLY") && in_array("DAMAGED_BY_TURBULENT_BOUNTY_HUNTER", $destroyedObj->TurnEffects ?? [])) {
+        for($hunterPlayer = 1; $hunterPlayer <= 2; ++$hunterPlayer) {
+            $hunterField = GetField($hunterPlayer);
+            for($hi = 0; $hi < count($hunterField); ++$hi) {
+                if(!$hunterField[$hi]->removed && $hunterField[$hi]->CardID === "h7c79xRobA" && !HasNoAbilities($hunterField[$hi])
+                    && IsClassBonusActive($hunterPlayer, ["ASSASSIN"])) {
+                    AddCounters($hunterPlayer, "myField-" . $hi, "buff", 1);
+                }
+            }
+        }
+    }
     OnLeaveField($player, $mzCard);
     // Xiao Qiao, Cinderkeeper (3hgldrogit): if unit was hit by Xiao Qiao this turn, banish instead
     $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $destroyedObj->TurnEffects ?? []);

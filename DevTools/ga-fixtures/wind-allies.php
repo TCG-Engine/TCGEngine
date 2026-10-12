@@ -164,3 +164,166 @@ gaScenario('liu-bei-becomes-distant-whenever-another-unit-you-control-becomes-di
     ->tested('Liu Bei, Oathkeeper')
     ->covers(['distant', 'trigger'], 'Whenever another unit you control becomes **distant**, CARDNAME becomes **distant**.')
     ->register();
+
+// ---- Reconnaissance Scout ----
+
+gaScenario('reconnaissance-scout-class-bonus-on-enter-makes-another-unit-distant-and-shields-it')
+    ->deckTemplate('quiet', 'Reconnaissance Scout')
+    ->readyFor('Reconnaissance Scout', classBonus: true)
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Reconnaissance Scout')
+    ->play('Reconnaissance Scout')->pay(2)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT","PREVENT_ALL_1"]', 'The other unit became distant and has the next-1-damage prevention')
+    ->tested('Reconnaissance Scout')
+    ->covers(['on-enter', 'class-bonus', 'distant', 'prevent-damage', 'targeting'], '[Class Bonus] **On Enter**: Another target unit you control becomes **distant**. Prevent the next 1 damage that would be dealt to that unit this turn.')
+    ->register();
+
+gaScenario('reconnaissance-scout-without-the-class-bonus-on-enter-does-nothing')
+    ->deckTemplate('quiet', 'Reconnaissance Scout')
+    ->readyFor('Reconnaissance Scout')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Reconnaissance Scout')
+    ->play('Reconnaissance Scout')->pay(2)
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN"]', 'No class bonus: the Tortoise is untouched')
+    ->tested('Reconnaissance Scout')
+    ->covers(['on-enter', 'class-bonus', 'condition'], '[Class Bonus] **On Enter**')
+    ->register();
+
+// ---- Adept Swordmaster ----
+
+gaScenario('adept-swordmaster-class-bonus-weapons-you-control-get-plus-one-power')
+    ->deckTemplate('quiet', 'Adept Swordmaster')
+    ->readyFor('Adept Swordmaster', classBonus: true)
+    ->seed('myField', 'Clarent, Sword of Peace')
+    ->seed('myField', 'Adept Swordmaster')
+    ->observe()
+    ->expectPower('p1Field-1', 2, 'Clarent has 1 printed POWER plus 1 from the Swordmaster\'s class bonus')
+    ->tested('Adept Swordmaster')
+    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] Weapons you control get +1 [POWER].')
+    ->register();
+
+gaScenario('adept-swordmaster-without-the-class-bonus-weapons-keep-their-power')
+    ->deckTemplate('quiet', 'Adept Swordmaster')
+    ->readyFor('Adept Swordmaster')
+    ->seed('myField', 'Clarent, Sword of Peace')
+    ->seed('myField', 'Adept Swordmaster')
+    ->observe()
+    ->expectPower('p1Field-1', 1, 'No class bonus: the printed 1 POWER')
+    ->tested('Adept Swordmaster')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] Weapons you control get +1 [POWER].')
+    ->register();
+
+// ---- Gustguard Bastion ----
+
+gaScenario('gustguard-bastion-class-bonus-on-enter-prevents-two-damage-to-another-unit')
+    ->deckTemplate('quiet', 'Gustguard Bastion')
+    ->readyFor('Gustguard Bastion', classBonus: true)
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Gustguard Bastion')
+    ->play('Gustguard Bastion')->pay(3)->pass(1)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","PREVENT_ALL_2"]', 'Prevent the next 2 damage marker')
+    ->tested('Gustguard Bastion')
+    ->covers(['on-enter', 'class-bonus', 'prevent-damage', 'targeting'], '[Class Bonus] **On Enter:** Prevent the next 2 damage that would be dealt to another target unit you control this turn.')
+    ->register();
+
+gaScenario('gustguard-bastion-without-the-class-bonus-on-enter-does-nothing')
+    ->deckTemplate('quiet', 'Gustguard Bastion')
+    ->readyFor('Gustguard Bastion')
+    ->seed('myField', 'Giant Tortoise')
+    ->seed('myHand', 'Gustguard Bastion')
+    ->play('Gustguard Bastion')->pay(3)
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN"]', 'No class bonus: no prevention')
+    ->tested('Gustguard Bastion')
+    ->covers(['on-enter', 'class-bonus', 'condition'], '[Class Bonus] **On Enter:**')
+    ->register();
+
+// ---- Cell Generator ----
+
+gaScenario('cell-generator-class-bonus-on-foster-summons-two-rested-powercells')
+    ->deckTemplate('quiet', 'Cell Generator')
+    ->readyFor('Cell Generator', classBonus: true)
+    ->seed('myField', 'Cell Generator')
+    ->reachTurnThree()
+    ->observe()
+    ->expectZoneCount('myField', 4, 1, 'Fostered at the recollection phase: the champion, the Generator and two Powercell tokens')
+    ->expectProperty('p1Field-2', 'Status', '1', 'The Powercells were summoned rested')
+    ->tested('Cell Generator')
+    ->covers(['foster', 'on-foster', 'class-bonus', 'token', 'summon'], '[Class Bonus] **On Foster:** **Summon** two Powercell tokens rested.')
+    ->register();
+
+gaScenario('cell-generator-without-the-class-bonus-on-foster-summons-nothing')
+    ->deckTemplate('quiet', 'Cell Generator')
+    ->readyFor('Cell Generator')
+    ->seed('myField', 'Cell Generator')
+    ->reachTurnThree()
+    ->observe()
+    ->expectZoneCount('myField', 2, 1, 'No class bonus: no tokens')
+    ->tested('Cell Generator')
+    ->covers(['foster', 'class-bonus', 'condition'], '[Class Bonus] **On Foster:**')
+    ->register();
+
+// ---- Cutthroat Operative ----
+
+gaScenario('cutthroat-operative-class-bonus-activating-an-attack-card-puts-a-buff-counter-on-it')
+    ->deckTemplate('quiet', 'Cutthroat Operative')
+    ->readyFor('Cutthroat Operative', classBonus: true)
+    ->seed('myField', 'Cutthroat Operative')
+    ->seed('myHand', 'Rallied Advance')
+    ->reachTurnThree()
+    ->play('Rallied Advance')->pay(2)->target('theirField-0')->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Activating an attack card gave the Operative a buff counter')
+    ->tested('Cutthroat Operative')
+    ->covers(['class-bonus', 'trigger', 'counter'], '[Class Bonus] Whenever you activate an attack card, if CARDNAME has less than two **buff** counters on it, put a **buff** counter on it.')
+    ->register();
+
+gaScenario('cutthroat-operative-with-two-buff-counters-gets-no-more')
+    ->deckTemplate('quiet', 'Cutthroat Operative')
+    ->readyFor('Cutthroat Operative', classBonus: true)
+    ->seed('myField', 'Cutthroat Operative', properties: ['Counters' => ['buff' => 2]])
+    ->seed('myHand', 'Rallied Advance')
+    ->reachTurnThree()
+    ->play('Rallied Advance')->pay(2)->target('theirField-0')->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":2}', 'Already at two buff counters: no third')
+    ->tested('Cutthroat Operative')
+    ->covers(['class-bonus', 'trigger', 'condition'], 'if CARDNAME has less than two **buff** counters on it')
+    ->register();
+
+gaScenario('cutthroat-operative-without-the-class-bonus-gets-no-counter')
+    ->deckTemplate('quiet', 'Cutthroat Operative')
+    ->readyFor('Cutthroat Operative')
+    ->seed('myField', 'Cutthroat Operative')
+    ->seed('myHand', 'Rallied Advance')
+    ->reachTurnThree()
+    ->play('Rallied Advance')->pay(2)->target('theirField-0')
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'No class bonus: no counter')
+    ->tested('Cutthroat Operative')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] Whenever you activate an attack card')
+    ->register();
+
+// ---- Turbulent Bounty Hunter ----
+
+gaScenario('turbulent-bounty-hunter-class-bonus-gets-a-buff-counter-when-an-ally-it-damaged-dies')
+    ->deckTemplate('quiet', 'Turbulent Bounty Hunter')
+    ->readyFor('Turbulent Bounty Hunter', classBonus: true)
+    ->seed('myField', 'Turbulent Bounty Hunter')
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The 1-life Owl Familiar died')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'An ally it damaged died: a buff counter')
+    ->tested('Turbulent Bounty Hunter')
+    ->covers(['class-bonus', 'trigger', 'counter', 'combat'], '[Class Bonus] Whenever an ally that CARDNAME has dealt damage to this turn dies, put a **buff** counter on CARDNAME.')
+    ->register();
+
+gaScenario('turbulent-bounty-hunter-without-the-class-bonus-gets-no-counter')
+    ->deckTemplate('quiet', 'Turbulent Bounty Hunter')
+    ->readyFor('Turbulent Bounty Hunter')
+    ->seed('myField', 'Turbulent Bounty Hunter')
+    ->seed('myField', 'Owl Familiar', player: 2)
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-1')->pass(2)
+    ->expectZoneCount('theirField', 1, 1, 'The Owl Familiar died')
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'No class bonus: no counter')
+    ->tested('Turbulent Bounty Hunter')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] Whenever an ally that CARDNAME has dealt damage to this turn dies')
+    ->register();

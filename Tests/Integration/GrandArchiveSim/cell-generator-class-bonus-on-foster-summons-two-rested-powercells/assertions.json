@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Fostered at the recollection phase: the champion, the Generator and two Powercell tokens"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Powercells were summoned rested"
+    }
+]

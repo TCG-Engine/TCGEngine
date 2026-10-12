@@ -112,7 +112,7 @@ The six Fire champion fixtures seed the champion onto the field to exercise the 
 - Abnegation: conditional Ephemerate (no "activation negated this turn" tracker).
 - Steady Sharpshooter (aim-counter Ranged), Calculated Foresight (champion Ranged 3), Reconnaissance Field (REST ability), Ritai Stablemaster ("Horse cards you activate have Kindle 3").
 - Molten Impact: sacrifices at resolution rather than as a cost.
-- Generated listeners for `AllyDestroyed` (Turbulent Bounty Hunter), `ActivateAbility` (Trained Birdroid) and `CardBanish` (Evaporation Synchron) are never dispatched.
+- Generated listeners for `ActivateAbility` (Trained Birdroid) and `CardBanish` (Evaporation Synchron) are never dispatched.
 - Spirit of Fortuitous / Serene / Fragmented Fire on a real game start (see E).
 
 ## 4. Fire cards still without a fixture (15)
@@ -128,6 +128,7 @@ Ranger-unit searches (Squallbind Pounce, Sleety Retreat, Tinderflare Pivot) and 
 Efficiency (user-approved gate): `CalculateActivationReserveCost` reduced the cost by LV for any card in `$Efficiency_Cards`, ignoring each entry's conditions, so the 15 "[Class Bonus] Efficiency" cards got the discount without the class. `EfficiencyConditionsMet()` now checks Class Bonus / Level. The only existing fixture affected was `cleave-destroy-multiple` (Hurricane Sweep paid 4 instead of 5; it now pays 5). Wuthering Sforzando's "[Class Bonus] 3 less after a Melody" was never wired and now is.
 Load: `MayLoadAetherwingConfirm` kept the Aetherwing's field index from when the offer was queued; Teasing Aerocharge suppresses an ally first, so the weapon moved down a slot and the load went nowhere (the card was lost from the graveyard bookkeeping). It now re-reads the single Aetherwing at confirm time.
 Open: the response window during an opponent's attack lists hand cards and field abilities only, so a Reaction in the graveyard (Twingale Parry, Luster's Shroud, Escharotomy) cannot be ephemerated in response; the Twingale Parry ephemerate fixture activates it in the main phase. An ephemerate click without its condition (no Sword weapon) is accepted and ignored rather than refused.
+Turbulent Bounty Hunter (the `AllyDestroyed` listener nobody dispatched) is now handled in `DoAllyDestroyed` from the dying ally's snapshot; the `ActivateAbility` (Trained Birdroid) and `CardBanish` (Evaporation Synchron) listeners are still never dispatched.
 Foster registry: `HasFoster` is a hard-coded list; Sasha, Purifying Acolyte and Imperial Panzer print Foster but were missing, so they could never become fostered (no On Foster, no replacement effect, no Panzer bonus). Added; Imperial Panzer still needs its own fixture (Norm). Seeding an ally onto the field fires its On Enter (Blackmarket Broker's preparation counter), so patch counters one lower than the target.
 Razorblade Execution: the imbued flag is a decision-queue variable reset when the attack card leaves the stack, so its On Kill never saw "imbued". Attack cards now carry an IMBUED turn effect from the intent zone, read by an override (the only imbued ATTACK card).
 Open: **Multistrike N** is not implemented as a keyword (Crosswind Cuts offers no additional target when one exists; only one card has a bespoke "pay 3 for multistrike 2"). Needs a combat design decision (extra defenders, damage per target), so it is left for a decision.

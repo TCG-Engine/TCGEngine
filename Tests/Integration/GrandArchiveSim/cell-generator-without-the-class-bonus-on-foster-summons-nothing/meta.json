@@ -1,0 +1,22 @@
+{
+    "name": "cell-generator-without-the-class-bonus-on-foster-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zihslnhzj4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zihslnhzj4"
+        ],
+        "mechanics": [
+            "foster",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Foster:**"
+        ]
+    }
+}

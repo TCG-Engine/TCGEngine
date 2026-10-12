@@ -1,0 +1,21 @@
+{
+    "name": "turbulent-bounty-hunter-without-the-class-bonus-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:42:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h7c79xRobA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h7c79xRobA"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever an ally that CARDNAME has dealt damage to this turn dies"
+        ]
+    }
+}

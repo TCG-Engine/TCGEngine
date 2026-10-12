@@ -1,0 +1,21 @@
+{
+    "name": "cutthroat-operative-without-the-class-bonus-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:42:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s714OWbqi2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s714OWbqi2"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate an attack card"
+        ]
+    }
+}

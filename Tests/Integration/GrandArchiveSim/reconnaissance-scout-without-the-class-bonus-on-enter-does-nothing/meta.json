@@ -1,0 +1,22 @@
+{
+    "name": "reconnaissance-scout-without-the-class-bonus-on-enter-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lwuupowx4p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lwuupowx4p"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**"
+        ]
+    }
+}

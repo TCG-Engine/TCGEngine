@@ -1,0 +1,22 @@
+{
+    "name": "cutthroat-operative-class-bonus-activating-an-attack-card-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:42:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s714OWbqi2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s714OWbqi2"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate an attack card, if CARDNAME has less than two **buff** counters on it, put a **buff** counter on it."
+        ]
+    }
+}

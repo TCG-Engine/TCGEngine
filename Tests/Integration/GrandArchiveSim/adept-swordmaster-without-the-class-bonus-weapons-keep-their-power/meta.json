@@ -1,0 +1,21 @@
+{
+    "name": "adept-swordmaster-without-the-class-bonus-weapons-keep-their-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "txgvf6xpkq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "txgvf6xpkq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Weapons you control get +1 [POWER]."
+        ]
+    }
+}

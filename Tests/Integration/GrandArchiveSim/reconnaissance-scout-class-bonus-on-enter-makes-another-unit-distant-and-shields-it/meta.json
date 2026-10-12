@@ -1,0 +1,24 @@
+{
+    "name": "reconnaissance-scout-class-bonus-on-enter-makes-another-unit-distant-and-shields-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lwuupowx4p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lwuupowx4p"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "distant",
+            "prevent-damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: Another target unit you control becomes **distant**. Prevent the next 1 damage that would be dealt to that unit this turn."
+        ]
+    }
+}

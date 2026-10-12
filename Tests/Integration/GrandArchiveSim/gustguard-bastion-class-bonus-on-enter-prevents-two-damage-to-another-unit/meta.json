@@ -1,0 +1,23 @@
+{
+    "name": "gustguard-bastion-class-bonus-on-enter-prevents-two-damage-to-another-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uPn9SZdqrr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uPn9SZdqrr"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "prevent-damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Prevent the next 2 damage that would be dealt to another target unit you control this turn."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T21:39:57+00:00",
+    "generatedAt": "2026-10-12T21:43:10+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1459,
+        "cardsWithExistingFixtures": 1465,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1018,
+        "cardsNeedingSemanticCoverage": 1012,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1783,24 +1783,6 @@
             "priority": 22
         },
         {
-            "cardId": "s714OWbqi2",
-            "name": "Cutthroat Operative",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "l6410a85dn",
             "name": "Cyclonic Fatestone",
             "type": "ITEM",
@@ -2113,23 +2095,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "h7c79xRobA",
-            "name": "Turbulent Bounty Hunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3396,25 +3361,6 @@
             "priority": 15
         },
         {
-            "cardId": "lwuupowx4p",
-            "name": "Reconnaissance Scout",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "o6gb0op3nq",
             "name": "Resolute Stand",
             "type": "ACTION",
@@ -3973,24 +3919,6 @@
             "priority": 15
         },
         {
-            "cardId": "txgvf6xpkq",
-            "name": "Adept Swordmaster",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "abipl6gt7l",
             "name": "Aegis of Dawn",
             "type": "REGALIA,ITEM",
@@ -4432,24 +4360,6 @@
                 "targeting",
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "zihslnhzj4",
-            "name": "Cell Generator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "status",
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5135,24 +5045,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "uPn9SZdqrr",
-            "name": "Gustguard Bastion",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34798,6 +34690,32 @@
             "priority": 42
         },
         {
+            "cardId": "s714OWbqi2",
+            "name": "Cutthroat Operative",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cutthroat-operative-class-bonus-activating-an-attack-card-puts-a-buff-counter-on-it",
+                "cutthroat-operative-with-two-buff-counters-gets-no-more",
+                "cutthroat-operative-without-the-class-bonus-gets-no-counter"
+            ],
+            "semanticFixtures": [
+                "cutthroat-operative-class-bonus-activating-an-attack-card-puts-a-buff-counter-on-it",
+                "cutthroat-operative-with-two-buff-counters-gets-no-more",
+                "cutthroat-operative-without-the-class-bonus-gets-no-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "vz4kc558yx",
             "name": "Devious Welcome",
             "type": "ACTION",
@@ -35467,6 +35385,29 @@
             ],
             "semanticFixtures": [
                 "spectral-diffusion-gives-the-champion-spellshroud"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
+            "cardId": "h7c79xRobA",
+            "name": "Turbulent Bounty Hunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "turbulent-bounty-hunter-class-bonus-gets-a-buff-counter-when-an-ally-it-damaged-dies",
+                "turbulent-bounty-hunter-without-the-class-bonus-gets-no-counter"
+            ],
+            "semanticFixtures": [
+                "turbulent-bounty-hunter-class-bonus-gets-a-buff-counter-when-an-ally-it-damaged-dies",
+                "turbulent-bounty-hunter-without-the-class-bonus-gets-no-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36729,6 +36670,31 @@
             "priority": 35
         },
         {
+            "cardId": "lwuupowx4p",
+            "name": "Reconnaissance Scout",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "reconnaissance-scout-class-bonus-on-enter-makes-another-unit-distant-and-shields-it",
+                "reconnaissance-scout-without-the-class-bonus-on-enter-does-nothing"
+            ],
+            "semanticFixtures": [
+                "reconnaissance-scout-class-bonus-on-enter-makes-another-unit-distant-and-shields-it",
+                "reconnaissance-scout-without-the-class-bonus-on-enter-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "oLGzDmCBQ9",
             "name": "Refreshing Slice",
             "type": "ATTACK",
@@ -37534,6 +37500,30 @@
             "priority": 35
         },
         {
+            "cardId": "txgvf6xpkq",
+            "name": "Adept Swordmaster",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "adept-swordmaster-class-bonus-weapons-you-control-get-plus-one-power",
+                "adept-swordmaster-without-the-class-bonus-weapons-keep-their-power"
+            ],
+            "semanticFixtures": [
+                "adept-swordmaster-class-bonus-weapons-you-control-get-plus-one-power",
+                "adept-swordmaster-without-the-class-bonus-weapons-keep-their-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "oLzsAj9mKl",
             "name": "Advantageous Perch",
             "type": "ACTION",
@@ -38050,6 +38040,30 @@
             ],
             "semanticFixtures": [
                 "cell-converter-end-phase-summons-a-rested-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "zihslnhzj4",
+            "name": "Cell Generator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cell-generator-class-bonus-on-foster-summons-two-rested-powercells",
+                "cell-generator-without-the-class-bonus-on-foster-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "cell-generator-class-bonus-on-foster-summons-two-rested-powercells",
+                "cell-generator-without-the-class-bonus-on-foster-summons-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39226,6 +39240,30 @@
             ],
             "semanticFixtures": [
                 "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "uPn9SZdqrr",
+            "name": "Gustguard Bastion",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "gustguard-bastion-class-bonus-on-enter-prevents-two-damage-to-another-unit",
+                "gustguard-bastion-without-the-class-bonus-on-enter-does-nothing"
+            ],
+            "semanticFixtures": [
+                "gustguard-bastion-class-bonus-on-enter-prevents-two-damage-to-another-unit",
+                "gustguard-bastion-without-the-class-bonus-on-enter-does-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
