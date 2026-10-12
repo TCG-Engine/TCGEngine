@@ -42,9 +42,10 @@ class GaScenario {
     private ?array $testedOverride = null;
     private array $meta = [];
     private ?string $baseFixture = null;
-    // player => [cardName => hand index] for cards seeded into myHand, and the next free hand index.
-    private array $handIndex = [];
-    private array $nextHandIndex = [];
+    // player => the hand as the scenario expects it to be: a list indexed like myHand-N, holding the seeded card name (null for the
+    // starting-hand filler). play() and pay() keep it in step so a second play() clicks the card's CURRENT slot (hand slots shift down
+    // when a card is played or paid). Effects that add or remove hand cards (draws, discards) are not modelled.
+    private array $hand = [];
 
     public function __construct(string $slug) {
         $this->slug = $slug;
@@ -132,9 +133,8 @@ class GaScenario {
         if (!empty($properties)) $row['setProperties'] = $properties;
         $this->setup[] = $row;
         if ($zone === 'myHand') {
-            $next = $this->nextHandIndex[$player] ?? GA_SCENARIO_STARTING_HAND;
-            $this->handIndex[$player][$cardName] = $next;
-            $this->nextHandIndex[$player] = $next + 1;
+            $this->hand[$player] ??= array_fill(0, GA_SCENARIO_STARTING_HAND, null);
+            $this->hand[$player][] = $cardName;
         }
         return $this;
     }
@@ -186,11 +186,15 @@ class GaScenario {
 
     // Play a card that was seeded into the player's hand (FSM click on its hand slot).
     public function play(string $cardName, int $player = 1): self {
-        if (!isset($this->handIndex[$player][$cardName])) {
-            throw new RuntimeException("GaScenario[{$this->slug}]: play('{$cardName}') but it was never seeded into player {$player}'s hand");
+        $slot = array_search($cardName, $this->hand[$player] ?? [], true);
+        if ($slot === false) {
+            $why = "GaScenario[{$this->slug}]: play('{$cardName}') but it is not in player {$player}'s hand (never seeded, or already played)";
+            if (getenv('GA_PLAY_AUDIT')) { fwrite(STDERR, "[PLAY] $why\n"); return $this->act($player, 10002, 'myHand-99!FSM!'); }
+            throw new RuntimeException($why);
         }
         $this->testedCards[self::id($cardName)] = true;
-        return $this->act($player, 10002, 'myHand-' . $this->handIndex[$player][$cardName] . '!FSM!');
+        array_splice($this->hand[$player], $slot, 1);
+        return $this->act($player, 10002, 'myHand-' . $slot . '!FSM!');
     }
 
     // The whole "cast a seeded spell" sequence in one statement: play it, pay $pay reserve, pass the priority
@@ -243,7 +247,10 @@ class GaScenario {
 
     // Pay $n reserve costs (each answer banishes the first hand card into memory).
     public function pay(int $n, int $player = 1): self {
-        for ($i = 0; $i < $n; ++$i) $this->act($player, 100, 'myHand-0');
+        for ($i = 0; $i < $n; ++$i) {
+            $this->act($player, 100, 'myHand-0');
+            if (!empty($this->hand[$player])) array_shift($this->hand[$player]);
+        }
         return $this;
     }
 

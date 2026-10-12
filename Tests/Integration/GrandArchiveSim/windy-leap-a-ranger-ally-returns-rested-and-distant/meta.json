@@ -1,0 +1,22 @@
+{
+    "name": "windy-leap-a-ranger-ally-returns-rested-and-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:41:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0xk8GPkiOz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0xk8GPkiOz"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish target ally you control, then return it to the field under its owner\u2019s control rested. If it's a Ranger ally, it becomes **distant**. *(Units stay **distant** until the end of their controller's turn.)*"
+        ]
+    }
+}

@@ -2343,6 +2343,7 @@ function ActivationHasAlternativeReserveCost($cardID) {
         't1cn1tzgcx' => true, // Song of Frost: [Class Bonus] banish a floating memory card from the graveyard instead of paying reserve
         'cri23mf3vs' => true, // Refabrication: sacrifice two tokens instead of paying reserve
         '9rbziyasag' => true, // Clash of Fates: remove a quest counter instead of paying reserve
+        'wPKxvzTmqq' => true, // Ensnaring Fumes: remove three preparation counters instead of paying reserve
         'nhk5d19n82' => true, // Winds of Destiny: rest two Fatestones instead of paying reserve
         'jjGLZKfRn5' => true, // Avatar of Suzaku: remove quest counters toward the reserve cost
         'o6gb0op3nq' => true, // Resolute Stand: [Level 2+] activate without paying reserve
@@ -3506,6 +3507,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // 1.3 Declaring Costs -- Ensnaring Fumes (wPKxvzTmqq): "You may remove three preparation counters from your champion rather than pay this
+    // card's reserve cost." The generated body never offered it (the reserve cost was always paid).
+    $hasEnsnaringFumesAltCost = false;
+    if($obj->CardID === "wPKxvzTmqq" && !$ignoreCost && $reserveCost > 0) {
+        $fumesChampMZ = FindChampionMZ($player);
+        $fumesChampObj = $fumesChampMZ !== null ? GetZoneObject($fumesChampMZ) : null;
+        if($fumesChampObj !== null && GetCounterCount($fumesChampObj, "preparation") >= 3) {
+            $hasEnsnaringFumesAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Remove_three_preparation_counters_instead_of_paying_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "EnsnaringFumesAltCost|" . $reserveCost, 100);
+        }
+    }
+
     //1.3 Declaring Costs â€” Winds of Destiny (nhk5d19n82): may rest 2 Fatestones instead of reserve
     $hasWindsOfDestinyAltCost = false;
     if($obj->CardID === "nhk5d19n82" && !$ignoreCost && $reserveCost > 0) {
@@ -3535,7 +3549,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasGenericDiscardCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasGenericDiscardCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost && !$hasEnsnaringFumesAltCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3746,6 +3760,22 @@ $customDQHandlers["ClashOfFatesAltCost"] = function($player, $parts, $lastDecisi
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
+// Ensnaring Fumes (wPKxvzTmqq): remove three preparation counters from the champion instead of paying the reserve cost.
+$customDQHandlers["EnsnaringFumesAltCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+    if($lastDecision === "YES" && $champObj !== null && GetCounterCount($champObj, "preparation") >= 3) {
+        RemoveCounters($player, $champMZ, "preparation", 3);
+    } else {
+        for($i = 0; $i < $baseReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
 // Avatar of Suzaku (jjGLZKfRn5): [Guo Jia Bonus] remove 0-2 quest counters, each pays 1 reserve
 $customDQHandlers["AvatarSuzakuQuestCost"] = function($player, $parts, $lastDecision) {
     $baseReserve = intval($parts[0]);
@@ -3879,11 +3909,12 @@ $customDQHandlers["GenericSacrificeCost"] = function($player, $parts, $lastDecis
 };
 
 // The permanents a card's "sacrifice a <permanent>" additional cost may pay with, or null when the card has no such
-// cost handled here. Fling Food: a Food item. Shield Fragmentation: a Shield item.
+// cost handled here. Fling Food: a Food item. Shield Fragmentation: a Shield item. Primeval Ritual: an ally.
 function GenericSacrificeCostCandidates($cardID) {
     switch($cardID) {
         case "pVHGi99Svy": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["FOOD"]);
         case "CHU96qWwaS": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+        case "fan41iqm8b": return ZoneSearch("myField", ["ALLY"]); // Primeval Ritual: sacrifice an ally (its generated body never paid the cost)
     }
     return null;
 }

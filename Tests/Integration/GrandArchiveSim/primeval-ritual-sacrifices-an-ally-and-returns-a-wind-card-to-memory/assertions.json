@@ -1,0 +1,38 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The sacrificed ally is in the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "DCzUre54F9",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The wind card returned from the graveyard to memory"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The ally was sacrificed: only the champion remains"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three paid cards plus the returned card"
+    }
+]

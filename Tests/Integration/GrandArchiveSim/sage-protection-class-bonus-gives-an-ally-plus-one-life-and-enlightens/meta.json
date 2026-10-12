@@ -1,0 +1,23 @@
+{
+    "name": "sage-protection-class-bonus-gives-an-ally-plus-one-life-and-enlightens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:42:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fqsa372jii"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fqsa372jii"
+        ],
+        "mechanics": [
+            "stat-change",
+            "class-bonus",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Up to three target allies get +1 [LIFE] until end of turn.",
+            "[Class Bonus] Put an **enlighten** counter on your champion. *(You may remove three **enlighten** counters from your champion to draw a card.)*"
+        ]
+    }
+}

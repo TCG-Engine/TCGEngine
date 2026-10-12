@@ -1,0 +1,38 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Our ally was banished"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Their ally was banished"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Efficiency 3: cost 8 - 3 = 5 paid; drew one card for our banished ally (8 - 1 - 5 + 1)"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "The opponent drew a card for their banished ally"
+    }
+]

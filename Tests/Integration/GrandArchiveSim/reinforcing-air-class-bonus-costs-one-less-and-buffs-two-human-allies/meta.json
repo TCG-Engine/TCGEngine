@@ -1,0 +1,24 @@
+{
+    "name": "reinforcing-air-class-bonus-costs-one-less-and-buffs-two-human-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TrWfgn2PV0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TrWfgn2PV0"
+        ],
+        "mechanics": [
+            "stat-change",
+            "class-bonus",
+            "cost-reduction",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
+            "Up to two target Human allies get +2[POWER] and +2[LIFE] until end of turn."
+        ]
+    }
+}

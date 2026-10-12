@@ -1,0 +1,22 @@
+{
+    "name": "squallsnare-suppresses-two-allies-with-the-same-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cQZgiYS0w4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cQZgiYS0w4"
+        ],
+        "mechanics": [
+            "suppress",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Suppress** two target allies with the same reserve costs. *(To **suppress** an object, banish it and return it to the field under its owner\u2019s control at the beginning of the next end phase.)*"
+        ]
+    }
+}

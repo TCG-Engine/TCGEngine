@@ -1,0 +1,21 @@
+{
+    "name": "innervate-agility-cannot-be-activated-by-a-champion-with-no-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:40:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v43ehjdu50"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v43ehjdu50"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, **delevel** your champion and **recover 5**."
+        ]
+    }
+}

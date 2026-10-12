@@ -1,0 +1,22 @@
+{
+    "name": "ensnaring-fumes-three-preparation-counters-replace-the-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:37:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wPKxvzTmqq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wPKxvzTmqq"
+        ],
+        "mechanics": [
+            "alternate-cost",
+            "counter",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "You may remove three **preparation** counters from your champion rather than pay this card's reserve cost."
+        ]
+    }
+}

@@ -180,6 +180,20 @@ must still state the actual rule clause and expected outcome.
 assertions, replays the fixture and requires it to fail; the file is restored afterwards. A surviving mutant means the
 assertion is not checking what its label claims (wrong step, wrong zone, unreachable value). Run it after writing a batch.
 
+### Silently ignored steps: `--audit-noops`
+
+Mutation checks only prove that an *assertion* is evaluated; they cannot see a scenario that never did what it says. The engine
+accepts a click on a card that is not there (a hand slot that shifted after an earlier play or payment) without complaint, and every
+later step then does nothing while the assertions (`expectDamage 0`, "the effect is still on the champion") stay true. Luster's
+Shroud's first draft passed this way: the Nascent Blast was never cast.
+
+`php DevTools/RunIntegrationTests.php --root=GrandArchiveSim [--test=<slug>] --audit-noops` prints `[NOOP] <slug>: <step>:<answer> ...`
+for every accepted action that left the saved game state unchanged. Trailing `PASS` steps are normal; a no-op click or answer that
+is followed by further real actions means the scenario stopped doing anything at that step. A deliberate refusal fixture ("cannot be
+activated") ends in a no-op by design. The builder now tracks hand slots itself (`play()` clicks the card's current slot after earlier
+plays and `pay()`s; playing a name that is not in the modelled hand is a builder error), but draws and discards are not modelled, so
+run the audit on any scenario that plays a second card.
+
 ## Pitfalls found while upgrading old fixtures
 
 - A `pass(1)` after paying is only a priority pass when a window actually opens. When a prompt (for example Glimpse) is already

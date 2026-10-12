@@ -8,6 +8,7 @@ function RunnerParseArgs($argv) {
     'test' => null,
     'updateSnapshots' => false,
     'verbose' => false,
+    'auditNoops' => false,
   ];
 
   foreach (array_slice($argv, 1) as $arg) {
@@ -15,6 +16,7 @@ function RunnerParseArgs($argv) {
     elseif (str_starts_with($arg, '--test=')) $args['test'] = substr($arg, 7);
     elseif ($arg === '--update-snapshots') $args['updateSnapshots'] = true;
     elseif ($arg === '--verbose') $args['verbose'] = true;
+    elseif ($arg === '--audit-noops') $args['auditNoops'] = true;
   }
 
   return $args;
@@ -87,6 +89,11 @@ function RunnerPrepareTempGame($rootName, $slug, $initialFixtureDir, $meta) {
     RegressionNormalizeGamestateTextForRoot($rootName, $initialGamestate)
   );
   return [$gameName, $gameDir];
+}
+
+// The saved game state (what the next action will load), normalized the way the final-snapshot comparison does.
+function RunnerAuditSnapshot($rootName, $gameName) {
+  return RegressionNormalizeNewlines(RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName)));
 }
 
 function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSnapshots) {
@@ -168,9 +175,14 @@ foreach ($fixtures as $slug) {
     $failureMessage = "Initial assertion failed: {$initialAssertionMessage}";
   }
 
+  $noopSteps = [];
+  $beforeText = null;
   foreach ($actions as $stepIndex => $action) {
     if ($failed) break;
     $stepNumber = $stepIndex + 1;
+    // --audit-noops: an accepted action that changes nothing is a silently ignored step (a hand index that moved, an answer to the
+    // wrong player's decision...). It makes the rest of a scenario vacuous without failing anything.
+    if ($args['auditNoops'] && empty($action['expectFailure'])) $beforeText = RunnerAuditSnapshot($args['root'], $gameName);
     $result = EngineRunAction($action, $args['root'], $gameName, [
       'updateCache' => false,
       'disableRecording' => true,
@@ -186,6 +198,11 @@ foreach ($fixtures as $slug) {
       $failed = true;
       $failureMessage = "Step {$stepNumber} failed: " . ($result['message'] ?: 'engine action failed');
       break;
+    }
+
+    if ($args['auditNoops'] && $beforeText !== null && empty($action['expectFailure'])) {
+      if (RunnerAuditSnapshot($args['root'], $gameName) === $beforeText) $noopSteps[] = $stepNumber . ':' . ($action['cardID'] ?? '');
+      $beforeText = null;
     }
 
     [$assertionsPassed, $assertionMessage] = RegressionEvaluateAssertionsForStep($assertions, $stepNumber);
@@ -213,6 +230,8 @@ foreach ($fixtures as $slug) {
   }
 
   RegressionDeleteDirRecursive($gameDir);
+
+  if ($args['auditNoops'] && !empty($noopSteps)) echo "[NOOP] {$slug}: " . implode(' ', $noopSteps) . "\n";
 
   if ($failed) {
     echo "[FAIL] {$label}: {$failureMessage}\n";

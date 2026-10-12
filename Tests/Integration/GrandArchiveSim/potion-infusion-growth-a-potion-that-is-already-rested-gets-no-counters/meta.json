@@ -1,0 +1,20 @@
+{
+    "name": "potion-infusion-growth-a-potion-that-is-already-rested-gets-no-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2898b1w1mv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2898b1w1mv"
+        ],
+        "mechanics": [
+            "condition"
+        ],
+        "rulesClauses": [
+            "Rest target Potion. If you do, put **LV age** counters on it."
+        ]
+    }
+}

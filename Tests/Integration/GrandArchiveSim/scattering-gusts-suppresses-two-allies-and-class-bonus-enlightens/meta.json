@@ -1,0 +1,24 @@
+{
+    "name": "scattering-gusts-suppresses-two-allies-and-class-bonus-enlightens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jOqyx96kse"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jOqyx96kse"
+        ],
+        "mechanics": [
+            "suppress",
+            "class-bonus",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Suppress** up to two target allies. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*",
+            "[Class Bonus] Put an **enlighten** counter on your champion."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "usurp-the-winds-gives-an-ally-plus-one-power-and-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:42:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ulzrh3pmxq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ulzrh3pmxq"
+        ],
+        "mechanics": [
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Up to one target ally gets +1 [POWER] and +1 [LIFE] until end of turn."
+        ]
+    }
+}

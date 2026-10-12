@@ -1,0 +1,22 @@
+{
+    "name": "second-wind-class-bonus-wakes-the-ally-and-gives-it-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:41:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Huh1DljE0j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Huh1DljE0j"
+        ],
+        "mechanics": [
+            "status",
+            "stat-change",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Wake up target ally. **Class Bonus:** That ally gets +1 [POWER] until end of turn. *(Apply the additional effect only if your champion's class matches this card's class.)*"
+        ]
+    }
+}

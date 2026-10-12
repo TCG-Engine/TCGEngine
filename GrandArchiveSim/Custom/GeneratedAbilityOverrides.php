@@ -2679,6 +2679,23 @@ $cardActivatedAbilities["l4rdualc8p:0"] = function($player) { //Byakko's Command
     DecisionQueueController::AddDecision($player, "CUSTOM", "l4rdualc8p:0:CardActivated-1", 1);
 };
 
+// Ravaging Tempest (WsunZX4IlW): "Banish all allies. For each ally banished this way, its controller draws a card."
+// The generated body moved the opponent's allies with MZMove($opp, "theirField-N", ...): MZ ids are relative to the player passed to
+// MZMove, so "theirField-N" resolved against the OPPONENT's own opposite side and the opposing allies never left the field (their
+// controller still drew). Both sides are now moved from the activating player's frame.
+$cardActivatedAbilities["WsunZX4IlW:0"] = function($player) { //Ravaging Tempest: banish all allies, controllers draw
+    $opponent = ($player == 1) ? 2 : 1;
+    $myAllies = ZoneSearch("myField", ["ALLY"]);
+    $theirAllies = ZoneSearch("theirField", ["ALLY"]);
+    $myCount = count($myAllies);
+    $theirCount = count($theirAllies);
+    foreach(array_reverse($myAllies) as $mz) MZMove($player, $mz, "myBanish");
+    foreach(array_reverse($theirAllies) as $mz) MZMove($player, $mz, "theirBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($myCount > 0) Draw($player, $myCount);
+    if($theirCount > 0) Draw($opponent, $theirCount);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

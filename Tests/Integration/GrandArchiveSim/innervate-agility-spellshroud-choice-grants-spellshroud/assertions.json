@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "INNERVATE_SPELLSHROUD",
+        "value": 1,
+        "semantic": true,
+        "label": "NO chose spellshroud for the units you control"
+    }
+]

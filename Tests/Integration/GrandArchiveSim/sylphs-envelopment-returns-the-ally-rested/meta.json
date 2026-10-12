@@ -1,0 +1,21 @@
+{
+    "name": "sylphs-envelopment-returns-the-ally-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:41:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c7d7xdy3y9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c7d7xdy3y9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Banish target ally you control, then return it to the field under its owner's control rested. If that ally is a phantasia, it enters the field with an additional **buff** counter on it."
+        ]
+    }
+}

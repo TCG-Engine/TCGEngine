@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Our ally was suppressed"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The opposing ally with the same reserve cost 4 was suppressed"
+    }
+]
