@@ -5,6 +5,7 @@
  *   php DevTools/ga-scaffold.php "Card Name" ["Other Card" ...]       skeleton(s) on stdout
  *   php DevTools/ga-scaffold.php --element=WIND --type=ACTION --limit=10   the next uncovered cards of that shape
  *   php DevTools/ga-scaffold.php --list --element=WIND                 uncovered cards grouped by shape (what to batch)
+ *   php DevTools/ga-scaffold.php --unmatched --element=WIND            printed clauses no mechanic row recognises (the new effects), by shape
  *   php DevTools/ga-scaffold.php "Card Name" --probe                    also run the skeleton and print the real prompt order
  *   php DevTools/ga-scaffold.php "Card Name" --write=DevTools/ga-fixtures/wind-actions.php   append the skeleton to a fixture file
  *
@@ -52,44 +53,24 @@ function gsSlug(string $name): string { return 'todo-' . trim(preg_replace('/[^a
 
 function gsElementOf($id): string { return trim(explode(',', strval(CardElement($id)))[0]); }
 
-// Mechanics found in the printed text. keyword => [regex, covers() tag, one-line hint for the author]
+// Mechanics found in the printed text. The table lives in ga-fixtures/mechanics.php (one row per mechanic); returns key => [tag, hint].
+function gsMechanicTable(): array { static $t = null; return $t ??= require __DIR__ . '/ga-fixtures/mechanics.php'; }
+
 function gsFeatures(string $text): array {
-    $defs = [
-        'class-bonus'     => ['/\[Class Bonus\]|Class Bonus:/i', 'class-bonus', 'Write the bonus twin AND the no-bonus twin (readyFor(card, classBonus: true) / without).'],
-        'level'           => ['/\[Level (\d+)\+\]/', 'level-gate', 'readyFor(card, level: N) at the gate and one below it.'],
-        'floating-memory' => ['/Floating Memory/i', 'floating-memory', 'Pay a memory cost with the card in the graveyard (see gaFloatingPays in water-allies2.php).'],
-        'imbue'           => ['/\bImbue (\d+)/i', 'imbue', 'YESNO imbue prompt comes BEFORE payment: answer YES, then reserve the cards; test imbued and not-imbued.'],
-        'suppress'        => ['/\bsuppress\b/i', 'suppress', 'Banishes now, returns at the next end phase: assert banish after the effect, field after endTurn.'],
-        'glimpse'         => ['/\bGlimpse (\d+)/i', 'glimpse', 'Top/bottom prompts per card; assert the deck order.'],
-        'scavenge'        => ['/\bScavenge (\d+)/i', 'scavenge', 'Stack the deck with deckTop() so the scavenged card is in range and out of range.'],
-        'efficiency'      => ['/Efficiency/i', 'cost-reduction', 'Cost = printed - level; raise the level with readyFor(level:) and check the memory footprint.'],
-        'cost-reduction'  => ['/costs? (\d+) less/i', 'cost-reduction', 'Pay the reduced cost; the twin pays the printed cost and is refused with rejects().'],
-        'load'            => ['/\bload (?:CARDNAME|[A-Z][\w\' ]+) into an (?:Aetherwing|\w+) weapon/i', 'load', 'Needs a loadable weapon on the field; Gun/Bow loading is not exercised yet -- check ENGINE-FINDINGS first.'],
-        'ephemerate'      => ['/Ephemerate/i', 'ephemerate', 'Ephemerate cost is a second activation path; test both.'],
-        'delevel'         => ['/delevel/i', 'delevel-cost', 'Additional cost: needs a levelled champion (see Innervate Knowledge in water-actions2.php).'],
-        'additional-cost' => ['/As an additional cost/i', 'additional-cost', 'Seed what the cost needs, and test the refusal without it.'],
-        'alt-cost'        => ['/rather than pay/i', 'alternate-cost', 'Orphan risk: check a YESNO offer is queued (Song of Frost / Ravishing Finale were never offered).'],
-        'sacrifice'       => ['/\bsacrifice\b/i', 'sacrifice', ''],
-        'counter'         => ['/\b(?:buff|enlighten|preparation|sheen|age|omen|foster) counter/i', 'counter', ''],
-        'token'           => ['/\b(?:Summon|summon)\b.*token/', 'token', ''],
-        'distant'         => ['/distant/i', 'distant', ''],
-        'draw'            => ['/\bdraw\b/i', 'draw-discard', ''],
-        'damage'          => ['/deal[s]? [^.]*damage|damage/i', 'damage', ''],
-        'prevent'         => ['/\bprevent\b/i', 'prevent-damage', ''],
-        'wake-rest'       => ['/\b(?:wake up|rest)\b/i', 'status', ''],
-        'stat'            => ['/[+\-]\d+\s*\[(?:POWER|LIFE)\]/i', 'stat-change', ''],
-        'on-enter'        => ['/On Enter/i', 'on-enter', ''],
-        'on-attack'       => ['/On Attack/i', 'on-attack', ''],
-        'on-death'        => ['/On Death|dies/i', 'on-death', ''],
-        'deluge'          => ['/Deluge/i', 'deluge', ''],
-        'negate'          => ['/\bnegate\b/i', 'negate', 'Needs an opposing activation to negate (see water-negates*.php).'],
-        'omen'            => ['/\bomen\b/i', 'omen', ''],
-        'melody'          => ['/Melody|Harmonize|Harmony/i', 'melody', ''],
-        'bonus-champion'  => ['/\[(?:Merlin|Ciel|Alice|Nico|Kongming|Vanitas|Diao Chan|Guo Jia|Cao Cao) Bonus\]/i', 'champion-bonus', 'Needs that specific champion: not yet exercised, check ENGINE-FINDINGS.'],
-    ];
     $found = [];
-    foreach ($defs as $key => [$re, $tag, $hint]) if (preg_match($re, $text)) $found[$key] = [$tag, $hint];
+    foreach (gsMechanicTable() as $key => $row) if (preg_match($row['re'], $text)) $found[$key] = [$row['tag'], $row['hint']];
     return $found;
+}
+
+// Printed clauses that no mechanic row recognises: the NEW effects, which have no hint, exemplar or tag and need a hand-written fixture.
+function gsUnmatchedClauses($id): array {
+    $out = [];
+    foreach (gsClauses($id) as $clause) {
+        $matched = false;
+        foreach (gsMechanicTable() as $row) if (preg_match($row['re'], $clause)) { $matched = true; break; }
+        if (!$matched) $out[] = $clause;
+    }
+    return $out;
 }
 
 // The target the first printed "target ..." needs, as [description, seeds, mz answer].
@@ -129,7 +110,7 @@ function gsExemplars(array $features, string $selfId, array $backlog): array {
     }
     $out = [];
     foreach (array_keys($features) as $k) {
-        if (!in_array($k, ['floating-memory', 'imbue', 'suppress', 'glimpse', 'scavenge', 'efficiency', 'cost-reduction', 'load', 'ephemerate', 'delevel', 'additional-cost', 'alt-cost', 'negate', 'melody', 'bonus-champion', 'deluge', 'omen'], true)) continue;
+        if (empty(gsMechanicTable()[$k]['exemplar'])) continue;
         $pick = array_values(array_filter($index[$k] ?? [], fn($e) => $e[2] !== $selfId));
         // Same element and type first: their prompt order is the most likely to match.
         $score = fn($e) => (gsElementOf($e[2]) === gsElementOf($selfId) ? 2 : 0) + (strval(CardType($e[2])) === strval(CardType($selfId)) ? 1 : 0);
@@ -208,6 +189,7 @@ function gsSkeleton(string $id, array $backlog, array $byId, bool $probe = false
     $notes = [];
     if ($twins) $notes[] = "// Twins to write: " . implode('; ', $twins);
     foreach ($features as $k => [$tag, $hint]) if ($hint !== '') $notes[] = "// Hint ({$k}): {$hint}";
+    foreach (gsUnmatchedClauses($id) as $u) $notes[] = "// UNMATCHED (new effect, no mechanic row): " . $u;
     foreach (gsExemplars($features, $id, $backlog) as $k => $ex) {
         $notes[] = "// Exemplar ({$k}): " . implode('; ', array_map(fn($e) => "{$e[0]} -> {$e[1]}", $ex));
     }
@@ -232,17 +214,37 @@ function gsUncovered(array $backlog, ?string $element, ?string $type, bool $exal
     return $out;
 }
 
+if (isset($args['unmatched'])) {
+    // New effects: printed clauses no mechanic row recognises, grouped by their shape (numbers and names blanked) so repeats stand out.
+    $element = isset($args['element']) ? strtoupper($args['element']) : null;
+    $ids = gsUncovered($backlog, $element, isset($args['type']) ? strtoupper($args['type']) : null, isset($args['exalted']));
+    $groups = [];
+    foreach ($ids as $id) foreach (gsUnmatchedClauses($id) as $clause) {
+        $shape = strtolower(preg_replace(['/\d+/', '/\[[^\]]*\]/', '/[*_]+/', '/\s+/'], ['N', '', '', ' '], $clause));
+        $groups[$shape]['cards'][CardName($id)] = true;
+        $groups[$shape]['example'] ??= $clause;
+    }
+    uasort($groups, fn($a, $b) => count($b['cards']) <=> count($a['cards']));
+    $promote = 0;
+    foreach ($groups as $g) if (count($g['cards']) >= 3) $promote++;
+    echo count($groups), " unmatched clause shapes over ", count($ids), " cards; {$promote} repeat on 3+ cards (promote those to a row in ga-fixtures/mechanics.php)\n";
+    foreach (array_slice($groups, 0, (int)($args['limit'] ?? 40), true) as $g) printf("%3d  %-90s %s\n", count($g['cards']), mb_substr($g['example'], 0, 90), implode(', ', array_slice(array_keys($g['cards']), 0, 3)));
+    exit(0);
+}
+
 if (isset($args['list'])) {
     $element = isset($args['element']) ? strtoupper($args['element']) : null;
     $ids = gsUncovered($backlog, $element, isset($args['type']) ? strtoupper($args['type']) : null, isset($args['exalted']));
     $groups = [];
+    $unmatched = 0;
     foreach ($ids as $id) {
         $f = array_keys(gsFeatures(gsText($id)));
-        $shape = implode('+', array_slice(array_values(array_diff($f, ['damage', 'draw', 'stat', 'counter', 'sacrifice', 'wake-rest', 'prevent', 'distant', 'token', 'on-enter', 'on-attack', 'on-death', 'deluge', 'omen'])), 0, 3)) ?: 'plain';
+        $shape = implode('+', array_slice(array_values(array_filter($f, fn($k) => gsMechanicTable()[$k]['shape'] ?? true)), 0, 3)) ?: 'plain';
         $groups[strval(CardType($id)) . ' / ' . $shape][] = CardName($id);
+        $unmatched += count(gsUnmatchedClauses($id)) > 0 ? 1 : 0;
     }
     uasort($groups, fn($a, $b) => count($b) <=> count($a));
-    echo count($ids), " uncovered cards", $element ? " ({$element})" : '', "\n";
+    echo count($ids), " uncovered cards", $element ? " ({$element})" : '', "; {$unmatched} with a clause no mechanic row recognises (php DevTools/ga-scaffold.php --unmatched" . ($element ? " --element={$element}" : '') . ")\n";
     foreach ($groups as $shape => $cards) printf("%3d  %-48s %s\n", count($cards), $shape, implode(', ', array_slice($cards, 0, 6)) . (count($cards) > 6 ? ', ...' : ''));
     exit(0);
 }

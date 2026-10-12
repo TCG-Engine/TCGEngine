@@ -206,6 +206,16 @@ fixtures of covered cards that share a mechanic (same element and type first), s
   describe the behaviour when the scenario is finished. The skeleton does NOT know the window passes, the real prompt order or the
   observable result; those, the negative twins and a mutation check are still the author's work.
 
+### New effects: `UNMATCHED` and `ga-fixtures/mechanics.php`
+
+The mechanics the scaffold recognises live in ONE table, `DevTools/ga-fixtures/mechanics.php` (regex, `covers()` tag, hint, whether to list
+exemplars, whether `--list` groups by it). A printed clause that matches no row is a NEW EFFECT: the skeleton prints
+`// UNMATCHED (new effect, no mechanic row): <clause>` and has no hint or exemplar for it, so write that part by hand.
+`php DevTools/ga-scaffold.php --unmatched --element=WIND` lists the unmatched clauses grouped by shape (numbers and brackets blanked).
+**Promotion rule:** the first one or two cards with a new clause are hand-written; when a shape repeats on a third card (the report says
+"N repeat on 3+ cards"), add a row to `mechanics.php` and, if the assertions repeat too, a Layer 2 helper in `Scenario.php`.
+(`BacklogMechanics()` in `build-ga-semantic-backlog.php` is a separate, coarser list that only ranks the backlog; it is not this table.)
+
 `DevTools/ga-fixture-run.sh [--play] slug...` regenerates and runs scenarios (add `--play` for the autoplay prompt order and final state).
 
 ## Finding the real prompt order
