@@ -1,0 +1,22 @@
+{
+    "name": "twingale-parry-class-bonus-ephemerate-from-the-graveyard-with-a-sword-banishes-it-after",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:24:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "V8XBfRpDRJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "V8XBfRpDRJ"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "class-bonus",
+            "prevent-damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ephemerate \u2014 **(2). Activate this card this way only if you control a Sword weapon."
+        ]
+    }
+}

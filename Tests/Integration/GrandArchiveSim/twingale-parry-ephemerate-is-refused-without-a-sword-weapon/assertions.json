@@ -1,0 +1,25 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "V8XBfRpDRJ",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Without a Sword weapon the click does nothing: the card stays in the graveyard (the engine accepts the click and ignores it)"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was paid"
+    }
+]

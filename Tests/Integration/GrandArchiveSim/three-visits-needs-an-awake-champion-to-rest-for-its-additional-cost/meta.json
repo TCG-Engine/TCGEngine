@@ -1,0 +1,20 @@
+{
+    "name": "three-visits-needs-an-awake-champion-to-rest-for-its-additional-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:25:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w7o3agvvnc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w7o3agvvnc"
+        ],
+        "mechanics": [
+            "additional-cost"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, rest your champion."
+        ]
+    }
+}

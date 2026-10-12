@@ -1,0 +1,21 @@
+{
+    "name": "three-visits-class-bonus-from-the-banishment-goes-to-the-bottom-of-the-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:25:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w7o3agvvnc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w7o3agvvnc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "banish-activation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may activate this card from your banishment. If you do, put it on the bottom of your deck as it resolves."
+        ]
+    }
+}

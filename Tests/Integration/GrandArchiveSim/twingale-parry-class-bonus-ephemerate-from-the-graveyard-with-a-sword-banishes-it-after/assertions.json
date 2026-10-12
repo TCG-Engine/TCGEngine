@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "V8XBfRpDRJ",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Ephemerate: it is banished as it resolves"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "It left the graveyard"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Ephemerate (2) was paid"
+    }
+]

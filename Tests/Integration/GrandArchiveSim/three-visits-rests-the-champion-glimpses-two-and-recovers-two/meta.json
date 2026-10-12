@@ -1,0 +1,23 @@
+{
+    "name": "three-visits-rests-the-champion-glimpses-two-and-recovers-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:25:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w7o3agvvnc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w7o3agvvnc"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "glimpse",
+            "recover"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, rest your champion.",
+            "**Glimpse 2** and **recover 2**."
+        ]
+    }
+}
