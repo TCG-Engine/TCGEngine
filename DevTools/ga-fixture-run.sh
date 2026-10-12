@@ -9,7 +9,7 @@ if [ "$1" = "--play" ]; then play=1; shift; fi
 for s in "$@"; do
   echo "######## $s"
   gen=$(php DevTools/create-prd-ability-fixtures.php --fixture="$s" 2>&1)
-  echo "$gen" | grep -E "WARN|dropp|REJECT|FAIL|Fatal|ERROR|Unknown|Failed: [1-9]|not found" | head -5
+  echo "$gen" | grep -E "WARN|dropp|REJECT|FAIL|Fatal|ERROR|Unknown|Failed: [1-9]|not found|assertion failed" | head -6
   if echo "$gen" | grep -qE "Failed: [1-9]|Fatal"; then
     # A fixture that failed to generate has no (or a stale) directory: the integration run would pass vacuously.
     echo "!! GENERATION FAILED -- not running the integration test"

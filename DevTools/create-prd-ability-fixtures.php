@@ -1480,7 +1480,10 @@ foreach ($fixtures as $slug => $def) {
             $created++;
         } else {
             echo "  [FAIL] Fixture failed verification\n";
-            echo "  " . trim(substr($verifyResult, strrpos($verifyResult, "\n") + 1)) . "\n";
+            // The first failing assertion ("Step 5 assertion failed: Expected ...") is the useful line; the directory is left in place for dump-fixture-state.php.
+            foreach (preg_split('/\R/', (string)$verifyResult) as $failLine) {
+                if (strpos($failLine, '[FAIL]') !== false) { echo "  " . trim($failLine) . "\n"; break; }
+            }
             $failed++;
         }
 
