@@ -784,6 +784,9 @@ function GetPlayableFastAbilities($player) {
     global $Cardistry_Cards;
     $savedPlayerID = $playerID;
     $playerID = $player;
+    // Abilities printed "Activate this ability only at slow speed" are refused while this listing is built (see GAIsSlowSpeed in GeneratedAbilityOverrides.php).
+    $savedFastWindowContext = $GLOBALS['GAFastWindowAbilityContext'] ?? false;
+    $GLOBALS['GAFastWindowAbilityContext'] = true;
 
     $choices = [];
     $existingFlash = GetFlashMessage();
@@ -837,6 +840,7 @@ function GetPlayableFastAbilities($player) {
 
     SetFlashMessage($existingFlash);
     $playerID = $savedPlayerID;
+    $GLOBALS['GAFastWindowAbilityContext'] = $savedFastWindowContext;
     return $choices;
 }
 
@@ -888,7 +892,10 @@ function ResolveOpportunitySelection($player, $selection) {
         if($sourceObj !== null && isset($sourceObj->Location) && $sourceObj->Location === "Hand") {
             HandActivatedAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
         } else {
+            // Chosen from a response window: a slow-speed-only ability must still be refused here.
+            $GLOBALS['GAFastWindowAbilityContext'] = true;
             ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+            $GLOBALS['GAFastWindowAbilityContext'] = false;
         }
         ResumeIdleEffectStackIfNeeded();
         return true;

@@ -1,0 +1,22 @@
+{
+    "name": "ninja-tabi-agility-is-slow-speed-only-and-works-in-your-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:55:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "imcmo3l3th"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "imcmo3l3th"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "slow-speed",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only at slow speed."
+        ]
+    }
+}

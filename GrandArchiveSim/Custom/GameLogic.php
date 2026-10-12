@@ -2354,9 +2354,31 @@ function ActivationHasAlternativeReserveCost($cardID) {
 // How many reserve points Kindle can pay for: up to N fire cards banished from the graveyard (the
 // class-bonus requirement is deliberately ignored here -- over-estimating only makes the refusal
 // more permissive).
+// Kindle printed behind a bonus ("[Class Bonus] **Kindle 2**", "[Merlin Bonus] **Kindle 2**") only applies while that bonus does; the other Kindle cards have it unconditionally. The kindle block used to
+// offer every registered Kindle regardless.
+function KindleBonusApplies($player, $cardID) {
+    switch($cardID) {
+        case "1ym2py8u7q": // Glowering Conflagration
+        case "vrK16VZ2zU": // Burning Aethercharge
+        case "vwktc1c3kn": // Silent Firebrand
+            return IsClassBonusActive($player, CardClasses($cardID));
+        case "p7FWS3DA4a": // Molten Echo: [Merlin Bonus]
+            $champMZ = FindChampionMZ($player);
+            $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+            if($champObj === null) return false;
+            $lineage = array_merge([$champObj->CardID], is_array($champObj->Subcards ?? null) ? $champObj->Subcards : []);
+            foreach($lineage as $lineageCardID) {
+                if(strpos(CardName($lineageCardID), "Merlin") === 0) return true;
+            }
+            return false;
+    }
+    return true;
+}
+
 function ActivationKindleReduction($cardID) {
-    global $Kindle_Cards;
+    global $Kindle_Cards, $playerID;
     if(!isset($Kindle_Cards[$cardID])) return 0;
+    if(!KindleBonusApplies($playerID, $cardID)) return 0;
     $fireCards = 0;
     foreach(GetZone("myGraveyard") as $gyObj) {
         if($gyObj !== null && empty($gyObj->removed) && CardElement($gyObj->CardID) === "FIRE") ++$fireCards;
@@ -3495,7 +3517,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
         // Kindle: check if card has Kindle N and class bonus is active
         global $Kindle_Cards;
-        $hasKindle = isset($Kindle_Cards[$obj->CardID]) && !$ignoreCost && $reserveCost > 0;
+        $hasKindle = isset($Kindle_Cards[$obj->CardID]) && !$ignoreCost && $reserveCost > 0 && KindleBonusApplies($player, $obj->CardID);
         if($hasKindle) {
             $kindleN = $Kindle_Cards[$obj->CardID];
             $fireGY = [];

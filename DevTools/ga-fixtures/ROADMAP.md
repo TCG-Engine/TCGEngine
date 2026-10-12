@@ -289,3 +289,5 @@ verified by regenerating and comparing by meaning.
 ### Phase 3a (Fire) -- wrap-up (2026-10-11)
 - Fire is at 1,174 covered cards overall; 15 Fire cards remain and all need a bonus champion or a harder setup (see `ENGINE-FINDINGS.md`, section 4).
 - `ENGINE-FINDINGS.md` is the whole-picture review of the engine bugs found so far: what was fixed, the six behaviour-wide items that need a decision, and the cards whose text is not implemented.
+- Decisions taken at the end of Fire (see `ENGINE-FINDINGS.md`): slow-speed-only abilities are now enforced centrally; `[Class Bonus]` / `[Merlin Bonus]` Kindle is gated; Spellshroud keeps blocking
+  your own spells; the Exalted dual-element fix is parked as its own batch.

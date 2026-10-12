@@ -509,3 +509,35 @@ gaScenario('five-of-hearts-cardistry-puts-a-buff-counter-on-each-suited-ally-and
     ->tested('Five of Hearts')
     ->covers(['cardistry', 'counter', 'cost-reduction', 'once-per-game'], '***Cardistry*** -- (5): Put a **buff** counter on each Suited ally you control. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.')
     ->register();
+
+gaScenario('gloamspire-black-market-slow-speed-ability-is-refused-in-a-response-window')
+    ->standardDeck('Gloamspire, Black Market')
+    ->readyFor('Gloamspire, Black Market')
+    ->emptyZone('myHand')
+    ->seed('myHand', 'Dungeon Guide')->seed('myHand', 'Dungeon Guide')
+    ->seed('myField', 'Gloamspire, Black Market')
+    ->endTurn()
+    ->answer(1, 'myField-1@Activate-0@Draw')
+    ->expectZoneCount('myMemory', 0, 1, 'Slow speed only: the ability is not offered in the end-of-turn response window, so nothing was drawn into memory')
+    ->tested('Gloamspire, Black Market')
+    ->covers(['activated-ability', 'slow-speed', 'restriction'], 'Activate this ability only at slow speed.')
+    ->register();
+
+gaScenario('ninja-tabi-agility-is-slow-speed-only-and-works-in-your-main-phase')
+    ->standardDeck('Ninja Tabi')
+    ->seed('myField', 'Ninja Tabi')
+    ->endTurn()
+    ->answer(1, 'myField-1@Activate-0@Banish_for_Agility_3')
+    ->expectCardExists('myField', 'Ninja Tabi', 'Slow speed only: it is not offered in a response window, so Ninja Tabi is still on the field')
+    ->tested('Ninja Tabi')
+    ->covers(['activated-ability', 'slow-speed', 'restriction'], 'Activate this ability only at slow speed.')
+    ->register();
+
+gaScenario('ninja-tabi-banish-gives-agility-three-in-your-main-phase')
+    ->standardDeck('Ninja Tabi')
+    ->seed('myField', 'Ninja Tabi')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
+    ->expectCardExists('myBanish', 'Ninja Tabi', 'Banish CARDNAME was paid')
+    ->tested('Ninja Tabi')
+    ->covers(['activated-ability', 'slow-speed', 'agility', 'banish-self'], '**Banish CARDNAME:** You gain **agility 3** for this turn. Activate this ability only at slow speed.')
+    ->register();

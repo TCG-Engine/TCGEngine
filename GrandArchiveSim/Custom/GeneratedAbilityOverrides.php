@@ -2029,6 +2029,21 @@ foreach(["e8ygl32jef", "o09csnorqv", "mzwTQzuXZa", "xgax8bbjqj", "i9hf5lhl5f", "
         return $gaCardistryOncePrereq === null ? true : $gaCardistryOncePrereq($player, $mzID, $abilityIndex);
     };
 }
+// "Activate this ability only at slow speed": slow speed is your own main phase with nothing on the stack and no combat. CanActivateAbility() is the single gate for the window listing (OpportunityLogic.php sets
+// GAFastWindowAbilityContext while it builds the list and while a listed choice is activated) and for execution, but only 14 cards print the restriction and the generated prereqs either lack it or test HasOpportunity()
+// (which is false for the player building the window), so Gloamspire's draw resolved from the end-of-turn window. The ability index is the one the card's text belongs to.
+function GAIsSlowSpeed($player) {
+    if(!empty($GLOBALS['GAFastWindowAbilityContext'])) return false;
+    if(GetTurnPlayer() != $player || GetCurrentPhase() !== "MAIN") return false;
+    return !HasOpportunity($player);
+}
+foreach(["imcmo3l3th:0", "40lgjj1yS3:0", "SGsDKB9CN5:0", "cc0jmpmman:0", "uvgflagxbb:0", "s7pmqsl3jw:1", "al6pqkmgmz:0", "9xycwz9gv4:0", "ts9VdtFtk1:0", "7gz0j8p4sx:0", "s23UHXgcZq:0", "waf8urrqtj:0"] as $gaSlowOnlyKey) {
+    $gaSlowOnlyPrereq = $activateAbilityPrereqs[$gaSlowOnlyKey] ?? null;
+    $activateAbilityPrereqs[$gaSlowOnlyKey] = function($player, $mzID, $abilityIndex) use ($gaSlowOnlyPrereq) {
+        if(!GAIsSlowSpeed($player)) return false;
+        return $gaSlowOnlyPrereq === null ? true : $gaSlowOnlyPrereq($player, $mzID, $abilityIndex);
+    };
+}
 // Oppressive Presence's generated prereq had the test inverted (HasOpportunity() || your own turn -> refuse), so the card was refused in the one window it is meant for -- the opponent's recollection opportunity -- and nothing else offers it.
 $activateCardPrereqs["j9hjjvkyyr:0"] = function($player, $mzID, $ignoreCost) {
     if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) { SetFlashMessage("Oppressive Presence can only be activated during an opponent's recollection phase."); return false; }

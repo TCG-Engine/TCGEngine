@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Slow speed only: the ability is not offered in the end-of-turn response window, so nothing was drawn into memory"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "gloamspire-black-market-slow-speed-ability-is-refused-in-a-response-window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:55:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "waf8urrqtj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "waf8urrqtj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "slow-speed",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "Activate this ability only at slow speed."
+        ]
+    }
+}

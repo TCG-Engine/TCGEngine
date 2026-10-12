@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:44:10+00:00",
+    "generatedAt": "2026-10-12T01:57:25+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1157,
+        "cardsWithExistingFixtures": 1158,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1320,
+        "cardsNeedingSemanticCoverage": 1319,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -21334,21 +21334,6 @@
             "cardId": "8jypwc8tuh",
             "name": "Navigate the Streets",
             "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "imcmo3l3th",
-            "name": "Ninja Tabi",
-            "type": "REGALIA,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -47698,10 +47683,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards"
+                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards",
+                "silent-firebrand-without-the-class-bonus-has-no-kindle"
             ],
             "semanticFixtures": [
-                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards"
+                "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards",
+                "silent-firebrand-without-the-class-bonus-has-no-kindle"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48793,12 +48780,14 @@
             "existingFixtures": [
                 "gloamspire-black-market-a-player-with-seven-influence-does-not-draw",
                 "gloamspire-black-market-is-sacrificed-at-recollection-with-influence-eight-or-more",
-                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence"
+                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence",
+                "gloamspire-black-market-slow-speed-ability-is-refused-in-a-response-window"
             ],
             "semanticFixtures": [
                 "gloamspire-black-market-a-player-with-seven-influence-does-not-draw",
                 "gloamspire-black-market-is-sacrificed-at-recollection-with-influence-eight-or-more",
-                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence"
+                "gloamspire-black-market-rest-draws-into-memory-for-each-player-with-low-influence",
+                "gloamspire-black-market-slow-speed-ability-is-refused-in-a-response-window"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48999,6 +48988,27 @@
             ],
             "semanticFixtures": [
                 "natures-appeal-level-three-reveals-three-hand-material-and-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "imcmo3l3th",
+            "name": "Ninja Tabi",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ninja-tabi-agility-is-slow-speed-only-and-works-in-your-main-phase",
+                "ninja-tabi-banish-gives-agility-three-in-your-main-phase"
+            ],
+            "semanticFixtures": [
+                "ninja-tabi-agility-is-slow-speed-only-and-works-in-your-main-phase",
+                "ninja-tabi-banish-gives-agility-three-in-your-main-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

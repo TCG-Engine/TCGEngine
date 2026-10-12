@@ -186,6 +186,20 @@ gaScenario('silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-car
     ->covers(['keyword', 'kindle', 'class-bonus'], '[Class Bonus] Kindle 2 (You may banish up to two fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card\'s cost.)')
     ->register();
 
+gaScenario('silent-firebrand-without-the-class-bonus-has-no-kindle')
+    ->standardDeck('Silent Firebrand')
+    ->readyFor('Silent Firebrand')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myGraveyard', 'Red Slime')
+    ->seed('myHand', 'Silent Firebrand')
+    ->play('Silent Firebrand')->pay(4)
+    ->tested('Silent Firebrand')
+    ->expectZoneCount('myBanish', 0, 1, 'No Class Bonus: Kindle is not offered, nothing was banished')
+    ->expectZoneCount('myGraveyard', 2, 1, 'Both fire cards stayed in the graveyard')
+    ->expectZoneCount('myMemory', 4, 1, 'The whole cost of (4) was paid from hand')
+    ->covers(['keyword', 'kindle', 'class-bonus', 'condition'], '[Class Bonus] Kindle 2 (You may banish up to two fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card\'s cost.)')
+    ->register();
+
 gaScenario('flagrant-guide-enter-levels-up-your-champion-and-deals-unpreventable-damage')
     ->standardDeck('Flagrant Guide')
     ->readyFor('Flagrant Guide')

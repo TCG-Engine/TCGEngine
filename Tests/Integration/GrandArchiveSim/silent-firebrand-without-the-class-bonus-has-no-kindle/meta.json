@@ -1,0 +1,23 @@
+{
+    "name": "silent-firebrand-without-the-class-bonus-has-no-kindle",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:56:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vwktc1c3kn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vwktc1c3kn"
+        ],
+        "mechanics": [
+            "keyword",
+            "kindle",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Kindle 2 (You may banish up to two fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card's cost.)"
+        ]
+    }
+}

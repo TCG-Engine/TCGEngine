@@ -2,7 +2,7 @@
 
 Everything here was found by writing a fixture that plays a card the way a player would and asserting the printed text.
 Section 1 is fixed and covered by a fixture. Sections 2 and 3 are **open**; section 2 are behaviour-wide changes that need a decision
-before they are made, section 3 are cards whose text is not implemented at all.
+before they are made (A is parked for its own Exalted batch), section 3 are cards whose text is not implemented at all.
 
 Fixes live in `GrandArchiveSim/Custom/*` (mostly `GeneratedAbilityOverrides.php`, `GameLogic.php`, `CombatLogic.php`); no generated file
 was edited by hand.
@@ -40,6 +40,22 @@ against these lists and lists the known gaps.
 | Duchess, Six of Hearts | Using Cardistry fataled the engine (`stdClass::Remove()`), and Exalted fire actions were never offered. |
 | Gloamspire, Black Market | "Influence" was counted as memory only, in both the draw ability (every player drew) and the Upkeep (never sacrificed). |
 
+### Decided and fixed after review
+| Item | Change |
+|---|---|
+| "Activate this ability only at slow speed" (12 abilities on 14 cards) | Enforced centrally: `GAIsSlowSpeed()` (your own main phase, empty stack, no combat) wraps the prereq of each; `GAFastWindowAbilityContext` marks the window listing and window activations in `OpportunityLogic.php`. Fixtures: Gloamspire and Ninja Tabi (refused in a window, works in the main phase). The two boons (Lesser Boon of Nourishment, Greater Boon of Inari) have no ability implementation at all yet. |
+| `[Class Bonus] Kindle` / `[Merlin Bonus] Kindle` | `KindleBonusApplies()` gates Glowering Conflagration, Burning Aethercharge, Silent Firebrand (class bonus) and Molten Echo (Merlin in the lineage). Fixture: Silent Firebrand with and without the bonus. |
+
+### Decided: leave as is
+| Item | Decision |
+|---|---|
+| Spellshroud also stops your own spells | Keep. Suzaku's Command's Shenju clause stays unreachable (every Shenju has Spellshroud). |
+
+### Decided: do as its own batch later
+| Item | Decision |
+|---|---|
+| Exalted dual-element cards fail exact-match element checks (section 2A) | Will be an "Exalted" batch with its own fixtures, not folded into the element batches. |
+
 ## 2. Open: behaviour-wide, needs a decision
 
 ### A. Exalted cards are not "fire/water/wind/norm element" to exact-match checks
@@ -50,28 +66,15 @@ Affected fire cards include Blaze Alight, Suffocating Ash, Tyrannical Denigratio
 Proposed fix: one `CardHasElement($id, $el)` helper (`PropertyContains`) and replace the comparisons that mean "is an X element card".
 Risk: changes the outcome of any game that plays those 80 cards; each site needs a look because a few `=== "NORM"` tests are deliberate.
 
-### B. "Activate this ability only at slow speed" is not enforced in fast windows
-14 cards print it (Lesser Boon of Nourishment, Greater Boon of Inari, Ninja Tabi, Luminous Quartz, Endura, Ghostsight Glass, Coronal of Rejuvenation,
-Ebbing Tide, Fatestone of Heaven, Memento Mori, Divine Comedy, Minister of Ceremony, Luxera's Map, Gloamspire). Gloamspire's draw resolved from the
-end-of-turn response window. `GetPlayableFastAbilities` offers them and the per-card prereqs (`!HasOpportunity($player)`) do not stop it.
-
-### C. Raw `GetVariable("CombatAttacker")` readers
+### B. Raw `GetVariable("CombatAttacker")` readers
 The variable is stored from the attacker's perspective (`myField-N`). 75 places read it directly (GameLogic 26, CombatLogic 22, generated 24, other 3).
 Reads by the attacking player are right; reads by the defending player (reactions, "target attacking ally", defender-side triggers) resolve against the
 wrong zone. Potion Infusion: Blaze was one; `GetCombatAttackerMZ()` is the viewer-relative accessor. Needs an audit of the defender-side sites only.
 
-### D. `[Class Bonus] Kindle` is not gated on the class bonus
-Silent Firebrand, Burning Aethercharge, Glowering Conflagration (and Molten Echo's Merlin Bonus Kindle) offer Kindle whether or not the bonus applies.
-The kindle block's own comment says it checks the class bonus; it does not.
-
-### E. A starting champion's printed On Enter never runs
+### C. A starting champion's printed On Enter never runs
 `PlacePregameStartingChampion` sets `SuppressNextEnter`, so the opening hand is always seven cards. Fragmented / Fortuitous / Serene Spirit of Fire
 (Glimpse 6/7, draw six, summon a Spirit Shard, draw into memory) and any other starting champion with a different On Enter behave like a plain draw-seven.
 The six Fire champion fixtures seed the champion onto the field to exercise the ability.
-
-### F. Spellshroud also blocks your own spells
-`FilterSpellshroudTargets` hides a Spellshroud object from its controller's spells. Every Shenju has Spellshroud, so Suzaku's Command's Shenju clause
-(+2 more POWER, unpreventable) is unreachable. Is that the intended rule?
 
 ## 3. Open: card text not implemented
 - Eight of Hearts: alternative payment (sacrifice up to two Suited allies for 3 each).
