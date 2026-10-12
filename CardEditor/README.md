@@ -3,7 +3,7 @@
 ## Hosted card editing MCP
 
 The Card Editor now has a separate hosted authoring MCP at `CardEditor/Mcp/index.php`, for cards,
-sets, templates, fields, and artwork. Create account-scoped read/write tokens through **AI access**
+sets, templates, fields, and artwork. Create account-scoped read/write tokens through **MCP**
 in the editor sidebar. See [deployment, client configuration, and tests](Mcp/README.md).
 The game programming MCP in `McpServer/` remains independent.
 

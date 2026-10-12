@@ -35,6 +35,11 @@ function PokeFossilBenchCount(int $player): int {
 function PokeAttackCost($pokemon,array $cost): array {
     $enemy=PokeFirstRef(3-$pokemon->Controller,'Active');
     if($enemy!==''&&(EffectiveCardSubtypes($pokemon)[0]??'')==='Basic'&&GetZoneObject($enemy)->CardID==='sv07-130'&&!HasNoAbilities(GetZoneObject($enemy)))$cost[]='Colorless';
+    $stadium=PokeStadium();
+    if($stadium){
+        $extra=EvaluateAttackCostModifier($stadium->CardID,$pokemon->Controller,$pokemon,count($cost),$stadium);
+        for($i=0;$i<$extra;++$i)$cost[]='Colorless';
+    }
     return $cost;
 }
 function PokeDiscardFossil(int $player,string $ref): void {

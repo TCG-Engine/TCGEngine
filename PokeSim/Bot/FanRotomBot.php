@@ -10,8 +10,12 @@ function PokeFanContext(array $view): array {
 function PokeFanOpening(array $ctx): bool {
     return $ctx['own']['turns'] <= ($ctx['seat']===$ctx['view']['firstPlayer'] ? 2 : 1);
 }
+/** A visible Tera attacker is the toolbox cue; no opponent deck/hand inspection. */
+function PokeFanWantMine(array $ctx): bool {
+    return (bool)array_filter($ctx['enemy']['Active'],fn($c)=>in_array('Tera',EffectiveCardSubtypes($c['id']),true));
+}
 function PokeFanSearchScore(array $ctx,string $id): float {
-    if(CardTrainerType($id)==='Stadium')return !$ctx['view']['stadium']?240:0;
+    if(CardTrainerType($id)==='Stadium')return !$ctx['view']['stadium']?240+($id==='me02.5-197'&&PokeFanWantMine($ctx)?30:0):0;
     if($id==='sv06.5-057')return !$ctx['view']['stadium']||!$ctx['energy']?260:0;
     if($id==='sv07-118' && PokeFanOpening($ctx) && !PokeBotFieldCount($ctx,[$id]) && !isset($ctx['hand'][$id]))return 300;
     if(in_array($id,['me01-119','me02.5-192'],true))return !isset($ctx['hand']['sv06.5-057'])?180:60;
@@ -24,6 +28,7 @@ function PokeFanActionScore(array $ctx,array $action): float {
     if($action['type']==='setup-active')return match($card['id']){'sv07-118'=>300,'sv09-120'=>250,'sv08.5-004'=>200,default=>100};
     if($action['type']==='trainer'){
         $id=$card['id'];
+        if($id==='me02.5-197'&&PokeFanWantMine($ctx)&&($ctx['view']['stadium']['id']??'')!==$id)return 270;
         if(CardTrainerType($id)==='Stadium')return !$ctx['view']['stadium']?260:($id==='me02-085'&&($ctx['view']['stadium']['id']??'')==='sv06-153'?125:-20);
         if($id==='sv06.5-057')return $opening&&(!$ctx['view']['stadium']||!$ctx['energy']&&!$ctx['own']['energyUsed'])?245:-20;
         if($id==='me01-119')return count($ctx['own']['Hand'])<6||$opening&&(!$ctx['view']['stadium']||!$ctx['energy']&&!$ctx['own']['energyUsed']||!PokeBotFieldCount($ctx,['sv07-118']))?85:-20;

@@ -20,4 +20,34 @@ fanBoard();$s=PokeAdd(1,'Bench','me05-062');$s->Controller=1;$hp=PokeCurrentHP($
 fanBoard();PokeAdd(1,'Hand','sv06.5-057');check(PokeBotChoose(PokeObservation(1))['source']==='p1Hand-0','Colress prioritized for missing Stadium');PokeSetVar('FanCall:1',GetTurnNumber());check(PokeBotChoose(PokeObservation(1))['source']==='p1Hand-0','Colress prioritized for missing Stadium');
 fanBoard();PokeSetVar('FanCall:1',GetTurnNumber());GetZoneObject('p1Active-0')->Energy=[];PokeAdd(1,'Hand','me03-072');check(PokeBotChoose(PokeObservation(1))['source']==='p1Hand-0','Energy Search supplies missing attachment');
 check(PokeOpeningProfile('fan-rotom-lopunny')['targets']===['sv07-118'=>[0]],'Opening metric targets Rotom');
+
+$counts=array_column(PokeNamedDeck('fan-rotom-lopunny'),'count','id');
+check($counts['me02-085']===3&&$counts['me02.5-197']===1,'Stadium toolbox has three Cage and one Mine');
+check(!PokeValidateDeck(PokeNamedDeck('fan-rotom-lopunny')),'Updated registered deck is implemented and has 60 cards');
+fanBoard();PokeAdd(1,'Hand','me02.5-197');PokeApplyAction(['type'=>'trainer','player'=>1,'source'=>'p1Hand-0']);
+check(PokeStadium()->CardID==='me02.5-197','Mine enters play');
+check(PokeAttackCost(GetZoneObject('p1Active-0'),['Colorless'])===['Colorless'],'Mine leaves Fan Rotom cost alone');
+foreach([1,2] as $seat){
+ $obj=GetZoneObject('p'.$seat.'Active-0');$obj->CardID='sv06-130';
+ check(PokeAttackCost($obj,['Fire','Psychic'])===['Fire','Psychic','Colorless'],'Mine taxes either seat Tera attacks');
+ $obj->Counters['noAbilities']=true;
+ check(PokeAttackCost($obj,['Colorless'])===['Colorless','Colorless'],'Tera label survives ability suppression');
+ $obj->CardID='me02-084';check(PokeAttackCost($obj,['Colorless'])===['Colorless'],'Mine does not tax Mega Lopunny');
+}
+check(PokeCardIsTera('sv06-130')&&PokeCardIsTera('sv06-200'),'Tera classification includes alternate Dragapult printing');
+check(PokeCardIsTera('sv06-106')&&!PokeCardIsTera('me04-022'),'Tera Greninja distinguished from non-Tera Mega Greninja');
+$obj=GetZoneObject('p2Active-0');$obj->CardID='sv06-130';$obj->Energy=['mee-005'];
+SetTurnPlayer(2);AddPlayerTurns(2,2);
+check(!array_filter(PokeLegalActions(2),fn($a)=>$a['type']==='attack'),'Tera cannot attack with original one-Energy cost under Mine');
+$obj->Energy[]='mee-005';check((bool)array_filter(PokeLegalActions(2),fn($a)=>$a['type']==='attack'&&$a['index']===0),'Second Energy enables taxed attack');
+PokeDiscardStadium();check(PokeAttackCost($obj,['Colorless'])===['Colorless'],'Tax ends when Mine leaves play');
+fanBoard();$obj=GetZoneObject('p1Active-0');$obj->CardID='sv06-025';GetZoneObject('p2Active-0')->CardID='sv07-130';
+PokeAdd(1,'Hand','me02.5-197');PokeApplyAction(['type'=>'trainer','player'=>1,'source'=>'p1Hand-0']);
+check(PokeAttackCost($obj,['Grass'])===['Grass','Colorless','Colorless'],'Mine stacks with opposing Basic attack tax');
+
+
+fanBoard();GetZoneObject('p2Active-0')->CardID='sv06-130';PokeAdd(1,'Hand','me02-085');PokeAdd(1,'Hand','me02.5-197');
+check(PokeBotChoose(PokeObservation(1))['source']==='p1Hand-1','Bot prefers Mine against a visible Tera attacker');
+$ctx=PokeFanContext(PokeObservation(1));check(PokeFanSearchScore($ctx,'me02.5-197')>PokeFanSearchScore($ctx,'me02-085'),'Colress ranks toolbox Mine against Tera');
+
 echo "PASS $checks Fan Rotom checks\n";

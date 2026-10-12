@@ -13,6 +13,7 @@
 2 Buddy-Buddy Poffin TEF 144
 2 Switch MEG 130
 2 Air Balloon ASC 181
-4 Battle Cage PFL 85
+3 Battle Cage PFL 85
+1 Nighttime Mine ASC 197
 1 Gravity Mountain SSP 177
 8 Psychic Energy MEE 5

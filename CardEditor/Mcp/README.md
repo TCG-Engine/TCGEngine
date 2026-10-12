@@ -41,7 +41,7 @@ do not invoke GD WebP decoding or fetch arbitrary remote URLs.
 ## Account access
 
 1. Sign in to the site's existing TCGEngine account.
-2. Open **AI access** in the card editor sidebar, or visit `CardEditor/Mcp/access.php`.
+2. Open **MCP** in the card editor sidebar, or visit `CardEditor/Mcp/access.php`.
 3. Create a named **Read** or **Read and write** token, expiring in 1–365 days.
 4. Copy the secret shown once and store it in the MCP client's secret environment.
 
