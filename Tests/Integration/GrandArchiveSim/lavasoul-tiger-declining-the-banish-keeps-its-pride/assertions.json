@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]",
+        "semantic": true,
+        "label": "Declined: the Tiger keeps pride"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    }
+]

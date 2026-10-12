@@ -1,0 +1,22 @@
+{
+    "name": "charged-gunslinger-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:14:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "svdv3zb9p4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "svdv3zb9p4"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    }
+}

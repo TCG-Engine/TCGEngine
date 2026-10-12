@@ -1,0 +1,22 @@
+{
+    "name": "direwolf-token-is-sacrificed-at-the-beginning-of-your-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:13:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jev2kkxuq2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jev2kkxuq2"
+        ],
+        "mechanics": [
+            "end-phase",
+            "sacrifice",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, sacrifice CARDNAME."
+        ]
+    }
+}

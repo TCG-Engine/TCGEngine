@@ -1,0 +1,21 @@
+{
+    "name": "firetuned-automaton-needs-a-fire-card-in-hand-to-discard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:16:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzjmwuir99"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzjmwuir99"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, discard a fire element card."
+        ]
+    }
+}

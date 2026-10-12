@@ -1,0 +1,23 @@
+{
+    "name": "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:23:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8mrjtrzx5t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8mrjtrzx5t"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw-into-memory",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter**: **Glimpse 7**. Draw seven cards into your memory."
+        ]
+    }
+}

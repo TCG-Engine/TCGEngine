@@ -265,3 +265,13 @@ verified by regenerating and comparing by meaning.
 - New findings (not fixed): ~20 other raw `GetVariable("CombatAttacker")` readers in GameLogic.php/GeneratedMacroCode.php resolve the attacker from the acting player's perspective; any
   defender-side reaction that uses it can mis-resolve (audit list in the end-of-Fire report). Suzaku's Command's Shenju clause is unreachable: every Shenju has Spellshroud and
   `FilterSpellshroudTargets` also hides it from its controller's own spells (rules question: does Spellshroud stop your own spells?).
+
+### Phase 3a (Fire) -- allies, regalia and champions batch 5 (2026-10-11)
+- `fire-allies-d.php`: Pyrolysis Sage, Serpentine Judicator, Flashfire Horse, Firetuned Automaton, Direwolf, Charged Gunslinger, Pupil of Sacred Flames, both second printings
+  (Cheetah of Bound Fury, Firebird Trailblazer), General at Arms, Airship Captain, Lavasoul Tiger, Ritai Guard, Ritai Stablemaster, Outfitted Ravager, Blast Shield, Beastsoul Visage,
+  Infernal Vessel, Fanned Synchron, Fang of Dragon's Breath and six champions (Aithne, Hanabi, Vyra, Fragmented, Fortuitous and Serene Spirit of Fire).
+- Engine bug fixed: "As an additional cost to activate this card, discard a (fire element) card" was never paid by Firetuned Automaton, Dichroic Scorch or Plutus (the generated bodies only said
+  "handled in DoActivateCard"). New `GenericDiscardCostSpec()` / `GenericDiscardCost` handler in GameLogic.php; the Dichroic Scorch fixture was recorded against the unpaid cost and was regenerated
+  (the Baby Red Slime now lands in the graveyard and three cards, not four, go to memory).
+- Finding: the starting champion enters with `SuppressNextEnter`, so a level 0 champion's printed On Enter (Fragmented / Fortuitous / Serene Spirit of Fire: Glimpse + draw, Hanabi / Vyra / Aithne: draw seven)
+  never runs at game start; the opening hand is always seven. The fixtures seed the champion onto the field to exercise the ability.

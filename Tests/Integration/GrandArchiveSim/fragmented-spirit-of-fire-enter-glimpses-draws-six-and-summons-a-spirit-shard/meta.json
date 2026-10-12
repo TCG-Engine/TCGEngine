@@ -1,0 +1,24 @@
+{
+    "name": "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:23:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yvn1uoy5tt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yvn1uoy5tt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw",
+            "summon",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Glimpse 6**. Draw six cards. Then **summon** a Spirit Shard token."
+        ]
+    }
+}

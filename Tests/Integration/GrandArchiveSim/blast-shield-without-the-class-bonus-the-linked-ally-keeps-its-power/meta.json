@@ -1,0 +1,22 @@
+{
+    "name": "blast-shield-without-the-class-bonus-the-linked-ally-keeps-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:20:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eanbrfnrow"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eanbrfnrow"
+        ],
+        "mechanics": [
+            "ally-link",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Linked ally gets +2 [POWER]."
+        ]
+    }
+}

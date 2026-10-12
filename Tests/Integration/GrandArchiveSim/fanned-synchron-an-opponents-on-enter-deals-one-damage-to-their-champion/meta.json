@@ -1,0 +1,22 @@
+{
+    "name": "fanned-synchron-an-opponents-on-enter-deals-one-damage-to-their-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:21:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3h6eqjsLWG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3h6eqjsLWG"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "on-enter",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Whenever an **on enter** ability of a non-champion object you don't control triggers, that object deals 1 damage to its controller's champion."
+        ]
+    }
+}

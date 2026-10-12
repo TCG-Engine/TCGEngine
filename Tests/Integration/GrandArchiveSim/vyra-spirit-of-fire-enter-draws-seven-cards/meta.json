@@ -1,0 +1,22 @@
+{
+    "name": "vyra-spirit-of-fire-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:23:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lokqp12mxz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lokqp12mxz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "serpentine-judicator-its-controller-can-still-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:14:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "koyegh1snb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "koyegh1snb"
+        ],
+        "mechanics": [
+            "static-ability",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Your opponents can't **recover**."
+        ]
+    }
+}

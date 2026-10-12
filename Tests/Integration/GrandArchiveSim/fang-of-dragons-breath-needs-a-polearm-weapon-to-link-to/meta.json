@@ -1,0 +1,21 @@
+{
+    "name": "fang-of-dragons-breath-needs-a-polearm-weapon-to-link-to",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:22:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iebo5fu381"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iebo5fu381"
+        ],
+        "mechanics": [
+            "weapon-link",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "**Polearm Weapon Link**"
+        ]
+    }
+}

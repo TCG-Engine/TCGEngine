@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No Class Bonus: nothing was offered or banished"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "VJdQQmnL2Z",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally still entered"
+    }
+]

@@ -2353,6 +2353,7 @@ function ActivationKindleReduction($cardID) {
 
 // Hand cards a card's mandatory additional cost discards ON TOP of its reserve cost (Devotion's Price).
 function ActivationExtraHandCardCost($cardID) {
+    if(in_array($cardID, ["lzjmwuir99", "TlhsnnRhGK", "bgbhr5vm38"], true)) return 1; // Firetuned Automaton, Dichroic Scorch, Plutus: discard a card
     return $cardID === "ri955ygd5v" ? 2 : 0;
 }
 
@@ -3381,6 +3382,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $reserveCost . "|" . $obj->CardID . "|" . $banishSpec["count"], 100);
     }
 
+    // 1.3 Declaring Costs -- "As an additional cost to activate this card, discard a <fire element> card" (Firetuned Automaton, Dichroic Scorch, Plutus): the discard is chosen before the reserve cost is paid.
+    // The generated bodies only commented that it was "handled in DoActivateCard"; nothing ever discarded.
+    $hasGenericDiscardCost = false;
+    if(!$ignoreCost && GenericDiscardCostSpec($obj->CardID) !== null) {
+        $discardSpec = GenericDiscardCostSpec($obj->CardID);
+        $discardCandidates = ZoneSearch("myHand", cardElements: $discardSpec["elements"] ?? []);
+        if(empty($discardCandidates)) {
+            SetFlashMessage(CardName($obj->CardID) . " requires a card in your hand to discard.");
+            return;
+        }
+        $hasGenericDiscardCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $discardCandidates), 100, tooltip:"Discard_a_card_as_an_additional_cost");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GenericDiscardCost|" . $reserveCost . "|" . $obj->CardID, 100);
+    }
+
     // 1.3 Declaring Costs — Converge Reflections (TBVLLRPiwP): "As an additional cost to
     // activate this card, sacrifice a non-token item or weapon you control." Eligibility here
     // mirrors activateCardPrereqs["TBVLLRPiwP:0"]'s own legality check (GeneratedCode/
@@ -3458,7 +3475,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasGenericDiscardCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3836,6 +3853,36 @@ $customDQHandlers["GenericGraveyardBanishCost"] = function($player, $parts, $las
     DecisionQueueController::StoreVariable("isImbued", "NO");
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
+
+$customDQHandlers["GenericDiscardCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $cardID = $parts[1];
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $spec = GenericDiscardCostSpec($cardID);
+    if($spec === null) return;
+    $candidates = ZoneSearch("myHand", cardElements: $spec["elements"] ?? []);
+    if(!in_array($lastDecision, $candidates, true)) return;
+
+    DoDiscardCard($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// "As an additional cost to activate this card, discard a card" handled by GenericDiscardCost, or null. "elements" restricts what may be discarded (absent: any card).
+// Firetuned Automaton and Dichroic Scorch: a fire element card. Plutus, Fortune's Favor: any card.
+function GenericDiscardCostSpec($cardID) {
+    switch($cardID) {
+        case "lzjmwuir99": return ["elements" => ["FIRE"]];
+        case "TlhsnnRhGK": return ["elements" => ["FIRE"]];
+        case "bgbhr5vm38": return [];
+    }
+    return null;
+}
 
 // "Banish N <element> cards from your graveyard" additional costs handled by GenericGraveyardBanishCost, or null.
 // Fireblooded Oath: three fire element cards.

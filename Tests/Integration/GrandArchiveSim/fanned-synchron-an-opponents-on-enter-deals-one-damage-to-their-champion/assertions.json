@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The ally entered"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The opponent's On Enter dealt 1 damage to its own controller's champion"
+    }
+]

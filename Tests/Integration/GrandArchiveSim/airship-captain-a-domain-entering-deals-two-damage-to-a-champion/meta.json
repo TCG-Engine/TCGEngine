@@ -1,0 +1,23 @@
+{
+    "name": "airship-captain-a-domain-entering-deals-two-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:17:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t9hreqhj1t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t9hreqhj1t"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "domain",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Whenever a domain enters the field under your control, deal 2 damage to target champion."
+        ]
+    }
+}

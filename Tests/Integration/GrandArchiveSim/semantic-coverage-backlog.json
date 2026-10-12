@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:13:16+00:00",
+    "generatedAt": "2026-10-12T01:26:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1113,
+        "cardsWithExistingFixtures": 1139,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1364,
+        "cardsNeedingSemanticCoverage": 1338,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1060,24 +1060,6 @@
             "priority": 24
         },
         {
-            "cardId": "n06isycm60",
-            "name": "Pupil of Sacred Flames",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "jlgx72rfgv",
             "name": "Ravishing Finale",
             "type": "ATTACK",
@@ -1666,23 +1648,6 @@
                 "cost",
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "lzjmwuir99",
-            "name": "Firetuned Automaton",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2744,23 +2709,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "3h6eqjsLWG",
-            "name": "Fanned Synchron",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "damage",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6045,24 +5993,6 @@
             "priority": 14
         },
         {
-            "cardId": "svdv3zb9p4",
-            "name": "Charged Gunslinger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "9rbziyasag",
             "name": "Clash of Fates",
             "type": "ACTION",
@@ -6585,24 +6515,6 @@
             "priority": 14
         },
         {
-            "cardId": "iebo5fu381",
-            "name": "Fang of Dragon's Breath",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "r1nS4nDTyM",
             "name": "Fatebound Caracal",
             "type": "ALLY",
@@ -6702,24 +6614,6 @@
                 "draw-discard",
                 "zone-movement",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "x8gbz5Qli9",
-            "name": "Firebird Trailblazer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7420,24 +7314,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "zq0dvl1m3z",
-            "name": "Lavasoul Tiger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "combat",
                 "trigger",
                 "condition"
@@ -9621,23 +9497,6 @@
             "priority": 13
         },
         {
-            "cardId": "t9hreqhj1t",
-            "name": "Airship Captain",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "YPaL2BxDSN",
             "name": "Allen, Beast Beckoner",
             "type": "CHAMPION",
@@ -9952,23 +9811,6 @@
             "mechanics": [
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "eanbrfnrow",
-            "name": "Blast Shield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11279,23 +11121,6 @@
                 "targeting",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "yvn1uoy5tt",
-            "name": "Fragmented Spirit of Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12630,23 +12455,6 @@
             "priority": 13
         },
         {
-            "cardId": "YZIyPCvgzH",
-            "name": "Outfitted Ravager",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "WShYN9M3lU",
             "name": "Owl Familiar",
             "type": "ALLY",
@@ -13055,23 +12863,6 @@
             "priority": 13
         },
         {
-            "cardId": "VJdQQmnL2Z",
-            "name": "Pyrolysis Sage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "m69XrVkaVh",
             "name": "Queen Piece",
             "type": "TOKEN,ALLY",
@@ -13267,40 +13058,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "jbc30d18ys",
-            "name": "Ritai Guard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ba0tqvwlp1",
-            "name": "Ritai Stablemaster",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13846,23 +13603,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "da2ha4dk88",
-            "name": "Spirit of Serene Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14902,22 +14642,6 @@
             "priority": 12
         },
         {
-            "cardId": "eb3ib5el99",
-            "name": "Aithne, Spirit of Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "h9v2214upu",
             "name": "Alchemical Scripture",
             "type": "REGALIA,ITEM",
@@ -15350,22 +15074,6 @@
             "priority": 12
         },
         {
-            "cardId": "8asbierp5k",
-            "name": "Beastsoul Visage",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "jyrqgyj9vn",
             "name": "Beguiling Bandit",
             "type": "ALLY",
@@ -15710,22 +15418,6 @@
             "mechanics": [
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "5giGYm8WlR",
-            "name": "Cheetah of Bound Fury",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -16614,22 +16306,6 @@
             "priority": 12
         },
         {
-            "cardId": "9m72c8x9oh",
-            "name": "General at Arms",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "XFWU8KTVW9",
             "name": "Ghastly Slime",
             "type": "ALLY",
@@ -16824,22 +16500,6 @@
         {
             "cardId": "74wa4x7e22",
             "name": "Gwendolyn, Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "vnz9HSvVUZ",
-            "name": "Hanabi, Spirit of Fire",
             "type": "CHAMPION",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -17101,22 +16761,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "vgWgu1DUYv",
-            "name": "Infernal Vessel",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
                 "condition"
             ],
             "existingFixtures": [],
@@ -18694,22 +18338,6 @@
             "priority": 12
         },
         {
-            "cardId": "8mrjtrzx5t",
-            "name": "Spirit of Fortuitous Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "q6prapdczd",
             "name": "Spirit of Fortuitous Water",
             "type": "CHAMPION",
@@ -19437,22 +19065,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "lokqp12mxz",
-            "name": "Vyra, Spirit of Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -20619,21 +20231,6 @@
             "priority": 11
         },
         {
-            "cardId": "jev2kkxuq2",
-            "name": "Direwolf",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "owq8s5fefw",
             "name": "Duplicitous Replication",
             "type": "ACTION",
@@ -21001,21 +20598,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "aljx2ru1w3",
-            "name": "Flashfire Horse",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22426,21 +22008,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "koyegh1snb",
-            "name": "Serpentine Judicator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -39082,6 +38649,28 @@
             "priority": 44
         },
         {
+            "cardId": "n06isycm60",
+            "name": "Pupil of Sacred Flames",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pupil-of-sacred-flames-class-bonus-attack-banishes-a-fire-card-to-empower-two"
+            ],
+            "semanticFixtures": [
+                "pupil-of-sacred-flames-class-bonus-attack-banishes-a-fire-card-to-empower-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "9e0z7hb9id",
             "name": "Rebounding Gust",
             "type": "ACTION",
@@ -39476,6 +39065,29 @@
             "semanticFixtures": [
                 "exquisite-dessert-ability-1-pays-its-printed-cost",
                 "exquisite-dessert-ability-2-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "lzjmwuir99",
+            "name": "Firetuned Automaton",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "firetuned-automaton-discards-a-fire-card-as-an-additional-cost",
+                "firetuned-automaton-needs-a-fire-card-in-hand-to-discard"
+            ],
+            "semanticFixtures": [
+                "firetuned-automaton-discards-a-fire-card-as-an-additional-cost",
+                "firetuned-automaton-needs-a-fire-card-in-hand-to-discard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40413,6 +40025,29 @@
             ],
             "semanticFixtures": [
                 "facet-together-decline-second-sacrifice-still-buffs-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
+            "cardId": "3h6eqjsLWG",
+            "name": "Fanned Synchron",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fanned-synchron-an-opponents-on-enter-deals-one-damage-to-their-champion",
+                "fanned-synchron-your-own-on-enter-deals-no-damage"
+            ],
+            "semanticFixtures": [
+                "fanned-synchron-an-opponents-on-enter-deals-one-damage-to-their-champion",
+                "fanned-synchron-your-own-on-enter-deals-no-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42002,6 +41637,28 @@
             "priority": 34
         },
         {
+            "cardId": "svdv3zb9p4",
+            "name": "Charged Gunslinger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "charged-gunslinger-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "charged-gunslinger-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "q2svdv3zb9",
             "name": "Clockwork Musicbox",
             "type": "REGALIA,ITEM",
@@ -42328,6 +41985,30 @@
             "priority": 34
         },
         {
+            "cardId": "iebo5fu381",
+            "name": "Fang of Dragon's Breath",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fang-of-dragons-breath-needs-a-polearm-weapon-to-link-to",
+                "fang-of-dragons-breath-polearm-weapon-link-gives-the-linked-weapon-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "fang-of-dragons-breath-needs-a-polearm-weapon-to-link-to",
+                "fang-of-dragons-breath-polearm-weapon-link-gives-the-linked-weapon-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "wc8tuhuy4x",
             "name": "Fiery Duelist",
             "type": "ALLY",
@@ -42434,6 +42115,28 @@
             ],
             "semanticFixtures": [
                 "firebird-trailblazer-attack-discards-a-card-to-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "x8gbz5Qli9",
+            "name": "Firebird Trailblazer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
+            ],
+            "semanticFixtures": [
+                "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42934,6 +42637,30 @@
             ],
             "semanticFixtures": [
                 "kraal-stonescale-tyrant-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "zq0dvl1m3z",
+            "name": "Lavasoul Tiger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lavasoul-tiger-class-bonus-enter-banishes-two-fire-cards-to-lose-pride",
+                "lavasoul-tiger-declining-the-banish-keeps-its-pride"
+            ],
+            "semanticFixtures": [
+                "lavasoul-tiger-class-bonus-enter-banishes-two-fire-cards-to-lose-pride",
+                "lavasoul-tiger-declining-the-banish-keeps-its-pride"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44085,6 +43812,27 @@
             "priority": 33
         },
         {
+            "cardId": "t9hreqhj1t",
+            "name": "Airship Captain",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "airship-captain-a-domain-entering-deals-two-damage-to-a-champion"
+            ],
+            "semanticFixtures": [
+                "airship-captain-a-domain-entering-deals-two-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "29xxoo7dl5",
             "name": "Arondight, Azure Blade",
             "type": "REGALIA,WEAPON",
@@ -44213,6 +43961,33 @@
             ],
             "semanticFixtures": [
                 "bifurcating-fractal-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "eanbrfnrow",
+            "name": "Blast Shield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blast-shield-class-bonus-the-linked-ally-gets-plus-two-power",
+                "blast-shield-deals-two-damage-to-your-champion-at-your-recollection-phase",
+                "blast-shield-without-the-class-bonus-the-linked-ally-keeps-its-power",
+                "outfitted-ravager-class-bonus-a-newly-linked-object-draws-then-discards"
+            ],
+            "semanticFixtures": [
+                "blast-shield-class-bonus-the-linked-ally-gets-plus-two-power",
+                "blast-shield-deals-two-damage-to-your-champion-at-your-recollection-phase",
+                "blast-shield-without-the-class-bonus-the-linked-ally-keeps-its-power",
+                "outfitted-ravager-class-bonus-a-newly-linked-object-draws-then-discards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44878,6 +44653,27 @@
             "priority": 33
         },
         {
+            "cardId": "yvn1uoy5tt",
+            "name": "Fragmented Spirit of Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "semanticFixtures": [
+                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "iqcknwa2vl",
             "name": "Frozen Quill",
             "type": "ITEM",
@@ -45272,6 +45068,29 @@
             "priority": 33
         },
         {
+            "cardId": "YZIyPCvgzH",
+            "name": "Outfitted Ravager",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "outfitted-ravager-class-bonus-a-newly-linked-object-draws-then-discards",
+                "outfitted-ravager-without-the-class-bonus-a-link-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "outfitted-ravager-class-bonus-a-newly-linked-object-draws-then-discards",
+                "outfitted-ravager-without-the-class-bonus-a-link-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "aebjvwbciz",
             "name": "Overwhelming Swing",
             "type": "ATTACK",
@@ -45446,6 +45265,29 @@
             "priority": 33
         },
         {
+            "cardId": "VJdQQmnL2Z",
+            "name": "Pyrolysis Sage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pyrolysis-sage-class-bonus-enter-banishes-a-fire-card-to-empower-two",
+                "pyrolysis-sage-without-the-class-bonus-does-not-empower"
+            ],
+            "semanticFixtures": [
+                "pyrolysis-sage-class-bonus-enter-banishes-a-fire-card-to-empower-two",
+                "pyrolysis-sage-without-the-class-bonus-does-not-empower"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "dOPqsWYMCQ",
             "name": "Radiant Origin of Mage",
             "type": "PHANTASIA",
@@ -45589,6 +45431,52 @@
             ],
             "semanticFixtures": [
                 "restorative-flame-banishes-three-fire-cards-one-by-one-and-recovers-six"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "jbc30d18ys",
+            "name": "Ritai Guard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ritai-guard-class-bonus-equestrian-with-a-horse-ally-has-taunt",
+                "ritai-guard-without-a-horse-ally-has-no-taunt"
+            ],
+            "semanticFixtures": [
+                "ritai-guard-class-bonus-equestrian-with-a-horse-ally-has-taunt",
+                "ritai-guard-without-a-horse-ally-has-no-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ba0tqvwlp1",
+            "name": "Ritai Stablemaster",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ritai-stablemaster-equestrian-enter-discards-fire-cards-to-draw-into-memory",
+                "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing"
+            ],
+            "semanticFixtures": [
+                "ritai-stablemaster-equestrian-enter-discards-fire-cards-to-draw-into-memory",
+                "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45830,6 +45718,29 @@
             "semanticFixtures": [
                 "spark-alight-refuses-spellshroud-unit-damages-ordinary-ally",
                 "spark-alight-spellshroud-unit-is-not-a-legal-target"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "da2ha4dk88",
+            "name": "Spirit of Serene Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-serene-fire-enter-glimpses-and-draws-six",
+                "spirit-of-serene-fire-lineage-release-recovers-six"
+            ],
+            "semanticFixtures": [
+                "spirit-of-serene-fire-enter-glimpses-and-draws-six",
+                "spirit-of-serene-fire-lineage-release-recovers-six"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46150,6 +46061,26 @@
             "priority": 32
         },
         {
+            "cardId": "eb3ib5el99",
+            "name": "Aithne, Spirit of Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "fjpimrl974",
             "name": "Ashen Riffle",
             "type": "ACTION",
@@ -46292,6 +46223,26 @@
             "priority": 32
         },
         {
+            "cardId": "8asbierp5k",
+            "name": "Beastsoul Visage",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "beastsoul-visage-linked-ally-gets-plus-two-power-and-pride-three"
+            ],
+            "semanticFixtures": [
+                "beastsoul-visage-linked-ally-gets-plus-two-power-and-pride-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lwabipl6gt",
             "name": "Calamity Cannon",
             "type": "ACTION",
@@ -46326,6 +46277,26 @@
             ],
             "semanticFixtures": [
                 "cell-forging-declined-weapon-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "5giGYm8WlR",
+            "name": "Cheetah of Bound Fury",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "cheetah-of-bound-fury-second-printing-on-hit-banishes-and-returns-as-fatestone"
+            ],
+            "semanticFixtures": [
+                "cheetah-of-bound-fury-second-printing-on-hit-banishes-and-returns-as-fatestone"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46746,6 +46717,30 @@
             "priority": 32
         },
         {
+            "cardId": "9m72c8x9oh",
+            "name": "General at Arms",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "general-at-arms-class-bonus-does-not-boost-a-non-polearm-attack",
+                "general-at-arms-class-bonus-polearm-attack-enters-the-intent-with-plus-two-power",
+                "general-at-arms-without-the-class-bonus-gives-no-power"
+            ],
+            "semanticFixtures": [
+                "general-at-arms-class-bonus-does-not-boost-a-non-polearm-attack",
+                "general-at-arms-class-bonus-polearm-attack-enters-the-intent-with-plus-two-power",
+                "general-at-arms-without-the-class-bonus-gives-no-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "Zw0T2GmowK",
             "name": "Greater Boon of Shou",
             "type": "GREATER BOON",
@@ -46760,6 +46755,26 @@
             ],
             "semanticFixtures": [
                 "greater-boon-of-shou-draw-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "vnz9HSvVUZ",
+            "name": "Hanabi, Spirit of Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "hanabi-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "hanabi-spirit-of-fire-enter-draws-seven-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46824,6 +46839,28 @@
             "semanticFixtures": [
                 "hone-by-fire-class-bonus-adds-a-durability-counter",
                 "hone-by-fire-gives-a-sword-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "vgWgu1DUYv",
+            "name": "Infernal Vessel",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "infernal-vessel-control-without-it-a-recover-five-heals-five",
+                "infernal-vessel-reduces-every-recover-by-three"
+            ],
+            "semanticFixtures": [
+                "infernal-vessel-control-without-it-a-recover-five-heals-five",
+                "infernal-vessel-reduces-every-recover-by-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47765,6 +47802,26 @@
             "priority": 32
         },
         {
+            "cardId": "8mrjtrzx5t",
+            "name": "Spirit of Fortuitous Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "semanticFixtures": [
+                "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "FUCJA8IAMi",
             "name": "Spirit of Purity",
             "type": "CHAMPION",
@@ -48083,6 +48140,26 @@
             ],
             "semanticFixtures": [
                 "vel-ocity-punch-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "lokqp12mxz",
+            "name": "Vyra, Spirit of Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "vyra-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "vyra-spirit-of-fire-enter-draws-seven-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48431,6 +48508,25 @@
             "priority": 31
         },
         {
+            "cardId": "jev2kkxuq2",
+            "name": "Direwolf",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "direwolf-token-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "semanticFixtures": [
+                "direwolf-token-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "TLqUZgBeg7",
             "name": "Divining Streams",
             "type": "ACTION",
@@ -48509,6 +48605,25 @@
             ],
             "semanticFixtures": [
                 "flamewing-fowl-class-bonus-attacking-a-champion-deals-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "aljx2ru1w3",
+            "name": "Flashfire Horse",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "flashfire-horse-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "semanticFixtures": [
+                "flashfire-horse-fast-activation-can-be-played-from-a-response-window"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48899,6 +49014,27 @@
             ],
             "semanticFixtures": [
                 "rile-the-abyss-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "koyegh1snb",
+            "name": "Serpentine Judicator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "serpentine-judicator-its-controller-can-still-recover",
+                "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "semanticFixtures": [
+                "serpentine-judicator-its-controller-can-still-recover",
+                "serpentine-judicator-opponents-cannot-recover"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

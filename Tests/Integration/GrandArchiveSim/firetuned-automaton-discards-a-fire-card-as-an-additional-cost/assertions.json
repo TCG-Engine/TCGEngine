@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "mttsvbgl6f",
+        "semantic": true,
+        "label": "The fire card was discarded as the additional cost"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "lzjmwuir99",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally entered"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The 2 reserve cost was paid on top of the discard"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "general-at-arms-class-bonus-polearm-attack-enters-the-intent-with-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:17:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9m72c8x9oh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9m72c8x9oh"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Polearm attack cards you activate enter the intent with +2 [POWER]."
+        ]
+    }
+}

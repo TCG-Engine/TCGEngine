@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "aljx2ru1w3",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Fast Activation: the ally was activated from a response window, outside the main phase"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Its reserve cost of 3 was paid"
+    }
+]

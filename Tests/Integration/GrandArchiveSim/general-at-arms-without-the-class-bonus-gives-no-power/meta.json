@@ -1,0 +1,22 @@
+{
+    "name": "general-at-arms-without-the-class-bonus-gives-no-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:17:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9m72c8x9oh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9m72c8x9oh"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Polearm attack cards you activate enter the intent with +2 [POWER]."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "blast-shield-deals-two-damage-to-your-champion-at-your-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:20:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eanbrfnrow"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eanbrfnrow"
+        ],
+        "mechanics": [
+            "recollection-phase",
+            "damage"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, deal 2 damage to your champion."
+        ]
+    }
+}

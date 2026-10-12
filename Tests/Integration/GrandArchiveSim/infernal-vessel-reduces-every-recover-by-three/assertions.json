@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "Recover 5 became Recover 5 - 3 = 2: 6 damage down to 4"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "lavasoul-tiger-class-bonus-enter-banishes-two-fire-cards-to-lose-pride",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:17:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zq0dvl1m3z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zq0dvl1m3z"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "banish",
+            "pride"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** You may banish two fire element cards from your graveyard. If you do, CARDNAME loses **pride** until end of turn."
+        ]
+    }
+}

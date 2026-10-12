@@ -1,0 +1,16 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Firetongue is not a Polearm: there is nothing to link to, so the card was not activated"
+    }
+]

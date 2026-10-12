@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Drew a card, then discarded one"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Net hand size is unchanged: +1 draw, -1 discard"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "eanbrfnrow",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The shield entered linked to the Ravager"
+    }
+]

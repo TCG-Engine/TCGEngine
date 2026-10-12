@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ALLY_ACTIVATED\",\"VJdQQmnL2Z\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]",
+        "semantic": true,
+        "label": "Empower 2: the next Spell resolves as if the champion got +2 level"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The fire card was banished from the graveyard"
+    }
+]

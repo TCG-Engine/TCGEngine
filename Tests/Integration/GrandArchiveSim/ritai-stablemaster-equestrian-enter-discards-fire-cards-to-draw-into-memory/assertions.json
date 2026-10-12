@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two fire cards were discarded"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Paid 2 for the ally, then drew 2 cards into memory"
+    }
+]

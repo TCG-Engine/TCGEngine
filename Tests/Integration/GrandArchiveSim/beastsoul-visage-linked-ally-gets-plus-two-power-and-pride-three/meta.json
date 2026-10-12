@@ -1,0 +1,23 @@
+{
+    "name": "beastsoul-visage-linked-ally-gets-plus-two-power-and-pride-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:20:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8asbierp5k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8asbierp5k"
+        ],
+        "mechanics": [
+            "ally-link",
+            "stat-change",
+            "pride"
+        ],
+        "rulesClauses": [
+            "**Ally Link**",
+            "Linked ally gets +2 [POWER], has **pride 3**, and is a Beast in addition to its other types."
+        ]
+    }
+}

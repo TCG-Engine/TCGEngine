@@ -1,0 +1,22 @@
+{
+    "name": "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:16:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x8gbz5Qli9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x8gbz5Qli9"
+        ],
+        "mechanics": [
+            "on-attack",
+            "draw-discard",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "On Attack: You may discard a card. If you do, draw a card."
+        ]
+    }
+}

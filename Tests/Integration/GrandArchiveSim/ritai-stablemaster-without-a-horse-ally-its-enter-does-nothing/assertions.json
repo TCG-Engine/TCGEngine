@@ -1,0 +1,25 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "No Horse ally: nothing could be discarded"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "ba0tqvwlp1",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally still entered"
+    }
+]

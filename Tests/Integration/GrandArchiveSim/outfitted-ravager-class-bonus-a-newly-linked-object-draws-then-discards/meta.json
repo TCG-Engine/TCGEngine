@@ -1,0 +1,25 @@
+{
+    "name": "outfitted-ravager-class-bonus-a-newly-linked-object-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:19:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YZIyPCvgzH",
+        "eanbrfnrow"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YZIyPCvgzH",
+            "eanbrfnrow"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "link",
+            "class-bonus",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever an object becomes linked to CARDNAME, draw a card and discard a card."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "A domain entered under your control: 2 damage to the targeted champion"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Your own champion was not hurt"
+    }
+]
