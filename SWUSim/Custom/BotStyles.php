@@ -88,8 +88,16 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
     // not its unit preferences, and widening further would change aggro and midrange unmeasured.
     // SWUBotAttackTargets above has already removed whatever the RULES forbid (Sentinel without Saboteur).
     $keep = [];
+    $archetype = SWUBotStyleRank(strval($ctx['style']));
     foreach ($all as [$k, $u]) {
         if ($k === 'base') { $keep[] = [$k, $u]; continue; }
+        // PROPOSAL 'leaderkill' (owner 2026-10-12): a midrange / control deck that is RACING still kills an enemy LEADER unit — the aggro
+        // filter below dropped it (Grievous Blue: Boba R4, Bossk R5). Aggro decks are unchanged: they go face.
+        if (SWUBotProposalOn('leaderkill') && $archetype >= 2 && !empty($u['isLeader'])
+            && in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) { $keep[] = [$k, $u]; continue; }
+        // PROPOSAL 'spenttrade' (owner 2026-10-12): midrange's spent cheap body may trade EVEN, not only up (BotFallback.php).
+        if (SWUBotProposalOn('spenttrade') && $mode === 'normal-trade' && $archetype === 2 && _SWUBotSpentCheap($att)
+            && in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) { $keep[] = [$k, $u]; continue; }
         if ($mode === 'aggro') {
             if (!SWUBotOverwhelmKills($att, $u)) continue;          // aggro takes a unit only when Overwhelm carries
         } elseif ($mode === 'normal-trade') {

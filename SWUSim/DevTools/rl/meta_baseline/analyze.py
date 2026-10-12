@@ -49,13 +49,15 @@ rounds = [v[1] for v in bot.values()]
 first = sum(1 for v in bot.values() if v[0] == 1) / max(1, sum(1 for v in bot.values() if v[0]))
 print(f'RUN {run}: {len(done)}/{len(matches)} real matches replayed, {len(bot)} games ({fails} failed), median {statistics.median(rounds) if rounds else "-"} rounds, '
       f'seat-1 win {first:.1%}')
+print(f'{len(load_matches(meta, include_ibh=True)) - len(matches)} matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)')
 cur = fidelity(done, label, 'THIS RUN vs REAL')
 
 base = None if '--no-baseline' in sys.argv else load_baseline(meta)
 if base is not None:
     bdone = replay(matches, base)
     old = fidelity(bdone, label, 'FROZEN BASELINE vs REAL (for reference)')
-    common_keys = set(bot) & set(base)
+    kept = {k for m in matches for k in ((m['a'], m['b']), (m['b'], m['a']))}   # the kept matches' games only (IBH bases ignored)
+    common_keys = set(bot) & set(base) & kept
     changed = [k for k in common_keys if bot[k][0] != base[k][0]]
     print(f'\n######## THIS RUN vs FROZEN BASELINE (paired: same match, same seed, same seat)')
     print(f'games compared {len(common_keys)}   winner changed in {len(changed)} ({len(changed) / max(1, len(common_keys)):.1%})')

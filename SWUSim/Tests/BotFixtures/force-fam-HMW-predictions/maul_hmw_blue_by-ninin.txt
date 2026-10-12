@@ -1,0 +1,49 @@
+# Self-play fixture — "Maul Blue" (Maul, Old Master - Shield Generator Complex)
+# Source: Force Fam member Ninin (NininTCG)'s Maul Blue v2, given by the owner as JSON 2026-10-12 (SWU Forge deck "Maul Blue",
+#   version tab "ninin v2"). 51 main-deck cards, 10 sideboard. Ninin played 18 SWU Forge games with it on 2026-10-12 (12-6) —
+#   owner: "those 18 games are how i think this deck should play" (logs in docs/superpowers/swuforge-research/, the v2 game ids are
+#   listed in memory `swuforge-three-deck-analysis-2026-10-12`). Earlier Maul Blue versions are not representative.
+#   Base trait: Shield Generator Complex is Endor — no card in the deck cares, so the name carries no trait.
+#   Filename "_by-ninin": Star Wars Dad's predicted list (maul_hmw_blue.txt) derives the same name (owner 2026-10-12: author suffix).
+# Author: Ninin
+# Archetype (owner's label, 2026-10-12): Soft control — "value trades. hand hate. soft control tempo deck." Hand hate: 3 Remnant
+#   Lookouts ASH_220, 3 Intelligence Agency HMW_205, 2 Garindan SEC_186, 2 Beguile SEC_233.
+# Style: softcontrol
+
+Leader
+1 HMW_016
+
+Base
+1 JTL_020
+
+Deck
+3 ASH_192
+2 ASH_194
+3 ASH_220
+2 ASH_048
+2 ASH_052
+3 ASH_053
+2 HMW_198
+3 HMW_202
+2 HMW_204
+3 HMW_205
+3 JTL_032
+3 JTL_033
+2 JTL_043
+3 LAW_133
+2 LAW_237
+3 LOF_213
+2 LOF_242
+3 LOF_070
+2 SEC_186
+2 SEC_233
+1 SEC_078
+
+Sideboard
+2 ASH_219
+1 ASH_052
+1 HMW_204
+2 JTL_041
+1 JTL_043
+1 LAW_096
+2 SEC_078

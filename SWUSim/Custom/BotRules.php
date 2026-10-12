@@ -189,7 +189,13 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     $isWipe = function (array $a) use ($seat, $per) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);
-        if ($o === null || !in_array('wipe', SWUBotCardTags(strval($o->CardID)), true)) return false;
+        if ($o === null) return false;
+        $tags = SWUBotCardTags(strval($o->CardID));
+        // PROPOSAL 'gloom' (owner 2026-10-12): "Give each enemy unit -N/-N" (Lawbringer, Bo-Katan SEC_051, Disruptive Burst) is a gloom, not a
+        // wipe — "they might wipe, but it's not guaranteed unless the opponent has 2 or 3 hp units". It is a candidate here, and the lookahead's
+        // gates below (2+ defeated, stabilises) decide whether THIS board makes it one. Krennic Splash: Lawbringer by R6 vs aggro 6-0.
+        $gloom = SWUBotProposalOn('gloom') && in_array('debuff-all-enemy-units', $tags, true);
+        if (!in_array('wipe', $tags, true) && !$gloom) return false;
         return !($per > 0 && _SWUBotPlayEntersWipeRange($seat, $a, $per));
     };
     // Diagnostics (read-only; land in SWUBOT_METRICS coverage). 'wipe:castable' = this rule saw at least one wipe it
@@ -209,6 +215,8 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         return $c || $t;
     };
     $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
+    if ($line !== null && SWUBotProposalOn('gloom') && ($go = _SWUBotHandObject($seat, $line)) !== null
+        && !in_array('wipe', SWUBotCardTags(strval($go->CardID)), true)) _SWUBotFired('gloom', $seat);
     if ($line !== null || !SWUBotFeatureOn('epicwipe')) return $line;
     // Feature 'epicwipe' (p37): no castable wipe qualifies — one castable only THROUGH the base's aspect-waiver Epic may (Krennic Splash:
     // Single Reactor Ignition 10 -> 8 with the Daimyo's Palace waiver; owner "the 5R turn + 3 credits or 6R + 2C"). Judged on the board
@@ -429,9 +437,9 @@ function SWUBotRuleWallFirst(array $ctx): ?array {
     if (!SWUBotOpponentIsAggroLeader($seat)) return null;
     $guarded = [];
     foreach (SWUBotUnits($seat) as $u) if (!empty($u['sentinel'])) $guarded[$u['arena']] = true;
-    // '@try-wallarena' (2026-10-07 gap screen): against a SPACE-flavoured deck, a wall stands only in an arena the opponent is in — a
+    // Feature 'wallarena' (p43; 2026-10-07 gap screen): against a SPACE-flavoured deck, a wall stands only in an arena the opponent is in — a
     // ground Commando played into four Vader ships blocks nothing (Aurra s012 R4; diagnosis .claude/tmp/diag_vader).
-    if (SWUBotProposalOn('wallarena') && in_array('space', SWUBotDeckFlavours(intval($ctx['opp'])), true)) {
+    if (SWUBotFeatureOn('wallarena') && in_array('space', SWUBotDeckFlavours(intval($ctx['opp'])), true)) {
         $occupied = [];
         foreach (SWUBotUnits(intval($ctx['opp'])) as $u) $occupied[$u['arena']] = true;
         foreach (['Ground', 'Space'] as $ar) if (empty($occupied[$ar])) $guarded[$ar] = true;   // nothing to wall off there

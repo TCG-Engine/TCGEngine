@@ -160,6 +160,11 @@ function SWUBotWeights(string $style, int $seat): array {
     if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('mgkill') && SWUBotStyleRank($style) === 2) {
         $out['kill'] *= 0.6;
     }
+    // Who is reading these weights (2026-10-12): the deck's ARCHETYPE rank and the rank it ACTS at (racing shifts it). The weights are
+    // the racing column, so a scorer that only receives $W could not tell a racing midrange deck from an aggro one ('leaderkill',
+    // 'spenttrade'). Not tag names — no card tag reads them.
+    $out['archetypeRank'] = SWUBotStyleRank($style);
+    $out['racingRank'] = $col;
     return $out;
 }
 

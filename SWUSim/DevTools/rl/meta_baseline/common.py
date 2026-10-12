@@ -16,12 +16,21 @@ def _open(path):
     return gzip.open(path, 'rt') if path.endswith('.gz') else open(path)
 
 
-def load_matches(meta):
+def on_ibh_base(key):
+    """True for an archetype key (LEADER|BASE) on an Intro Battle: Hoth base (IBH_002 Echo Caverns, IBH_054 Forward Command Post).
+    Those bases are double-sided: the real lists played the 30 HP side, the sims play the 20 HP intro side (owner 2026-10-12:
+    keep 20 in the sims, ignore these matches in the analyses)."""
+    return key.split('|', 1)[-1].startswith('IBH_')
+
+
+def load_matches(meta, include_ibh=False):
+    """The real matches; by default without any match where either deck is on an Intro Battle: Hoth base (see on_ibh_base)."""
     out = []
     for l in _open(os.path.join(meta, 'matches.tsv.gz')):
         p = l.rstrip('\n').split('\t')
         if len(p) < 9: continue
         a, b, w, lo, dr, ka, kb, sa, sb = p[:9]
+        if not include_ibh and (on_ibh_base(ka) or on_ibh_base(kb)): continue
         out.append(dict(a=a, b=b, w=int(w), l=int(lo), d=int(dr), ka=ka, kb=kb, sa=sa, sb=sb))
     return out
 

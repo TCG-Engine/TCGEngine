@@ -167,8 +167,19 @@ function SWUBotFixtureFileName(string $leaderID, string $baseID, array $cards = 
 // "doctor-hemlock_hmw_yellow_naboo" -> "Doctor Hemlock (HMW) Yellow (Naboo)". Because the slug round-trips,
 // this and SWUBotDeckDisplayName() must agree for every fixture — which the guard test asserts both ways.
 // Returns '' for a stem that is not in the convention, so a caller can fall back rather than show a mangle.
+// The AUTHOR suffix (owner 2026-10-12): when two creators' lists in one folder derive the same name (Ninin's and Star Wars Dad's
+// Maul (HMW) Blue), the second file carries "_by-<author>" as its LAST field. A credit, not part of the deck's name — read back off.
+function SWUBotFixtureAuthorSuffix(string $author): string {
+    $slug = SWUBotFixtureSlug(trim($author));
+    return $slug === '' ? '' : '_by-' . $slug;
+}
+
 function SWUBotFixtureDisplayNameFromFile(string $stem): string {
     $parts = explode('_', $stem);
+    if (count($parts) > 3 && str_starts_with(end($parts), 'by-')) {
+        if (end($parts) === 'by-') return '';
+        array_pop($parts);
+    }
     if (count($parts) !== 3 && count($parts) !== 4) return '';
     [$leader, $set, $base] = $parts;
     $trait = $parts[3] ?? null;

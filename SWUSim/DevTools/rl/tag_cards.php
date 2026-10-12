@@ -78,7 +78,21 @@ const SWU_BOT_SELF_PATTERNS = [
     'self-damage' => '/(deal \d+ damage to (a |another )?friendly[^.]*?unit|deal \d+ damage to (this unit|itself|him|her|them)\b)/i',
 ];
 
+// The OPPONENT draws (owner 2026-10-12): "If you do, they draw a card" / "that player draws a card" is their card, not mine. Matched and
+// REMOVED before `draw` runs, so a Remnant Lookouts / Intelligence Agency / Bazine Netal discard was no longer tagged as MY draw.
+// (Players call peek-discard-they-draw a "Bazine effect"; that is slang only — nothing is keyed on the name.)
+const SWU_BOT_OPP_PATTERNS = [
+    // "they" only in the "If you do, they draw" form: Mission Briefing's "Choose a player. They draw 2 cards" is usually ME.
+    'opponent-draw' => '/\bIf you do, (?:they|that player) draws? (?:a|\d+|two|three) cards?\b|\b(?:each opponent|an opponent|the opponent|that opponent)\s+(?:may\s+)?draws?\s+(?:a|\d+|two|three)\s+cards?\b/i',
+];
+
 const SWU_BOT_TAG_PATTERNS = [
+    // DISCARD FROM AN OPPONENT'S HAND (owner 2026-10-12, hand hate): "look at an opponent's hand and discard a card from it" (Spark of
+    // Rebellion, Hold For Questioning, Garindan, Jam Communications …) and "Look at … hand. You may discard 1 of those cards" (Bazine
+    // Netal). Sabé's "top 2 cards of the defending player's DECK" is not a hand.
+    // I LOOK, then I PICK: a discard the OPPONENT chooses ("They discard a card from their hand", Giant Gorax / Profundity / Kouhun
+    // Assassination / Political Pressure) is not hand hate and stays untagged.
+    'discard-opponent-hand' => '/\blook at [^.]*?\bhand\b(?:[^.]*?\band\s+|\.\s*(?:You may\s+)?)discard (?:a|an|1|one)\b/i',
     'removal' => '/(\bdefeat (a|an|another|up to \d+|that) (?![^.]*?\bfriendly\b)[^.]*?\bunit|take control of (a|an) [^.]*?unit, then defeat it|give (a|an|another) (non-leader |enemy )?unit -\d+\/-[1-9]\d*|loses all abilities for this phase\. if it costs \d+ or less, defeat it|enemy (non-leader )?unit\. if you do, defeat those units)/i',
     // ⚠ `damage` was RETIRED 2026-10-01 (owner): the directional tags below replace it — damage-enemy-unit is the
     // weighted one. Its "give each enemy unit -X/-Y" alternative became debuff-all-enemy-units, which the scorer
@@ -230,6 +244,12 @@ function SWUBotTagEffects(string $rest): array {
     }
     // 2. SELF-HARM next, so it cannot also read as damage/burn aimed outward.
     foreach (SWU_BOT_SELF_PATTERNS as $tag => $re) {
+        if (!preg_match($re, $rest)) continue;
+        $tags[] = $tag;
+        $rest = preg_replace($re, '', $rest);
+    }
+    // 2b. The OPPONENT's draw, removed so `draw` below cannot read it as mine.
+    foreach (SWU_BOT_OPP_PATTERNS as $tag => $re) {
         if (!preg_match($re, $rest)) continue;
         $tags[] = $tag;
         $rest = preg_replace($re, '', $rest);

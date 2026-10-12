@@ -67,6 +67,11 @@ Fidelity vs real: archetype Pearson −0.02, MAE 0.102 vs 0.046 for a constant 5
   lever when other code has also changed, run the lever arm AND a plain `''` arm on today's code and compare the two — that is still not a
   new baseline.
 - **Variant on both seats:** a `try-x` run changes every deck that can use the lever, opponents included — read it as the field-wide effect.
+- **Intro Battle: Hoth bases are ignored** (owner 2026-10-12). IBH_054 Forward Command Post and IBH_002 Echo Caverns are double-sided:
+  real lists played the 30 HP side, the sims play the 20 HP intro side (kept on purpose). `common.load_matches` drops every match
+  where either deck is on one (68 of 9,933 ASH matches; analyze.py prints the count); games are still PLAYED, only the analyses skip
+  them. `load_matches(meta, include_ibh=True)` for the raw set. Guard: `SWUSim/DevTools/rl/meta_baseline_ibh_test.py`.
+  The frozen baseline's stored `analysis.txt` / `matrix.json` predate the rule; analyze.py recomputes the baseline section live.
 - **Real numbers carry noise too:** a cell's real WR comes from its Bo3 game scores; the matrix shows a 95% Wilson range under it.
 
 ## Mode B — freeze a NEW ASH meta baseline (only when the owner asks)

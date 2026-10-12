@@ -74,9 +74,9 @@ function SWUBotDeckFlavours(int $seat): array {
     $baseID = $base !== null ? strval($base->CardID ?? '') : '';
     $aspect = $baseID !== '' ? strval(CardAspect($baseID) ?? '') : '';
     $f = SWU_BOT_FLAVOURS["$leader|$baseID"] ?? SWU_BOT_FLAVOURS["$leader|$aspect"] ?? SWU_BOT_FLAVOURS["$leader|*"] ?? [];
-    // '@try-bobaspace' (2026-10-07 gap screen): Boba Fett (JTL) is a SPACE deck (owner: "space midrange, 27 of 41 units space"); with
+    // Feature 'bobaspace' (p43; 2026-10-07 gap screen): Boba Fett (JTL) is a SPACE deck (owner: "space midrange, 27 of 41 units space"); with
     // only 'burn', Krennic's resourcing read space aggro off the board and resourced Hyperspace Disaster against him (14 games, all lost).
-    if ($leader === 'JTL_009' && function_exists('SWUBotProposalOn') && SWUBotProposalOn('bobaspace') && !in_array('space', $f, true)) $f[] = 'space';
+    if ($leader === 'JTL_009' && function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('bobaspace') && !in_array('space', $f, true)) $f[] = 'space';
     return $f;
 }
 
