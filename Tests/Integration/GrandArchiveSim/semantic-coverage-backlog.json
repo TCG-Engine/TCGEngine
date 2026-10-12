@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T21:33:04+00:00",
+    "generatedAt": "2026-10-12T21:39:57+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1453,
+        "cardsWithExistingFixtures": 1459,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1024,
+        "cardsNeedingSemanticCoverage": 1018,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1236,23 +1236,6 @@
                 "cost",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "wgX472k6J7",
-            "name": "Cellforger Droid",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3854,27 +3837,6 @@
             "priority": 15
         },
         {
-            "cardId": "y5ttkk39i1",
-            "name": "Winbless Gatekeeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "uyv3fpvw2i",
             "name": "Winbless Rangefinder",
             "type": "ALLY",
@@ -4343,24 +4305,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "hHVf5xyjob",
-            "name": "Blackmarket Broker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -8898,23 +8842,6 @@
             "priority": 13
         },
         {
-            "cardId": "39srnovht1",
-            "name": "Nocturnal Blossom",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "xy5lh23qu7",
             "name": "Obelisk of Fabrication",
             "type": "UNIQUE,TOKEN,DOMAIN",
@@ -9536,23 +9463,6 @@
                 "recover",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "GRlUlcYRmV",
-            "name": "Sasha, Purifying Acolyte",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12439,22 +12349,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "a53rqmuqxf",
-            "name": "Liu Bei, Oathkeeper",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -33942,6 +33836,29 @@
             "priority": 43
         },
         {
+            "cardId": "wgX472k6J7",
+            "name": "Cellforger Droid",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "cellforger-droid-on-enter-summons-a-rested-powercell",
+                "cellforger-droid-rest-ability-pays-four-and-summons-another-powercell"
+            ],
+            "semanticFixtures": [
+                "cellforger-droid-on-enter-summons-a-rested-powercell",
+                "cellforger-droid-rest-ability-pays-four-and-summons-another-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "EB5sNiPNvA",
             "name": "Cellwarden Droid",
             "type": "ALLY",
@@ -37561,6 +37478,33 @@
             "priority": 35
         },
         {
+            "cardId": "y5ttkk39i1",
+            "name": "Winbless Gatekeeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-gatekeeper-on-enter-declined-puts-no-counter",
+                "winbless-gatekeeper-on-enter-pays-two-and-buffs-a-guardian-ally"
+            ],
+            "semanticFixtures": [
+                "winbless-gatekeeper-on-enter-declined-puts-no-counter",
+                "winbless-gatekeeper-on-enter-pays-two-and-buffs-a-guardian-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "9cef7aknvn",
             "name": "Wuji of Lingering Fate",
             "type": "PHANTASIA",
@@ -37876,6 +37820,32 @@
             "semanticFixtures": [
                 "benevolent-battle-priest-class-bonus-attack-recovers-one",
                 "benevolent-battle-priest-without-the-class-bonus-does-not-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "hHVf5xyjob",
+            "name": "Blackmarket Broker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blackmarket-broker-on-enter-puts-a-preparation-counter-on-the-champion",
+                "blackmarket-broker-with-three-preparation-counters-has-stealth-and-cannot-be-attacked",
+                "blackmarket-broker-with-two-preparation-counters-can-be-attacked"
+            ],
+            "semanticFixtures": [
+                "blackmarket-broker-on-enter-puts-a-preparation-counter-on-the-champion",
+                "blackmarket-broker-with-three-preparation-counters-has-stealth-and-cannot-be-attacked",
+                "blackmarket-broker-with-two-preparation-counters-can-be-attacked"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44192,6 +44162,27 @@
             "priority": 33
         },
         {
+            "cardId": "39srnovht1",
+            "name": "Nocturnal Blossom",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "status"
+            ],
+            "existingFixtures": [
+                "nocturnal-blossom-recovers-one-at-the-beginning-of-your-end-phase"
+            ],
+            "semanticFixtures": [
+                "nocturnal-blossom-recovers-one-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "YZIyPCvgzH",
             "name": "Outfitted Ravager",
             "type": "ALLY",
@@ -44829,6 +44820,31 @@
             "semanticFixtures": [
                 "recurring-aethercharge-graveyard-ability-pays-three-and-loads-into-the-aetherwing",
                 "salamanders-breath-decline-second-banish-still-applies-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "GRlUlcYRmV",
+            "name": "Sasha, Purifying Acolyte",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sasha-purifying-acolyte-fostered-a-resolved-action-is-banished-instead-of-entering-the-graveyard",
+                "sasha-purifying-acolyte-not-fostered-an-action-enters-the-graveyard",
+                "sasha-purifying-acolyte-on-foster-banishes-every-card-in-every-graveyard"
+            ],
+            "semanticFixtures": [
+                "sasha-purifying-acolyte-fostered-a-resolved-action-is-banished-instead-of-entering-the-graveyard",
+                "sasha-purifying-acolyte-not-fostered-an-action-enters-the-graveyard",
+                "sasha-purifying-acolyte-on-foster-banishes-every-card-in-every-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47537,6 +47553,26 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-shou-enlighten-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "a53rqmuqxf",
+            "name": "Liu Bei, Oathkeeper",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "liu-bei-becomes-distant-whenever-another-unit-you-control-becomes-distant"
+            ],
+            "semanticFixtures": [
+                "liu-bei-becomes-distant-whenever-another-unit-you-control-becomes-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

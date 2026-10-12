@@ -150,7 +150,7 @@ function gsSkeleton(string $id, array $backlog, array $byId, bool $probe = false
     $lines[] = "// {$name} | {$type} | " . CardElement($id) . " | " . CardClasses($id) . " | reserve {$cost}" . (CardCost_memory($id) ? ' memory ' . CardCost_memory($id) : '') . ($isAlly ? ' | ' . CardPower($id) . '/' . CardLife($id) : '') . " | id {$id}";
     foreach (preg_split('/\n/', $text) as $t) if (trim($t) !== '') $lines[] = '//   ' . $t;
     $lines[] = "gaScenario(" . gsQuote(gsSlug($name)) . ")";
-    $lines[] = "    ->standardDeck(" . gsQuote($name) . ")";
+    $lines[] = "    ->deckTemplate('quiet', " . gsQuote($name) . ")";   // no fast cards in the opening hands: no priority window between steps
     $lines[] = "    ->readyFor(" . implode(', ', $readyArgs) . ")";
     if ($target) foreach ($target[1] as [$zone, $card, $p]) $lines[] = "    ->seed('" . (str_starts_with($zone, 'their') ? 'my' . substr($zone, 5) : $zone) . "', '{$card}'" . (str_starts_with($zone, 'their') ? ', player: 2' : '') . ")   // TODO: board for target {$target[0]} (an opponent's card is seeded into THEIR own 'my' zone with player: 2)";
     $lines[] = "    ->seed('myHand', " . gsQuote($name) . ")";
@@ -164,7 +164,7 @@ function gsSkeleton(string $id, array $backlog, array $byId, bool $probe = false
         $lines[] = "    ->playSlot(7)->pay({$payNow})->target('theirField-0')   // TODO: window passes / extra prompts";
     } elseif ($isAlly || str_contains($type, 'ITEM') || str_contains($type, 'REGALIA') || str_contains($type, 'WEAPON') || str_contains($type, 'DOMAIN') || str_contains($type, 'PHANTASIA')) {
         $enterTarget = $target ? "->answer(1, '{$target[2]}')" : '';
-        $lines[] = "    ->play(" . gsQuote($name) . ")->pay({$payNow}){$enterTarget}->passBoth()   // TODO: On Enter target/pass order -- run --probe";
+        $lines[] = "    ->play(" . gsQuote($name) . ")->pay({$payNow}){$enterTarget}   // TODO: On Enter answers (target / YES) -- run --probe; a seeded fast card or a fast card in the opening hand would add priority windows";
     } elseif ($isChampion) {
         $lines[] = "    // TODO: champions level up through the Lorraine recipe: deckTemplate('lorraine-windslice', 'Dungeon Guide')->endTurn()->endTurn(2)->target('myMaterial-0')...";
     } else {

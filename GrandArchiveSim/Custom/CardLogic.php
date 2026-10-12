@@ -198,6 +198,8 @@ function HasFoster($obj) {
         "zihslnhzj4" => true, // Cell Generator
         "8sugly4wif" => true, // Krustallan Patrol
         "ioLmt0S7op" => true, // Sanctified Paladin
+        "GRlUlcYRmV" => true, // Sasha, Purifying Acolyte (printed Foster; missing from this list, so it could never become fostered)
+        "46neis2lho" => true, // Imperial Panzer (printed Foster, likewise missing)
     ];
     if(isset($fosterCards[$obj->CardID])) return true;
     // [Class Bonus] Foster cards

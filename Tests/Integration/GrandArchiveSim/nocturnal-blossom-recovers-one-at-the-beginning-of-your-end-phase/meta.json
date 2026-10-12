@@ -1,0 +1,22 @@
+{
+    "name": "nocturnal-blossom-recovers-one-at-the-beginning-of-your-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:34:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "39srnovht1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "39srnovht1"
+        ],
+        "mechanics": [
+            "recover",
+            "end-phase-trigger",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, **recover 1**."
+        ]
+    }
+}

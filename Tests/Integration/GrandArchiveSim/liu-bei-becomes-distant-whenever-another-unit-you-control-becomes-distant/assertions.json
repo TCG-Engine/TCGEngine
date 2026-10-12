@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"DISTANT\"]",
+        "semantic": true,
+        "label": "The champion became distant"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"DISTANT\"]",
+        "semantic": true,
+        "label": "Liu Bei became distant when the champion did"
+    }
+]

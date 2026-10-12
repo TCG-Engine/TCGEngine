@@ -1,0 +1,23 @@
+{
+    "name": "cellforger-droid-rest-ability-pays-four-and-summons-another-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:34:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wgX472k6J7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wgX472k6J7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "(4)**, [REST]:** **Summon** a Powercell token rested."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "blackmarket-broker-with-two-preparation-counters-can-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:36:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hHVf5xyjob"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hHVf5xyjob"
+        ],
+        "mechanics": [
+            "stealth",
+            "condition"
+        ],
+        "rulesClauses": [
+            "as long as your champion has three or more **preparation** counters"
+        ]
+    }
+}

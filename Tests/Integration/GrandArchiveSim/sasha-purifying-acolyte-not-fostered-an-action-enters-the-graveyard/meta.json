@@ -1,0 +1,21 @@
+{
+    "name": "sasha-purifying-acolyte-not-fostered-an-action-enters-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:37:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GRlUlcYRmV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GRlUlcYRmV"
+        ],
+        "mechanics": [
+            "foster",
+            "condition"
+        ],
+        "rulesClauses": [
+            "while CARDNAME is **fostered**"
+        ]
+    }
+}
