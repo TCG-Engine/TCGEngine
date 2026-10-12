@@ -435,3 +435,51 @@ gaScenario('jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on
     ->tested('Jianye, Dawn\'s Keep')
     ->covers(['class-bonus', 'granted-ability', 'on-death', 'condition'], '[Class Bonus] Fire element allies you control have **On Death**: If your **influence** is six or less, draw a card.')
     ->register();
+
+gaScenario('molten-cinder-brewed-enter-deals-two-damage-to-each-champion')
+    ->standardDeck('Molten Cinder')
+    ->readyFor('Molten Cinder')
+    ->seed('myField', 'Silvershine')
+    ->seed('myField', 'Manaroot')
+    ->seed('myHand', 'Molten Cinder')
+    ->play('Molten Cinder')->answer(1, 'YES')->target('myField-1')->target('myField-2')->passBoth()
+    ->expectDamage('p1Field-0', 2, 'Brewed: 2 damage to each champion, yours included')
+    ->expectDamage('p2Field-0', 2, 'Brewed: 2 damage to the opposing champion')
+    ->tested('Molten Cinder')
+    ->covers(['brew', 'on-enter', 'damage', 'condition'], '**On Enter:** If CARDNAME was **brewed**, deal 2 damage to each champion.')
+    ->register();
+
+gaScenario('molten-cinder-sacrifice-deals-three-damage-to-a-champion-that-leveled-up-this-turn')
+    ->deck("# Material\n1 Spirit of Fire\n1 Polkhawk, Boisterous Riot\n# Main\n8 Dungeon Guide\n8 Fluffy Shopkeep\n4 Fairy Whispers")
+    ->seed('myField', 'Molten Cinder')
+    ->seed('myMemory', 'Fairy Whispers')
+    ->endTurn()->endTurn(2)->answer(1, 'myMaterial-0')
+    ->answer(1, 'myField-0@Activate-0@Sacrifice')->target('myField-0')
+    ->expectDamage('p1Field-0', 3, 'The champion that leveled up this turn took 3 damage')
+    ->tested('Molten Cinder')
+    ->covers(['activated-ability', 'sacrifice', 'damage', 'condition'], '**Sacrifice CARDNAME:** Deal 3 damage to target champion that leveled up this turn.')
+    ->register();
+
+gaScenario('polkhawk-boisterous-riot-enter-with-a-fire-card-in-its-lineage-the-next-ranger-ally-enters-distant')
+    ->deck("# Material\n1 Spirit of Fire\n1 Polkhawk, Boisterous Riot\n# Main\n8 Dungeon Guide\n8 Fluffy Shopkeep\n4 Fairy Whispers")
+    ->seed('myMemory', 'Fairy Whispers')
+    ->seed('myHand', 'Charged Gunslinger')
+    ->endTurn()->endTurn(2)->answer(1, 'myMaterial-0')
+    ->play('Charged Gunslinger')->pay(3)->pass(2)
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The next Ranger ally entered the field distant')
+    ->expectProperty('p1Field-0', 'CardID', '8eyeqhc37y', 'The level up into Polkhawk, Boisterous Riot completed')
+    ->tested('Polkhawk, Boisterous Riot')
+    ->covers(['on-enter', 'level-up', 'condition', 'distant'], '**On Enter**: If there\'s another fire element card in CARDNAME\'s lineage, the next Ranger ally card you activate this turn enters the field **distant**.')
+    ->register();
+
+gaScenario('polkhawk-boisterous-riot-only-the-next-ranger-ally-enters-distant')
+    ->deck("# Material\n1 Spirit of Fire\n1 Polkhawk, Boisterous Riot\n# Main\n8 Dungeon Guide\n8 Fluffy Shopkeep\n4 Fairy Whispers")
+    ->seed('myMemory', 'Fairy Whispers')
+    ->seed('myHand', 'Charged Gunslinger')->seed('myHand', 'Flamebolt Arbalist')
+    ->endTurn()->endTurn(2)->answer(1, 'myMaterial-0')
+    ->play('Charged Gunslinger')->pay(3)->pass(2)
+    ->playSlot(4)->pay(2)->pass(2)
+    ->expectProperty('p1Field-2', 'TurnEffects', '["ENTERED_THIS_TURN"]', 'The second Ranger ally did not enter distant: the effect only covers the next one')
+    ->tested('Polkhawk, Boisterous Riot')
+    ->covers(['on-enter', 'condition', 'distant'], '**On Enter**: If there\'s another fire element card in CARDNAME\'s lineage, the next Ranger ally card you activate this turn enters the field **distant**.')
+    ->register();

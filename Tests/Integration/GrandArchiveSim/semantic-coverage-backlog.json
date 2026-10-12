@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T01:37:37+00:00",
+    "generatedAt": "2026-10-12T01:41:12+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1155,
+        "cardsWithExistingFixtures": 1157,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1322,
+        "cardsNeedingSemanticCoverage": 1320,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -961,24 +961,6 @@
                 "cost",
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "df9q1vk8ao",
-            "name": "Molten Cinder",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -12472,23 +12454,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "8eyeqhc37y",
-            "name": "Polkhawk, Boisterous Riot",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -38352,6 +38317,30 @@
             "priority": 44
         },
         {
+            "cardId": "df9q1vk8ao",
+            "name": "Molten Cinder",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "molten-cinder-brewed-enter-deals-two-damage-to-each-champion",
+                "molten-cinder-sacrifice-deals-three-damage-to-a-champion-that-leveled-up-this-turn"
+            ],
+            "semanticFixtures": [
+                "molten-cinder-brewed-enter-deals-two-damage-to-each-champion",
+                "molten-cinder-sacrifice-deals-three-damage-to-a-champion-that-leveled-up-this-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "OiyjVzW7Av",
             "name": "Overflow the Barrow",
             "type": "ACTION",
@@ -45143,6 +45132,29 @@
             ],
             "semanticFixtures": [
                 "phantom-veil-pays-two-and-grants-the-linked-ally-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "8eyeqhc37y",
+            "name": "Polkhawk, Boisterous Riot",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "polkhawk-boisterous-riot-enter-with-a-fire-card-in-its-lineage-the-next-ranger-ally-enters-distant",
+                "polkhawk-boisterous-riot-only-the-next-ranger-ally-enters-distant"
+            ],
+            "semanticFixtures": [
+                "polkhawk-boisterous-riot-enter-with-a-fire-card-in-its-lineage-the-next-ranger-ally-enters-distant",
+                "polkhawk-boisterous-riot-only-the-next-ranger-ally-enters-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
