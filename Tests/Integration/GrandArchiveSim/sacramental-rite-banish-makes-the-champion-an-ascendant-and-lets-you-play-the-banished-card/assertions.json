@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"type\":\"CHAMPION,ASCENDANT\"}}",
+        "semantic": true,
+        "label": "The champion is also an Ascendant"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The banished face-down card (a Dungeon Guide from the material deck) was played from the banishment"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only Sacramental Rite itself remains in the banishment"
+    }
+]

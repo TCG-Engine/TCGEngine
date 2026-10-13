@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "lumV6cG9oc",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The card was sacrificed"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Scavenge 8 does not reach the Raccoon: nothing is added to the hand"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "sacramental-rite-banish-makes-the-champion-an-ascendant-and-lets-you-play-the-banished-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:12:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TL19V7lU6A"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TL19V7lU6A"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "type-change",
+            "play-from-banishment"
+        ],
+        "rulesClauses": [
+            "**Banish Sacramental Rite:** Your champion becomes an Ascendant in addition to its other types. You may play the banished card."
+        ]
+    }
+}

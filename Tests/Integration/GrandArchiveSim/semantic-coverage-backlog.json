@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T22:06:57+00:00",
+    "generatedAt": "2026-10-13T22:13:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2062,
+        "cardsWithExistingFixtures": 2065,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 415,
+        "cardsNeedingSemanticCoverage": 412,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1091,22 +1091,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "TL19V7lU6A",
-            "name": "Sacramental Rite",
-            "type": "ITEM,REGALIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4963,22 +4947,6 @@
             "priority": 12
         },
         {
-            "cardId": "lumV6cG9oc",
-            "name": "Business Card",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "sl7dedg616",
             "name": "Calculated Foresight",
             "type": "ACTION",
@@ -5691,22 +5659,6 @@
             "mechanics": [
                 "cost",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "CbPHWJ8Upd",
-            "name": "Stabilizing BladeCore",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26226,6 +26178,28 @@
             "priority": 42
         },
         {
+            "cardId": "TL19V7lU6A",
+            "name": "Sacramental Rite",
+            "type": "ITEM,REGALIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sacramental-rite-banish-makes-the-champion-an-ascendant-and-lets-you-play-the-banished-card",
+                "sacramental-rite-enter-banishes-a-material-card-face-down"
+            ],
+            "semanticFixtures": [
+                "sacramental-rite-banish-makes-the-champion-an-ascendant-and-lets-you-play-the-banished-card",
+                "sacramental-rite-enter-banishes-a-material-card-face-down"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "sphwpjsznn",
             "name": "Stonescale Band",
             "type": "REGALIA,ITEM",
@@ -44139,6 +44113,30 @@
             "priority": 32
         },
         {
+            "cardId": "lumV6cG9oc",
+            "name": "Business Card",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "business-card-sacrifice-scavenges-eight-for-the-chosen-ally-name",
+                "business-card-with-a-phone-item-scavenges-twenty-instead",
+                "business-card-without-a-phone-item-cannot-reach-ten-cards-down"
+            ],
+            "semanticFixtures": [
+                "business-card-sacrifice-scavenges-eight-for-the-chosen-ally-name",
+                "business-card-with-a-phone-item-scavenges-twenty-instead",
+                "business-card-without-a-phone-item-cannot-reach-ten-cards-down"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lwabipl6gt",
             "name": "Calamity Cannon",
             "type": "ACTION",
@@ -48836,6 +48834,30 @@
             ],
             "semanticFixtures": [
                 "spontaneous-combustion-deals-four-damage-to-an-ally-attacking-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "CbPHWJ8Upd",
+            "name": "Stabilizing BladeCore",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "stabilizing-bladecore-champion-level-up-puts-a-durability-counter-on-the-linked-sword",
+                "stabilizing-bladecore-class-bonus-linked-sword-gets-plus-two-power",
+                "stabilizing-bladecore-without-the-class-bonus-linked-sword-keeps-its-power"
+            ],
+            "semanticFixtures": [
+                "stabilizing-bladecore-champion-level-up-puts-a-durability-counter-on-the-linked-sword",
+                "stabilizing-bladecore-class-bonus-linked-sword-gets-plus-two-power",
+                "stabilizing-bladecore-without-the-class-bonus-linked-sword-keeps-its-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,23 @@
+{
+    "name": "business-card-sacrifice-scavenges-eight-for-the-chosen-ally-name",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:11:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lumV6cG9oc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lumV6cG9oc"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "scavenge",
+            "name-choice"
+        ],
+        "rulesClauses": [
+            "**(2), Sacrifice CARDNAME:** **Scavenge 8** for an ally card with the chosen name."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "stabilizing-bladecore-without-the-class-bonus-linked-sword-keeps-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:07:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CbPHWJ8Upd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CbPHWJ8Upd"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "weapon-link",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Linked weapon gets +2 [POWER]."
+        ]
+    }
+}

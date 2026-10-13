@@ -1,0 +1,22 @@
+{
+    "name": "sacramental-rite-enter-banishes-a-material-card-face-down",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:11:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TL19V7lU6A"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TL19V7lU6A"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "face-down"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Banish a non-champion card from your material deck face down."
+        ]
+    }
+}

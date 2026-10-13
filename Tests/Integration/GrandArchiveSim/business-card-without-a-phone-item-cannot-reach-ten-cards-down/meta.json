@@ -1,0 +1,22 @@
+{
+    "name": "business-card-without-a-phone-item-cannot-reach-ten-cards-down",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:11:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lumV6cG9oc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lumV6cG9oc"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "scavenge",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Scavenge 8** for an ally card with the chosen name."
+        ]
+    }
+}
