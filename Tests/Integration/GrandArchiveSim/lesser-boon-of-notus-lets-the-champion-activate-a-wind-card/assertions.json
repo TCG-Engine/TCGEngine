@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "jn4mwv930y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The boon enables WIND: the card was played"
+    }
+]

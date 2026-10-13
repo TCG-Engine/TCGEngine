@@ -1,0 +1,21 @@
+{
+    "name": "defenders-maul-without-the-class-bonus-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "chnppup4iz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "chnppup4iz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +2 [POWER]."
+        ]
+    }
+}

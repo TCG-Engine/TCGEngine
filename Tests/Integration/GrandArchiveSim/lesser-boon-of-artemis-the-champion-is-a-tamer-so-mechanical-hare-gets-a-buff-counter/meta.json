@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-artemis-the-champion-is-a-tamer-so-mechanical-hare-gets-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TlTFIRAoMr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TlTFIRAoMr"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Tamer class in addition to their other types."
+        ]
+    }
+}

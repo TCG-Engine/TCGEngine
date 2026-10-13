@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "The Cleric class bonus applied: recover 3 (5 - 3)"
+    }
+]

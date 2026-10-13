@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "wXNDSNQ2x2",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The phantasia card within the top ten was put into the hand"
+    }
+]

@@ -1,0 +1,24 @@
+{
+    "name": "assassins-ripper-class-bonus-rest-and-a-preparation-counter-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8yzADlgx4R"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8yzADlgx4R"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "counter",
+            "stat-change",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]**, Remove a preparation counter from your champion:** CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    }
+}

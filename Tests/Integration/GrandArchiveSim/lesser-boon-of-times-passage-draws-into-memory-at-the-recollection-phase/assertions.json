@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "A card was drawn into memory at the beginning of the recollection phase and returned to hand with the rest of memory (7 + the turn draw + 1)"
+    }
+]

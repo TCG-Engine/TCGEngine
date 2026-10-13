@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-apollo-the-champion-is-a-ranger-so-mob-vantage-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9hA48XL1xV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9hA48XL1xV"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Ranger class in addition to their other types."
+        ]
+    }
+}

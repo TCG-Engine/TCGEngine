@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-times-passage-draws-into-memory-at-the-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZRmjF8O3rf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZRmjF8O3rf"
+        ],
+        "mechanics": [
+            "trigger",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, draw a card into your memory. Trigger this ability only twice."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-odysseus-the-champion-is-a-warrior-so-sealed-blade-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PXWFkT2DQe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PXWFkT2DQe"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Warrior class in addition to their other types."
+        ]
+    }
+}

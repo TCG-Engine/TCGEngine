@@ -2904,6 +2904,38 @@ $customDQHandlers["yxk7e8opr6:0:ActivateAbility-1"] = function($player, $parts, 
     DecisionQueueController::CleanupRemovedCards();
 };
 
+// Lesser Boon of Regret uQeQhFl5Qm: "As you gain this boon, put up to seven cards from your hand on the bottom of your deck in any order. Then draw that many cards." (no ability existed)
+$cardActivatedAbilities["uQeQhFl5Qm:0"] = function($player) { //Lesser Boon of Regret
+    $hand = ZoneSearch("myHand", forPlayer: $player);
+    if(empty($hand)) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . min(7, count($hand)) . "|" . implode("&", $hand), 1, tooltip:"Put_up_to_seven_cards_from_your_hand_on_the_bottom_of_your_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LesserBoonOfRegretBottom", 1);
+};
+$customDQHandlers["LesserBoonOfRegretBottom"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    $chosen = array_values(array_filter(explode("&", $lastDecision)));
+    usort($chosen, function($a, $b) { return intval(substr($b, strrpos($b, "-") + 1)) <=> intval(substr($a, strrpos($a, "-") + 1)); });
+    foreach($chosen as $mz) MZMove($player, $mz, "myTempZone");
+    PutTempZoneOnBottomOfDeck($player);
+    DecisionQueueController::CleanupRemovedCards();
+    Draw($player, count($chosen));
+};
+
+// Lesser Boon of Awilix jQMIfe3Xvw: "As you gain this boon, put up to four target regalia cards from any banishment into their owner's material deck." (no ability existed)
+$cardActivatedAbilities["jQMIfe3Xvw:0"] = function($player) { //Lesser Boon of Awilix
+    $regalia = array_merge(ZoneSearch("myBanish", ["REGALIA"], forPlayer: $player), ZoneSearch("theirBanish", ["REGALIA"], forPlayer: $player));
+    if(empty($regalia)) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . min(4, count($regalia)) . "|" . implode("&", $regalia), 1, tooltip:"Put_up_to_four_regalia_from_banishment_into_their_owners_material_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LesserBoonOfAwilixReturn", 1);
+};
+$customDQHandlers["LesserBoonOfAwilixReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    $chosen = array_values(array_filter(explode("&", $lastDecision)));
+    usort($chosen, function($a, $b) { return intval(substr($b, strrpos($b, "-") + 1)) <=> intval(substr($a, strrpos($a, "-") + 1)); });
+    foreach($chosen as $mz) MZMove($player, $mz, strpos($mz, "their") === 0 ? "theirMaterial" : "myMaterial");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -15122,6 +15122,9 @@ function ObjectCurrentPower($obj) {
             case "8yzADlgx4R": // Assassin's Ripper: +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "n67ghdh1t6": // Naga's Fang: +1 POWER until end of turn (the ability put the marker but ObjectCurrentPower never read it)
+                $power += 1;
+                break;
             case "QQaOgurnjX": // Imbue in Frost: +2 POWER until end of turn
                 $power += 2;
                 break;
@@ -20210,7 +20213,7 @@ function AddTurnEffect($mzCard, $effectID) {
     if($effectID === "IMBUED" && PropertyContains(EffectiveCardSubtypes($obj), "ANGEL") && CardinalOfDivineRiteInPlay()) return;
     // Striking Illuminance (2lukkhisu5): one "+1 POWER" marker per luxem card revealed from memory (ObjectCurrentPower counts them), so they must stack.
     // Scorchfire Assassin (o4h8cfo21a): +2 POWER marker per preparation counter removed, so they must stack too.
-    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "aKgdkLSBza" || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a";
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "aKgdkLSBza" || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a" || $effectID === "n67ghdh1t6";
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
@@ -22593,6 +22596,14 @@ function GetPlayerEnabledElements($player) {
         $enabled["EXALTED"] = true;
     }
 
+    // Lesser Boon of Agni (nbKHFHcvzd), Notus (bFoUoGdZBX) and Poseidon (xTY2LZ01o7): "Fire / Wind / Water element is enabled for you." (never implemented)
+    foreach(GetField($player) as $boonObj) {
+        if($boonObj === null || $boonObj->removed || HasNoAbilities($boonObj)) continue;
+        if($boonObj->CardID === "nbKHFHcvzd") $enabled["FIRE"] = true;
+        if($boonObj->CardID === "bFoUoGdZBX") $enabled["WIND"] = true;
+        if($boonObj->CardID === "xTY2LZ01o7") $enabled["WATER"] = true;
+    }
+
     // Imperial Seal (by8145w2u2): banish ability enables all basic elements until end of turn
     if(GlobalEffectCount($player, "by8145w2u2_FIRE") > 0) $enabled["FIRE"] = true;
     if(GlobalEffectCount($player, "by8145w2u2_WATER") > 0) $enabled["WATER"] = true;
@@ -24331,69 +24342,24 @@ function EffectiveCardClasses($obj) {
     }
     $classes = CardClasses($obj->CardID);
 
-    // Lesser Boon of Apollo (9hA48XL1xV): your champion is Ranger in addition to its other classes.
+    // The lesser boons that make your champion an extra class (Apollo Ranger, Veilara Cleric, Etherealys Mage, Odysseus Warrior, Artemis Tamer, Pulousa Assassin, Ozymandias Guardian).
+    // Ozymandias was missing from the old copy-pasted per-boon blocks, so a Guardian Class Bonus never applied through it.
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         global $playerID;
         $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
         if($controller === null) return $classes;
         $zone = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
+        $classBoons = [
+            "9hA48XL1xV" => "RANGER", "GHS9GraLDo" => "CLERIC", "NCahvCedfV" => "MAGE", "PXWFkT2DQe" => "WARRIOR",
+            "TlTFIRAoMr" => "TAMER", "V6yubXhzYB" => "ASSASSIN", "yrmT2lTt9U" => "GUARDIAN",
+        ];
         foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "RANGER")) {
-                $classes = $classes === null || $classes === "" ? "RANGER" : $classes . ",RANGER";
+            if($fieldObj === null || $fieldObj->removed || !isset($classBoons[$fieldObj->CardID]) || HasNoAbilities($fieldObj)) continue;
+            $grantedClass = $classBoons[$fieldObj->CardID];
+            if(!PropertyContains($classes, $grantedClass)) {
+                $classes = $classes === null || $classes === "" ? $grantedClass : $classes . "," . $grantedClass;
             }
-            break;
-        }
-
-        // Lesser Boon of Veilara (GHS9GraLDo): your champion is Cleric in addition
-        // to its other classes.
-        foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "GHS9GraLDo" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "CLERIC")) {
-                $classes = $classes === null || $classes === "" ? "CLERIC" : $classes . ",CLERIC";
-            }
-            break;
-        }
-
-        // Lesser Boon of Etherealys (NCahvCedfV): your champion is Mage in addition
-        // to its other classes.
-        foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "NCahvCedfV" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "MAGE")) {
-                $classes = $classes === null || $classes === "" ? "MAGE" : $classes . ",MAGE";
-            }
-            break;
-        }
-
-        // Lesser Boon of Odysseus (PXWFkT2DQe): your champion is Warrior in addition
-        // to its other classes.
-        foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "PXWFkT2DQe" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "WARRIOR")) {
-                $classes = $classes === null || $classes === "" ? "WARRIOR" : $classes . ",WARRIOR";
-            }
-            break;
-        }
-
-        // Lesser Boon of Artemis (TlTFIRAoMr): your champion is Tamer in addition
-        // to its other classes.
-        foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "TlTFIRAoMr" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "TAMER")) {
-                $classes = $classes === null || $classes === "" ? "TAMER" : $classes . ",TAMER";
-            }
-            break;
-        }
-
-        // Lesser Boon of Pulousa (V6yubXhzYB): your champion is Assassin in addition
-        // to its other classes.
-        foreach($field as $fieldObj) {
-            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "V6yubXhzYB" || HasNoAbilities($fieldObj)) continue;
-            if(!PropertyContains($classes, "ASSASSIN")) {
-                $classes = $classes === null || $classes === "" ? "ASSASSIN" : $classes . ",ASSASSIN";
-            }
-            break;
         }
     }
 

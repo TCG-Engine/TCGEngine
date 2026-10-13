@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-veilara-the-champion-is-a-cleric-so-novice-healer-recovers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GHS9GraLDo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GHS9GraLDo"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Cleric class in addition to their other types."
+        ]
+    }
+}

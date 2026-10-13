@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-agni-lets-the-champion-activate-a-fire-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:16:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nbKHFHcvzd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nbKHFHcvzd"
+        ],
+        "mechanics": [
+            "static",
+            "element"
+        ],
+        "rulesClauses": [
+            "FIRE element is enabled for you."
+        ]
+    }
+}

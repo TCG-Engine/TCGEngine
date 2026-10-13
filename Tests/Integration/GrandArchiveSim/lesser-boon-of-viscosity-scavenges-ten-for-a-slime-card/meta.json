@@ -1,0 +1,20 @@
+{
+    "name": "lesser-boon-of-viscosity-scavenges-ten-for-a-slime-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2LArvOxz5L"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2LArvOxz5L"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, **scavenge 10** for a Slime card."
+        ]
+    }
+}

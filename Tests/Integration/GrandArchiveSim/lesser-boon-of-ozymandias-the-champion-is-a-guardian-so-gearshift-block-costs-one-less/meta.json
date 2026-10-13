@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-ozymandias-the-champion-is-a-guardian-so-gearshift-block-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yrmT2lTt9U"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yrmT2lTt9U"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Guardian class in addition to their other types."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "sword-saints-vow-class-bonus-gets-plus-one-power-per-durability-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r44lyrzo6o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r44lyrzo6o"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Sword Saint's Vow gets +1 [POWER] for each **durability** counter on it."
+        ]
+    }
+}

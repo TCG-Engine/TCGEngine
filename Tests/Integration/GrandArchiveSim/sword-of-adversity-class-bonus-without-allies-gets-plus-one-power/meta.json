@@ -1,0 +1,22 @@
+{
+    "name": "sword-of-adversity-class-bonus-without-allies-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dpu9pHGX48"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dpu9pHGX48"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER] as long as you control no allies."
+        ]
+    }
+}

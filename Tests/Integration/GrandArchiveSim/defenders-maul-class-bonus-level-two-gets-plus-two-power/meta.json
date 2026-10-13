@@ -1,0 +1,22 @@
+{
+    "name": "defenders-maul-class-bonus-level-two-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "chnppup4iz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "chnppup4iz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +2 [POWER]."
+        ]
+    }
+}

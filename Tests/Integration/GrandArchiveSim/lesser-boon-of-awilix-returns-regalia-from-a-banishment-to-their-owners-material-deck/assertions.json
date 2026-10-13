@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myMaterial",
+        "cardID": "frzrplywc0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Your regalia returned to your material deck"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myMaterial",
+        "cardID": "4dys05p49w",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The opponent's regalia returned to the opponent's material deck"
+    }
+]

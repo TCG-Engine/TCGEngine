@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:12:46+00:00",
+    "generatedAt": "2026-10-13T21:18:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1854,
+        "cardsWithExistingFixtures": 1882,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 623,
+        "cardsNeedingSemanticCoverage": 595,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1225,23 +1225,6 @@
                 "zone-movement",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "r44lyrzo6o",
-            "name": "Sword Saint's Vow",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4892,23 +4875,6 @@
             "priority": 13
         },
         {
-            "cardId": "chnppup4iz",
-            "name": "Defender's Maul",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "dih0LPaigc",
             "name": "Devised Conspiracy",
             "type": "ACTION",
@@ -5104,23 +5070,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "3traenEA8M",
-            "name": "Galatine, Sword of Sunlight",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -7478,38 +7427,6 @@
             "priority": 12
         },
         {
-            "cardId": "jQMIfe3Xvw",
-            "name": "Lesser Boon of Awilix",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "QLWT8BnvlU",
-            "name": "Lesser Boon of Dux",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WLPf8QTdsP",
             "name": "Lesser Boon of Knox",
             "type": "LESSER BOON",
@@ -7518,22 +7435,6 @@
             "mechanics": [
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "uQeQhFl5Qm",
-            "name": "Lesser Boon of Regret",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8671,21 +8572,6 @@
             "priority": 11
         },
         {
-            "cardId": "8yzADlgx4R",
-            "name": "Assassin's Ripper",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "eP07Xxscuq",
             "name": "Astral Shard",
             "type": "TOKEN,PHANTASIA",
@@ -8986,21 +8872,6 @@
             "priority": 11
         },
         {
-            "cardId": "h7iz4xkbq1",
-            "name": "Crescent Glaive",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "23ag70F2uz",
             "name": "Crowdguard's Slash",
             "type": "ATTACK",
@@ -9113,21 +8984,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "wljhyokktb",
-            "name": "Emergent Dagger",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9451,141 +9307,6 @@
             "priority": 11
         },
         {
-            "cardId": "nbKHFHcvzd",
-            "name": "Lesser Boon of Agni",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "9hA48XL1xV",
-            "name": "Lesser Boon of Apollo",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "TlTFIRAoMr",
-            "name": "Lesser Boon of Artemis",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "56ZA1DHSBp",
-            "name": "Lesser Boon of Enchantment",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "NCahvCedfV",
-            "name": "Lesser Boon of Etherealys",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "rAWlj4c4Ws",
-            "name": "Lesser Boon of Fauna",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "bFoUoGdZBX",
-            "name": "Lesser Boon of Notus",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "PXWFkT2DQe",
-            "name": "Lesser Boon of Odysseus",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "yrmT2lTt9U",
-            "name": "Lesser Boon of Ozymandias",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "NidqQ6MOuy",
             "name": "Lesser Boon of Parvati",
             "type": "LESSER BOON",
@@ -9593,96 +9314,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "xTY2LZ01o7",
-            "name": "Lesser Boon of Poseidon",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "V6yubXhzYB",
-            "name": "Lesser Boon of Pulousa",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "nJOde7e1Xc",
-            "name": "Lesser Boon of Scriveners",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ZRmjF8O3rf",
-            "name": "Lesser Boon of Time's Passage",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "GHS9GraLDo",
-            "name": "Lesser Boon of Veilara",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "2LArvOxz5L",
-            "name": "Lesser Boon of Viscosity",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9916,21 +9547,6 @@
             "priority": 11
         },
         {
-            "cardId": "n67ghdh1t6",
-            "name": "Naga's Fang",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "ny1te7hcjm",
             "name": "Natural Order",
             "type": "ACTION",
@@ -10126,21 +9742,6 @@
             "priority": 11
         },
         {
-            "cardId": "mDN1CI9IEe",
-            "name": "Sealed Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "88zq9ox7u6",
             "name": "Seeking Shot",
             "type": "ATTACK",
@@ -10261,21 +9862,6 @@
             "priority": 11
         },
         {
-            "cardId": "dpu9pHGX48",
-            "name": "Sword of Adversity",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "7nau5sw9f8",
             "name": "Synthetic Strike",
             "type": "ATTACK",
@@ -10328,21 +9914,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "b0qlk9j6le",
-            "name": "Training Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -28489,6 +28060,27 @@
             "priority": 43
         },
         {
+            "cardId": "r44lyrzo6o",
+            "name": "Sword Saint's Vow",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sword-saints-vow-class-bonus-gets-plus-one-power-per-durability-counter"
+            ],
+            "semanticFixtures": [
+                "sword-saints-vow-class-bonus-gets-plus-one-power-per-durability-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "ww4akrkn1d",
             "name": "Temptation's Facade",
             "type": "REGALIA,ITEM",
@@ -39591,6 +39183,29 @@
             "priority": 33
         },
         {
+            "cardId": "chnppup4iz",
+            "name": "Defender's Maul",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "defenders-maul-class-bonus-level-two-gets-plus-two-power",
+                "defenders-maul-without-the-class-bonus-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "defenders-maul-class-bonus-level-two-gets-plus-two-power",
+                "defenders-maul-without-the-class-bonus-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "nRtmc2wmBI",
             "name": "Demon's Bargain",
             "type": "ACTION",
@@ -40575,6 +40190,29 @@
             ],
             "semanticFixtures": [
                 "frozen-quill-rest-loads-itself-into-an-unloaded-bow"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "3traenEA8M",
+            "name": "Galatine, Sword of Sunlight",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "galatine-class-bonus-gets-plus-one-power-per-three-durability-counters",
+                "galatine-without-the-class-bonus-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "galatine-class-bonus-gets-plus-one-power-per-three-durability-counters",
+                "galatine-without-the-class-bonus-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47209,6 +46847,46 @@
             "priority": 32
         },
         {
+            "cardId": "jQMIfe3Xvw",
+            "name": "Lesser Boon of Awilix",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-awilix-returns-regalia-from-a-banishment-to-their-owners-material-deck"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-awilix-returns-regalia-from-a-banishment-to-their-owners-material-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "QLWT8BnvlU",
+            "name": "Lesser Boon of Dux",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-dux-class-locked-makes-an-ally-fostered"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-dux-class-locked-makes-an-ally-fostered"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "P8sbt2gXkn",
             "name": "Lesser Boon of Kanaloa",
             "type": "LESSER BOON",
@@ -47223,6 +46901,26 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-kanaloa-both-discard-3"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "uQeQhFl5Qm",
+            "name": "Lesser Boon of Regret",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-regret-puts-hand-cards-on-the-bottom-and-draws-that-many"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-regret-puts-hand-cards-on-the-bottom-and-draws-that-many"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50392,6 +50090,25 @@
             "priority": 31
         },
         {
+            "cardId": "8yzADlgx4R",
+            "name": "Assassin's Ripper",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "assassins-ripper-class-bonus-rest-and-a-preparation-counter-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "assassins-ripper-class-bonus-rest-and-a-preparation-counter-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "k0sln8vnuo",
             "name": "Auspicious Feast",
             "type": "ACTION",
@@ -51000,6 +50717,27 @@
             "priority": 31
         },
         {
+            "cardId": "h7iz4xkbq1",
+            "name": "Crescent Glaive",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "crescent-glaive-below-level-two-has-its-printed-power",
+                "crescent-glaive-class-bonus-level-two-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "crescent-glaive-below-level-two-has-its-printed-power",
+                "crescent-glaive-class-bonus-level-two-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "j5iQQPd2m5",
             "name": "Crystal of Argus",
             "type": "REGALIA,ITEM",
@@ -51213,6 +50951,27 @@
             "semanticFixtures": [
                 "emberwrath-witch-ephemerate-from-the-graveyard-enters-ephemeral",
                 "emberwrath-witch-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "wljhyokktb",
+            "name": "Emergent Dagger",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "emergent-dagger-below-level-two-has-its-printed-power",
+                "emergent-dagger-class-bonus-level-two-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "emergent-dagger-below-level-two-has-its-printed-power",
+                "emergent-dagger-class-bonus-level-two-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52023,6 +51782,221 @@
             "priority": 31
         },
         {
+            "cardId": "nbKHFHcvzd",
+            "name": "Lesser Boon of Agni",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-agni-lets-the-champion-activate-a-fire-card",
+                "lesser-boon-of-agni-without-the-boon-the-fire-card-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-agni-lets-the-champion-activate-a-fire-card",
+                "lesser-boon-of-agni-without-the-boon-the-fire-card-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "9hA48XL1xV",
+            "name": "Lesser Boon of Apollo",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-apollo-the-champion-is-a-ranger-so-mob-vantage-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-apollo-the-champion-is-a-ranger-so-mob-vantage-costs-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "TlTFIRAoMr",
+            "name": "Lesser Boon of Artemis",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-artemis-the-champion-is-a-tamer-so-mechanical-hare-gets-a-buff-counter"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-artemis-the-champion-is-a-tamer-so-mechanical-hare-gets-a-buff-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "56ZA1DHSBp",
+            "name": "Lesser Boon of Enchantment",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-enchantment-scavenges-ten-for-a-phantasia-card"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-enchantment-scavenges-ten-for-a-phantasia-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "NCahvCedfV",
+            "name": "Lesser Boon of Etherealys",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-etherealys-the-champion-is-a-mage-so-tome-of-knowledge-grants-a-level"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-etherealys-the-champion-is-a-mage-so-tome-of-knowledge-grants-a-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "rAWlj4c4Ws",
+            "name": "Lesser Boon of Fauna",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-fauna-gives-plus-one-level-for-each-of-up-to-two-animal-allies"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-fauna-gives-plus-one-level-for-each-of-up-to-two-animal-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "bFoUoGdZBX",
+            "name": "Lesser Boon of Notus",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-notus-lets-the-champion-activate-a-wind-card",
+                "lesser-boon-of-notus-without-the-boon-the-wind-card-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-notus-lets-the-champion-activate-a-wind-card",
+                "lesser-boon-of-notus-without-the-boon-the-wind-card-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "PXWFkT2DQe",
+            "name": "Lesser Boon of Odysseus",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-odysseus-the-champion-is-a-warrior-so-sealed-blade-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-odysseus-the-champion-is-a-warrior-so-sealed-blade-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "yrmT2lTt9U",
+            "name": "Lesser Boon of Ozymandias",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-ozymandias-the-champion-is-a-guardian-so-gearshift-block-costs-one-less"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-ozymandias-the-champion-is-a-guardian-so-gearshift-block-costs-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "xTY2LZ01o7",
+            "name": "Lesser Boon of Poseidon",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-poseidon-lets-the-champion-activate-a-water-card",
+                "lesser-boon-of-poseidon-without-the-boon-the-water-card-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-poseidon-lets-the-champion-activate-a-water-card",
+                "lesser-boon-of-poseidon-without-the-boon-the-water-card-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "V6yubXhzYB",
+            "name": "Lesser Boon of Pulousa",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-pulousa-the-champion-is-an-assassin-so-merciless-toss-costs-one-less"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-pulousa-the-champion-is-an-assassin-so-merciless-toss-costs-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "V8aPGgLyh5",
             "name": "Lesser Boon of Rakko",
             "type": "LESSER BOON",
@@ -52042,6 +52016,25 @@
             "priority": 31
         },
         {
+            "cardId": "nJOde7e1Xc",
+            "name": "Lesser Boon of Scriveners",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-scriveners-scavenges-ten-for-a-spell-card"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-scriveners-scavenges-ten-for-a-spell-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ZpM7gliLxm",
             "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
@@ -52055,6 +52048,63 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ZRmjF8O3rf",
+            "name": "Lesser Boon of Time's Passage",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-times-passage-draws-into-memory-at-the-recollection-phase"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-times-passage-draws-into-memory-at-the-recollection-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "GHS9GraLDo",
+            "name": "Lesser Boon of Veilara",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-veilara-the-champion-is-a-cleric-so-novice-healer-recovers"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-veilara-the-champion-is-a-cleric-so-novice-healer-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "2LArvOxz5L",
+            "name": "Lesser Boon of Viscosity",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-viscosity-scavenges-ten-for-a-slime-card"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-viscosity-scavenges-ten-for-a-slime-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52181,6 +52231,27 @@
             ],
             "semanticFixtures": [
                 "myopic-lens-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "n67ghdh1t6",
+            "name": "Naga's Fang",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "nagas-fang-can-be-activated-again-for-another-plus-one-power",
+                "nagas-fang-removing-a-preparation-counter-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "nagas-fang-can-be-activated-again-for-another-plus-one-power",
+                "nagas-fang-removing-a-preparation-counter-gets-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52562,6 +52633,25 @@
             "priority": 31
         },
         {
+            "cardId": "mDN1CI9IEe",
+            "name": "Sealed Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "sealed-blade-class-bonus-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "sealed-blade-class-bonus-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "koyegh1snb",
             "name": "Serpentine Judicator",
             "type": "ALLY",
@@ -52686,6 +52776,27 @@
             "priority": 31
         },
         {
+            "cardId": "dpu9pHGX48",
+            "name": "Sword of Adversity",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "sword-of-adversity-class-bonus-without-allies-gets-plus-one-power",
+                "sword-of-adversity-with-an-ally-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "sword-of-adversity-class-bonus-without-allies-gets-plus-one-power",
+                "sword-of-adversity-with-an-ally-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "9ewgUjy34b",
             "name": "Sworn Windhand",
             "type": "ALLY",
@@ -52766,6 +52877,25 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "b0qlk9j6le",
+            "name": "Training Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "training-sword-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "training-sword-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

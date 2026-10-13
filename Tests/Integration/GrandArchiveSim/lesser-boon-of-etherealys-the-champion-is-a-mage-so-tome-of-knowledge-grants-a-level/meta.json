@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-etherealys-the-champion-is-a-mage-so-tome-of-knowledge-grants-a-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NCahvCedfV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NCahvCedfV"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is a Mage class in addition to their other types."
+        ]
+    }
+}
