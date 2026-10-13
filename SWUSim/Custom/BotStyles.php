@@ -99,7 +99,11 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
         if (SWUBotFeatureOn('spenttrade') && $mode === 'normal-trade' && $archetype === 2 && _SWUBotSpentCheap($att)
             && in_array(SWUBotCombatOutcome($att, $u), ['kill-survive', 'trade'], true)) { $keep[] = [$k, $u]; continue; }
         if ($mode === 'aggro') {
-            if (!SWUBotOverwhelmKills($att, $u)) continue;          // aggro takes a unit only when Overwhelm carries
+            // Feature 'sentinelclear' (p48): …or when a Saboteur breaking the lone Sentinel lets the round clear it (BotFallback.php).
+            $break = SWUBotFeatureOn('sentinelclear') && function_exists('_SWUBotSaboteurSentinelGain') && !empty($att['saboteur'])
+                     && ($sg = _SWUBotSaboteurSentinelGain(intval($ctx['seat']), $att, SWUBotWeights(strval($ctx['style']), intval($ctx['seat'])))) !== null
+                     && $sg['gain'] > 0 && $sg['def']['uid'] === $u['uid'];
+            if (!$break && !SWUBotOverwhelmKills($att, $u)) continue;   // aggro takes a unit only when Overwhelm carries
         } elseif ($mode === 'normal-trade') {
             $o = SWUBotCombatOutcome($att, $u);                      // midrange: kill-and-survive, or trade up
             if ($o !== 'kill-survive' && !($o === 'trade' && $u['cost'] > $att['cost'])) continue;

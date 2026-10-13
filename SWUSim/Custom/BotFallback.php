@@ -435,6 +435,144 @@ function _SWUBotUnitTargetValue(array $att, array $def, array $W): float {
     }
 }
 
+// Feature 'sentinelclear' (p48). Owner, 2026-10-13 (Bug Report game 1647080): "an aggro bot should not ignore attacks into a Sentinel if it
+// means it can clear it this round especially if the opponent has no resources left" — there, Neel into the base, then Ahsoka's buff on
+// BD-1, and BD-1 + the readied Luke clear Moff Gideon (2/5). 'breach' prices a SINGLE attack that kills the only Sentinel; a JOINT clear
+// was priced as chip, below almost anything else. So: when $att's arena is walled by ONE unshielded enemy Sentinel, and $att's hit plus
+// this round's other ready attackers there (those that survive the hit) plus a ready leader "+N/+0 for this phase" Action reach its HP,
+// a surviving non-lethal hit is worth its share (attack / HP) of the kill — the Sentinel's value plus a round of the base damage the wall
+// holds back from my units there. In full when the opponent has no ready resource to save it with; half otherwise.
+const SWU_BOT_SENTINEL_CLEAR_OPEN_RES = 0.5;
+// The +N of a ready, undeployed leader's "Action [Exhaust]: … gets +N/+0 for this phase" (ASH_009 Ahsoka: two sentences, one Action), or 0.
+function _SWUBotLeaderPhaseBuff(int $seat): int {
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || !empty($l->Deployed) || empty($l->Ready)) continue;
+        if (preg_match('/Action \[Exhaust\]:(?:(?!Action)[^\n])*?gets \+(\d+)\/\+0 for this phase/i', strval(CardText(strval($l->CardID ?? ''))), $m)) return intval($m[1]);
+    }
+    return 0;
+}
+// Can the leader's buff go on $v? Ahsoka's reads "Choose a unit with less power than a friendly unit" — some other friendly unit must be
+// stronger. A buff without that clause can go on any of my units.
+function _SWUBotLeaderBuffFits(int $seat, int $power, int $uid): bool {
+    $l = GetLeader($seat)[0] ?? null;
+    if ($l === null || stripos(strval(CardText(strval($l->CardID ?? ''))), 'less power than a friendly unit') === false) return true;
+    foreach (SWUBotUnits($seat) as $f) if ($f['uid'] !== $uid && intval($f['power']) > $power) return true;
+    return false;
+}
+// The SMALLEST clear (owner, shielded-Gideon line 2026-10-13: "a buffed BD-1 can clear and Luke can still hit 2 to base ready"): over the
+// subsets of $atk ([uid => attack power], my ready attackers walled by the Sentinel), the one reaching $hp — with the leader's +$buff on one
+// member it fits, if needed — that leaves the most damage for the BASE: the attackers outside it, plus the buff when no member needed it
+// and one of them can take it. Ties: fewer attackers. Null when nothing clears. ['used' => [uid => true], 'buffOn' => uid|null, 'face' => int].
+function _SWUBotMinimalClear(int $seat, array $atk, int $hp, int $buff): ?array {
+    $uids = array_keys($atk); $n = count($uids);
+    if ($n === 0 || $n > 8) return null;
+    $fits = [];
+    foreach ($atk as $u => $pw) $fits[$u] = $buff > 0 && _SWUBotLeaderBuffFits($seat, intval($pw['power']), intval($u));
+    $best = null;
+    for ($mask = 1; $mask < (1 << $n); $mask++) {
+        $used = []; $sum = 0; $face = 0; $faceFit = false;
+        foreach ($uids as $k => $u) {
+            if ($mask & (1 << $k)) { $used[$u] = true; $sum += $atk[$u]['attack']; }
+            else { $face += $atk[$u]['attack']; $faceFit = $faceFit || $fits[$u]; }
+        }
+        $buffOn = null;
+        if ($sum < $hp) {
+            if ($sum + $buff < $hp) continue;
+            foreach ($used as $u => $_) if ($fits[$u]) { $buffOn = $u; break; }
+            if ($buffOn === null) continue;
+        } elseif ($faceFit) $face += $buff;
+        $cand = ['used' => $used, 'buffOn' => $buffOn, 'face' => $face];
+        if ($best === null || $face > $best['face'] || ($face === $best['face'] && count($used) < count($best['used']))) $best = $cand;
+    }
+    return $best;
+}
+// My ready attackers in $arena walled by $def (no Saboteur, surviving the hit), as [uid => ['attack' => attack power, 'power' => power]],
+// leaving out $skipUid; and the attack power of all my units there (the damage the wall holds back each round).
+function _SWUBotWalledAttackers(int $seat, string $arena, array $def, int $skipUid = 0): array {
+    $atk = []; $wall = 0;
+    foreach (SWUBotUnits($seat) as $v) {
+        if ($v['arena'] !== $arena) continue;
+        $wall += max(0, intval($v['attackPower']));
+        if ($v['uid'] === $skipUid || !$v['ready'] || !empty($v['saboteur']) || SWUBotCombatOutcome($v, $def) === 'die') continue;
+        $atk[$v['uid']] = ['attack' => max(0, intval($v['attackPower'])), 'power' => intval($v['power'])];
+    }
+    return [$atk, $wall];
+}
+function _SWUBotLoneSentinel(int $seat, string $arena): ?array {
+    $sents = [];
+    foreach (SWUBotEnemyUnits($seat) as $e) if ($e['arena'] === $arena && !empty($e['sentinel'])) $sents[] = $e;
+    return count($sents) === 1 ? $sents[0] : null;
+}
+function _SWUBotSentinelClearValue(array $def, int $wall, array $W): float {
+    $sure = SWUResourceCount(intval($def['controller']), true) > 0 ? SWU_BOT_SENTINEL_CLEAR_OPEN_RES : 1.0;
+    return $sure * ($W['kill'] * SWUBotUnitValue($def) + $W['base'] * $wall);
+}
+// The clear in $arena this round, or null: ['def', 'used' => the attackers that make it, 'buffOn' => who takes the leader's buff (null: no
+// buff needed), 'value']. An unshielded lone Sentinel only — a Shield is a Saboteur's to break (_SWUBotSaboteurSentinelGain).
+function _SWUBotSentinelClearPlan(int $seat, string $arena, array $W): ?array {
+    $def = _SWUBotLoneSentinel($seat, $arena);
+    if ($def === null || intval($def['shields']) > 0) return null;
+    [$atk, $wall] = _SWUBotWalledAttackers($seat, $arena, $def);
+    $mc = _SWUBotMinimalClear($seat, $atk, max(1, intval($def['remaining'])), _SWUBotLeaderPhaseBuff($seat));
+    if ($mc === null) return null;
+    return ['def' => $def, 'used' => $mc['used'], 'buffOn' => $mc['buffOn'], 'value' => _SWUBotSentinelClearValue($def, $wall, $W)];
+}
+// The attack half: a surviving non-lethal hit by an attacker IN the clear is its share (attack / HP) of the kill — nothing while the clear
+// still waits for the leader's buff (the buff goes first; the leader half below), and nothing for an attacker the clear leaves for the base.
+function _SWUBotSentinelClearShare(int $seat, array $att, array $W): float {
+    $plan = _SWUBotSentinelClearPlan($seat, strval($att['arena']), $W);
+    if ($plan === null || $plan['buffOn'] !== null || empty($plan['used'][$att['uid']]) || SWUBotCombatOutcome($att, $plan['def']) !== 'bounce') return 0.0;
+    _SWUBotFired('sentinelclear', $seat);
+    return min(1.0, intval($att['attackPower']) / max(1, intval($plan['def']['remaining']))) * $plan['value'];
+}
+// The leader half: the buff the clear is waiting for is worth the clear.
+function _SWUBotSentinelClearBuffValue(int $seat, array $W): float {
+    if (_SWUBotLeaderPhaseBuff($seat) <= 0) return 0.0;
+    $best = 0.0;
+    foreach (['Ground', 'Space'] as $ar) {
+        $plan = _SWUBotSentinelClearPlan($seat, $ar, $W);
+        if ($plan !== null && $plan['buffOn'] !== null) $best = max($best, $plan['value']);
+    }
+    if ($best > 0) _SWUBotFired('sentinelclearbuff', $seat);
+    return $best;
+}
+// The buff's target: the clear's chosen member (the decision branch gives it the pick).
+function _SWUBotSentinelClearBuffTarget(int $seat, array $v, array $W): bool {
+    $plan = _SWUBotSentinelClearPlan($seat, strval($v['arena']), $W);
+    return $plan !== null && $plan['buffOn'] !== null && intval($plan['buffOn']) === intval($v['uid']);
+}
+// A SABOTEUR attacker's choice between the base and the lone Sentinel walling its arena (owner, shielded-Gideon line 2026-10-13: "Saboteur
+// Neel into Moff to break shield and deal 2 damage into it. then a buffed BD-1 can clear and Luke can still hit 2 to base ready. so same
+// damage to base but higher valued since it cleared a shielded Sentinel"). Each option is what the round then does: the base damage dealt
+// (the attacker's own if it goes face, plus the smallest clear's leftovers) and the clear's value if one exists. Counts the unit the
+// attacker's own On Attack readies (ASH_248 Neel's grant → the payoff in hand) when it plays into this arena. Returns the Sentinel option
+// minus the base option (> 0: hit the Sentinel), or null when it does not apply. Ties go to the base.
+function _SWUBotSaboteurSentinelGain(int $seat, array $att, array $W): ?array {
+    if (empty($att['saboteur'])) return null;
+    $def = _SWUBotLoneSentinel($seat, strval($att['arena']));
+    if ($def === null || intval($def['remaining']) <= intval($att['attackPower'])) return null;   // it kills alone: the kill path prices that
+    [$atk, $wall] = _SWUBotWalledAttackers($seat, strval($att['arena']), $def, intval($att['uid']));
+    // The readied payoff, when this attack arms a "next unit you play this phase … enters play ready" grant.
+    if (function_exists('_SWUBotNeelPayoff') && preg_match('/On Attack[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText($att['cardID'])), $m)) {
+        $j = _SWUBotNeelPayoff($seat, intval($m[1]), SWUTotalPaymentCapacity($seat), null, _SWUBotNeelFriendMax($seat));
+        $o = $j === null ? null : (GetHand($seat)[$j] ?? null);
+        if ($o !== null && _SWUBotPlayArena(strval($o->CardID)) === strval($att['arena'])) {
+            $pid = strval($o->CardID); $text = strval(CardText($pid));
+            $atk[-1 - $j] = ['attack' => intval(CardPower($pid)) + (preg_match('/\bRaid (\d+)/i', $text, $r) ? intval($r[1]) : 0), 'power' => intval(CardPower($pid))];
+        }
+    }
+    $buff = _SWUBotLeaderPhaseBuff($seat);
+    $clearV = _SWUBotSentinelClearValue($def, $wall, $W);
+    $hp = intval($def['remaining']);
+    // Base: my damage to the base; then a clear (an unshielded Sentinel) with the rest.
+    $baseOpt = $W['base'] * intval($att['attackPower']);
+    if (intval($def['shields']) === 0 && ($mc = _SWUBotMinimalClear($seat, $atk, $hp, $buff)) !== null) $baseOpt += $clearV + $W['base'] * $mc['face'];
+    // Sentinel: Saboteur breaks the Shields, my hit lands, the rest clear what is left.
+    $sentOpt = 0.0;
+    if (($mc = _SWUBotMinimalClear($seat, $atk, $hp - intval($att['attackPower']), $buff)) !== null) $sentOpt = $clearV + $W['base'] * $mc['face'];
+    return ['def' => $def, 'gain' => $sentOpt - $baseOpt];
+}
+
 // Feature 'observertax' (p41): the base damage $victim takes for each of its units defeated — the sum of N over the opponents'
 // units reading "When an enemy unit is defeated: Deal N damage to its controller's base" (LOF_130 HK-47) that still have
 // their abilities.
@@ -655,7 +793,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                                    && _SWUBotUsableCredits($seat) === 0) $dv = min($dv, -0.4);
                                return $dv;
             case 'leader-ability': if (_SWUBotKeepBodyHolds($seat)) return -0.4;   // 'keepbody' (p40)
-                               return _SWUBotAbilityValue($ctx, $action, $W);
+                               $av = _SWUBotAbilityValue($ctx, $action, $W);
+                               // Feature 'sentinelclear' (p48): the leader buff a Sentinel clear is waiting for goes first.
+                               if (SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1) $av = max($av, _SWUBotSentinelClearBuffValue($seat, $W));
+                               return $av;
             case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
             case 'attack':
                 $att = SWUBotViewForMz($seat, SWUBotActionMz($action));
@@ -671,6 +812,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // to the payoff in hand — and the go-wide guide may start its line with this swing (SWUBotAggroMaxUnitsPick).
                 if (SWUBotFeatureOn('enablerfirst')) $score += _SWUBotAttackEnablerBonus($seat, strval($att['cardID'] ?? ''), $W);
                 if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $score += $W['maxUnits'];
+                // Feature 'sentinelclear' (p48): an aggro hit that softens the lone Sentinel this round's attacks can clear is its share of the kill.
+                if (SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1) $score += _SWUBotSentinelClearShare($seat, $att, $W);
                 // Feature 'healwaste' (p42): a Restore N attack with less than N damage on my base wastes the restore — it waits, by what it wastes,
                 // while an enemy unit is ready to hit my base first (owner: "sometimes best to let the opponent attack first when you have 0
                 // damage on base if you can restore 1 or 2 after their hit"). Rule 8 still sends it before the round ends.
@@ -1139,6 +1282,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             return $bv;
         }
         $def = SWUBotViewForMz($seat, $c);
+        // Feature 'sentinelclear' (p48): a Saboteur breaking the lone Sentinel the round can then clear — the base's value plus what it adds.
+        if ($def !== null && SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1
+            && ($sg = _SWUBotSaboteurSentinelGain($seat, $att, $W)) !== null && $sg['gain'] > 0 && $sg['def']['uid'] === $def['uid']) {
+            _SWUBotFired('sentinelbreak', $seat);
+            return SWUBotTargetValue($att, null, $W) + $sg['gain'];
+        }
         return $def === null ? -$index * 1e-6 : SWUBotTargetValue($att, $def, $W);
     }
 
@@ -1164,6 +1313,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         $v = SWUBotViewForMz($seat, $c);
         if ($v !== null && intval($v['controller']) === $seat && $v['uid'] === $nu) return 1000.0;
     }
+    // Feature 'sentinelclear' (p48): a leader "+N/+0 for this phase" a Sentinel clear is waiting for goes on a unit in that clear.
+    if ($onBoard && $head === 'APPLY_PHASE_BUFF' && SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1
+        && ($v = SWUBotViewForMz($seat, $c)) !== null && intval($v['controller']) === $seat && _SWUBotSentinelClearBuffTarget($seat, $v, $W)) return 500.0 + intval($v['attackPower']);
     // Part 20 'buffspread': a Support leader's flip turn — who makes the Support attack, and where its phase buffs go.
     if ($onBoard && SWUBotFeatureOn('buffspread')) {
         if ($head === 'SWUSupportChooseAttacker') {

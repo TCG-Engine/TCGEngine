@@ -446,8 +446,9 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
 //     Line A (Neel SAFE): Ahsoka's Action on Neel → Neel swings → the payoff (ready) → it swings.
 //     Line B: Neel swings → the payoff (ready) → the fallback's buff + swing.
 //   Both add the same +2; the line decides which unit sits buffed through the opponent's next action. "Safe" (my reading) = no READY
-//   enemy unit in Neel's arena could defeat him with its attack (a Shield always saves him). An enemy SENTINEL in Neel's arena (or the
-//   payoff's) is the other "immediate threat": the swing has to go into it, so the line stands down and the fallback plays the turn.
+//   enemy unit in Neel's arena could defeat him with its attack (a Shield always saves him). An enemy SENTINEL in Neel's arena is the other
+//   "immediate threat": his swing has to go into it, so the line stands down and the fallback plays the turn — unless he has SABOTEUR
+//   (BD-1's grant; Bug Report game 1647080). A payoff that must attack into a Sentinel still enters ready, at a token value.
 // Only under a leader whose Action finishes the line.
 const SWU_BOT_NEEL_COMBO_LEADERS = ['ASH_009'];
 function _SWUBotNeelGate(int $seat): bool {
@@ -459,26 +460,34 @@ function _SWUBotNeelGate(int $seat): bool {
 // Worth its attack (power + Raid), +2 when Ahsoka's buff can then reach it — less power than $friendMax, the strongest friendly unit
 // that will be in play (seed s163: an A-Wing, 1 + Raid 1, tied Tarpals' 0 + Raid 2, was picked first, and could not take the buff
 // under a 1-power Neel — 2 damage, not 4).
+// A unit whose ready attack would have to go into an enemy Sentinel (no Saboteur of its own) reaches no base, but entering ready never
+// costs anything, so it stays a payoff at a token 0.5 — any base-reaching payoff outranks it. Bug Report game 1647080: "since Neel has
+// saboteur from BD-1, it should have attacked first before playing Luke" — a Moff Gideon Sentinel held the ground, and the old veto
+// dropped Luke as a payoff, which switched the whole Neel line off.
 function _SWUBotNeelPayoff(int $seat, int $maxPower, int $left, ?int $exclude = null, int $friendMax = -1): ?int {
-    $payoff = null; $bestSwing = 0;
+    $payoff = null; $bestSwing = 0.0;
     foreach (GetHand($seat) as $j => $o) {
         if ($j === $exclude || $o === null || !empty($o->removed)) continue;
         $pid = strval($o->CardID ?? ''); $text = strval(CardText($pid));
-        if (!str_contains(strval(CardType($pid)), 'Unit') || intval(CardPower($pid)) > $maxPower || stripos($text, 'enters play ready') !== false) continue;
+        // A unit that enters ready ON ITS OWN gains nothing — but only while its condition holds: HMW_208 Luke Skywalker enters ready "while
+        // it's the first round of the game", so from round 2 he is a payoff like any other (game 1647080).
+        $selfReady = stripos($text, 'enters play ready') !== false
+                     && !(preg_match('/first round of the game/i', $text) && intval(GetTurnNumber()) !== 1);
+        if (!str_contains(strval(CardType($pid)), 'Unit') || intval(CardPower($pid)) > $maxPower || $selfReady) continue;
         if (intval(SWUComputePlayCost($seat, $o)) > $left) continue;
-        if (_SWUBotNeelSentinelIn($seat, _SWUBotPlayArena($pid))) continue;   // its ready attack would have to go into the Sentinel
         // + an Experience token it gives itself On Attack (LAW_037 Han Solo, 1/1 Shielded: owner 2026-10-13, Ahsoka Blue — "the free 2
         // damage to base plus shielded 2/2"); it lands before damage.
         $swing = intval(CardPower($pid)) + (preg_match('/\bRaid (\d+)/i', $text, $r) ? intval($r[1]) : 0)
                + (preg_match('/On Attack:[^.]*Give an Experience token to this unit/i', $text) ? 1 : 0)
                + (intval(CardPower($pid)) < $friendMax ? 2 : 0);
+        if (_SWUBotNeelSentinelIn($seat, _SWUBotPlayArena($pid)) && !preg_match('/\bSaboteur\b/', $text)) $swing = 0.5;
         if ($swing > $bestSwing) { $bestSwing = $swing; $payoff = $j; }
     }
     return $payoff;
 }
-// An enemy Sentinel in $arena (exhausted or not — Sentinel binds attacks either way): a readied unit there cannot reach the base.
-// Smoke run 2026-10-13: BD-1 readied into an exhausted Obi-Wan Kenobi Sentinel and never swung (s05); Neel swung into an exhausted
-// Captain Typho Sentinel and died (s02).
+// An enemy Sentinel in $arena (exhausted or not — Sentinel binds attacks either way): a unit there without Saboteur cannot reach the base.
+// Smoke run 2026-10-13: Neel swung into an exhausted Captain Typho Sentinel and died (s02) — so NEEL'S swing stands down behind one
+// unless he has Saboteur (LOF_191 BD-1 grants it; game 1647080).
 function _SWUBotNeelSentinelIn(int $seat, string $arena): bool {
     foreach (SWUBotEnemyUnits($seat) as $e) if (!empty($e['sentinel']) && $e['arena'] === $arena) return true;
     return false;
@@ -518,7 +527,7 @@ function _SWUBotNeelSwingLine(int $seat): ?array {
     $units = SWUBotUnits($seat);
     foreach ($units as $v) {
         if (!$v['ready'] || !preg_match('/On Attack[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText($v['cardID'])), $m)) continue;
-        if (_SWUBotNeelSentinelIn($seat, $v['arena'])) continue;
+        if (empty($v['saboteur']) && _SWUBotNeelSentinelIn($seat, $v['arena'])) continue;
         if (_SWUBotNeelPayoff($seat, intval($m[1]), SWUTotalPaymentCapacity($seat), null, _SWUBotNeelFriendMax($seat)) === null) continue;
         $safe = intval($v['shields']) > 0;
         if (!$safe) {
