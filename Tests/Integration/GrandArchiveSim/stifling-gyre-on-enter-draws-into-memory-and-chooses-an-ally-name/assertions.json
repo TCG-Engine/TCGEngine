@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three paid cards plus the card drawn into memory by On Enter"
+    }
+]

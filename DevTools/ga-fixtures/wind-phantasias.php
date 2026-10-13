@@ -213,3 +213,15 @@ gaScenario('maiden-of-shrouded-fog-without-the-class-bonus-can-be-targeted-by-sp
     ->tested('Maiden of Shrouded Fog')
     ->covers(['class-bonus', 'spellshroud', 'condition'], '[Class Bonus] **Spellshroud**')
     ->register();
+
+// ---- Stifling Gyre ----
+
+gaScenario('stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Stifling Gyre')
+    ->seed('myHand', 'Stifling Gyre')
+    ->play('Stifling Gyre')->pay(3)->answer(1, 'em6eEh9q8y')
+    ->expectZoneCount('myMemory', 4, 1, 'Three paid cards plus the card drawn into memory by On Enter')
+    ->tested('Stifling Gyre')
+    ->covers(['on-enter', 'draw-into-memory', 'name-a-card'], 'As CARDNAME enters the field, choose an ally card name.', '**On Enter:** Draw a card into your memory.')
+    ->register();

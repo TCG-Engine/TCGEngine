@@ -1,0 +1,21 @@
+{
+    "name": "diablerie-registers-the-steal-the-next-divine-relic-effect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:33:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0plqbtjuxz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0plqbtjuxz"
+        ],
+        "mechanics": [
+            "divine-relic",
+            "replacement-effect"
+        ],
+        "rulesClauses": [
+            "The next time a regalia with **divine relic** would enter the field this turn, it enters the field under your control instead."
+        ]
+    }
+}

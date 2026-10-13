@@ -169,3 +169,15 @@ gaScenario('orchestrated-seizure-can-be-activated-during-the-opponents-end-phase
     ->covers(['floating-memory', 'materialize'], 'During your next materialize phase, you may banish cards with **floating memory** from your opponents’ graveyards to pay for memory costs.')
     ->covers(['activation-timing', 'floating-memory', 'materialize'], 'Activate this card only during an opponent’s end phase.')
     ->register();
+
+// ---- Diablerie ----
+
+gaScenario('diablerie-registers-the-steal-the-next-divine-relic-effect')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Diablerie')
+    ->seed('myHand', 'Diablerie')
+    ->play('Diablerie')->pay(2)
+    ->expectGlobalEffect(1, '0plqbtjuxz', 'The next-divine-relic effect is registered for this turn')
+    ->tested('Diablerie')
+    ->covers(['divine-relic', 'replacement-effect'], 'The next time a regalia with **divine relic** would enter the field this turn, it enters the field under your control instead.')
+    ->register();

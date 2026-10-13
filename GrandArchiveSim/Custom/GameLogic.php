@@ -10624,7 +10624,8 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     }
 
     // Diablerie: next opposing divine relic regalia enters under Diablerie's controller.
-    if(PropertyContains(CardType($added->CardID), "REGALIA") && $added->CardID === "fjne9ri261") {
+    // (Only Art of War was recognised; every regalia that prints the Divine Relic keyword qualifies.)
+    if(PropertyContains(CardType($added->CardID), "REGALIA") && stripos(strval(CardEffect($added->CardID)), "Divine Relic") !== false) {
         $opponent = ($player == 1) ? 2 : 1;
         if(GlobalEffectCount($opponent, "0plqbtjuxz") > 0) {
             $added->Controller = $opponent;

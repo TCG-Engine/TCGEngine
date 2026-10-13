@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "0plqbtjuxz",
+        "value": 1,
+        "semantic": true,
+        "label": "The next-divine-relic effect is registered for this turn"
+    }
+]

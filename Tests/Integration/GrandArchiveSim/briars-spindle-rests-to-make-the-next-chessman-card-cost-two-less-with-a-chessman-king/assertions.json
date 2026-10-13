@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "bGmutHfgMl",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The next Chessman card cost 3 - 2 = 1"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "One payment"
+    }
+]

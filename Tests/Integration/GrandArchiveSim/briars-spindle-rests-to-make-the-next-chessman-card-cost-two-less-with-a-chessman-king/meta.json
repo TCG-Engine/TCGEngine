@@ -1,0 +1,24 @@
+{
+    "name": "briars-spindle-rests-to-make-the-next-chessman-card-cost-two-less-with-a-chessman-king",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:32:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9ooAGDhBj7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ooAGDhBj7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "cost-reduction",
+            "chessman",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST]: The next Chessman card you activate this turn costs (2) less to activate. Activate this ability only if you control a Chessman King ally."
+        ]
+    }
+}

@@ -496,3 +496,29 @@ gaScenario('evaporation-synchron-a-non-water-card-banished-from-an-opponents-gra
     ->tested('Evaporation Synchron')
     ->covers(['trigger', 'counter', 'condition'], 'a water element card with **floating memory**')
     ->register();
+
+// ---- Briar's Spindle ----
+
+gaScenario('briars-spindle-rests-to-make-the-next-chessman-card-cost-two-less-with-a-chessman-king')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Briar\'s Spindle')
+    ->seed('myField', 'Briar\'s Spindle')
+    ->seed('myField', 'Briar, Schwartz King')
+    ->seed('myHand', 'Rowland, Schwartz Knight')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:1')
+    ->play('Rowland, Schwartz Knight')->pay(1)
+    ->expectCardExists('myField', 'Rowland, Schwartz Knight', 'The next Chessman card cost 3 - 2 = 1')
+    ->expectZoneCount('myMemory', 1, 1, 'One payment')
+    ->tested('Briar\'s Spindle')
+    ->covers(['activated-ability', 'rest', 'cost-reduction', 'chessman', 'condition'], '[REST]: The next Chessman card you activate this turn costs (2) less to activate. Activate this ability only if you control a Chessman King ally.')
+    ->register();
+
+gaScenario('briars-spindle-cannot-use-its-rest-ability-without-a-chessman-king')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Briar\'s Spindle')
+    ->seed('myField', 'Briar\'s Spindle')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:1')
+    ->expectProperty('p1Field-1', 'Status', '2', 'No Chessman King: the activation was refused and the Spindle did not rest')
+    ->tested('Briar\'s Spindle')
+    ->covers(['activated-ability', 'condition'], 'Activate this ability only if you control a Chessman King ally.')
+    ->register();

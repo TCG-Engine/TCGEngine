@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:31:24+00:00",
+    "generatedAt": "2026-10-13T14:34:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1607,
+        "cardsWithExistingFixtures": 1610,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 870,
+        "cardsNeedingSemanticCoverage": 867,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1114,23 +1114,6 @@
                 "damage",
                 "recover",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "9ooAGDhBj7",
-            "name": "Briar's Spindle",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8489,23 +8472,6 @@
             "priority": 13
         },
         {
-            "cardId": "OADTyAUBZt",
-            "name": "Stifling Gyre",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "i1f0ht2tsn",
             "name": "Strategic Warfare",
             "type": "ACTION",
@@ -12743,21 +12709,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "0plqbtjuxz",
-            "name": "Diablerie",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31430,6 +31381,29 @@
             "priority": 43
         },
         {
+            "cardId": "9ooAGDhBj7",
+            "name": "Briar's Spindle",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "briars-spindle-cannot-use-its-rest-ability-without-a-chessman-king",
+                "briars-spindle-rests-to-make-the-next-chessman-card-cost-two-less-with-a-chessman-king"
+            ],
+            "semanticFixtures": [
+                "briars-spindle-cannot-use-its-rest-ability-without-a-chessman-king",
+                "briars-spindle-rests-to-make-the-next-chessman-card-cost-two-less-with-a-chessman-king"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "tFOpmUdi2W",
             "name": "Castling",
             "type": "ACTION",
@@ -44732,6 +44706,27 @@
             "priority": 33
         },
         {
+            "cardId": "OADTyAUBZt",
+            "name": "Stifling Gyre",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name"
+            ],
+            "semanticFixtures": [
+                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "LNSRQ5xW6E",
             "name": "Stillwater Patrol",
             "type": "ALLY",
@@ -50426,6 +50421,25 @@
             "semanticFixtures": [
                 "devastating-blow-below-level-three-deals-its-printed-power",
                 "devastating-blow-class-bonus-level-three-gets-plus-four-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "0plqbtjuxz",
+            "name": "Diablerie",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "diablerie-registers-the-steal-the-next-divine-relic-effect"
+            ],
+            "semanticFixtures": [
+                "diablerie-registers-the-steal-the-next-divine-relic-effect"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
