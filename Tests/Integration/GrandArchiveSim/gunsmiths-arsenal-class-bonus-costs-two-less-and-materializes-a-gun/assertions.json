@@ -1,0 +1,19 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "frzrplywc0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Only the Gun was offered and it was materialized"
+    },
+    {
+        "step": 4,
+        "type": "computed_level_equals",
+        "mzId": "p1Field-0",
+        "value": 0,
+        "semantic": true,
+        "label": "No champion was materialized"
+    }
+]

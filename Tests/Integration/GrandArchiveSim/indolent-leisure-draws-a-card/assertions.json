@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "A card was drawn (8 - 1 - 3 + 1)"
+    }
+]

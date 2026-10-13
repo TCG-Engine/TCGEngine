@@ -2936,6 +2936,19 @@ $customDQHandlers["LesserBoonOfAwilixReturn"] = function($player, $parts, $lastD
     DecisionQueueController::CleanupRemovedCards();
 };
 
+// Gunsmith's Arsenal e6mAjsbItw: "Materialize a Bullet or Gun card from your material deck." The generated body opened the unfiltered MaterializeChoice() (any legal material card, champions included).
+$cardActivatedAbilities["e6mAjsbItw:0"] = function($player) { //Gunsmith's Arsenal
+    $choices = [];
+    foreach(GetZone("myMaterial") as $i => $obj) {
+        if($obj === null || $obj->removed) continue;
+        $subtypes = CardSubtypes($obj->CardID);
+        if(PropertyContains($subtypes, "BULLET") || PropertyContains($subtypes, "GUN")) $choices[] = "myMaterial-" . $i;
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Materialize_a_Bullet_or_Gun");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

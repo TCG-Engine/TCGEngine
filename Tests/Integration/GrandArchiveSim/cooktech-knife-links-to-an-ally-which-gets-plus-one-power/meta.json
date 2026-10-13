@@ -1,0 +1,21 @@
+{
+    "name": "cooktech-knife-links-to-an-ally-which-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6sZXj2SZW6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6sZXj2SZW6"
+        ],
+        "mechanics": [
+            "link",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Linked ally gets +1[POWER]."
+        ]
+    }
+}

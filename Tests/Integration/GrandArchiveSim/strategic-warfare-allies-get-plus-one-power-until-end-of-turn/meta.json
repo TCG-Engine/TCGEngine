@@ -1,0 +1,20 @@
+{
+    "name": "strategic-warfare-allies-get-plus-one-power-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1f0ht2tsn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1f0ht2tsn"
+        ],
+        "mechanics": [
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Allies you control get +1 [POWER] until end of turn."
+        ]
+    }
+}

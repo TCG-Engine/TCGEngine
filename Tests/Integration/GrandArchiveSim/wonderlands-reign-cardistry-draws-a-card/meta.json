@@ -1,0 +1,22 @@
+{
+    "name": "wonderlands-reign-cardistry-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:41:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0mf1ug6yfi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0mf1ug6yfi"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "draw"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** \u2014 *(10)*: Draw a card."
+        ]
+    }
+}

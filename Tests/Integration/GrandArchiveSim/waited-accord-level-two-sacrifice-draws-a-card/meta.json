@@ -1,0 +1,23 @@
+{
+    "name": "waited-accord-level-two-sacrifice-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xF9phlSAkE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xF9phlSAkE"
+        ],
+        "mechanics": [
+            "level-gate",
+            "activated-ability",
+            "sacrifice-self",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Level 2+]** Sacrifice CARDNAME: **Draw a card."
+        ]
+    }
+}

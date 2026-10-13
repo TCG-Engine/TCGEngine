@@ -1,0 +1,22 @@
+{
+    "name": "blighted-jewel-enter-becomes-ephemeral-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hbpu4fo8oo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hbpu4fo8oo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "ephemeral",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Blighted Jewel becomes **ephemeral**. Draw a card into your memory."
+        ]
+    }
+}

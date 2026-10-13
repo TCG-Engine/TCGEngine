@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"wither\":4}",
+        "semantic": true,
+        "label": "Four wither counters went on the target"
+    }
+]

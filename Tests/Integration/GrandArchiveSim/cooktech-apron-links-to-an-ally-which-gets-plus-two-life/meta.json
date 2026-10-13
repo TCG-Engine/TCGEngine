@@ -1,0 +1,21 @@
+{
+    "name": "cooktech-apron-links-to-an-ally-which-gets-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oJIuGCrzPG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oJIuGCrzPG"
+        ],
+        "mechanics": [
+            "link",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Linked ally gets +2[LIFE]."
+        ]
+    }
+}

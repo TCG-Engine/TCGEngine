@@ -1,0 +1,21 @@
+{
+    "name": "healing-aura-class-bonus-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ao8bls6g7x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ao8bls6g7x"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate."
+        ]
+    }
+}

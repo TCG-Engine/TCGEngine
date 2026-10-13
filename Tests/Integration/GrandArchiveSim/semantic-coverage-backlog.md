@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1974**
+Cards linked to an existing fixture: **1987**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **503**
+Implemented cards still needing semantic coverage: **490**
 
 ## Mechanic groups
 
@@ -66,7 +66,6 @@ Implemented cards still needing semantic coverage: **503**
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
 | Spectral Haunting (`Dtr3jPRAFJ`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | — |
 | Trump Set (`w7g91ru45w`) | ACTION | 2 | cost, targeting, combat, condition | — | — |
-| Waited Accord (`xF9phlSAkE`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, trigger, condition | — | — |
 | Zhao Yun, Dragonsblood (`mwfrfo3wzq`) | UNIQUE,ALLY | 2 | damage, combat, trigger, condition | — | — |
 | Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **503**
 | Ebbing Tide (`s7pmqsl3jw`) | REGALIA,ITEM | 2 | zone-movement, status, condition | — | — |
 | Expunge (`r73opcqtzs`) | ACTION | 2 | cost, damage, draw-discard | — | — |
 | Flourishing Restoration (`alnjt7DyZL`) | ACTION | 2 | cost, recover, condition | — | — |
+| Golden Checkmate (`KbE9R1mi3n`) | ATTACK | 2 | cost, combat, condition | — | — |

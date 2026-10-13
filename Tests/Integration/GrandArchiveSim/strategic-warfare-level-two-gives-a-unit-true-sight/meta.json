@@ -1,0 +1,22 @@
+{
+    "name": "strategic-warfare-level-two-gives-a-unit-true-sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1f0ht2tsn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1f0ht2tsn"
+        ],
+        "mechanics": [
+            "level-gate",
+            "true-sight",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Target unit gains **true sight** until end of turn."
+        ]
+    }
+}
