@@ -1,0 +1,24 @@
+{
+    "name": "smoke-bombs-banish-gives-an-ally-stealth-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ScGcOmkoQt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ScGcOmkoQt"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "stealth",
+            "draw",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Target ally gains **stealth** until end of turn. Draw a card."
+        ]
+    }
+}

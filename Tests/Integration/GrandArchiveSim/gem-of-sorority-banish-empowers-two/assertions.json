@@ -1,0 +1,11 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "4dys05p49w",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Gem banished itself"
+    }
+]

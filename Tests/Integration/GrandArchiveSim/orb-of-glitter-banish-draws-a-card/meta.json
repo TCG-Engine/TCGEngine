@@ -1,0 +1,22 @@
+{
+    "name": "orb-of-glitter-banish-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "P7hHZBVScB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "P7hHZBVScB"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw a card."
+        ]
+    }
+}

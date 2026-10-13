@@ -1,0 +1,23 @@
+{
+    "name": "clandestine-chart-glimpses-two-and-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "js5qjwipkf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "js5qjwipkf"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "glimpse",
+            "counter",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(2)**, Banish CARDNAME**: **Glimpse 2**. Put a **preparation** counter on your champion."
+        ]
+    }
+}

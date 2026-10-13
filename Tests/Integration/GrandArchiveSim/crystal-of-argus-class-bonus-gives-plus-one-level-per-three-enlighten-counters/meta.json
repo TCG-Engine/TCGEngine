@@ -1,0 +1,22 @@
+{
+    "name": "crystal-of-argus-class-bonus-gives-plus-one-level-per-three-enlighten-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j5iQQPd2m5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j5iQQPd2m5"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Your champion gets +1 level for every three **enlighten** counters on them."
+        ]
+    }
+}

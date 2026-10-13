@@ -1,0 +1,23 @@
+{
+    "name": "spectral-beacon-banish-banishes-a-graveyard-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:10:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yxk7e8opr6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yxk7e8opr6"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(1)**, Banish CARDNAME:** Banish target card in a graveyard."
+        ]
+    }
+}

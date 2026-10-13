@@ -2897,6 +2897,13 @@ $customDQHandlers["GearHaulSecondScavenge"] = function($player, $parts, $lastDec
     ScavengeForSubtype($player, 5, "VELTECH");
 };
 
+// Spectral Beacon yxk7e8opr6: "(1), Banish CARDNAME: Banish target card in a graveyard." The generated body sent every target to the activator's own banishment; it goes to its owner's.
+$customDQHandlers["yxk7e8opr6:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Spectral Beacon
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -1,0 +1,23 @@
+{
+    "name": "alliance-gearshield-class-bonus-linked-retaliating-ally-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c8ljyevpmu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c8ljyevpmu"
+        ],
+        "mechanics": [
+            "link",
+            "class-bonus",
+            "stat-change",
+            "retaliate"
+        ],
+        "rulesClauses": [
+            "**Class Bonus:** That ally also gets +2 [POWER] as long as they're retaliating."
+        ]
+    }
+}

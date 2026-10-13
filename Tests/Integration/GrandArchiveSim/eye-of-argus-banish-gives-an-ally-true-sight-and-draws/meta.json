@@ -1,0 +1,24 @@
+{
+    "name": "eye-of-argus-banish-gives-an-ally-true-sight-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iiZtKTulPg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iiZtKTulPg"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "true-sight",
+            "draw",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Target ally you control gains **true sight** until end of turn. Draw a card."
+        ]
+    }
+}

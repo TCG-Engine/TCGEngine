@@ -1,0 +1,21 @@
+{
+    "name": "cowl-of-the-wild-without-a-non-human-tamer-ally-gives-no-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t203gysyp8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t203gysyp8"
+        ],
+        "mechanics": [
+            "condition",
+            "level"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more non-Human Tamer allies, your champion gets +1 level."
+        ]
+    }
+}

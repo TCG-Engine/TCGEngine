@@ -1,0 +1,23 @@
+{
+    "name": "rusted-warshield-banish-prevents-two-damage-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fp66pv4n1n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fp66pv4n1n"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "prevention",
+            "draw-into-memory",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Prevent the next 2 damage that would be dealt to your champion this turn. Draw a card into your memory."
+        ]
+    }
+}

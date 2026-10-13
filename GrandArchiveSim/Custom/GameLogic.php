@@ -6297,6 +6297,7 @@ function GAFieldAbilityCostTable() {
     if($table !== null) return $table;
     $table = [
         "e5o3cm9lbe:0" => ['reserve' => 5, 'banish' => true], // Scepter of Lumina
+        "yxk7e8opr6:0" => ['reserve' => 1, 'banish' => true], // Spectral Beacon (the (1) was never paid)
         "gyk90s0hst:0" => ['reserve' => 1, 'rest' => true], // Gossamer Staff
         "znavmjiefw:0" => ['reserve' => 3, 'rest' => true], // Intwined Bangle
         "h1njd7z5j3:0" => ['reserve' => 5, 'banish' => true], // Nefarious Timepiece
@@ -16165,6 +16166,18 @@ function ObjectCurrentLevel($obj) {
                     }
                     $appliedPassives[$fID] = true;
                     break;
+                case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level (this was in a material-deck block, so it only counted while the Tome sat in the material deck)
+                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                        $cardLevel += 1;
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "j5iQQPd2m5": // Crystal of Argus: [Class Bonus] +1 level per 3 enlighten counters on the champion (same)
+                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                        $cardLevel += intdiv(GetCounterCount($obj, "enlighten"), 3);
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
                 case "t203gysyp8": // Cowl of the Wild: +1 level while you control a non-Human Tamer ally
                     foreach($field as $allyObj) {
                             if($allyObj === null) continue;
@@ -16188,33 +16201,6 @@ function ObjectCurrentLevel($obj) {
                 case "rAWlj4c4Ws": // Lesser Boon of Fauna: champion gets +1 level for each of up to two Animal/Beast allies
                     $cardLevel += min(2, count(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])));
                     $appliedPassives[$fID] = true;
-                    break;
-                default: break;
-            }
-        }
-        // Material zone passives â€” items that grant level while materialized
-        $matZone = GetMaterial($obj->Controller);
-        foreach($matZone as $matObj) {
-                if($matObj === null) continue;
-            if($matObj->removed) continue;
-            switch($matObj->CardID) {
-                case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
-                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
-                        $cardLevel += 1;
-                    }
-                    break;
-                case "j5iQQPd2m5": // Crystal of Argus: [Class Bonus] +1 level per 3 enlighten counters on champion
-                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
-                        $champField = GetZone($zone);
-                        foreach($champField as $cObj) {
-                                if($cObj === null || $cObj->removed) continue;
-                            if(PropertyContains(CardType($cObj->CardID), "CHAMPION")) {
-                                $enlighten = GetCounterCount($cObj, "enlighten");
-                                $cardLevel += intdiv($enlighten, 3);
-                                break;
-                            }
-                        }
-                    }
                     break;
                 default: break;
             }

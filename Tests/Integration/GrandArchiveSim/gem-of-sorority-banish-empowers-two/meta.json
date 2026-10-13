@@ -1,0 +1,22 @@
+{
+    "name": "gem-of-sorority-banish-empowers-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4dys05p49w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4dys05p49w"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "empower",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME**: **Empower 2**."
+        ]
+    }
+}

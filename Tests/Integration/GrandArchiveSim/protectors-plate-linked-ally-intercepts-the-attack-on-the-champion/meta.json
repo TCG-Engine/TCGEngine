@@ -1,0 +1,21 @@
+{
+    "name": "protectors-plate-linked-ally-intercepts-the-attack-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1j4gvwbjo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1j4gvwbjo"
+        ],
+        "mechanics": [
+            "link",
+            "intercept"
+        ],
+        "rulesClauses": [
+            "Linked ally gets +1 [LIFE] and has **intercept**."
+        ]
+    }
+}
