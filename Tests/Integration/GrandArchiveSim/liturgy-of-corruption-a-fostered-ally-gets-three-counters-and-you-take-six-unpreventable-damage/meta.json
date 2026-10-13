@@ -1,0 +1,23 @@
+{
+    "name": "liturgy-of-corruption-a-fostered-ally-gets-three-counters-and-you-take-six-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BZMKfFZ22T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BZMKfFZ22T"
+        ],
+        "mechanics": [
+            "foster",
+            "counter",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that ally is **fostered**, put two additional **buff** counters on it and deal 6 unpreventable damage to your champion."
+        ]
+    }
+}

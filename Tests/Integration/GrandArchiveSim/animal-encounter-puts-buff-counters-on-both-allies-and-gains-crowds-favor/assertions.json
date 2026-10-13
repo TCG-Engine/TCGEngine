@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "Your ally got a buff counter"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "The opposing ally got a buff counter"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-0",
+        "property": "CardID",
+        "value": "gpmJdGYqoC",
+        "semantic": true,
+        "label": "A counter on an ally you do not control: Crowd's Favor gained"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "exorcism-sacrifices-an-ephemeral-object-unless-its-controller-pays-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:59:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4n6dd4f01r"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4n6dd4f01r"
+        ],
+        "mechanics": [
+            "ephemeral",
+            "sacrifice",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "For each **ephemeral** object each player controls, its controller sacrifices it unless they pay (1)."
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "mob-vantage-class-bonus-against-three-units-costs-two-less-makes-the-champion-distant-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bBI0TC54pV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bBI0TC54pV"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition",
+            "distant",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as an opponent controls three or more units, this card costs 2 less to activate.",
+            "Your champion becomes **distant**. Draw a card into your memory."
+        ]
+    }
+}

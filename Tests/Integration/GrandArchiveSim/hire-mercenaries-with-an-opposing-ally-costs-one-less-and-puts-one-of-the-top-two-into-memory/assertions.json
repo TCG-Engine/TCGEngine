@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "One paid (2 - 1) plus the chosen card put into memory"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 10,
+        "semantic": true,
+        "label": "The other card went to the bottom of the deck (9 + 2 on top - 1 to memory)"
+    }
+]

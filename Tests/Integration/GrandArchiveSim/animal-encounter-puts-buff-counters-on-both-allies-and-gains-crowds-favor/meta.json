@@ -1,0 +1,25 @@
+{
+    "name": "animal-encounter-puts-buff-counters-on-both-allies-and-gains-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TULjDAgAQB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TULjDAgAQB"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "counter",
+            "status",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Put a **buff** counter on an ally you control and up to one ally you don't control. If a **buff** counter was put on an ally you don't control this way, you gain the Crowd's Favor status."
+        ]
+    }
+}

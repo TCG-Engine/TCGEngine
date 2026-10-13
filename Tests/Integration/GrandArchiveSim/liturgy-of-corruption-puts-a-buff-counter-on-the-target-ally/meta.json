@@ -1,0 +1,21 @@
+{
+    "name": "liturgy-of-corruption-puts-a-buff-counter-on-the-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BZMKfFZ22T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BZMKfFZ22T"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on target ally."
+        ]
+    }
+}

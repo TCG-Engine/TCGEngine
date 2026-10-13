@@ -1,0 +1,22 @@
+{
+    "name": "clear-pastures-without-a-horse-only-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y0jzczoywm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y0jzczoywm"
+        ],
+        "mechanics": [
+            "equestrian",
+            "condition",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** \u2014 If you control a Horse ally, **glimpse 3**."
+        ]
+    }
+}

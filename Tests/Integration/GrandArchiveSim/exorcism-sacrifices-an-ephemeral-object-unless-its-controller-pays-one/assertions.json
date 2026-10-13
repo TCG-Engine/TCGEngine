@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "UtwWXmc0IU",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Not paid: the ephemeral Apparition was sacrificed and, being ephemeral, banished"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "table-straight-without-suited-cards-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "57WTJAiXLr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "57WTJAiXLr"
+        ],
+        "mechanics": [
+            "reveal",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Reveal any amount of Suited cards from your memory."
+        ]
+    }
+}

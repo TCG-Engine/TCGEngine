@@ -1,0 +1,21 @@
+{
+    "name": "hidden-secrets-without-a-domain-choosing-to-draw-puts-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:00:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0op51dZYc6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0op51dZYc6"
+        ],
+        "mechanics": [
+            "modal",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Choose one. If you control one or more domains, choose up to two instead\u2014"
+        ]
+    }
+}

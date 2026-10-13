@@ -1,0 +1,24 @@
+{
+    "name": "clear-pastures-equestrian-with-a-horse-glimpses-three-then-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:57:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y0jzczoywm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y0jzczoywm"
+        ],
+        "mechanics": [
+            "equestrian",
+            "glimpse",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** \u2014 If you control a Horse ally, **glimpse 3**.",
+            "Draw a card into your memory."
+        ]
+    }
+}

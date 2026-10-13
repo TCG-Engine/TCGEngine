@@ -1,0 +1,21 @@
+{
+    "name": "coronation-ceremony-not-targeting-a-unique-ally-costs-the-printed-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:57:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4PZCiE26a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4PZCiE26a"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate if it targets a unique ally."
+        ]
+    }
+}

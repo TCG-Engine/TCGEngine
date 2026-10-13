@@ -1,0 +1,22 @@
+{
+    "name": "hidden-secrets-without-a-domain-choosing-stealth-gives-an-ally-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:00:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0op51dZYc6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0op51dZYc6"
+        ],
+        "mechanics": [
+            "modal",
+            "stealth",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Up to one target ally gains **stealth** until end of turn."
+        ]
+    }
+}

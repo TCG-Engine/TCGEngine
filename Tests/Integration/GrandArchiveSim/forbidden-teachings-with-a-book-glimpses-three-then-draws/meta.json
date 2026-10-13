@@ -1,0 +1,23 @@
+{
+    "name": "forbidden-teachings-with-a-book-glimpses-three-then-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:59:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yp4poEZtHt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yp4poEZtHt"
+        ],
+        "mechanics": [
+            "glimpse",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control a Book object, **glimpse 3**.",
+            "Draw a card."
+        ]
+    }
+}

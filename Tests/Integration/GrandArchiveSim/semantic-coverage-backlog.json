@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T20:54:07+00:00",
+    "generatedAt": "2026-10-13T21:02:30+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1792,
+        "cardsWithExistingFixtures": 1817,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 685,
+        "cardsNeedingSemanticCoverage": 660,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -587,24 +587,6 @@
             "priority": 24
         },
         {
-            "cardId": "g6sW55DOgR",
-            "name": "Collect Junk",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "l36wwe3d5c",
             "name": "Crystallized Destiny",
             "type": "ACTION",
@@ -759,24 +741,6 @@
                 "counter",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "bBI0TC54pV",
-            "name": "Mob Vantage",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -981,23 +945,6 @@
             "priority": 23
         },
         {
-            "cardId": "TULjDAgAQB",
-            "name": "Animal Encounter",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "7e22tk3ir1",
             "name": "Arisanna, Lucent Arbiter",
             "type": "CHAMPION",
@@ -1151,23 +1098,6 @@
             "priority": 23
         },
         {
-            "cardId": "8swok9u930",
-            "name": "Hire Mercenaries",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "DNbIpzVgde",
             "name": "Lost Providence",
             "type": "REGALIA,ITEM",
@@ -1175,23 +1105,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "8codb9zatv",
-            "name": "Lost Wisdom",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "zone-movement",
                 "condition"
             ],
@@ -1355,23 +1268,6 @@
             "priority": 23
         },
         {
-            "cardId": "AJeuUDTPmV",
-            "name": "Slime Party",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "r44lyrzo6o",
             "name": "Sword Saint's Vow",
             "type": "REGALIA,WEAPON",
@@ -1504,22 +1400,6 @@
             "priority": 22
         },
         {
-            "cardId": "3JWk1jxX5u",
-            "name": "Decompose",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "rpELNyrSrM",
             "name": "Fabricator Slime",
             "type": "ALLY",
@@ -1634,22 +1514,6 @@
             "priority": 22
         },
         {
-            "cardId": "uWLKGJz1GY",
-            "name": "Unmake Duality",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "kk39i1f0ht",
             "name": "Academy Guide",
             "type": "ALLY",
@@ -1668,21 +1532,6 @@
             "cardId": "DKoSnhjX18",
             "name": "Chance, Seven of Spades",
             "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
-            "cardId": "ymuarq5tv0",
-            "name": "Mortal Ambition",
-            "type": "ACTION",
             "abilityCount": 2,
             "listenerCount": 0,
             "mechanics": [
@@ -2923,25 +2772,6 @@
             "priority": 15
         },
         {
-            "cardId": "Yj77WUumhk",
-            "name": "Unforgotten Will",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "rcwr60wa5b",
             "name": "Veilara's Promise",
             "type": "REGALIA,ITEM",
@@ -3849,24 +3679,6 @@
             "priority": 14
         },
         {
-            "cardId": "0op51dZYc6",
-            "name": "Hidden Secrets",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ntnm81369o",
             "name": "Huaji of Abyssal Fall",
             "type": "REGALIA,WEAPON",
@@ -4020,24 +3832,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "BZMKfFZ22T",
-            "name": "Liturgy of Corruption",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5200,23 +4994,6 @@
             "priority": 13
         },
         {
-            "cardId": "y0jzczoywm",
-            "name": "Clear Pastures",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "rxxwQT054x",
             "name": "Command the Hunt",
             "type": "ACTION",
@@ -5294,23 +5071,6 @@
                 "cost",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "y4PZCiE26a",
-            "name": "Coronation Ceremony",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5565,23 +5325,6 @@
             "mechanics": [
                 "cost",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "yp4poEZtHt",
-            "name": "Forbidden Teachings",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6475,23 +6218,6 @@
             "priority": 13
         },
         {
-            "cardId": "4g7kufs4kg",
-            "name": "Rictus Tiding",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "UnOkglGVMN",
             "name": "Royal Ordinance",
             "type": "ACTION",
@@ -6790,23 +6516,6 @@
                 "targeting",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "pi3DyYU6Sa",
-            "name": "Surprise Reveal",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8831,22 +8540,6 @@
             "priority": 12
         },
         {
-            "cardId": "AiijXxCapd",
-            "name": "Scientific Discoveries",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "oz23yfzk96",
             "name": "Scry the Stars",
             "type": "ACTION",
@@ -9055,22 +8748,6 @@
             "priority": 12
         },
         {
-            "cardId": "0ye3aebjvw",
-            "name": "Study the Fables",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "bcizm6h38l",
             "name": "Subjugating Lash",
             "type": "ATTACK",
@@ -9127,38 +8804,6 @@
             "mechanics": [
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "57WTJAiXLr",
-            "name": "Table Straight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "Rgg4dJYxnl",
-            "name": "Tend the Land",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9552,36 +9197,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ezIeRDL7jm",
-            "name": "Allowance Race",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "gs1Usdd5R2",
-            "name": "Armed and Dangerous",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10137,21 +9752,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "4n6dd4f01r",
-            "name": "Exorcism",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10962,21 +10562,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "mdk0xhi5jn",
-            "name": "Nurture Crops",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27378,6 +26963,28 @@
             "priority": 44
         },
         {
+            "cardId": "g6sW55DOgR",
+            "name": "Collect Junk",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "collect-junk-costs-two-less-per-raccoon-ally-banishes-a-graveyard-card-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "collect-junk-costs-two-less-per-raccoon-ally-banishes-a-graveyard-card-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "14bepZKPlK",
             "name": "Crackling Incineration",
             "type": "ACTION",
@@ -27778,6 +27385,28 @@
             "semanticFixtures": [
                 "merciless-toss-deals-six-damage-to-a-damaged-ally",
                 "merciless-toss-deals-two-damage-to-an-undamaged-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "bBI0TC54pV",
+            "name": "Mob Vantage",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mob-vantage-class-bonus-against-three-units-costs-two-less-makes-the-champion-distant-and-draws"
+            ],
+            "semanticFixtures": [
+                "mob-vantage-class-bonus-against-three-units-costs-two-less-makes-the-champion-distant-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28401,6 +28030,27 @@
             "priority": 43
         },
         {
+            "cardId": "TULjDAgAQB",
+            "name": "Animal Encounter",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "animal-encounter-puts-buff-counters-on-both-allies-and-gains-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "animal-encounter-puts-buff-counters-on-both-allies-and-gains-crowds-favor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "u817uqlk1j",
             "name": "Annul Spell",
             "type": "ACTION",
@@ -28991,6 +28641,27 @@
             "priority": 43
         },
         {
+            "cardId": "8swok9u930",
+            "name": "Hire Mercenaries",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hire-mercenaries-with-an-opposing-ally-costs-one-less-and-puts-one-of-the-top-two-into-memory"
+            ],
+            "semanticFixtures": [
+                "hire-mercenaries-with-an-opposing-ally-costs-one-less-and-puts-one-of-the-top-two-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "1S7Q5fqX5u",
             "name": "Imperial Accord",
             "type": "ACTION",
@@ -29050,6 +28721,27 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "8codb9zatv",
+            "name": "Lost Wisdom",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lost-wisdom-class-bonus-with-a-unique-ally-costs-two-less-and-returns-a-spell-to-memory"
+            ],
+            "semanticFixtures": [
+                "lost-wisdom-class-bonus-with-a-unique-ally-costs-two-less-and-returns-a-spell-to-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29301,6 +28993,27 @@
             ],
             "semanticFixtures": [
                 "signaltech-one-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "AJeuUDTPmV",
+            "name": "Slime Party",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slime-party-puts-a-buff-counter-on-each-slime-ally"
+            ],
+            "semanticFixtures": [
+                "slime-party-puts-a-buff-counter-on-each-slime-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29626,6 +29339,26 @@
             ],
             "semanticFixtures": [
                 "cyclonic-fatestone-fast-on-enter-suppresses-an-attacking-ally-you-dont-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "3JWk1jxX5u",
+            "name": "Decompose",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token"
+            ],
+            "existingFixtures": [
+                "decompose-sacrifices-an-ally-and-gathers-for-its-life"
+            ],
+            "semanticFixtures": [
+                "decompose-sacrifices-an-ally-and-gathers-for-its-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30163,6 +29896,26 @@
             "priority": 42
         },
         {
+            "cardId": "uWLKGJz1GY",
+            "name": "Unmake Duality",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "unmake-duality-sacrificing-a-divine-relic-regalia-draws-two"
+            ],
+            "semanticFixtures": [
+                "unmake-duality-sacrificing-a-divine-relic-regalia-draws-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "0iqmyn2rz3",
             "name": "Vanishing Shot",
             "type": "ITEM",
@@ -30370,6 +30123,25 @@
             "semanticFixtures": [
                 "humpty-dumpty-fate-s-fall-ability-1-pays-its-printed-cost",
                 "humpty-dumpty-fate-s-fall-ability-2-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
+            "cardId": "ymuarq5tv0",
+            "name": "Mortal Ambition",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "mortal-ambition-costs-two-less-per-unique-ally-and-buffs-human-and-horse-allies"
+            ],
+            "semanticFixtures": [
+                "mortal-ambition-costs-two-less-per-unique-ally-and-buffs-human-and-horse-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32838,6 +32610,29 @@
             ],
             "semanticFixtures": [
                 "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "Yj77WUumhk",
+            "name": "Unforgotten Will",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "unforgotten-will-banishes-itself-as-an-omen-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "unforgotten-will-banishes-itself-as-an-omen-and-draws-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -35567,6 +35362,30 @@
             "priority": 34
         },
         {
+            "cardId": "0op51dZYc6",
+            "name": "Hidden Secrets",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hidden-secrets-without-a-domain-choosing-stealth-gives-an-ally-stealth",
+                "hidden-secrets-without-a-domain-choosing-to-draw-puts-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "hidden-secrets-without-a-domain-choosing-stealth-gives-an-ally-stealth",
+                "hidden-secrets-without-a-domain-choosing-to-draw-puts-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Xy8loj55gJ",
             "name": "Hightail",
             "type": "ACTION",
@@ -36047,6 +35866,30 @@
             ],
             "semanticFixtures": [
                 "lily-attacking-an-even-life-unit-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "BZMKfFZ22T",
+            "name": "Liturgy of Corruption",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "liturgy-of-corruption-a-fostered-ally-gets-three-counters-and-you-take-six-unpreventable-damage",
+                "liturgy-of-corruption-puts-a-buff-counter-on-the-target-ally"
+            ],
+            "semanticFixtures": [
+                "liturgy-of-corruption-a-fostered-ally-gets-three-counters-and-you-take-six-unpreventable-damage",
+                "liturgy-of-corruption-puts-a-buff-counter-on-the-target-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39710,6 +39553,29 @@
             "priority": 33
         },
         {
+            "cardId": "y0jzczoywm",
+            "name": "Clear Pastures",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "clear-pastures-equestrian-with-a-horse-glimpses-three-then-draws-into-memory",
+                "clear-pastures-without-a-horse-only-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "clear-pastures-equestrian-with-a-horse-glimpses-three-then-draws-into-memory",
+                "clear-pastures-without-a-horse-only-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "y5e4a8a23l",
             "name": "Commanding Sea Titan",
             "type": "ALLY",
@@ -39804,6 +39670,29 @@
                 "convergent-beam-without-fractal-deals-one-damage",
                 "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free",
                 "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "y4PZCiE26a",
+            "name": "Coronation Ceremony",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "coronation-ceremony-not-targeting-a-unique-ally-costs-the-printed-three",
+                "coronation-ceremony-targeting-a-unique-ally-costs-two-less-and-grants-spellshroud"
+            ],
+            "semanticFixtures": [
+                "coronation-ceremony-not-targeting-a-unique-ally-costs-the-printed-three",
+                "coronation-ceremony-targeting-a-unique-ally-costs-two-less-and-grants-spellshroud"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40729,6 +40618,27 @@
             ],
             "semanticFixtures": [
                 "focal-intensity-deals-one-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "yp4poEZtHt",
+            "name": "Forbidden Teachings",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forbidden-teachings-with-a-book-glimpses-three-then-draws"
+            ],
+            "semanticFixtures": [
+                "forbidden-teachings-with-a-book-glimpses-three-then-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43011,6 +42921,29 @@
             "priority": 33
         },
         {
+            "cardId": "4g7kufs4kg",
+            "name": "Rictus Tiding",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rictus-tiding-any-other-total-puts-one-into-memory-and-one-on-the-bottom",
+                "rictus-tiding-two-cards-totalling-eight-both-go-into-memory"
+            ],
+            "semanticFixtures": [
+                "rictus-tiding-any-other-total-puts-one-into-memory-and-one-on-the-bottom",
+                "rictus-tiding-two-cards-totalling-eight-both-go-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jbc30d18ys",
             "name": "Ritai Guard",
             "type": "ALLY",
@@ -44056,6 +43989,27 @@
                 "surging-obstruction-an-even-cost-card-only-has-to-pay-one",
                 "surging-obstruction-an-odd-cost-card-must-pay-three",
                 "surging-obstruction-with-a-chessman-bishop-ally-costs-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pi3DyYU6Sa",
+            "name": "Surprise Reveal",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "surprise-reveal-gains-crowds-favor-and-class-bonus-draws"
+            ],
+            "semanticFixtures": [
+                "surprise-reveal-gains-crowds-favor-and-class-bonus-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48697,6 +48651,26 @@
             "priority": 32
         },
         {
+            "cardId": "AiijXxCapd",
+            "name": "Scientific Discoveries",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scientific-discoveries-glimpses-three"
+            ],
+            "semanticFixtures": [
+                "scientific-discoveries-glimpses-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "ECx3KFWqFD",
             "name": "Scorching Knowledge",
             "type": "ACTION",
@@ -49302,6 +49276,28 @@
             "priority": 32
         },
         {
+            "cardId": "0ye3aebjvw",
+            "name": "Study the Fables",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "study-the-fables-targeting-the-opponent-still-draws-into-memory",
+                "study-the-fables-targeting-yourself-reveals-your-material-cards-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "study-the-fables-targeting-the-opponent-still-draws-into-memory",
+                "study-the-fables-targeting-yourself-reveals-your-material-cards-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "a3v1ybmvpb",
             "name": "Sunglory Sentinel",
             "type": "ALLY",
@@ -49428,6 +49424,26 @@
             "priority": 32
         },
         {
+            "cardId": "57WTJAiXLr",
+            "name": "Table Straight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "table-straight-without-suited-cards-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "table-straight-without-suited-cards-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9cy4wipw4k",
             "name": "Tabula of Salvage",
             "type": "REGALIA,ITEM",
@@ -49506,6 +49522,26 @@
             "semanticFixtures": [
                 "tempus-stalker-class-bonus-recollection-puts-a-buff-counter-on-it",
                 "tempus-stalker-does-not-obey-a-level-one-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "Rgg4dJYxnl",
+            "name": "Tend the Land",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token"
+            ],
+            "existingFixtures": [
+                "tend-the-land-gathers-then-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "tend-the-land-gathers-then-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50234,6 +50270,25 @@
             "priority": 31
         },
         {
+            "cardId": "ezIeRDL7jm",
+            "name": "Allowance Race",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "allowance-race-resting-a-horse-ally-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "allowance-race-resting-a-horse-ally-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "4le7ehjyxs",
             "name": "Aqueous Stallion",
             "type": "ALLY",
@@ -50249,6 +50304,25 @@
             "semanticFixtures": [
                 "aqueous-stallion-four-water-cards-in-the-graveyard-give-plus-three-power",
                 "aqueous-stallion-three-water-cards-keep-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "gs1Usdd5R2",
+            "name": "Armed and Dangerous",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "armed-and-dangerous-draws-a-card-for-each-gun-weapon"
+            ],
+            "semanticFixtures": [
+                "armed-and-dangerous-draws-a-card-for-each-gun-weapon"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51078,6 +51152,29 @@
             "semanticFixtures": [
                 "excitable-raccoon-opponent-without-a-graveyard-gets-plus-one-power-and-vigor",
                 "excitable-raccoon-with-an-opponent-graveyard-card-has-neither"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "4n6dd4f01r",
+            "name": "Exorcism",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "exorcism-paying-one-keeps-the-ephemeral-object",
+                "exorcism-reaches-the-opponents-ephemeral-objects-too",
+                "exorcism-sacrifices-an-ephemeral-object-unless-its-controller-pays-one"
+            ],
+            "semanticFixtures": [
+                "exorcism-paying-one-keeps-the-ephemeral-object",
+                "exorcism-reaches-the-opponents-ephemeral-objects-too",
+                "exorcism-sacrifices-an-ephemeral-object-unless-its-controller-pays-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52002,6 +52099,25 @@
             ],
             "semanticFixtures": [
                 "nullifying-mirror-rest-adds-the-norm-memory-effect-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "mdk0xhi5jn",
+            "name": "Nurture Crops",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "nurture-crops-glimpses-two-then-gathers-twice"
+            ],
+            "semanticFixtures": [
+                "nurture-crops-glimpses-two-then-gathers-twice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

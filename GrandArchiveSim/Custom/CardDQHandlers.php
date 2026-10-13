@@ -2223,83 +2223,70 @@ $customDQHandlers["LacunarityGuideSacrifice"] = function($player, $parts, $lastD
 };
 
 // --- Exorcism (4n6dd4f01r): sacrifice each ephemeral object unless controller pays (1) ---
+// Targets are encoded "<controller>:<field index>" joined by "," -- never with "|", which is the custom-decision parameter separator (the old encoding was split apart
+// and the handler read an undefined key, so Exorcism never did anything).
 function ExorcismProcess($player) {
-    // Collect all ephemeral objects from both fields
     $targets = [];
     for($p = 1; $p <= 2; ++$p) {
         $field = &GetField($p);
         for($i = 0; $i < count($field); ++$i) {
             if(!$field[$i]->removed && IsEphemeral($field[$i]) && !PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) {
-                global $playerID;
-                $mzRef = ($p == $playerID) ? "myField-" . $i : "theirField-" . $i;
-                $targets[] = $p . "|" . $mzRef;
+                $targets[] = $p . ":" . $i;
             }
         }
     }
     if(empty($targets)) return;
-    $encoded = implode(",", $targets);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $encoded, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . implode(",", $targets), 1);
+}
+
+function ExorcismTargetObject($pair) {
+    $parts = explode(":", $pair);
+    $field = &GetField(intval($parts[0]));
+    $idx = intval($parts[1] ?? -1);
+    if(!isset($field[$idx]) || $field[$idx]->removed) return null;
+    return $field[$idx];
 }
 
 $customDQHandlers["ExorcismNext"] = function($player, $parts, $lastDecision) {
-    $encoded = $parts[0];
-    $targets = explode(",", $encoded);
-    if(empty($targets)) return;
+    $targets = explode(",", $parts[0] ?? "");
     $current = array_shift($targets);
-    $pair = explode("|", $current);
-    $controller = intval($pair[0]);
-    $mzRef = $pair[1];
-    $obj = GetZoneObject($mzRef);
-    if($obj === null || $obj->removed) {
-        // Object already gone, skip to next
-        if(!empty($targets)) {
-            $remaining = implode(",", $targets);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
-        }
+    if($current === null || $current === "") return;
+    $remaining = implode(",", $targets);
+    $obj = ExorcismTargetObject($current);
+    if($obj === null) {
+        if($remaining !== "") DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
         return;
     }
-    // Check if controller has cards in hand to pay (1)
+    $pair = explode(":", $current);
+    $controller = intval($pair[0]);
+    $fieldRef = "myField-" . intval($pair[1]);
     $hand = &GetHand($controller);
-    $remaining = implode(",", $targets);
     if(count($hand) > 0) {
         DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
             tooltip:"Pay_(1)_to_keep_" . CardName($obj->CardID) . "?_(Exorcism)");
-        DecisionQueueController::AddDecision($controller, "CUSTOM", "ExorcismPayOrSacrifice|" . $mzRef . "|" . $remaining, 1);
+        DecisionQueueController::AddDecision($controller, "CUSTOM", "ExorcismPayOrSacrifice|" . $current . "|" . $remaining, 1);
     } else {
-        // Can't pay, sacrifice immediately
-        DoSacrificeFighter($controller, $mzRef);
+        DoSacrificeFighter($controller, $fieldRef);
         DecisionQueueController::CleanupRemovedCards();
-        if(!empty($targets)) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
-        }
+        if($remaining !== "") DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
     }
 };
 
 $customDQHandlers["ExorcismPayOrSacrifice"] = function($player, $parts, $lastDecision) {
-    $mzRef = $parts[0];
+    $current = $parts[0] ?? "";
     $remaining = $parts[1] ?? "";
-    $obj = GetZoneObject($mzRef);
-    if($obj === null || $obj->removed) {
-        if($remaining !== "") {
-            // Determine original activating player from the remaining targets 
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
+    $obj = ExorcismTargetObject($current);
+    if($obj !== null) {
+        $pair = explode(":", $current);
+        if($lastDecision === "YES") {
+            $hand = &GetHand($player);
+            if(count($hand) > 0) MZMove($player, "myHand-0", "myMemory");
+        } else {
+            DoSacrificeFighter($player, "myField-" . intval($pair[1]));
+            DecisionQueueController::CleanupRemovedCards();
         }
-        return;
     }
-    if($lastDecision === "YES") {
-        // Pay (1) — move a card from hand to memory
-        $hand = &GetHand($player);
-        if(count($hand) > 0) {
-            MZMove($player, "myHand-0", "myMemory");
-        }
-    } else {
-        // Sacrifice the ephemeral object
-        DoSacrificeFighter($player, $mzRef);
-        DecisionQueueController::CleanupRemovedCards();
-    }
-    if($remaining !== "") {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
-    }
+    if($remaining !== "") DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
 };
 
 // --- Alkahest (xfpk9xycwz): choose Potion for age counter ---

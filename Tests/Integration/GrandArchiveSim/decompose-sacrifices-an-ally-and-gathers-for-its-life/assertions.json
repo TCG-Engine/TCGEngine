@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally was sacrificed as the additional cost"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Gather X = the sacrificed ally's 3 life: three plant tokens beside the champion"
+    }
+]

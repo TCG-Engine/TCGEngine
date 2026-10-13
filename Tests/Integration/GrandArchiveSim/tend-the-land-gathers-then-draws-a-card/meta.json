@@ -1,0 +1,21 @@
+{
+    "name": "tend-the-land-gathers-then-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Rgg4dJYxnl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Rgg4dJYxnl"
+        ],
+        "mechanics": [
+            "gather",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**Gather**, then draw a card."
+        ]
+    }
+}

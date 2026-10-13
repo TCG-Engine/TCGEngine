@@ -1,0 +1,22 @@
+{
+    "name": "rictus-tiding-any-other-total-puts-one-into-memory-and-one-on-the-bottom",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:00:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4g7kufs4kg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4g7kufs4kg"
+        ],
+        "mechanics": [
+            "reveal",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Otherwise put one of them into your memory and the other on the bottom of your deck."
+        ]
+    }
+}

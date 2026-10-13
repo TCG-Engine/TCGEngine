@@ -1,0 +1,10 @@
+[
+    {
+        "step": 5,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-2",
+        "value": 4,
+        "semantic": true,
+        "label": "The Horse ally got +1 life: 3 + 1"
+    }
+]

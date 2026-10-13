@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "UtwWXmc0IU",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Paid (1): the Apparition stays"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three for the spell and one for Exorcism"
+    }
+]

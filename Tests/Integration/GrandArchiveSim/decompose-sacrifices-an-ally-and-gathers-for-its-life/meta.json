@@ -1,0 +1,23 @@
+{
+    "name": "decompose-sacrifices-an-ally-and-gathers-for-its-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:55:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3JWk1jxX5u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3JWk1jxX5u"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "gather"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally.",
+            "**Gather X** times, where **X** is the sacrificed ally\u2019s life stat."
+        ]
+    }
+}

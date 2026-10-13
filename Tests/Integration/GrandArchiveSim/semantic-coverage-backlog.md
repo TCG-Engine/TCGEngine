@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1792**
+Cards linked to an existing fixture: **1817**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **685**
+Implemented cards still needing semantic coverage: **660**
 
 ## Mechanic groups
 
@@ -56,7 +56,6 @@ Implemented cards still needing semantic coverage: **685**
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
-| Collect Junk (`g6sW55DOgR`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement | — | — |
 | Crystallized Destiny (`l36wwe3d5c`) | ACTION | 2 | cost, damage, prevention, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
 | Dawn's Reversal (`x53jgq8aad`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
@@ -66,7 +65,6 @@ Implemented cards still needing semantic coverage: **685**
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
 | Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
 | Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
-| Mob Vantage (`bBI0TC54pV`) | ACTION | 2 | cost, draw-discard, status, condition | — | — |
 | Oneiric Key (`pY1TImPn8g`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, trigger | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **685**
 | Trump Set (`w7g91ru45w`) | ACTION | 2 | cost, targeting, combat, condition | — | — |
 | Waited Accord (`xF9phlSAkE`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, trigger, condition | — | — |
 | Zhao Yun, Dragonsblood (`mwfrfo3wzq`) | UNIQUE,ALLY | 2 | damage, combat, trigger, condition | — | — |
+| Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
+| Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |

@@ -1,0 +1,24 @@
+{
+    "name": "coronation-ceremony-targeting-a-unique-ally-costs-two-less-and-grants-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:55:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4PZCiE26a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4PZCiE26a"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition",
+            "spellshroud",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate if it targets a unique ally.",
+            "Target unit gains **spellshroud** until end of turn."
+        ]
+    }
+}
