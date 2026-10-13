@@ -1,0 +1,23 @@
+{
+    "name": "springleaf-sacrifice-puts-a-hand-card-on-the-bottom-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:21:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "69iq4d5vet"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "69iq4d5vet"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "zone-movement",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Put a card from your hand on the bottom of your deck. If you do, draw a card."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "razorvine-sacrifice-puts-a-hand-card-on-the-bottom-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:21:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jnltv5klry"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jnltv5klry"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "zone-movement",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Put a card from your hand on the bottom of your deck. If you do, draw a card."
+        ]
+    }
+}

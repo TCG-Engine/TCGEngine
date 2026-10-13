@@ -1,0 +1,21 @@
+{
+    "name": "tower-of-dis-discorp-automaton-allies-get-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "I46x6lgLk8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "I46x6lgLk8"
+        ],
+        "mechanics": [
+            "stat-change",
+            "static"
+        ],
+        "rulesClauses": [
+            "DisCorp Automaton allies you control get +1[POWER] and +1[LIFE]."
+        ]
+    }
+}

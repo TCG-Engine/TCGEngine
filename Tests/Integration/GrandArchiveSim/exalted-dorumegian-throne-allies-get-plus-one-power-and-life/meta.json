@@ -1,0 +1,21 @@
+{
+    "name": "exalted-dorumegian-throne-allies-get-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p4lpnvx7mn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p4lpnvx7mn"
+        ],
+        "mechanics": [
+            "stat-change",
+            "static"
+        ],
+        "rulesClauses": [
+            "Allies you control get +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

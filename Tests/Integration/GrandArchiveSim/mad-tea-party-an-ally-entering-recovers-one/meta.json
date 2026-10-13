@@ -1,0 +1,21 @@
+{
+    "name": "mad-tea-party-an-ally-entering-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eaxvvj7hz3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eaxvvj7hz3"
+        ],
+        "mechanics": [
+            "trigger",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Whenever an ally enters the field, **recover 1**."
+        ]
+    }
+}

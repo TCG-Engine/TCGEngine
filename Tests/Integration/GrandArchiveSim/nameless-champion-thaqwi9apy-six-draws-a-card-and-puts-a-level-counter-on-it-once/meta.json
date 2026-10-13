@@ -1,0 +1,23 @@
+{
+    "name": "nameless-champion-thaqwi9apy-six-draws-a-card-and-puts-a-level-counter-on-it-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "thaqwi9apy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "thaqwi9apy"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "counter",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "(6)**:** Draw a card and put a **level** counter on CARDNAME. Activate this ability only once."
+        ]
+    }
+}

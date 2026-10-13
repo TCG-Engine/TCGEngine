@@ -1,0 +1,22 @@
+{
+    "name": "priscilla-lost-spirit-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zr5ys29xx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zr5ys29xx"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1882**
+Cards linked to an existing fixture: **1926**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **595**
+Implemented cards still needing semantic coverage: **551**
 
 ## Mechanic groups
 
@@ -32,7 +32,6 @@ Implemented cards still needing semantic coverage: **595**
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
-| Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **595**
 | Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
 | Arisanna, Lucent Arbiter (`7e22tk3ir1`) | CHAMPION | 2 | cost, targeting, condition | — | — |
+| Bandersnatch, Frumious Foe (`4yqL9xtzVi`) | UNIQUE,ALLY | 2 | damage, recover, trigger | — | — |

@@ -1,0 +1,22 @@
+{
+    "name": "morrigan-lost-spirit-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0rapy8v7x0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0rapy8v7x0"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}

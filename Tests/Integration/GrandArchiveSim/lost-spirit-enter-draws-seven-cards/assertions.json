@@ -1,0 +1,11 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "On Enter: drew seven cards on top of the opening seven"
+    }
+]

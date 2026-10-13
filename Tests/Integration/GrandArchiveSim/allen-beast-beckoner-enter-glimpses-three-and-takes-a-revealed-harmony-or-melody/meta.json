@@ -1,0 +1,22 @@
+{
+    "name": "allen-beast-beckoner-enter-glimpses-three-and-takes-a-revealed-harmony-or-melody",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YPaL2BxDSN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YPaL2BxDSN"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "**On Enter: Glimpse 3**, then reveal the top card of your deck. If that card is a Harmony or Melody card, put it into your hand."
+        ]
+    }
+}

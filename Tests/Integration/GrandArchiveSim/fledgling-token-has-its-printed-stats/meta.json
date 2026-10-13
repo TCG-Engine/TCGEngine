@@ -1,0 +1,20 @@
+{
+    "name": "fledgling-token-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oswzpvvog0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oswzpvvog0"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Fledgling (no rules text)"
+        ]
+    }
+}

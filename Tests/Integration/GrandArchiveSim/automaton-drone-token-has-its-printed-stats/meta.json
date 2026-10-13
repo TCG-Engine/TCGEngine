@@ -1,0 +1,20 @@
+{
+    "name": "automaton-drone-token-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mu6gvnta6q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mu6gvnta6q"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Automaton Drone (no rules text)"
+        ]
+    }
+}

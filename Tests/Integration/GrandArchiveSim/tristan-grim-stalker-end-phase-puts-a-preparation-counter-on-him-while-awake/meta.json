@@ -1,0 +1,22 @@
+{
+    "name": "tristan-grim-stalker-end-phase-puts-a-preparation-counter-on-him-while-awake",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "K5luT8aRzc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "K5luT8aRzc"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, if Tristan is awake, put a **preparation** counter on Tristan."
+        ]
+    }
+}

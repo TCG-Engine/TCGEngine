@@ -1,0 +1,22 @@
+{
+    "name": "wool-brook-pay-six-and-remove-a-refinement-counter-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lcCGyyNGuM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lcCGyyNGuM"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "counter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "(6)**, Remove a refinement counter from CARDNAME: **Draw a card into your memory."
+        ]
+    }
+}

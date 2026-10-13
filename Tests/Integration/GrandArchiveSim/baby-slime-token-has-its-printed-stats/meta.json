@@ -1,0 +1,20 @@
+{
+    "name": "baby-slime-token-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bdPYKwzWt5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bdPYKwzWt5"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Baby Slime (no rules text)"
+        ]
+    }
+}

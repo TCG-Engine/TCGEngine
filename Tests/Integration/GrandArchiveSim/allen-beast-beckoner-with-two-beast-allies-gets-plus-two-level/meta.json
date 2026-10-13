@@ -1,0 +1,22 @@
+{
+    "name": "allen-beast-beckoner-with-two-beast-allies-gets-plus-two-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:18:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YPaL2BxDSN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YPaL2BxDSN"
+        ],
+        "mechanics": [
+            "condition",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you control two or more Animal and/or Beast allies, CARDNAME gets +2 level."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:18:28+00:00",
+    "generatedAt": "2026-10-13T21:22:45+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1882,
+        "cardsWithExistingFixtures": 1926,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 595,
+        "cardsNeedingSemanticCoverage": 551,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -129,21 +129,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
-        },
-        {
-            "cardId": "uy4xippor7",
-            "name": "Oasis Trading Post",
-            "type": "DOMAIN",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1259,23 +1244,6 @@
                 "cost",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "lcCGyyNGuM",
-            "name": "Wool Brook",
-            "type": "DOMAIN",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3228,24 +3196,6 @@
             "priority": 14
         },
         {
-            "cardId": "axxaUOWHA3",
-            "name": "Epicurean Institute",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "4sm14RaEkg",
             "name": "Excalibur, Cursed Sword",
             "type": "REGALIA,WEAPON",
@@ -3705,24 +3655,6 @@
                 "cost",
                 "status",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "umSsPWqb5H",
-            "name": "Merlin, Memory Thief",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4290,24 +4222,6 @@
             "priority": 14
         },
         {
-            "cardId": "K5luT8aRzc",
-            "name": "Tristan, Grim Stalker",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "y208kkz07n",
             "name": "Vaporjet Shield",
             "type": "REGALIA,ITEM",
@@ -4414,23 +4328,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 14
-        },
-        {
-            "cardId": "YPaL2BxDSN",
-            "name": "Allen, Beast Beckoner",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
         },
         {
             "cardId": "782mm2tq5l",
@@ -5368,23 +5265,6 @@
             "priority": 13
         },
         {
-            "cardId": "eaxvvj7hz3",
-            "name": "Mad Tea Party",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "24I0xn0OQ1",
             "name": "Maledictum Vitae",
             "type": "ACTION",
@@ -5759,23 +5639,6 @@
             "priority": 13
         },
         {
-            "cardId": "jnltv5klry",
-            "name": "Razorvine",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "mSOHJGjrIu",
             "name": "Reciprocity, Dorumegia's Call",
             "type": "REGALIA,WEAPON",
@@ -6006,23 +5869,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "69iq4d5vet",
-            "name": "Springleaf",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6803,22 +6649,6 @@
             "priority": 12
         },
         {
-            "cardId": "881gacexpv",
-            "name": "Chibi, Battle of Red Cliffs",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "52215upufy",
             "name": "Claude, Fated Visionary",
             "type": "UNIQUE,ALLY",
@@ -7002,22 +6832,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "3DCP7WmBpx",
-            "name": "Elysian Test Subject",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7299,22 +7113,6 @@
             "priority": 12
         },
         {
-            "cardId": "aebjlwabip",
-            "name": "Hub of Innovation",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "0ymvddv1au",
             "name": "Illuminate Secrets",
             "type": "ACTION",
@@ -7443,22 +7241,6 @@
             "priority": 12
         },
         {
-            "cardId": "cFdWXaILRT",
-            "name": "Lost Spirit",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "o6tBGQeC33",
             "name": "Lotor Trinket",
             "type": "REGALIA,ITEM",
@@ -7539,246 +7321,6 @@
             "priority": 12
         },
         {
-            "cardId": "0rapy8v7x0",
-            "name": "Morrigan, Lost Spirit",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "0794z3ffck",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "86flbytki3",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "98i5ak5nwo",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "as8yfa8ptg",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "b53ccl9ipn",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "f4rlv5dsrb",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "j9fiu22ltl",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "jk9w4buhwk",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "k7sz76vn6u",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "mic7hijxlg",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "nq6nhjy85f",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "pv6ichyxj0",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "thaqwi9apy",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ztjuymn2ge",
-            "name": "Nameless Champion",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "f5ooozsikp",
             "name": "Oathbreaker's Justice",
             "type": "REGALIA,WEAPON",
@@ -7819,22 +7361,6 @@
             "mechanics": [
                 "draw-discard",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "2zr5ys29xx",
-            "name": "Priscilla, Lost Spirit",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8003,22 +7529,6 @@
             "priority": 12
         },
         {
-            "cardId": "1gpd7mbroj",
-            "name": "Shira, Lost Spirit",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "GhxADim7Kf",
             "name": "Sinon, Babelia's Companion",
             "type": "UNIQUE,ALLY",
@@ -8043,22 +7553,6 @@
             "mechanics": [
                 "cost",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "AYe0neu31W",
-            "name": "Spirit of Chess",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8617,21 +8111,6 @@
             "priority": 11
         },
         {
-            "cardId": "mu6gvnta6q",
-            "name": "Automaton Drone",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "XOfDNzX4ck",
             "name": "Automaton Forgewarden",
             "type": "ALLY",
@@ -8647,39 +8126,9 @@
             "priority": 11
         },
         {
-            "cardId": "bdPYKwzWt5",
-            "name": "Baby Slime",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "i59eamoov0",
             "name": "Baihua",
             "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "i0a5uhjxhk",
-            "name": "Blightroot",
-            "type": "TOKEN,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -9007,21 +8456,6 @@
             "priority": 11
         },
         {
-            "cardId": "p4lpnvx7mn",
-            "name": "Exalted Dorumegian Throne",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "fhi78gfkli",
             "name": "fhi78gfkli",
             "type": "",
@@ -9040,21 +8474,6 @@
             "cardId": "W0WfIEDs3n",
             "name": "Field of Ranks and Files",
             "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "oswzpvvog0",
-            "name": "Fledgling",
-            "type": "TOKEN,ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -9134,21 +8553,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "soporhlq2k",
-            "name": "Fraysia",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9457,21 +8861,6 @@
             "priority": 11
         },
         {
-            "cardId": "5joh300z2s",
-            "name": "Manaroot",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "1ubrwubSQN",
             "name": "Mantle of the Abyss",
             "type": "REGALIA,ITEM",
@@ -9509,21 +8898,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "LxF5riNjnL",
-            "name": "Memorite Shardwing",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9592,21 +8966,6 @@
             "priority": 11
         },
         {
-            "cardId": "c7wklzjmwu",
-            "name": "Palatial Concourse",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "FuPPK2ixjq",
             "name": "Pendant of Apsis Restraint",
             "type": "REGALIA,ITEM",
@@ -9614,21 +8973,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "qzzadf9q1v",
-            "name": "Powercell",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9802,21 +9146,6 @@
             "priority": 11
         },
         {
-            "cardId": "bd7ozuj68m",
-            "name": "Silvershine",
-            "type": "TOKEN,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "3p5iqigcom",
             "name": "Spirit Shard",
             "type": "TOKEN,PHANTASIA",
@@ -9884,36 +9213,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "I46x6lgLk8",
-            "name": "Tower of Dis",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "EeFXEYMmF3",
-            "name": "Training Dummy",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -25374,6 +24673,29 @@
             "priority": 52
         },
         {
+            "cardId": "uy4xippor7",
+            "name": "Oasis Trading Post",
+            "type": "DOMAIN",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "oasis-trading-post-five-rest-summons-an-automaton-drone",
+                "oasis-trading-post-four-rest-gathers",
+                "oasis-trading-post-three-rest-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "oasis-trading-post-five-rest-summons-an-automaton-drone",
+                "oasis-trading-post-four-rest-gathers",
+                "oasis-trading-post-three-rest-glimpses-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 51
+        },
+        {
             "cardId": "84e2rfex54",
             "name": "Quadrille's Gryphon",
             "type": "ALLY",
@@ -28226,6 +27548,29 @@
             ],
             "semanticFixtures": [
                 "winbless-kiteshield-unit-link-gives-the-linked-unit-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "lcCGyyNGuM",
+            "name": "Wool Brook",
+            "type": "DOMAIN",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "wool-brook-enters-with-a-refinement-counter-and-draws-into-memory",
+                "wool-brook-pay-six-and-remove-a-refinement-counter-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "wool-brook-enters-with-a-refinement-counter-and-draws-into-memory",
+                "wool-brook-pay-six-and-remove-a-refinement-counter-draws-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33458,6 +32803,28 @@
             "priority": 34
         },
         {
+            "cardId": "axxaUOWHA3",
+            "name": "Epicurean Institute",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "epicurean-institute-recollection-sacrifices-it-and-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "epicurean-institute-recollection-sacrifices-it-and-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "eU8IEVpFZg",
             "name": "Equip with Courage",
             "type": "ACTION",
@@ -35266,6 +34633,28 @@
             ],
             "semanticFixtures": [
                 "marksmans-charm-banish-gives-a-unit-true-sight"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "umSsPWqb5H",
+            "name": "Merlin, Memory Thief",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "merlin-memory-thief-rest-banishes-a-graveyard-card-and-a-floating-memory-card-gives-a-level-counter"
+            ],
+            "semanticFixtures": [
+                "merlin-memory-thief-rest-banishes-a-graveyard-card-and-a-floating-memory-card-gives-a-level-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37156,6 +36545,30 @@
             "priority": 34
         },
         {
+            "cardId": "K5luT8aRzc",
+            "name": "Tristan, Grim Stalker",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tristan-grim-stalker-end-phase-puts-a-preparation-counter-on-him-while-awake",
+                "tristan-grim-stalker-rested-gets-no-preparation-counter"
+            ],
+            "semanticFixtures": [
+                "tristan-grim-stalker-end-phase-puts-a-preparation-counter-on-him-while-awake",
+                "tristan-grim-stalker-rested-gets-no-preparation-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "chyfhweEro",
             "name": "Tune Up",
             "type": "ACTION",
@@ -37903,6 +37316,29 @@
             ],
             "semanticFixtures": [
                 "airship-captain-a-domain-entering-deals-two-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "YPaL2BxDSN",
+            "name": "Allen, Beast Beckoner",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "allen-beast-beckoner-enter-glimpses-three-and-takes-a-revealed-harmony-or-melody",
+                "allen-beast-beckoner-with-two-beast-allies-gets-plus-two-level"
+            ],
+            "semanticFixtures": [
+                "allen-beast-beckoner-enter-glimpses-three-and-takes-a-revealed-harmony-or-melody",
+                "allen-beast-beckoner-with-two-beast-allies-gets-plus-two-level"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41000,6 +40436,27 @@
             "priority": 33
         },
         {
+            "cardId": "eaxvvj7hz3",
+            "name": "Mad Tea Party",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "mad-tea-party-an-ally-entering-recovers-one"
+            ],
+            "semanticFixtures": [
+                "mad-tea-party-an-ally-entering-recovers-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "TQoTD8eGQH",
             "name": "Magnificent Banquet",
             "type": "ACTION",
@@ -42204,6 +41661,27 @@
             "priority": 33
         },
         {
+            "cardId": "jnltv5klry",
+            "name": "Razorvine",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "razorvine-sacrifice-puts-a-hand-card-on-the-bottom-and-draws"
+            ],
+            "semanticFixtures": [
+                "razorvine-sacrifice-puts-a-hand-card-on-the-bottom-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "gJ2dsgywEs",
             "name": "Reckless Conversion",
             "type": "ACTION",
@@ -43266,6 +42744,27 @@
             ],
             "semanticFixtures": [
                 "spring-cleaning-omen-to-graveyard-looks-three-banishes-deep-card-as-omen-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "69iq4d5vet",
+            "name": "Springleaf",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "springleaf-sacrifice-puts-a-hand-card-on-the-bottom-and-draws"
+            ],
+            "semanticFixtures": [
+                "springleaf-sacrifice-puts-a-hand-card-on-the-bottom-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45123,6 +44622,26 @@
             "priority": 32
         },
         {
+            "cardId": "881gacexpv",
+            "name": "Chibi, Battle of Red Cliffs",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat"
+            ],
+            "existingFixtures": [
+                "chibi-battle-of-red-cliffs-ally-attack-declarations-cost-one"
+            ],
+            "semanticFixtures": [
+                "chibi-battle-of-red-cliffs-ally-attack-declarations-cost-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "js5qjwipkf",
             "name": "Clandestine Chart",
             "type": "REGALIA,ITEM",
@@ -45535,6 +45054,26 @@
             ],
             "semanticFixtures": [
                 "rhesus-eradication-deals-level-plus-two-per-elysian-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "3DCP7WmBpx",
+            "name": "Elysian Test Subject",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "elysian-test-subject-has-stealth"
+            ],
+            "semanticFixtures": [
+                "elysian-test-subject-has-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46551,6 +46090,26 @@
             "priority": 32
         },
         {
+            "cardId": "aebjlwabip",
+            "name": "Hub of Innovation",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "hub-of-innovation-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "hub-of-innovation-enter-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "JzWfOQUzG5",
             "name": "Hulking Rearguard",
             "type": "ALLY",
@@ -47009,6 +46568,26 @@
             "priority": 32
         },
         {
+            "cardId": "cFdWXaILRT",
+            "name": "Lost Spirit",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lost-spirit-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "lost-spirit-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "TqCo3xlf93",
             "name": "Lunete, Frostbinder Priest",
             "type": "UNIQUE,ALLY",
@@ -47299,6 +46878,26 @@
             "priority": 32
         },
         {
+            "cardId": "0rapy8v7x0",
+            "name": "Morrigan, Lost Spirit",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "morrigan-lost-spirit-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "morrigan-lost-spirit-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "zyEMI5XNHt",
             "name": "Mourning Veilbound",
             "type": "ALLY",
@@ -47341,6 +46940,66 @@
             "priority": 32
         },
         {
+            "cardId": "0794z3ffck",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-0794z3ffck-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-0794z3ffck-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "86flbytki3",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-86flbytki3-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-86flbytki3-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "98i5ak5nwo",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-98i5ak5nwo-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-98i5ak5nwo-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9tmr8iel1m",
             "name": "Nameless Champion",
             "type": "CHAMPION",
@@ -47357,6 +47016,226 @@
             "semanticFixtures": [
                 "nameless-champion-cannot-level-up",
                 "nameless-champion-pay-six-draw-and-level-counter-only-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "as8yfa8ptg",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-as8yfa8ptg-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-as8yfa8ptg-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "b53ccl9ipn",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-b53ccl9ipn-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-b53ccl9ipn-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "f4rlv5dsrb",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-f4rlv5dsrb-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-f4rlv5dsrb-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "j9fiu22ltl",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-j9fiu22ltl-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-j9fiu22ltl-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "jk9w4buhwk",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-jk9w4buhwk-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-jk9w4buhwk-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "k7sz76vn6u",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-k7sz76vn6u-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-k7sz76vn6u-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "mic7hijxlg",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-mic7hijxlg-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-mic7hijxlg-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "nq6nhjy85f",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-nq6nhjy85f-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-nq6nhjy85f-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "pv6ichyxj0",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-pv6ichyxj0-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-pv6ichyxj0-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "thaqwi9apy",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-thaqwi9apy-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-thaqwi9apy-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ztjuymn2ge",
+            "name": "Nameless Champion",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "nameless-champion-ztjuymn2ge-six-draws-a-card-and-puts-a-level-counter-on-it-once"
+            ],
+            "semanticFixtures": [
+                "nameless-champion-ztjuymn2ge-six-draws-a-card-and-puts-a-level-counter-on-it-once"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47823,6 +47702,26 @@
             "semanticFixtures": [
                 "prides-vanguard-ambush-retaliates-for-another-ally-with-retort",
                 "prides-vanguard-retort-two-retaliates-for-two-extra-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "2zr5ys29xx",
+            "name": "Priscilla, Lost Spirit",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "priscilla-lost-spirit-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "priscilla-lost-spirit-enter-draws-seven-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48455,6 +48354,26 @@
             "priority": 32
         },
         {
+            "cardId": "1gpd7mbroj",
+            "name": "Shira, Lost Spirit",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "shira-lost-spirit-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "shira-lost-spirit-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "gvXQa57cxe",
             "name": "Shout at Your Pets",
             "type": "ACTION",
@@ -48768,6 +48687,26 @@
             ],
             "semanticFixtures": [
                 "spellward-scepter-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "AYe0neu31W",
+            "name": "Spirit of Chess",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-chess-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "spirit-of-chess-enter-draws-seven-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50128,6 +50067,25 @@
             "priority": 31
         },
         {
+            "cardId": "mu6gvnta6q",
+            "name": "Automaton Drone",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "automaton-drone-token-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "automaton-drone-token-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "384b3yjlhu",
             "name": "Axis Gale Scholar",
             "type": "ALLY",
@@ -50143,6 +50101,25 @@
             "semanticFixtures": [
                 "axis-gale-scholar-north-currents-give-it-plus-two-power",
                 "axis-gale-scholar-south-currents-give-allies-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "bdPYKwzWt5",
+            "name": "Baby Slime",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "baby-slime-token-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "baby-slime-token-has-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50282,6 +50259,25 @@
             "semanticFixtures": [
                 "biding-endroid-with-five-opposing-material-cards-has-its-printed-stats",
                 "biding-endroid-with-four-or-fewer-material-cards-each-gets-plus-three-power-and-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "i0a5uhjxhk",
+            "name": "Blightroot",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "blightroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "blightroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51018,6 +51014,25 @@
             "priority": 31
         },
         {
+            "cardId": "p4lpnvx7mn",
+            "name": "Exalted Dorumegian Throne",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "exalted-dorumegian-throne-allies-get-plus-one-power-and-life"
+            ],
+            "semanticFixtures": [
+                "exalted-dorumegian-throne-allies-get-plus-one-power-and-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "iM3IywF99T",
             "name": "Excitable Raccoon",
             "type": "ALLY",
@@ -51319,6 +51334,25 @@
             "priority": 31
         },
         {
+            "cardId": "oswzpvvog0",
+            "name": "Fledgling",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "fledgling-token-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "fledgling-token-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "5wLtoxd4Wc",
             "name": "Floodborne Swing",
             "type": "ATTACK",
@@ -51376,6 +51410,25 @@
             "semanticFixtures": [
                 "fracturize-floating-memory-pays-a-memory-cost",
                 "fracturize-turns-an-item-into-a-fractal-phantasia"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "soporhlq2k",
+            "name": "Fraysia",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "fraysia-sacrifice-recovers-one"
+            ],
+            "semanticFixtures": [
+                "fraysia-sacrifice-recovers-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52199,6 +52252,44 @@
             "priority": 31
         },
         {
+            "cardId": "5joh300z2s",
+            "name": "Manaroot",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "manaroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "manaroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "LxF5riNjnL",
+            "name": "Memorite Shardwing",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "memorite-shardwing-has-stealth"
+            ],
+            "semanticFixtures": [
+                "memorite-shardwing-has-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "zHbIiP3knE",
             "name": "Mirrored Confrontation",
             "type": "ACTION",
@@ -52433,6 +52524,25 @@
             "priority": 31
         },
         {
+            "cardId": "c7wklzjmwu",
+            "name": "Palatial Concourse",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "palatial-concourse-glimpses-one-at-the-recollection-phase"
+            ],
+            "semanticFixtures": [
+                "palatial-concourse-glimpses-one-at-the-recollection-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "7j79KANWEP",
             "name": "Pole-armed Steed",
             "type": "ALLY",
@@ -52467,6 +52577,25 @@
             "semanticFixtures": [
                 "port-smuggler-class-bonus-attack-cannot-be-intercepted",
                 "port-smuggler-without-the-class-bonus-can-be-intercepted"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "qzzadf9q1v",
+            "name": "Powercell",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "powercell-pay-one-rest-and-sacrifice-gives-an-automaton-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "powercell-pay-one-rest-and-sacrifice-gives-an-automaton-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52667,6 +52796,25 @@
             "semanticFixtures": [
                 "serpentine-judicator-its-controller-can-still-recover",
                 "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "bd7ozuj68m",
+            "name": "Silvershine",
+            "type": "TOKEN,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "silvershine-sacrifice-recovers-one"
+            ],
+            "semanticFixtures": [
+                "silvershine-sacrifice-recovers-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52877,6 +53025,46 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "I46x6lgLk8",
+            "name": "Tower of Dis",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "tower-of-dis-discorp-automaton-allies-get-plus-one-power-and-life"
+            ],
+            "semanticFixtures": [
+                "tower-of-dis-discorp-automaton-allies-get-plus-one-power-and-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "EeFXEYMmF3",
+            "name": "Training Dummy",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "training-dummy-cannot-attack",
+                "training-dummy-token-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "training-dummy-cannot-attack",
+                "training-dummy-token-has-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

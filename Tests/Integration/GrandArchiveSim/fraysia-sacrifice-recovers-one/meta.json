@@ -1,0 +1,22 @@
+{
+    "name": "fraysia-sacrifice-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:21:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "soporhlq2k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "soporhlq2k"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** **Recover 1**."
+        ]
+    }
+}

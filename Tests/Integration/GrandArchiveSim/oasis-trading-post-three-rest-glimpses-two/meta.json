@@ -1,0 +1,22 @@
+{
+    "name": "oasis-trading-post-three-rest-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uy4xippor7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uy4xippor7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "(3), [REST]: **Glimpse 2**."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "hub-of-innovation-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aebjlwabip"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aebjlwabip"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw a card into your memory."
+        ]
+    }
+}
