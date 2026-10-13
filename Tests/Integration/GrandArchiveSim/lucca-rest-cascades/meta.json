@@ -1,0 +1,22 @@
+{
+    "name": "lucca-rest-cascades",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5JH6j7QVuG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5JH6j7QVuG"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "cascade"
+        ],
+        "rulesClauses": [
+            "**[REST]: ****Cascade**\u2014 "
+        ]
+    }
+}

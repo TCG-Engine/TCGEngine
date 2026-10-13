@@ -1,0 +1,23 @@
+{
+    "name": "sun-jian-attacking-a-beast-gets-plus-two-power-and-cannot-be-retaliated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:50:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b23a85z88j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b23a85z88j"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "restriction",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as Sun Jian is attacking a Beast unit, Sun Jian gets +2 [POWER] and her attacks can't be retaliated."
+        ]
+    }
+}

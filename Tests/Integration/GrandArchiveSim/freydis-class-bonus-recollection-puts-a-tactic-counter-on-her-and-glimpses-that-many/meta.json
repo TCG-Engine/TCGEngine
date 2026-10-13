@@ -1,0 +1,23 @@
+{
+    "name": "freydis-class-bonus-recollection-puts-a-tactic-counter-on-her-and-glimpses-that-many",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7dedg616r0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7dedg616r0"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "counter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, put a **tactic** counter on CARDNAME, then **glimpse X** where **X** is the amount of **tactic** counters on CARDNAME."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:49:58+00:00",
+    "generatedAt": "2026-10-13T21:52:49+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2017,
+        "cardsWithExistingFixtures": 2028,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 460,
+        "cardsNeedingSemanticCoverage": 449,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1645,25 +1645,6 @@
             "priority": 15
         },
         {
-            "cardId": "TvugEkGGVd",
-            "name": "Hua Xiong, Insurgent's Fang",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "okDVkV1l76",
             "name": "Hymn of Gaia's Grace",
             "type": "ACTION",
@@ -2974,24 +2955,6 @@
             "priority": 14
         },
         {
-            "cardId": "2nc48s3oqh",
-            "name": "Mad Hatter, Morose Heritor",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "mt5zs1w6c0",
             "name": "Mary Ann, Maladroit Maid",
             "type": "UNIQUE,ALLY",
@@ -3559,24 +3522,6 @@
                 "cost",
                 "damage",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "55d7vo62fc",
-            "name": "Zhou Yu, Enlightened Sage",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4878,23 +4823,6 @@
             "priority": 13
         },
         {
-            "cardId": "c5hgwip1ik",
-            "name": "Sun Quan, Sealbearer",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "dmbBXRTVIk",
             "name": "Sword of Avarice",
             "type": "REGALIA,WEAPON",
@@ -5107,23 +5035,6 @@
             "mechanics": [
                 "counter",
                 "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "el7cwdzin7",
-            "name": "Zhang Jiao, Way of Peace",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -5693,22 +5604,6 @@
             "priority": 12
         },
         {
-            "cardId": "7dedg616r0",
-            "name": "Freydis, Master Tactician",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "cECG4Wrl9M",
             "name": "Fulminating Storm",
             "type": "ACTION",
@@ -6205,22 +6100,6 @@
             "priority": 12
         },
         {
-            "cardId": "GhxADim7Kf",
-            "name": "Sinon, Babelia's Companion",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "dv3zb9p4lg",
             "name": "Sorrowcaller",
             "type": "REGALIA,WEAPON",
@@ -6324,22 +6203,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "b23a85z88j",
-            "name": "Sun Jian, Wolvesbane",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6485,22 +6348,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "xdgpdcD33h",
-            "name": "Virgil, Altered Future",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7128,21 +6975,6 @@
             "priority": 11
         },
         {
-            "cardId": "eO5wsjwRyQ",
-            "name": "Galahad, Court Knight",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "j9s7xQdpf1",
             "name": "Gate of Alterity",
             "type": "REGALIA,ITEM",
@@ -7345,21 +7177,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "5JH6j7QVuG",
-            "name": "Lucca, Gateway Manager",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -28644,6 +28461,29 @@
             "priority": 35
         },
         {
+            "cardId": "TvugEkGGVd",
+            "name": "Hua Xiong, Insurgent's Fang",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "combat"
+            ],
+            "existingFixtures": [
+                "hua-xiong-the-first-card-an-opponent-activates-each-turn-costs-one-more"
+            ],
+            "semanticFixtures": [
+                "hua-xiong-the-first-card-an-opponent-activates-each-turn-costs-one-more"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "snke7lneo4",
             "name": "Hulao Gate, Sun's Ascent",
             "type": "UNIQUE,DOMAIN",
@@ -33720,6 +33560,28 @@
             "priority": 34
         },
         {
+            "cardId": "2nc48s3oqh",
+            "name": "Mad Hatter, Morose Heritor",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mad-hatter-ranged-three-while-distant"
+            ],
+            "semanticFixtures": [
+                "mad-hatter-ranged-three-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "oh300z2sns",
             "name": "Magebane Lash",
             "type": "REGALIA,WEAPON",
@@ -36446,6 +36308,28 @@
             ],
             "semanticFixtures": [
                 "zhang-he-cloak-of-night-class-bonus-enter-gives-another-ally-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "55d7vo62fc",
+            "name": "Zhou Yu, Enlightened Sage",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zhou-yu-class-bonus-enter-materializes-a-book-from-the-material-deck"
+            ],
+            "semanticFixtures": [
+                "zhou-yu-class-bonus-enter-materializes-a-book-from-the-material-deck"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42708,6 +42592,29 @@
             "priority": 33
         },
         {
+            "cardId": "c5hgwip1ik",
+            "name": "Sun Quan, Sealbearer",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sun-quan-level-one-enter-puts-a-buff-counter-on-another-ally",
+                "sun-quan-level-two-buffed-allies-lose-pride"
+            ],
+            "semanticFixtures": [
+                "sun-quan-level-one-enter-puts-a-buff-counter-on-another-ally",
+                "sun-quan-level-two-buffed-allies-lose-pride"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "VpM6CAp4ts",
             "name": "Surging Obstruction",
             "type": "ACTION",
@@ -43513,6 +43420,27 @@
                 "yunzhou-cavalry-equestrian-on-enter-with-a-horse-becomes-distant",
                 "yunzhou-cavalry-on-enter-without-a-horse-stays-not-distant",
                 "yunzhou-cavalry-without-the-class-bonus-has-no-ranged"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "el7cwdzin7",
+            "name": "Zhang Jiao, Way of Peace",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "zhang-jiao-enter-with-one-to-three-cards-in-memory-recovers-four"
+            ],
+            "semanticFixtures": [
+                "zhang-jiao-enter-with-one-to-three-cards-in-memory-recovers-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45599,6 +45527,26 @@
             ],
             "semanticFixtures": [
                 "freeze-stiff-rests-up-to-two-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "7dedg616r0",
+            "name": "Freydis, Master Tactician",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status"
+            ],
+            "existingFixtures": [
+                "freydis-class-bonus-recollection-puts-a-tactic-counter-on-her-and-glimpses-that-many"
+            ],
+            "semanticFixtures": [
+                "freydis-class-bonus-recollection-puts-a-tactic-counter-on-her-and-glimpses-that-many"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48653,6 +48601,26 @@
             "priority": 32
         },
         {
+            "cardId": "GhxADim7Kf",
+            "name": "Sinon, Babelia's Companion",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "sinon-rest-and-sacrificing-a-powercell-cascades"
+            ],
+            "semanticFixtures": [
+                "sinon-rest-and-sacrificing-a-powercell-cascades"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "o0nkly21ee",
             "name": "Slash and Burn",
             "type": "ACTION",
@@ -49062,6 +49030,26 @@
             "semanticFixtures": [
                 "subjugating-lash-below-twelve-damage-has-its-printed-power",
                 "subjugating-lash-with-twelve-damage-on-the-champion-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "b23a85z88j",
+            "name": "Sun Jian, Wolvesbane",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sun-jian-attacking-a-beast-gets-plus-two-power-and-cannot-be-retaliated"
+            ],
+            "semanticFixtures": [
+                "sun-jian-attacking-a-beast-gets-plus-two-power-and-cannot-be-retaliated"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49744,6 +49732,26 @@
             ],
             "semanticFixtures": [
                 "veltech-presidential-card-veltech-cards-you-activate-cost-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "xdgpdcD33h",
+            "name": "Virgil, Altered Future",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "virgil-level-one-gets-plus-one-power-and-life-for-each-of-up-to-two-powercells"
+            ],
+            "semanticFixtures": [
+                "virgil-level-one-gets-plus-one-power-and-life-for-each-of-up-to-two-powercells"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51702,6 +51710,25 @@
             "priority": 31
         },
         {
+            "cardId": "eO5wsjwRyQ",
+            "name": "Galahad, Court Knight",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "galahad-class-bonus-can-attack-using-a-sword-weapon"
+            ],
+            "semanticFixtures": [
+                "galahad-class-bonus-can-attack-using-a-sword-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "flHhosV3nC",
             "name": "Gale's Mare",
             "type": "ALLY",
@@ -52471,6 +52498,27 @@
                 "longtail-grovesward-below-level-one-has-its-printed-life",
                 "longtail-grovesward-fast-activation-can-be-played-from-a-response-window",
                 "longtail-grovesward-level-one-gets-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "5JH6j7QVuG",
+            "name": "Lucca, Gateway Manager",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "lucca-class-bonus-vigor-wakes-her-at-the-end-of-the-turn",
+                "lucca-rest-cascades"
+            ],
+            "semanticFixtures": [
+                "lucca-class-bonus-vigor-wakes-her-at-the-end-of-the-turn",
+                "lucca-rest-cascades"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

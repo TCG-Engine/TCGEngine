@@ -1,0 +1,22 @@
+{
+    "name": "galahad-class-bonus-can-attack-using-a-sword-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eO5wsjwRyQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eO5wsjwRyQ"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "weapon",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME can attack using Sword weapons you control."
+        ]
+    }
+}

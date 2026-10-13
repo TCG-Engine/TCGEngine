@@ -1,0 +1,22 @@
+{
+    "name": "zhou-yu-class-bonus-enter-materializes-a-book-from-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:50:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "55d7vo62fc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "55d7vo62fc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: Materialize a Book or Scripture card from your material deck."
+        ]
+    }
+}

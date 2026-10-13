@@ -6298,6 +6298,8 @@ function GAFieldAbilityCostTable() {
     $table = [
         "e5o3cm9lbe:0" => ['reserve' => 5, 'banish' => true], // Scepter of Lumina
         "yxk7e8opr6:0" => ['reserve' => 1, 'banish' => true], // Spectral Beacon (the (1) was never paid)
+        "5JH6j7QVuG:0" => ['rest' => true], // Lucca, Gateway Manager ("[REST]: Cascade" was never paid: she stayed awake and could cascade every turn)
+        "GhxADim7Kf:0" => ['rest' => true, 'sacrificePowercell' => true], // Sinon, Babelia's Companion ("[REST], Sacrifice a Powercell" was never paid)
         "h23qu7d6so:0" => ['rest' => true], // Temporal Spectrometer ("[REST]:" was never paid, so it could be activated repeatedly)
         "pgmsK3mcSo:0" => ['rest' => true, 'sacrificePowercell' => true], // Cell Reactor ("[REST], Sacrifice a Powercell" was never paid)
         "gyk90s0hst:0" => ['reserve' => 1, 'rest' => true], // Gossamer Staff
@@ -24508,6 +24510,8 @@ function HasVigor($obj) {
     if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Wicked Gildbreaker (YZQ8JOHehb): vigor (with stealth) while an opponent has influence nine or more
     if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller) && GetInfluence($obj->Controller == 1 ? 2 : 1) >= 9) return true;
+    // Lucca, Gateway Manager (5JH6j7QVuG): [Class Bonus] Vigor (missed by the keyword parser)
+    if($obj->CardID === "5JH6j7QVuG" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Yunzhou Cavalry (ann23jkuys): [CB] Vigor (missed by the keyword parser: the line follows an Equestrian clause)
     if($obj->CardID === "ann23jkuys" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
@@ -29046,10 +29050,10 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // The Keep's controller is the activator's opponent, on either player's turn (the old code looked in the turn player's field and skipped the turn player's own activations).
     $keepOwner = $player == 1 ? 2 : 1;
     $keepZone = ($keepOwner == $playerID) ? "myField" : "theirField";
+    // Hua Xiong, Insurgent's Fang (TvugEkGGVd) prints the same tax; each tax source adds 1 to the first card.
     foreach(GetZone($keepZone) as $kObj) {
-        if($kObj !== null && !$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
+        if($kObj !== null && !$kObj->removed && ($kObj->CardID === "gjhv2etytr" || $kObj->CardID === "TvugEkGGVd") && !HasNoAbilities($kObj)) {
             if(CardActivatedCallCount($player) == 0) $reserveCost += 1;
-            break;
         }
     }
 

@@ -1,0 +1,22 @@
+{
+    "name": "mad-hatter-ranged-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2nc48s3oqh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2nc48s3oqh"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 3** *(As long as this unit is **distant**, its attacks get +3[POWER].)*"
+        ]
+    }
+}
