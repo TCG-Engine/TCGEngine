@@ -1,0 +1,21 @@
+{
+    "name": "whisperwind-compass-on-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UXqhPZEq0X"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UXqhPZEq0X"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter: **Draw a card into your memory."
+        ]
+    }
+}

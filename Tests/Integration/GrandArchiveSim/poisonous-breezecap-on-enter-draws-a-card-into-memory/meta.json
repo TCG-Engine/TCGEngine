@@ -1,0 +1,21 @@
+{
+    "name": "poisonous-breezecap-on-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e3ldc3r8j7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e3ldc3r8j7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter: **Draw a card into your memory."
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "step": 8,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "On Hit: the first Dungeon Guide got +1 power (1 + 1)"
+    },
+    {
+        "step": 8,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-3",
+        "value": 2,
+        "semantic": true,
+        "label": "On Hit: up to two allies: the second Dungeon Guide got +1 power too"
+    }
+]

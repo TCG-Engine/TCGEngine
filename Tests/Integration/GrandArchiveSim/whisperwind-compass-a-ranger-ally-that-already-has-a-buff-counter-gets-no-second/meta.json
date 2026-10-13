@@ -1,0 +1,22 @@
+{
+    "name": "whisperwind-compass-a-ranger-ally-that-already-has-a-buff-counter-gets-no-second",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UXqhPZEq0X"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UXqhPZEq0X"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if that ally has no **buff** counters on it"
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The linked ally was returned to its owner's memory"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion is left on the field"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "rdI48Qb5mP",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "StrideTech W was sacrificed"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:53:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzfkc8ntn4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzfkc8ntn4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "draw"
+        ],
+        "rulesClauses": [
+            "(4), **Banish CARDNAME**: Draw a card."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "ceremonial-stormblade-without-the-class-bonus-gets-no-durability-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:49:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "au5sw9f8uq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "au5sw9f8uq"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:**"
+        ]
+    }
+}

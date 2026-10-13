@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Orb left the field"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myMaterial",
+        "cardID": "ygqehvpblj",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "It returned to the material deck"
+    }
+]

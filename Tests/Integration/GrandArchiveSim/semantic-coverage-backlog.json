@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T13:42:17+00:00",
+    "generatedAt": "2026-10-13T13:55:44+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1535,
+        "cardsWithExistingFixtures": 1555,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 942,
+        "cardsNeedingSemanticCoverage": 922,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -118,24 +118,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 33
-        },
-        {
-            "cardId": "oCqKBEPemA",
-            "name": "Aenean Flux Generator",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 1,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 32
         },
         {
             "cardId": "PboHrwPZgP",
@@ -983,42 +965,6 @@
             "priority": 24
         },
         {
-            "cardId": "0Z1r8GC8a8",
-            "name": "Speed Potion",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "rdI48Qb5mP",
-            "name": "StrideTech W",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "uLuofHw9os",
             "name": "Tomb Sweep",
             "type": "ACTION",
@@ -1063,24 +1009,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "hreqhj1trn",
-            "name": "Windpiercer",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -1219,23 +1147,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "ygqehvpblj",
-            "name": "Cloudstone Orb",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1930,22 +1841,6 @@
             "priority": 22
         },
         {
-            "cardId": "f8urrqtjot",
-            "name": "Turbulent Bullet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "uWLKGJz1GY",
             "name": "Unmake Duality",
             "type": "ACTION",
@@ -1954,22 +1849,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "0iqmyn2rz3",
-            "name": "Vanishing Shot",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3693,44 +3572,6 @@
             "priority": 15
         },
         {
-            "cardId": "UXqhPZEq0X",
-            "name": "Whisperwind Compass",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "73fdt8ptrz",
-            "name": "Windwalker Boots",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "wftz07gc85",
             "name": "Withering Grasp",
             "type": "ACTION",
@@ -4051,24 +3892,6 @@
                 "cost",
                 "targeting",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "dvxsl5klqe",
-            "name": "Bell of the Chosen",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5554,24 +5377,6 @@
             "priority": 14
         },
         {
-            "cardId": "LeyUk5auEP",
-            "name": "Purifying Thurible",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "RO2CcBrILQ",
             "name": "Radiant Repudiation",
             "type": "ACTION",
@@ -6812,23 +6617,6 @@
             "priority": 13
         },
         {
-            "cardId": "au5sw9f8uq",
-            "name": "Ceremonial Stormblade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pbtudivyzb",
             "name": "Chamber of Reflections",
             "type": "UNIQUE,DOMAIN",
@@ -7288,23 +7076,6 @@
             "priority": 13
         },
         {
-            "cardId": "akb1k0zi5h",
-            "name": "Effigy of Gaia",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pw9b6IJWEr",
             "name": "Embrace Noir",
             "type": "ACTION",
@@ -7313,23 +7084,6 @@
             "mechanics": [
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "rptjej4mcn",
-            "name": "Emerald Pistol",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7985,23 +7739,6 @@
             "priority": 13
         },
         {
-            "cardId": "k0hliqs2hi",
-            "name": "Liquid Amnesia",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "hh88rx6p3p",
             "name": "Loaded Thoughts",
             "type": "REGALIA,WEAPON",
@@ -8470,23 +8207,6 @@
                 "targeting",
                 "damage",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "e3ldc3r8j7",
-            "name": "Poisonous Breezecap",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9541,23 +9261,6 @@
                 "cost",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "lzfkc8ntn4",
-            "name": "Windspire Crest",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12977,22 +12680,6 @@
             "priority": 12
         },
         {
-            "cardId": "tjot4nmxqs",
-            "name": "Wildgrowth Elixir",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "1dvdlhtiym",
             "name": "Winbless Hurricane Farm",
             "type": "DOMAIN",
@@ -13048,22 +12735,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "i6eifnz0fg",
-            "name": "Zephyr's Edge",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14371,21 +14042,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "MTm7r2KOSS",
-            "name": "GustTech Shield",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31103,6 +30759,28 @@
             "priority": 53
         },
         {
+            "cardId": "oCqKBEPemA",
+            "name": "Aenean Flux Generator",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 1,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "aenean-flux-generator-on-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "aenean-flux-generator-on-enter-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 52
+        },
+        {
             "cardId": "mes4idoihs",
             "name": "Proof of Life",
             "type": "ACTION",
@@ -32208,6 +31886,54 @@
             "priority": 44
         },
         {
+            "cardId": "0Z1r8GC8a8",
+            "name": "Speed Potion",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "speed-potion-brewed-on-enter-draws-a-card",
+                "speed-potion-sacrifice-gains-agility-three-this-turn"
+            ],
+            "semanticFixtures": [
+                "speed-potion-brewed-on-enter-draws-a-card",
+                "speed-potion-sacrifice-gains-agility-three-this-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "rdI48Qb5mP",
+            "name": "StrideTech W",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stridetech-w-on-enter-with-the-linked-ally-draws-into-memory",
+                "stridetech-w-pays-one-and-sacrifices-itself-to-return-the-linked-ally-to-memory"
+            ],
+            "semanticFixtures": [
+                "stridetech-w-on-enter-with-the-linked-ally-draws-into-memory",
+                "stridetech-w-pays-one-and-sacrifices-itself-to-return-the-linked-ally-to-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "4etkr73opc",
             "name": "Tempest Downfall",
             "type": "ACTION",
@@ -32416,6 +32142,32 @@
             ],
             "semanticFixtures": [
                 "wind-surge-emitter-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "hreqhj1trn",
+            "name": "Windpiercer",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windpiercer-on-attack-a-non-wind-card-on-top-gives-no-bonus",
+                "windpiercer-on-attack-glimpses-one-and-a-wind-card-on-top-gives-plus-two-power",
+                "windpiercer-rests-to-load-itself-into-an-unloaded-gun"
+            ],
+            "semanticFixtures": [
+                "windpiercer-on-attack-a-non-wind-card-on-top-gives-no-bonus",
+                "windpiercer-on-attack-glimpses-one-and-a-wind-card-on-top-gives-plus-two-power",
+                "windpiercer-rests-to-load-itself-into-an-unloaded-gun"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32643,6 +32395,29 @@
             ],
             "semanticFixtures": [
                 "channeltech-charm-s-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "ygqehvpblj",
+            "name": "Cloudstone Orb",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cloudstone-orb-class-bonus-pays-three-to-return-to-the-material-deck",
+                "cloudstone-orb-on-enter-empowers-by-the-number-of-wind-non-champion-objects"
+            ],
+            "semanticFixtures": [
+                "cloudstone-orb-class-bonus-pays-three-to-return-to-the-material-deck",
+                "cloudstone-orb-on-enter-empowers-by-the-number-of-wind-non-champion-objects"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34044,6 +33819,28 @@
             "priority": 42
         },
         {
+            "cardId": "f8urrqtjot",
+            "name": "Turbulent Bullet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat"
+            ],
+            "existingFixtures": [
+                "turbulent-bullet-class-bonus-on-hit-gives-up-to-two-allies-plus-one-power",
+                "turbulent-bullet-rests-to-load-itself-into-an-unloaded-gun"
+            ],
+            "semanticFixtures": [
+                "turbulent-bullet-class-bonus-on-hit-gives-up-to-two-allies-plus-one-power",
+                "turbulent-bullet-rests-to-load-itself-into-an-unloaded-gun"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "rYyOEGB3tD",
             "name": "Turm, Schwartz Rook",
             "type": "UNIQUE,ALLY",
@@ -34058,6 +33855,28 @@
             ],
             "semanticFixtures": [
                 "turm-schwartz-rook-alice-bonus-on-leave-buff-transfer"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "0iqmyn2rz3",
+            "name": "Vanishing Shot",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "vanishing-shot-on-ally-hit-may-return-the-hit-ally-to-its-owners-memory",
+                "vanishing-shot-rests-to-load-itself-into-an-unloaded-gun"
+            ],
+            "semanticFixtures": [
+                "vanishing-shot-on-ally-hit-may-return-the-hit-ally-to-its-owners-memory",
+                "vanishing-shot-rests-to-load-itself-into-an-unloaded-gun"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36381,6 +36200,33 @@
             "priority": 35
         },
         {
+            "cardId": "UXqhPZEq0X",
+            "name": "Whisperwind Compass",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "whisperwind-compass-a-ranger-ally-that-already-has-a-buff-counter-gets-no-second",
+                "whisperwind-compass-class-bonus-buffs-a-ranger-ally-that-becomes-distant",
+                "whisperwind-compass-on-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "whisperwind-compass-a-ranger-ally-that-already-has-a-buff-counter-gets-no-second",
+                "whisperwind-compass-class-bonus-buffs-a-ranger-ally-that-becomes-distant",
+                "whisperwind-compass-on-enter-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "y5ttkk39i1",
             "name": "Winbless Gatekeeper",
             "type": "ALLY",
@@ -36454,6 +36300,33 @@
             "semanticFixtures": [
                 "windmill-engineer-imbued-on-enter-draws-a-card-into-memory",
                 "windmill-engineer-not-imbued-on-enter-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "73fdt8ptrz",
+            "name": "Windwalker Boots",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windwalker-boots-banish-draws-a-card-with-five-preparation-counters",
+                "windwalker-boots-banish-needs-five-preparation-counters",
+                "windwalker-boots-class-bonus-end-phase-puts-a-preparation-counter-on-an-awake-champion"
+            ],
+            "semanticFixtures": [
+                "windwalker-boots-banish-draws-a-card-with-five-preparation-counters",
+                "windwalker-boots-banish-needs-five-preparation-counters",
+                "windwalker-boots-class-bonus-end-phase-puts-a-preparation-counter-on-an-awake-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36827,6 +36700,28 @@
                 "battlefield-spotter-below-level-two-grants-no-ranged",
                 "battlefield-spotter-class-bonus-on-enter-makes-another-ally-distant",
                 "battlefield-spotter-level-two-gives-other-units-ranged-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "dvxsl5klqe",
+            "name": "Bell of the Chosen",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bell-of-the-chosen-on-enter-puts-a-quest-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "bell-of-the-chosen-on-enter-puts-a-quest-counter-on-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39151,6 +39046,31 @@
             ],
             "semanticFixtures": [
                 "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "LeyUk5auEP",
+            "name": "Purifying Thurible",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "purifying-thurible-banishes-three-cards-from-the-opponents-graveyard-and-draws-into-memory",
+                "purifying-thurible-banishes-x-cards-from-the-opponents-graveyard",
+                "purifying-thurible-banishing-two-cards-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "purifying-thurible-banishes-three-cards-from-the-opponents-graveyard-and-draws-into-memory",
+                "purifying-thurible-banishing-two-cards-draws-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41657,6 +41577,29 @@
             "priority": 33
         },
         {
+            "cardId": "au5sw9f8uq",
+            "name": "Ceremonial Stormblade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ceremonial-stormblade-class-bonus-on-enter-puts-a-durability-counter-per-wind-ally",
+                "ceremonial-stormblade-without-the-class-bonus-gets-no-durability-counters"
+            ],
+            "semanticFixtures": [
+                "ceremonial-stormblade-class-bonus-on-enter-puts-a-durability-counter-per-wind-ally",
+                "ceremonial-stormblade-without-the-class-bonus-gets-no-durability-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ffy4dwavco",
             "name": "Charged Assailant",
             "type": "ALLY",
@@ -42094,6 +42037,29 @@
             "priority": 33
         },
         {
+            "cardId": "akb1k0zi5h",
+            "name": "Effigy of Gaia",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "effigy-of-gaia-class-bonus-with-an-animal-ally-gives-your-champion-plus-one-level",
+                "effigy-of-gaia-without-an-animal-ally-gives-no-level"
+            ],
+            "semanticFixtures": [
+                "effigy-of-gaia-class-bonus-with-an-animal-ally-gives-your-champion-plus-one-level",
+                "effigy-of-gaia-without-an-animal-ally-gives-no-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "k2d3ca13yr",
             "name": "Embercrypt Burn",
             "type": "ACTION",
@@ -42130,6 +42096,27 @@
             ],
             "semanticFixtures": [
                 "embersong-deals-two-damage-to-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "rptjej4mcn",
+            "name": "Emerald Pistol",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "emerald-pistol-class-bonus-on-enter-materializes-a-memory-cost-zero-bullet"
+            ],
+            "semanticFixtures": [
+                "emerald-pistol-class-bonus-on-enter-materializes-a-memory-cost-zero-bullet"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43176,6 +43163,31 @@
             "priority": 33
         },
         {
+            "cardId": "k0hliqs2hi",
+            "name": "Liquid Amnesia",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "liquid-amnesia-class-bonus-recollection-puts-an-age-counter-on-it",
+                "liquid-amnesia-sacrifice-banishes-a-random-memory-card-per-three-age-counters",
+                "liquid-amnesia-without-the-class-bonus-gets-no-age-counter"
+            ],
+            "semanticFixtures": [
+                "liquid-amnesia-class-bonus-recollection-puts-an-age-counter-on-it",
+                "liquid-amnesia-sacrifice-banishes-a-random-memory-card-per-three-age-counters",
+                "liquid-amnesia-without-the-class-bonus-gets-no-age-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "b6BFtEqtQM",
             "name": "Liquidation",
             "type": "ACTION",
@@ -43892,6 +43904,27 @@
             "semanticFixtures": [
                 "poised-rearguard-class-bonus-with-a-horse-ally-wakes-up-on-enter",
                 "poised-rearguard-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "e3ldc3r8j7",
+            "name": "Poisonous Breezecap",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "poisonous-breezecap-on-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "poisonous-breezecap-on-enter-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45713,6 +45746,27 @@
                 "winds-of-destiny-declining-the-alternate-cost-pays-three",
                 "winds-of-destiny-one-fatestone-does-not-offer-the-alternate-cost",
                 "winds-of-destiny-resting-two-fatestones-replaces-the-reserve-cost-and-suppresses"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "lzfkc8ntn4",
+            "name": "Windspire Crest",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card"
+            ],
+            "semanticFixtures": [
+                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49616,6 +49670,28 @@
             "priority": 32
         },
         {
+            "cardId": "tjot4nmxqs",
+            "name": "Wildgrowth Elixir",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "wildgrowth-elixir-recollection-puts-an-age-counter-on-it",
+                "wildgrowth-elixir-sacrifice-puts-buff-counters-equal-to-its-age-counters"
+            ],
+            "semanticFixtures": [
+                "wildgrowth-elixir-recollection-puts-an-age-counter-on-it",
+                "wildgrowth-elixir-sacrifice-puts-buff-counters-equal-to-its-age-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "f05n4ulo84",
             "name": "Wildheart Hymn",
             "type": "ACTION",
@@ -49721,6 +49797,28 @@
             ],
             "semanticFixtures": [
                 "zena-alt-cost-declined-pays-normal-reserve"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "i6eifnz0fg",
+            "name": "Zephyr's Edge",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zephyrs-edge-class-bonus-on-enter-outside-the-materialize-phase-gets-plus-one-power",
+                "zephyrs-edge-without-the-class-bonus-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "zephyrs-edge-class-bonus-on-enter-outside-the-materialize-phase-gets-plus-one-power",
+                "zephyrs-edge-without-the-class-bonus-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50593,6 +50691,25 @@
             "priority": 31
         },
         {
+            "cardId": "MTm7r2KOSS",
+            "name": "GustTech Shield",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "gusttech-shield-links-to-an-ally-which-gets-vigor"
+            ],
+            "semanticFixtures": [
+                "gusttech-shield-links-to-an-ally-which-gets-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "997vxajn2q",
             "name": "Halcyon Prism",
             "type": "REGALIA,ITEM",
@@ -51385,10 +51502,10 @@
                 "condition"
             ],
             "existingFixtures": [
-                "winbless-forecaster-adds-one_extra_enlighten-counter-whenever-counters-are-put-on-your-champion"
+                "winbless-forecaster-adds-one-to-enlighten-counters-put-on-your-champion"
             ],
             "semanticFixtures": [
-                "winbless-forecaster-adds-one_extra_enlighten-counter-whenever-counters-are-put-on-your-champion"
+                "winbless-forecaster-adds-one-to-enlighten-counters-put-on-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

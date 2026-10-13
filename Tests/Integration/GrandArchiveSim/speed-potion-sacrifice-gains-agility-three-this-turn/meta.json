@@ -1,0 +1,21 @@
+{
+    "name": "speed-potion-sacrifice-gains-agility-three-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0Z1r8GC8a8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0Z1r8GC8a8"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "agility"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** You gain **agility 3** for this turn."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "zephyrs-edge-without-the-class-bonus-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:49:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i6eifnz0fg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i6eifnz0fg"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:**"
+        ]
+    }
+}

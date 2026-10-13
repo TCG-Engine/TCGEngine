@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Four paid and one drawn: 7 - 4 + 1"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "lzfkc8ntn4",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Crest banished itself"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "emerald-pistol-class-bonus-on-enter-materializes-a-memory-cost-zero-bullet",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:49:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rptjej4mcn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rptjej4mcn"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Materialize a Bullet card with memory cost 0 from your material deck."
+        ]
+    }
+}

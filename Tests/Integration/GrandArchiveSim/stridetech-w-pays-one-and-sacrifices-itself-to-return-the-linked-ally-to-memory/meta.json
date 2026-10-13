@@ -1,0 +1,22 @@
+{
+    "name": "stridetech-w-pays-one-and-sacrifices-itself-to-return-the-linked-ally-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:54:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rdI48Qb5mP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rdI48Qb5mP"
+        ],
+        "mechanics": [
+            "ally-link",
+            "sacrifice",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**(1), Sacrifice CARDNAME: **Return the linked ally to its owner's memory."
+        ]
+    }
+}

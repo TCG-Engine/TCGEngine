@@ -1,0 +1,21 @@
+{
+    "name": "bell-of-the-chosen-on-enter-puts-a-quest-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:53:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dvxsl5klqe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dvxsl5klqe"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Put a **quest** counter on your champion."
+        ]
+    }
+}

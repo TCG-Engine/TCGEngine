@@ -1,0 +1,23 @@
+{
+    "name": "turbulent-bullet-class-bonus-on-hit-gives-up-to-two-allies-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:51:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f8urrqtjot"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f8urrqtjot"
+        ],
+        "mechanics": [
+            "on-hit",
+            "class-bonus",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** Up to two target allies you control get +1 [POWER] until end of turn."
+        ]
+    }
+}

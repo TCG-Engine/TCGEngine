@@ -1,0 +1,23 @@
+{
+    "name": "zephyrs-edge-class-bonus-on-enter-outside-the-materialize-phase-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:49:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i6eifnz0fg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i6eifnz0fg"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If it's not your materialize phase, CARDNAME gets +1 [POWER] until end of turn."
+        ]
+    }
+}

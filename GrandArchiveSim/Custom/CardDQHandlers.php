@@ -3497,10 +3497,11 @@ $customDQHandlers["TurbulentBulletBuff"] = function($player, $parts, $lastDecisi
     if($lastDecision === "-" || $lastDecision === "" || $remaining <= 0) return;
     AddTurnEffect($lastDecision, "f8urrqtjot"); // Turbulent Bullet effect ID
     if($remaining > 1) {
-        $allies = ZoneSearch("myField", ["ALLY"]);
+        // "Up to two target allies": a second, different ally. The follow-up carried "|0" remaining, so the second pick was ignored.
+        $allies = array_values(array_filter(ZoneSearch("myField", ["ALLY"]), fn($mz) => $mz !== $lastDecision));
         if(!empty($allies)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allies), 1, "Choose_another_ally_for_+1_power?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "TurbulentBulletBuff|0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "TurbulentBulletBuff|" . ($remaining - 1), 1);
         }
     }
 };

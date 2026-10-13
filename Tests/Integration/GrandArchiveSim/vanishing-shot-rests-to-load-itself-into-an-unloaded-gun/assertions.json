@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Subcards",
+        "value": "[\"0iqmyn2rz3\"]",
+        "semantic": true,
+        "label": "The bullet is loaded into the Gun"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The bullet left the field: only the champion and the Gun remain"
+    }
+]

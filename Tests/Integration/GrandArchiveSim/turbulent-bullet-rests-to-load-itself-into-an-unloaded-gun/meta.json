@@ -1,0 +1,22 @@
+{
+    "name": "turbulent-bullet-rests-to-load-itself-into-an-unloaded-gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:50:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f8urrqtjot"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f8urrqtjot"
+        ],
+        "mechanics": [
+            "load",
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

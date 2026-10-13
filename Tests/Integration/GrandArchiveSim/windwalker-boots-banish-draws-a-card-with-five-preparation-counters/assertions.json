@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Banished the Boots to draw a card"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "73fdt8ptrz",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Boots were banished"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "ceremonial-stormblade-class-bonus-on-enter-puts-a-durability-counter-per-wind-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:48:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "au5sw9f8uq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "au5sw9f8uq"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "counter",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Put a **durability** counter on CARDNAME for each wind element ally you control."
+        ]
+    }
+}

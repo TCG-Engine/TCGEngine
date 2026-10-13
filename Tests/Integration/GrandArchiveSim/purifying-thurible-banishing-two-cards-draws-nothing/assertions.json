@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two cards in the opponent's banishment"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "X was 2: only the two paid cards, nothing drawn"
+    }
+]

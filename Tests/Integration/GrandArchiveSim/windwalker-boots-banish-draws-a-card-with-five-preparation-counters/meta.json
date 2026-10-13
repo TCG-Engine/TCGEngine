@@ -1,0 +1,23 @@
+{
+    "name": "windwalker-boots-banish-draws-a-card-with-five-preparation-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:45:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "73fdt8ptrz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "73fdt8ptrz"
+        ],
+        "mechanics": [
+            "banish",
+            "draw",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw a card. Activate this ability only if your champion has five or more **preparation** counters on them."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "wildgrowth-elixir-sacrifice-puts-buff-counters-equal-to-its-age-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:46:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tjot4nmxqs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tjot4nmxqs"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "counter",
+            "targeting",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Put **X buff** counters on target ally, where **X** is the amount of **age** counters on CARDNAME."
+        ]
+    }
+}

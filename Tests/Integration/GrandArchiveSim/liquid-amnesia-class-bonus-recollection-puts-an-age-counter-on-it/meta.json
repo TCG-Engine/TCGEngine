@@ -1,0 +1,22 @@
+{
+    "name": "liquid-amnesia-class-bonus-recollection-puts-an-age-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:47:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k0hliqs2hi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k0hliqs2hi"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "recollection",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, put an **age** counter on CARDNAME."
+        ]
+    }
+}

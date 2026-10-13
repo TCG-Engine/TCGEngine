@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "theirMemory",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The hit ally returned to its owner's memory"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion is left on the opponent's field"
+    }
+]
