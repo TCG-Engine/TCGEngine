@@ -1,0 +1,22 @@
+{
+    "name": "veiled-oracle-enter-becomes-ephemeral-and-glimpses-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4dpp2s3neh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4dpp2s3neh"
+        ],
+        "mechanics": [
+            "on-enter",
+            "ephemeral",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Veiled Oracle becomes **ephemeral**. **Glimpse 3**."
+        ]
+    }
+}

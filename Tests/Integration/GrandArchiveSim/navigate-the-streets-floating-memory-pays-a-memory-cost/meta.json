@@ -1,0 +1,22 @@
+{
+    "name": "navigate-the-streets-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8jypwc8tuh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8jypwc8tuh"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    }
+}

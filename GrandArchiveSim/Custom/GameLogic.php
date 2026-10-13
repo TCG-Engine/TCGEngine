@@ -17659,16 +17659,18 @@ $customDQHandlers["OvationGuideMaterialize"] = function($player, $parts, $lastDe
     $sourcePlayer = intval($parts[0] ?? $player);
     $chosen = $lastDecision;
     if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
-    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "OvationGuideAfterMaterialize|" . $sourcePlayer . "|" . $chosen, 1);
+    $materialBefore = 0;
+    foreach(GetMaterial($player) as $materialObj) { if(!$materialObj->removed) ++$materialBefore; }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|CONTINUE|" . $chosen, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OvationGuideAfterMaterialize|" . $sourcePlayer . "|" . $materialBefore, 3);
 };
 
 $customDQHandlers["OvationGuideAfterMaterialize"] = function($player, $parts, $lastDecision) {
     $sourcePlayer = intval($parts[0] ?? $player);
-    $chosen = $parts[1] ?? "";
-    if($chosen === "") return;
-    $obj = GetZoneObject($chosen);
-    if($obj !== null && !$obj->removed) return;
+    $materialBefore = intval($parts[1] ?? 0);
+    $materialAfter = 0;
+    foreach(GetMaterial($player) as $materialObj) { if(!$materialObj->removed) ++$materialAfter; }
+    if($materialAfter >= $materialBefore) return; // nothing was materialized (the cost could not be paid)
     Draw($sourcePlayer, 1);
     GainCrowdsFavor($sourcePlayer);
 };

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn",
+        "semantic": true,
+        "label": "The champion levelled up, so the 1-memory cost was paid"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Maiden of Shimmering Air was banished from the graveyard as the floating memory payment"
+    }
+]

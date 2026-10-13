@@ -1,0 +1,22 @@
+{
+    "name": "summon-pawn-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SM2A2o5hru"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SM2A2o5hru"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

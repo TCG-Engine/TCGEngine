@@ -1,0 +1,21 @@
+{
+    "name": "ovation-guide-enter-the-opponent-declining-gives-you-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:42:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "R4IZe3rh4V"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "R4IZe3rh4V"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Target opponent may materialize a champion card from their material deck."
+        ]
+    }
+}

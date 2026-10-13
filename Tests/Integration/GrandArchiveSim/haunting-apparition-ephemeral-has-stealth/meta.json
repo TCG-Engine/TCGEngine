@@ -1,0 +1,22 @@
+{
+    "name": "haunting-apparition-ephemeral-has-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:41:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UtwWXmc0IU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UtwWXmc0IU"
+        ],
+        "mechanics": [
+            "ephemeral",
+            "condition",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **ephemeral**, it has **stealth**."
+        ]
+    }
+}

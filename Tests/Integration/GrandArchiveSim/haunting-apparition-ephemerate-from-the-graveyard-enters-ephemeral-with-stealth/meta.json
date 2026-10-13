@@ -1,0 +1,22 @@
+{
+    "name": "haunting-apparition-ephemerate-from-the-graveyard-enters-ephemeral-with-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:41:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UtwWXmc0IU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UtwWXmc0IU"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "graveyard-activation",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "**Ephemerate \u2014** (5)"
+        ]
+    }
+}

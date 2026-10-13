@@ -1,0 +1,23 @@
+{
+    "name": "hefty-hammering-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ceqDwfTzFI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ceqDwfTzFI"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    }
+}

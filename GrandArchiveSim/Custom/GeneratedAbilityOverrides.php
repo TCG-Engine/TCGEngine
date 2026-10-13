@@ -2874,6 +2874,19 @@ $customDQHandlers["9ZapXmmBc9:0:Enter-1"] = function($player, $parts, $lastDecis
     PurifyingThuribleBanishLoop($player, GetOpponent($player), 1);
 };
 
+// Six of Spades tdRR5lQHMN: "Cardistry — (6): CARDNAME loses stealth and gets +2 LIFE until end of turn. You may change the target of an attack to CARDNAME." The generated body stored its own
+// zone id as CombatTarget (the wrong perspective, and without moving the target marker), so the attack still hit its original target. It now offers the redirect the way Atmos Shield does.
+$activateAbilityAbilities["tdRR5lQHMN:0"] = function($player) { //Cardistry
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $obj = &GetZoneObject($mzID);
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters['cardistry_used'] = 1;
+    AddTurnEffect($mzID, "LOSE_STEALTH");
+    AddTurnEffect($mzID, "tdRR5lQHMN");
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Change_the_attack's_target_to_Six_of_Spades?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AtmosShieldRedirect|" . $mzID, 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

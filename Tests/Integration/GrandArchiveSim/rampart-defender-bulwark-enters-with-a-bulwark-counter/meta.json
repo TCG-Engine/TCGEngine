@@ -1,0 +1,21 @@
+{
+    "name": "rampart-defender-bulwark-enters-with-a-bulwark-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Znvu05tvWC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Znvu05tvWC"
+        ],
+        "mechanics": [
+            "keyword",
+            "bulwark"
+        ],
+        "rulesClauses": [
+            "**Bulwark** *(This ally enters the field with a **bulwark** counter on it. If combat damage would be dealt to an ally with any **bulwark** counters on it, remove one and prevent that damage instead.)*"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "night-barker-on-death-returns-to-the-field-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PiZqM1q9ly"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PiZqM1q9ly"
+        ],
+        "mechanics": [
+            "on-death",
+            "ephemeral",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Death: **Return CARDNAME from your graveyard to the field. It becomes **ephemeral**."
+        ]
+    }
+}

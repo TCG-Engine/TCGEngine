@@ -1,0 +1,22 @@
+{
+    "name": "capricious-lynx-class-bonus-enter-loses-all-abilities-so-it-obeys-at-level-zero",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:42:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1au7t9m4m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v1au7t9m4m"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "lose-abilities"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** CARDNAME loses all abilities until end of turn."
+        ]
+    }
+}

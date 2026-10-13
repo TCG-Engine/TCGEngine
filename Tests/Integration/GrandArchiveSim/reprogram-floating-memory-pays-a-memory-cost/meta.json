@@ -1,0 +1,22 @@
+{
+    "name": "reprogram-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6eanbrfnr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6eanbrfnr"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    }
+}

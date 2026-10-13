@@ -1,0 +1,18 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "No class bonus: 2 power"
+    },
+    {
+        "step": 1,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "No class bonus: 3 life"
+    }
+]

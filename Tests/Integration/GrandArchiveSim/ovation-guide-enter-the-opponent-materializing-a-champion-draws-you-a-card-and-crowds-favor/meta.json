@@ -1,0 +1,24 @@
+{
+    "name": "ovation-guide-enter-the-opponent-materializing-a-champion-draws-you-a-card-and-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:42:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "R4IZe3rh4V"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "R4IZe3rh4V"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice",
+            "materialize",
+            "draw",
+            "status"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Target opponent may materialize a champion card from their material deck. If they do, you draw a card and gain the Crowd's Favor status."
+        ]
+    }
+}

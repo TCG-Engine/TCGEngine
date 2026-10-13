@@ -1,0 +1,22 @@
+{
+    "name": "unwelcome-fortune-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pgt4lhko8w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pgt4lhko8w"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    }
+}

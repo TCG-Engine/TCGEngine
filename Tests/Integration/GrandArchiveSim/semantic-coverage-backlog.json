@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T15:36:44+00:00",
+    "generatedAt": "2026-10-13T20:48:19+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1709,
+        "cardsWithExistingFixtures": 1753,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 768,
+        "cardsNeedingSemanticCoverage": 724,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1992,25 +1992,6 @@
             "priority": 15
         },
         {
-            "cardId": "3bxtj3te9i",
-            "name": "Combat Training",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "y4c89re0bd",
             "name": "Cometary Vantage",
             "type": "ACTION",
@@ -2272,26 +2253,6 @@
                 "prevention",
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "6FGKeLTumW",
-            "name": "Fortification",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3801,24 +3762,6 @@
             "priority": 14
         },
         {
-            "cardId": "eU8IEVpFZg",
-            "name": "Equip with Courage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "4sm14RaEkg",
             "name": "Excalibur, Cursed Sword",
             "type": "REGALIA,WEAPON",
@@ -3829,24 +3772,6 @@
                 "damage",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "u1xhs5jwsl",
-            "name": "Exorcise Curses",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3901,42 +3826,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "r1nS4nDTyM",
-            "name": "Fatebound Caracal",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "44pr0h0yqi",
-            "name": "Feed Nourishment",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4431,24 +4320,6 @@
             "priority": 14
         },
         {
-            "cardId": "jK7LRuTSPh",
-            "name": "Manifest Threat",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "wz9gv4vm4k",
             "name": "Manufacture Cell",
             "type": "ACTION",
@@ -4567,24 +4438,6 @@
                 "targeting",
                 "damage",
                 "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "R4IZe3rh4V",
-            "name": "Ovation Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4809,24 +4662,6 @@
             "priority": 14
         },
         {
-            "cardId": "o6eanbrfnr",
-            "name": "Reprogram",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "zVdqJRbsk1",
             "name": "Reversal's Polarity",
             "type": "PHANTASIA",
@@ -4837,24 +4672,6 @@
                 "targeting",
                 "damage",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ptrz1bqry4",
-            "name": "Right of Realm",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4999,24 +4816,6 @@
                 "recover",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "tdRR5lQHMN",
-            "name": "Six of Spades",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5205,24 +5004,6 @@
             "priority": 14
         },
         {
-            "cardId": "SM2A2o5hru",
-            "name": "Summon Pawn",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "4ilomec3u3",
             "name": "Sunblessed Gazelle",
             "type": "ALLY",
@@ -5322,42 +5103,6 @@
                 "zone-movement",
                 "counter",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "chyfhweEro",
-            "name": "Tune Up",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "k21JAm6joz",
-            "name": "Valiant Protector",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5484,23 +5229,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "b3sm5e7pan",
-            "name": "Ameliorating Mantra",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6036,23 +5764,6 @@
             "priority": 13
         },
         {
-            "cardId": "bjvwbcizm6",
-            "name": "Deploy Gunshield",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "dih0LPaigc",
             "name": "Devised Conspiracy",
             "type": "ACTION",
@@ -6215,40 +5926,6 @@
                 "targeting",
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "3oda2ha4dk",
-            "name": "Fast Cure",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dt4YncETqE",
-            "name": "Floral Arrangement",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6461,23 +6138,6 @@
             "priority": 13
         },
         {
-            "cardId": "UtwWXmc0IU",
-            "name": "Haunting Apparition",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "PR4OkzJBVr",
             "name": "Hemorrhaged Intimidation",
             "type": "ACTION",
@@ -6521,23 +6181,6 @@
                 "targeting",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "9WeCxLlnbt",
-            "name": "Incantation of Prosperity",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6639,23 +6282,6 @@
             "mechanics": [
                 "status",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "WWnmb1Hjdo",
-            "name": "Leading Charge",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6784,23 +6410,6 @@
             "priority": 13
         },
         {
-            "cardId": "zuAmYGyCcL",
-            "name": "March On",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "7ddcgw05qz",
             "name": "Mercurial Heart",
             "type": "REGALIA,ITEM",
@@ -6852,23 +6461,6 @@
             "priority": 13
         },
         {
-            "cardId": "l65WqDzBMt",
-            "name": "Musical Curator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "jwsl7dedg6",
             "name": "Neos Elemental",
             "type": "ALLY",
@@ -6895,23 +6487,6 @@
                 "zone-movement",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "PiZqM1q9ly",
-            "name": "Night Barker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6980,23 +6555,6 @@
                 "draw-discard",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ch2bbmoqk2",
-            "name": "Organize the Alliance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7413,23 +6971,6 @@
             "priority": 13
         },
         {
-            "cardId": "uuty5scwug",
-            "name": "Savage Arrow",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "i7chsbaleg",
             "name": "Savage Smash",
             "type": "ATTACK",
@@ -7449,23 +6990,6 @@
         {
             "cardId": "rqtjot4nmx",
             "name": "Scavenge the Distillery",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "2m31946aki",
-            "name": "Seal the Past",
             "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -7906,23 +7430,6 @@
             "priority": 13
         },
         {
-            "cardId": "4dpp2s3neh",
-            "name": "Veiled Oracle",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cnjo0ehqyk",
             "name": "Votive Runeblade",
             "type": "REGALIA,WEAPON",
@@ -7931,23 +7438,6 @@
             "mechanics": [
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dlvr8wunhg",
-            "name": "War Marshal",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8129,22 +7619,6 @@
             "mechanics": [
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "o3M5ZWSL6E",
-            "name": "Angelic Channeling",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8937,22 +8411,6 @@
             "priority": 12
         },
         {
-            "cardId": "8bolq2y5qp",
-            "name": "Four of Spades",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "p4lgdlx7md",
             "name": "Framework Sidearm",
             "type": "REGALIA,WEAPON",
@@ -9121,22 +8579,6 @@
             "mechanics": [
                 "targeting",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "G2XFRE8rFX",
-            "name": "Harness Mana",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9385,22 +8827,6 @@
             "priority": 12
         },
         {
-            "cardId": "v0gu8efq08",
-            "name": "Lingering Banshee",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "cFdWXaILRT",
             "name": "Lost Spirit",
             "type": "CHAMPION",
@@ -9425,22 +8851,6 @@
             "mechanics": [
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "3n4l6aoj4t",
-            "name": "Maiden of Shimmering Air",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9817,22 +9227,6 @@
             "priority": 12
         },
         {
-            "cardId": "p3nq0ymvdd",
-            "name": "Ordinary Bear",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "ir99sx6q3p",
             "name": "Plea for Peace",
             "type": "ACTION",
@@ -9889,22 +9283,6 @@
             "mechanics": [
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "6i0iqmyn2r",
-            "name": "Raze the Land",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10361,22 +9739,6 @@
             "priority": 12
         },
         {
-            "cardId": "o09csnorqv",
-            "name": "Three of Spades",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "5iqigcom2r",
             "name": "Tideholder Claymore",
             "type": "REGALIA,WEAPON",
@@ -10449,22 +9811,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "e8ygl32jef",
-            "name": "Two of Spades",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10771,21 +10117,6 @@
             "priority": 11
         },
         {
-            "cardId": "d3e311f211",
-            "name": "Airborne Squirrel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "Bt9xeTum94",
             "name": "Alchemist's Cauldron",
             "type": "REGALIA,ITEM",
@@ -11003,21 +10334,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "v1au7t9m4m",
-            "name": "Capricious Lynx",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11536,21 +10852,6 @@
             "priority": 11
         },
         {
-            "cardId": "i9hf5lhl5f",
-            "name": "Five of Spades",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "oswzpvvog0",
             "name": "Fledgling",
             "type": "TOKEN,ALLY",
@@ -11738,21 +11039,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ceqDwfTzFI",
-            "name": "Hefty Hammering",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12331,21 +11617,6 @@
             "priority": 11
         },
         {
-            "cardId": "8jypwc8tuh",
-            "name": "Navigate the Streets",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "mdk0xhi5jn",
             "name": "Nurture Crops",
             "type": "ACTION",
@@ -12788,21 +12059,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "pgt4lhko8w",
-            "name": "Unwelcome Fortune",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31591,9 +30847,11 @@
                 "cost"
             ],
             "existingFixtures": [
+                "eight-of-spades-cardistry-wakes-it-up",
                 "eight-of-spades-level-one-costs-four-less"
             ],
             "semanticFixtures": [
+                "eight-of-spades-cardistry-wakes-it-up",
                 "eight-of-spades-level-one-costs-four-less"
             ],
             "starterDecks": [],
@@ -32163,6 +31421,31 @@
             "priority": 35
         },
         {
+            "cardId": "3bxtj3te9i",
+            "name": "Combat Training",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "combat-training-class-bonus-floating-memory-pays-a-memory-cost",
+                "combat-training-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "combat-training-class-bonus-floating-memory-pays-a-memory-cost",
+                "combat-training-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "jH3ZOavGPR",
             "name": "Crystalvein Awakening",
             "type": "ACTION",
@@ -32568,6 +31851,32 @@
             ],
             "semanticFixtures": [
                 "hand-activation-unaffordable-leftover-after-real-play-click-refused"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "6FGKeLTumW",
+            "name": "Fortification",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fortification-class-bonus-floating-memory-pays-a-memory-cost",
+                "fortification-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "fortification-class-bonus-floating-memory-pays-a-memory-cost",
+                "fortification-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33266,10 +32575,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "rampart-defender-bulwark-enters-with-a-bulwark-counter",
                 "rampart-defender-class-bonus-ranged-three-while-distant",
                 "rampart-defender-without-the-class-bonus-has-no-ranged"
             ],
             "semanticFixtures": [
+                "rampart-defender-bulwark-enters-with-a-bulwark-counter",
                 "rampart-defender-class-bonus-ranged-three-while-distant",
                 "rampart-defender-without-the-class-bonus-has-no-ranged"
             ],
@@ -34041,9 +33352,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "unyielding-wraithguard-on-death-returns-to-the-field-ephemeral",
                 "unyielding-wraithguard-taunt-protects-the-champion"
             ],
             "semanticFixtures": [
+                "unyielding-wraithguard-on-death-returns-to-the-field-ephemeral",
                 "unyielding-wraithguard-taunt-protects-the-champion"
             ],
             "starterDecks": [],
@@ -35623,6 +34936,28 @@
             "priority": 34
         },
         {
+            "cardId": "eU8IEVpFZg",
+            "name": "Equip with Courage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "equip-with-courage-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "equip-with-courage-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "dBAdWMoPEz",
             "name": "Erupting Rhapsody",
             "type": "ACTION",
@@ -35639,6 +34974,28 @@
             ],
             "semanticFixtures": [
                 "erupting-rhapsody-decline-second-banish-still-applies-level-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "u1xhs5jwsl",
+            "name": "Exorcise Curses",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "exorcise-curses-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "exorcise-curses-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -35761,6 +35118,30 @@
             "priority": 34
         },
         {
+            "cardId": "r1nS4nDTyM",
+            "name": "Fatebound Caracal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatebound-caracal-third-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-third-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "semanticFixtures": [
+                "fatebound-caracal-third-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-third-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "x8wc254ris",
             "name": "Fatebound Caracal",
             "type": "ALLY",
@@ -35783,6 +35164,28 @@
                 "fatebound-caracal-retort-two-retaliates-for-two-extra-power",
                 "fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion",
                 "fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "44pr0h0yqi",
+            "name": "Feed Nourishment",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "feed-nourishment-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "feed-nourishment-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37095,6 +36498,28 @@
             "priority": 34
         },
         {
+            "cardId": "jK7LRuTSPh",
+            "name": "Manifest Threat",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "manifest-threat-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "manifest-threat-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "7w4v1hgl3e",
             "name": "March Hare, Mottled Host",
             "type": "UNIQUE,ALLY",
@@ -37229,6 +36654,30 @@
             "semanticFixtures": [
                 "novice-healer-class-bonus-enter-recovers-three",
                 "novice-healer-without-the-class-bonus-does-not-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "R4IZe3rh4V",
+            "name": "Ovation Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ovation-guide-enter-the-opponent-declining-gives-you-nothing",
+                "ovation-guide-enter-the-opponent-materializing-a-champion-draws-you-a-card-and-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "ovation-guide-enter-the-opponent-declining-gives-you-nothing",
+                "ovation-guide-enter-the-opponent-materializing-a-champion-draws-you-a-card-and-crowds-favor"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37638,6 +37087,28 @@
             "priority": 34
         },
         {
+            "cardId": "o6eanbrfnr",
+            "name": "Reprogram",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "reprogram-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "reprogram-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "e8nFGSSvgc",
             "name": "Restorative Slash",
             "type": "ATTACK",
@@ -37698,6 +37169,28 @@
             ],
             "semanticFixtures": [
                 "rig-for-detonation-makes-a-unit-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ptrz1bqry4",
+            "name": "Right of Realm",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "right-of-realm-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "right-of-realm-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38160,6 +37653,30 @@
             "priority": 34
         },
         {
+            "cardId": "tdRR5lQHMN",
+            "name": "Six of Spades",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "six-of-spades-cardistry-in-response-to-an-attack-takes-the-attack-with-plus-two-life",
+                "six-of-spades-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "six-of-spades-cardistry-in-response-to-an-attack-takes-the-attack-with-plus-two-life",
+                "six-of-spades-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "58xpspudnf",
             "name": "Skilled Aerotheurge",
             "type": "ALLY",
@@ -38480,6 +37997,28 @@
             "priority": 34
         },
         {
+            "cardId": "SM2A2o5hru",
+            "name": "Summon Pawn",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "summon-pawn-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "summon-pawn-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "qhBecpDUO9",
             "name": "Supernova Divination",
             "type": "UNIQUE,PHANTASIA",
@@ -38733,6 +38272,28 @@
             "priority": 34
         },
         {
+            "cardId": "chyfhweEro",
+            "name": "Tune Up",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tune-up-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "tune-up-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "V8XBfRpDRJ",
             "name": "Twingale Parry",
             "type": "ACTION",
@@ -38823,6 +38384,32 @@
             "semanticFixtures": [
                 "under-fire-deals-four-damage-to-your-champion-for-stealth",
                 "under-fire-makes-your-champion-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "k21JAm6joz",
+            "name": "Valiant Protector",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "valiant-protector-a-bulwark-counter-prevents-the-combat-damage-and-is-removed",
+                "valiant-protector-class-bonus-enters-with-a-bulwark-counter",
+                "valiant-protector-without-the-class-bonus-enters-without-a-bulwark-counter"
+            ],
+            "semanticFixtures": [
+                "valiant-protector-a-bulwark-counter-prevents-the-combat-damage-and-is-removed",
+                "valiant-protector-class-bonus-enters-with-a-bulwark-counter",
+                "valiant-protector-without-the-class-bonus-enters-without-a-bulwark-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39432,6 +39019,27 @@
             ],
             "semanticFixtures": [
                 "airship-captain-a-domain-entering-deals-two-damage-to-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "b3sm5e7pan",
+            "name": "Ameliorating Mantra",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ameliorating-mantra-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "ameliorating-mantra-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40626,6 +40234,27 @@
             "priority": 33
         },
         {
+            "cardId": "bjvwbcizm6",
+            "name": "Deploy Gunshield",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "deploy-gunshield-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "deploy-gunshield-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "h42l1w67ry",
             "name": "Dian Wei, Valorant Fury",
             "type": "UNIQUE,ALLY",
@@ -41067,6 +40696,27 @@
             "priority": 33
         },
         {
+            "cardId": "3oda2ha4dk",
+            "name": "Fast Cure",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fast-cure-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "fast-cure-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ekkjn37cx6",
             "name": "Final Stroke",
             "type": "ATTACK",
@@ -41218,6 +40868,27 @@
             ],
             "semanticFixtures": [
                 "floating-peace-recovers-one-plus-fatestone-and-fatebound-objects"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dt4YncETqE",
+            "name": "Floral Arrangement",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "floral-arrangement-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "floral-arrangement-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41534,6 +41205,31 @@
             "priority": 33
         },
         {
+            "cardId": "UtwWXmc0IU",
+            "name": "Haunting Apparition",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "haunting-apparition-ephemeral-has-stealth",
+                "haunting-apparition-ephemerate-from-the-graveyard-enters-ephemeral-with-stealth",
+                "haunting-apparition-not-ephemeral-can-be-attacked"
+            ],
+            "semanticFixtures": [
+                "haunting-apparition-ephemeral-has-stealth",
+                "haunting-apparition-ephemerate-from-the-graveyard-enters-ephemeral-with-stealth",
+                "haunting-apparition-not-ephemeral-can-be-attacked"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "wXsHpcrH3P",
             "name": "Herd of the Hearth",
             "type": "ACTION",
@@ -41660,6 +41356,27 @@
                 "imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token",
                 "imperial-alchemist-gets-a-buff-counter-whenever-you-brew-a-potion",
                 "imperial-alchemist-without-the-class-bonus-gathers-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "9WeCxLlnbt",
+            "name": "Incantation of Prosperity",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "incantation-of-prosperity-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "incantation-of-prosperity-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41953,6 +41670,29 @@
             "priority": 33
         },
         {
+            "cardId": "WWnmb1Hjdo",
+            "name": "Leading Charge",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "leading-charge-class-bonus-floating-memory-pays-a-memory-cost",
+                "leading-charge-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "leading-charge-class-bonus-floating-memory-pays-a-memory-cost",
+                "leading-charge-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "CGdu1Vmlok",
             "name": "Leran, Pastoral Hymns",
             "type": "UNIQUE,DOMAIN",
@@ -42225,6 +41965,27 @@
             "priority": 33
         },
         {
+            "cardId": "zuAmYGyCcL",
+            "name": "March On",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "march-on-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "march-on-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "fekR8D4FpB",
             "name": "Martial Flowstate",
             "type": "PHANTASIA",
@@ -42424,6 +42185,29 @@
             "priority": 33
         },
         {
+            "cardId": "l65WqDzBMt",
+            "name": "Musical Curator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "musical-curator-enter-choosing-harmony-scavenges-twelve-for-a-harmony-card",
+                "musical-curator-enter-choosing-melody-scavenges-twelve-for-a-melody-card"
+            ],
+            "semanticFixtures": [
+                "musical-curator-enter-choosing-harmony-scavenges-twelve-for-a-harmony-card",
+                "musical-curator-enter-choosing-melody-scavenges-twelve-for-a-melody-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jdmthh88rx",
             "name": "Naia, Diviner of Fortunes",
             "type": "UNIQUE,ALLY",
@@ -42537,6 +42321,27 @@
             "priority": 33
         },
         {
+            "cardId": "PiZqM1q9ly",
+            "name": "Night Barker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "night-barker-on-death-returns-to-the-field-ephemeral"
+            ],
+            "semanticFixtures": [
+                "night-barker-on-death-returns-to-the-field-ephemeral"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "39srnovht1",
             "name": "Nocturnal Blossom",
             "type": "ALLY",
@@ -42552,6 +42357,29 @@
             ],
             "semanticFixtures": [
                 "nocturnal-blossom-recovers-one-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ch2bbmoqk2",
+            "name": "Organize the Alliance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "organize-the-alliance-class-bonus-floating-memory-pays-a-memory-cost",
+                "organize-the-alliance-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "organize-the-alliance-class-bonus-floating-memory-pays-a-memory-cost",
+                "organize-the-alliance-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43437,6 +43265,27 @@
             "priority": 33
         },
         {
+            "cardId": "uuty5scwug",
+            "name": "Savage Arrow",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "savage-arrow-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "savage-arrow-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "jOqyx96kse",
             "name": "Scattering Gusts",
             "type": "ACTION",
@@ -43565,6 +43414,27 @@
             "semanticFixtures": [
                 "seafaring-mercenary-class-bonus-floating-memory-pays-a-memory-cost",
                 "seafaring-mercenary-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "2m31946aki",
+            "name": "Seal the Past",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "seal-the-past-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "seal-the-past-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44513,6 +44383,27 @@
             "priority": 33
         },
         {
+            "cardId": "4dpp2s3neh",
+            "name": "Veiled Oracle",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "veiled-oracle-enter-becomes-ephemeral-and-glimpses-three"
+            ],
+            "semanticFixtures": [
+                "veiled-oracle-enter-becomes-ephemeral-and-glimpses-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "5v9mCHv2qG",
             "name": "VelTech Armiger",
             "type": "ALLY",
@@ -44664,6 +44555,31 @@
             ],
             "semanticFixtures": [
                 "volcanic-crescendo-banishes-fire-cards-to-empower-by-three-plus-x"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dlvr8wunhg",
+            "name": "War Marshal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "war-marshal-class-bonus-equestrian-with-a-horse-gets-plus-one-power-and-life",
+                "war-marshal-class-bonus-steadfast-retaliates-while-rested",
+                "war-marshal-without-the-class-bonus-has-its-printed-stats-with-a-horse"
+            ],
+            "semanticFixtures": [
+                "war-marshal-class-bonus-equestrian-with-a-horse-gets-plus-one-power-and-life",
+                "war-marshal-class-bonus-steadfast-retaliates-while-rested",
+                "war-marshal-without-the-class-bonus-has-its-printed-stats-with-a-horse"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45111,6 +45027,26 @@
             ],
             "semanticFixtures": [
                 "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "o3M5ZWSL6E",
+            "name": "Angelic Channeling",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "angelic-channeling-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "angelic-channeling-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46485,6 +46421,26 @@
             "priority": 32
         },
         {
+            "cardId": "8bolq2y5qp",
+            "name": "Four of Spades",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "four-of-spades-cardistry-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "four-of-spades-cardistry-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "5fnmnpavo4",
             "name": "Fractal of Polar Depths",
             "type": "PHANTASIA",
@@ -46901,6 +46857,28 @@
             ],
             "semanticFixtures": [
                 "hanabi-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "G2XFRE8rFX",
+            "name": "Harness Mana",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "harness-mana-class-bonus-floating-memory-pays-a-memory-cost",
+                "harness-mana-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "harness-mana-class-bonus-floating-memory-pays-a-memory-cost",
+                "harness-mana-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47369,6 +47347,28 @@
             "priority": 32
         },
         {
+            "cardId": "v0gu8efq08",
+            "name": "Lingering Banshee",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lingering-banshee-ephemerate-costs-six",
+                "lingering-banshee-ephemerate-costs-three-less-with-an-ephemeral-object"
+            ],
+            "semanticFixtures": [
+                "lingering-banshee-ephemerate-costs-six",
+                "lingering-banshee-ephemerate-costs-three-less-with-an-ephemeral-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "a53rqmuqxf",
             "name": "Liu Bei, Oathkeeper",
             "type": "UNIQUE,ALLY",
@@ -47467,6 +47467,26 @@
             "semanticFixtures": [
                 "maiden-of-glimmers-dusk-class-bonus-costs-one-less-for-each-of-up-to-two-phantasias",
                 "maiden-of-glimmers-dusk-without-phantasias-costs-the-printed-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "3n4l6aoj4t",
+            "name": "Maiden of Shimmering Air",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "maiden-of-shimmering-air-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "maiden-of-shimmering-air-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47835,6 +47855,28 @@
                 "orb-of-regret-ability-1-pays-its-printed-cost",
                 "orb-of-regret-decline-still-draws",
                 "orb-of-regret-shuffles-three-chosen-cards-into-the-deck-and-draws-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "p3nq0ymvdd",
+            "name": "Ordinary Bear",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ordinary-bear-class-bonus-floating-memory-pays-a-memory-cost",
+                "ordinary-bear-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "ordinary-bear-class-bonus-floating-memory-pays-a-memory-cost",
+                "ordinary-bear-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48267,6 +48309,26 @@
             ],
             "semanticFixtures": [
                 "ravaging-tempest-banishes-all-allies-and-their-controllers-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "6i0iqmyn2r",
+            "name": "Raze the Land",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "raze-the-land-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "raze-the-land-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49446,6 +49508,26 @@
             "priority": 32
         },
         {
+            "cardId": "o09csnorqv",
+            "name": "Three of Spades",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "three-of-spades-cardistry-gives-a-suited-ally-plus-two-life"
+            ],
+            "semanticFixtures": [
+                "three-of-spades-cardistry-gives-a-suited-ally-plus-two-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "zrBBvgIvt6",
             "name": "Tide Diviner",
             "type": "ALLY",
@@ -49544,6 +49626,30 @@
             "semanticFixtures": [
                 "tricky-chimps-class-bonus-enter-with-one-opposing-ally-gets-nothing",
                 "tricky-chimps-class-bonus-enter-with-two-opposing-allies-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "e8ygl32jef",
+            "name": "Two of Spades",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter"
+            ],
+            "existingFixtures": [
+                "two-of-spades-cardistry-can-only-be-activated-once",
+                "two-of-spades-cardistry-costs-one-less-per-suited-object-with-a-different-reserve-cost",
+                "two-of-spades-cardistry-puts-a-buff-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "two-of-spades-cardistry-can-only-be-activated-once",
+                "two-of-spades-cardistry-costs-one-less-per-suited-object-with-a-different-reserve-cost",
+                "two-of-spades-cardistry-puts-a-buff-counter-on-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50045,6 +50151,25 @@
             "priority": 32
         },
         {
+            "cardId": "d3e311f211",
+            "name": "Airborne Squirrel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "airborne-squirrel-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "airborne-squirrel-enters-with-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "4le7ehjyxs",
             "name": "Aqueous Stallion",
             "type": "ALLY",
@@ -50424,6 +50549,31 @@
                 "bygone-days-p1-controlled-cascade-recovers-then-each-player-returns-ally",
                 "bygone-days-p1-controlled-returns-opponent-owned-ally-to-owner-memory",
                 "bygone-days-p2-controlled-cascade-recovers-then-each-player-returns-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "v1au7t9m4m",
+            "name": "Capricious Lynx",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "capricious-lynx-class-bonus-enter-loses-all-abilities-so-it-obeys-at-level-zero",
+                "capricious-lynx-pride-four-does-not-obey-a-level-three-champion",
+                "capricious-lynx-pride-four-obeys-a-level-four-champion",
+                "capricious-lynx-without-the-class-bonus-keeps-its-pride-and-does-not-attack"
+            ],
+            "semanticFixtures": [
+                "capricious-lynx-class-bonus-enter-loses-all-abilities-so-it-obeys-at-level-zero",
+                "capricious-lynx-pride-four-does-not-obey-a-level-three-champion",
+                "capricious-lynx-pride-four-obeys-a-level-four-champion",
+                "capricious-lynx-without-the-class-bonus-keeps-its-pride-and-does-not-attack"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50954,6 +51104,27 @@
             "priority": 31
         },
         {
+            "cardId": "i9hf5lhl5f",
+            "name": "Five of Spades",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "five-of-spades-cardistry-gets-plus-five-power",
+                "five-of-spades-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "five-of-spades-cardistry-gets-plus-five-power",
+                "five-of-spades-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "59ueoujs9f",
             "name": "Flamewing Fowl",
             "type": "ALLY",
@@ -51268,6 +51439,27 @@
             ],
             "semanticFixtures": [
                 "haze-droid-stealth-cannot-be-attacked"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ceqDwfTzFI",
+            "name": "Hefty Hammering",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "hefty-hammering-class-bonus-floating-memory-pays-a-memory-cost",
+                "hefty-hammering-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "hefty-hammering-class-bonus-floating-memory-pays-a-memory-cost",
+                "hefty-hammering-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51592,6 +51784,25 @@
             ],
             "semanticFixtures": [
                 "natures-appeal-level-three-reveals-three-hand-material-and-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "8jypwc8tuh",
+            "name": "Navigate the Streets",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "navigate-the-streets-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "navigate-the-streets-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52160,6 +52371,25 @@
             ],
             "semanticFixtures": [
                 "two-of-hearts-cardistry-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "pgt4lhko8w",
+            "name": "Unwelcome Fortune",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "unwelcome-fortune-floating-memory-pays-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "unwelcome-fortune-floating-memory-pays-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

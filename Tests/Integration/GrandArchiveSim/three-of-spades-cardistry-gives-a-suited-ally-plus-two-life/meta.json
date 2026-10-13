@@ -1,0 +1,23 @@
+{
+    "name": "three-of-spades-cardistry-gives-a-suited-ally-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:40:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o09csnorqv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o09csnorqv"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "targeting",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** \u2014 (3): Target Suited ally you control gets +2[LIFE] until end of turn."
+        ]
+    }
+}

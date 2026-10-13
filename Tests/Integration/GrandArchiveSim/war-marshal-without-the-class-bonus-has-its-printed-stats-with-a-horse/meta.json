@@ -1,0 +1,22 @@
+{
+    "name": "war-marshal-without-the-class-bonus-has-its-printed-stats-with-a-horse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dlvr8wunhg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dlvr8wunhg"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "equestrian",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Equestrian*** \u2014 As long as you control a Horse ally, CARDNAME gets +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

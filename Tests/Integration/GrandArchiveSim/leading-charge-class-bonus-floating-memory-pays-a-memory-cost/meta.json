@@ -1,0 +1,23 @@
+{
+    "name": "leading-charge-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WWnmb1Hjdo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WWnmb1Hjdo"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

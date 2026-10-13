@@ -1,0 +1,22 @@
+{
+    "name": "five-of-spades-cardistry-gets-plus-five-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:39:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i9hf5lhl5f"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i9hf5lhl5f"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** \u2014 (5): Five of Spades gets +5[POWER] until end of turn."
+        ]
+    }
+}

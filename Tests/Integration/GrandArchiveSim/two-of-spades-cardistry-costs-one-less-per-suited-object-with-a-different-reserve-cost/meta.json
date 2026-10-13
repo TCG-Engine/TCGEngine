@@ -1,0 +1,22 @@
+{
+    "name": "two-of-spades-cardistry-costs-one-less-per-suited-object-with-a-different-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:40:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e8ygl32jef"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e8ygl32jef"
+        ],
+        "mechanics": [
+            "cardistry",
+            "cost-reduction",
+            "activated-ability"
+        ],
+        "rulesClauses": [
+            "This ability costs (1) less to activate for each Suited object you control with different reserve costs."
+        ]
+    }
+}

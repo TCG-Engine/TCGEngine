@@ -1,0 +1,22 @@
+{
+    "name": "raze-the-land-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6i0iqmyn2r"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6i0iqmyn2r"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    }
+}

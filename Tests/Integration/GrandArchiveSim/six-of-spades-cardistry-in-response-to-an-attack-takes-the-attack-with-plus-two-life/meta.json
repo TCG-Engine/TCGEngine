@@ -1,0 +1,24 @@
+{
+    "name": "six-of-spades-cardistry-in-response-to-an-attack-takes-the-attack-with-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:40:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tdRR5lQHMN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tdRR5lQHMN"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "stat-change",
+            "stealth",
+            "redirect"
+        ],
+        "rulesClauses": [
+            "***Cardistry \u2014*** (6): CARDNAME loses **stealth** and gets +2 [LIFE] until end of turn. You may change the target of an attack to CARDNAME."
+        ]
+    }
+}

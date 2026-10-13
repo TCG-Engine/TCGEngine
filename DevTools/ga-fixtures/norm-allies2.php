@@ -3,43 +3,6 @@
  * Phase 3d (Norm): allies, second batch (combat keywords: intercept, retort, steadfast, ambush, stealth, true sight). 'quiet' deck.
  */
 
-// A defender retaliating against player 2's Dungeon Guide (1 power, 3 life): $damage is the damage the attacker takes back.
-if (!function_exists('gaNormRetort')) {
-    function gaNormRetort(string $slug, string $ally, int $damage, string $label, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'retort', 'combat'], array $properties = [], array $extraSeeds = []): void {
-        $s = gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus)
-            ->seed('myField', $ally, properties: $properties);
-        foreach ($extraSeeds as [$zone, $card]) $s->seed($zone, $card);
-        $s->seed('myField', 'Dungeon Guide', player: 2)
-            ->endTurn()
-            ->attack('myField-1', 'theirField-1', player: 2)->answer(1, 'myField-1')
-            ->expectDamage('p2Field-1', $damage, $label)
-            ->tested($ally)
-            ->covers($mechanics, $clause)
-            ->register();
-    }
-}
-
-// Intercept: player 2's Dungeon Guide attacks the champion and the awake ally takes the attack instead.
-if (!function_exists('gaNormIntercept')) {
-    function gaNormIntercept(string $slug, string $ally, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'intercept', 'combat'], array $extraSeeds = []): void {
-        $s = gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus)
-            ->seed('myField', $ally);
-        foreach ($extraSeeds as [$zone, $card]) $s->seed($zone, $card);
-        $s->seed('myField', 'Dungeon Guide', player: 2)
-            ->endTurn()
-            ->action(2, 10002, 'myField-1!FSM!')->answer(2, 'theirField-0')->target('myField-1')->answer(1, '-')
-            ->expectDamage('p1Field-0', 0, 'The champion takes no damage: the attack was redirected')
-            ->expectDamage('p1Field-1', 1, 'The interceptor takes the redirected 1 damage')
-            ->tested($ally)
-            ->covers($mechanics, $clause)
-            ->register();
-    }
-}
-
 // ---- Fatebound Caracal (both printings) ----
 
 gaNormIntercept('fatebound-caracal-intercept-redirects-the-attack-on-the-champion', 'Fatebound Caracal', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
@@ -123,21 +86,6 @@ gaScenario('dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion')
 
 // ---- Stealth family ----
 
-if (!function_exists('gaNormStealth')) {
-    function gaNormStealth(string $slug, string $ally, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'stealth']): void {
-        gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus)
-            ->seed('myField', $ally, properties: ['Status' => 2])
-            ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
-            ->endTurn()->action(2, 10002, 'myField-1!FSM!')
-            ->rejects(2, 'theirField-1', 'Stealth: the attack cannot target the ' . $ally)
-            ->answer(2, 'theirField-0')
-            ->expectDamage('p1Field-1', 0, 'The stealth ally took no damage')
-            ->tested($ally)->covers($mechanics, $clause)->register();
-    }
-}
-
 gaNormStealth('imperial-assassin-class-bonus-stealth-cannot-be-targeted-by-attacks', 'Imperial Assassin', '[Class Bonus] **Stealth** *(This unit can\'t be targeted by attacks unless permitted by **true sight**.)*', true, ['class-bonus', 'keyword', 'stealth']);
 gaNormStealth('kingdom-informant-stealth-cannot-be-targeted-by-attacks', 'Kingdom Informant', '**Stealth** *(This unit can\'t be targeted by attacks unless permitted by **true sight**.)*');
 gaNormStealth('lurching-rogue-class-bonus-stealth-cannot-be-targeted-by-attacks', 'Lurching Rogue', '[Class Bonus] **Stealth** *(This unit can’t be targeted by attacks unless permitted by** true sight**.)*', true, ['class-bonus', 'keyword', 'stealth']);
@@ -157,20 +105,6 @@ gaScenario('proto-archive-scout-rested-has-no-stealth')
     ->register();
 
 // ---- True sight family ----
-
-if (!function_exists('gaNormTrueSight')) {
-    function gaNormTrueSight(string $slug, string $ally, string $clause, bool $classBonus = false, ?int $level = null, array $mechanics = ['keyword', 'true-sight', 'stealth', 'combat']): void {
-        gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus, level: $level)
-            ->seed('myField', $ally)
-            ->seed('myField', 'Haze Droid', player: 2)
-            ->reachTurnThree()
-            ->attack('myField-1', 'theirField-1')->pass(2)
-            ->expectDamage('p2Field-1', 2, 'True Sight: the ally could attack the stealth Haze Droid')
-            ->tested($ally)->covers($mechanics, $clause)->register();
-    }
-}
 
 gaNormTrueSight('ghostsight-mare-true-sight-attacks-a-stealth-unit', 'Ghostsight Mare', '**True Sight** *(This ally can attack units with **stealth**.)*');
 gaNormTrueSight('gray-lupindroid-true-sight-attacks-a-stealth-unit', 'Gray Lupindroid', '**True Sight** *(This ally can attack units with **stealth**.)*');

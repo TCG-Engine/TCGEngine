@@ -1,0 +1,22 @@
+{
+    "name": "four-of-spades-cardistry-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:39:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8bolq2y5qp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8bolq2y5qp"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** \u2014 (4): Draw a card into your memory."
+        ]
+    }
+}
