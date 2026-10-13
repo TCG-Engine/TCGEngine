@@ -1,0 +1,22 @@
+{
+    "name": "dominating-strike-vanitas-bonus-declined-pays-the-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:22:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "svd53zc9p4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "svd53zc9p4"
+        ],
+        "mechanics": [
+            "alt-cost",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "rather than pay this card's reserve cost"
+        ]
+    }
+}

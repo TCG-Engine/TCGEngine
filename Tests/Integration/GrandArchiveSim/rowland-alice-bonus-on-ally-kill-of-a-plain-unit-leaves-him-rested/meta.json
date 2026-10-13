@@ -1,0 +1,22 @@
+{
+    "name": "rowland-alice-bonus-on-ally-kill-of-a-plain-unit-leaves-him-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:20:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bGmutHfgMl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bGmutHfgMl"
+        ],
+        "mechanics": [
+            "on-kill",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If the killed unit had **intercept** or **taunt**"
+        ]
+    }
+}

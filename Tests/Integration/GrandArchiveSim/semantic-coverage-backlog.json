@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:16:34+00:00",
+    "generatedAt": "2026-10-13T14:22:54+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1594,
+        "cardsWithExistingFixtures": 1602,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 883,
+        "cardsNeedingSemanticCoverage": 875,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1579,22 +1579,6 @@
             "priority": 22
         },
         {
-            "cardId": "x7t0vki9gy",
-            "name": "Beseeched Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "izm6h38lrj",
             "name": "Celestial Calling",
             "type": "ACTION",
@@ -1619,22 +1603,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "l6410a85dn",
-            "name": "Cyclonic Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6282,23 +6250,6 @@
             "priority": 13
         },
         {
-            "cardId": "d60jobz3ct",
-            "name": "Beseeching Flourish",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "iqs2hipwsc",
             "name": "Blade of Creation",
             "type": "ATTACK",
@@ -6850,23 +6801,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "svd53zc9p4",
-            "name": "Dominating Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "combat",
                 "condition"
             ],
@@ -8959,23 +8893,6 @@
             "mechanics": [
                 "status",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "x2oydmfcre",
-            "name": "Wildgrowth Fatestone",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11364,22 +11281,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "bGmutHfgMl",
-            "name": "Rowland, Schwartz Knight",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -14544,21 +14445,6 @@
             "priority": 11
         },
         {
-            "cardId": "oh5n2sjk0u",
-            "name": "Tailwind's Blessing",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "r79VgzA3W4",
             "name": "Titan Mk II",
             "type": "TOKEN,ALLY",
@@ -14776,21 +14662,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "1i2luu7dft",
-            "name": "Wulin Lancer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -32632,6 +32503,7 @@
                 "vacuous-call-on-enter-summons-a-vacuous-servant"
             ],
             "semanticFixtures": [
+                "vacuous-call-ciel-bonus-pays-two-discards-an-ally-and-sacrifices-itself-for-a-servant",
                 "vacuous-call-on-enter-summons-a-vacuous-servant"
             ],
             "starterDecks": [],
@@ -32725,6 +32597,26 @@
             "priority": 42
         },
         {
+            "cardId": "x7t0vki9gy",
+            "name": "Beseeched Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck"
+            ],
+            "semanticFixtures": [
+                "beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "rw8qq1uwq8",
             "name": "Corhazi Outlook",
             "type": "ALLY",
@@ -32765,6 +32657,26 @@
                 "cutthroat-operative-class-bonus-activating-an-attack-card-puts-a-buff-counter-on-it",
                 "cutthroat-operative-with-two-buff-counters-gets-no-more",
                 "cutthroat-operative-without-the-class-bonus-gets-no-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "l6410a85dn",
+            "name": "Cyclonic Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "cyclonic-fatestone-fast-on-enter-suppresses-an-attacking-ally-you-dont-control"
+            ],
+            "semanticFixtures": [
+                "cyclonic-fatestone-fast-on-enter-suppresses-an-attacking-ally-you-dont-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40716,6 +40628,29 @@
             "priority": 33
         },
         {
+            "cardId": "d60jobz3ct",
+            "name": "Beseeching Flourish",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "beseeching-flourish-jin-bonus-on-hit-materializes-a-polearm-weapon",
+                "beseeching-flourish-without-jin-materializes-nothing"
+            ],
+            "semanticFixtures": [
+                "beseeching-flourish-jin-bonus-on-hit-materializes-a-polearm-weapon",
+                "beseeching-flourish-without-jin-materializes-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "MiIBTi1hju",
             "name": "Bifurcating Fractal",
             "type": "PHANTASIA",
@@ -41553,6 +41488,31 @@
             ],
             "semanticFixtures": [
                 "dissonant-fractal-on-enter-glimpses-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "svd53zc9p4",
+            "name": "Dominating Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dominating-strike-vanitas-bonus-declined-pays-the-reserve-cost",
+                "dominating-strike-vanitas-bonus-reveals-three-wind-cards-from-memory-rather-than-paying",
+                "dominating-strike-without-vanitas-is-not-offered-the-alternative-cost"
+            ],
+            "semanticFixtures": [
+                "dominating-strike-vanitas-bonus-declined-pays-the-reserve-cost",
+                "dominating-strike-vanitas-bonus-reveals-three-wind-cards-from-memory-rather-than-paying",
+                "dominating-strike-without-vanitas-is-not-offered-the-alternative-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45364,6 +45324,29 @@
             "priority": 33
         },
         {
+            "cardId": "x2oydmfcre",
+            "name": "Wildgrowth Fatestone",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wildgrowth-fatestone-guo-jia-bonus-gets-a-buff-counter-when-another-wind-object-enters",
+                "wildgrowth-fatestone-without-guo-jia-gets-no-buff-counter"
+            ],
+            "semanticFixtures": [
+                "wildgrowth-fatestone-guo-jia-bonus-gets-a-buff-counter-when-another-wind-object-enters",
+                "wildgrowth-fatestone-without-guo-jia-gets-no-buff-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "3krdvxapdp",
             "name": "Wildgrowth Feline",
             "type": "ALLY",
@@ -48523,6 +48506,28 @@
             "priority": 32
         },
         {
+            "cardId": "bGmutHfgMl",
+            "name": "Rowland, Schwartz Knight",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rowland-alice-bonus-on-ally-kill-of-a-plain-unit-leaves-him-rested",
+                "rowland-alice-bonus-on-ally-kill-of-a-taunt-unit-wakes-him-up"
+            ],
+            "semanticFixtures": [
+                "rowland-alice-bonus-on-ally-kill-of-a-plain-unit-leaves-him-rested",
+                "rowland-alice-bonus-on-ally-kill-of-a-taunt-unit-wakes-him-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "tk3ir1o0qt",
             "name": "Sabrina, Spirit of Water",
             "type": "CHAMPION",
@@ -51523,6 +51528,27 @@
             "priority": 31
         },
         {
+            "cardId": "oh5n2sjk0u",
+            "name": "Tailwind's Blessing",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tailwinds-blessing-allies-get-plus-one-power-when-the-currents-change-from-north-to-west",
+                "tailwinds-blessing-other-direction-changes-give-no-power"
+            ],
+            "semanticFixtures": [
+                "tailwinds-blessing-allies-get-plus-one-power-when-the-currents-change-from-north-to-west",
+                "tailwinds-blessing-other-direction-changes-give-no-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "HWFWO0TB8l",
             "name": "Tempest Silverback",
             "type": "ALLY",
@@ -51759,6 +51785,25 @@
             "semanticFixtures": [
                 "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
                 "windstalker-wolf-pride-five-does-not-obey-a-level-four-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "1i2luu7dft",
+            "name": "Wulin Lancer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west"
+            ],
+            "semanticFixtures": [
+                "wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

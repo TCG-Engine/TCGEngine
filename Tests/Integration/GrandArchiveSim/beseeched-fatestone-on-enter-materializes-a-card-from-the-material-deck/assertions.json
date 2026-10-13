@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "DpHDGaX2Pn",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Enter: a card from the material deck was materialized (a champion, so the champion levelled up)"
+    }
+]

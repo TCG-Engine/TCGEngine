@@ -1,0 +1,10 @@
+[
+    {
+        "step": 2,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 1,
+        "semantic": true,
+        "label": "North to East: no bonus"
+    }
+]

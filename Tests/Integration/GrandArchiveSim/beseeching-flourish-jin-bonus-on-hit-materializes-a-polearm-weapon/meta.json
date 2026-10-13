@@ -1,0 +1,22 @@
+{
+    "name": "beseeching-flourish-jin-bonus-on-hit-materializes-a-polearm-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:21:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d60jobz3ct"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d60jobz3ct"
+        ],
+        "mechanics": [
+            "on-hit",
+            "champion-bonus",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] **On Hit:** **Materialize** a Polearm weapon card from your material deck."
+        ]
+    }
+}

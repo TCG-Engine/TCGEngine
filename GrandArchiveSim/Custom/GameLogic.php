@@ -3522,6 +3522,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // 1.3 Declaring Costs -- Dominating Strike (svd53zc9p4): "[Vanitas Bonus] You may reveal three wind element cards from your memory rather than pay this card's reserve cost."
+    // $hasDominatingStrikeAltCost was declared above and read below, but nothing ever set it, so the alternative was never offered.
+    if($obj->CardID === "svd53zc9p4" && !$ignoreCost && $reserveCost > 0 && IsVanitasBonusActive($player) && count(ZoneSearch("myMemory", cardElements: ["WIND"])) >= 3) {
+        $hasDominatingStrikeAltCost = true;
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Reveal_three_wind_cards_from_memory_instead_of_paying_reserve?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DominatingStrikeAltCost|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs â€” Winds of Destiny (nhk5d19n82): may rest 2 Fatestones instead of reserve
     $hasWindsOfDestinyAltCost = false;
     if($obj->CardID === "nhk5d19n82" && !$ignoreCost && $reserveCost > 0) {
@@ -15323,6 +15331,9 @@ function ObjectCurrentPower($obj) {
             case "6g7x7tja9h_ATTACK_POWER": // Trivariate Dream: [CB] +3 POWER with exactly 3 Aethercharge in intent
                 $power += 3;
                 break;
+            case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT (this case sat in the linked-card switch below, where a global effect is never read)
+                $power += 1;
+                break;
             case "xgi39z49tu": // Pluming Crescendo: Animals get +1 POWER until end of turn
                 $power += 1;
                 break;
@@ -15486,9 +15497,6 @@ function ObjectCurrentPower($obj) {
                 break;
             case "CbPHWJ8Upd": // Stabilizing BladeCore: class bonus linked Sword gets +2 POWER
                 if(IsClassBonusActive($linkedObj->Controller, CardClasses($linkedObj->CardID))) $power += 2;
-                break;
-            case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT
-                $power += 1;
                 break;
             case "3jg01o26b4": // Slice and Dice: copy from additional attack gets +3 POWER
                 if(in_array("3jg01o26b4-COPY_POWER", $obj->TurnEffects)) {

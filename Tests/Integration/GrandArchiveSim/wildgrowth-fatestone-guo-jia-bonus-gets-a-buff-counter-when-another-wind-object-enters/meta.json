@@ -1,0 +1,22 @@
+{
+    "name": "wildgrowth-fatestone-guo-jia-bonus-gets-a-buff-counter-when-another-wind-object-enters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:19:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x2oydmfcre"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x2oydmfcre"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Whenever another wind element object enters the field under your control, put a **buff** counter on Wildgrowth Fatestone."
+        ]
+    }
+}

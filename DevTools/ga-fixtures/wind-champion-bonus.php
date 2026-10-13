@@ -156,3 +156,172 @@ gaScenario('landscape-corsair-without-kongming-leaves-the-currents-alone')
     ->tested('Landscape Corsair')
     ->covers(['on-enter', 'champion-bonus', 'condition'], '[Kongming Bonus] **On Enter:**')
     ->register();
+
+// ---- Tailwind's Blessing / Wulin Lancer (Shifting Currents changing from North to West) ----
+// Kongming's end-phase prompt lets the owner change the direction; the stat bonuses are "until end of turn", so they are read right after the change.
+
+gaBonus('tailwinds-blessing-allies-get-plus-one-power-when-the-currents-change-from-north-to-west', 'Kongming, Wayward Maven')
+    ->seed('myMastery', 'Shifting Currents', properties: ['Direction' => 'NORTH'])
+    ->seed('myField', 'Tailwind\'s Blessing')
+    ->seed('myField', 'Dungeon Guide')
+    ->endTurn()->answer(1, 'WEST')
+    ->expectPower('p1Field-2', 2, 'North to West: allies got +1 power until end of turn (1 + 1)')
+    ->tested('Tailwind\'s Blessing')
+    ->covers(['currents', 'trigger', 'stat-change'], 'Whenever your Shifting Currents change from facing North to West, allies you control get +1 [POWER] until end of turn.')
+    ->register();
+
+gaBonus('tailwinds-blessing-other-direction-changes-give-no-power', 'Kongming, Wayward Maven')
+    ->seed('myMastery', 'Shifting Currents', properties: ['Direction' => 'NORTH'])
+    ->seed('myField', 'Tailwind\'s Blessing')
+    ->seed('myField', 'Dungeon Guide')
+    ->endTurn()->answer(1, 'EAST')
+    ->expectPower('p1Field-2', 1, 'North to East: no bonus')
+    ->tested('Tailwind\'s Blessing')
+    ->covers(['currents', 'trigger', 'condition'], 'change from facing North to West')
+    ->register();
+
+gaBonus('wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west', 'Kongming, Wayward Maven')
+    ->seed('myMastery', 'Shifting Currents', properties: ['Direction' => 'NORTH'])
+    ->seed('myField', 'Wulin Lancer')
+    ->endTurn()->answer(1, 'WEST')
+    ->expectPower('p1Field-1', 4, 'North to West: +2 power until end of turn (2 + 2)')
+    ->tested('Wulin Lancer')
+    ->covers(['currents', 'trigger', 'stat-change'], 'Whenever your Shifting Currents change from facing North to West, CARDNAME gets +2 [POWER] until end of turn.')
+    ->register();
+
+// ---- Fatestones (Guo Jia) ----
+
+gaScenario('beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Beseeched Fatestone')
+    ->seed('myHand', 'Beseeched Fatestone')
+    ->play('Beseeched Fatestone')->pay(6)->answer(1, 'myMaterial-0')
+    ->expectCardExists('myField', 'Lorraine, Wandering Warrior', 'On Enter: a card from the material deck was materialized (a champion, so the champion levelled up)')
+    ->tested('Beseeched Fatestone')
+    ->covers(['on-enter', 'materialize'], '**On Enter**: **Materialize** a card from your material deck.')
+    ->register();
+
+gaBonus('wildgrowth-fatestone-guo-jia-bonus-gets-a-buff-counter-when-another-wind-object-enters', 'Guo Jia, Chosen Disciple')
+    ->seed('myField', 'Wildgrowth Fatestone')
+    ->seed('myHand', 'Windrider Mage')
+    ->play('Windrider Mage')->pay(2)
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', '[Guo Jia Bonus] another wind object entered: a buff counter on the Fatestone')
+    ->tested('Wildgrowth Fatestone')
+    ->covers(['champion-bonus', 'trigger', 'counter'], '[Guo Jia Bonus] Whenever another wind element object enters the field under your control, put a **buff** counter on Wildgrowth Fatestone.')
+    ->register();
+
+gaScenario('wildgrowth-fatestone-without-guo-jia-gets-no-buff-counter')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Wildgrowth Fatestone')
+    ->seed('myField', 'Wildgrowth Fatestone')
+    ->seed('myHand', 'Windrider Mage')
+    ->play('Windrider Mage')->pay(2)
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'Not Guo Jia: no counter')
+    ->tested('Wildgrowth Fatestone')
+    ->covers(['champion-bonus', 'trigger', 'condition'], '[Guo Jia Bonus]')
+    ->register();
+
+gaScenario('cyclonic-fatestone-fast-on-enter-suppresses-an-attacking-ally-you-dont-control')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Cyclonic Fatestone')
+    ->seed('myHand', 'Cyclonic Fatestone')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(1, 'myHand-7')->pay(3)->answer(1, 'theirField-1')
+    ->expectCardExists('theirBanish', 'Giant Tortoise', 'On Enter: the attacking ally was suppressed (banished until the end phase)', 1)
+    ->expectDamage('p1Field-0', 0, 'The suppressed ally never dealt its damage')
+    ->tested('Cyclonic Fatestone')
+    ->covers(['keyword', 'fast-activation', 'on-enter', 'suppress', 'targeting'], '**Fast Activation**', '**On Enter**: **Suppress** target attacking ally you don\'t control.')
+    ->register();
+
+// ---- Rowland, Schwartz Knight (Alice) ----
+
+gaBonus('rowland-alice-bonus-on-ally-kill-of-a-taunt-unit-wakes-him-up', 'Alice, Distorted Queen')
+    ->seed('myField', 'Rowland, Schwartz Knight', properties: ['Counters' => ['buff' => 2]])
+    ->seed('myField', 'Throne-Keeper Bullfrog', player: 2)
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-1')
+    ->expectCardExists('theirGraveyard', 'Throne-Keeper Bullfrog', 'The Bullfrog (taunt, 4 life) was killed by 2 + 2 power', 1)
+    ->expectProperty('p1Field-1', 'Status', '2', '[Alice Bonus] On Ally Kill of a taunt unit: Rowland woke up')
+    ->tested('Rowland, Schwartz Knight')
+    ->covers(['on-kill', 'champion-bonus', 'status', 'condition'], '[Alice Bonus] **On Ally Kill:** If the killed unit had **intercept** or **taunt**, wake up CARDNAME.')
+    ->register();
+
+gaBonus('rowland-alice-bonus-on-ally-kill-of-a-plain-unit-leaves-him-rested', 'Alice, Distorted Queen')
+    ->seed('myField', 'Rowland, Schwartz Knight', properties: ['Counters' => ['buff' => 2]])
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-1')->pass(2)
+    ->expectCardExists('theirGraveyard', 'Dungeon Guide', 'The Dungeon Guide was killed by 2 + 2 power', 1)
+    ->expectProperty('p1Field-1', 'Status', '1', 'No intercept or taunt: Rowland stays rested')
+    ->tested('Rowland, Schwartz Knight')
+    ->covers(['on-kill', 'champion-bonus', 'condition'], 'If the killed unit had **intercept** or **taunt**')
+    ->register();
+
+// ---- Beseeching Flourish (Jin) ----
+// Jin has no power of his own, so the attack is made with a weapon (Zephyr's Edge).
+
+gaScenario('beseeching-flourish-jin-bonus-on-hit-materializes-a-polearm-weapon')
+    ->deck("# Material\n1 Spirit of Fire\n1 Crescent Glaive\n# Main\n12 Dungeon Guide\n4 Beseeching Flourish")
+    ->champion(cardName: 'Jin, Fate Defiant', lineage: ['Spirit of Wind'])
+    ->seed('myField', 'Zephyr\'s Edge')
+    ->seed('myHand', 'Beseeching Flourish')
+    ->reachTurnThree()
+    ->play('Beseeching Flourish')->pay(3)->answer(1, 'myField-1')->answer(1, 'theirField-0')->answer(1, 'myMaterial-0')
+    ->expectCardExists('myField', 'Crescent Glaive', '[Jin Bonus] On Hit: a Polearm weapon was materialized')
+    ->tested('Beseeching Flourish')
+    ->covers(['on-hit', 'champion-bonus', 'materialize'], '[Jin Bonus] **On Hit:** **Materialize** a Polearm weapon card from your material deck.')
+    ->register();
+
+gaScenario('beseeching-flourish-without-jin-materializes-nothing')
+    ->deck("# Material\n1 Spirit of Fire\n1 Crescent Glaive\n# Main\n12 Dungeon Guide\n4 Beseeching Flourish")
+    ->readyFor('Beseeching Flourish')
+    ->seed('myField', 'Zephyr\'s Edge')
+    ->seed('myHand', 'Beseeching Flourish')
+    ->reachTurnThree()
+    ->play('Beseeching Flourish')->pay(3)->answer(1, 'myField-1')->answer(1, 'theirField-0')
+    ->expectZoneCount('myField', 2, 1, 'Not Jin: nothing materialized')
+    ->tested('Beseeching Flourish')
+    ->covers(['on-hit', 'champion-bonus', 'condition'], '[Jin Bonus] **On Hit:**')
+    ->register();
+
+// ---- Dominating Strike (Vanitas) ----
+// Player 2 plays it on turn 2 (no recollection phase), so the wind cards seeded into memory are still there to be revealed.
+
+gaScenario('dominating-strike-vanitas-bonus-reveals-three-wind-cards-from-memory-rather-than-paying')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(cardName: 'Vanitas, Convergent Ruin', lineage: ['Vanitas, Obliviate Schemer', 'Spirit of Wind'], level: 2, player: 2)
+    ->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)
+    ->seed('myHand', 'Dominating Strike', player: 2)
+    ->endTurn()
+    ->play('Dominating Strike', 2)->answer(2, 'YES')->target('theirField-0', 2)
+    ->expectZoneCount('myMemory', 3, 2, 'Revealed, not paid: the three wind cards are still in memory')
+    ->expectZoneCount('myHand', 8, 2, 'Nothing was paid from the hand (7 + the turn draw + the seeded Strike - the Strike)')
+    ->expectDamage('p1Field-0', 5, 'The attack: Dominating Strike 4 + the champion\'s 1 power = 5')
+    ->tested('Dominating Strike')
+    ->covers(['alt-cost', 'champion-bonus', 'reveal'], '[Vanitas Bonus] You may reveal three wind element cards from your memory rather than pay this card\'s reserve cost.')
+    ->register();
+
+gaScenario('dominating-strike-vanitas-bonus-declined-pays-the-reserve-cost')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(cardName: 'Vanitas, Convergent Ruin', lineage: ['Vanitas, Obliviate Schemer', 'Spirit of Wind'], level: 2, player: 2)
+    ->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)
+    ->seed('myHand', 'Dominating Strike', player: 2)
+    ->endTurn()
+    ->play('Dominating Strike', 2)->answer(2, 'NO')->pay(3, 2)->target('theirField-0', 2)
+    ->expectZoneCount('myMemory', 6, 2, 'Declined: three cards were paid into memory on top of the three wind cards')
+    ->tested('Dominating Strike')
+    ->covers(['alt-cost', 'champion-bonus', 'condition'], 'rather than pay this card\'s reserve cost')
+    ->register();
+
+gaScenario('dominating-strike-without-vanitas-is-not-offered-the-alternative-cost')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Dominating Strike', player: 2)
+    ->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)->seed('myMemory', 'Windrider Mage', player: 2)
+    ->seed('myHand', 'Dominating Strike', player: 2)
+    ->endTurn()
+    ->play('Dominating Strike', 2)->pay(3, 2)->target('theirField-0', 2)
+    ->expectZoneCount('myMemory', 6, 2, 'Not Vanitas: the reserve cost was paid')
+    ->tested('Dominating Strike')
+    ->covers(['alt-cost', 'champion-bonus', 'condition'], '[Vanitas Bonus]')
+    ->register();

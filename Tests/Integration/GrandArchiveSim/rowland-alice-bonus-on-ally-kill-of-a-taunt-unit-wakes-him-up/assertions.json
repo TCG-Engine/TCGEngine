@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "jdog5yo5gg",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Bullfrog (taunt, 4 life) was killed by 2 + 2 power"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "[Alice Bonus] On Ally Kill of a taunt unit: Rowland woke up"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "dominating-strike-without-vanitas-is-not-offered-the-alternative-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:22:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "svd53zc9p4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "svd53zc9p4"
+        ],
+        "mechanics": [
+            "alt-cost",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Vanitas Bonus]"
+        ]
+    }
+}

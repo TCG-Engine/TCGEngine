@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] another wind object entered: a buff counter on the Fatestone"
+    }
+]
