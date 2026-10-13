@@ -164,9 +164,10 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
     $sharing = array_count_values(array_column($derived, 0));
     foreach ($derived as $stem => [$n, $suffix]) {
         $check($n !== '', "{$dir}/{$stem}: resolves to a name");
-        // The author suffix (owner 2026-10-12) only where another list in this folder derives the same name, and only the file's OWN
-        // "# Author:" — otherwise a suffix could hide a misnamed file.
-        $ok = $stem === $n || ($suffix !== '' && $stem === $n . $suffix && ($sharing[$n] ?? 0) > 1);
+        // The author suffix (owner 2026-10-12): only the file's OWN "# Author:", after the exact derived name — otherwise a suffix could
+        // hide a misnamed file. Owner 2026-10-13: a creator's list may carry it before a collision exists (Ninin's Maul Blue Tatooine
+        // keeps "_by-ninin": Star Wars Dad's list is moving to the same base).
+        $ok = $stem === $n || ($suffix !== '' && $stem === $n . $suffix);
         $byName[$ok ? $stem : $n][] = $stem;
         if (!$ok) $misnamed[] = "{$stem} (should be {$n}" . (($sharing[$n] ?? 0) > 1 && $suffix !== '' ? " or {$n}{$suffix}" : '') . ")";
     }
@@ -212,7 +213,7 @@ $check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-H
 $known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
           'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad',
           'general-grievous_hmw_blue_kashyyyk' => 'Ninin', 'obi--wan-kenobi_lof_yellow-force' => 'MasterJay',
-          'maul_hmw_blue_by-ninin' => 'Ninin'];
+          'maul_hmw_blue_tatooine_by-ninin' => 'Ninin'];
 $wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
 $check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
 

@@ -40,7 +40,19 @@ $keywordSuppressors = [
     'HMW_221' => ['SENTINEL'],   // Teeka — mode 2 of her When Played: a unit loses Sentinel for this phase
 ];
 
+// Bot-decision memo hook (perf, 2026-10-13): while a bot decision is scoring a FIXED board (SWUBotMemo, BotEvaluator.php)
+// these pure board reads are cached per unit; anywhere else — every engine and web path — they compute fresh. Keyed on the
+// unit's UniqueID (+ CardID), never on PHP object identity, which a lookahead restore can reuse.
+function _SWUEngineMemo(string $key, callable $compute) {
+    return function_exists('SWUBotMemo') ? SWUBotMemo($key, $compute) : $compute();
+}
+
 function SWUKeywordSuppressed($obj, string $keyword): bool {
+    $uid = is_object($obj) ? intval($obj->UniqueID ?? 0) : 0;
+    if ($uid <= 0) return _SWUKeywordSuppressedNow($obj, $keyword);
+    return _SWUEngineMemo('kwsup|' . $uid . '|' . strval($obj->CardID ?? '') . '|' . $keyword, fn() => _SWUKeywordSuppressedNow($obj, $keyword));
+}
+function _SWUKeywordSuppressedNow($obj, string $keyword): bool {
     global $keywordSuppressors;
     // ── Explicit "loses <keyword>" effects are checked FIRST. They strip a keyword no matter where it
     // came from, so they also take away the Grit that SEC_054 Exiled from the Force hands back — the
@@ -103,6 +115,11 @@ function _SWUBrainInvadersInPlay(): bool {
 // parameter that question is circular (Exiled would always see itself and answer "yes, blanked").
 function LostAbilities($obj, string $ignoreUpgradeCardID = ''): bool {
     if ($obj === null) return false;
+    $uid = is_object($obj) ? intval($obj->UniqueID ?? 0) : 0;
+    if ($uid <= 0) return _SWULostAbilitiesNow($obj, $ignoreUpgradeCardID);
+    return _SWUEngineMemo('lost|' . $uid . '|' . strval($obj->CardID ?? '') . '|' . $ignoreUpgradeCardID, fn() => _SWULostAbilitiesNow($obj, $ignoreUpgradeCardID));
+}
+function _SWULostAbilitiesNow($obj, string $ignoreUpgradeCardID = ''): bool {
     // TWI_255 Brain Invaders — "Each leader loses all abilities except for epic actions and can't gain
     // abilities." A deployed leader UNIT loses all its abilities/keywords while a Brain Invaders is in
     // play (epic actions aren't dispatched through the ability handlers this gates, so deploy survives).
@@ -150,6 +167,9 @@ function _SWUCheckDefeatAfterAbilityLoss(string $mzID): void {
 // (by CardID + owner) — used at every ability surface that keys on a card title rather than an object.
 function _SWUGalenSuppressesCard(int $owner, string $cardID): bool {
     if ($owner <= 0 || $cardID === '') return false;
+    return _SWUEngineMemo("galen|$owner|$cardID", fn() => _SWUGalenSuppressesCardNow($owner, $cardID));
+}
+function _SWUGalenSuppressesCardNow(int $owner, string $cardID): bool {
     if (CardType($cardID) === 'Leader') return false;             // "non-leader card" — excludes leaders
     $title = str_replace(' ', '_', (string)(CardTitle($cardID) ?? ''));
     return $title !== '' && _SWUGalenNames($owner, $title);
@@ -224,7 +244,7 @@ function GetUnitsInArena(int $player, string $arena): array {
 
 // Returns all non-removed units in both arenas for a player.
 function GetUnitsInPlay(int $player): array {
-    return array_merge(GetUnitsInArena($player, 'Ground'), GetUnitsInArena($player, 'Space'));
+    return _SWUEngineMemo('uip|' . $player, fn() => array_merge(GetUnitsInArena($player, 'Ground'), GetUnitsInArena($player, 'Space')));
 }
 
 // Returns all non-removed, non-captive upgrade objects attached to a unit.

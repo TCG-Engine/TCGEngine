@@ -429,6 +429,139 @@ function SWUBotRuleKillFirst(array $ctx): ?array {
     return $best;
 }
 
+// Feature 'neelcombo' (p47) — the Neel combo. Owner, Ahsoka Yellow w Neel (2026-10-13): "this list should now try to get the 'Neel
+// combo' on Turn 1. the absolute best opener is Neel plus Captain Tarpals. play Neel first, then Tarpals, and buff Tarpals for a free 4
+// damage to base." ASH_248 Neel (When Played/On Attack: the next unit you play this phase with 1 or less power enters play ready) →
+// HMW_254 Captain Tarpals (0 power, Raid 2) enters ready → ASH_009 Ahsoka's Action (+2/+0 to a unit with less power than a friendly
+// unit) → 4 at the base.
+// 'enablerfirst' (p10) only PRICES the order, and the go-wide guide outweighs it: baseline 2026-10-13 (1,610 round-1 games, 104 distinct
+// hands holding both) — the combo landed in ~56; 21 played BD-1 as the payoff (3 damage), ~20 played a payoff BEFORE Neel (0), 4 had
+// resourced a piece. So this is a hard order, like 'wall-first'. The payoff is the unit worth the most attack (power + Raid — Tarpals 2
+// beats BD-1 1); a unit that enters ready on its own (HMW_208 Luke in round 1) gains nothing and is no payoff.
+//   ROUND 1: Neel from hand, then the payoff. The buff and the swing are the fallback's (it already picks both).
+//   LATER, a ready Neel in play (owner, same day): "attack with Neel first, and then play a <=1 printed Power unit … so that it comes in
+//   ready. if there are no immediate threats, then Neel is also a good candidate to buff … so if the bot knows Neel can survive, it
+//   should go for buff Neel, swing with Neel, play a 1-power unit to ready and attack with it. another line … if Neel won't survive the
+//   buff is to just swing with Neel, and then play the weak unit. and then buff that ready unit."
+//     Line A (Neel SAFE): Ahsoka's Action on Neel → Neel swings → the payoff (ready) → it swings.
+//     Line B: Neel swings → the payoff (ready) → the fallback's buff + swing.
+//   Both add the same +2; the line decides which unit sits buffed through the opponent's next action. "Safe" (my reading) = no READY
+//   enemy unit in Neel's arena could defeat him with its attack (a Shield always saves him). An enemy SENTINEL in Neel's arena (or the
+//   payoff's) is the other "immediate threat": the swing has to go into it, so the line stands down and the fallback plays the turn.
+// Only under a leader whose Action finishes the line.
+const SWU_BOT_NEEL_COMBO_LEADERS = ['ASH_009'];
+function _SWUBotNeelGate(int $seat): bool {
+    if (!SWUBotFeatureOn('neelcombo')) return false;
+    $leader = GetLeader($seat)[0] ?? null;
+    return $leader !== null && in_array(strval($leader->CardID ?? ''), SWU_BOT_NEEL_COMBO_LEADERS, true);
+}
+// The best payoff in hand for a "with $maxPower or less power enters play ready" grant, affordable out of $left: a hand index or null.
+// Worth its attack (power + Raid), +2 when Ahsoka's buff can then reach it — less power than $friendMax, the strongest friendly unit
+// that will be in play (seed s163: an A-Wing, 1 + Raid 1, tied Tarpals' 0 + Raid 2, was picked first, and could not take the buff
+// under a 1-power Neel — 2 damage, not 4).
+function _SWUBotNeelPayoff(int $seat, int $maxPower, int $left, ?int $exclude = null, int $friendMax = -1): ?int {
+    $payoff = null; $bestSwing = 0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $exclude || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? ''); $text = strval(CardText($pid));
+        if (!str_contains(strval(CardType($pid)), 'Unit') || intval(CardPower($pid)) > $maxPower || stripos($text, 'enters play ready') !== false) continue;
+        if (intval(SWUComputePlayCost($seat, $o)) > $left) continue;
+        if (_SWUBotNeelSentinelIn($seat, _SWUBotPlayArena($pid))) continue;   // its ready attack would have to go into the Sentinel
+        // + an Experience token it gives itself On Attack (LAW_037 Han Solo, 1/1 Shielded: owner 2026-10-13, Ahsoka Blue — "the free 2
+        // damage to base plus shielded 2/2"); it lands before damage.
+        $swing = intval(CardPower($pid)) + (preg_match('/\bRaid (\d+)/i', $text, $r) ? intval($r[1]) : 0)
+               + (preg_match('/On Attack:[^.]*Give an Experience token to this unit/i', $text) ? 1 : 0)
+               + (intval(CardPower($pid)) < $friendMax ? 2 : 0);
+        if ($swing > $bestSwing) { $bestSwing = $swing; $payoff = $j; }
+    }
+    return $payoff;
+}
+// An enemy Sentinel in $arena (exhausted or not — Sentinel binds attacks either way): a readied unit there cannot reach the base.
+// Smoke run 2026-10-13: BD-1 readied into an exhausted Obi-Wan Kenobi Sentinel and never swung (s05); Neel swung into an exhausted
+// Captain Typho Sentinel and died (s02).
+function _SWUBotNeelSentinelIn(int $seat, string $arena): bool {
+    foreach (SWUBotEnemyUnits($seat) as $e) if (!empty($e['sentinel']) && $e['arena'] === $arena) return true;
+    return false;
+}
+function _SWUBotNeelFriendMax(int $seat): int {
+    $max = -1;
+    foreach (SWUBotUnits($seat) as $v) $max = max($max, intval($v['power']));
+    return $max;
+}
+// The hand half, as hand indices: ['enabler' => i|null, 'payoff' => j], or null. 'enabler' is null once the grant is ARMED this phase
+// (Neel played or swung — any round), and then only the payoff must fit. Unarmed, it is round 1 only: Neel and the payoff from hand.
+// $capacity defaults to what can be paid now; the opening resourcer passes the 2 resources it is about to make.
+function _SWUBotNeelComboPlan(int $seat, ?int $capacity = null): ?array {
+    if (!_SWUBotNeelGate($seat)) return null;
+    $capacity ??= SWUTotalPaymentCapacity($seat);
+    if (GlobalEffectCount($seat, 'SWU_ASH248_READY') > 0) {   // the engine's armed flag is ASH_248's own: 1 or less power
+        $p = _SWUBotNeelPayoff($seat, 1, $capacity, null, _SWUBotNeelFriendMax($seat));
+        return $p === null ? null : ['enabler' => null, 'payoff' => $p];
+    }
+    if (intval(GetTurnNumber()) !== 1) return null;
+    $enabler = null; $maxPower = -1;
+    foreach (GetHand($seat) as $i => $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        if (!preg_match('/When Played[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText(strval($o->CardID ?? ''))), $m)) continue;
+        if ($enabler === null || intval(SWUComputePlayCost($seat, $o)) < intval(SWUComputePlayCost($seat, GetHand($seat)[$enabler]))) { $enabler = $i; $maxPower = intval($m[1]); }
+    }
+    if ($enabler === null) return null;
+    $p = _SWUBotNeelPayoff($seat, $maxPower, $capacity - intval(SWUComputePlayCost($seat, GetHand($seat)[$enabler])), $enabler,
+                           max(_SWUBotNeelFriendMax($seat), intval(CardPower(strval(GetHand($seat)[$enabler]->CardID ?? '')))));
+    return $p === null ? null : ['enabler' => $enabler, 'payoff' => $p];
+}
+// The board half: a READY friendly unit whose ON ATTACK arms the grant, with an affordable payoff in hand to spend it on (the swing costs
+// nothing, so the whole capacity is left). ['neel' => view, 'safe' => bool, 'buffable' => bool] or null. 'buffable' = Ahsoka's Action can
+// target him (a friendly unit with more power).
+function _SWUBotNeelSwingLine(int $seat): ?array {
+    if (!_SWUBotNeelGate($seat) || GlobalEffectCount($seat, 'SWU_ASH248_READY') > 0) return null;
+    $units = SWUBotUnits($seat);
+    foreach ($units as $v) {
+        if (!$v['ready'] || !preg_match('/On Attack[^.]*next unit you play this phase with (\d+) or less power enters play ready/i', strval(CardText($v['cardID'])), $m)) continue;
+        if (_SWUBotNeelSentinelIn($seat, $v['arena'])) continue;
+        if (_SWUBotNeelPayoff($seat, intval($m[1]), SWUTotalPaymentCapacity($seat), null, _SWUBotNeelFriendMax($seat)) === null) continue;
+        $safe = intval($v['shields']) > 0;
+        if (!$safe) {
+            $safe = true;
+            foreach (SWUBotEnemyUnits($seat) as $e) if ($e['ready'] && $e['arena'] === $v['arena'] && intval($e['attackPower']) >= intval($v['remaining'])) { $safe = false; break; }
+        }
+        $buffable = false;
+        foreach ($units as $f) if ($f['uid'] !== $v['uid'] && intval($f['power']) > intval($v['power'])) { $buffable = true; break; }
+        return ['neel' => $v, 'safe' => $safe, 'buffable' => $buffable];
+    }
+    return null;
+}
+// Ahsoka's buff target in Line A: Neel himself (the decision branch, BotFallback.php, gives this unit the pick). Null outside Line A.
+function SWUBotNeelBuffTargetUid(int $seat): ?int {
+    $line = _SWUBotNeelSwingLine($seat);
+    return ($line !== null && $line['safe'] && $line['buffable']) ? intval($line['neel']['uid']) : null;
+}
+function SWUBotRuleNeelCombo(array $ctx): ?array {
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']);
+    $plan = _SWUBotNeelComboPlan($seat);
+    if ($plan !== null) {
+        $want = 'myHand-' . ($plan['enabler'] ?? $plan['payoff']);
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) === 'play' && SWUBotActionMz($a) === $want) { _SWUBotFired('neelcombo', $seat); return $a; }
+        }
+        return null;
+    }
+    $line = _SWUBotNeelSwingLine($seat);
+    if ($line === null) return null;
+    if ($line['safe'] && $line['buffable']) {
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) === 'leader-ability') { _SWUBotFired('neelbuff', $seat); return $a; }
+        }
+    }
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'attack') continue;
+        $v = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        if ($v !== null && $v['uid'] === $line['neel']['uid']) { _SWUBotFired($line['safe'] ? 'neelswing' : 'neelswingfirst', $seat); return $a; }
+    }
+    return null;
+}
+
 // Feature 'wallfirst' (p39) — control vs an aggro leader puts its Sentinel down FIRST in the early rounds. Owner, Krennic (LAW) Blue
 // 2026-10-06: vs aggro the deck stabilises with "Sentinel wall + trades", and the opener is "hold for R2 Sentinel" (R2 Moff Gideon from
 // 3 resources). Traced: with Gideon/Commando in hand going into R2, one was played on R2 in 16 of 38 aggro games — Latts Razzi went first.
@@ -1147,7 +1280,8 @@ function SWUBotRulesAfterFilter(): array {
     return [
         'initiative-for-lethal'    => 'SWUBotRuleInitiativeForLethal',
         'break-lethal'             => 'SWUBotRuleBreakLethal',
-        'krennic-script'           => 'SWUBotRuleKrennicScript',         // proposal 'krennicscript' — the owner's written curve
+        'neel-combo'               => 'SWUBotRuleNeelCombo',             // feature 'neelcombo' (p47) — round 1 Neel → Tarpals
+        'krennic-script'          => 'SWUBotRuleKrennicScript',         // proposal 'krennicscript' — the owner's written curve
         'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"

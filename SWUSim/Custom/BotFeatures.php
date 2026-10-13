@@ -689,6 +689,20 @@ const SWU_BOT_PART44_FEATURES = ['handhate', 'leaderkill', 'freshsac', 'maulpitc
 //   wdshieldpop — that When Defeated's value counts a point spent popping an enemy Shield (Ninin vs Ahsoka: 4 to Neel, 2 into Han's Shield),
 //          priced as the split picker already prices it ('splitpop', p32).
 const SWU_BOT_PART45_FEATURES = ['playdefeatwd', 'uniquewd', 'wdshieldpop'];
+// Part 46 'tempolines' (2026-10-13, owner "drop only softenkill and ship the rest") — from the deep read of Ninin's 18 Maul Blue v2 games.
+// Maul v3 single-rule screen (.claude/tmp/maul-v3-single-screen, Maul's seat only, 9 opponents x 128 paired games each): nightpick −4
+// (20:24), wdbait +3 (5:2), ambushsetup −2 (0:2) — all near neutral; 'softenkill' (−16, p .06) was dropped. '@no-p46' / '@no-tempolines'.
+//   nightpick — HMW_204 Nightbrother's replay from the discard is the unit worth its EFFECTS (When Played now; a damage When Defeated at
+//          the regroup, priced by its kills) plus the one attack it makes now — not the first unit in the discard.
+//   wdbait — a damage When Defeated unit (The Legacy Run) played while a SEEN card in an opponent's hand would defeat it is bait: + half
+//          of what its When Defeated kills now. A take-control card (No Glory, Only Results) is no bait.
+//   ambushsetup — a ping counts the just-played unit's pending Ambush as a finisher (Snub Fighter Squadron pings what its Ambush then kills).
+const SWU_BOT_PART46_FEATURES = ['nightpick', 'wdbait', 'ambushsetup'];
+// Part 47 'neelcombo' (2026-10-13, owner: "this list should now try to get the 'Neel combo' on Turn 1 … play Neel first, then Tarpals, and
+// buff Tarpals for a free 4 damage to base") — Ahsoka Yellow w Neel (force-fam-HMW-predictions/ahsoka-tano_ash_yellow). Round 1 under
+// ASH_009: a hard rule plays ASH_248 Neel, then the payoff with the most power + Raid (HMW_254 Tarpals); the opening resourcer never banks
+// either. Logic: _SWUBotNeelComboPlan / SWUBotRuleNeelCombo (BotRules.php). SHIPPED ON THE OWNER'S RULING, like p7/p9. '@no-p47'.
+const SWU_BOT_PART47_FEATURES = ['neelcombo'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -698,7 +712,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES);   // part 2, then 3-45
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES);   // part 2, then 3-47
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -713,7 +727,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1118,11 +1132,14 @@ const SWU_BOT_PROPOSALS = [
                         // best unit, then the bomb they can cast soonest — not the first in hand. bot_handpick_test
     // ('handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft' — the
     // 2026-10-12 re-read's ten owner-ruled rules — SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+    // ('nightpick', 'wdbait', 'ambushsetup' — the 2026-10-13 deep read of the Maul Blue v2 games — SHIPPED 2026-10-13 as feature group 'p46'.)
     // Levers considered and DROPPED after grounding against the real scorer (kept as notes so they are not re-proposed):
     //   legacysplitkill — _SWUBotSplitScore already scores W['kill'] x value + 0.5 per killed target, plus 'splitlethal'.
     //   debuffkill      — _SWUBotWeaknessScore already returns a KILL when a -X/-X's loss >= the target's remaining HP (~line 1159).
     //   graveyardtheft  — _SWUBotPlayValue already prices a play-from-discard ('discard' route); opponent-discard theft is a ~2-card niche.
     //   (handhate was dropped here for want of a tag, then built on the discard-opponent-hand tag and shipped in p44.)
+    //   softenkill      — 'popkill' for plain damage (an attack that leaves its target alive, credited the kill a follow-up then makes).
+    //                     Maul v3 single-rule screen 2026-10-13: −16 (24:40, p .06) — DROPPED by the owner.
     //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
     //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
 ];
@@ -1203,6 +1220,7 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
                                  // 2026-10-12 human-game read: the three general rules together.
                                  'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
+                                 // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
                                  // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so

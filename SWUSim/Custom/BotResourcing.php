@@ -135,6 +135,10 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $early = SWUResourceCount($seat) <= 5;
     $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, strval($ctx['style'])) : null;
     $stabilized = $wipeRule && !$early && _SWUBotIsStabilized($seat);
+    // Feature 'neelcombo' (p47, BotRules.php): the OPENING pick never banks the round-1 Neel combo — the 2 cards resourced now are the
+    // 2 resources that pay for it.
+    $neelPlan = (SWUResourceCount($seat) === 0 && function_exists('_SWUBotNeelComboPlan')) ? _SWUBotNeelComboPlan($seat, $n) : null;
+    $neelKeep = $neelPlan === null ? [] : array_filter([$neelPlan['enabler'], $neelPlan['payoff']], fn($x) => $x !== null);
     // Proposal 'mgkeep': the earliest copy of each card in hand. Every later copy is the spare duplicate.
     $firstIndexOf = [];
     foreach (GetHand($seat) as $i => $c) {
@@ -178,6 +182,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // Feature 'bokatanres' (p42): the hard-control late-game bomb — resourced from a non-aggro OPENING hand, otherwise only when nothing
         // weaker is left, and never a second one in a game.
         if (SWUBotFeatureOn('bokatanres') && ($bk = _SWUBotBokatanResKeep($ctx, $cid, $i === ($firstIndexOf[$cid] ?? $i))) !== null) $keep += $bk;
+        if (in_array($i, $neelKeep, true)) $keep += 1000.0;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL

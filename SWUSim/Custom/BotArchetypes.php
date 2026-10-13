@@ -117,6 +117,11 @@ function SWUBotWeightTable(): array {
 
 // Starting values for the fallback scorer (layer 4), indexed by RANK.
 function SWUBotWeights(string $style, int $seat): array {
+    // Per-decision memo (BotEvaluator.php): the racing column reads the board; the probes/features are fixed within a decision.
+    $force = json_encode($GLOBALS['SWUBotTestForceRacing'] ?? null);
+    return function_exists('SWUBotMemo') ? SWUBotMemo("weights|$style|$seat|$force", fn() => _SWUBotWeightsNow($style, $seat)) : _SWUBotWeightsNow($style, $seat);
+}
+function _SWUBotWeightsNow(string $style, int $seat): array {
     $T = SWUBotWeightTable();
     $col = SWUBotRacingRank($style, $seat);
     $out = [];

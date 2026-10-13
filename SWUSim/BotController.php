@@ -56,7 +56,18 @@ function SWUBotComparableGamestateHash($gameName) {
     }
     $text = RegressionCurrentGamestateText('SWUSim', $gameName);
     if (!is_string($text)) return null;
+    // Memoised on (text, live phase) — the only two inputs (the self-check below reads GetCurrentPhase()). Each bot step hashes
+    // before AND after its action, and the next step's "before" is the same text as this step's "after": 0.8 ms per hash, 57% of a
+    // self-play engine step (2026-10-13 timing).
+    static $memoKey = null, $memoHash = null;
+    $key = $text . "\0" . (function_exists('GetCurrentPhase') ? strval(GetCurrentPhase()) : '');
+    if ($memoKey !== null && $key === $memoKey) return $memoHash;
+    $memoKey = $key;
+    $memoHash = _SWUBotComparableGamestateHashOf($text);
+    return $memoHash;
+}
 
+function _SWUBotComparableGamestateHashOf(string $text) {
     $lines = explode("\n", RegressionNormalizeNewlines($text));
     // Every generated gamestate begins with currentPlayer then updateNumber.
     if (count($lines) > 1) unset($lines[1]);

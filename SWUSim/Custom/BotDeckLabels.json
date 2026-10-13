@@ -1,5 +1,5 @@
 {
-    "generated": "2026-10-12",
+    "generated": "2026-10-13",
     "groups": [
         {
             "id": "hmw-meta-2026-09",
@@ -805,6 +805,38 @@
             "total": 50
         },
         {
+            "key": "force-fam-HMW-predictions--ahsoka-tano_ash_blue",
+            "group": "force-fam-HMW-predictions",
+            "file": "ahsoka-tano_ash_blue",
+            "name": "Ahsoka Tano (ASH) Blue By Star Wars Dad",
+            "author": "Star Wars Dad",
+            "leader": "ASH_009",
+            "base": "ASH_020",
+            "style": "softaggro",
+            "cards": {
+                "LOF_045": 3,
+                "HMW_074": 3,
+                "LOF_100": 2,
+                "LOF_111": 2,
+                "HMW_254": 3,
+                "ASH_062": 1,
+                "LOF_061": 2,
+                "SEC_101": 3,
+                "ASH_248": 3,
+                "ASH_079": 3,
+                "SEC_111": 3,
+                "LOF_093": 3,
+                "HMW_038": 3,
+                "LAW_039": 3,
+                "LOF_096": 3,
+                "LAW_041": 2,
+                "SEC_099": 3,
+                "LAW_037": 3,
+                "SEC_046": 2
+            },
+            "total": 50
+        },
+        {
             "key": "force-fam-HMW-predictions--ahsoka-tano_ash_yellow",
             "group": "force-fam-HMW-predictions",
             "file": "ahsoka-tano_ash_yellow",
@@ -814,27 +846,27 @@
             "base": "HMW_033",
             "style": "hyperaggro",
             "cards": {
-                "HMW_213": 3,
-                "SEC_213": 3,
-                "JTL_203": 3,
-                "LOF_096": 3,
-                "SEC_098": 3,
-                "SEC_099": 3,
-                "SEC_111": 3,
+                "ASH_109": 2,
                 "ASH_110": 2,
                 "ASH_201": 3,
-                "ASH_203": 3,
-                "ASH_109": 2,
-                "JTL_231": 1,
-                "JTL_095": 3,
-                "JTL_212": 3,
-                "SEC_215": 3,
+                "ASH_248": 3,
+                "HMW_208": 3,
+                "HMW_213": 3,
+                "HMW_254": 3,
                 "HMW_256": 3,
-                "SEC_101": 3,
                 "JTL_103": 2,
-                "SEC_179": 1
+                "JTL_203": 2,
+                "JTL_095": 3,
+                "LOF_191": 3,
+                "SEC_101": 3,
+                "SEC_111": 3,
+                "SEC_179": 1,
+                "SEC_213": 3,
+                "SEC_215": 3,
+                "SEC_098": 3,
+                "SEC_099": 3
             },
-            "total": 50
+            "total": 51
         },
         {
             "key": "force-fam-HMW-predictions--darth-vader_hmw_yellow",
@@ -1070,13 +1102,13 @@
             "total": 54
         },
         {
-            "key": "force-fam-HMW-predictions--maul_hmw_blue_by-ninin",
+            "key": "force-fam-HMW-predictions--maul_hmw_blue_tatooine_by-ninin",
             "group": "force-fam-HMW-predictions",
-            "file": "maul_hmw_blue_by-ninin",
-            "name": "Maul (HMW) Blue By Ninin",
+            "file": "maul_hmw_blue_tatooine_by-ninin",
+            "name": "Maul (HMW) Blue (Tatooine) By Ninin",
             "author": "Ninin",
             "leader": "HMW_016",
-            "base": "JTL_020",
+            "base": "HMW_019",
             "style": "softcontrol",
             "cards": {
                 "ASH_192": 3,
@@ -1084,11 +1116,13 @@
                 "ASH_220": 3,
                 "ASH_048": 2,
                 "ASH_052": 2,
-                "ASH_053": 3,
+                "ASH_053": 2,
                 "HMW_198": 2,
                 "HMW_202": 3,
                 "HMW_204": 2,
                 "HMW_205": 3,
+                "HMW_234": 2,
+                "HMW_240": 2,
                 "JTL_032": 3,
                 "JTL_033": 3,
                 "JTL_043": 2,
@@ -1101,7 +1135,7 @@
                 "SEC_233": 2,
                 "SEC_078": 1
             },
-            "total": 51
+            "total": 54
         },
         {
             "key": "force-fam-HMW-predictions--obi--wan-kenobi_lof_yellow-force",

@@ -101,6 +101,39 @@ function _SWUBotPopKillCredit(array $att, array $def, array $W): float {
     return $best;
 }
 
+// FEATURE 'wdbait' (p46, 2026-10-13): a unit whose When Defeated deals damage (The Legacy Run) played while a card SEEN in an opponent's hand
+// would defeat it (removal / wipe — Pre Vizsla, Chimaera) is bait: their answer pays the When Defeated back. Worth SWU_BOT_WDBAIT_SHARE of
+// what that When Defeated kills now. A take-control card (No Glory, Only Results) is no bait — its When Defeated would fire for THEM.
+// Ninin's Maul Blue: 2 of 2 after a look showed Pre Vizsla; both Pre Vizslas took 6 back.
+const SWU_BOT_WDBAIT_SHARE = 0.5;
+function _SWUBotWdBaitValue(int $seat, string $cid, array $W): float {
+    if (!SWUBotFeatureOn('wdbait') || _SWUBotWdDamage($cid) === null || !str_contains(strval(CardType($cid)), 'Unit')) return 0.0;
+    $seen = false;
+    foreach (SWUBotOpponentCardModel($seat) as $m) {
+        if (intval($m['known'] ?? 0) <= 0 || stripos(strval(CardText(strval($m['cid']))), 'take control') !== false) continue;
+        if (array_intersect(SWUBotCardTags(strval($m['cid'])), ['removal', 'wipe'])) { $seen = true; break; }
+    }
+    if (!$seen) return 0.0;
+    [$v] = _SWUBotWdBoardValue($seat, $cid, SWUBotEnemyUnits($seat), $W);
+    if ($v > 0.0) _SWUBotFired('wdbait', $seat);
+    return SWU_BOT_WDBAIT_SHARE * $v;
+}
+
+// FEATURE 'nightpick' (p46): what replaying $cid through HMW_204 Nightbrother is worth — the body is defeated at the next regroup, so its
+// EFFECTS (When Played now; a damage When Defeated priced by what it kills, as 'playdefeatwd') plus the one attack it makes now (it enters
+// ready): W['base'] x power. Ninin's Maul Blue: Lookouts (hand hate again), The Legacy Run (6 at the regroup), Pre Vizsla, Pyke — each
+// attacked at once.
+function _SWUBotNightPickValue(int $seat, string $cid, array $W): float {
+    $eff = _SWUBotEffectOnlyValue($seat, $cid, $W) ?? 0.0;
+    if (_SWUBotWdDamage($cid) !== null) {
+        $flat = 0.0;
+        foreach (['damage-enemy-unit', 'damage-enemy-unit-spread'] as $t) if (in_array($t, SWUBotCardTags($cid), true)) $flat += floatval($W[$t] ?? 0.0);
+        $enemies = SWUBotEnemyUnits($seat);
+        $eff += (empty($enemies) ? 0.0 : max($flat, _SWUBotWdBoardValue($seat, $cid, $enemies, $W)[0])) - $flat;
+    }
+    return 0.1 + $eff + floatval($W['base']) * max(0, intval(CardPower($cid)));
+}
+
 // Feature 'shieldtrader' (p37): a cheap unit (non-leader, cost <= 2) while it carries a Shield token is a FIGHTER — JTL_032 Director
 // Krennic's unit. Owner, Krennic Splash 2026-10-06: "while it is shielded … use it to either soften up sentinels, kill weenies, trade
 // shields"; without the Shield, "hit base to chip for 2. then sac it". Traced: shielded, it hit the base in 25 of its 42 attacks.
@@ -795,7 +828,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (_SWUBotPitchWaitsForAction($ctx, $seat, $cid)) { _SWUBotFired('maulpitch', $seat); return min($v, -0.4); }
                 // FEATURE 'condetb' (p44): a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on.
                 if (_SWUBotCondEtbWaits($seat, $i, $cid)) return min($v, -0.4);
-                return $v;
+                return $v + _SWUBotWdBaitValue($seat, $cid, $W);   // feature 'wdbait' (p46)
         }
         return -$index * 1e-6;
     }
@@ -1012,6 +1045,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     if ($type === 'OPTIONCHOOSE' && $tip === 'Choose_a_player_to_deal_indirect_damage' && SWUBotFeatureOn('splits')) {
         return $c === 'You' ? -1.0 : $W['base'];
     }
+    // FEATURE 'nightpick' (p46, 2026-10-13): HMW_204 Nightbrother's replay from the discard — enters ready, defeated at the next regroup. Was the
+    // first unit in the discard (the index tiebreak below).
+    if (SWUBotFeatureOn('nightpick') && str_starts_with($head, 'HMW_204#') && preg_match('/^myDiscard-(\d+)$/', $c, $nm)) {
+        $no = GetDiscard($seat)[intval($nm[1])] ?? null;
+        if ($no !== null && empty($no->removed)) { _SWUBotFired('nightpick', $seat); return _SWUBotNightPickValue($seat, strval($no->CardID ?? ''), $W) - $index * 1e-6; }
+    }
     // PROPOSAL 'piettcheat' (default OFF): a discounted play-from-hand prompt (Piett's "Play_a_Capital_Ship_unit_(costs_1_less)")
     // plays the card worth most, not the first legal one.
     // 'piettcheat' (Piett's discounted leader Action) and 'aspectwaiver' (the eight LAW common bases' penalty
@@ -1119,6 +1158,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // The decision's 6th segment is the verb: "Play" — the picks are played for FREE (DoTopDeckPlay) — or "Take" (drawn).
     if ($type === 'TOPDECKSEARCH' && $tip === 'Search_top_cards' && SWUBotFeatureOn('picks'))
         return _SWUBotSearchScore($seat, $c, $W, _SWUBotSearchRoute(strval($ctx['param'] ?? '')));
+    // Feature 'neelcombo' (p47, BotRules.php) Line A: Ahsoka's buff goes on a SAFE Neel, who swings next to arm his grant.
+    if ($onBoard && $head === 'APPLY_PHASE_BUFF' && str_contains(strval(($ctx['following'] ?? [])[0] ?? ''), '|ASH_009')
+        && function_exists('SWUBotNeelBuffTargetUid') && ($nu = SWUBotNeelBuffTargetUid($seat)) !== null) {
+        $v = SWUBotViewForMz($seat, $c);
+        if ($v !== null && intval($v['controller']) === $seat && $v['uid'] === $nu) return 1000.0;
+    }
     // Part 20 'buffspread': a Support leader's flip turn — who makes the Support attack, and where its phase buffs go.
     if ($onBoard && SWUBotFeatureOn('buffspread')) {
         if ($head === 'SWUSupportChooseAttacker') {
@@ -3006,6 +3051,16 @@ function _SWUBotFinisherHP(int $seat): int {
 //                            Reprint_Cad split Ninth Sister 1/1/1, then Hemlock's attack token finished the Interceptor.
 function _SWUBotFinisherHPFor(int $seat, array $v): int {
     $n = _SWUBotFinisherHP($seat);
+    // FEATURE 'ambushsetup' (p46, 2026-10-13): a just-played unit of mine whose Ambush is still on the effect stack attacks next — damage that
+    // leaves $v within its power (same arena) sets that kill up. Snub Fighter Squadron's When Played 1, then its 4-power Ambush: Ninin 4/4.
+    if (SWUBotFeatureOn('ambushsetup') && empty($v['isLeader'])) {
+        foreach (GetEffectStack() as $e) {
+            $e = (object)$e;
+            if (!empty($e->removed) || strval($e->TriggerType ?? '') !== 'Ambush' || intval($e->Controller ?? 0) !== $seat) continue;
+            $a = SWUBotViewForMz($seat, explode('|', strval($e->Params ?? ''))[0]);
+            if ($a !== null && $a['arena'] === $v['arena'] && intval($a['attackPower']) > $n) { $n = intval($a['attackPower']); _SWUBotFired('ambushsetup', $seat); }
+        }
+    }
     $nd = SWUBotFeatureOn('ndsetup'); $oa = SWUBotFeatureOn('onattackfinish');
     if (!$nd && !$oa) return $n;
     foreach (GetLeader($seat) as $l) {

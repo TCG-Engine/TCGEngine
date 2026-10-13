@@ -177,6 +177,12 @@ function HasTrait(string $cardID, string $trait): bool {
 
 // The card's printed trait line only (no grants).
 function _SWUHasPrintedTrait(string $cardID, string $trait): bool {
+    // Static card data: cached for the process (perf 2026-10-13 — ~40k calls per self-play game).
+    static $memo = [];
+    $k = $cardID . '|' . $trait;
+    return $memo[$k] ??= _SWUHasPrintedTraitNow($cardID, $trait);
+}
+function _SWUHasPrintedTraitNow(string $cardID, string $trait): bool {
     $raw = CardTrait($cardID);
     if ($raw === null || $raw === '') return false;
     foreach (explode(',', $raw) as $t) {
@@ -8916,15 +8922,21 @@ function _SWURitualDragonEntersReady(int $player, string $cardID): bool {
 // (seats are always 1..4, so no separator is needed — "123" = seats 1,2,3). SeatOrder is
 // the clockwise turn order; LiveSeats is the non-eliminated subset. Default "12" keeps a
 // 2-player game correct with no CreateGame change.
+// Both are pure functions of a short stored string, read tens of thousands of times a game: cached on that string (perf 2026-10-13).
 function GetSeatOrderArray(): array {
+    static $lastRaw = null, $last = null;
     $raw = trim((string)GetSeatOrder());
-    if ($raw === '') return [1, 2];
-    return array_map('intval', str_split($raw));
+    if ($raw === $lastRaw) return $last;
+    $lastRaw = $raw;
+    return $last = ($raw === '' ? [1, 2] : array_map('intval', str_split($raw)));
 }
 function GetLiveSeatsArray(): array {
+    static $lastRaw = null, $last = null;
     $raw = trim((string)GetLiveSeats());
     if ($raw === '') return GetSeatOrderArray();
-    return array_map('intval', str_split($raw));
+    if ($raw === $lastRaw) return $last;
+    $lastRaw = $raw;
+    return $last = array_map('intval', str_split($raw));
 }
 function IsSeatLive(int $seat): bool {
     return in_array($seat, GetLiveSeatsArray(), true);
@@ -27983,6 +27995,11 @@ $doesGlobalEffectApply["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = function($obj) { ret
 $foreverEffects["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = true;
 
 function GlobalEffectCount($player, $effectID) {
+    // Bot-decision memo (perf 2026-10-13, _SWUEngineMemo in KeywordEffects.php): fresh everywhere but a bot decision's fixed board.
+    if (function_exists('_SWUEngineMemo')) return _SWUEngineMemo('gec|' . $player . '|' . $effectID, fn() => _SWUGlobalEffectCountNow($player, $effectID));
+    return _SWUGlobalEffectCountNow($player, $effectID);
+}
+function _SWUGlobalEffectCountNow($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
     foreach($zoneArr as $index => $obj) {

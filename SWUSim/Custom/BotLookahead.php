@@ -141,10 +141,15 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
     if (function_exists('SWUBotDataEnterLookahead')) SWUBotDataEnterLookahead();
     ob_start();
     try {
-        if (_SWUBotLookaheadDispatch($seat, $action)) $out = $read();
+        // The per-decision memo (BotEvaluator.php) is off while the action runs and empty for the board it leaves.
+        if (function_exists('SWUBotMemoSuspend')) SWUBotMemoSuspend();
+        try { $dispatched = _SWUBotLookaheadDispatch($seat, $action); }
+        finally { if (function_exists('SWUBotMemoResume')) SWUBotMemoResume(); }
+        if ($dispatched) $out = $read();
     } finally {
         if (function_exists('SWUBotDataExitLookahead')) SWUBotDataExitLookahead();
         ob_end_clean();
+        if (function_exists('SWUBotMemoReset')) SWUBotMemoReset();   // ...and empty again for the restored board
         _SWURestoreSerializedPayload($payload);
         _SWUBotReapplyRemovedSlots($removedSlots);
         _SWUReapplyUndoBlocks($blocked);
@@ -154,6 +159,7 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
             unset($z);
         }
         foreach ($saved as $name => $value) $GLOBALS[$name] = $value;
+        if (function_exists('SWUBotMemoReset')) SWUBotMemoReset();
     }
     return is_array($out) ? $out : null;
 }
