@@ -28,15 +28,37 @@ function SWUBotOpponents(int $seat): array {
 // with the MOST remaining base HP — the one the attack policy focuses, and the one standing between this seat and
 // the win (CR 12.7: highest base HP wins). Ties go to the lowest seat, so the choice is deterministic. Never a dead
 // seat: a dead seat's base reads 0, which kept SWUBotLethalNow() permanently true (Deep research B).
+// Team Suns (owner 2026-10-12): the WEAKEST enemy base instead — there is no HP scoring, and finishing one seat leaves
+// the other team a single player, one kill from the team wipe that ends the game.
 function SWUBotOpponent(int $seat): int {
     $opps = SWUBotOpponents($seat);
     if (count($opps) === 1) return $opps[0];
-    $best = $opps[0]; $bestHp = -1;
+    $best = $opps[0]; $bestHp = null;
     foreach ($opps as $o) {
-        $hp = SWUBaseRemainingHp($o);
-        if ($hp > $bestHp) { $best = $o; $bestHp = $hp; }
+        $hp = SWUBotFocusHp($o);
+        if ($bestHp === null || $hp > $bestHp) { $best = $o; $bestHp = $hp; }
     }
     return $best;
+}
+
+// How much the focus wants $seat's base, as a tie-break magnitude: its remaining HP in free-for-all (the healthiest base),
+// minus it in Team Suns (the weakest). Every "which enemy base" tie-break reads this, so the two never disagree.
+function SWUBotFocusHp(int $seat): int {
+    $hp = SWUBaseRemainingHp($seat);
+    return (function_exists('SWUIsTeamGame') && SWUIsTeamGame()) ? -$hp : $hp;
+}
+
+// Team Suns: is $mz (in $seat's frame) a TEAMMATE's? Never harmed — not a target, not fodder, not a cost (owner
+// 2026-10-12). False outside a team game, and for my own zones.
+function SWUBotIsTeammateMz(int $seat, string $mz): bool {
+    if (!preg_match('/^p(\d+)/', $mz, $m) || !function_exists('SWUIsTeamGame') || !SWUIsTeamGame()) return false;
+    $owner = intval($m[1]);
+    return $owner !== $seat && !SWUIsEnemySeat($seat, $owner);
+}
+
+// $seat and its live teammates — "our" side. [$seat] outside Team Suns.
+function SWUBotFriendlySeats(int $seat): array {
+    return array_merge([$seat], function_exists('SWUTeammatesOf') ? array_map('intval', SWUTeammatesOf($seat)) : []);
 }
 
 // Is $mz (in $seat's frame) an ENEMY's? "their…" is the 2-seat frame. Above 2 seats ZoneSearch names every other

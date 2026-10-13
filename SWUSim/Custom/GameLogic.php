@@ -9186,6 +9186,47 @@ function NextLiveSeat(int $player): int {
     return OtherPlayer($player);
 }
 
+// ─── Team Suns: a short team's survivor takes its dead teammate's turn (owner, 2026-10-12) ───────────────────────────────
+// A house rule (the CR has no team rules): while one team is down to a single player and the other still has two, the survivor
+// plays its dead teammate's turn too, in that seat's place at the table — so the TEAMS keep alternating (Blue 2 out: 1 → 4 → 3 → 4).
+// At one player per team (1v1) nobody is short and dead seats are skipped as before. The survivor is still ONE player: a counter
+// ends their round in both turns (SWUSwapTurnPlayer's auto-pass reads the seat, not the turn). TURN ORDER ONLY — "the player to
+// your right/left" is a seating question and keeps reading NextLiveSeat. Outside Team Suns every helper here is a no-op.
+// core/TeamSuns_ShortTeamTakesTheDeadSeatsTurn.md.
+
+// The live seat that plays dead $seat's turn, or 0 (alive, not Team Suns, or its team is not the short one).
+function _SWUShortTeamCover(int $seat): int {
+    if (!SWUIsTeamGame() || IsSeatLive($seat)) return 0;
+    $live = GetLiveSeatsArray();
+    $mates = array_values(array_filter($live, fn($s) => SWUTeamOf(intval($s)) === SWUTeamOf($seat)));
+    return (count($mates) === 1 && count($live) - 1 > 1) ? intval($mates[0]) : 0;
+}
+
+// Turns in one trip round the table: every live seat, plus each dead seat a survivor covers. The action phase ends after a pass
+// from every one of them (SWUPassAction) — three live seats with a covered fourth have FOUR turns.
+function SWUTurnSlotCount(): int {
+    $n = count(GetLiveSeatsArray());
+    if (!SWUIsTeamGame()) return $n;
+    foreach (GetSeatOrderArray() as $s) if (_SWUShortTeamCover(intval($s)) > 0) $n++;
+    return $n;
+}
+
+// The turn after table seat $fromSlot: [the seat whose turn it is, the player who takes it].
+function _SWUNextTurnSlot(int $fromSlot): array {
+    $order = GetSeatOrderArray();
+    $n = count($order);
+    $idx = array_search($fromSlot, $order, true);
+    if ($idx !== false) {
+        for ($step = 1; $step <= $n; $step++) {
+            $cand = intval($order[($idx + $step) % $n]);
+            if (IsSeatLive($cand)) return [$cand, $cand];
+            if (($cover = _SWUShortTeamCover($cand)) > 0) return [$cand, $cover];
+        }
+    }
+    $p = NextLiveSeat($fromSlot);
+    return [$p, $p];
+}
+
 // ─── Table adjacency (USER RULING 2026-08-21) ────────────────────────────────────────────────────────
 // **RIGHT is the INCREMENT along SeatOrder; LEFT is the DECREMENT.** So with seat order 1234, the player
 // to seat 1's RIGHT is seat 2, and the player to seat 1's LEFT is seat 4. Eliminated seats are skipped,
@@ -9511,7 +9552,17 @@ function SWUPassActionAllowed(int $seat): bool {
 function SWUSwapTurnPlayer() {
     global $gTurnPlayer;
     // Twin Suns (Phase 4): advance clockwise via SeatOrder, skipping eliminated seats. 2-player: the other seat.
-    $gTurnPlayer = NextLiveSeat(intval($gTurnPlayer));
+    // Team Suns: a short team's survivor also takes its dead teammate's turn (_SWUShortTeamCover). SWU_TURN_SLOT remembers WHICH
+    // table seat's turn is being played, so the table resumes after the dead seat, not after the survivor's own. A slot that no
+    // longer matches (the turn was set elsewhere — a new round, an elimination) falls back to the turn player's own seat.
+    if (SWUIsTeamGame()) {
+        $slot = intval(GetSWUVar('SWU_TURN_SLOT', '0'));
+        $from = ($slot > 0 && _SWUShortTeamCover($slot) === intval($gTurnPlayer)) ? $slot : intval($gTurnPlayer);
+        [$nextSlot, $gTurnPlayer] = _SWUNextTurnSlot($from);
+        SetSWUVar('SWU_TURN_SLOT', strval($nextSlot));
+    } else {
+        $gTurnPlayer = NextLiveSeat(intval($gTurnPlayer));
+    }
     // Auto-pass for a seat that already took a counter this round (it's passing for the rest of the round).
     if (_SWUSeatTookCounterThisRound(intval($gTurnPlayer))) {
         SWUPassAction(intval($gTurnPlayer));
@@ -9649,7 +9700,8 @@ function SWUPassAction($player) {
     // Twin Suns (Phase 4): the action phase ends when ALL live players pass consecutively. This pass is
     // the Nth; if the prior streak already covers every other live seat, it ends the phase. 2-player:
     // liveCount-1 == 1, so this is byte-identical to the old "two consecutive passes" rule.
-    $liveCount = count(GetLiveSeatsArray());
+    // Team Suns: counted in TURNS, not seats — a short team's survivor has two (SWUTurnSlotCount; the live-seat count elsewhere).
+    $liveCount = SWUTurnSlotCount();
     if ($consecutivePasses >= $liveCount - 1) {
         // Both players have passed → end the action phase (MAIN→RGS). But a "when you take the
         // initiative" trigger (e.g. ASH_155 Grogu's bonus attack) can still be QUEUED when the

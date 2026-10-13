@@ -46,16 +46,20 @@ Fidelity vs real: archetype Pearson −0.02, MAE 0.102 vs 0.046 for a constant 5
    `ls .claude/tmp/ash-meta-runs/<label>/sweep/games | wc -l`; finished when `<run dir>/DONE` exists.
    Smoke test first if the tools changed: `-e LIMIT=30` plays the first 30 matches (60 games). On unchanged game code those games must be
    **identical** to the baseline (proven 60/60 on 2026-10-11) — if not, something broke the pairing.
-3. **Watch** with a background until-loop on `DONE` (it caps at 2 h; when it expires, do not re-arm — check on the owner's next message).
+3. **Watch** with a background until-loop on `DONE` (or on the queue log's "analysed" line). A background command caps at 2 h; when the
+   watcher expires before the run is done, **re-arm a new one immediately** and keep chaining until every queued arm is analysed
+   (owner 2026-10-13 — the old "don't re-arm" rule left finished arms unreported until the next message).
 4. **Do not edit bot/engine code while it runs** — every game reads the live files.
 5. **Analyze only the finished run** (never report a partial — partial arms drift):
    `python3 SWUSim/DevTools/rl/meta_baseline/analyze.py SWUSim/Tests/BotFixtures/meta-baselines/ash .claude/tmp/ash-meta-runs/<label>`
    (`--min N` / `--cell-min N` lower the archetype / matchup-cell thresholds — needed on a small set like HMW)
-6. **Matrix page:** `python3 SWUSim/DevTools/rl/meta_baseline/matrix.py <meta dir> <run dir> <scratchpad>/<label>-matrix.html --subtitle "<label>"`,
-   then publish it with the Artifact tool (a new page per comparison run; it shows bot %, **baseline bot %** and real % per matchup).
-7. **Report** in this order: (a) the paired change vs the baseline — games whose winner changed, per style "newly won : newly lost" with
-   the sign-test p, the largest archetype moves; (b) fidelity vs real for this run next to the baseline's (archetype Pearson, MAE vs the
-   constant-50% line, the style-bias gradient); (c) the matrix link.
+6. **Matrix page:** `python3 SWUSim/DevTools/rl/meta_baseline/matrix.py <meta dir> <run dir> <run dir>/matrix.html --subtitle "<label>"`
+   (it shows bot %, **baseline bot %** and real % per matchup). Keep it as a LOCAL file — do **not** publish an Artifact per run
+   (owner 2026-10-13: "we don't need an artifact every time. just an md is fine"). Publish only when the owner asks.
+7. **Report** as `<run dir>/REPORT.md` (and summarised in chat), in this order: (a) the paired change vs the baseline — games whose winner
+   changed, per style "newly won : newly lost" with the sign-test p, the largest archetype moves; (b) fidelity vs real for this run next to
+   the baseline's (archetype Pearson, MAE vs the constant-50% line, the style-bias gradient); (c) the local matrix.html path.
+   To isolate a lever from other code changes, pair two run dirs directly: `python3 .claude/tmp/ash-meta-runs/paired.py <arm> <reference arm>`.
 
 ## How to read the numbers
 

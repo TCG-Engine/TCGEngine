@@ -321,7 +321,10 @@ function _SWUBotWipeLosses(int $seat, string $cid): array {
     };
     $theirs = 0.0;
     foreach (SWUBotOpponents($seat) as $o) $theirs += $sum($o, true);   // every live enemy (3-4 seats)
-    return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $theirs];
+    // Team Suns: OUR side — a teammate's board the wipe clears is my loss too.
+    $mine = 0.0;
+    if (!_SWUBotWipeIsOneSided($cid)) foreach (SWUBotFriendlySeats($seat) as $f) $mine += $sum($f);
+    return [$mine, $theirs];
 }
 
 // Relevant = it covers EVERY arena the opponent is using. So Hyperspace Disaster answers a pure space board, but

@@ -5,7 +5,9 @@ require_once __DIR__ . '/LobbyAdapter.php';
 // Called under LobbyMutate's lock so joining, adding, and starting cannot overfill a room.
 // $deck: ['input' => string, 'validation' => validateDeck() result], resolved BEFORE the lock by the caller,
 // for an adapter whose bots play a deck (LobbyBotPolicyAdapter::botDeckInput). Null = no deck (FaB).
-function LobbyAddBot(object $lobby, string $authKey, string $profile, ?int $requestedSeat = null, ?array $deck = null): void {
+// $team: a Team Suns room's 'red'|'blue' — the host fills a slot on a chosen team (owner 2026-10-12). Required there,
+// ignored everywhere else.
+function LobbyAddBot(object $lobby, string $authKey, string $profile, ?int $requestedSeat = null, ?array $deck = null, ?string $team = null): void {
     $host = SWURoomFindPlayerByAuthKey($lobby, $authKey);
     if (!$host || $host->getBotProfile() !== '' || intval($host->getPlayerID()) !== intval($lobby->hostPlayerID ?? 0)) {
         throw new InvalidArgumentException('Only the host can add a bot.');
@@ -39,8 +41,22 @@ function LobbyAddBot(object $lobby, string $authKey, string $profile, ?int $requ
         if (!in_array($seat, $free, true)) throw new InvalidArgumentException('That slot is no longer available. Choose an empty slot.');
         $bot->setSeat($seat);
     }
+    $isTeamRoom = SWURoomIsTeamLobby($lobby);
+    if ($isTeamRoom && !in_array($team, SWURoomTeamNames(), true)) throw new InvalidArgumentException('Choose a team for the bot.');
     $adapter->configureBot($lobby, $bot, $profile);
     if ($deck !== null) LobbyApplyBotDeck($bot, strval($deck['input'] ?? ''), (array)$deck['validation']);
+    if ($isTeamRoom) {
+        // Team-wide unique leaders (spec §2.1): refuse here, or the room would sit on a start blocker nobody can clear —
+        // a bot cannot change its deck.
+        if (function_exists('SWUTeamLeaderConflicts')) {
+            $sets = [$bot->getLeaders()];
+            foreach (SWURoomTeamMembers($lobby, $team) as $m) $sets[] = $m->getLeaders();
+            $dupes = SWUTeamLeaderConflicts($sets);
+            if (!empty($dupes)) throw new InvalidArgumentException('Team ' . ucfirst($team) . ' already has that leader (' . implode(', ', $dupes) . '). Choose another deck.');
+        }
+        // Nothing is mutated on the room before this point: the bot is not in $lobby->players yet.
+        if (!SWURoomAssignTeam($lobby, $bot, $team)) throw new InvalidArgumentException('Team ' . ucfirst($team) . ' is already full.');
+    }
     $lobby->players[] = $bot;
     $lobby->numPlayers = count($lobby->players);
 }

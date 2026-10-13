@@ -230,6 +230,8 @@ function _WaitingRoomStyles(): string {
 .wr-botdlg-pcrow:hover { --plane: #1e2a38; --rim: rgba(190, 210, 236, .42); }
 .wr-botdlg-pcin:checked + .wr-botdlg-pcrow { --plane: #222a2c; --rim: rgba(226, 184, 92, .8); }
 .wr-botdlg-pcin:focus-visible + .wr-botdlg-pcrow { --rim: #f0c96a; outline: none; }
+/* Team Suns: a pre-con repeating a leader already on that team (disabled radio). */
+.wr-botdlg-pc-off .wr-botdlg-pcrow, .wr-botdlg-pc-off .wr-botdlg-pcrow:hover { opacity: .45; cursor: not-allowed; --plane: #18222e; --rim: rgba(160, 182, 210, .22); }
 .wr-botdlg-pccards { display: flex; align-items: center; gap: 3px; }
 .wr-botdlg-pccards .wr-cardwrap { padding: 1px; border-radius: 3px; }
 .wr-botdlg-pccards .wr-card { width: 44px; border-radius: 2px; }
@@ -489,6 +491,8 @@ function _WaitingRoomScript(array $cfg): string {
           var full = occupied >= slots.length;
           var mine = (myTeam === team);
           var label;
+          // The host may fill it with a bot ON THIS TEAM (owner 2026-10-12); the server seats it in the team's lowest free slot.
+          var fill = (!full && iAmHost && d.state === 'open' && botsTakeDecks()) ? '<div style="margin-top:6px;">' + fillButton('', team) + '</div>' : '';
           if (full || mine) {
             label = '<div style="font-size:13px;">Open</div>';
           } else if (!myDeckOk) {
@@ -500,7 +504,7 @@ function _WaitingRoomScript(array $cfg): string {
                     team.charAt(0).toUpperCase() + team.slice(1) + '</button>';
           }
           return '<div class="wr-seat wr-seat-empty" data-seat="' + sn + '" style="border-color:' + accent + '55;">' +
-                 emptySeat(sn, label) + '</div>';
+                 emptySeat(sn, label + fill) + '</div>';
         }).join('');
         return '<div class="wr-teamcol"><div class="wr-teamhdr" style="color:' + accent + ';">' +
                team.charAt(0).toUpperCase() + team.slice(1) + ' (' + occupied + '/' + slots.length + ')</div>' + cells + '</div>';
@@ -520,6 +524,7 @@ function _WaitingRoomScript(array $cfg): string {
       Array.prototype.forEach.call(host.querySelectorAll('.wr-join-team'), function (btn) {
         btn.onclick = function () { doSetTeam(btn.getAttribute('data-team')); };
       });
+      bindFills(host);
       bindKicks(host);
       return;
     }
@@ -543,9 +548,7 @@ function _WaitingRoomScript(array $cfg): string {
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
     bindKicks(host);
-    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
-      button.onclick = function () { if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat')); };
-    });
+    bindFills(host);
     Array.prototype.forEach.call(host.querySelectorAll('.wr-add-bot'), function (button) {
       button.onclick = function () {
         var profile = button.parentNode.querySelector('select').value;
@@ -582,14 +585,23 @@ function _WaitingRoomScript(array $cfg): string {
   }
   setInterval(tickFill, 1000);
 
+  // seat: the flat grid's seat number; team: a Team Suns column's 'red'|'blue' (the seat is the server's pick).
+  function fillButton(seat, team) {
+    var wait = botWaitSecs();
+    return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + esc(seat) + '"' + (team ? ' data-bot-team="' + esc(team) + '"' : '') +
+           (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
+  }
+  function bindFills(host) {
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-fill-bot'), function (button) {
+      button.onclick = function () {
+        if (botWaitSecs() <= 0) openFillBotDialog(button.getAttribute('data-bot-seat'), button.getAttribute('data-bot-team') || '');
+      };
+    });
+  }
   function botPicker(d, seat) {
     var profiles = Object.keys(botProfiles);
     if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
-    if (botsTakeDecks()) {
-      var wait = botWaitSecs();
-      return '<button type="button" class="btn wr-fill-bot" data-bot-seat="' + seat + '"' +
-             (wait > 0 ? ' disabled title="' + FILL_WAIT_TITLE + '"' : '') + '>' + fillLabel(wait) + '</button>';
-    }
+    if (botsTakeDecks()) return fillButton(seat, '');
     return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
       return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
     }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
@@ -612,8 +624,11 @@ function _WaitingRoomScript(array $cfg): string {
     if (p.count) meta += ' · <b>' + Number(p.count) + ' cards</b> · singleton';
     return meta;
   }
-  function openFillBotDialog(seat) {
+  function openFillBotDialog(seat, team) {
     if (document.querySelector('.wr-botdlg-overlay')) return;
+    var teamName = team ? team.charAt(0).toUpperCase() + team.slice(1) : '';
+    // Team Suns: a pre-con repeating a leader already on this team cannot be added (team-wide unique leaders).
+    var clashes = function (id) { return !!team && ((botProfiles[id] || {}).clashTeams || []).indexOf(team) >= 0; };
     var ids = Object.keys(botProfiles);
     var pasteId = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'paste'; })[0] || '';
     var preIds = ids.filter(function (id) { return (botProfiles[id] || {}).deck === 'precon'; });
@@ -650,19 +665,20 @@ function _WaitingRoomScript(array $cfg): string {
         ', each a complete Twin Suns deck.</div>' +
         '<div class="wr-botdlg-well"><ul class="wr-botdlg-pcs" role="radiogroup" aria-labelledby="wr-botdlg-pclbl">' +
         preIds.map(function (id, i) {
-          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i;
-          return '<li class="wr-botdlg-pc"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
-            ' value="' + esc(id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+          var p = botProfiles[id] || {}, rid = 'wr-botdlg-pc-' + i, clash = clashes(id);
+          var first = preIds.filter(function (x) { return !clashes(x); })[0];
+          return '<li class="wr-botdlg-pc' + (clash ? ' wr-botdlg-pc-off' : '') + '"><input class="wr-botdlg-pcin" type="radio" name="wr-botdlg-pick" id="' + rid + '"' +
+            ' value="' + esc(id) + '"' + (id === first ? ' checked' : '') + (clash ? ' disabled' : '') + '>' +
             '<label class="wr-botdlg-pcrow" for="' + rid + '">' +
             '<span class="wr-botdlg-pccards">' + (p.cards || []).map(thumb).join('') + '</span>' +
             '<span class="wr-botdlg-pctext"><span class="wr-botdlg-pcname">' + esc(p.deckName || p.name) + BOTDLG_MARK + '</span>' +
-            '<span class="wr-botdlg-pcmeta">' + preconMeta(p) + '</span></span></label></li>';
+            '<span class="wr-botdlg-pcmeta">' + (clash ? 'Team ' + esc(teamName) + ' already has this leader' : preconMeta(p)) + '</span></span></label></li>';
         }).join('') + '</ul></div></div>';
     }
     var o = document.createElement('div');
     o.className = 'wr-botdlg-overlay';
     o.innerHTML = '<div class="wr-botdlg" role="dialog" aria-modal="true" aria-labelledby="wr-botdlg-title">' +
-      '<div class="wr-botdlg-head" id="wr-botdlg-title">Fill Seat ' + esc(seat) + ' with Bot</div>' +
+      '<div class="wr-botdlg-head" id="wr-botdlg-title">' + (team ? 'Add a Bot to Team ' + esc(teamName) : 'Fill Seat ' + esc(seat) + ' with Bot') + '</div>' +
       '<div class="wr-botdlg-body">' + secs + '</div>' +
       '<div class="wr-botdlg-err" role="alert"></div>' +
       '<div class="wr-botdlg-actions"><button type="button" class="btn wr-botdlg-cancel">Cancel</button>' +
@@ -713,12 +729,12 @@ function _WaitingRoomScript(array $cfg): string {
       add.disabled = true; err.textContent = 'Checking the deck…';
       post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
         '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
-        '&botDeck=' + encodeURIComponent(deck) + '&seat=' + encodeURIComponent(seat), function (r) {
+        '&botDeck=' + encodeURIComponent(deck) + (team ? '&team=' + encodeURIComponent(team) : '&seat=' + encodeURIComponent(seat)), function (r) {
           add.disabled = false;
           if (!r || !r.success) { err.textContent = (r && r.message) || 'Could not add the bot.'; return; }
           close();
           lastSig = '';   // the roster just changed
-          if (typeof Toast === 'function') Toast('Bot added to seat ' + seat + '.', { type: 'success' });
+          if (typeof Toast === 'function') Toast(team ? 'Bot added to Team ' + teamName + '.' : 'Bot added to seat ' + seat + '.', { type: 'success' });
         });
     };
     document.addEventListener('keydown', onKey, true);

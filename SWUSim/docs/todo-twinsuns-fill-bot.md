@@ -255,6 +255,8 @@ rather than change it: still viable, still no new bot. They add one prerequisite
 
 ### C. Team Suns (2v2): out of scope for v1, and here is why
 
+> ✅ **Built 2026-10-12** — see step 7 below. The research here is kept as the reason for each step-7 piece.
+
 - **Not seatable today.** Bot mode needs format `botpractice`; teams need a team format; a lobby has one
   format. The "has bot seats" flag lifts the first half of that.
 - **A seat-3 bot would read seat 1, its TEAMMATE, as "the opponent".** Teams are seat parity (`SWUTeamOf`:
@@ -411,7 +413,8 @@ Team Suns is a follow-up: ~100–150 lines plus team tests.
    - **Result:** 20/20 games finish at 3 seats and 20/20 at 4 seats (rounds 3–5; 5 shared wins at 4 seats).
    - **⚠ Not reproducible per seed:** the bot's lookahead is TIME-budgeted, so the same seed can take a
      different line under CPU load. Seed ts-19 at 3 seats hit the self-elimination line in 5 of 6 runs.
-   - **Smoke test:** `SWUSim/DevTools/tests/twinsuns_selfplay_smoke_test.php` (3 pinned games, about 25s).
+   - **Smoke test:** ~~`SWUSim/DevTools/tests/twinsuns_selfplay_smoke_test.php`~~ retired 2026-10-13 (39s, nondeterministic; its engine
+     bugs have schema cases). Run `DevTools/SWUSimTwinSunsSelfPlay.php --seats=3|4` (or `--teams`) by hand instead.
    - **Three ENGINE bugs found and fixed** — none of them is bot-only:
      1. **The decision bridge looked only at seats 1–2.** `BridgeEnumerateLegalActionsLoaded` and the
         static-queue drain (`DevTools/TestAutomationBridge.php`) now use `BridgeDecisionSeats()` (the seat
@@ -471,7 +474,7 @@ Team Suns is a follow-up: ~100–150 lines plus team tests.
    - **Left alone (inert in live play, or fine with the focus opponent):** the proposal-only sites (Lando,
      Krennic, holdanswers, mgtrade, …), ControlWipe / ShrinkFirst unit reads, `_SWUBotResourcing2Tiers`, and
      Rl/ value features.
-   - **Team Suns defence** (valuing the teammate's base) is NOT done; Team Suns rooms don't offer bots in v1.
+   - **Team Suns defence** (valuing the teammate's base) is NOT done. Team Suns bots shipped in step 7 without it (owner: no harm + count their board).
 4. ✅ **The popup — built 2026-10-01 (session 132).**
    - **Page** (`SharedUI/Render/WaitingRoom.php`): a sim whose bot profiles carry a `deck` kind gets a "Fill Seat
      with Bot" button on each empty seat (host only).
@@ -534,4 +537,37 @@ Team Suns is a follow-up: ~100–150 lines plus team tests.
 - **Commit and deploy.** The changes touch Core (`ProcessInput`, `EngineActionRunner`,
   `DecisionQueueController`, `jsInclude.js`), so run the blast-radius check.
 - **After deploy, check a FaB room with a bot** (the write lock and stale token are shared; not run live on FaB).
-- **Team Suns rooms** still offer no bots (v1 scope).
+- ~~**Team Suns rooms** still offer no bots (v1 scope).~~ Built in step 7.
+
+7. ✅ **Team Suns bots — owner, 2026-10-12, built the same day** (committed as `fb9306ea`). Owner decisions:
+   - **A fill button per team.** Each empty slot under Red or Blue gets its own "Fill Seat with Bot". The bot joins that team, in
+     the team's lowest free seat.
+   - **The bot focuses the WEAKEST enemy base.** Team Suns has no HP scoring, so finishing one seat sets up the team wipe.
+   - **Scope: "no harm + count their board".** The bot never harms its teammate, and a teammate's units count as ours. Heals,
+     Shields and buffs stay mine-first.
+   - **Room** (`LobbyAddBot` gains `$team`; `AddBot.php` posts `team`):
+     - a team room refuses a bot with no team, and a full team;
+     - it refuses a deck that repeats a leader already on that team (canonical; a bot cannot change its deck, so that
+       start blocker could never clear);
+     - the poll's pre-con profiles gain `clashTeams`, and the popup greys a clashing pre-con out per team;
+     - a human taking a bot's seat lands on the bot's team, through the existing auto-team on join.
+   - **Bot** (every guard is inert outside a team game):
+     - `SWUBotIsTeammateMz` / `SWUBotFriendlySeats` / `SWUBotFocusHp` (`BotEvaluator.php`);
+     - `SWU_BOT_TEAMMATE_HARM` (below PASS and below every pick of my own) on: a sacrifice/defeat-a-friendly COST, a hostile
+       `_SWUBotTargetScore`, and the hostile `_SWUBotTSUnitPick` / `_SWUBotTSPlayerPick` rules;
+     - the "hostile Action with only friendly targets" refusal counts the teammate's units as friendly;
+     - the board read, board signature, wipe losses, ControlWipe and card-value friendly half all count our side;
+     - **a lookahead PLAN is not followed onto a teammate** (`SWUBotRulePlannedAnswer`). The lookahead scores by clocks, and a
+       teammate's board is on neither clock, so "hit/steal the teammate" tied with or beat "hit mine". Found by `--teams` self-play
+       after the first commit: SOR_122 Traitorous took the teammate's unit. A planned answer naming a teammate's card now goes to the
+       fallback (invariant 8E, red before the fix);
+     - Aurra Sing's free-kill read and Maul's two-ping kill flag read enemy seats, not `their…`. The `their` prefix is seat 1↔2,
+       so for seat 3 it meant its TEAMMATE.
+   - **Tests:**
+     - `bot_invariants_test.php` section 8 (5 checks, 8A-8E; each guard mutation-checked or red-before-fix, each caught by its own check);
+     - `lobby_room_bots_test.php` "team suns room" (15 checks; 5 mutations, all caught);
+     - `DevTools/ui-harness/swusim-teamsuns-fill-bot-xbrowser.mjs` (Chromium, Firefox and WebKit, desktop and phone, all pass).
+   - **Self-play:**
+     - `SWUSimTwinSunsSelfPlay.php --teams` plays 4-seat team games and lists any step that leaves a teammate worse off
+       (`friendlyFire`);
+     - 2-seat Arenabot is byte-identical: 24 seeded games, Aurra vs Ahsoka and Krennic vs Maul, against a pre-change copy.

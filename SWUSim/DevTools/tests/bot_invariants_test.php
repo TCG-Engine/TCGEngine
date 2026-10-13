@@ -247,4 +247,60 @@ $act(1, 10001, $ability);
 $GLOBALS['SWUBotPlan'][1] = $line['_path'];
 $check(str_starts_with(strval($stack('midrange')), 'their'), '7B: the truncated plan is overruled — the ping goes to an enemy');
 
+// ══ 8. TEAM SUNS: NEVER HARM A TEAMMATE (owner 2026-10-12, "no friendly fire") ═══════════════════════════════════════════════════════
+// Seat 1 (the bot) and seat 3 are Red; 2 and 4 are Blue. "Friendly" pools span the team (ZoneSearch team<Zone>), so a teammate's unit is
+// offered wherever mine is — as a COST, as fodder, and to a hostile prompt with no enemy on the board.
+$team = function (array $units, string $leader = 'SOR_014') use ($build) {
+    $build(function ($b) use ($units, $leader) {
+        if ($leader === 'SOR_014') $b->MyLeader($leader, false, false, true); else $b->MyLeader($leader);
+        $b->FillResourcesForPlayer(1, 'SOR_095', 8);
+        for ($s = 3; $s <= 4; $s++) CommonSetupFarSeat($b, $s, 'bbk');
+        $b->WithSeatOrder('1234')->WithLiveSeats('1234')->WithGlobalEffectForPlayer(1, 'SWU_MODE_TEAMS');
+        foreach ($units as $s => $list) foreach ($list as $u) {
+            if (($u[1] ?? 'g') === 's') $b->WithSpaceUnitForPlayer($s, $u[0], true, $u[2] ?? 0);
+            else $b->WithGroundUnitForPlayer($s, $u[0], true, $u[2] ?? 0);
+        }
+        $b->WithActivePlayer(1);
+    });
+};
+// 8A — a sacrifice COST: IBH_095 You Have Failed Me, "Defeat a friendly unit" (team-wide by ruling). Mine and the teammate's are offered;
+// the teammate's read as viewless (~0) and outscored every unit of mine.
+$team([1 => [['SOR_095']], 3 => [['SOR_095']], 2 => [['SOR_095']]]);
+DecisionQueueController::AddDecision(1, 'MZCHOOSE', 'myGroundArena-0&p3GroundArena-0', 1, tooltip: 'Defeat_a_friendly_unit');
+DecisionQueueController::AddDecision(1, 'CUSTOM', 'IBH_095#0', 1);
+$pick = $stack('normal');
+$check($pick === 'myGroundArena-0', "8A: a \"defeat a friendly unit\" cost is paid with MY unit, never the teammate's; got $pick");
+// 8B — a hostile pick with no enemy on offer: 2 damage chips the teammate's 3/7 Consular less than it costs my 3/3 Marine, so plain fodder
+// pricing aimed it at the teammate.
+$team([1 => [['SOR_095']], 3 => [['SOR_046']]]);
+DecisionQueueController::AddDecision(1, 'MZCHOOSE', 'myGroundArena-0&p3GroundArena-0', 1, tooltip: 'Deal_2_damage_to_a_unit');
+DecisionQueueController::AddDecision(1, 'CUSTOM', 'DEAL_UNIT_DAMAGE|2', 1);
+$pick = $stack('normal');
+$check($pick === 'myGroundArena-0', "8B: forced hostile damage lands on MY unit before the teammate's; got $pick");
+// 8C — a hostile Action whose only targets are mine and the teammate's is not used (rule 1A, team-wide): JTL_012 Luke's "deal 1 damage to
+// a unit" with my Y-Wing and the teammate's X-Wing and no enemy ship.
+$team([1 => [['JTL_149', 's', 0]], 3 => [['JTL_147', 's', 0]]], 'JTL_012');
+AddGlobalEffects(1, 'SWU_ATTACKED_FIGHTER');
+$check(in_array($ability, $ids($botCtx('normal')['actions']), true), "8C fixture: Luke's Action is on offer with only friendly ships to hit");
+$check(($scoreOf('normal', $ability) ?? 1) < 0.0 && $stack('normal') !== $ability, "8C: an Action whose only targets are mine + the teammate's is not used");
+// 8D — a sweeper prices the teammate's board: Hyperspace Disaster ("Defeat all space units") with my space empty and only the teammate's
+// ship in space is not free.
+$team([3 => [['JTL_147', 's', 0]], 2 => [['JTL_149', 's', 0]]]);
+[$lossMine, $lossTheirs] = _SWUBotWipeLosses(1, 'SEC_078');   // SEC_078 Hyperspace Disaster
+$check($lossMine > 0.0 && $lossTheirs > 0.0, "8D: a wipe that clears the teammate's board costs us something (ours $lossMine, theirs $lossTheirs)");
+// 8E — a LOOKAHEAD PLAN is not followed onto the teammate (Team Suns self-play 2026-10-12, game 5: SOR_122 Traitorous took control of the
+// teammate's unit). The plan reads clocks, and stealing a teammate's unit only improves mine, so its answer is the teammate's; following a
+// plan skips every fallback guard above. Here the plan names the teammate's Marine; my own Marine is the other host.
+$build(function ($b) {
+    $b->MyLeader('SOR_014', false, false, true); $b->FillResourcesForPlayer(1, 'SOR_095', 8); $b->WithCardInHandForPlayer(1, 'SOR_122');
+    for ($s = 3; $s <= 4; $s++) CommonSetupFarSeat($b, $s, 'bbk');
+    $b->WithSeatOrder('1234')->WithLiveSeats('1234')->WithGlobalEffectForPlayer(1, 'SWU_MODE_TEAMS');
+    $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(3, 'SOR_095', true);
+    $b->WithActivePlayer(1);
+});
+$act(1, 10002, $play);
+$GLOBALS['SWUBotPlan'][1] = [['tooltip' => 'Choose_upgrade_target', 'answer' => 'p3GroundArena-0']];
+$pick = $stack('normal');
+$check($pick === 'myGroundArena-0', "8E: a planned answer naming the teammate's unit is not followed (Traitorous goes on mine); got $pick");
+
 bot_test_finish();

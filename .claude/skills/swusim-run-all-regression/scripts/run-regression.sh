@@ -37,7 +37,9 @@ cd "$REPO" || { echo "repo not found: $REPO" >&2; exit 2; }
 mkdir -p "$OUT"
 say() { [ "$QUIET" = 1 ] || echo "$@"; }
 
-int_files() { ls DevTools/tdd-regression/*.php SWUSim/DevTools/tests/*.php 2>/dev/null; }
+# A file whose header carries "REGRESSION-SKIP: <reason>" is a manual/runbook gate, not a regression test — left out of every run
+# (e.g. the SET_NNN migration gates AppCore/SWU/migrations/6-verify.sh calls directly).
+int_files() { for f in DevTools/tdd-regression/*.php SWUSim/DevTools/tests/*.php; do [ -f "$f" ] && ! head -5 "$f" | grep -q 'REGRESSION-SKIP:' && echo "$f"; done; }
 
 if [ "$LIST" = 1 ]; then
   echo "unit:        $(find SWUSim/Tests/Cases -name '*.md' | wc -l | tr -d ' ') .md files"

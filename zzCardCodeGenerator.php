@@ -155,7 +155,8 @@ if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
 // Image dirs come from $artRootPath, NOT $rootPath. For an SWU root that is the shared corpus;
 // using $rootPath here re-created SWUDeck/concat and SWUDeck/crops on every run — empty, but they
 // are the per-app trees the shared-corpus migration deleted, and the next art write would refill
-// them. Caught by test_swu_card_art_corpus's "no per-app art tree has reappeared" guard.
+// them. Caught by test_swu_card_art_corpus's "no per-app art tree has reappeared" guard (a one-time migration gate,
+// retired 2026-10-13 after the cutover ran on prod).
 $artDir = rtrim($artRootPath, "/");
 if(!is_dir($artDir)) mkdir($artDir, 0755, true);
 if(!is_dir($artDir . "/TempImages")) mkdir($artDir . "/TempImages", 0755, true);

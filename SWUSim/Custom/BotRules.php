@@ -155,17 +155,21 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     $byValue = SWUBotFeatureOn('wipegate');
     $uids = fn(int $p) => array_map(fn($v) => $v['uid'], SWUBotUnits($p));
     $valueOf = fn(int $p) => array_sum(array_map(fn($v) => SWUBotUnitValue($v), SWUBotUnits($p)));
-    $mineBefore = $uids($seat); $theirsBefore = $uids($opp);
+    // Team Suns: "mine" is OUR side, so a wipe that clears the teammate's board pays for it. [$seat] elsewhere.
+    $ours = SWUBotFriendlySeats($seat);
+    $ourUids = function () use ($ours, $uids) { $o = []; foreach ($ours as $f) $o = array_merge($o, $uids($f)); return $o; };
+    $ourValue = function () use ($ours, $valueOf) { $v = 0.0; foreach ($ours as $f) $v += $valueOf($f); return $v; };
+    $mineBefore = $ourUids(); $theirsBefore = $uids($opp);
     if (!$byValue && empty($mineBefore)) return null;
-    $vMine = $valueOf($seat); $vTheirs = $valueOf($opp);
+    $vMine = $ourValue(); $vTheirs = $valueOf($opp);
     $clockBefore = SWUBotClock($opp, $seat);
     // Base damage each side's board threatens per round, before the wipe (for proposal 'wipethreat' below).
     $oppPotBefore = SWUBotBasePotential($opp, $seat, false);
     $myPotBefore = SWUBotBasePotential($seat, $opp, false);
-    $read = function () use ($seat, $opp, $uids, $valueOf, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
-        $own = count(array_diff($mineBefore, $uids($seat)));
+    $read = function () use ($seat, $opp, $uids, $valueOf, $ourUids, $ourValue, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
+        $own = count(array_diff($mineBefore, $ourUids()));
         return ['ownLost' => $own, 'defeated' => $own + count(array_diff($theirsBefore, $uids($opp))),
-                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $valueOf($seat)), 'oppClock' => SWUBotClock($opp, $seat),
+                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $ourValue()), 'oppClock' => SWUBotClock($opp, $seat),
                 'oppPot' => SWUBotBasePotential($opp, $seat, false), 'myPot' => SWUBotBasePotential($seat, $opp, false)];
     };
     $countGate = $byValue
@@ -191,10 +195,10 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         $o = _SWUBotHandObject($seat, $a);
         if ($o === null) return false;
         $tags = SWUBotCardTags(strval($o->CardID));
-        // PROPOSAL 'gloom' (owner 2026-10-12): "Give each enemy unit -N/-N" (Lawbringer, Bo-Katan SEC_051, Disruptive Burst) is a gloom, not a
+        // FEATURE 'gloom' (p44) (owner 2026-10-12): "Give each enemy unit -N/-N" (Lawbringer, Bo-Katan SEC_051, Disruptive Burst) is a gloom, not a
         // wipe — "they might wipe, but it's not guaranteed unless the opponent has 2 or 3 hp units". It is a candidate here, and the lookahead's
         // gates below (2+ defeated, stabilises) decide whether THIS board makes it one. Krennic Splash: Lawbringer by R6 vs aggro 6-0.
-        $gloom = SWUBotProposalOn('gloom') && in_array('debuff-all-enemy-units', $tags, true);
+        $gloom = SWUBotFeatureOn('gloom') && in_array('debuff-all-enemy-units', $tags, true);
         if (!in_array('wipe', $tags, true) && !$gloom) return false;
         return !($per > 0 && _SWUBotPlayEntersWipeRange($seat, $a, $per));
     };
@@ -215,7 +219,7 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         return $c || $t;
     };
     $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
-    if ($line !== null && SWUBotProposalOn('gloom') && ($go = _SWUBotHandObject($seat, $line)) !== null
+    if ($line !== null && SWUBotFeatureOn('gloom') && ($go = _SWUBotHandObject($seat, $line)) !== null
         && !in_array('wipe', SWUBotCardTags(strval($go->CardID)), true)) _SWUBotFired('gloom', $seat);
     if ($line !== null || !SWUBotFeatureOn('epicwipe')) return $line;
     // Feature 'epicwipe' (p37): no castable wipe qualifies — one castable only THROUGH the base's aspect-waiver Epic may (Krennic Splash:
@@ -495,6 +499,9 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
         $sc = SWUBotScoreAction($sub, $a, $j);
         if ($sc > $bestScore) { $best = $a; $bestScore = $sc; }
     }
+    // Feature 'playdefeatwd' (p45): Maul's "play it, then defeat it" on a unit whose When Defeated kills their bodies now beats a body of
+    // mine (game 1647080: Snub Fighter Squadron over The Legacy Run's 6 divided onto Disposable B1 + Supreme Council Aide) — the fallback picks.
+    if ($best !== null && SWUBotFeatureOn('playdefeatwd') && _SWUBotPlayDefeatKillBeats($ctx, $bestScore)) return null;
     return $best;
 }
 
@@ -843,6 +850,11 @@ function SWUBotRulePlannedAnswer(array $ctx): ?array {
     }
     // Feature 'plantruncate' (p42): a step that left answers untried has not seen them — the fallback chooses among ALL of them.
     if (SWUBotFeatureOn('plantruncate') && !empty($step['truncated'])) $pick = SWUBotFallbackChoose($ctx) ?? $pick;
+    // Team Suns: the lookahead reads clocks, and a teammate's board is on neither — so hitting (or stealing from) the teammate ties with
+    // or beats hitting my own unit (self-play 2026-10-12: Traitorous took the teammate's unit). An answer naming a teammate's card goes
+    // to the fallback, which prices the teammate (SWU_BOT_TEAMMATE_HARM). Inert outside a team game.
+    if (preg_match_all('/\bp\d+[A-Za-z]+-\d+/', strval($step['answer'] ?? ''), $mm)
+        && !empty(array_filter($mm[0], fn($m) => SWUBotIsTeammateMz($seat, $m)))) $pick = SWUBotFallbackChoose($ctx) ?? $pick;
     $GLOBALS['SWUBotPlan'][$seat] = $plan;
     return $pick;
 }

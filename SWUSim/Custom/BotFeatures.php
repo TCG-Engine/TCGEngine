@@ -658,6 +658,37 @@ const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat',
 //   bobaspace — Boba Fett (JTL_009) reads as a 'space' deck (owner: "space midrange, 27 of 41 units space"), so Hyperspace Disaster is
 //          kept against him, not resourced. ⚠ keyed on the leader alone, every base (the 10-07 canary suspected Lake Country). Guard: bot_bobaspace_test.php.
 const SWU_BOT_PART43_FEATURES = ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'];
+// Part 44 'controlvalue' (2026-10-13, owner "let's ship it") — ten value / answer rules for the midrange and control seats, built from the
+// owner's rulings on Ninin's Maul Blue v2, Grievous Blue and Krennic Blue Splash games (memory `swuforge-three-deck-analysis-2026-10-12`).
+// ASH meta screen (2026-10-13, paired with the plain stack on the same code): hard control 234:169
+// newly won:lost (p .0014), midrange 290:345 (p .032) — lost mostly TO control, moving hard control vs midrange 36.9% → 40.4% (real 56.4%);
+// archetype Pearson +0.04 → +0.08, matchup-cell Pearson +0.20 → +0.22, hard control bias −12.2 → −10.7. '@no-p44' / '@no-controlvalue'.
+//   handhate — a look-and-discard play (tag discard-opponent-hand) is worth the card it takes (seen cards in full, else the meta model);
+//          "If you do, they draw" (tag opponent-draw) hands one back (owner: Bazine Netal SHD gets the same treatment).
+//   leaderkill — a midrange/control deck's kill of an enemy leader unit passes the racing target filter and adds 2 rounds of that leader's damage.
+//   freshsac — rounds 1-5: a non-fodder unit played this phase (not yet attacked) is charged like a ready one when sacrificed.
+//   maulpitch — Maul's play-then-defeat Action on an off-aspect Heroism unit sets up Anakin (in hand, or still in the deck); a hard cast of
+//          that unit waits for the Action (owner: always via Maul's ability).
+//   condetb — a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on (owner: "B1 should always come
+//          after other units").
+//   gloom — "give each enemy unit -N/-N" joins the control wing's wipe plan (rule 5), judged by the lookahead's actual kills (owner: these
+//          are gloom effects, not guaranteed wipes).
+//   wdattack — an attacker that dies also fires its When Defeated: its damage kills count toward the attack.
+//   spenttrade — midrange: a cheap spent body (When Played fired / When Defeated pays back) trades into an equal unit.
+//   enginekill — a kill of an engine (Restore, base burn, Credit maker, Sentinel strip, ally buff) adds its per-round value.
+//   cleanupsoft — feature 'cleanup' extends to SOFT control vs an aggro leader in rounds 1-5.
+const SWU_BOT_PART44_FEATURES = ['handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft'];
+// Part 45 (2026-10-13, owner bug report, game 1647080).
+//   playdefeatwd — Maul's "play it, then defeat it" fires the unit's DAMAGE When Defeated at once, so it is priced by what it kills on the
+//          board as it stands (_SWUBotWdKillValue), not by flat damage tags. The bot played Snub Fighter Squadron on 4 resources with The
+//          Legacy Run in hand (6 divided = Disposable B1 + Supreme Council Aide), then hard-cast The Legacy Run for 5 a round later; owner:
+//          "should have used Maul's ability to use Legacy Run as almost a board wipe".
+//   uniquewd — Maul's Action on a second copy of a unique I control: the uniqueness rule defeats the old copy too, so its body is lost and
+//          its damage When Defeated fires as well (Ninin vs Poggle: The Legacy Run twice, 6 + 6); the uniqueness pick defeats the copy
+//          Maul is NOT about to defeat.
+//   wdshieldpop — that When Defeated's value counts a point spent popping an enemy Shield (Ninin vs Ahsoka: 4 to Neel, 2 into Han's Shield),
+//          priced as the split picker already prices it ('splitpop', p32).
+const SWU_BOT_PART45_FEATURES = ['playdefeatwd', 'uniquewd', 'wdshieldpop'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -667,7 +698,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES);   // part 2, then 3-43
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES);   // part 2, then 3-45
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -682,7 +713,8 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES,
+            'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -1074,8 +1106,9 @@ const SWU_BOT_PROPOSALS = [
     // (memory `krennic-v2-swuforge-resourcing-gap-2026-10-11`): the bot's OPENING resource pick banks the cards she wins with.
     'stylemap',         // "is the opponent aggro" read from the meta's leader + BASE map (BotOpponentStyles.php), not SWU_BOT_AGGRO_LEADERS. bot_stylemap_test
     'rampres',          // credit-ramp control seat: keep answers + ramp pieces, Lawbringer vs aggro, HSD resourced unless space. bot_rampres_test
-    // ── 2026-10-12 SWU FORGE 3-DECK READ — the owner's 31 SWU Forge games (Maul Blue 2-8, Grievous Blue 9-1, Krennic Splash 6-5; memory
-    // `swuforge-three-deck-analysis-2026-10-12`). General rules for the midrange / control seats; group '@try-forgeread'.
+    // ── 2026-10-12 HUMAN-GAME READ — the owner's 31 games on Maul Blue (2-8), Grievous Blue (9-1) and Krennic Splash (6-5); memory
+    // `swuforge-three-deck-analysis-2026-10-12`. General rules for the midrange / control seats; group '@try-leaderwatch'.
+    // ASH meta screen 2026-10-13: neutral (2.4% of games changed vs the plain stack, no style significant).
     'deploysafe',       // midrange/control (racing rank >= 2) holds a deploy whose leader unit dies at the opponent's next action (a ready
                         // enemy that can attack and kill it, or an enemy deploy strike that can go now) — unless the deploy itself defeats
                         // an enemy unit. ~12 opponent leaders died within one action of deploying. bot_deploysafe_test
@@ -1083,26 +1116,13 @@ const SWU_BOT_PROPOSALS = [
                         // aggro least. Grievous killed 9/9 deployed leaders, Krennic answered 9/10. bot_leaderhunt_test
     'handpick',         // "look at an opponent's hand and discard a card" (~20 cards) takes the card that hurts me most — the answer to my
                         // best unit, then the bomb they can cast soonest — not the first in hand. bot_handpick_test
-    // ── 2026-10-12 SWU FORGE RE-READ (owner rulings on the 11 items: Krennic Splash too slow vs aggro, Grievous adaptive midrange, Maul Blue v2's
-    // 18 games = the reference play). Group '@try-forgeread2'.
-    'handhate',         // a look-and-discard play (tag discard-opponent-hand) is worth the card it takes (seen cards in full, else meta);
-                        // "If you do, they draw" (opponent-draw) hands one back. bot_handhate_test
-    'leaderkill',       // a midrange/control deck's leader kill passes the racing target filter, + 2 rounds of that leader's damage. bot_leaderkill_test
-    'freshsac',         // R1-5: a non-fodder unit played this phase (not yet attacked) is charged like a ready one when sacrificed. bot_freshsac_test
-    'maulpitch',        // Maul's play-then-defeat Action on an off-aspect Heroism unit sets up Anakin (in hand, or still in the deck);
-                        // a hard cast of that unit waits for the Action. bot_maulpitch_test
-    'condetb',          // a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on; B1 second in
-                        // Grievous's pair. bot_condetb_test
-    'gloom',            // "give each enemy unit -N/-N" joins the control wing's wipe plan (rule 5), judged by the lookahead's kills. bot_gloom_test
-    'wdattack',         // an attacker that dies also fires its When Defeated: its damage kills come back on the attack. bot_wdattack_test
-    'spenttrade',       // midrange: a cheap spent body (When Played fired / When Defeated pays back) trades into an equal unit. bot_spenttrade_test
-    'enginekill',       // a kill of an engine (Restore, base burn, Credit maker, Sentinel strip, ally buff) + its per-round value. bot_enginekill_test
-    'cleanupsoft',      // feature 'cleanup' extends to SOFT control vs an aggro leader in rounds 1-5. bot_cleanupsoft_test
+    // ('handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft' — the
+    // 2026-10-12 re-read's ten owner-ruled rules — SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
     // Levers considered and DROPPED after grounding against the real scorer (kept as notes so they are not re-proposed):
     //   legacysplitkill — _SWUBotSplitScore already scores W['kill'] x value + 0.5 per killed target, plus 'splitlethal'.
     //   debuffkill      — _SWUBotWeaknessScore already returns a KILL when a -X/-X's loss >= the target's remaining HP (~line 1159).
     //   graveyardtheft  — _SWUBotPlayValue already prices a play-from-discard ('discard' route); opponent-discard theft is a ~2-card niche.
-    //   handhate        — there is no opponent-hand-discard CARD TAG; only the YESNO picker prices it (flat 0.5). Needs a text detector.
+    //   (handhate was dropped here for want of a tag, then built on the discard-opponent-hand tag and shipped in p44.)
     //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
     //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
 ];
@@ -1181,11 +1201,9 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  // ('gapstack' SHIPPED 2026-10-12 as feature group 'p43' — '@no-p43' switches the four off.)
                                  // 2026-10-11 Krennic workshop: all five owner rulings together.
                                  'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
-                                 // 2026-10-12 SWU Forge 3-deck read: the three general rules together.
-                                 'forgeread'   => ['deploysafe', 'leaderhunt', 'handpick'],
-                                 // 2026-10-12 SWU Forge re-read: the ten owner-ruled items (item 10 refined 'handpick' in place).
-                                 'forgeread2'  => ['handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade',
-                                                   'enginekill', 'cleanupsoft'],
+                                 // 2026-10-12 human-game read: the three general rules together.
+                                 'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
+                                 // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
