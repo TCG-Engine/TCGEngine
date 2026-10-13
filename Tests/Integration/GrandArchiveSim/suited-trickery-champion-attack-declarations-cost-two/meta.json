@@ -1,0 +1,21 @@
+{
+    "name": "suited-trickery-champion-attack-declarations-cost-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uxhmucm8si"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uxhmucm8si"
+        ],
+        "mechanics": [
+            "restriction",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, players can't declare attacks with champions they control unless they pay (2) for each attack declaration."
+        ]
+    }
+}

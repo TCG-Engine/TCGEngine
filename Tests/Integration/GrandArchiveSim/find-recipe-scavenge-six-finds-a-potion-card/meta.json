@@ -1,0 +1,20 @@
+{
+    "name": "find-recipe-scavenge-six-finds-a-potion-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NyJZ7Eys2b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NyJZ7Eys2b"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 6** for a Potion card."
+        ]
+    }
+}

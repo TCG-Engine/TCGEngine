@@ -3357,6 +3357,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "UnmakeDualitySacrifice|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs â€” Obscured Offering (S3ODMQ0V0o): mandatory banishment of two cards from the material deck (the handler existed but nothing ever queued it)
+    $hasObscuredOfferingCost = false;
+    if($obj->CardID === "S3ODMQ0V0o" && !$ignoreCost) {
+        $materialChoices = ZoneSearch("myMaterial");
+        if(count($materialChoices) < 2) {
+            SetFlashMessage("Obscured Offering requires two cards in your material deck.");
+            return;
+        }
+        $hasObscuredOfferingCost = true;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $materialChoices), 100, tooltip:"Banish_from_material_(1_of_2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|1|" . $reserveCost, 100);
+    }
+
     // 1.3 Declaring Costs â€” Broken Promises (re911j7fo4): mandatory sacrifice of a Fatestone item or Fatebound ally
     $hasBrokenPromisesCost = false;
     if($obj->CardID === "re911j7fo4" && !$ignoreCost) {
@@ -3570,7 +3583,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasGenericDiscardCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost && !$hasEnsnaringFumesAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasObscuredOfferingCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasGenericSacrificeCost && !$hasGenericGraveyardBanishCost && !$hasGenericDiscardCost && !$hasConvergeReflectionsCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasSacrificePlayCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost && !$hasEnsnaringFumesAltCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1817**
+Cards linked to an existing fixture: **1831**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **660**
+Implemented cards still needing semantic coverage: **646**
 
 ## Mechanic groups
 
@@ -56,7 +56,6 @@ Implemented cards still needing semantic coverage: **660**
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
-| Crystallized Destiny (`l36wwe3d5c`) | ACTION | 2 | cost, damage, prevention, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
 | Dawn's Reversal (`x53jgq8aad`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
 | Dorumegian Foundry (`CzwVavXMQU`) | DOMAIN | 2 | cost, counter, token, trigger | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **660**
 | Zhao Yun, Dragonsblood (`mwfrfo3wzq`) | UNIQUE,ALLY | 2 | damage, combat, trigger, condition | — | — |
 | Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
+| Arisanna, Lucent Arbiter (`7e22tk3ir1`) | CHAMPION | 2 | cost, targeting, condition | — | — |

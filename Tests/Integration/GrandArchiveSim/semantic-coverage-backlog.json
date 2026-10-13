@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:02:30+00:00",
+    "generatedAt": "2026-10-13T21:07:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1817,
+        "cardsWithExistingFixtures": 1831,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 660,
+        "cardsNeedingSemanticCoverage": 646,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -587,24 +587,6 @@
             "priority": 24
         },
         {
-            "cardId": "l36wwe3d5c",
-            "name": "Crystallized Destiny",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "x9z2k2a5ig",
             "name": "Curse Amplification",
             "type": "ACTION",
@@ -1141,23 +1123,6 @@
                 "cost",
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "S3ODMQ0V0o",
-            "name": "Obscured Offering",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1859,25 +1824,6 @@
                 "damage",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "qvB66hupGQ",
-            "name": "Equivalent Exchange",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "status",
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3283,24 +3229,6 @@
             "priority": 14
         },
         {
-            "cardId": "gcom2ry208",
-            "name": "Dodge Roll",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "vA5ZmzZL9I",
             "name": "Drown in Sorrow",
             "type": "ACTION",
@@ -3985,24 +3913,6 @@
             "priority": 14
         },
         {
-            "cardId": "54ebGqHpLO",
-            "name": "Peer Beyond",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "wAabqFjdM5",
             "name": "Plasma Vanguard",
             "type": "ALLY",
@@ -4103,24 +4013,6 @@
                 "counter",
                 "status",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "z308kuz07n",
-            "name": "Reconstructive Surgery",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4480,24 +4372,6 @@
                 "targeting",
                 "damage",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "uxhmucm8si",
-            "name": "Suited Trickery",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6303,23 +6177,6 @@
             "priority": 13
         },
         {
-            "cardId": "rqtjot4nmx",
-            "name": "Scavenge the Distillery",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "0d93t7bfwc",
             "name": "Servile Possessions",
             "type": "MASTERY",
@@ -6329,23 +6186,6 @@
                 "draw-discard",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "8bRp3n2IAn",
-            "name": "Shardwing Searchlight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8892,22 +8732,6 @@
             "priority": 12
         },
         {
-            "cardId": "ANrnYgZNgq",
-            "name": "Twisted Verdict",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "TfBuA9PUAO",
             "name": "Umbilical Ritual",
             "type": "ACTION",
@@ -9325,21 +9149,6 @@
             "priority": 11
         },
         {
-            "cardId": "HsaWNAsmAQ",
-            "name": "Bestial Frenzy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "i0a5uhjxhk",
             "name": "Blightroot",
             "type": "TOKEN,ITEM",
@@ -9685,21 +9494,6 @@
             "priority": 11
         },
         {
-            "cardId": "E0FPuC9bXq",
-            "name": "Edge of Tomorrow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "KmM2o1ozGr",
             "name": "Elusive Headhunter",
             "type": "ALLY",
@@ -9782,21 +9576,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "NyJZ7Eys2b",
-            "name": "Find Recipe",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9932,21 +9711,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "n70QM0hkc9",
-            "name": "Gear Haul",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27031,6 +26795,28 @@
             "priority": 44
         },
         {
+            "cardId": "l36wwe3d5c",
+            "name": "Crystallized Destiny",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crystallized-destiny-with-two-fatestones-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "crystallized-destiny-with-two-fatestones-costs-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "IPmK09iEIT",
             "name": "Engulf",
             "type": "ACTION",
@@ -28790,6 +28576,27 @@
                 "mistral-ranger-class-bonus-ranged-two-while-distant",
                 "mistral-ranger-class-bonus-without-an-aethercharge-this-turn-costs-the-printed-three",
                 "mistral-ranger-without-the-class-bonus-has-no-ranged"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "S3ODMQ0V0o",
+            "name": "Obscured Offering",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "obscured-offering-banishing-two-material-cards-gives-a-regalia-spellshroud"
+            ],
+            "semanticFixtures": [
+                "obscured-offering-banishing-two-material-cards-gives-a-regalia-spellshroud"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30865,6 +30672,29 @@
                 "draught-dodge-class-bonus-draws-into-memory-when-the-unit-is-already-distant",
                 "draught-dodge-class-bonus-prevents-two-and-makes-a-non-distant-unit-distant",
                 "draught-dodge-without-the-class-bonus-only-prevents-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "qvB66hupGQ",
+            "name": "Equivalent Exchange",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "equivalent-exchange-summons-a-lost-being-and-banishing-two-allies-wakes-and-buffs-it"
+            ],
+            "semanticFixtures": [
+                "equivalent-exchange-summons-a-lost-being-and-banishing-two-allies-wakes-and-buffs-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34170,6 +34000,28 @@
             "priority": 34
         },
         {
+            "cardId": "gcom2ry208",
+            "name": "Dodge Roll",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "status"
+            ],
+            "existingFixtures": [
+                "dodge-roll-makes-the-target-unit-distant"
+            ],
+            "semanticFixtures": [
+                "dodge-roll-makes-the-target-unit-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ty0tcpdiny",
             "name": "Dreamy Unicorn",
             "type": "ALLY",
@@ -36218,6 +36070,30 @@
             "priority": 34
         },
         {
+            "cardId": "54ebGqHpLO",
+            "name": "Peer Beyond",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "peer-beyond-ephemerate-from-the-graveyard-costs-one-and-is-ephemeral",
+                "peer-beyond-the-target-unit-gains-true-sight-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "peer-beyond-ephemerate-from-the-graveyard-costs-one-and-is-ephemeral",
+                "peer-beyond-the-target-unit-gains-true-sight-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "tqkkyf4ktr",
             "name": "Pelagic Fatestone",
             "type": "ITEM",
@@ -36547,6 +36423,28 @@
             ],
             "semanticFixtures": [
                 "rearing-rebound-equestrian-draws-into-memory-with-a-horse"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "z308kuz07n",
+            "name": "Reconstructive Surgery",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "reconstructive-surgery-puts-a-buff-counter-on-an-automaton-ally"
+            ],
+            "semanticFixtures": [
+                "reconstructive-surgery-puts-a-buff-counter-on-an-automaton-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37523,6 +37421,28 @@
             ],
             "semanticFixtures": [
                 "sudden-snow-banishes-a-floating-memory-card-to-draw-and-allies-enter-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "uxhmucm8si",
+            "name": "Suited Trickery",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suited-trickery-champion-attack-declarations-cost-two"
+            ],
+            "semanticFixtures": [
+                "suited-trickery-champion-attack-declarations-cost-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43105,6 +43025,27 @@
             "priority": 33
         },
         {
+            "cardId": "rqtjot4nmx",
+            "name": "Scavenge the Distillery",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "scavenge-the-distillery-returns-a-potion-item-from-the-graveyard-to-hand"
+            ],
+            "semanticFixtures": [
+                "scavenge-the-distillery-returns-a-potion-item-from-the-graveyard-to-hand"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "fdt8ptrz1b",
             "name": "Scavenging Raccoon",
             "type": "ALLY",
@@ -43361,6 +43302,27 @@
             ],
             "semanticFixtures": [
                 "seven-of-hearts-cardistry-deals-two-damage-to-each-unit-the-opponent-controls"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "8bRp3n2IAn",
+            "name": "Shardwing Searchlight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token",
+                "combat"
+            ],
+            "existingFixtures": [
+                "shardwing-searchlight-summons-a-memorite-shardwing"
+            ],
+            "semanticFixtures": [
+                "shardwing-searchlight-summons-a-memorite-shardwing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49712,6 +49674,26 @@
             "priority": 32
         },
         {
+            "cardId": "ANrnYgZNgq",
+            "name": "Twisted Verdict",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "twisted-verdict-the-opponent-puts-two-of-the-top-five-into-your-memory"
+            ],
+            "semanticFixtures": [
+                "twisted-verdict-the-opponent-puts-two-of-the-top-five-into-your-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "e8ygl32jef",
             "name": "Two of Spades",
             "type": "ALLY",
@@ -50487,6 +50469,25 @@
             "priority": 31
         },
         {
+            "cardId": "HsaWNAsmAQ",
+            "name": "Bestial Frenzy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "bestial-frenzy-choosing-the-first-mode-gives-the-champion-plus-one-level"
+            ],
+            "semanticFixtures": [
+                "bestial-frenzy-choosing-the-first-mode-gives-the-champion-plus-one-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "mBxHYyldS6",
             "name": "Biding Endroid",
             "type": "ALLY",
@@ -51036,6 +51037,25 @@
             "priority": 31
         },
         {
+            "cardId": "E0FPuC9bXq",
+            "name": "Edge of Tomorrow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "edge-of-tomorrow-scavenge-eight-for-a-domain-card"
+            ],
+            "semanticFixtures": [
+                "edge-of-tomorrow-scavenge-eight-for-a-domain-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "5tz8bwcoel",
             "name": "Effluve Guard",
             "type": "ALLY",
@@ -51360,6 +51380,25 @@
             "priority": 31
         },
         {
+            "cardId": "NyJZ7Eys2b",
+            "name": "Find Recipe",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "find-recipe-scavenge-six-finds-a-potion-card"
+            ],
+            "semanticFixtures": [
+                "find-recipe-scavenge-six-finds-a-potion-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "i9hf5lhl5f",
             "name": "Five of Spades",
             "type": "ALLY",
@@ -51514,6 +51553,25 @@
             ],
             "semanticFixtures": [
                 "gales-mare-can-be-played-for-its-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "n70QM0hkc9",
+            "name": "Gear Haul",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "gear-haul-scavenges-five-for-a-veltech-item-twice"
+            ],
+            "semanticFixtures": [
+                "gear-haul-scavenges-five-for-a-veltech-item-twice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

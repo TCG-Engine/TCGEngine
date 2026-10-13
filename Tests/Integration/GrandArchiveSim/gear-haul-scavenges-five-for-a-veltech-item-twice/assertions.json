@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "6sZXj2SZW6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The first scavenge put the VelTech item within the top five into the hand"
+    },
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "oJIuGCrzPG",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The second scavenge found the next VelTech item"
+    }
+]

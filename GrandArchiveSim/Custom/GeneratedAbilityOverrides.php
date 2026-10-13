@@ -2887,6 +2887,16 @@ $activateAbilityAbilities["tdRR5lQHMN:0"] = function($player) { //Cardistry
     DecisionQueueController::AddDecision($player, "CUSTOM", "AtmosShieldRedirect|" . $mzID, 1);
 };
 
+// Gear Haul n70QM0hkc9: "Scavenge 5 for a VelTech item card twice." The generated body started both scavenges at once, so the second reveal cleared the temp zone the first prompt was still choosing from
+// (the first choice then picked a different card, and the unchosen cards of the first reveal were lost). The second scavenge now runs after the first one, its choice and its put-on-the-bottom step, have resolved.
+$cardActivatedAbilities["n70QM0hkc9:0"] = function($player) { //Scavenge twice for VelTech items
+    ScavengeForSubtype($player, 5, "VELTECH");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GearHaulSecondScavenge", 3, dontSkipOnPass:1);
+};
+$customDQHandlers["GearHaulSecondScavenge"] = function($player, $parts, $lastDecision) {
+    ScavengeForSubtype($player, 5, "VELTECH");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

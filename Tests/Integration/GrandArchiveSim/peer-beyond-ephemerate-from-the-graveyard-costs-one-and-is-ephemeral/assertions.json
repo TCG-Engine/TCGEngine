@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "54ebGqHpLO",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "An ephemeral action is banished once it resolves"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Ephemerate (1) was paid"
+    }
+]

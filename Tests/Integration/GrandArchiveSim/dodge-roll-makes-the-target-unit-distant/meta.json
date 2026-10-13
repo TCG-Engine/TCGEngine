@@ -1,0 +1,22 @@
+{
+    "name": "dodge-roll-makes-the-target-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gcom2ry208"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gcom2ry208"
+        ],
+        "mechanics": [
+            "prevention",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prevent the next 3 non-combat damage that would be dealt to target unit you control this turn. That unit becomes **distant**."
+        ]
+    }
+}

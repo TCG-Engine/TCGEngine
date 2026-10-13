@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "lcCGyyNGuM",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The domain within the top eight was put into the hand"
+    }
+]

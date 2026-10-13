@@ -7378,18 +7378,23 @@ $customDQHandlers["GaiasBlessingGYBanish"] = function($player, $parts, $lastDeci
 // Obscured Offering (S3ODMQ0V0o): banish 2 from material deck as additional cost
 // ============================================================================
 $customDQHandlers["ObscuredOfferingBanishMat"] = function($player, $parts, $lastDecision) {
+    $step = intval($parts[0] ?? 1);
+    $reserveCost = intval($parts[1] ?? 0);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     MZMove($player, $lastDecision, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
-    $step = intval($parts[0]);
     if($step < 2) {
         $mat = ZoneSearch("myMaterial");
         if(!empty($mat)) {
-            $matStr = implode("&", $mat);
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", $matStr, 100, tooltip:"Banish_from_material_(2_of_2)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|2", 100);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $mat), 100, tooltip:"Banish_from_material_(2_of_2)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|2|" . $reserveCost, 100);
         }
+        return;
     }
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // ============================================================================

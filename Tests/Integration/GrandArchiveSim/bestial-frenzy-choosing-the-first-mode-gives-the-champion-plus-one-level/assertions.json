@@ -1,0 +1,10 @@
+[
+    {
+        "step": 4,
+        "type": "computed_level_equals",
+        "mzId": "p1Field-0",
+        "value": 1,
+        "semantic": true,
+        "label": "Your champion got +1 level until end of turn"
+    }
+]
