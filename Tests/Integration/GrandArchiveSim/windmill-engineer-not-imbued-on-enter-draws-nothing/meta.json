@@ -1,0 +1,22 @@
+{
+    "name": "windmill-engineer-not-imbued-on-enter-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fz1nr5a3pm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fz1nr5a3pm"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If CARDNAME is **imbued**"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "blessed-clergy-not-imbued-leaves-the-opponent-unrestricted",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a3pmmloejo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a3pmmloejo"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If CARDNAME is **imbued**"
+        ]
+    }
+}

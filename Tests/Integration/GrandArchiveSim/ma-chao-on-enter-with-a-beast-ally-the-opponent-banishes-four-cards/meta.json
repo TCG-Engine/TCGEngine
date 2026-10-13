@@ -1,0 +1,23 @@
+{
+    "name": "ma-chao-on-enter-with-a-beast-ally-the-opponent-banishes-four-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fw8yvhf3mz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fw8yvhf3mz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "graveyard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Animal or Beast ally, that player banishes four cards from their graveyard instead."
+        ]
+    }
+}

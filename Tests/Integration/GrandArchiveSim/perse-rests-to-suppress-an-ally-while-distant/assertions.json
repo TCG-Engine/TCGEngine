@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "theirBanish",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally was suppressed"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Perse rested for the ability"
+    }
+]

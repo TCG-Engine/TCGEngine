@@ -1,0 +1,21 @@
+{
+    "name": "shu-frontliner-equestrian-costs-one-less-with-a-horse-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uhaao91ee1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uhaao91ee1"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** \u2014 As long as you control a Horse ally, this card costs 1 less to activate."
+        ]
+    }
+}

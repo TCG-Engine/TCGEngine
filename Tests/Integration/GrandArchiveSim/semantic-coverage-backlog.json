@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T13:33:22+00:00",
+    "generatedAt": "2026-10-13T13:42:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1519,
+        "cardsWithExistingFixtures": 1535,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 958,
+        "cardsNeedingSemanticCoverage": 942,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2228,25 +2228,6 @@
             "priority": 15
         },
         {
-            "cardId": "a3pmmloejo",
-            "name": "Blessed Clergy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "CjL1WPvWHw",
             "name": "Buffeting Hurricane",
             "type": "PHANTASIA",
@@ -3731,25 +3712,6 @@
             "priority": 15
         },
         {
-            "cardId": "fz1nr5a3pm",
-            "name": "Windmill Engineer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "73fdt8ptrz",
             "name": "Windwalker Boots",
             "type": "REGALIA,ITEM",
@@ -3962,24 +3924,6 @@
             "mechanics": [
                 "zone-movement",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "vw2ifz1nr5",
-            "name": "Andronika, Eternal Herald",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -4232,24 +4176,6 @@
             "mechanics": [
                 "recover",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Nn4NzegwdX",
-            "name": "Cato, Meadow's Channeler",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
                 "trigger",
                 "condition"
             ],
@@ -5826,24 +5752,6 @@
             "priority": 14
         },
         {
-            "cardId": "2bbmoqk2c7",
-            "name": "Rose, Eternal Paragon",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "fp66pv4n1n",
             "name": "Rusted Warshield",
             "type": "REGALIA,ITEM",
@@ -6034,24 +5942,6 @@
                 "targeting",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "58xpspudnf",
-            "name": "Skilled Aerotheurge",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7007,23 +6897,6 @@
             "priority": 13
         },
         {
-            "cardId": "wsqvfsyid4",
-            "name": "Chrysalis, Hazy Caterpillar",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "bqjdmthh88",
             "name": "City Protector",
             "type": "ALLY",
@@ -7509,23 +7382,6 @@
                 "targeting",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "taug52u81v",
-            "name": "Eternal Magistrate",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8180,23 +8036,6 @@
             "priority": 13
         },
         {
-            "cardId": "fw8yvhf3mz",
-            "name": "Ma Chao, Lupine Huntress",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "eaxvvj7hz3",
             "name": "Mad Tea Party",
             "type": "UNIQUE,DOMAIN",
@@ -8597,23 +8436,6 @@
                 "recover",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "nl1gxrpx8j",
-            "name": "Perse, Relentless Raptor",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9209,23 +9031,6 @@
                 "targeting",
                 "draw-discard",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "uhaao91ee1",
-            "name": "Shu Frontliner",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10340,22 +10145,6 @@
             "priority": 12
         },
         {
-            "cardId": "kT8CeTFj82",
-            "name": "Bushwhack Bandit",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "lumV6cG9oc",
             "name": "Business Card",
             "type": "ITEM",
@@ -11180,22 +10969,6 @@
             "mechanics": [
                 "targeting",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "0oyxjld8jh",
-            "name": "Guan Yu, Prime Exemplar",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12388,22 +12161,6 @@
             "priority": 12
         },
         {
-            "cardId": "kEZ2aOZKji",
-            "name": "Rousing Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "bGmutHfgMl",
             "name": "Rowland, Schwartz Knight",
             "type": "UNIQUE,ALLY",
@@ -13307,22 +13064,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "qxnv0jqeym",
-            "name": "Zhang Fei, Spirited Steel",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -15995,21 +15736,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "dm44nt1lyk",
-            "name": "Winbless Forecaster",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34665,6 +34391,33 @@
             "priority": 35
         },
         {
+            "cardId": "a3pmmloejo",
+            "name": "Blessed Clergy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blessed-clergy-imbued-class-bonus-on-enter-limits-the-opponent-to-two-cards-next-turn",
+                "blessed-clergy-imbued-without-the-class-bonus-leaves-the-opponent-unrestricted",
+                "blessed-clergy-not-imbued-leaves-the-opponent-unrestricted"
+            ],
+            "semanticFixtures": [
+                "blessed-clergy-imbued-class-bonus-on-enter-limits-the-opponent-to-two-cards-next-turn",
+                "blessed-clergy-imbued-without-the-class-bonus-leaves-the-opponent-unrestricted",
+                "blessed-clergy-not-imbued-leaves-the-opponent-unrestricted"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "v2OmQJWXqX",
             "name": "Blightheart Penitent",
             "type": "ALLY",
@@ -36682,6 +36435,31 @@
             "priority": 35
         },
         {
+            "cardId": "fz1nr5a3pm",
+            "name": "Windmill Engineer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windmill-engineer-imbued-on-enter-draws-a-card-into-memory",
+                "windmill-engineer-not-imbued-on-enter-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "windmill-engineer-imbued-on-enter-draws-a-card-into-memory",
+                "windmill-engineer-not-imbued-on-enter-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "9cef7aknvn",
             "name": "Wuji of Lingering Fate",
             "type": "PHANTASIA",
@@ -36817,6 +36595,32 @@
             ],
             "semanticFixtures": [
                 "alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "vw2ifz1nr5",
+            "name": "Andronika, Eternal Herald",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "andronika-class-bonus-on-enter-buffs-up-to-two-automaton-allies",
+                "andronika-imbued-gets-plus-one-power-and-life-and-vigor",
+                "andronika-not-imbued-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "andronika-class-bonus-on-enter-buffs-up-to-two-automaton-allies",
+                "andronika-imbued-gets-plus-one-power-and-life-and-vigor",
+                "andronika-not-imbued-has-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37279,6 +37083,30 @@
             ],
             "semanticFixtures": [
                 "carpsong-coda-deals-damage-equal-to-highest-life-water-animal-beast-in-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "Nn4NzegwdX",
+            "name": "Cato, Meadow's Channeler",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cato-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+                "cato-without-the-class-bonus-does-not-empower"
+            ],
+            "semanticFixtures": [
+                "cato-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+                "cato-without-the-class-bonus-does-not-empower"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39673,6 +39501,28 @@
             "priority": 34
         },
         {
+            "cardId": "2bbmoqk2c7",
+            "name": "Rose, Eternal Paragon",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rose-eternal-paragon-class-bonus-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "semanticFixtures": [
+                "rose-eternal-paragon-class-bonus-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "6S1LLrBfBU",
             "name": "Rosewinged Hollow",
             "type": "ALLY",
@@ -39985,6 +39835,28 @@
             ],
             "semanticFixtures": [
                 "singed-emotions-sets-up-the-level-up-punisher"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "58xpspudnf",
+            "name": "Skilled Aerotheurge",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "skilled-aerotheurge-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "skilled-aerotheurge-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41831,6 +41703,27 @@
             "priority": 33
         },
         {
+            "cardId": "wsqvfsyid4",
+            "name": "Chrysalis, Hazy Caterpillar",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "semanticFixtures": [
+                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "lgdlx7mdk0",
             "name": "Cinderbloom Tender",
             "type": "ALLY",
@@ -42347,6 +42240,27 @@
             ],
             "semanticFixtures": [
                 "eternal-dreamer-class-bonus-on-attack-glimpses-its-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "taug52u81v",
+            "name": "Eternal Magistrate",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eternal-magistrate-imbued-is-marked-imbued"
+            ],
+            "semanticFixtures": [
+                "eternal-magistrate-imbued-is-marked-imbued"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43369,6 +43283,33 @@
             "priority": 33
         },
         {
+            "cardId": "fw8yvhf3mz",
+            "name": "Ma Chao, Lupine Huntress",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ma-chao-below-level-two-has-neither-the-power-nor-vigor",
+                "ma-chao-class-bonus-level-two-gets-plus-one-power-and-vigor",
+                "ma-chao-on-enter-the-opponent-banishes-two-cards-from-their-graveyard",
+                "ma-chao-on-enter-with-a-beast-ally-the-opponent-banishes-four-cards"
+            ],
+            "semanticFixtures": [
+                "ma-chao-below-level-two-has-neither-the-power-nor-vigor",
+                "ma-chao-class-bonus-level-two-gets-plus-one-power-and-vigor",
+                "ma-chao-on-enter-the-opponent-banishes-two-cards-from-their-graveyard",
+                "ma-chao-on-enter-with-a-beast-ally-the-opponent-banishes-four-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "TQoTD8eGQH",
             "name": "Magnificent Banquet",
             "type": "ACTION",
@@ -43834,6 +43775,31 @@
             ],
             "semanticFixtures": [
                 "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "nl1gxrpx8j",
+            "name": "Perse, Relentless Raptor",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "perse-cannot-suppress-while-not-distant",
+                "perse-relentless-raptor-ranged-two-while-distant",
+                "perse-rests-to-suppress-an-ally-while-distant"
+            ],
+            "semanticFixtures": [
+                "perse-cannot-suppress-while-not-distant",
+                "perse-relentless-raptor-ranged-two-while-distant",
+                "perse-rests-to-suppress-an-ally-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44674,6 +44640,29 @@
             ],
             "semanticFixtures": [
                 "shroud-in-mist-class-bonus-grants-stealth-to-your-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "uhaao91ee1",
+            "name": "Shu Frontliner",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shu-frontliner-equestrian-costs-one-less-with-a-horse-ally",
+                "shu-frontliner-without-a-horse-ally-costs-the-printed-two"
+            ],
+            "semanticFixtures": [
+                "shu-frontliner-equestrian-costs-one-less-with-a-horse-ally",
+                "shu-frontliner-without-a-horse-ally-costs-the-printed-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46252,6 +46241,28 @@
             "priority": 32
         },
         {
+            "cardId": "kT8CeTFj82",
+            "name": "Bushwhack Bandit",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bushwhack-bandit-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+                "bushwhack-bandit-without-the-class-bonus-does-not-empower"
+            ],
+            "semanticFixtures": [
+                "bushwhack-bandit-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+                "bushwhack-bandit-without-the-class-bonus-does-not-empower"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "lwabipl6gt",
             "name": "Calamity Cannon",
             "type": "ACTION",
@@ -47254,6 +47265,30 @@
             ],
             "semanticFixtures": [
                 "greater-boon-of-shou-draw-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "0oyxjld8jh",
+            "name": "Guan Yu, Prime Exemplar",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "guan-yu-costs-two-less-after-a-human-ally-died-this-turn",
+                "guan-yu-retaliates-with-retort-two",
+                "guan-yu-without-a-human-ally-death-costs-the-printed-five"
+            ],
+            "semanticFixtures": [
+                "guan-yu-costs-two-less-after-a-human-ally-died-this-turn",
+                "guan-yu-retaliates-with-retort-two",
+                "guan-yu-without-a-human-ally-death-costs-the-printed-five"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48404,6 +48439,28 @@
                 "rilewind-sentinel-class-bonus-foster-becomes-fostered",
                 "rilewind-sentinel-fostered-gives-allies-vigor",
                 "rilewind-sentinel-not-fostered-gives-allies-no-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "kEZ2aOZKji",
+            "name": "Rousing Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rousing-slime-class-bonus-on-enter-declined-wakes-nothing",
+                "rousing-slime-class-bonus-on-enter-rests-itself-to-wake-up-another-slime"
+            ],
+            "semanticFixtures": [
+                "rousing-slime-class-bonus-on-enter-declined-wakes-nothing",
+                "rousing-slime-class-bonus-on-enter-rests-itself-to-wake-up-another-slime"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49664,6 +49721,30 @@
             ],
             "semanticFixtures": [
                 "zena-alt-cost-declined-pays-normal-reserve"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "qxnv0jqeym",
+            "name": "Zhang Fei, Spirited Steel",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zhang-fei-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+                "zhang-fei-class-bonus-vigor-wakes-him-at-the-end-of-the-turn",
+                "zhang-fei-without-the-class-bonus-has-no-vigor-and-no-counter"
+            ],
+            "semanticFixtures": [
+                "zhang-fei-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+                "zhang-fei-class-bonus-vigor-wakes-him-at-the-end-of-the-turn",
+                "zhang-fei-without-the-class-bonus-has-no-vigor-and-no-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51289,6 +51370,25 @@
             ],
             "semanticFixtures": [
                 "waterfall-veiler-champion-hit-opponent-mills-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "dm44nt1lyk",
+            "name": "Winbless Forecaster",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-forecaster-adds-one_extra_enlighten-counter-whenever-counters-are-put-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "winbless-forecaster-adds-one_extra_enlighten-counter-whenever-counters-are-put-on-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

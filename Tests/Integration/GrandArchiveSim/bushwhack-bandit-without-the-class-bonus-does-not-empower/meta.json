@@ -1,0 +1,23 @@
+{
+    "name": "bushwhack-bandit-without-the-class-bonus-does-not-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:38:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kT8CeTFj82"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kT8CeTFj82"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "empower",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Empower 2**."
+        ]
+    }
+}

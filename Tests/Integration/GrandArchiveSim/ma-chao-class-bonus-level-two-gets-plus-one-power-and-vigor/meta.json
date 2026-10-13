@@ -1,0 +1,23 @@
+{
+    "name": "ma-chao-class-bonus-level-two-gets-plus-one-power-and-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fw8yvhf3mz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fw8yvhf3mz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "stat-change",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] Ma Chao gets +1 [POWER] and has **vigor**."
+        ]
+    }
+}

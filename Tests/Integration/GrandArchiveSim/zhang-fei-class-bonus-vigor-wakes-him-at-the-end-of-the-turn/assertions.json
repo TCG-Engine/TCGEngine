@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Class Bonus vigor: Zhang Fei woke at the end phase"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "Not the only ally: no counter"
+    }
+]

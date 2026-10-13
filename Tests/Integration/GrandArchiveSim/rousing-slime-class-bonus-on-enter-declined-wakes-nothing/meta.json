@@ -1,0 +1,22 @@
+{
+    "name": "rousing-slime-class-bonus-on-enter-declined-wakes-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kEZ2aOZKji"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kEZ2aOZKji"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "You may rest CARDNAME."
+        ]
+    }
+}

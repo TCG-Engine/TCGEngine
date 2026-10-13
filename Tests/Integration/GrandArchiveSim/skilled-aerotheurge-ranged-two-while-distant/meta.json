@@ -1,0 +1,22 @@
+{
+    "name": "skilled-aerotheurge-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "58xpspudnf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "58xpspudnf"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    }
+}

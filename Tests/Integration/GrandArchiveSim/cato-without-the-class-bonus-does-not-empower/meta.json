@@ -1,0 +1,23 @@
+{
+    "name": "cato-without-the-class-bonus-does-not-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:38:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nn4NzegwdX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nn4NzegwdX"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "empower",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Empower 2**."
+        ]
+    }
+}

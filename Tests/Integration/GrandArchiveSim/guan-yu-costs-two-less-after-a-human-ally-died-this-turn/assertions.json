@@ -1,0 +1,11 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "0oyxjld8jh",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Human ally died this turn: Guan Yu cost 5 - 2 = 3"
+    }
+]

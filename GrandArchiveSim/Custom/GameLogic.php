@@ -21534,14 +21534,15 @@ function Empower($player, $amount, $sourceID) {
         AddTurnEffect($zone . "-" . $i, "AxHzxEHBHZ_EMPOWER_" . intval($amount));
     }
     foreach($field as $i => $obj) {
-        if($obj->removed || $obj->CardID !== "Nn4NzegwdX" || HasNoAbilities($obj)) continue;
+        // Cato (Nn4NzegwdX) and Bushwhack Bandit (kT8CeTFj82): [Class Bonus] whenever you empower, put a buff counter on another target ally (once per turn).
+        if($obj->removed || ($obj->CardID !== "Nn4NzegwdX" && $obj->CardID !== "kT8CeTFj82") || HasNoAbilities($obj)) continue;
         if(!IsClassBonusActive($player, CardClasses($obj->CardID))) continue;
-        if(in_array("Nn4NzegwdX_USED", $obj->TurnEffects ?? [])) continue;
+        if(in_array($obj->CardID . "_USED", $obj->TurnEffects ?? [])) continue;
         $targets = ZoneSearch($zone, ["ALLY"]);
         $selfMZ = $zone . "-" . $i;
         $targets = array_values(array_filter($targets, fn($mz) => $mz !== $selfMZ));
         if(empty($targets)) continue;
-        AddTurnEffect($selfMZ, "Nn4NzegwdX_USED");
+        AddTurnEffect($selfMZ, $obj->CardID . "_USED");
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_buff_counter_on_another_ally");
         DecisionQueueController::AddDecision($player, "CUSTOM", "CatoEmpowerBuff", 1);
         break;

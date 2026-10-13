@@ -1,0 +1,23 @@
+{
+    "name": "andronika-class-bonus-on-enter-buffs-up-to-two-automaton-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:40:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vw2ifz1nr5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vw2ifz1nr5"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Put a **buff** counter on up to two Automaton allies you control."
+        ]
+    }
+}

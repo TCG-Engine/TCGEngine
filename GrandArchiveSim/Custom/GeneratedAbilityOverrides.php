@@ -2788,6 +2788,12 @@ $activateAbilityPrereqs["5swaf8urrq:0"] = function($player, $mzID, $abilityIndex
     return !empty(ZoneSearch("myField", ["PHANTASIA"], excludeSubtypes: ["FRACTAL"])) || !empty(ZoneSearch("theirField", ["PHANTASIA"], excludeSubtypes: ["FRACTAL"]));
 };
 
+// Bushwhack Bandit (kT8CeTFj82): "[Class Bonus] On Enter: Empower 2." had no ability; its "whenever you empower" buff counter lives in Empower() beside Cato's.
+$enterAbilities["kT8CeTFj82:0"] = function($player) { //Bushwhack Bandit
+    if(!IsClassBonusActive($player, CardClasses("kT8CeTFj82"))) return;
+    Empower($player, 2, "kT8CeTFj82");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

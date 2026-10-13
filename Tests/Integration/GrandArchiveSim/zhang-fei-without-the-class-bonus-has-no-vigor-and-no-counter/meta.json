@@ -1,0 +1,22 @@
+{
+    "name": "zhang-fei-without-the-class-bonus-has-no-vigor-and-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qxnv0jqeym"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qxnv0jqeym"
+        ],
+        "mechanics": [
+            "vigor",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

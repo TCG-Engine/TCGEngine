@@ -1,0 +1,24 @@
+{
+    "name": "windmill-engineer-imbued-on-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fz1nr5a3pm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fz1nr5a3pm"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Imbue 2**",
+            "**On Enter:** If CARDNAME is **imbued**, draw a card into your memory."
+        ]
+    }
+}

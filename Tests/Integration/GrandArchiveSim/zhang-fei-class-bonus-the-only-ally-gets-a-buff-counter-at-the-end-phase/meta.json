@@ -1,0 +1,23 @@
+{
+    "name": "zhang-fei-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qxnv0jqeym"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qxnv0jqeym"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "end-phase",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, if CARDNAME is the only ally you control, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

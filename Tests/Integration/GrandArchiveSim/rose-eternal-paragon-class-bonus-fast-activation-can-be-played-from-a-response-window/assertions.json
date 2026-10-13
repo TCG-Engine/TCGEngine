@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "2bbmoqk2c7",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Class Bonus Fast Activation: Rose was activated from a response window"
+    }
+]

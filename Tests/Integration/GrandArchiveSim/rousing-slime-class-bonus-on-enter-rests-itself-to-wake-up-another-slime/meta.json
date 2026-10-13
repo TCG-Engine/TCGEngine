@@ -1,0 +1,23 @@
+{
+    "name": "rousing-slime-class-bonus-on-enter-rests-itself-to-wake-up-another-slime",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kEZ2aOZKji"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kEZ2aOZKji"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "status",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** You may rest CARDNAME. If you do, wake up another Slime ally you control."
+        ]
+    }
+}

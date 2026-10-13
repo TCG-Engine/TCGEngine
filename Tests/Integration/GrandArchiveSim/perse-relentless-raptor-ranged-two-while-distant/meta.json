@@ -1,0 +1,22 @@
+{
+    "name": "perse-relentless-raptor-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nl1gxrpx8j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nl1gxrpx8j"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    }
+}

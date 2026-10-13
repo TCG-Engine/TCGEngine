@@ -1,0 +1,25 @@
+{
+    "name": "cato-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:38:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nn4NzegwdX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nn4NzegwdX"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "empower",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Empower 2**.",
+            "[Class Bonus] Whenever you **empower**, put a **buff** counter on another target ally. Trigger this ability only once per turn."
+        ]
+    }
+}
