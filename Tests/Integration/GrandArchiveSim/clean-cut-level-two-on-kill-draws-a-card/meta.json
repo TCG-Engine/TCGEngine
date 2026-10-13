@@ -1,0 +1,22 @@
+{
+    "name": "clean-cut-level-two-on-kill-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:57:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "71i7d3JB9A"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "71i7d3JB9A"
+        ],
+        "mechanics": [
+            "level-gate",
+            "on-kill",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **On Kill:** Draw a card."
+        ]
+    }
+}

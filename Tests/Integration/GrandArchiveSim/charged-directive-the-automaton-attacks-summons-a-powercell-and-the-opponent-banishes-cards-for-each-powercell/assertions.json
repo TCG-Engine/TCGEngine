@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "qzzadf9q1v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Attack: a Powercell was summoned"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "X = 1 Powercell: the opponent banished one card from their graveyard"
+    }
+]

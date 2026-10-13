@@ -1,0 +1,20 @@
+{
+    "name": "lost-being-token-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "duzpl7mqXl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "duzpl7mqXl"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Lost Being (no rules text)"
+        ]
+    }
+}

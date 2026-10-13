@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:56:08+00:00",
+    "generatedAt": "2026-10-13T22:00:35+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2039,
+        "cardsWithExistingFixtures": 2049,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 438,
+        "cardsNeedingSemanticCoverage": 428,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1184,23 +1184,6 @@
             "priority": 21
         },
         {
-            "cardId": "FXPxYpv8nV",
-            "name": "Performance Enthusiast",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
-        },
-        {
             "cardId": "YDjxpBd8Fm",
             "name": "Aenean Crystallization",
             "type": "ACTION",
@@ -1856,25 +1839,6 @@
             "priority": 15
         },
         {
-            "cardId": "fuqfxq13uz",
-            "name": "Raised Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "zmoegdo111",
             "name": "Sempiternal Sage",
             "type": "ALLY",
@@ -2332,24 +2296,6 @@
                 "draw-discard",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "L2smMJ3Ucb",
-            "name": "Charged Directive",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5176,22 +5122,6 @@
             "priority": 12
         },
         {
-            "cardId": "1clswn3ba2",
-            "name": "Brackish Lutist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "VXHLfbZ6AB",
             "name": "Break the Line",
             "type": "ACTION",
@@ -5296,22 +5226,6 @@
             "mechanics": [
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "71i7d3JB9A",
-            "name": "Clean Cut",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6112,22 +6026,6 @@
             "mechanics": [
                 "cost",
                 "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "Nr5GpfLNrh",
-            "name": "Uncanny Realization",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6953,21 +6851,6 @@
             "priority": 11
         },
         {
-            "cardId": "duzpl7mqXl",
-            "name": "Lost Being",
-            "type": "TOKEN,PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "l5izukgdmh",
             "name": "Lu Bu, Wrath Incarnate",
             "type": "CHAMPION",
@@ -7050,36 +6933,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "nZFkDcvpaY",
-            "name": "Memorite Blade",
-            "type": "TOKEN,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "fdnlbJm3hr",
-            "name": "Memorite Obelith",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7260,21 +7113,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "3p5iqigcom",
-            "name": "Spirit Shard",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -26954,6 +26792,27 @@
             "priority": 41
         },
         {
+            "cardId": "FXPxYpv8nV",
+            "name": "Performance Enthusiast",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "performance-enthusiast-activating-a-melody-puts-a-buff-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "performance-enthusiast-activating-a-melody-puts-a-buff-counter-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "l7pnn9jw7c",
             "name": "Revealing Mesmer",
             "type": "PHANTASIA",
@@ -28923,6 +28782,29 @@
             "semanticFixtures": [
                 "rafales-slash-ciel-bonus-on-attack-declined-summons-nothing",
                 "rafales-slash-ciel-bonus-on-attack-pays-three-to-summon-a-rested-servant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "fuqfxq13uz",
+            "name": "Raised Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "raised-slash-class-bonus-on-attack-puts-a-buff-counter-on-suited-allies"
+            ],
+            "semanticFixtures": [
+                "raised-slash-class-bonus-on-attack-puts-a-buff-counter-on-suited-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -31172,6 +31054,28 @@
                 "channel-the-wind-class-bonus-floating-memory-pays-a-memory-cost",
                 "channel-the-wind-puts-an-enlighten-counter-on-the-champion",
                 "channel-the-wind-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "L2smMJ3Ucb",
+            "name": "Charged Directive",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "charged-directive-the-automaton-attacks-summons-a-powercell-and-the-opponent-banishes-cards-for-each-powercell"
+            ],
+            "semanticFixtures": [
+                "charged-directive-the-automaton-attacks-summons-a-powercell-and-the-opponent-banishes-cards-for-each-powercell"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44110,6 +44014,26 @@
             "priority": 32
         },
         {
+            "cardId": "1clswn3ba2",
+            "name": "Brackish Lutist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "brackish-lutist-a-floating-memory-card-dying-is-banished-instead-of-going-to-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "brackish-lutist-a-floating-memory-card-dying-is-banished-instead-of-going-to-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "1ybdJi1VN5",
             "name": "Breath's Coloratura",
             "type": "ACTION",
@@ -44430,6 +44354,28 @@
             ],
             "semanticFixtures": [
                 "clandestine-chart-glimpses-two-and-puts-a-preparation-counter-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "71i7d3JB9A",
+            "name": "Clean Cut",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "clean-cut-below-level-two-draws-nothing-on-kill",
+                "clean-cut-level-two-on-kill-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "clean-cut-below-level-two-draws-nothing-on-kill",
+                "clean-cut-level-two-on-kill-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49601,6 +49547,26 @@
             "priority": 32
         },
         {
+            "cardId": "Nr5GpfLNrh",
+            "name": "Uncanny Realization",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "uncanny-realization-a-unique-ally-attacking-with-it-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "uncanny-realization-a-unique-ally-attacking-with-it-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "96yd609g44",
             "name": "Unearth Revelations",
             "type": "ACTION",
@@ -52548,6 +52514,25 @@
             "priority": 31
         },
         {
+            "cardId": "duzpl7mqXl",
+            "name": "Lost Being",
+            "type": "TOKEN,PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lost-being-token-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "lost-being-token-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "5JH6j7QVuG",
             "name": "Lucca, Gateway Manager",
             "type": "UNIQUE,ALLY",
@@ -52626,6 +52611,44 @@
             ],
             "semanticFixtures": [
                 "manaroot-sacrifice-gives-the-champion-plus-one-level-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "nZFkDcvpaY",
+            "name": "Memorite Blade",
+            "type": "TOKEN,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "memorite-blade-activating-a-spell-gets-plus-one-power-once"
+            ],
+            "semanticFixtures": [
+                "memorite-blade-activating-a-spell-gets-plus-one-power-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "fdnlbJm3hr",
+            "name": "Memorite Obelith",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "memorite-obelith-gets-plus-one-power-and-life-for-each-of-up-to-five-sheen-counters"
+            ],
+            "semanticFixtures": [
+                "memorite-obelith-gets-plus-one-power-and-life-for-each-of-up-to-five-sheen-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53296,6 +53319,25 @@
             ],
             "semanticFixtures": [
                 "slick-torrentrider-recollection-phase-mills-the-top-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "3p5iqigcom",
+            "name": "Spirit Shard",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "spirit-shard-level-three-sacrifice-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "spirit-shard-level-three-sacrifice-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,21 @@
+{
+    "name": "memorite-obelith-gets-plus-one-power-and-life-for-each-of-up-to-five-sheen-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fdnlbJm3hr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fdnlbJm3hr"
+        ],
+        "mechanics": [
+            "counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "CARDNAME gets +1 [POWER] and +1 [LIFE] for each of up to five **sheen** counters on it."
+        ]
+    }
+}

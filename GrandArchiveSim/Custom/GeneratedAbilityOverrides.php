@@ -2949,6 +2949,17 @@ $cardActivatedAbilities["e6mAjsbItw:0"] = function($player) { //Gunsmith's Arsen
     DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
 };
 
+// Raised Slash fuqfxq13uz: "put a buff counter on up to two target Suited allies you control" -- the second prompt offered the first target again, so one ally could get both counters.
+$customDQHandlers["fuqfxq13uz:0:OnAttack-1"] = function($player, $parts, $lastDecision) { //Raised Slash
+    $first = $lastDecision;
+    if($first === "-" || $first === "PASS" || $first === "") return;
+    AddCounters($player, $first, "buff", 1);
+    $others = array_values(array_diff(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SUITED"]), [$first]));
+    if(empty($others)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $others), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "fuqfxq13uz:0:OnAttack-2", 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
