@@ -1,0 +1,21 @@
+{
+    "name": "eight-of-spades-level-one-costs-four-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d43C0Hk6qH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d43C0Hk6qH"
+        ],
+        "mechanics": [
+            "level-gate",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Level 1+] This card costs 4 less to activate."
+        ]
+    }
+}

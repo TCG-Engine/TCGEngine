@@ -1,0 +1,21 @@
+{
+    "name": "fervent-beastmaster-with-a-beast-ally-gets-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7NMFSRR5V3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7NMFSRR5V3"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you control a Beast ally, CARDNAME gets +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

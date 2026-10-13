@@ -1,0 +1,22 @@
+{
+    "name": "wicked-gildbreaker-enter-against-influence-seven-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YZQ8JOHehb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YZQ8JOHehb"
+        ],
+        "mechanics": [
+            "on-enter",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If an opponent has **influence** eight or more"
+        ]
+    }
+}

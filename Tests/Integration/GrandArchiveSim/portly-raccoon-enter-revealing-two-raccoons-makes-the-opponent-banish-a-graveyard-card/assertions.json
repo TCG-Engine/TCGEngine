@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "The opponent banished their only graveyard card"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "It went to their own banishment"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Not to the Raccoon controller's banishment"
+    }
+]

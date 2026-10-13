@@ -1,0 +1,22 @@
+{
+    "name": "promising-recruit-below-level-two-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h57rcfw46q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h57rcfw46q"
+        ],
+        "mechanics": [
+            "level-gate",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] At the beginning of your end phase, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "promising-recruit-level-two-end-phase-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h57rcfw46q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h57rcfw46q"
+        ],
+        "mechanics": [
+            "level-gate",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Level 2+] At the beginning of your end phase, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

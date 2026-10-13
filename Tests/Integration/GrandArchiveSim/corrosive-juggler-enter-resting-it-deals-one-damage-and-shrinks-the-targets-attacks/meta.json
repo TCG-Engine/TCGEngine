@@ -1,0 +1,25 @@
+{
+    "name": "corrosive-juggler-enter-resting-it-deals-one-damage-and-shrinks-the-targets-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:31:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ow9tNHwpUB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Ow9tNHwpUB"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice",
+            "rest",
+            "damage",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may rest CARDNAME. When you do, deal 1 damage to target unit. That unit's attacks get -2[POWER] until end of turn."
+        ]
+    }
+}

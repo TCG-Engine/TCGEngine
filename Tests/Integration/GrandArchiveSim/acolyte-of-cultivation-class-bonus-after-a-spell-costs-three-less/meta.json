@@ -1,0 +1,22 @@
+{
+    "name": "acolyte-of-cultivation-class-bonus-after-a-spell-costs-three-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nsowyyn6jt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nsowyyn6jt"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you've activated a Spell card this turn, this card costs 3 less to activate."
+        ]
+    }
+}

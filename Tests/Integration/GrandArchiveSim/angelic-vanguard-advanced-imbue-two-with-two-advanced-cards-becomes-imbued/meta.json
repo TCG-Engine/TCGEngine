@@ -1,0 +1,21 @@
+{
+    "name": "angelic-vanguard-advanced-imbue-two-with-two-advanced-cards-becomes-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKjX6INGkV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKjX6INGkV"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue"
+        ],
+        "rulesClauses": [
+            "**Advanced Imbue 2** *(You may reserve all cards revealed as you activate this card. If at least two of them are advanced element, this card becomes **imbued**.)*"
+        ]
+    }
+}

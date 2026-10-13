@@ -1,0 +1,23 @@
+{
+    "name": "inner-court-schemer-on-attack-removing-a-preparation-counter-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "spijrps4ny"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "spijrps4ny"
+        ],
+        "mechanics": [
+            "on-attack",
+            "optional-cost",
+            "counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Attack:** You may remove a **preparation** counter from your champion. If you do, this attack gets +2 [POWER]."
+        ]
+    }
+}

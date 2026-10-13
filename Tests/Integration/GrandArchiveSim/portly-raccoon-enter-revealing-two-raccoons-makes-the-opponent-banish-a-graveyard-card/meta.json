@@ -1,0 +1,22 @@
+{
+    "name": "portly-raccoon-enter-revealing-two-raccoons-makes-the-opponent-banish-a-graveyard-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9ZapXmmBc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ZapXmmBc9"
+        ],
+        "mechanics": [
+            "on-enter",
+            "reveal",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may reveal two Raccoon cards from your hand and/or memory. When you do, target opponent banishes a card from their graveyard."
+        ]
+    }
+}

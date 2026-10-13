@@ -1,0 +1,21 @@
+{
+    "name": "biding-endroid-with-five-opposing-material-cards-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mBxHYyldS6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mBxHYyldS6"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as each player has four or less cards in their material deck"
+        ]
+    }
+}

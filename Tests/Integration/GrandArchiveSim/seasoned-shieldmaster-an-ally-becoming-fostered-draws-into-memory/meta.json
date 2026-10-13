@@ -1,0 +1,22 @@
+{
+    "name": "seasoned-shieldmaster-an-ally-becoming-fostered-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qsm4o98vn1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qsm4o98vn1"
+        ],
+        "mechanics": [
+            "trigger",
+            "foster",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Whenever an ally you control becomes **fostered**, draw a card into your memory."
+        ]
+    }
+}

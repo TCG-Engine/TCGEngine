@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "4gdubtwij9",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Class Bonus] Paying 1 instead of 2 played it"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only one card went to memory"
+    }
+]

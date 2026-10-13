@@ -1,0 +1,22 @@
+{
+    "name": "adorned-stag-without-the-class-bonus-costs-the-printed-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4gdubtwij9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4gdubtwij9"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "apostle-of-the-woods-class-bonus-enter-loses-pride-and-gets-a-buff-counter-against-three-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:26:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sg2ghTKuDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sg2ghTKuDt"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "pride",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter: **CARDNAME loses **pride** until end of turn. Then if an opponent controls three or more units, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

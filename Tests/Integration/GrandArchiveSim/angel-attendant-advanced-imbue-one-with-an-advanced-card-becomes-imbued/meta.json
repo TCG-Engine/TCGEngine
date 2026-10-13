@@ -1,0 +1,21 @@
+{
+    "name": "angel-attendant-advanced-imbue-one-with-an-advanced-card-becomes-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "92mnQJPfR8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "92mnQJPfR8"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue"
+        ],
+        "rulesClauses": [
+            "**Advanced Imbue 1** *(You may reserve all cards revealed as you activate this card. If at least one of them is advanced element, this card becomes **imbued**.)*"
+        ]
+    }
+}

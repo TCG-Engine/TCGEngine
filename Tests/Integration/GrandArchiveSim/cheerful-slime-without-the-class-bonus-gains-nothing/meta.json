@@ -1,0 +1,22 @@
+{
+    "name": "cheerful-slime-without-the-class-bonus-gains-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OUqX2BBcGv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OUqX2BBcGv"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "status"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter: **You gain the Crowd's Favor status."
+        ]
+    }
+}

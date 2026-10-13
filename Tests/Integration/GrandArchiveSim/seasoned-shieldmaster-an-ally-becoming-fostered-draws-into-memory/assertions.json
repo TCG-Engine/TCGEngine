@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "The Panzer became fostered (the Shieldmaster has no foster): one card drawn into memory, returned to hand by the recollection phase, plus the 7 and the turn draw"
+    }
+]

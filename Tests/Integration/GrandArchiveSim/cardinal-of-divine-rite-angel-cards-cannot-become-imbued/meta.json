@@ -1,0 +1,22 @@
+{
+    "name": "cardinal-of-divine-rite-angel-cards-cannot-become-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UilIL2xYxb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UilIL2xYxb"
+        ],
+        "mechanics": [
+            "imbue",
+            "restriction",
+            "static"
+        ],
+        "rulesClauses": [
+            "Angel cards and objects can't become **imbued**."
+        ]
+    }
+}

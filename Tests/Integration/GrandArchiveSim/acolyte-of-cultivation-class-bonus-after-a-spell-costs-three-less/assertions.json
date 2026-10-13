@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "nsowyyn6jt",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Class Bonus] A Spell was activated this turn: the Acolyte cost 4 - 3 = 1"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "One for the Purification spell and one for the Acolyte"
+    }
+]

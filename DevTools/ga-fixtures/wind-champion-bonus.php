@@ -4,12 +4,6 @@
  * Spirit of Wind under it (which enables the wind element); the bonus checks look at the champion's name / lineage.
  */
 
-function gaBonus(string $slug, string $champion): GaScenario {
-    return gaScenario($slug)
-        ->deckTemplate('quiet', 'Dungeon Guide')
-        ->champion(cardName: $champion, lineage: ['Spirit of Wind']);
-}
-
 // ---- Schwartz Castler (Alice) ----
 // Giant Tortoise (6 life) is the opposing unit with an even life stat; the champions have 15 life.
 

@@ -1,0 +1,22 @@
+{
+    "name": "ordinary-horse-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:27:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w6ax750524"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w6ax750524"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    }
+}

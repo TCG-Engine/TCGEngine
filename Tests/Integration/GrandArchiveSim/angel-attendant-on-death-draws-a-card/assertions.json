@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "92mnQJPfR8",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Steed's 3 power destroyed the 3-life Attendant"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "On Death: a card was drawn (7 + 1)"
+    }
+]

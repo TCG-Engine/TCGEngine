@@ -1,0 +1,22 @@
+{
+    "name": "angelic-vanguard-imbued-has-intercept",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKjX6INGkV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKjX6INGkV"
+        ],
+        "mechanics": [
+            "imbue",
+            "intercept",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **imbued**, it has **intercept** and **retort 2**."
+        ]
+    }
+}

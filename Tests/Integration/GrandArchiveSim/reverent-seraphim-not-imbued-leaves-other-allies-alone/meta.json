@@ -1,0 +1,22 @@
+{
+    "name": "reverent-seraphim-not-imbued-leaves-other-allies-alone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e5r6eVzpkD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e5r6eVzpkD"
+        ],
+        "mechanics": [
+            "imbue",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **imbued**, other allies get -1[POWER]."
+        ]
+    }
+}

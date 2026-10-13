@@ -1,0 +1,21 @@
+{
+    "name": "angel-attendant-on-death-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "92mnQJPfR8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "92mnQJPfR8"
+        ],
+        "mechanics": [
+            "on-death",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Death:** Draw a card."
+        ]
+    }
+}

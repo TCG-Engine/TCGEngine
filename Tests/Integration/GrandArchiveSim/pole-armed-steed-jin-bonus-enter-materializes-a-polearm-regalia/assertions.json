@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "fvnvknj4dd",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Jin Bonus] The Polearm regalia was materialized"
+    }
+]

@@ -33,3 +33,12 @@ if (!function_exists('gaWindRanged')) {
             ->register();
     }
 }
+
+// A scenario on the 'quiet' deck whose starting champion is patched to the named champion (a champion-bonus card needs its champion).
+if (!function_exists('gaBonus')) {
+    function gaBonus(string $slug, string $champion): GaScenario {
+        return gaScenario($slug)
+            ->deckTemplate('quiet', 'Dungeon Guide')
+            ->champion(cardName: $champion, lineage: ['Spirit of Wind']);
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "corrosive-juggler-enter-declined-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ow9tNHwpUB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Ow9tNHwpUB"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may rest CARDNAME."
+        ]
+    }
+}

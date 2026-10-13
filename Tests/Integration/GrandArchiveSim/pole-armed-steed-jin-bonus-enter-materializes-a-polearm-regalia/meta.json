@@ -1,0 +1,22 @@
+{
+    "name": "pole-armed-steed-jin-bonus-enter-materializes-a-polearm-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7j79KANWEP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7j79KANWEP"
+        ],
+        "mechanics": [
+            "jin-bonus",
+            "on-enter",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] **On Enter:** Materialize a Polearm regalia card from your material deck."
+        ]
+    }
+}

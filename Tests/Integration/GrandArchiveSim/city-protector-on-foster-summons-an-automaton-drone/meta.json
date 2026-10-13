@@ -1,0 +1,23 @@
+{
+    "name": "city-protector-on-foster-summons-an-automaton-drone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bqjdmthh88"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bqjdmthh88"
+        ],
+        "mechanics": [
+            "keyword",
+            "foster",
+            "on-foster",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**On Foster:** **Summon** an Automaton Drone token."
+        ]
+    }
+}

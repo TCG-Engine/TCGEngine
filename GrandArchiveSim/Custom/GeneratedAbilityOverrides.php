@@ -2867,6 +2867,13 @@ $cardActivatedAbilities["jH3ZOavGPR:0"] = function($player) { //Crystalvein Awak
     AddCounters($player, $zone . "-" . $newIdx, "sheen", $sheenCount);
 };
 
+// Portly Raccoon 9ZapXmmBc9: "...When you do, target opponent banishes a card from their graveyard." The generated body had the Raccoon's controller choose the card and banished it into their own banishment;
+// the opponent chooses from their own graveyard and it goes to their banishment (the Purifying Thurible loop already does exactly that).
+$customDQHandlers["9ZapXmmBc9:0:Enter-1"] = function($player, $parts, $lastDecision) { //Portly Raccoon
+    if($lastDecision !== "YES") return;
+    PurifyingThuribleBanishLoop($player, GetOpponent($player), 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

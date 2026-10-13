@@ -511,11 +511,22 @@ function NormalizeImbueOption($cardID, $config) {
     ];
 }
 
+function CardinalOfDivineRiteInPlay() {
+    foreach([1, 2] as $p) {
+        foreach(GetField($p) as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "UilIL2xYxb" && !HasNoAbilities($fObj)) return true;
+        }
+    }
+    return false;
+}
+
 function GetCardImbueOptions($player, $cardID) {
     global $Imbue_Cards;
     $options = [];
     // Crystalvein Awakening (jH3ZOavGPR) prints "[Merlin Bonus] Imbue 2": only a Merlin champion may imbue it.
     if($cardID === "jH3ZOavGPR" && !IsMerlinBonusActive($player)) return [];
+    // Cardinal of Divine Rite (UilIL2xYxb): "Angel cards and objects can't become imbued." The imbue is not even offered (paying for it would be wasted).
+    if(PropertyContains(CardSubtypes($cardID), "ANGEL") && CardinalOfDivineRiteInPlay()) return [];
     if(isset($Imbue_Cards[$cardID])) {
         $config = $Imbue_Cards[$cardID];
         $configs = is_array($config) && isset($config[0]) ? $config : [$config];
@@ -14611,7 +14622,7 @@ function ObjectCurrentPower($obj) {
                 if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
                     && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
                     && $obj->GetMzID() === $combatAttacker
-                    && ChampionHasInLineage($obj->Controller, "daip7s9ztd")) {
+                    && IsAliceBonusActive($obj->Controller)) {
                     $targetObj = GetZoneObject($combatTarget);
                     if($targetObj !== null && (HasKeyword_Intercept($targetObj) || HasTaunt($targetObj))) {
                         $power += 1;
@@ -15011,14 +15022,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
-        // Reverent Seraphim (e5r6eVzpkD): as long as it is imbued, other allies get -1 POWER
+        // Reverent Seraphim (e5r6eVzpkD): as long as it is imbued, other allies (every player's) get -1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
-            foreach($field as $fieldObj) {
-                if($fieldObj === null) continue;
-                if(!$fieldObj->removed && $fieldObj->CardID === "e5r6eVzpkD" && !HasNoAbilities($fieldObj)
-                    && $fieldObj !== $obj && in_array("IMBUED", $fieldObj->TurnEffects ?? [])) {
-                    $power -= 1;
-                    break;
+            foreach([1, 2] as $seraphimPlayer) {
+                foreach(GetField($seraphimPlayer) as $fieldObj) {
+                    if($fieldObj === null) continue;
+                    if(!$fieldObj->removed && $fieldObj->CardID === "e5r6eVzpkD" && !HasNoAbilities($fieldObj)
+                        && $fieldObj->GetMzID() !== $obj->GetMzID() && in_array("IMBUED", $fieldObj->TurnEffects ?? [])) {
+                        $power -= 1;
+                        break 2;
+                    }
                 }
             }
         }
@@ -20193,15 +20206,7 @@ function AddTurnEffect($mzCard, $effectID) {
     if($obj === null) return;
     if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) $obj->TurnEffects = [];
     // Cardinal of Divine Rite: Angel cards/objects can't become imbued.
-    if($effectID === "IMBUED" && PropertyContains(EffectiveCardSubtypes($obj), "ANGEL")) {
-        foreach([1, 2] as $p) {
-            foreach(GetField($p) as $fObj) {
-                if(!$fObj->removed && $fObj->CardID === "UilIL2xYxb" && !HasNoAbilities($fObj)) {
-                    return;
-                }
-            }
-        }
-    }
+    if($effectID === "IMBUED" && PropertyContains(EffectiveCardSubtypes($obj), "ANGEL") && CardinalOfDivineRiteInPlay()) return;
     // Striking Illuminance (2lukkhisu5): one "+1 POWER" marker per luxem card revealed from memory (ObjectCurrentPower counts them), so they must stack.
     // Scorchfire Assassin (o4h8cfo21a): +2 POWER marker per preparation counter removed, so they must stack too.
     $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "aKgdkLSBza" || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a";
@@ -24532,6 +24537,8 @@ function HasVigor($obj) {
     if($obj->CardID === "ioLmt0S7op" && IsFostered($obj)) return true;
     // Imperial Panzer (46neis2lho): [CB] vigor while fostered
     if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Wicked Gildbreaker (YZQ8JOHehb): vigor (with stealth) while an opponent has influence nine or more
+    if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller) && GetInfluence($obj->Controller == 1 ? 2 : 1) >= 9) return true;
     // Yunzhou Cavalry (ann23jkuys): [CB] Vigor (missed by the keyword parser: the line follows an Equestrian clause)
     if($obj->CardID === "ann23jkuys" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
@@ -24734,10 +24741,6 @@ function HasStealth($obj) {
     if($obj->CardID === "jH6F9XYrL5" && isset($obj->Controller)) {
         $opponent = $obj->Controller == 1 ? 2 : 1;
         if(count(GetGraveyard($opponent)) === 0) return true;
-    }
-    if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller)) {
-        $opponent = $obj->Controller == 1 ? 2 : 1;
-        if(GetInfluence($opponent) >= 9) return true;
     }
     if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller)) {
         $opponent = $obj->Controller == 1 ? 2 : 1;
