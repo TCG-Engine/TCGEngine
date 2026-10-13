@@ -6298,6 +6298,7 @@ function GAFieldAbilityCostTable() {
     $table = [
         "e5o3cm9lbe:0" => ['reserve' => 5, 'banish' => true], // Scepter of Lumina
         "yxk7e8opr6:0" => ['reserve' => 1, 'banish' => true], // Spectral Beacon (the (1) was never paid)
+        "h23qu7d6so:0" => ['rest' => true], // Temporal Spectrometer ("[REST]:" was never paid, so it could be activated repeatedly)
         "pgmsK3mcSo:0" => ['rest' => true, 'sacrificePowercell' => true], // Cell Reactor ("[REST], Sacrifice a Powercell" was never paid)
         "gyk90s0hst:0" => ['reserve' => 1, 'rest' => true], // Gossamer Staff
         "znavmjiefw:0" => ['reserve' => 3, 'rest' => true], // Intwined Bangle
@@ -29042,13 +29043,13 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     }
 
     // Keep of the Golden Sashes (gjhv2etytr): first card opponents activate each turn costs 1 more
-    if($player !== $turnPlayer) {
-        $keepZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
-        foreach(GetZone($keepZone) as $kObj) {
-            if($kObj !== null && !$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
-                if(CardActivatedCallCount($player) == 0) $reserveCost += 1;
-                break;
-            }
+    // The Keep's controller is the activator's opponent, on either player's turn (the old code looked in the turn player's field and skipped the turn player's own activations).
+    $keepOwner = $player == 1 ? 2 : 1;
+    $keepZone = ($keepOwner == $playerID) ? "myField" : "theirField";
+    foreach(GetZone($keepZone) as $kObj) {
+        if($kObj !== null && !$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
+            if(CardActivatedCallCount($player) == 0) $reserveCost += 1;
+            break;
         }
     }
 

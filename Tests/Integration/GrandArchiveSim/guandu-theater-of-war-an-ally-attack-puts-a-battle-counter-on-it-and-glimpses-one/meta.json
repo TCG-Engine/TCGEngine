@@ -1,0 +1,22 @@
+{
+    "name": "guandu-theater-of-war-an-ally-attack-puts-a-battle-counter-on-it-and-glimpses-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:43:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "95ynk6lmnf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "95ynk6lmnf"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "Whenever you declare an attack with an ally, put a **battle** counter on CARDNAME and **glimpse 1**."
+        ]
+    }
+}

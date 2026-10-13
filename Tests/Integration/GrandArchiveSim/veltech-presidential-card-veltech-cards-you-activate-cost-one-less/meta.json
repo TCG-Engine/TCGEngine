@@ -1,0 +1,22 @@
+{
+    "name": "veltech-presidential-card-veltech-cards-you-activate-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S84TY03uxj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "S84TY03uxj"
+        ],
+        "mechanics": [
+            "static",
+            "cost-reduction",
+            "divine-relic"
+        ],
+        "rulesClauses": [
+            "VelTech cards you activate cost 1 less to activate."
+        ]
+    }
+}

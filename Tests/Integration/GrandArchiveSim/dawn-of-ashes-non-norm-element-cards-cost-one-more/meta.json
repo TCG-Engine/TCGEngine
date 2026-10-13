@@ -1,0 +1,21 @@
+{
+    "name": "dawn-of-ashes-non-norm-element-cards-cost-one-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4coy34bro8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4coy34bro8"
+        ],
+        "mechanics": [
+            "static",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "Non-norm element cards cost 1 more to activate."
+        ]
+    }
+}

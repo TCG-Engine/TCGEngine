@@ -1,0 +1,21 @@
+{
+    "name": "chateau-de-coeurs-enter-removes-buff-counters-from-objects-you-do-not-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vxc8u5zz08"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vxc8u5zz08"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Remove all **buff** counters from all objects you don't control."
+        ]
+    }
+}

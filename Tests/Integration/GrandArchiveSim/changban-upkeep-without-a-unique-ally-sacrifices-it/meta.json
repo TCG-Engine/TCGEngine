@@ -1,0 +1,22 @@
+{
+    "name": "changban-upkeep-without-a-unique-ally-sacrifices-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kmuuqzfvg8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kmuuqzfvg8"
+        ],
+        "mechanics": [
+            "upkeep",
+            "sacrifice",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Upkeep*** \u2014 At the beginning of your recollection phase, if you don't control a unique ally, sacrifice Changban."
+        ]
+    }
+}

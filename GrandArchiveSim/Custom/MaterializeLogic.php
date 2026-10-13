@@ -1005,6 +1005,8 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
         if($banishedCardID !== null) {
             PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
             WeavingManastreamOnFloatingBanished($player, $banishedCardID);
+            // Nico's lash counter and Poisonous Apple's 2 unpreventable damage ("whenever a card with floating memory is banished from your graveyard"): the materialize payment skipped them.
+            NicoOnFloatingMemoryBanished($player);
         }
         ++$paid;
     }

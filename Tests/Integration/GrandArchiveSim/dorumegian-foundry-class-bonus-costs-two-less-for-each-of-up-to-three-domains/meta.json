@@ -1,0 +1,22 @@
+{
+    "name": "dorumegian-foundry-class-bonus-costs-two-less-for-each-of-up-to-three-domains",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CzwVavXMQU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CzwVavXMQU"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate for each of up to three domains you control."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "oathbreakers-justice-attacking-with-it-costs-three-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:46:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f5ooozsikp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f5ooozsikp"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "weapon",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As an additional cost to use this weapon for an attack, pay (3)."
+        ]
+    }
+}

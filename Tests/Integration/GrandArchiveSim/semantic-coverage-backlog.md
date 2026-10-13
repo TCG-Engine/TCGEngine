@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1987**
+Cards linked to an existing fixture: **2006**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **490**
+Implemented cards still needing semantic coverage: **471**
 
 ## Mechanic groups
 
@@ -55,7 +55,6 @@ Implemented cards still needing semantic coverage: **490**
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
 | Dawn's Reversal (`x53jgq8aad`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
-| Dorumegian Foundry (`CzwVavXMQU`) | DOMAIN | 2 | cost, counter, token, trigger | — | — |
 | Enveloping Soulmist (`kYG1EDltdI`) | ACTION | 2 | cost, counter, status, condition | — | — |
 | Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **490**
 | Expunge (`r73opcqtzs`) | ACTION | 2 | cost, damage, draw-discard | — | — |
 | Flourishing Restoration (`alnjt7DyZL`) | ACTION | 2 | cost, recover, condition | — | — |
 | Golden Checkmate (`KbE9R1mi3n`) | ATTACK | 2 | cost, combat, condition | — | — |
+| Heirloom of Libra (`MRiM1fnOWC`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement | — | — |

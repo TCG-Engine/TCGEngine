@@ -1,0 +1,22 @@
+{
+    "name": "dorumegian-foundry-enter-summons-an-automaton-drone-with-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CzwVavXMQU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CzwVavXMQU"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** an Automaton Drone token with a **buff** counter on it."
+        ]
+    }
+}
