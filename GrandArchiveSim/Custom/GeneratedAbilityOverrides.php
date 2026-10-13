@@ -2778,6 +2778,11 @@ $onKillAbilities["myvztzk3v8:0"] = function($player) { //Razorblade Execution
     AddPrepCounter($player, 1);
 };
 
+// Blightheart Penitent (v2OmQJWXqX): "[REST]: If you control an Elysian object, cascade--". The generated ability cascaded unconditionally; the condition is the activation prerequisite.
+$activateAbilityPrereqs["v2OmQJWXqX:0"] = function($player, $mzID, $abilityIndex) { //Blightheart Penitent prereq
+    return PlayerControlsElysianObject($player);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

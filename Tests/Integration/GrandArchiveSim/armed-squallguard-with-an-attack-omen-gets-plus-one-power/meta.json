@@ -1,0 +1,22 @@
+{
+    "name": "armed-squallguard-with-an-attack-omen-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e7782pjg1d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e7782pjg1d"
+        ],
+        "mechanics": [
+            "omen",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you have one or more attack omens, Armed Squallguard gets +1[POWER]."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "AGILITY_3",
+        "value": 0,
+        "semantic": true,
+        "label": "No Powercell: no agility"
+    }
+]

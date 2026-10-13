@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-12T21:43:10+00:00",
+    "generatedAt": "2026-10-13T01:48:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1465,
+        "cardsWithExistingFixtures": 1477,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1012,
+        "cardsNeedingSemanticCoverage": 1000,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2271,25 +2271,6 @@
                 "targeting",
                 "status",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "v2OmQJWXqX",
-            "name": "Blightheart Penitent",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6637,60 +6618,6 @@
             "priority": 14
         },
         {
-            "cardId": "ZfCtSldRIy",
-            "name": "Windrider Mage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "1o0tKizBZ6",
-            "name": "Windstream Mutt",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "WFNM4etSFB",
-            "name": "Windstrike Soldier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "wjaq7t8vbf",
             "name": "Wrathful Slime",
             "type": "ALLY",
@@ -6838,23 +6765,6 @@
             "mechanics": [
                 "counter",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "zk96yd609g",
-            "name": "Armored Valkyrie",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7034,23 +6944,6 @@
             "priority": 13
         },
         {
-            "cardId": "71k4YomVjX",
-            "name": "Blightheart Adept",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "g23WBQW2Ro",
             "name": "Blood Dragon's Pact",
             "type": "PHANTASIA",
@@ -7195,23 +7088,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ffy4dwavco",
-            "name": "Charged Assailant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8241,23 +8117,6 @@
             "priority": 13
         },
         {
-            "cardId": "o18wr3f4ab",
-            "name": "Jadelight Protector",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "AKA19OwaCh",
             "name": "Jewel of Enlightenment",
             "type": "REGALIA,ITEM",
@@ -8912,23 +8771,6 @@
             "mechanics": [
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "wkz77mbyj0",
-            "name": "Poised Bowman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -10537,22 +10379,6 @@
             "priority": 12
         },
         {
-            "cardId": "e7782pjg1d",
-            "name": "Armed Squallguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "fjne9ri261",
             "name": "Art of War",
             "type": "REGALIA,ITEM",
@@ -10737,22 +10563,6 @@
             "mechanics": [
                 "targeting",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "2zCWq2DUDt",
-            "name": "Blightheart Thaumaturge",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11441,22 +11251,6 @@
             "mechanics": [
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "1hrgshgthu",
-            "name": "Fleetfoot Filly",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -35508,6 +35302,33 @@
             "priority": 35
         },
         {
+            "cardId": "v2OmQJWXqX",
+            "name": "Blightheart Penitent",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blightheart-penitent-cascade-one-prevents-the-next-two-damage-to-a-unit",
+                "blightheart-penitent-cascade-two-puts-a-buff-counter-on-an-ally",
+                "blightheart-penitent-without-an-elysian-object-cannot-use-its-ability"
+            ],
+            "semanticFixtures": [
+                "blightheart-penitent-cascade-one-prevents-the-next-two-damage-to-a-unit",
+                "blightheart-penitent-cascade-two-puts-a-buff-counter-on-an-ally",
+                "blightheart-penitent-without-an-elysian-object-cannot-use-its-ability"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "XgJ72Ot13P",
             "name": "Calming Breeze",
             "type": "ACTION",
@@ -41521,6 +41342,80 @@
             "priority": 34
         },
         {
+            "cardId": "ZfCtSldRIy",
+            "name": "Windrider Mage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windrider-mage-recollection-declined-stays-on-the-field",
+                "windrider-mage-recollection-returns-it-to-hand-for-an-enlighten-counter",
+                "windrider-mage-without-the-class-bonus-is-not-offered-the-return"
+            ],
+            "semanticFixtures": [
+                "windrider-mage-recollection-declined-stays-on-the-field",
+                "windrider-mage-recollection-returns-it-to-hand-for-an-enlighten-counter",
+                "windrider-mage-without-the-class-bonus-is-not-offered-the-return"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "1o0tKizBZ6",
+            "name": "Windstream Mutt",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windstream-mutt-on-enter-reveals-a-non-wind-memory-card-and-buffs-nothing",
+                "windstream-mutt-on-enter-reveals-a-wind-memory-card-and-buffs-another-ally"
+            ],
+            "semanticFixtures": [
+                "windstream-mutt-on-enter-reveals-a-non-wind-memory-card-and-buffs-nothing",
+                "windstream-mutt-on-enter-reveals-a-wind-memory-card-and-buffs-another-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "WFNM4etSFB",
+            "name": "Windstrike Soldier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "windstrike-soldier-on-enter-declined-gains-no-multistrike",
+                "windstrike-soldier-on-enter-pays-three-for-multistrike"
+            ],
+            "semanticFixtures": [
+                "windstrike-soldier-on-enter-declined-gains-no-multistrike",
+                "windstrike-soldier-on-enter-pays-three-for-multistrike"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "0xk8GPkiOz",
             "name": "Windy Leap",
             "type": "ACTION",
@@ -41806,6 +41701,31 @@
             ],
             "semanticFixtures": [
                 "aqueous-armor-links-to-an-ally-and-class-bonus-gives-plus-two-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "zk96yd609g",
+            "name": "Armored Valkyrie",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "armored-valkyrie-retaliates-with-two-extra-power-under-the-class-bonus",
+                "armored-valkyrie-retaliates-with-two_extra_power_under_the_class_bonus",
+                "armored-valkyrie-without-the-class-bonus-retaliates-for-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "armored-valkyrie-retaliates-with-two-extra-power-under-the-class-bonus",
+                "armored-valkyrie-retaliates-with-two_extra_power_under_the_class_bonus",
+                "armored-valkyrie-without-the-class-bonus-retaliates-for-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42199,6 +42119,31 @@
             "priority": 33
         },
         {
+            "cardId": "71k4YomVjX",
+            "name": "Blightheart Adept",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blightheart-adept-on-enter-with-an-elysian-object-draws-into-memory",
+                "blightheart-adept-on-enter-without-an-elysian-object-draws-nothing",
+                "blightheart-adept-on-enter-without-the-class-bonus-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "blightheart-adept-on-enter-with-an-elysian-object-draws-into-memory",
+                "blightheart-adept-on-enter-without-an-elysian-object-draws-nothing",
+                "blightheart-adept-on-enter-without-the-class-bonus-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qYH9PJP7uM",
             "name": "Blinding Orb",
             "type": "REGALIA,ITEM",
@@ -42373,6 +42318,31 @@
             ],
             "semanticFixtures": [
                 "cemetery-sentry-enter-discards-a-fire-card-to-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ffy4dwavco",
+            "name": "Charged Assailant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "charged-assailant-on-enter-with-a-powercell-gains-agility-three",
+                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility",
+                "charged-assailant-on-enter-without_a_powercell-gains-no-agility"
+            ],
+            "semanticFixtures": [
+                "charged-assailant-on-enter-with-a-powercell-gains-agility-three",
+                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility",
+                "charged-assailant-on-enter-without_a_powercell-gains-no-agility"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43599,6 +43569,29 @@
             "priority": 33
         },
         {
+            "cardId": "o18wr3f4ab",
+            "name": "Jadelight Protector",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "jadelight-protector-other-currents-leave-allies-without-steadfast",
+                "jadelight-protector-south-currents-give-allies-steadfast-and-retort"
+            ],
+            "semanticFixtures": [
+                "jadelight-protector-other-currents-leave-allies-without-steadfast",
+                "jadelight-protector-south-currents-give-allies-steadfast-and-retort"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "4ms1r3hjxp",
             "name": "Jianye, Dawn's Keep",
             "type": "UNIQUE,DOMAIN",
@@ -44351,6 +44344,31 @@
             "semanticFixtures": [
                 "plage-aux-homards-on-enter-mills-two-and-class-bonus-deluge-four-gives-animals-plus-one-life",
                 "plage-aux-homards-three-water-cards-do-not-reach-deluge-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "wkz77mbyj0",
+            "name": "Poised Bowman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "poised-bowman-distant-attack-gets-plus-three-power",
+                "poised-bowman-not-distant-attack-has-base-power",
+                "poised-bowman-on-enter-gains-vigor-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "poised-bowman-distant-attack-gets-plus-three-power",
+                "poised-bowman-not-distant-attack-has-base-power",
+                "poised-bowman-on-enter-gains-vigor-until-end-of-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46185,6 +46203,30 @@
             "priority": 32
         },
         {
+            "cardId": "e7782pjg1d",
+            "name": "Armed Squallguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "armed-squallguard-with-an-ally-omen-gets-plus-one-life",
+                "armed-squallguard-with-an-attack-omen-gets-plus-one-power",
+                "armed-squallguard-without-omens-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "armed-squallguard-with-an-ally-omen-gets-plus-one-life",
+                "armed-squallguard-with-an-attack-omen-gets-plus-one-power",
+                "armed-squallguard-without-omens-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "fjpimrl974",
             "name": "Ashen Riffle",
             "type": "ACTION",
@@ -46383,6 +46425,28 @@
             ],
             "semanticFixtures": [
                 "black-ice-spellweaver-sacrifice-gives-a-unit-minus-three-power-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "2zCWq2DUDt",
+            "name": "Blightheart Thaumaturge",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blightheart-thaumaturge-on-enter-with-an-elysian-object-gets-plus-two-power",
+                "blightheart-thaumaturge-on-enter-without-an-elysian-object-keeps-its-power"
+            ],
+            "semanticFixtures": [
+                "blightheart-thaumaturge-on-enter-with-an-elysian-object-gets-plus-two-power",
+                "blightheart-thaumaturge-on-enter-without-an-elysian-object-keeps-its-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47069,6 +47133,28 @@
             ],
             "semanticFixtures": [
                 "flared-iridescence-deals-four-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "1hrgshgthu",
+            "name": "Fleetfoot Filly",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fleetfoot-filly-gets-a-buff-counter-whenever-a-player-suppresses-an-object",
+                "fleetfoot-filly-gets-no-counter-without-a-suppress"
+            ],
+            "semanticFixtures": [
+                "fleetfoot-filly-gets-a-buff-counter-whenever-a-player-suppresses-an-object",
+                "fleetfoot-filly-gets-no-counter-without-a-suppress"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

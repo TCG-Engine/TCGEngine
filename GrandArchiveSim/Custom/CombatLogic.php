@@ -1116,7 +1116,8 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
     $retaliatorOptions = [];
 
     // The actual defender can retaliate if ready and has power
-    if($targetObj->Status == 2 && ObjectCurrentPower($targetObj) > 0) {
+    // Steadfast: "can retaliate while rested".
+    if(($targetObj->Status == 2 || HasSteadfast($targetObj)) && ObjectCurrentPower($targetObj) > 0) {
         $retaliatorOptions[] = $defenderMZ_fromDefender;
     }
 
@@ -1124,7 +1125,7 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
         if($fieldObj === null || $fieldObj->removed) continue;
         $mzID = "myField-" . $i; // defender's perspective
         if($mzID === $defenderMZ_fromDefender) continue; // actual defender already handled above
-        if($fieldObj->Status != 2) continue;
+        if($fieldObj->Status != 2 && !HasSteadfast($fieldObj)) continue;
         if(ObjectCurrentPower($fieldObj) <= 0) continue;
         if(GetCounterCount($fieldObj, "frenzy") > 0) continue;
         // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
@@ -1185,7 +1186,7 @@ function GetCleaveRetaliatorMZs(int $defenderPlayer): array {
     $retaliators = [];
     foreach(GetField($defenderPlayer) as $i => $fieldObj) {
         if($fieldObj === null || $fieldObj->removed) continue;
-        if($fieldObj->Status != 2) continue;
+        if($fieldObj->Status != 2 && !HasSteadfast($fieldObj)) continue;
         $type = EffectiveCardType($fieldObj);
         if(!PropertyContains($type, "ALLY") && !PropertyContains($type, "CHAMPION")) continue;
         if(ObjectCurrentPower($fieldObj) <= 0) continue;

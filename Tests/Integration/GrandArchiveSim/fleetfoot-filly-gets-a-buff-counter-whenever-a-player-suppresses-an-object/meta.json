@@ -1,0 +1,22 @@
+{
+    "name": "fleetfoot-filly-gets-a-buff-counter-whenever-a-player-suppresses-an-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1hrgshgthu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1hrgshgthu"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "suppress"
+        ],
+        "rulesClauses": [
+            "Whenever a player **suppresses** an object, put a **buff** counter on Fleetfoot Filly."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "blightheart-penitent-without-an-elysian-object-cannot-use-its-ability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:46:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v2OmQJWXqX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v2OmQJWXqX"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Elysian object"
+        ]
+    }
+}

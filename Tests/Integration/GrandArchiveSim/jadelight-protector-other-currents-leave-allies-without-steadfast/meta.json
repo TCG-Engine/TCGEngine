@@ -1,0 +1,22 @@
+{
+    "name": "jadelight-protector-other-currents-leave-allies-without-steadfast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o18wr3f4ab"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o18wr3f4ab"
+        ],
+        "mechanics": [
+            "static",
+            "condition",
+            "currents"
+        ],
+        "rulesClauses": [
+            "As long as your Shifting Currents face South"
+        ]
+    }
+}

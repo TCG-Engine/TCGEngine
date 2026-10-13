@@ -1,0 +1,23 @@
+{
+    "name": "blightheart-penitent-cascade-two-puts-a-buff-counter-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:46:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v2OmQJWXqX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v2OmQJWXqX"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cascade",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "\u2022 2 and 3\u2014 Put a **buff** counter on target ally."
+        ]
+    }
+}

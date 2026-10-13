@@ -1,0 +1,20 @@
+{
+    "name": "windrider-mage-without-the-class-bonus-is-not-offered-the-return",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZfCtSldRIy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZfCtSldRIy"
+        ],
+        "mechanics": [
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase"
+        ]
+    }
+}

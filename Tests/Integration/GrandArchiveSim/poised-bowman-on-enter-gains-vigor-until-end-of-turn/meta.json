@@ -1,0 +1,21 @@
+{
+    "name": "poised-bowman-on-enter-gains-vigor-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wkz77mbyj0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wkz77mbyj0"
+        ],
+        "mechanics": [
+            "on-enter",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Poised Bowman gains **vigor** until end of turn."
+        ]
+    }
+}

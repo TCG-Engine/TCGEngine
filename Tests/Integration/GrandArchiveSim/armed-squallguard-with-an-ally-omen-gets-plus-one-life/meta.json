@@ -1,0 +1,22 @@
+{
+    "name": "armed-squallguard-with-an-ally-omen-gets-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e7782pjg1d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e7782pjg1d"
+        ],
+        "mechanics": [
+            "omen",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you have one or more ally omens, Armed Squallguard gets +1[LIFE]."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "windrider-mage-recollection-declined-stays-on-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZfCtSldRIy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZfCtSldRIy"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, you may return CARDNAME to your hand."
+        ]
+    }
+}

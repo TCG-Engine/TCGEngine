@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "ZfCtSldRIy",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Class Bonus: the Mage returned to hand at the beginning of the recollection phase"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"classes\":\"MAGE\"},\"enlighten\":1}",
+        "semantic": true,
+        "label": "An enlighten counter went on the champion"
+    }
+]

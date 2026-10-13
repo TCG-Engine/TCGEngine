@@ -1,0 +1,22 @@
+{
+    "name": "poised-bowman-not-distant-attack-has-base-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wkz77mbyj0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wkz77mbyj0"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as this unit is **distant**"
+        ]
+    }
+}

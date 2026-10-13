@@ -1,0 +1,22 @@
+{
+    "name": "blightheart-adept-on-enter-without-an-elysian-object-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:42:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "71k4YomVjX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "71k4YomVjX"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Elysian object"
+        ]
+    }
+}

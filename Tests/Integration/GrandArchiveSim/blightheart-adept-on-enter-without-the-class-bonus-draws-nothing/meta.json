@@ -1,0 +1,21 @@
+{
+    "name": "blightheart-adept-on-enter-without-the-class-bonus-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:42:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "71k4YomVjX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "71k4YomVjX"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:**"
+        ]
+    }
+}

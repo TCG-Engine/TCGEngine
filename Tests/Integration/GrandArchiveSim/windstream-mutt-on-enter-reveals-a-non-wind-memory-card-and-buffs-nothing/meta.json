@@ -1,0 +1,23 @@
+{
+    "name": "windstream-mutt-on-enter-reveals-a-non-wind-memory-card-and-buffs-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:42:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1o0tKizBZ6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1o0tKizBZ6"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "reveal-look",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that card is wind element"
+        ]
+    }
+}

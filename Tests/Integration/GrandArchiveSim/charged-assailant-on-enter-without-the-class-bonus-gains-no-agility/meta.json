@@ -1,0 +1,21 @@
+{
+    "name": "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:42:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ffy4dwavco"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ffy4dwavco"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:**"
+        ]
+    }
+}

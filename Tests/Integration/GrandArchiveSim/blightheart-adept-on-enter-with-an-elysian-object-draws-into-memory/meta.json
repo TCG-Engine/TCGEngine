@@ -1,0 +1,23 @@
+{
+    "name": "blightheart-adept-on-enter-with-an-elysian-object-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "71k4YomVjX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "71k4YomVjX"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If you control an Elysian object, draw a card into your memory."
+        ]
+    }
+}

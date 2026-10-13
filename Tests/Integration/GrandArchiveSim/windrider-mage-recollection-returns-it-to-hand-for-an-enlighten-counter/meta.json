@@ -1,0 +1,22 @@
+{
+    "name": "windrider-mage-recollection-returns-it-to-hand-for-an-enlighten-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:41:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZfCtSldRIy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZfCtSldRIy"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "zone-movement",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, you may return CARDNAME to your hand. If you do, put an **enlighten** counter on your champion."
+        ]
+    }
+}

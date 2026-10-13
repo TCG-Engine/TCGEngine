@@ -1,0 +1,24 @@
+{
+    "name": "blightheart-penitent-cascade-one-prevents-the-next-two-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:46:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v2OmQJWXqX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v2OmQJWXqX"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "cascade",
+            "prevent-damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[REST]**:** If you control an Elysian object, **cascade**\u2014 <br>\u2022 1\u2014 Prevent the next 2 damage that would be dealt to target unit this turn."
+        ]
+    }
+}
