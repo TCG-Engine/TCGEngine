@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:34:08+00:00",
+    "generatedAt": "2026-10-13T15:22:34+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1610,
+        "cardsWithExistingFixtures": 1672,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 867,
+        "cardsNeedingSemanticCoverage": 805,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2066,25 +2066,6 @@
             "priority": 15
         },
         {
-            "cardId": "vc8sugly4w",
-            "name": "Cell Assembler",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "3bxtj3te9i",
             "name": "Combat Training",
             "type": "ACTION",
@@ -2451,27 +2432,6 @@
             "priority": 15
         },
         {
-            "cardId": "qQ7DxBj1J0",
-            "name": "Gray Lupindroid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "fZZqzAXNAc",
             "name": "Greater Boon of Enki",
             "type": "GREATER BOON",
@@ -2707,26 +2667,6 @@
             "priority": 15
         },
         {
-            "cardId": "j3q2svdv3z",
-            "name": "Mechanical Hare",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "9xycwz9gv4",
             "name": "Memento Mori",
             "type": "REGALIA,ITEM",
@@ -2928,25 +2868,6 @@
                 "counter",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "Znvu05tvWC",
-            "name": "Rampart Defender",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3263,25 +3184,6 @@
             "priority": 15
         },
         {
-            "cardId": "0vjo15768g",
-            "name": "Unyielding Wraithguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "rcwr60wa5b",
             "name": "Veilara's Promise",
             "type": "REGALIA,ITEM",
@@ -3359,25 +3261,6 @@
             "priority": 15
         },
         {
-            "cardId": "NwswAHojeq",
-            "name": "Young Beastbonder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "l94wp7qjwb",
             "name": "Yudi, Gossamer Jade",
             "type": "UNIQUE,PHANTASIA",
@@ -3443,24 +3326,6 @@
                 "targeting",
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "7i24g0nbxz",
-            "name": "Alacritous Huntress",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3866,24 +3731,6 @@
             "priority": 14
         },
         {
-            "cardId": "eyvxonorcs",
-            "name": "Deadly Opportunist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "ddag7ue0k7",
             "name": "Death Essence Amulet",
             "type": "REGALIA,ITEM",
@@ -3930,24 +3777,6 @@
                 "damage",
                 "prevention",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ty0tcpdiny",
-            "name": "Dreamy Unicorn",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4190,24 +4019,6 @@
             "priority": 14
         },
         {
-            "cardId": "x8wc254ris",
-            "name": "Fatebound Caracal",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "44pr0h0yqi",
             "name": "Feed Nourishment",
             "type": "ACTION",
@@ -4431,24 +4242,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "VmCVxy9J9J",
-            "name": "Hardy Veteran",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "combat",
                 "trigger",
                 "condition"
@@ -4730,24 +4523,6 @@
             "priority": 14
         },
         {
-            "cardId": "eanl1gxrpx",
-            "name": "Lone Gunslinger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "214upufooz",
             "name": "Machined Monstrosity",
             "type": "ALLY",
@@ -4820,24 +4595,6 @@
             "priority": 14
         },
         {
-            "cardId": "9dqou3vgi8",
-            "name": "Marksman Captain",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "zqw6ms798w",
             "name": "Marksman's Charm",
             "type": "REGALIA,ITEM",
@@ -4892,24 +4649,6 @@
             "priority": 14
         },
         {
-            "cardId": "s9qtcq0rzh",
-            "name": "Mystic Purifier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "PZM9uvCFai",
             "name": "Nia, Mistveiled Scout",
             "type": "UNIQUE,ALLY",
@@ -4920,24 +4659,6 @@
                 "targeting",
                 "status",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "b9p4lgdlx7",
-            "name": "Novice Healer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5216,24 +4937,6 @@
             "priority": 14
         },
         {
-            "cardId": "gbnvtkm7rf",
-            "name": "Renascent Sharpshooter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "o6eanbrfnr",
             "name": "Reprogram",
             "type": "ACTION",
@@ -5378,24 +5081,6 @@
             "priority": 14
         },
         {
-            "cardId": "lnl94ijbi1",
-            "name": "Shining Marchador",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "tyj2s3572j",
             "name": "Shock Therapy",
             "type": "ACTION",
@@ -5424,24 +5109,6 @@
                 "damage",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Zxab4Vi0wx",
-            "name": "Simple Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5495,24 +5162,6 @@
                 "targeting",
                 "draw-discard",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "5adaqTUV0i",
-            "name": "Slime Swarm",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6177,23 +5826,6 @@
             "priority": 13
         },
         {
-            "cardId": "ZSYwzoUEdz",
-            "name": "Bladed Riftseer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5k1vt1cn1t",
             "name": "Blanche, Sheltering Saint",
             "type": "UNIQUE,ALLY",
@@ -6355,23 +5987,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "iffei7chsb",
-            "name": "Charged Hunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6729,23 +6344,6 @@
             "mechanics": [
                 "zone-movement",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "hohkep3vi9",
-            "name": "Dyadic Fletcher",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7299,23 +6897,6 @@
             "priority": 13
         },
         {
-            "cardId": "zPC4Yqo9Fs",
-            "name": "Kingdom Informant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "JwgigfOaG8",
             "name": "Lagomorph Piece",
             "type": "REGALIA,ITEM",
@@ -7707,40 +7288,6 @@
             "priority": 13
         },
         {
-            "cardId": "WShYN9M3lU",
-            "name": "Owl Familiar",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "k940jhff6v",
-            "name": "Palace Guard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "0mz09ojy0t",
             "name": "Pang Tong, Young Phoenix",
             "type": "UNIQUE,ALLY",
@@ -7851,23 +7398,6 @@
             "mechanics": [
                 "status",
                 "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "cb2c4o20mf",
-            "name": "Pride's Smith",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -8234,23 +7764,6 @@
             "priority": 13
         },
         {
-            "cardId": "fdt8ptrz1b",
-            "name": "Scavenging Raccoon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "2m31946aki",
             "name": "Seal the Past",
             "type": "ACTION",
@@ -8378,23 +7891,6 @@
             "mechanics": [
                 "draw-discard",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "55u41ilks4",
-            "name": "Skilled Plainsman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8734,23 +8230,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "5v9mCHv2qG",
-            "name": "VelTech Armiger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -9631,22 +9110,6 @@
             "priority": 12
         },
         {
-            "cardId": "ziHdB4vzQH",
-            "name": "Delivery Droid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "6g7xgwve1d",
             "name": "Demon's Aim",
             "type": "ACTION",
@@ -9983,22 +9446,6 @@
             "priority": 12
         },
         {
-            "cardId": "wosk26yg5z",
-            "name": "Ghostsight Mare",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "5s2aumgjzn",
             "name": "Glorious Presence",
             "type": "UNIQUE,PHANTASIA",
@@ -10159,22 +9606,6 @@
             "priority": 12
         },
         {
-            "cardId": "bx4k3akqx7",
-            "name": "Hidden Longbowman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "hj1trn0yet",
             "name": "Hide in Bush",
             "type": "ACTION",
@@ -10183,22 +9614,6 @@
             "mechanics": [
                 "cost",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "k6d4367ixj",
-            "name": "Horse Archer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10271,22 +9686,6 @@
             "priority": 12
         },
         {
-            "cardId": "mwd3n9u8ej",
-            "name": "Imperial Assassin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "46neis2lho",
             "name": "Imperial Panzer",
             "type": "ALLY",
@@ -10295,22 +9694,6 @@
             "mechanics": [
                 "damage",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "659ytyj2s3",
-            "name": "Imperious Highlander",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10511,22 +9894,6 @@
             "priority": 12
         },
         {
-            "cardId": "8tYVFYnK0T",
-            "name": "Lurching Rogue",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "3n4l6aoj4t",
             "name": "Maiden of Shimmering Air",
             "type": "PHANTASIA,ALLY",
@@ -10615,22 +9982,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "zyEMI5XNHt",
-            "name": "Mourning Veilbound",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10863,22 +10214,6 @@
             "priority": 12
         },
         {
-            "cardId": "tMy4zMpqcH",
-            "name": "Nimble Longbowman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "f5ooozsikp",
             "name": "Oathbreaker's Justice",
             "type": "REGALIA,WEAPON",
@@ -11007,22 +10342,6 @@
             "priority": 12
         },
         {
-            "cardId": "9mjhngb8qe",
-            "name": "Pride's Vanguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "2zr5ys29xx",
             "name": "Priscilla, Lost Spirit",
             "type": "CHAMPION",
@@ -11062,22 +10381,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "kYJUmd11o1",
-            "name": "Proto Archive Scout",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11247,22 +10550,6 @@
             "priority": 12
         },
         {
-            "cardId": "fvyhuxzjk8",
-            "name": "Seasoned Archer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "oqk2c7wklz",
             "name": "Shadecursed Hunter",
             "type": "ALLY",
@@ -11287,22 +10574,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "fsudPn5GQH",
-            "name": "Signal Gunner",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11447,22 +10718,6 @@
             "mechanics": [
                 "targeting",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "yrm3xibmoz",
-            "name": "Stolid Vanguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11671,22 +10926,6 @@
             "mechanics": [
                 "targeting",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "bhhdb7x044",
-            "name": "Tricky Chimps",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -11911,22 +11150,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "0qmwwihhn2",
-            "name": "Woodland Shoats",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12252,21 +11475,6 @@
             "priority": 11
         },
         {
-            "cardId": "fe3AaA7Qt3",
-            "name": "Banner Raccoon",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "gz92tQGwCZ",
             "name": "Banner Slime",
             "type": "ALLY",
@@ -12319,36 +11527,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "0v8zzzb83i",
-            "name": "Bolstered Boar",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "i1sh9r9rda",
-            "name": "Brash Defender",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12454,21 +11632,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "alegbscxwj",
-            "name": "Charged Mannequin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12822,39 +11985,9 @@
             "priority": 11
         },
         {
-            "cardId": "MmbQQdsRhi",
-            "name": "Enraged Boars",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "p4lpnvx7mn",
             "name": "Exalted Dorumegian Throne",
             "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "iM3IywF99T",
-            "name": "Excitable Raccoon",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -13167,21 +12300,6 @@
             "priority": 11
         },
         {
-            "cardId": "iCgcAFU458",
-            "name": "Golden Rook",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "d253WtyIXr",
             "name": "Heartsong Reclamation",
             "type": "ACTION",
@@ -13204,21 +12322,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "vjdbqgku4z",
-            "name": "Horned Knight",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13872,21 +12975,6 @@
             "priority": 11
         },
         {
-            "cardId": "hAAokl4hnU",
-            "name": "Overcharged Droid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "c7wklzjmwu",
             "name": "Palatial Concourse",
             "type": "DOMAIN",
@@ -13924,21 +13012,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "uCIEMgGjWe",
-            "name": "Port Smuggler",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14067,21 +13140,6 @@
             "priority": 11
         },
         {
-            "cardId": "bXxU1ZzMpR",
-            "name": "Reliable Cavalier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "3ppahdhe7g",
             "name": "Resonant Aether",
             "type": "ACTION",
@@ -14089,36 +13147,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "odv9wh820s",
-            "name": "Rotund Squirrel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "51l757wvez",
-            "name": "Royal Bear",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14502,69 +13530,9 @@
             "priority": 11
         },
         {
-            "cardId": "wov58exji1",
-            "name": "Wingpeak Patriarch",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "6W5AJwF3Y3",
-            "name": "Woodland Squirrels",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "xkthg3cwx5",
             "name": "xkthg3cwx5",
             "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "k98b6icmw9",
-            "name": "Young Wyrmling",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "LjFUUKe83H",
-            "name": "Young Wyrmling",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -33554,6 +32522,31 @@
             "priority": 35
         },
         {
+            "cardId": "vc8sugly4w",
+            "name": "Cell Assembler",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cell-assembler-enter-declined-summons-nothing",
+                "cell-assembler-enter-paying-two-summons-a-rested-powercell"
+            ],
+            "semanticFixtures": [
+                "cell-assembler-enter-declined-summons-nothing",
+                "cell-assembler-enter-paying-two-summons-a-rested-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "pk9xycwz9g",
             "name": "Cell Handler",
             "type": "ALLY",
@@ -34185,6 +33178,31 @@
             "priority": 35
         },
         {
+            "cardId": "qQ7DxBj1J0",
+            "name": "Gray Lupindroid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gray-lupindroid-true-sight-attacks-a-stealth-unit"
+            ],
+            "semanticFixtures": [
+                "gray-lupindroid-true-sight-attacks-a-stealth-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "FqFdOEOTbJ",
             "name": "Hot Cake",
             "type": "ITEM",
@@ -34573,6 +33591,30 @@
             "priority": 35
         },
         {
+            "cardId": "j3q2svdv3z",
+            "name": "Mechanical Hare",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mechanical-hare-class-bonus-enter-puts-a-buff-counter-on-itself"
+            ],
+            "semanticFixtures": [
+                "mechanical-hare-class-bonus-enter-puts-a-buff-counter-on-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "m6c8xy4cje",
             "name": "Misteye Archer",
             "type": "ALLY",
@@ -34713,6 +33755,31 @@
             "semanticFixtures": [
                 "rafales-slash-ciel-bonus-on-attack-declined-summons-nothing",
                 "rafales-slash-ciel-bonus-on-attack-pays-three-to-summon-a-rested-servant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "Znvu05tvWC",
+            "name": "Rampart Defender",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rampart-defender-class-bonus-ranged-three-while-distant",
+                "rampart-defender-without-the-class-bonus-has-no-ranged"
+            ],
+            "semanticFixtures": [
+                "rampart-defender-class-bonus-ranged-three-while-distant",
+                "rampart-defender-without-the-class-bonus-has-no-ranged"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -35469,6 +34536,29 @@
             "priority": 35
         },
         {
+            "cardId": "0vjo15768g",
+            "name": "Unyielding Wraithguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "unyielding-wraithguard-taunt-protects-the-champion"
+            ],
+            "semanticFixtures": [
+                "unyielding-wraithguard-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "8m69iq4d5v",
             "name": "Vanitas, Convergent Ruin",
             "type": "CHAMPION",
@@ -35752,6 +34842,31 @@
             "priority": 35
         },
         {
+            "cardId": "NwswAHojeq",
+            "name": "Young Beastbonder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "young-beastbonder-class-bonus-enter-puts-one-buff-counter-on-a-non-beast",
+                "young-beastbonder-class-bonus-enter-puts-two-buff-counters-on-a-beast"
+            ],
+            "semanticFixtures": [
+                "young-beastbonder-class-bonus-enter-puts-one-buff-counter-on-a-non-beast",
+                "young-beastbonder-class-bonus-enter-puts-two-buff-counters-on-a-beast"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "txgvf6xpkq",
             "name": "Adept Swordmaster",
             "type": "ALLY",
@@ -35814,6 +34929,28 @@
             ],
             "semanticFixtures": [
                 "airship-cruiser-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "7i24g0nbxz",
+            "name": "Alacritous Huntress",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alacritous-huntress-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "alacritous-huntress-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36688,6 +35825,30 @@
             "priority": 34
         },
         {
+            "cardId": "eyvxonorcs",
+            "name": "Deadly Opportunist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "deadly-opportunist-attacking-a-rested-ally-gets-plus-three-power",
+                "deadly-opportunist-attacking-an-awake-ally-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "deadly-opportunist-attacking-a-rested-ally-gets-plus-three-power",
+                "deadly-opportunist-attacking-an-awake-ally-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "2ghdzy9tz7",
             "name": "Delusional Vapors",
             "type": "ACTION",
@@ -36798,6 +35959,30 @@
             "semanticFixtures": [
                 "displace-banishes-and-returns-the-ally-rested-and-class-bonus-enlightens",
                 "displace-without-the-class-bonus-adds-no-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ty0tcpdiny",
+            "name": "Dreamy Unicorn",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "dreamy-unicorn-intercept-redirects-the-attack-on-the-champion",
+                "dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "dreamy-unicorn-intercept-redirects-the-attack-on-the-champion",
+                "dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37050,6 +36235,34 @@
             "semanticFixtures": [
                 "fang-of-dragons-breath-needs-a-polearm-weapon-to-link-to",
                 "fang-of-dragons-breath-polearm-weapon-link-gives-the-linked-weapon-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "x8wc254ris",
+            "name": "Fatebound Caracal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatebound-caracal-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "semanticFixtures": [
+                "fatebound-caracal-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37736,6 +36949,32 @@
             "priority": 34
         },
         {
+            "cardId": "VmCVxy9J9J",
+            "name": "Hardy Veteran",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hardy-veteran-class-bonus-with-a-weapon-has-retort-three",
+                "hardy-veteran-class-bonus-without-a-weapon-has-no-retort",
+                "hardy-veteran-intercept-redirects-the-attack-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "hardy-veteran-class-bonus-with-a-weapon-has-retort-three",
+                "hardy-veteran-class-bonus-without-a-weapon-has-no-retort",
+                "hardy-veteran-intercept-redirects-the-attack-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "td460e8ig0",
             "name": "Heated Vengeance",
             "type": "ATTACK",
@@ -38200,6 +37439,28 @@
             "priority": 34
         },
         {
+            "cardId": "eanl1gxrpx",
+            "name": "Lone Gunslinger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lone-gunslinger-ranged-one-while-distant"
+            ],
+            "semanticFixtures": [
+                "lone-gunslinger-ranged-one-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "oh300z2sns",
             "name": "Magebane Lash",
             "type": "REGALIA,WEAPON",
@@ -38292,6 +37553,30 @@
             "priority": 34
         },
         {
+            "cardId": "9dqou3vgi8",
+            "name": "Marksman Captain",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "marksman-captain-enter-makes-another-unit-distant",
+                "marksman-captain-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "marksman-captain-enter-makes-another-unit-distant",
+                "marksman-captain-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "rqjnvhf26m",
             "name": "Mistsworn Magister",
             "type": "ALLY",
@@ -38334,6 +37619,52 @@
             "semanticFixtures": [
                 "yuan-shao-pays-three-rests-and-gains-control-of-a-unique-ally",
                 "yuan-shao-refused-with-only-two-unique-opposing-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "s9qtcq0rzh",
+            "name": "Mystic Purifier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "mystic-purifier-enter-paying-two-destroys-a-phantasia"
+            ],
+            "semanticFixtures": [
+                "mystic-purifier-enter-paying-two-destroys-a-phantasia"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "b9p4lgdlx7",
+            "name": "Novice Healer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "novice-healer-class-bonus-enter-recovers-three",
+                "novice-healer-without-the-class-bonus-does-not-recover"
+            ],
+            "semanticFixtures": [
+                "novice-healer-class-bonus-enter-recovers-three",
+                "novice-healer-without-the-class-bonus-does-not-recover"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38715,6 +38046,28 @@
             ],
             "semanticFixtures": [
                 "relic-of-dancing-embers-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "gbnvtkm7rf",
+            "name": "Renascent Sharpshooter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "renascent-sharpshooter-ranged-one-while-distant"
+            ],
+            "semanticFixtures": [
+                "renascent-sharpshooter-ranged-one-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39173,6 +38526,54 @@
             "priority": 34
         },
         {
+            "cardId": "lnl94ijbi1",
+            "name": "Shining Marchador",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "shining-marchador-enter-paying-two-puts-a-buff-counter-on-an-ally"
+            ],
+            "semanticFixtures": [
+                "shining-marchador-enter-paying-two-puts-a-buff-counter-on-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "Zxab4Vi0wx",
+            "name": "Simple Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "simple-slime-cannot-attack",
+                "simple-slime-prevents-three-of-the-damage-dealt-to-it",
+                "simple-slime-twin-an-ordinary-ally-can-attack-at-the-same-point"
+            ],
+            "semanticFixtures": [
+                "simple-slime-cannot-attack",
+                "simple-slime-prevents-three-of-the-damage-dealt-to-it",
+                "simple-slime-twin-an-ordinary-ally-can-attack-at-the-same-point"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "TieUdzJ2B2",
             "name": "Singed Emotions",
             "type": "ACTION",
@@ -39211,6 +38612,30 @@
             ],
             "semanticFixtures": [
                 "skilled-aerotheurge-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "5adaqTUV0i",
+            "name": "Slime Swarm",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slime-swarm-class-bonus-enter-summons-two-rested-baby-slimes",
+                "slime-swarm-without-the-class-bonus-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "slime-swarm-class-bonus-enter-summons-two-rested-baby-slimes",
+                "slime-swarm-without-the-class-bonus-summons-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40673,6 +40098,29 @@
             "priority": 33
         },
         {
+            "cardId": "ZSYwzoUEdz",
+            "name": "Bladed Riftseer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bladed-riftseer-below-level-one-cannot-attack-a-stealth-unit",
+                "bladed-riftseer-level-one-true-sight-attacks-a-stealth-unit"
+            ],
+            "semanticFixtures": [
+                "bladed-riftseer-below-level-one-cannot-attack-a-stealth-unit",
+                "bladed-riftseer-level-one-true-sight-attacks-a-stealth-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "eanbrfnrow",
             "name": "Blast Shield",
             "type": "REGALIA,ITEM",
@@ -41100,6 +40548,27 @@
                 "charged-assailant-on-enter-with-a-powercell-gains-agility-three",
                 "charged-assailant-on-enter-without-a-powercell-gains-no-agility",
                 "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "iffei7chsb",
+            "name": "Charged Hunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "charged-hunter-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "charged-hunter-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41537,6 +41006,27 @@
                 "duchess-six-of-hearts-cardistry-can-only-be-activated-once",
                 "duchess-six-of-hearts-cardistry-copies-a-cheap-fire-action-from-the-graveyard-for-free",
                 "duchess-six-of-hearts-kindle-six-pays-the-whole-cost-from-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "hohkep3vi9",
+            "name": "Dyadic Fletcher",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dyadic-fletcher-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "dyadic-fletcher-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42577,6 +42067,27 @@
             "priority": 33
         },
         {
+            "cardId": "zPC4Yqo9Fs",
+            "name": "Kingdom Informant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "kingdom-informant-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "kingdom-informant-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qy34r8gffr",
             "name": "Kingdom's Divide",
             "type": "ACTION",
@@ -43343,6 +42854,27 @@
             "priority": 33
         },
         {
+            "cardId": "WShYN9M3lU",
+            "name": "Owl Familiar",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "owl-familiar-class-bonus-enter-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "owl-familiar-class-bonus-enter-glimpses-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7qjnqww067",
             "name": "Paired Minds, Kindred Souls",
             "type": "ACTION",
@@ -43364,6 +42896,31 @@
                 "paired-minds-look-ten-reveal-deep-horse-rest-bottom",
                 "paired-minds-look-ten-two-horses-reveal-second-first-goes-bottom",
                 "paired-minds-player-two-look-ten-reveal-deep-horse-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "k940jhff6v",
+            "name": "Palace Guard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "palace-guard-class-bonus-retort-two-retaliates-for-two-extra-power",
+                "palace-guard-taunt-protects-the-champion",
+                "palace-guard-without-the-class-bonus-retaliates-for-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "palace-guard-class-bonus-retort-two-retaliates-for-two-extra-power",
+                "palace-guard-taunt-protects-the-champion",
+                "palace-guard-without-the-class-bonus-retaliates-for-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43609,6 +43166,27 @@
             ],
             "semanticFixtures": [
                 "powered-swordsman-class-bonus-death-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "cb2c4o20mf",
+            "name": "Pride's Smith",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "prides-smith-enter-puts-a-durability-counter-on-a-warrior-weapon"
+            ],
+            "semanticFixtures": [
+                "prides-smith-enter-puts-a-durability-counter-on-a-warrior-weapon"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44084,6 +43662,27 @@
             "priority": 33
         },
         {
+            "cardId": "fdt8ptrz1b",
+            "name": "Scavenging Raccoon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "scavenging-raccoon-enter-banishes-up-to-two-cards-from-a-graveyard"
+            ],
+            "semanticFixtures": [
+                "scavenging-raccoon-enter-banishes-up-to-two-cards-from-a-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "PDLfDZFari",
             "name": "Schwartz Castler",
             "type": "ALLY",
@@ -44409,6 +44008,27 @@
             ],
             "semanticFixtures": [
                 "sink-the-mind-class-bonus-mills-when-the-opponent-takes-a-card-from-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "55u41ilks4",
+            "name": "Skilled Plainsman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "skilled-plainsman-class-bonus-equestrian-enter-with-a-horse-gets-a-buff-counter"
+            ],
+            "semanticFixtures": [
+                "skilled-plainsman-class-bonus-equestrian-enter-with-a-horse-gets-a-buff-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45066,6 +44686,27 @@
                 "vaporjet-shieldbearer-class-bonus-on-hit-may-mill-the-top-card",
                 "vaporjet-shieldbearer-declining-keeps-the-top-card-on-the-deck",
                 "vaporjet-shieldbearer-without-the-class-bonus-does-not-look-at-the-top-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "5v9mCHv2qG",
+            "name": "VelTech Armiger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "veltech-armiger-ranged-three-while-distant"
+            ],
+            "semanticFixtures": [
+                "veltech-armiger-ranged-three-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46321,6 +45962,26 @@
             "priority": 32
         },
         {
+            "cardId": "ziHdB4vzQH",
+            "name": "Delivery Droid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "delivery-droid-on-death-summons-a-powercell"
+            ],
+            "semanticFixtures": [
+                "delivery-droid-on-death-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "6F5hCQ8I9S",
             "name": "Destined Encounter",
             "type": "ACTION",
@@ -47147,6 +46808,26 @@
             "priority": 32
         },
         {
+            "cardId": "wosk26yg5z",
+            "name": "Ghostsight Mare",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "ghostsight-mare-true-sight-attacks-a-stealth-unit"
+            ],
+            "semanticFixtures": [
+                "ghostsight-mare-true-sight-attacks-a-stealth-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "Zw0T2GmowK",
             "name": "Greater Boon of Shou",
             "type": "GREATER BOON",
@@ -47293,6 +46974,26 @@
             "priority": 32
         },
         {
+            "cardId": "bx4k3akqx7",
+            "name": "Hidden Longbowman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hidden-longbowman-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "hidden-longbowman-ranged-two-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "yuvuxnrw8q",
             "name": "Hone by Fire",
             "type": "ACTION",
@@ -47315,6 +47016,28 @@
             "priority": 32
         },
         {
+            "cardId": "k6d4367ixj",
+            "name": "Horse Archer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "horse-archer-class-bonus-ranged-two-while-distant",
+                "horse-archer-without-the-class-bonus-has-no-ranged"
+            ],
+            "semanticFixtures": [
+                "horse-archer-class-bonus-ranged-two-while-distant",
+                "horse-archer-without-the-class-bonus-has-no-ranged"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "GdCFiPyKyM",
             "name": "Hydrocask Droid",
             "type": "ALLY",
@@ -47331,6 +47054,46 @@
             "semanticFixtures": [
                 "hydrocask-droid-enter-with-a-floating-memory-card-in-the-graveyard-gets-plus-two-power",
                 "hydrocask-droid-enter-without-a-floating-memory-card-keeps-its-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "mwd3n9u8ej",
+            "name": "Imperial Assassin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-assassin-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "imperial-assassin-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "659ytyj2s3",
+            "name": "Imperious Highlander",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "imperious-highlander-enter-gets-power-for-each-ally-the-opponent-controls-more"
+            ],
+            "semanticFixtures": [
+                "imperious-highlander-enter-gets-power-for-each-ally-the-opponent-controls-more"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47647,6 +47410,26 @@
             "priority": 32
         },
         {
+            "cardId": "8tYVFYnK0T",
+            "name": "Lurching Rogue",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "lurching-rogue-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "lurching-rogue-class-bonus-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "qa4ke7txh0",
             "name": "Maiden of Glimmer's Dusk",
             "type": "PHANTASIA,ALLY",
@@ -47855,6 +47638,26 @@
             "priority": 32
         },
         {
+            "cardId": "zyEMI5XNHt",
+            "name": "Mourning Veilbound",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "mourning-veilbound-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "semanticFixtures": [
+                "mourning-veilbound-stealth-cannot-be-targeted-by-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "FDWU3lJg0u",
             "name": "Music Aficionado",
             "type": "ALLY",
@@ -47893,6 +47696,30 @@
             "semanticFixtures": [
                 "nameless-champion-cannot-level-up",
                 "nameless-champion-pay-six-draw-and-level-counter-only-once"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "tMy4zMpqcH",
+            "name": "Nimble Longbowman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "nimble-longbowman-enter-makes-the-champion-distant-and-the-class-bonus-enters-distant",
+                "nimble-longbowman-ranged-one-while-distant",
+                "nimble-longbowman-without-the-class-bonus-enters-not-distant"
+            ],
+            "semanticFixtures": [
+                "nimble-longbowman-enter-makes-the-champion-distant-and-the-class-bonus-enters-distant",
+                "nimble-longbowman-ranged-one-while-distant",
+                "nimble-longbowman-without-the-class-bonus-enters-not-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48211,6 +48038,50 @@
             ],
             "semanticFixtures": [
                 "powered-bishop-gets-plus-one-power-with-four-memory-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "9mjhngb8qe",
+            "name": "Pride's Vanguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prides-vanguard-ambush-retaliates-for-another-ally-with-retort",
+                "prides-vanguard-retort-two-retaliates-for-two-extra-power"
+            ],
+            "semanticFixtures": [
+                "prides-vanguard-ambush-retaliates-for-another-ally-with-retort",
+                "prides-vanguard-retort-two-retaliates-for-two-extra-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "kYJUmd11o1",
+            "name": "Proto Archive Scout",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "proto-archive-scout-awake-has-stealth",
+                "proto-archive-scout-rested-has-no-stealth"
+            ],
+            "semanticFixtures": [
+                "proto-archive-scout-awake-has-stealth",
+                "proto-archive-scout-rested-has-no-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48677,6 +48548,26 @@
             "priority": 32
         },
         {
+            "cardId": "fvyhuxzjk8",
+            "name": "Seasoned Archer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seasoned-archer-class-bonus-ranged-three-while-distant"
+            ],
+            "semanticFixtures": [
+                "seasoned-archer-class-bonus-ranged-three-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "Huh1DljE0j",
             "name": "Second Wind",
             "type": "ACTION",
@@ -48773,6 +48664,26 @@
             ],
             "semanticFixtures": [
                 "sift-mills-one-then-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "fsudPn5GQH",
+            "name": "Signal Gunner",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "signal-gunner-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "signal-gunner-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49160,6 +49071,28 @@
             "priority": 32
         },
         {
+            "cardId": "yrm3xibmoz",
+            "name": "Stolid Vanguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stolid-vanguard-equestrian-enter-with-a-horse-gets-plus-two-power",
+                "stolid-vanguard-equestrian-enter-without-a-horse-gets-nothing"
+            ],
+            "semanticFixtures": [
+                "stolid-vanguard-equestrian-enter-with-a-horse-gets-plus-two-power",
+                "stolid-vanguard-equestrian-enter-without-a-horse-gets-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "EQZZsiUDyl",
             "name": "Storm Tyrant's Eye",
             "type": "REGALIA,ITEM",
@@ -49506,6 +49439,28 @@
             "semanticFixtures": [
                 "trained-hawk-true-sight-attacks-a-stealth-unit",
                 "trained-hawk-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "bhhdb7x044",
+            "name": "Tricky Chimps",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tricky-chimps-class-bonus-enter-with-one-opposing-ally-gets-nothing",
+                "tricky-chimps-class-bonus-enter-with-two-opposing-allies-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "tricky-chimps-class-bonus-enter-with-one-opposing-ally-gets-nothing",
+                "tricky-chimps-class-bonus-enter-with-two-opposing-allies-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49876,6 +49831,26 @@
             "priority": 32
         },
         {
+            "cardId": "0qmwwihhn2",
+            "name": "Woodland Shoats",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "woodland-shoats-steadfast-retaliates-while-rested"
+            ],
+            "semanticFixtures": [
+                "woodland-shoats-steadfast-retaliates-while-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "gc18dq28my",
             "name": "Xia Hou Dun, Gloryseeker",
             "type": "UNIQUE,ALLY",
@@ -50067,6 +50042,27 @@
             "priority": 31
         },
         {
+            "cardId": "fe3AaA7Qt3",
+            "name": "Banner Raccoon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "banner-raccoon-gives-nothing-once-the-opponent-has-a-graveyard-card",
+                "banner-raccoon-gives-other-raccoons-plus-one-power-while-the-opponent-has-no-graveyard"
+            ],
+            "semanticFixtures": [
+                "banner-raccoon-gives-nothing-once-the-opponent-has-a-graveyard-card",
+                "banner-raccoon-gives-other-raccoons-plus-one-power-while-the-opponent-has-no-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "24ansclpqc",
             "name": "Bauble of Scarcity",
             "type": "REGALIA,ITEM",
@@ -50147,6 +50143,27 @@
             "priority": 31
         },
         {
+            "cardId": "0v8zzzb83i",
+            "name": "Bolstered Boar",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "bolstered-boar-with-one-buff-counter-has-no-taunt",
+                "bolstered-boar-with-two-buff-counters-has-taunt"
+            ],
+            "semanticFixtures": [
+                "bolstered-boar-with-one-buff-counter-has-no-taunt",
+                "bolstered-boar-with-two-buff-counters-has-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "t4owmcva0f",
             "name": "Bombastic Sprint",
             "type": "ACTION",
@@ -50160,6 +50177,29 @@
             ],
             "semanticFixtures": [
                 "bombastic-sprint-makes-your-champion-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "i1sh9r9rda",
+            "name": "Brash Defender",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "brash-defender-below-level-one-stays-rested",
+                "brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn",
+                "brash-defender-retort-three-retaliates-for-three-extra-power"
+            ],
+            "semanticFixtures": [
+                "brash-defender-below-level-one-stays-rested",
+                "brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn",
+                "brash-defender-retort-three-retaliates-for-three-extra-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50282,6 +50322,27 @@
             "semanticFixtures": [
                 "charged-alchemist-class-bonus-with-a-powercell-gets-plus-one-power",
                 "charged-alchemist-without-a-powercell-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "alegbscxwj",
+            "name": "Charged Mannequin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "charged-mannequin-with-a-powercell-gets-plus-one-power",
+                "charged-mannequin-without-a-powercell-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "charged-mannequin-with-a-powercell-gets-plus-one-power",
+                "charged-mannequin-without-a-powercell-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50549,6 +50610,27 @@
             "priority": 31
         },
         {
+            "cardId": "MmbQQdsRhi",
+            "name": "Enraged Boars",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "enraged-boars-pride-five-does-not-obey-a-level-four-champion",
+                "enraged-boars-pride-five-obeys-a-level-five-champion"
+            ],
+            "semanticFixtures": [
+                "enraged-boars-pride-five-does-not-obey-a-level-four-champion",
+                "enraged-boars-pride-five-obeys-a-level-five-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "0r7j97g2zh",
             "name": "Evercurrent Raider",
             "type": "ALLY",
@@ -50562,6 +50644,27 @@
             ],
             "semanticFixtures": [
                 "evercurrent-raider-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "iM3IywF99T",
+            "name": "Excitable Raccoon",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "excitable-raccoon-opponent-without-a-graveyard-gets-plus-one-power-and-vigor",
+                "excitable-raccoon-with-an-opponent-graveyard-card-has-neither"
+            ],
+            "semanticFixtures": [
+                "excitable-raccoon-opponent-without-a-graveyard-gets-plus-one-power-and-vigor",
+                "excitable-raccoon-with-an-opponent-graveyard-card-has-neither"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50911,6 +51014,27 @@
             "priority": 31
         },
         {
+            "cardId": "iCgcAFU458",
+            "name": "Golden Rook",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "golden-rook-attacking-a-unit-with-even-life-gets-plus-one-power",
+                "golden-rook-attacking-a-unit-with-odd-life-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "golden-rook-attacking-a-unit-with-even-life-gets-plus-one-power",
+                "golden-rook-attacking-a-unit-with-odd-life-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "gyk90s0hst",
             "name": "Gossamer Staff",
             "type": "REGALIA,ITEM",
@@ -51000,6 +51124,27 @@
             ],
             "semanticFixtures": [
                 "hidden-enclave-mills-the-turn-players-top-card-at-their-recollection"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "vjdbqgku4z",
+            "name": "Horned Knight",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "horned-knight-attacking-a-champion-has-its-printed-power",
+                "horned-knight-attacking-an-ally-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "horned-knight-attacking-a-champion-has-its-printed-power",
+                "horned-knight-attacking-an-ally-gets-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51368,6 +51513,48 @@
             "priority": 31
         },
         {
+            "cardId": "hAAokl4hnU",
+            "name": "Overcharged Droid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "overcharged-droid-with-one-powercell-has-its-printed-stats",
+                "overcharged-droid-with-two-powercells-gets-plus-one-power-and-life"
+            ],
+            "semanticFixtures": [
+                "overcharged-droid-with-one-powercell-has-its-printed-stats",
+                "overcharged-droid-with-two-powercells-gets-plus-one-power-and-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "uCIEMgGjWe",
+            "name": "Port Smuggler",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "port-smuggler-class-bonus-attack-cannot-be-intercepted",
+                "port-smuggler-without-the-class-bonus-can-be-intercepted"
+            ],
+            "semanticFixtures": [
+                "port-smuggler-class-bonus-attack-cannot-be-intercepted",
+                "port-smuggler-without-the-class-bonus-can-be-intercepted"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "4wiffei7ch",
             "name": "Pyroclastic Flow",
             "type": "ACTION",
@@ -51406,6 +51593,27 @@
             "priority": 31
         },
         {
+            "cardId": "bXxU1ZzMpR",
+            "name": "Reliable Cavalier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "reliable-cavalier-with-a-horse-ally-gets-plus-three-power",
+                "reliable-cavalier-without-a-horse-ally-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "reliable-cavalier-with-a-horse-ally-gets-plus-three-power",
+                "reliable-cavalier-without-a-horse-ally-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ye7f7o5yut",
             "name": "Rile the Abyss",
             "type": "ACTION",
@@ -51419,6 +51627,50 @@
             ],
             "semanticFixtures": [
                 "rile-the-abyss-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "odv9wh820s",
+            "name": "Rotund Squirrel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "rotund-squirrel-hindered-enters-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "rotund-squirrel-hindered-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "51l757wvez",
+            "name": "Royal Bear",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "royal-bear-class-bonus-gets-plus-one-power-and-life",
+                "royal-bear-pride-two-does-not-obey-a-level-zero-champion",
+                "royal-bear-pride-two-obeys-a-level-two-champion",
+                "royal-bear-without-the-class-bonus-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "royal-bear-class-bonus-gets-plus-one-power-and-life",
+                "royal-bear-pride-two-does-not-obey-a-level-zero-champion",
+                "royal-bear-pride-two-obeys-a-level-two-champion",
+                "royal-bear-without-the-class-bonus-has-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51833,6 +52085,44 @@
             "priority": 31
         },
         {
+            "cardId": "wov58exji1",
+            "name": "Wingpeak Patriarch",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "wingpeak-patriarch-gives-other-bird-objects-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "wingpeak-patriarch-gives-other-bird-objects-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "6W5AJwF3Y3",
+            "name": "Woodland Squirrels",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "1i2luu7dft",
             "name": "Wulin Lancer",
             "type": "ALLY",
@@ -51846,6 +52136,44 @@
             ],
             "semanticFixtures": [
                 "wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "k98b6icmw9",
+            "name": "Young Wyrmling",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "young-wyrmling-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "young-wyrmling-enters-with-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "LjFUUKe83H",
+            "name": "Young Wyrmling",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "young-wyrmling-second-printing-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "young-wyrmling-second-printing-enters-with-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

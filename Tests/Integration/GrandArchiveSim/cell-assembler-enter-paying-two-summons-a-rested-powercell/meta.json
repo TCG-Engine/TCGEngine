@@ -1,0 +1,22 @@
+{
+    "name": "cell-assembler-enter-paying-two-summons-a-rested-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vc8sugly4w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vc8sugly4w"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-cost",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2). If you do, **summon** a Powercell token rested."
+        ]
+    }
+}

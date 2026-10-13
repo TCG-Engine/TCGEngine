@@ -1,0 +1,22 @@
+{
+    "name": "excitable-raccoon-opponent-without-a-graveyard-gets-plus-one-power-and-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iM3IywF99T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iM3IywF99T"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "As long as an opponent has no cards in their graveyard, CARDNAME gets +1[POWER] and has **vigor**."
+        ]
+    }
+}

@@ -504,21 +504,6 @@ gaScenario('battlefield-spotter-below-level-two-grants-no-ranged')
     ->covers(['level-gate', 'ranged', 'condition'], '[Level 2+] Other units you control have **ranged 1**.')
     ->register();
 
-// The taunt keyword family on the 'quiet' deck (the standard deck's fast cards open a window that swallows the attack click): player 1 holds the taunter and
-// player 2's Dungeon Guide has to hit it, not the champion.
-if (!function_exists('gaWindTaunt')) {
-    function gaWindTaunt(string $slug, string $ally, string $clause, bool $classBonus = false): void {
-        gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus)
-            ->seed('myField', $ally, properties: ['Status' => 2])
-            ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
-            ->endTurn()->action(2, 10002, 'myField-1!FSM!')
-            ->rejects(2, 'theirField-0', 'Taunt: the champion cannot be attacked while the taunting ally is awake')
-            ->tested($ally)->covers(['taunt', 'attack-declaration'], $clause)->register();
-    }
-}
-
 // ---- Unrelenting Warden ----
 
 gaWindTaunt('unrelenting-warden-class-bonus-taunt-protects-the-champion', 'Unrelenting Warden', '[Class Bonus] **Taunt**', true);
@@ -598,22 +583,6 @@ gaScenario('longtail-grovesward-fast-activation-can-be-played-from-a-response-wi
     ->tested('Longtail Grovesward')
     ->covers(['keyword', 'fast-activation'], '**Fast Activation** *(You may activate this card at fast speed.)*')
     ->register();
-
-// The ranged keyword family on the 'quiet' deck: the ally attacks from player 2 while distant.
-if (!function_exists('gaWindRanged')) {
-    function gaWindRanged(string $slug, string $ally, int $damage, string $label, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'ranged', 'combat']): void {
-        gaScenario($slug)
-            ->deckTemplate('quiet', $ally)
-            ->readyFor($ally, classBonus: $classBonus, player: 2)
-            ->seed('myField', $ally, player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
-            ->endTurn()
-            ->attack('myField-1', 'theirField-0', player: 2)
-            ->expectDamage('p1Field-0', $damage, $label)
-            ->tested($ally)
-            ->covers($mechanics, $clause)
-            ->register();
-    }
-}
 
 // ---- Mistral Ranger ----
 

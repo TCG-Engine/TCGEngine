@@ -1,0 +1,23 @@
+{
+    "name": "hardy-veteran-class-bonus-with-a-weapon-has-retort-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VmCVxy9J9J"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VmCVxy9J9J"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you control a weapon, CARDNAME has **retort 3**."
+        ]
+    }
+}

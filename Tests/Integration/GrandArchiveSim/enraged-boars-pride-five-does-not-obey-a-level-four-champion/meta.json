@@ -1,0 +1,21 @@
+{
+    "name": "enraged-boars-pride-five-does-not-obey-a-level-four-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MmbQQdsRhi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MmbQQdsRhi"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "**Pride 5** *(This ally won't obey you unless your champion is level 5 or higher.)*"
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "nimble-longbowman-enter-makes-the-champion-distant-and-the-class-bonus-enters-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:21:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tMy4zMpqcH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tMy4zMpqcH"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "distant"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME enters the field **distant**.",
+            "**On Enter:** Your champion becomes **distant**."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "nimble-longbowman-without-the-class-bonus-enters-not-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:21:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tMy4zMpqcH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tMy4zMpqcH"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME enters the field **distant**."
+        ]
+    }
+}

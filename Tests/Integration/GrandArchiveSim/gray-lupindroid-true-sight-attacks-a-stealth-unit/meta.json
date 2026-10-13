@@ -1,0 +1,23 @@
+{
+    "name": "gray-lupindroid-true-sight-attacks-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qQ7DxBj1J0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qQ7DxBj1J0"
+        ],
+        "mechanics": [
+            "keyword",
+            "true-sight",
+            "stealth",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**True Sight** *(This ally can attack units with **stealth**.)*"
+        ]
+    }
+}

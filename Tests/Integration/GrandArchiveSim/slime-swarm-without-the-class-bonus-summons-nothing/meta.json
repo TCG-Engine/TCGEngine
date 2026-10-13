@@ -1,0 +1,22 @@
+{
+    "name": "slime-swarm-without-the-class-bonus-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5adaqTUV0i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5adaqTUV0i"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Summon** two Baby Slime tokens rested."
+        ]
+    }
+}

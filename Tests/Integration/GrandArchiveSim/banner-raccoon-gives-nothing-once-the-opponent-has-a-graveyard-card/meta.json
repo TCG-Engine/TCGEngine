@@ -1,0 +1,21 @@
+{
+    "name": "banner-raccoon-gives-nothing-once-the-opponent-has-a-graveyard-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fe3AaA7Qt3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fe3AaA7Qt3"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as an opponent has no cards in their graveyard, other Raccoon allies you control get +1[POWER]."
+        ]
+    }
+}

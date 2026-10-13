@@ -1,0 +1,22 @@
+{
+    "name": "prides-smith-enter-puts-a-durability-counter-on-a-warrior-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cb2c4o20mf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cb2c4o20mf"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Put a **durability** counter on target Warrior weapon you control."
+        ]
+    }
+}

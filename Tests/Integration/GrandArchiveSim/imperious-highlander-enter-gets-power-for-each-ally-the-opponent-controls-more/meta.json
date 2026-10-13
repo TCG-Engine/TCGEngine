@@ -1,0 +1,22 @@
+{
+    "name": "imperious-highlander-enter-gets-power-for-each-ally-the-opponent-controls-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "659ytyj2s3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "659ytyj2s3"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stat-change",
+            "variable"
+        ],
+        "rulesClauses": [
+            "**On Enter:** CARDNAME gets +**X** [POWER] until end of turn where **X** is the amount of allies target opponent controls more than you control."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "ziHdB4vzQH",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Droid died"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "qzzadf9q1v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Death: a Powercell token was summoned"
+    }
+]

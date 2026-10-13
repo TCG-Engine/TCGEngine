@@ -1,0 +1,20 @@
+{
+    "name": "young-wyrmling-enters-with-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k98b6icmw9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k98b6icmw9"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Young Wyrmling (no rules text)"
+        ]
+    }
+}

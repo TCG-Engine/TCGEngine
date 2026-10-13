@@ -1,0 +1,21 @@
+{
+    "name": "rotund-squirrel-hindered-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "odv9wh820s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "odv9wh820s"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This ally enters the field rested.)*"
+        ]
+    }
+}

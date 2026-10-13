@@ -1,0 +1,21 @@
+{
+    "name": "kingdom-informant-stealth-cannot-be-targeted-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zPC4Yqo9Fs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zPC4Yqo9Fs"
+        ],
+        "mechanics": [
+            "keyword",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "**Stealth** *(This unit can't be targeted by attacks unless permitted by **true sight**.)*"
+        ]
+    }
+}

@@ -3843,7 +3843,7 @@ $customDQHandlers["MechanicalHareGYChoice"] = function($player, $parts, $lastDec
 $customDQHandlers["MechanicalHareBanish1"] = function($player, $parts, $lastDecision) {
     $gyRef = $parts[0];
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
     // Second pick
     $gyCards = ZoneSearch($gyRef);
     if(empty($gyCards)) return;
@@ -3854,7 +3854,7 @@ $customDQHandlers["MechanicalHareBanish1"] = function($player, $parts, $lastDeci
 
 $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
 };
 
 /**

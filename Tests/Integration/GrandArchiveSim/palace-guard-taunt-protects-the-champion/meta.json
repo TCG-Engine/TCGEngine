@@ -1,0 +1,21 @@
+{
+    "name": "palace-guard-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k940jhff6v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k940jhff6v"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "**Taunt**"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "marksman-captain-enter-makes-another-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:20:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9dqou3vgi8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9dqou3vgi8"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Another target unit you control becomes **distant**."
+        ]
+    }
+}

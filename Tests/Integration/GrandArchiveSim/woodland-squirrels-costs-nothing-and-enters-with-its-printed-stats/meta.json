@@ -1,0 +1,20 @@
+{
+    "name": "woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6W5AJwF3Y3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6W5AJwF3Y3"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Woodland Squirrels (no rules text)"
+        ]
+    }
+}

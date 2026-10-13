@@ -1,0 +1,22 @@
+{
+    "name": "royal-bear-pride-two-obeys-a-level-two-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:18:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "51l757wvez"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "51l757wvez"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "**Pride 2**"
+        ]
+    }
+}

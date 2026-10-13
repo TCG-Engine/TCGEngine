@@ -2991,7 +2991,7 @@ $customDQHandlers["UndeniableTruthSacrifice"] = function($player, $parts, $lastD
 
 $customDQHandlers["ProtectorRaccoonBanishGY"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
     DecisionQueueController::CleanupRemovedCards();
 };
 
@@ -4573,7 +4573,7 @@ $customDQHandlers["ScavengingRaccoonBanish"] = function($player, $parts, $lastDe
     $gyRef = $parts[0];
     $remaining = intval($parts[1]);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
     $remaining--;
     if($remaining > 0) {
         ScavengingRaccoonBanish($player, $gyRef, $remaining);

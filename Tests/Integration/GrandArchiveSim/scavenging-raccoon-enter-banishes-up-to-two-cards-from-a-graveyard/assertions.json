@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Two of the three graveyard cards were banished"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Both banished cards went to their owner's banishment"
+    }
+]

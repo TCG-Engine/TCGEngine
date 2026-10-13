@@ -1,0 +1,21 @@
+{
+    "name": "overcharged-droid-with-two-powercells-gets-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hAAokl4hnU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hAAokl4hnU"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as you control two or more Powercell items, CARDNAME gets +1[POWER] and +1[LIFE]."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:10:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1sh9r9rda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1sh9r9rda"
+        ],
+        "mechanics": [
+            "level-gate",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **Vigor** *(This unit wakes up at the beginning of your end phase. Apply this effect only if your champion is level 1 or higher.)*"
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "brash-defender-below-level-one-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1sh9r9rda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1sh9r9rda"
+        ],
+        "mechanics": [
+            "level-gate",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **Vigor**"
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "ghostsight-mare-true-sight-attacks-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wosk26yg5z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wosk26yg5z"
+        ],
+        "mechanics": [
+            "keyword",
+            "true-sight",
+            "stealth",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**True Sight** *(This ally can attack units with **stealth**.)*"
+        ]
+    }
+}

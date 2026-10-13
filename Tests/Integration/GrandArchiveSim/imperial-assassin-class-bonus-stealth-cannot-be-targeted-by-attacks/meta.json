@@ -1,0 +1,22 @@
+{
+    "name": "imperial-assassin-class-bonus-stealth-cannot-be-targeted-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mwd3n9u8ej"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mwd3n9u8ej"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "keyword",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Stealth** *(This unit can't be targeted by attacks unless permitted by **true sight**.)*"
+        ]
+    }
+}

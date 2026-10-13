@@ -9457,6 +9457,11 @@ function MZRemove($player, $mzID) {
 // real top card. Full MZMove semantics (zone-change hooks, _sourceZone, owner handling) are preserved because the
 // move itself still goes through MZMove().
 // $zoneRef is relative to $player exactly like MZMove()'s source argument ("myDeck", "theirDeck", "myTempZone", ...).
+// A card banished from a graveyard goes to its owner's banishment: an opponent's graveyard card (viewed as "theirGraveyard-N") belongs in "theirBanish".
+function BanishDestinationOf($mzID) {
+    return strpos($mzID, "their") === 0 ? "theirBanish" : "myBanish";
+}
+
 function MZMoveTopOfZone($player, $zoneRef, $toZone) {
     global $playerID;
     $viewerRef = ($player != $playerID) ? FlipZonePerspective($zoneRef) : $zoneRef;
@@ -25431,6 +25436,7 @@ $rangedCardValues = [
     "por7ch2bbm" => [2, false, []], // Relentless Hexchaser
     "nl1gxrpx8j" => [2, false, []], // Perse, Relentless Raptor
     "2zs1pana81" => [2, false, []], // Ouragan Sentinel (the generator missed its Ranged 2)
+    "fsudPn5GQH" => [2, false, []], // Signal Gunner (the generator missed its Ranged 2)
     // Other sets â€” Ranged allies/champions
     "ryvfq3huqj" => [2, false, []], // Polkhawk, Bombastic Shot
     "ki6fxxgmue" => [2, false, []], // Bertha, Spry Howitzer
