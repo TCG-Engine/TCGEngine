@@ -1,0 +1,21 @@
+{
+    "name": "noire-with-another-suited-ally-has-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wbjc9t8ycp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wbjc9t8ycp"
+        ],
+        "mechanics": [
+            "condition",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "As long as you control another Suited ally, Noire has **stealth**."
+        ]
+    }
+}

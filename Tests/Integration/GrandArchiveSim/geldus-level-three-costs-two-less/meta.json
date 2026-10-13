@@ -1,0 +1,21 @@
+{
+    "name": "geldus-level-three-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n9yvn1uoy5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n9yvn1uoy5"
+        ],
+        "mechanics": [
+            "level-gate",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Level 3+] This card costs 2 less to activate."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "geldus-pride-four-does-not-obey-a-level-three-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n9yvn1uoy5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n9yvn1uoy5"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "**Pride 4**"
+        ]
+    }
+}

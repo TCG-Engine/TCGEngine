@@ -1,0 +1,22 @@
+{
+    "name": "lawsur-enter-gets-power-for-each-other-specter-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aenquoed10"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aenquoed10"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stat-change",
+            "variable"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Lawsur gets +**X**[POWER] until end of turn, where **X** is the amount of other Specter allies you control."
+        ]
+    }
+}

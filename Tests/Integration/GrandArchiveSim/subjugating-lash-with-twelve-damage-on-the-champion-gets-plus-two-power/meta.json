@@ -1,0 +1,22 @@
+{
+    "name": "subjugating-lash-with-twelve-damage-on-the-champion-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bcizm6h38l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bcizm6h38l"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as your champion has twelve or more damage counters on them, CARDNAME gets +2 [POWER]."
+        ]
+    }
+}

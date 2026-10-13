@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:27:41+00:00",
+    "generatedAt": "2026-10-13T21:35:44+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1943,
+        "cardsWithExistingFixtures": 1962,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 534,
+        "cardsNeedingSemanticCoverage": 515,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1129,23 +1129,6 @@
             "priority": 23
         },
         {
-            "cardId": "ugly4wiffe",
-            "name": "Sadi, Blood Harvester",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "h23qu7d6so",
             "name": "Temporal Spectrometer",
             "type": "REGALIA,ITEM",
@@ -1254,22 +1237,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "n9yvn1uoy5",
-            "name": "Geldus, Terror of Dorumegia",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2007,25 +1974,6 @@
             "priority": 15
         },
         {
-            "cardId": "w9n0wpbhig",
-            "name": "Lancelot, Goliath of Aesa",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "9gRhhR0bGR",
             "name": "Limitless Defiance",
             "type": "ACTION",
@@ -2132,25 +2080,6 @@
                 "targeting",
                 "counter",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "wbjc9t8ycp",
-            "name": "Noire, Ace of Spades",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4256,23 +4185,6 @@
             "priority": 13
         },
         {
-            "cardId": "pwakb1k0zi",
-            "name": "Bedivere, Woodland Overseer",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "GXNyEp2Fju",
             "name": "Bedlam Borough",
             "type": "DOMAIN",
@@ -4299,23 +4211,6 @@
                 "cost",
                 "token",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "5k1vt1cn1t",
-            "name": "Blanche, Sheltering Saint",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5055,23 +4950,6 @@
             "priority": 13
         },
         {
-            "cardId": "aenquoed10",
-            "name": "Lawsur, the Carpenter",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "iuixf9rdmu",
             "name": "Legion's Wingspan",
             "type": "REGALIA,WEAPON",
@@ -5684,23 +5562,6 @@
             "priority": 13
         },
         {
-            "cardId": "opb1wdktia",
-            "name": "Staggering Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "yakyp6odw3",
             "name": "Steady Sharpshooter",
             "type": "ALLY",
@@ -5727,23 +5588,6 @@
                 "targeting",
                 "status",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "lvxsgng1a1",
-            "name": "Sun Ce, Weaponsmaster",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6264,22 +6108,6 @@
             "priority": 12
         },
         {
-            "cardId": "sxg6WefxIe",
-            "name": "Backstab",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "pebu7agtcd",
             "name": "Bloom: Autumn's Fall",
             "type": "ACTION",
@@ -6784,22 +6612,6 @@
             "mechanics": [
                 "targeting",
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ttkat9hreq",
-            "name": "Harvester Mk II",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7344,22 +7156,6 @@
             "mechanics": [
                 "targeting",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "bcizm6h38l",
-            "name": "Subjugating Lash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8032,21 +7828,6 @@
             "priority": 11
         },
         {
-            "cardId": "23ag70F2uz",
-            "name": "Crowdguard's Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "ddfwa6m0e9",
             "name": "ddfwa6m0e9",
             "type": "",
@@ -8294,21 +8075,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "JAs9SmLqUS",
-            "name": "Gildas, Chronicler of Aesa",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8647,21 +8413,6 @@
             "priority": 11
         },
         {
-            "cardId": "deO56qXfbP",
-            "name": "Off With Her Head",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "oo0p7gxtf3",
             "name": "oo0p7gxtf3",
             "type": "",
@@ -8737,21 +8488,6 @@
             "priority": 11
         },
         {
-            "cardId": "NaGi9nBjJA",
-            "name": "Reckless Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "reks5jzk7c",
             "name": "reks5jzk7c",
             "type": "",
@@ -8789,21 +8525,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "88zq9ox7u6",
-            "name": "Seeking Shot",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8902,21 +8623,6 @@
             "priority": 11
         },
         {
-            "cardId": "7nau5sw9f8",
-            "name": "Synthetic Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "r79VgzA3W4",
             "name": "Titan Mk II",
             "type": "TOKEN,ALLY",
@@ -8984,21 +8690,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "n1uoy5ttka",
-            "name": "Vicious Slice",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -27051,6 +26742,27 @@
             "priority": 43
         },
         {
+            "cardId": "ugly4wiffe",
+            "name": "Sadi, Blood Harvester",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sadi-pay-two-returns-it-to-hand-and-puts-a-preparation-counter-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "sadi-pay-two-returns-it-to-hand-and-puts-a-preparation-counter-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "vm4kj3q2sv",
             "name": "Shadow's Claw",
             "type": "REGALIA,WEAPON",
@@ -27676,6 +27388,28 @@
                 "galestream-insight-look-six-no-spell-bottoms-all-six",
                 "galestream-insight-look-six-reveal-spell-rest-bottom",
                 "galestream-insight-player-two-look-six-reveal-spell-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "n9yvn1uoy5",
+            "name": "Geldus, Terror of Dorumegia",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "geldus-level-three-costs-two-less",
+                "geldus-pride-four-does-not-obey-a-level-three-champion"
+            ],
+            "semanticFixtures": [
+                "geldus-level-three-costs-two-less",
+                "geldus-pride-four-does-not-obey-a-level-three-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29820,6 +29554,33 @@
             "priority": 35
         },
         {
+            "cardId": "w9n0wpbhig",
+            "name": "Lancelot, Goliath of Aesa",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lancelot-class-bonus-level-two-gets-plus-two-life",
+                "lancelot-hindered-enters-rested",
+                "lancelot-on-attack-paying-three-gets-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "lancelot-class-bonus-level-two-gets-plus-two-life",
+                "lancelot-hindered-enters-rested",
+                "lancelot-on-attack-paying-three-gets-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "o98vn1voy5",
             "name": "Lavaheated Brew",
             "type": "ACTION",
@@ -29936,6 +29697,29 @@
             "semanticFixtures": [
                 "misteye-archer-class-bonus-ranged-two-while-distant",
                 "misteye-archer-without-the-class-bonus-has-no-ranged"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "wbjc9t8ycp",
+            "name": "Noire, Ace of Spades",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "noire-with-another-suited-ally-has-stealth"
+            ],
+            "semanticFixtures": [
+                "noire-with-another-suited-ally-has-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37470,6 +37254,29 @@
             "priority": 33
         },
         {
+            "cardId": "pwakb1k0zi",
+            "name": "Bedivere, Woodland Overseer",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bedivere-class-bonus-level-three-on-death-buffs-each-beast-ally",
+                "bedivere-with-another-beast-ally-has-taunt"
+            ],
+            "semanticFixtures": [
+                "bedivere-class-bonus-level-three-on-death-buffs-each-beast-ally",
+                "bedivere-with-another-beast-ally-has-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "clgolelsra",
             "name": "Bellona's Runestone",
             "type": "REGALIA,ITEM",
@@ -37598,6 +37405,27 @@
             "semanticFixtures": [
                 "bladed-riftseer-below-level-one-cannot-attack-a-stealth-unit",
                 "bladed-riftseer-level-one-true-sight-attacks-a-stealth-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "5k1vt1cn1t",
+            "name": "Blanche, Sheltering Saint",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blanche-prevents-non-combat-damage-to-another-unit-equal-to-the-cards-in-memory"
+            ],
+            "semanticFixtures": [
+                "blanche-prevents-non-combat-damage-to-another-unit-equal-to-the-cards-in-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40093,6 +39921,27 @@
             ],
             "semanticFixtures": [
                 "languid-toadtroll-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "aenquoed10",
+            "name": "Lawsur, the Carpenter",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lawsur-enter-gets-power-for-each-other-specter-ally"
+            ],
+            "semanticFixtures": [
+                "lawsur-enter-gets-power-for-each-other-specter-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42744,6 +42593,27 @@
             "priority": 33
         },
         {
+            "cardId": "opb1wdktia",
+            "name": "Staggering Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "staggering-strike-on-champion-hit-removes-three-preparation-counters-from-the-hit-champion"
+            ],
+            "semanticFixtures": [
+                "staggering-strike-on-champion-hit-removes-three-preparation-counters-from-the-hit-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "OADTyAUBZt",
             "name": "Stifling Gyre",
             "type": "UNIQUE,PHANTASIA",
@@ -42874,6 +42744,27 @@
                 "summon-retinue-summons-two-vacuous-servants-rested",
                 "summon-retinue-with-three-omens-wakes-the-tokens",
                 "summon-retinue-with-two-omens-leaves-the-tokens-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "lvxsgng1a1",
+            "name": "Sun Ce, Weaponsmaster",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sun-ce-class-bonus-enter-puts-a-durability-counter-on-a-warrior-weapon-and-warrior-weapons-get-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "sun-ce-class-bonus-enter-puts-a-durability-counter-on-a-warrior-weapon-and-warrior-weapons-get-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44218,6 +44109,26 @@
             ],
             "semanticFixtures": [
                 "azure-protective-trinket-banish-banishes-up-to-three-fire-cards-from-a-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "sxg6WefxIe",
+            "name": "Backstab",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "backstab-class-bonus-attacking-a-rested-unit-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "backstab-class-bonus-attacking-a-rested-unit-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46032,6 +45943,26 @@
             "semanticFixtures": [
                 "harness-mana-class-bonus-floating-memory-pays-a-memory-cost",
                 "harness-mana-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ttkat9hreq",
+            "name": "Harvester Mk II",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "harvester-mk-ii-automaton-allies-summon-a-powercell-when-they-die"
+            ],
+            "semanticFixtures": [
+                "harvester-mk-ii-automaton-allies-summon-a-powercell-when-they-die"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49013,6 +48944,28 @@
             "priority": 32
         },
         {
+            "cardId": "bcizm6h38l",
+            "name": "Subjugating Lash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "subjugating-lash-below-twelve-damage-has-its-printed-power",
+                "subjugating-lash-with-twelve-damage-on-the-champion-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "subjugating-lash-below-twelve-damage-has-its-printed-power",
+                "subjugating-lash-with-twelve-damage-on-the-champion-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "a3v1ybmvpb",
             "name": "Sunglory Sentinel",
             "type": "ALLY",
@@ -50808,6 +50761,27 @@
             "priority": 31
         },
         {
+            "cardId": "23ag70F2uz",
+            "name": "Crowdguard's Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "crowdguards-slash-class-bonus-against-three-units-gets-plus-two-power",
+                "crowdguards-slash-class-bonus-against-two-units-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "crowdguards-slash-class-bonus-against-three-units-gets-plus-two-power",
+                "crowdguards-slash-class-bonus-against-two-units-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "j5iQQPd2m5",
             "name": "Crystal of Argus",
             "type": "REGALIA,ITEM",
@@ -51598,6 +51572,27 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "JAs9SmLqUS",
+            "name": "Gildas, Chronicler of Aesa",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "gildas-balance-with-equal-hand-and-memory-gets-plus-three-power",
+                "gildas-balance-with-unequal-hand-and-memory-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "gildas-balance-with-equal-hand-and-memory-gets-plus-three-power",
+                "gildas-balance-with-unequal-hand-and-memory-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52558,6 +52553,27 @@
             "priority": 31
         },
         {
+            "cardId": "deO56qXfbP",
+            "name": "Off With Her Head",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "off-with-her-head-attacking-a-non-unique-ally-has-its-printed-power",
+                "off-with-her-head-attacking-a-unique-ally-gets-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "off-with-her-head-attacking-a-non-unique-ally-has-its-printed-power",
+                "off-with-her-head-attacking-a-unique-ally-gets-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "3iG6h4jAPl",
             "name": "Ordained Charisma",
             "type": "ACTION",
@@ -52689,6 +52705,25 @@
             ],
             "semanticFixtures": [
                 "pyroclastic-flow-deals-two-damage-to-all-units"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "NaGi9nBjJA",
+            "name": "Reckless Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "reckless-slash-deals-its-printed-three-damage"
+            ],
+            "semanticFixtures": [
+                "reckless-slash-deals-its-printed-three-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52849,6 +52884,25 @@
             ],
             "semanticFixtures": [
                 "sealed-blade-class-bonus-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "88zq9ox7u6",
+            "name": "Seeking Shot",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "seeking-shot-attacking-a-human-ally-gets-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "seeking-shot-attacking-a-human-ally-gets-plus-three-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53036,6 +53090,25 @@
                 "sworn-windhand-class-bonus-taunt-protects-the-champion",
                 "sworn-windhand-retaliates-with-retort-two-plus-the-number-of-omens",
                 "sworn-windhand-without-omens-retaliates-with-retort-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "7nau5sw9f8",
+            "name": "Synthetic Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "synthetic-strike-attacking-an-automaton-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "synthetic-strike-attacking-an-automaton-gets-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53299,6 +53372,27 @@
             "semanticFixtures": [
                 "varuckan-soulknife-activates-from-the-material-deck-in-the-main-phase-by-banishing-three-fire-cards",
                 "varuckan-soulknife-is-not-activated-from-the-material-deck-with-only-two-fire-cards-in-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "n1uoy5ttka",
+            "name": "Vicious Slice",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "vicious-slice-class-bonus-attacking-a-human-gets-plus-one-power",
+                "vicious-slice-without-the-class-bonus-attacking-a-human-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "vicious-slice-class-bonus-attacking-a-human-gets-plus-one-power",
+                "vicious-slice-without-the-class-bonus-attacking-a-human-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

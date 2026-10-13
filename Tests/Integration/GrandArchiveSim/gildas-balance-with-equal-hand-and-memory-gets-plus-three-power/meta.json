@@ -1,0 +1,22 @@
+{
+    "name": "gildas-balance-with-equal-hand-and-memory-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JAs9SmLqUS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JAs9SmLqUS"
+        ],
+        "mechanics": [
+            "balance",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Balance** \u2014 *Gildas gets +3 [POWER] as long as the amount of cards in your hand and memory are equal."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "lancelot-on-attack-paying-three-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w9n0wpbhig"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w9n0wpbhig"
+        ],
+        "mechanics": [
+            "on-attack",
+            "optional-cost",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Attack:** You may pay (3). If you do, CARDNAME gets +3 [POWER] until end of turn."
+        ]
+    }
+}

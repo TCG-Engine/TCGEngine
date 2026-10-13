@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "5",
+        "semantic": true,
+        "label": "A unique ally: 2 + 3 = 5 damage"
+    }
+]

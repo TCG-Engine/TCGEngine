@@ -1,0 +1,21 @@
+{
+    "name": "bedivere-with-another-beast-ally-has-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pwakb1k0zi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pwakb1k0zi"
+        ],
+        "mechanics": [
+            "condition",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "Bedivere has **taunt** as long as you control another Animal or Beast ally."
+        ]
+    }
+}

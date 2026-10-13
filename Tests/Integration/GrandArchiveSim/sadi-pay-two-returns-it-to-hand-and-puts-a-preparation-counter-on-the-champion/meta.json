@@ -1,0 +1,22 @@
+{
+    "name": "sadi-pay-two-returns-it-to-hand-and-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ugly4wiffe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ugly4wiffe"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "zone-movement",
+            "counter"
+        ],
+        "rulesClauses": [
+            "(2)**:** Return CARDNAME to its owner's hand. If you do, put a **preparation** counter on your champion."
+        ]
+    }
+}

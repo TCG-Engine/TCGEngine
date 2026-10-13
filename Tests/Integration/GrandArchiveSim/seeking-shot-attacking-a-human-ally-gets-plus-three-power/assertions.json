@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Human ally: 1 + 3 = 4 damage destroyed the 3-life Guide"
+    }
+]

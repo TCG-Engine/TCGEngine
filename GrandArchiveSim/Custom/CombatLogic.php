@@ -4981,8 +4981,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $controllerField = &GetField($targetController);
         foreach ($controllerField as $blancheObj) {
             if ($blancheObj === null || $blancheObj->removed) continue;
-            if ($blancheObj->CardID === "5k1vt1cn1t"
-                    && PlayerLevel($targetController) >= 2) {
+            // The [Level 2+] on Blanche's text gates only her Fast Activation; the prevention is unconditional (it was wrongly gated on level 2).
+            if ($blancheObj->CardID === "5k1vt1cn1t" && !HasNoAbilities($blancheObj)) {
                 $memoryCount = count(GetMemory($targetController));
                 $amount = max(0, $amount - $memoryCount);
                 break;

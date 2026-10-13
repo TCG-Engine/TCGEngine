@@ -1,0 +1,23 @@
+{
+    "name": "vicious-slice-class-bonus-attacking-a-human-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n1uoy5ttka"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n1uoy5ttka"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as the attacker is attacking a Human, CARDNAME gets +1 [POWER]."
+        ]
+    }
+}

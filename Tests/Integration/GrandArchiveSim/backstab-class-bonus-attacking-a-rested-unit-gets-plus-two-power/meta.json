@@ -1,0 +1,23 @@
+{
+    "name": "backstab-class-bonus-attacking-a-rested-unit-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sxg6WefxIe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sxg6WefxIe"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as your champion is attacking a rested unit, CARDNAME gets +2 [POWER]."
+        ]
+    }
+}

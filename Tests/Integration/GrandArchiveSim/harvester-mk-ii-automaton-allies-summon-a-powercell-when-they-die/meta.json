@@ -1,0 +1,22 @@
+{
+    "name": "harvester-mk-ii-automaton-allies-summon-a-powercell-when-they-die",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ttkat9hreq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ttkat9hreq"
+        ],
+        "mechanics": [
+            "on-death",
+            "summon",
+            "static"
+        ],
+        "rulesClauses": [
+            "Automaton allies you control have \u201c**On Death: Summon** a Powercell token.\u201d"
+        ]
+    }
+}
