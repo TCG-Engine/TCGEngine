@@ -1,0 +1,21 @@
+{
+    "name": "candlelight-hourglass-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:54:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fhomy86084"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fhomy86084"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Draw a card."
+        ]
+    }
+}

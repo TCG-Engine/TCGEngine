@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:52:49+00:00",
+    "generatedAt": "2026-10-13T21:56:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2028,
+        "cardsWithExistingFixtures": 2039,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 449,
+        "cardsNeedingSemanticCoverage": 438,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1490,26 +1490,6 @@
             "priority": 15
         },
         {
-            "cardId": "7lr2jiu66i",
-            "name": "Forged Scalemail",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "5WP1TXJo9E",
             "name": "Full Bloom",
             "type": "UNIQUE,PHANTASIA",
@@ -1847,25 +1827,6 @@
                 "targeting",
                 "damage",
                 "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "l2ipxnctse",
-            "name": "Protective Helm",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2353,24 +2314,6 @@
                 "targeting",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "fhomy86084",
-            "name": "Candlelight Hourglass",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3054,24 +2997,6 @@
                 "targeting",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "zadf9q1vk8",
-            "name": "Prototype Shield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3896,23 +3821,6 @@
             "mechanics": [
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "K5qIbjeqQd",
-            "name": "Dropped Band",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5172,22 +5080,6 @@
             "priority": 12
         },
         {
-            "cardId": "fjne9ri261",
-            "name": "Art of War",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "G5E0PIUd0W",
             "name": "Artificer's Opus",
             "type": "ALLY",
@@ -5451,22 +5343,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "96659ytyj2",
-            "name": "Crimson Protective Trinket",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
                 "zone-movement"
             ],
             "existingFixtures": [],
@@ -5860,38 +5736,6 @@
             "priority": 12
         },
         {
-            "cardId": "5ckzgqa186",
-            "name": "Mandate of Honor",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "2bzajcZZRD",
-            "name": "Map of Hidden Passage",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "PKnOTdQJJ1",
             "name": "Mirrorbound Covenant",
             "type": "UNIQUE,PHANTASIA",
@@ -6236,22 +6080,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "q8sdbzr5zs",
-            "name": "Tithe Proclamation",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7038,21 +6866,6 @@
             "cardId": "6ddfdn8y9f",
             "name": "Illuminating Charge",
             "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "by8145w2u2",
-            "name": "Imperial Seal",
-            "type": "REGALIA,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -28242,6 +28055,30 @@
             "priority": 35
         },
         {
+            "cardId": "7lr2jiu66i",
+            "name": "Forged Scalemail",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forged-scalemail-linked-unit-damage-may-banish-it-to-prevent-two-and-draw"
+            ],
+            "semanticFixtures": [
+                "forged-scalemail-linked-unit-damage-may-banish-it-to-prevent-two-and-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "6FGKeLTumW",
             "name": "Fortification",
             "type": "ACTION",
@@ -29037,6 +28874,29 @@
             "semanticFixtures": [
                 "powered-sentinel-class-bonus-enter-hurts-your-champion-and-summons-a-powercell",
                 "powered-sentinel-without-the-class-bonus-does-nothing-on-enter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "l2ipxnctse",
+            "name": "Protective Helm",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "protective-helm-prevents-one-damage-to-the-linked-unit-from-a-distant-source"
+            ],
+            "semanticFixtures": [
+                "protective-helm-prevents-one-damage-to-the-linked-unit-from-a-distant-source"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -31126,6 +30986,28 @@
             ],
             "semanticFixtures": [
                 "burning-aethercharge-deals-two-damage-to-target-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "fhomy86084",
+            "name": "Candlelight Hourglass",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "candlelight-hourglass-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "candlelight-hourglass-enter-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34114,6 +33996,28 @@
             ],
             "semanticFixtures": [
                 "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "zadf9q1vk8",
+            "name": "Prototype Shield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prototype-shield-class-bonus-prevents-three-damage-to-the-linked-unit-while-it-is-attacking"
+            ],
+            "semanticFixtures": [
+                "prototype-shield-class-bonus-prevents-three-damage-to-the-linked-unit-while-it-is-attacking"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38140,6 +38044,27 @@
                 "dominating-strike-vanitas-bonus-declined-pays-the-reserve-cost",
                 "dominating-strike-vanitas-bonus-reveals-three-wind-cards-from-memory-rather-than-paying",
                 "dominating-strike-without-vanitas-is-not-offered-the-alternative-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "K5qIbjeqQd",
+            "name": "Dropped Band",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dropped-band-banish-revealing-three-chessman-cards-summons-a-pawn-piece"
+            ],
+            "semanticFixtures": [
+                "dropped-band-banish-revealing-three-chessman-cards-summons-a-pawn-piece"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43813,6 +43738,26 @@
             "priority": 32
         },
         {
+            "cardId": "fjne9ri261",
+            "name": "Art of War",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "art-of-war-an-ally-that-entered-this-turn-cannot-attack"
+            ],
+            "semanticFixtures": [
+                "art-of-war-an-ally-that-entered-this-turn-cannot-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "fjpimrl974",
             "name": "Ashen Riffle",
             "type": "ACTION",
@@ -44587,6 +44532,26 @@
             ],
             "semanticFixtures": [
                 "cooktech-knife-links-to-an-ally-which-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "96659ytyj2",
+            "name": "Crimson Protective Trinket",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "crimson-protective-trinket-banish-banishes-wind-cards-among-two-random-revealed-memory-cards"
+            ],
+            "semanticFixtures": [
+                "crimson-protective-trinket-banish-banishes-wind-cards-among-two-random-revealed-memory-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46727,6 +46692,26 @@
             "priority": 32
         },
         {
+            "cardId": "5ckzgqa186",
+            "name": "Mandate of Honor",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mandate-of-honor-with-a-unique-ally-a-player-with-influence-eight-cannot-draw"
+            ],
+            "semanticFixtures": [
+                "mandate-of-honor-with-a-unique-ally-a-player-with-influence-eight-cannot-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "ttkk39i1f0",
             "name": "Manic Zealot",
             "type": "ALLY",
@@ -46741,6 +46726,26 @@
             ],
             "semanticFixtures": [
                 "manic-zealot-on-death-deals-two-damage-to-each-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "2bzajcZZRD",
+            "name": "Map of Hidden Passage",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "map-of-hidden-passage-enters-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "map-of-hidden-passage-enters-the-field-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49446,6 +49451,26 @@
             "priority": 32
         },
         {
+            "cardId": "q8sdbzr5zs",
+            "name": "Tithe Proclamation",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tithe-proclamation-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "tithe-proclamation-enter-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "3TfIePpuZO",
             "name": "Trained Hawk",
             "type": "ALLY",
@@ -52045,6 +52070,25 @@
             "semanticFixtures": [
                 "ignis-deus-needs-a-spirit-champion-to-activate",
                 "ignis-deus-spirit-champion-materializes-a-level-one-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "by8145w2u2",
+            "name": "Imperial Seal",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "imperial-seal-banish-enables-all-basic-elements-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "imperial-seal-banish-enables-all-basic-elements-until-end-of-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

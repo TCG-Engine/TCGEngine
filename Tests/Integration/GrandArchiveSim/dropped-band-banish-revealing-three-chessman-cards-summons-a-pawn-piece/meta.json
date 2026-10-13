@@ -1,0 +1,23 @@
+{
+    "name": "dropped-band-banish-revealing-three-chessman-cards-summons-a-pawn-piece",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "K5qIbjeqQd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "K5qIbjeqQd"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "reveal",
+            "summon",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** You may reveal three Chessman cards from your hand and/or memory. If you do, **summon** a Pawn Piece token."
+        ]
+    }
+}

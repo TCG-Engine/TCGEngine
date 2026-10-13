@@ -1,0 +1,20 @@
+{
+    "name": "map-of-hidden-passage-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2bzajcZZRD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2bzajcZZRD"
+        ],
+        "mechanics": [
+            "status"
+        ],
+        "rulesClauses": [
+            "CARDNAME enters the field rested."
+        ]
+    }
+}

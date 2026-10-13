@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "Rpr6yCQKU6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Three Chessman cards were revealed: a Pawn Piece token was summoned"
+    }
+]

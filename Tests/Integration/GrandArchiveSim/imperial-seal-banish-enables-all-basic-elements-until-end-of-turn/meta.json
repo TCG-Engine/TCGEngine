@@ -1,0 +1,23 @@
+{
+    "name": "imperial-seal-banish-enables-all-basic-elements-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "by8145w2u2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "by8145w2u2"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "element",
+            "banish-self",
+            "divine-relic"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** All basic elements are enabled for you until end of turn."
+        ]
+    }
+}

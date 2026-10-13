@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Ranged 2 made the attack 1 + 2 = 3, and the Helm prevented 1 of it from the distant source"
+    }
+]

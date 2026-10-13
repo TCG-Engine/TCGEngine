@@ -4576,8 +4576,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     break;
                 case "zadf9q1vk8": // Prototype Shield: [CB] prevent 3 while linked unit is attacking
                     if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
-                        $combatAttackerCheck = DecisionQueueController::GetVariable("CombatAttacker");
-                        if($combatAttackerCheck !== null && $combatAttackerCheck === $target) {
+                        // CombatAttacker is stored from the attacker's perspective, so comparing it with $target missed the damage a retaliating defender deals (the card says it is prevented too); compare unique ids.
+                        $combatAttackerUID = intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0");
+                        if($combatAttackerUID > 0 && intval($targetObj->UniqueID ?? 0) === $combatAttackerUID) {
                             $amount -= 3;
                         }
                     }
