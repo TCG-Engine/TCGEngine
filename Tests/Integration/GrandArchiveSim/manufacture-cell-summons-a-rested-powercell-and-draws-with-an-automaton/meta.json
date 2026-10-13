@@ -1,0 +1,22 @@
+{
+    "name": "manufacture-cell-summons-a-rested-powercell-and-draws-with-an-automaton",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wz9gv4vm4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wz9gv4vm4k"
+        ],
+        "mechanics": [
+            "summon",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Summon** a Powercell token rested. If you control an Automaton object, draw a card."
+        ]
+    }
+}

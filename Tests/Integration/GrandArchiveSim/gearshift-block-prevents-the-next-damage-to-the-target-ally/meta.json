@@ -1,0 +1,21 @@
+{
+    "name": "gearshift-block-prevents-the-next-damage-to-the-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:53:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ej4mcnqsm3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ej4mcnqsm3"
+        ],
+        "mechanics": [
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "The next time damage would be dealt to target ally you control this turn, prevent that damage."
+        ]
+    }
+}

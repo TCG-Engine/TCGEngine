@@ -1,0 +1,21 @@
+{
+    "name": "bring-down-the-mighty-the-target-ally-cannot-attack-on-the-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ybds1rkgnp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ybds1rkgnp"
+        ],
+        "mechanics": [
+            "restriction",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, target ally can't attack."
+        ]
+    }
+}

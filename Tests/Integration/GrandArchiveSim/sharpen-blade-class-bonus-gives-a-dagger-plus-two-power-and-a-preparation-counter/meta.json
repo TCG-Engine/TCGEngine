@@ -1,0 +1,24 @@
+{
+    "name": "sharpen-blade-class-bonus-gives-a-dagger-plus-two-power-and-a-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bscxwjbqjd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bscxwjbqjd"
+        ],
+        "mechanics": [
+            "stat-change",
+            "class-bonus",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Dagger weapon gets +2 [POWER] until end of turn.",
+            "[Class Bonus] Put a **preparation** counter on your champion."
+        ]
+    }
+}

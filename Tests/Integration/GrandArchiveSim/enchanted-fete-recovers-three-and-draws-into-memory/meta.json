@@ -1,0 +1,21 @@
+{
+    "name": "enchanted-fete-recovers-three-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s190ox288c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s190ox288c"
+        ],
+        "mechanics": [
+            "recover",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**Recover** 3 and draw a card into your memory."
+        ]
+    }
+}

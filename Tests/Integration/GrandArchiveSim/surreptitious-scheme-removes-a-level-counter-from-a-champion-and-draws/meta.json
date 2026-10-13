@@ -1,0 +1,23 @@
+{
+    "name": "surreptitious-scheme-removes-a-level-counter-from-a-champion-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2bcammhx44"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2bcammhx44"
+        ],
+        "mechanics": [
+            "counter",
+            "draw",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Remove a **level** counter from target champion. If **level** counter was removed this way, draw a card."
+        ]
+    }
+}

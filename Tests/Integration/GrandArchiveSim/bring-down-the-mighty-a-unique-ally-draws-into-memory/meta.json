@@ -1,0 +1,21 @@
+{
+    "name": "bring-down-the-mighty-a-unique-ally-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ybds1rkgnp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ybds1rkgnp"
+        ],
+        "mechanics": [
+            "condition",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "If that ally is unique, draw a card into your memory."
+        ]
+    }
+}

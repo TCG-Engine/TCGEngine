@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "[Level 2+] Activated without paying its reserve cost"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "fleeting-guard-prevents-one-damage-per-ephemeral-object-plus-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:53:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2la6uk1qvl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2la6uk1qvl"
+        ],
+        "mechanics": [
+            "prevention",
+            "variable",
+            "ephemeral",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if target unit would be dealt damage, prevent **X** of that damage where **X** is the amount of **ephemeral** objects you control plus 1."
+        ]
+    }
+}

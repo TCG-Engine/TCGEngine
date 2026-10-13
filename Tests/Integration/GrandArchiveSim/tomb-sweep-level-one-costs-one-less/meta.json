@@ -1,0 +1,21 @@
+{
+    "name": "tomb-sweep-level-one-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uLuofHw9os"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uLuofHw9os"
+        ],
+        "mechanics": [
+            "level-gate",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Level 1+] This card costs 1 less to activate."
+        ]
+    }
+}

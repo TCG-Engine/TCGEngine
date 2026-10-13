@@ -1,0 +1,21 @@
+{
+    "name": "peaceful-reunion-neither-you-nor-the-target-player-can-declare-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wr42i6eifn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wr42i6eifn"
+        ],
+        "mechanics": [
+            "restriction",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, you and target player can't declare attacks. Banish Peaceful Reunion."
+        ]
+    }
+}

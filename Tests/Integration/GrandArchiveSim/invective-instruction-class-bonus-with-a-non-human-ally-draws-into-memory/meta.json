@@ -1,0 +1,22 @@
+{
+    "name": "invective-instruction-class-bonus-with-a-non-human-ally-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "smr2rn78qo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "smr2rn78qo"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If you control a non-Human ally, draw a card into your memory."
+        ]
+    }
+}

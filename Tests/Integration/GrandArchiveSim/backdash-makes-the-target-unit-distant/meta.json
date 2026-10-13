@@ -1,0 +1,21 @@
+{
+    "name": "backdash-makes-the-target-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mf0jmealoy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mf0jmealoy"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**."
+        ]
+    }
+}

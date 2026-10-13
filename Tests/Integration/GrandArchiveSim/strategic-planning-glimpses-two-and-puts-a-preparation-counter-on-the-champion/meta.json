@@ -1,0 +1,21 @@
+{
+    "name": "strategic-planning-glimpses-two-and-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EtIGAJ8sxw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EtIGAJ8sxw"
+        ],
+        "mechanics": [
+            "glimpse",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**Glimpse 2**. Put a **preparation** counter on your champion."
+        ]
+    }
+}

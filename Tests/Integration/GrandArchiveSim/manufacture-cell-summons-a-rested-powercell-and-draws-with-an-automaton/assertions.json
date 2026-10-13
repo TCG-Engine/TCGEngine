@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "qzzadf9q1v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Powercell was summoned"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "It entered rested"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "An Automaton object is controlled: a card was drawn (8 - 1 - 2 + 1)"
+    }
+]

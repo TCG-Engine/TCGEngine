@@ -1,0 +1,23 @@
+{
+    "name": "expose-darkness-a-stealth-unit-makes-you-draw-and-loses-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "991ovfr8o0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "991ovfr8o0"
+        ],
+        "mechanics": [
+            "stealth",
+            "draw",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "If target unit has **stealth**, draw a card. Then that unit loses **stealth** until end of turn."
+        ]
+    }
+}

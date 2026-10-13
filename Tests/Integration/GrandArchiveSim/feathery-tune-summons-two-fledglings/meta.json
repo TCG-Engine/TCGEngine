@@ -1,0 +1,20 @@
+{
+    "name": "feathery-tune-summons-two-fledglings",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4hm8uzmf8v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4hm8uzmf8v"
+        ],
+        "mechanics": [
+            "summon"
+        ],
+        "rulesClauses": [
+            "**Summon** two Fledgling tokens."
+        ]
+    }
+}

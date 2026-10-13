@@ -1,0 +1,21 @@
+{
+    "name": "belted-tune-puts-a-buff-counter-on-the-target-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ko5PJRsy25"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ko5PJRsy25"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on target ally."
+        ]
+    }
+}

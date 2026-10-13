@@ -1,0 +1,22 @@
+{
+    "name": "escape-the-wreckage-returns-an-ally-to-memory-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q2svd53zc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q2svd53zc9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "draw-into-memory",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Return target ally you control to its owner's memory. If you do, draw a card into your memory."
+        ]
+    }
+}

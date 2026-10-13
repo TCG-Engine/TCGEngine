@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight with the seeded spell, minus the spell, one paid, plus two drawn, minus two put back (8 - 1 - 1 + 2 - 2)"
+    }
+]

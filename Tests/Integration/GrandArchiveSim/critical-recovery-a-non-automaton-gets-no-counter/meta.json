@@ -1,0 +1,21 @@
+{
+    "name": "critical-recovery-a-non-automaton-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rx6p3p5iqi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rx6p3p5iqi"
+        ],
+        "mechanics": [
+            "heal",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that ally is an Automaton, put a **buff** counter on it."
+        ]
+    }
+}

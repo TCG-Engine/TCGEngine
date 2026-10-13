@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "You sacrificed your only ally"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The opponent sacrificed theirs"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "sidestep-level-two-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "voy5ttkk39"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "voy5ttkk39"
+        ],
+        "mechanics": [
+            "level-gate",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Level 2+] This card costs 1 less to activate."
+        ]
+    }
+}

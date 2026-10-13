@@ -1,0 +1,21 @@
+{
+    "name": "cram-session-gives-the-champion-plus-one-level-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9GWxrTMfBz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9GWxrTMfBz"
+        ],
+        "mechanics": [
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level until end of turn."
+        ]
+    }
+}
