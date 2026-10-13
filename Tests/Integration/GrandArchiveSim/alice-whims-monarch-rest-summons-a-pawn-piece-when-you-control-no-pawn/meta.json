@@ -1,0 +1,23 @@
+{
+    "name": "alice-whims-monarch-rest-summons-a-pawn-piece-when-you-control-no-pawn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:49:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9K4etFOi4M"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9K4etFOi4M"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "summon",
+            "champion"
+        ],
+        "rulesClauses": [
+            "[REST]: If you don't control a Pawn ally, **summon** a Pawn Piece Token."
+        ]
+    }
+}

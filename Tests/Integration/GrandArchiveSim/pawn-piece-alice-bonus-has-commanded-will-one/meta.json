@@ -1,0 +1,21 @@
+{
+    "name": "pawn-piece-alice-bonus-has-commanded-will-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:49:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Rpr6yCQKU6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Rpr6yCQKU6"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **Commanded Will 1**"
+        ]
+    }
+}

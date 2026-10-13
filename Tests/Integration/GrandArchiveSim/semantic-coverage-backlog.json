@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:46:38+00:00",
+    "generatedAt": "2026-10-13T21:49:58+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2006,
+        "cardsWithExistingFixtures": 2017,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 471,
+        "cardsNeedingSemanticCoverage": 460,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -84,23 +84,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 35
-        },
-        {
-            "cardId": "2sn7hlyrkw",
-            "name": "Fatestone of Progress",
-            "type": "ITEM",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
         },
         {
             "cardId": "JuKoCVIvCG",
@@ -462,24 +445,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 25
-        },
-        {
-            "cardId": "9K4etFOi4M",
-            "name": "Alice, Whim's Monarch",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
         },
         {
             "cardId": "wFH1kBLrWh",
@@ -1255,25 +1220,6 @@
             "priority": 15
         },
         {
-            "cardId": "FQKVzsMp3B",
-            "name": "Ariel, Archangel of Natura",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "80yu75k0hl",
             "name": "Atmos Shield",
             "type": "TOKEN,ALLY",
@@ -1285,27 +1231,6 @@
                 "prevention",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "eDCnvWoGxf",
-            "name": "Azrael, Archangel of Materia",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "status",
-                "token",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1680,27 +1605,6 @@
             "priority": 15
         },
         {
-            "cardId": "suH40WW60W",
-            "name": "Haniel, Archangel of Spectra",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "recover",
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "1i5z6r7s9k",
             "name": "Harbinger of Lightning",
             "type": "ALLY",
@@ -2029,25 +1933,6 @@
             "priority": 15
         },
         {
-            "cardId": "ozpG6bt7nC",
-            "name": "Raziel, Archangel of Libra",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "zmoegdo111",
             "name": "Sempiternal Sage",
             "type": "ALLY",
@@ -2058,25 +1943,6 @@
                 "zone-movement",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "s2tzwv1uw3",
-            "name": "Shangxiang, Fierce Princess",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3162,24 +3028,6 @@
             "priority": 14
         },
         {
-            "cardId": "b9lli2PE7I",
-            "name": "Nuriel, Seraphic Paladin",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "d6soporhlq",
             "name": "Obelisk of Protection",
             "type": "UNIQUE,TOKEN,DOMAIN",
@@ -3190,24 +3038,6 @@
                 "targeting",
                 "damage",
                 "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "Rpr6yCQKU6",
-            "name": "Pawn Piece",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "token",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4827,23 +4657,6 @@
             "priority": 13
         },
         {
-            "cardId": "m69XrVkaVh",
-            "name": "Queen Piece",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "odcgpm3ugw",
             "name": "Radiant Vega",
             "type": "REGALIA,WEAPON",
@@ -5376,22 +5189,6 @@
             "mechanics": [
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "GiQxfpKTUC",
-            "name": "Alice, Distorted Queen",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -23279,6 +23076,29 @@
             "priority": 53
         },
         {
+            "cardId": "2sn7hlyrkw",
+            "name": "Fatestone of Progress",
+            "type": "ITEM",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatestone-of-progress-guo-jia-bonus-enter-puts-a-quest-counter-on-the-champion",
+                "fatestone-of-progress-without-guo-jia-puts-no-quest-counter"
+            ],
+            "semanticFixtures": [
+                "fatestone-of-progress-guo-jia-bonus-enter-puts-a-quest-counter-on-the-champion",
+                "fatestone-of-progress-without-guo-jia-puts-no-quest-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 53
+        },
+        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -23786,6 +23606,28 @@
             ],
             "semanticFixtures": [
                 "aenean-swelling-gusts-deals-damage-equal-to-wind-objects-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "9K4etFOi4M",
+            "name": "Alice, Whim's Monarch",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alice-whims-monarch-rest-summons-a-pawn-piece-when-you-control-no-pawn"
+            ],
+            "semanticFixtures": [
+                "alice-whims-monarch-rest-summons-a-pawn-piece-when-you-control-no-pawn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27653,6 +27495,29 @@
             "priority": 35
         },
         {
+            "cardId": "FQKVzsMp3B",
+            "name": "Ariel, Archangel of Natura",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ariel-imbued-enter-reveals-the-top-card-into-the-material-deck-preserved"
+            ],
+            "semanticFixtures": [
+                "ariel-imbued-enter-reveals-the-top-card-into-the-material-deck-preserved"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "KdlhoQ1evn",
             "name": "Augustine, Votary of Yore",
             "type": "UNIQUE,ALLY",
@@ -27671,6 +27536,31 @@
             ],
             "semanticFixtures": [
                 "augustine-cascade-two-destroys-low-cost-item-opponent-summons-core-fractal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "eDCnvWoGxf",
+            "name": "Azrael, Archangel of Materia",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "status",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "azrael-imbued-enter-destroys-another-object-and-its-controller-summons-a-spirit-shard"
+            ],
+            "semanticFixtures": [
+                "azrael-imbued-enter-destroys-another-object-and-its-controller-summons-a-spirit-shard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28706,6 +28596,31 @@
             "priority": 35
         },
         {
+            "cardId": "suH40WW60W",
+            "name": "Haniel, Archangel of Spectra",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "recover",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "haniel-imbued-enter-debuffs-an-opposing-ally-buffs-itself-and-recovers-one"
+            ],
+            "semanticFixtures": [
+                "haniel-imbued-enter-debuffs-an-opposing-ally-buffs-itself-and-recovers-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "FqFdOEOTbJ",
             "name": "Hot Cake",
             "type": "ITEM",
@@ -29341,6 +29256,29 @@
             "priority": 35
         },
         {
+            "cardId": "ozpG6bt7nC",
+            "name": "Raziel, Archangel of Libra",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "raziel-imbued-enter-banishes-two-memory-cards-glimpses-three-and-draws-two-into-memory"
+            ],
+            "semanticFixtures": [
+                "raziel-imbued-enter-banishes-two-memory-cards-glimpses-three-and-draws-two-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "1m48260b7b",
             "name": "Razorgale Calling",
             "type": "PHANTASIA",
@@ -29721,6 +29659,29 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "s2tzwv1uw3",
+            "name": "Shangxiang, Fierce Princess",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shangxiang-imbue-three-with-norm-cards-becomes-imbued"
+            ],
+            "semanticFixtures": [
+                "shangxiang-imbue-three-with-norm-cards-becomes-imbued"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34057,6 +34018,30 @@
             "priority": 34
         },
         {
+            "cardId": "b9lli2PE7I",
+            "name": "Nuriel, Seraphic Paladin",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nuriel-advanced-imbue-three-enter-puts-a-bulwark-and-a-buff-counter-on-it",
+                "nuriel-without-three-advanced-cards-is-not-imbued-and-gets-no-counters"
+            ],
+            "semanticFixtures": [
+                "nuriel-advanced-imbue-three-enter-puts-a-bulwark-and-a-buff-counter-on-it",
+                "nuriel-without-three-advanced-cards-is-not-imbued-and-gets-no-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "R4IZe3rh4V",
             "name": "Ovation Guide",
             "type": "ALLY",
@@ -34075,6 +34060,28 @@
             "semanticFixtures": [
                 "ovation-guide-enter-the-opponent-declining-gives-you-nothing",
                 "ovation-guide-enter-the-opponent-materializing-a-champion-draws-you-a-card-and-crowds-favor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "Rpr6yCQKU6",
+            "name": "Pawn Piece",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "token",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pawn-piece-alice-bonus-has-commanded-will-one"
+            ],
+            "semanticFixtures": [
+                "pawn-piece-alice-bonus-has-commanded-will-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41178,6 +41185,27 @@
             "priority": 33
         },
         {
+            "cardId": "m69XrVkaVh",
+            "name": "Queen Piece",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "queen-piece-alice-bonus-with-a-pawn-ally-prevents-all-damage-to-it"
+            ],
+            "semanticFixtures": [
+                "queen-piece-alice-bonus-with-a-pawn-ally-prevents-all-damage-to-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "dOPqsWYMCQ",
             "name": "Radiant Origin of Mage",
             "type": "PHANTASIA",
@@ -43617,6 +43645,26 @@
             ],
             "semanticFixtures": [
                 "aithne-spirit-of-fire-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "GiQxfpKTUC",
+            "name": "Alice, Distorted Queen",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "alice-distorted-queen-enter-gains-the-phantasmagoria-mastery-with-two-haunt-counters"
+            ],
+            "semanticFixtures": [
+                "alice-distorted-queen-enter-gains-the-phantasmagoria-mastery-with-two-haunt-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

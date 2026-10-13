@@ -1,0 +1,22 @@
+{
+    "name": "fatestone-of-progress-guo-jia-bonus-enter-puts-a-quest-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:49:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2sn7hlyrkw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2sn7hlyrkw"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "on-enter",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] **On Enter**: Put a **quest** counter on your champion."
+        ]
+    }
+}

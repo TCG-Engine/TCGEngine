@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myMastery",
+        "cardID": "D3rexaXCBo",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Enter: the Phantasmagoria mastery was gained"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"haunt\":2}",
+        "semantic": true,
+        "label": "Two haunt counters on it"
+    }
+]

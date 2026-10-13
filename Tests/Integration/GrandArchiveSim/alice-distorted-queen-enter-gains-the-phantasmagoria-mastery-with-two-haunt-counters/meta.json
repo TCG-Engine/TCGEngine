@@ -1,0 +1,23 @@
+{
+    "name": "alice-distorted-queen-enter-gains-the-phantasmagoria-mastery-with-two-haunt-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:49:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GiQxfpKTUC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GiQxfpKTUC"
+        ],
+        "mechanics": [
+            "on-enter",
+            "mastery",
+            "counter",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You gain the Phantasmagoria mastery. Then put two **haunt** counters on it."
+        ]
+    }
+}

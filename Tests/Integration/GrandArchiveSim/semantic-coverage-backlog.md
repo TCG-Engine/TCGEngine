@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2006**
+Cards linked to an existing fixture: **2017**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **471**
+Implemented cards still needing semantic coverage: **460**
 
 ## Mechanic groups
 
@@ -29,7 +29,6 @@ Implemented cards still needing semantic coverage: **471**
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
-| Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
@@ -49,7 +48,6 @@ Implemented cards still needing semantic coverage: **471**
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
-| Alice, Whim's Monarch (`9K4etFOi4M`) | CHAMPION | 2 | zone-movement, token, trigger, condition | — | — |
 | Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **471**
 | Flourishing Restoration (`alnjt7DyZL`) | ACTION | 2 | cost, recover, condition | — | — |
 | Golden Checkmate (`KbE9R1mi3n`) | ATTACK | 2 | cost, combat, condition | — | — |
 | Heirloom of Libra (`MRiM1fnOWC`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement | — | — |
+| Lost Providence (`DNbIpzVgde`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, condition | — | — |
+| Luxera's Map (`s23UHXgcZq`) | REGALIA,ITEM | 2 | cost, zone-movement, status | — | — |

@@ -1,0 +1,24 @@
+{
+    "name": "haniel-imbued-enter-debuffs-an-opposing-ally-buffs-itself-and-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:47:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "suH40WW60W"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "suH40WW60W"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "counter",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME is **imbued**, put a **debuff** counter on target ally you don't control, put a **buff** counter on CARDNAME, and **recover 1**."
+        ]
+    }
+}
