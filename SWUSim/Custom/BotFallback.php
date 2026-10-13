@@ -794,6 +794,19 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                                return $dv;
             case 'leader-ability': if (_SWUBotKeepBodyHolds($seat)) return -0.4;   // 'keepbody' (p40)
                                $av = _SWUBotAbilityValue($ctx, $action, $W);
+                               // Feature 'sachealwait' (p49, BotCreditEngine.php): the Credit Action yields to every other worthwhile action while the
+                               // unit it would take would heal an undamaged base — after the opponent's attacks the heal lands. Stays above PASS.
+                               if ($av > 0.0 && function_exists('SWUBotCreditSacShouldWait') && empty($GLOBALS['SWUBotSacWaitDepth']) && SWUBotCreditSacShouldWait($seat)) {
+                                   $GLOBALS['SWUBotSacWaitDepth'] = 1;
+                                   try {
+                                       $other = 0.0;
+                                       foreach ($ctx['actions'] as $k2 => $a2) {
+                                           if ($a2 === $action || in_array(SWUBotActionKind($a2), ['pass', 'initiative'], true)) continue;
+                                           $other = max($other, SWUBotScoreAction($ctx, $a2, $k2));
+                                       }
+                                   } finally { $GLOBALS['SWUBotSacWaitDepth'] = 0; }
+                                   if ($other > 0.1) { _SWUBotFired('sachealwait', $seat); $av = min($av, $other - 0.01); }
+                               }
                                // Feature 'sentinelclear' (p48): the leader buff a Sentinel clear is waiting for goes first.
                                if (SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1) $av = max($av, _SWUBotSentinelClearBuffValue($seat, $W));
                                return $av;
@@ -1333,7 +1346,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             return ($hostile === SWUBotIsEnemyMz($seat, $c)) ? $uv : -$uv;
         }
         $next = strval(($ctx['following'] ?? [])[0] ?? '');
-        $s = _SWUBotTargetsScore($seat, $c, $hostile, _SWUBotEffectAmount($tip, $next), $head, $W, $hostile ? _SWUBotWeaknessCount($tip, $next) : 0);
+        $amt = _SWUBotEffectAmount($tip, $next);
+        // Feature 'powerdamage' (p49): "deal damage equal to its power" carries the dealer's power (ASH_102#0|<dealer uid>).
+        if ($amt === 0 && $hostile && function_exists('SWUBotPowerDamageAmount')) $amt = SWUBotPowerDamageAmount($head, $next);
+        $s = _SWUBotTargetsScore($seat, $c, $hostile, $amt, $head, $W, $hostile ? _SWUBotWeaknessCount($tip, $next) : 0);
+        // Feature 'strikeleader' (p49): the strike that kills an enemy leader unit takes it.
+        if ($s !== null && $hostile && function_exists('SWUBotStrikeLeaderPremium')) $s += SWUBotStrikeLeaderPremium($seat, $c, $amt, $head, $W);
         // PROPOSAL 'removalready' (default OFF): among enemy targets, prefer a READY one — an exhausted unit cannot
         // attack this round, so removing it saves nothing until the regroup. The same logic as the shipped
         // 'shrinkfirst' rule (p6), applied to every hostile target choice rather than to one play.
@@ -1719,6 +1737,8 @@ function _SWUBotDefeatIfCostAtMost(string $head): ?int {
 function _SWUBotCardTextEffect(string $cardID): string {
     $text = strval(CardText($cardID));
     if (preg_match('/deal \d+ damage to (a|an|another|that) (\w+ )?unit|-\d+\/-\d+/i', $text)) return 'hostile';
+    // Feature 'powerdamage' (p49): "…deal damage equal to its power to a unit" (ASH_102 Ravager) — no number, still damage.
+    if (SWUBotFeatureOn('powerdamage') && preg_match('/deals? damage equal to (its|that unit\'s|attached unit\'s) power to (a|an|another|that) (\w+ )?unit/i', $text)) return 'hostile';
     // targeting2: "…If it costs N or less, defeat it." / "loses all abilities" are hostile too.
     if (SWUBotFeatureOn('targeting2') && preg_match('/\bdefeat it\b|loses all abilities/i', $text)) return 'hostile';
     // Part 25 'defeatpick': "…choose a friendly unit and an enemy non-leader unit. If you do, defeat THOSE UNITS" (ASH_052
@@ -2047,6 +2067,8 @@ function _SWUBotOnlySpentWhenPlayed(string $cid): bool {
 
 function _SWUBotSacrificeCostByValue(array $v): float {
     $value = SWUBotUnitValue($v);
+    // Feature 'krennicengine' (p49, BotCreditEngine.php): JTL_032's per-round When Defeated discount is an engine, not a body.
+    if (function_exists('SWUBotDiscountEngineValue')) $value += SWUBotDiscountEngineValue(intval($v['controller']), strval($v['cardID']));
     if (SWUBotFeatureOn('spentetb') && _SWUBotOnlySpentWhenPlayed($v['cardID'])) $value = min($value, _SWUBotUnitStatsValue($v));
     $text = strval(CardText($v['cardID']));
     $hasWd = stripos($text, 'When Defeated') !== false;
@@ -2066,6 +2088,8 @@ function _SWUBotSacrificeCostByValue(array $v): float {
     $times = (SWUBotFeatureOn('thrawnwd') && function_exists('_SWUThrawnReuseMode') && _SWUThrawnReuseMode(intval($v['controller'])) !== null
               && !_SWUBotWdHelpsOpponent($wd)) ? 2 : 1;
     // It pays something back: heal, draw, or a replacement body.
+    // Feature 'healfodder' (p49): a heal-only payback counts up to my base's damage (an undamaged base heals nothing).
+    if (function_exists('SWUBotHealWdShare') && ($share = SWUBotHealWdShare(intval($v['controller']), $wd)) !== null) return max(0.0, $value - 2.5 * $times * $share);
     if (preg_match('/\bheal \d+|\bdraw (a card|\d+)|\bcreate \d+/i', $wd)) return max(0.0, $value - 2.5 * $times);
     return max(0.0, $value - 1.5 * $times);
 }
@@ -2217,7 +2241,13 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
              + $W['base'] * SWUBotContextSurplus($seat, $cid);
     }
     $v = $W['develop'] * intval(CardCost($cid));
+    // Feature 'condetbvalue' (p49, BotCreditEngine.php): a When Played gated on what has entered (Disposable B1) or how many units I
+    // control (Lifetree Caravan) that is OFF now carries none of its tag value, and no curve surplus above its cost.
+    $condOff = SWUBotFeatureOn('condetbvalue') && $fromZone === 'hand' && function_exists('_SWUBotCondEtbShortfall') && _SWUBotCondEtbShortfall($seat, $cid) > 0;
+    // Feature 'mercplay' (p49): the resource a resource-loop unit becomes when the Credit Action takes it this round.
+    if (function_exists('SWUBotMercLoopValue')) $v += SWUBotMercLoopValue($seat, $cid, $W);
     foreach (SWUBotCardTags($cid) as $t) {
+        if ($condOff) break;
         if ($t === 'debuff-all-enemy-units' || $t === 'heal-on-enemy-defeat') continue;   // board-scaled below, never flat
         $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
         if ($t === 'search-top-deck' && SWUBotFeatureOn('searchvalue')) $v += _SWUBotSearchValue($seat, $cid, $W);
@@ -2228,7 +2258,8 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     // replacing them: 'unitvalue' measured −50 doing that). An unpriced card adds 0.
     // $route: 'paid' | 'waived' | 'nopenalty' | 'free' (BotCurveValue.php) | 'nocurve' — a comparison that must not use curve value.
     if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('curveplay') && $route !== 'nocurve') {   // feature p38
-        $v += floatval($W['curve'] ?? 0.0) * (SWUBotCurveSurplus($seat, $cid, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON)), true, $route) ?? 0.0);
+        $cs = SWUBotCurveSurplus($seat, $cid, intval(round($W['horizon'] ?? SWU_CURVE_STATIC_HORIZON)), true, $route) ?? 0.0;
+        $v += floatval($W['curve'] ?? 0.0) * ($condOff ? min(0.0, $cs) : $cs);
     }
     // "Give each enemy unit -X/-X" (owner 2026-10-01): worth the weight once PER enemy unit the shrink would kill —
     // zero on a board of big units, the most on a wide board of weak ones.
@@ -4956,6 +4987,8 @@ function _SWUBotShouldMulligan(int $seat, string $style): ?bool {
         $tags[] = SWUBotCardTags($cid);
     }
     if (empty($costs)) return null;
+    // Feature 'foddermull' (p49, BotCreditEngine.php): a Credit-sac hand with no round-1 body goes back.
+    if (function_exists('SWUBotFodderMulligan') && SWUBotFodderMulligan($seat)) return true;
     $atMost = fn(int $n) => count(array_filter($costs, fn($c) => $c <= $n));
     $atLeast = fn(int $n) => count(array_filter($costs, fn($c) => $c >= $n));
     if (SWUBotProposalOn('mullnocast')) return $atMost(3) < 2;

@@ -1,0 +1,54 @@
+# Self-play fixture — "Krennic Blue Naboo" (Director Krennic, Amidst My Achievement - Great Grass Plains)
+# Source: given by the owner as JSON 2026-10-13. 54 main-deck cards, 8 sideboard. Replaces the Force Fam "Krennic Blue Splash"
+#   (director-krennic_law_blue-splash.txt, Ninin's v2 of 2026-10-11), removed the same day at the owner's request; it is in git history.
+#   Base trait: Great Grass Plains is Naboo, and the deck cares (1 Sando Aqua Monster HMW_094), so the trait is part of its name.
+#   Same file name as hmw-meta-2026-09/director-krennic_law_blue_naboo.txt (a tournament list, 63% overlap) — a different deck in a
+#   different group; the pre-con picker keys each entry by group AND file.
+# Author: Ninin
+#   ⚠ The JSON's author field was EMPTY. Credited to Ninin as the successor of her Krennic Blue Splash (74% of its cards are shared with
+#   that list) — an inference, not the owner's statement.
+# Archetype: the deck-style classifier (SWUBotDeckStyle, 2026-10-13) — softcontrol, HIGH confidence, source shape: score 2.92, 0% aggro
+#   side (23 units <= 3 cost, 0 burn, 0 attack/buff cards; 14 units >= 6 cost, 7 removal events, 6 wipes). Same as the label of the list
+#   it replaces (the owner's "Soft control", 2026-10-01).
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 HMW_020
+
+Deck
+1 ASH_102
+3 ASH_116
+2 ASH_133
+3 ASH_048
+3 ASH_052
+3 ASH_053
+3 ASH_097
+2 HMW_102
+3 HMW_103
+3 HMW_136
+1 HMW_094
+2 JTL_119
+3 JTL_032
+3 JTL_033
+2 JTL_043
+2 LAW_101
+3 LAW_133
+3 LAW_159
+2 LAW_039
+3 LAW_097
+2 LOF_091
+2 SEC_078
+
+Sideboard
+1 ASH_102
+1 HMW_102
+1 JTL_041
+1 JTL_043
+1 JTL_078
+1 LAW_039
+1 LOF_091
+1 SEC_078

@@ -659,7 +659,7 @@ const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat',
 //          kept against him, not resourced. ⚠ keyed on the leader alone, every base (the 10-07 canary suspected Lake Country). Guard: bot_bobaspace_test.php.
 const SWU_BOT_PART43_FEATURES = ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'];
 // Part 44 'controlvalue' (2026-10-13, owner "let's ship it") — ten value / answer rules for the midrange and control seats, built from the
-// owner's rulings on Ninin's Maul Blue v2, Grievous Blue and Krennic Blue Splash games (memory `swuforge-three-deck-analysis-2026-10-12`).
+// owner's rulings on Ninin's Maul Blue v2, Grievous Blue and Krennic Blue Splash games (human-game read, 2026-10-12).
 // ASH meta screen (2026-10-13, paired with the plain stack on the same code): hard control 234:169
 // newly won:lost (p .0014), midrange 290:345 (p .032) — lost mostly TO control, moving hard control vs midrange 36.9% → 40.4% (real 56.4%);
 // archetype Pearson +0.04 → +0.08, matchup-cell Pearson +0.20 → +0.22, hard control bias −12.2 → −10.7. '@no-p44' / '@no-controlvalue'.
@@ -699,7 +699,7 @@ const SWU_BOT_PART45_FEATURES = ['playdefeatwd', 'uniquewd', 'wdshieldpop'];
 //   ambushsetup — a ping counts the just-played unit's pending Ambush as a finisher (Snub Fighter Squadron pings what its Ambush then kills).
 const SWU_BOT_PART46_FEATURES = ['nightpick', 'wdbait', 'ambushsetup'];
 // Part 47 'neelcombo' (2026-10-13, owner: "this list should now try to get the 'Neel combo' on Turn 1 … play Neel first, then Tarpals, and
-// buff Tarpals for a free 4 damage to base") — Ahsoka Yellow w Neel (force-fam-HMW-predictions/ahsoka-tano_ash_yellow). Round 1 under
+// buff Tarpals for a free 4 damage to base") — Ahsoka Yellow w Neel (force-fam-HMW-predictions/ahsoka-tano_ash_yellow_v-with-neel). Round 1 under
 // ASH_009: a hard rule plays ASH_248 Neel, then the payoff with the most power + Raid (HMW_254 Tarpals); the opening resourcer never banks
 // either. Logic: _SWUBotNeelComboPlan / SWUBotRuleNeelCombo (BotRules.php). SHIPPED ON THE OWNER'S RULING, like p7/p9. '@no-p47'.
 const SWU_BOT_PART47_FEATURES = ['neelcombo'];
@@ -708,6 +708,20 @@ const SWU_BOT_PART47_FEATURES = ['neelcombo'];
 // this round's ready attackers (+ a ready leader buff Action) can clear is worth its share of the kill — in full when the opponent has no
 // ready resource. Logic: _SWUBotSentinelClearShare (BotFallback.php). SHIPPED ON THE OWNER'S RULING, like p47. '@no-p48'.
 const SWU_BOT_PART48_FEATURES = ['sentinelclear'];
+// Part 49 'creditengine' (2026-10-13, owner: "do a deep, thorough analysis of these games. look for at least 10 bot features we can ship
+// immediately and turn them on") — Ninin's 5 human games on Krennic Blue Naboo vs 420 bot games on the list. Logic + evidence per
+// feature: BotCreditEngine.php. SHIPPED ON at the owner's request (each corrects a measured gap); '@no-p49' / '@no-creditengine' is the stack before.
+//   powerdamage   — "deal damage equal to its power to a unit" (ASH_102 Ravager) is hostile, its amount the dealer's power (self-hits 55/90).
+//   fodderkeep    — the opening/early resource pick keeps the Credit engine's first 2 fodder bodies (Ant Droid banked 26/30).
+//   mercres       — …and its resource-loop unit (LAW_159 Expendable Mercenary, banked 12/26).
+//   mercplay      — Mercenary's play carries the resource it becomes while the Credit Action is ready (never cast in 88/120 games).
+//   sachealwait   — the Credit Action yields while the unit it takes would heal an undamaged base (43% of heal sacs healed nothing).
+//   healfodder    — a heal-on-defeat counts toward sacrifice pricing only up to my base's damage.
+//   condetbvalue  — an unmet conditional When Played (Disposable B1, Lifetree Caravan) carries none of its value (B1 61%, Lifetree 43%).
+//   krennicengine — JTL_032's "first When Defeated unit each round costs 1 less" is priced as an engine (sacrificed 46x, Chimaera'd 22x).
+//   strikeleader  — a deploy/Strike True strike takes a killable enemy leader unit (missed 3 of 14).
+//   foddermull    — a Credit-sac hand with no unit costing 2 or less is mulliganed (owner's keep: Krennic unit + a 1-drop; bot 0/120).
+const SWU_BOT_PART49_FEATURES = ['powerdamage', 'fodderkeep', 'mercres', 'mercplay', 'sachealwait', 'healfodder', 'condetbvalue', 'krennicengine', 'strikeleader', 'foddermull'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -717,7 +731,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES);   // part 2, then 3-48
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -732,7 +746,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1121,12 +1135,12 @@ const SWU_BOT_PROPOSALS = [
                         // bomb and i know they won't play anything else or attack with anything else"
     'nogideon',         // Q3: ASH_097 Moff Gideon is never sacrificed (Credit Action, Chimaera, any sacrifice pick)
     'chimaeraweakest',  // Q3: Chimaera's friendly pick is the WEAKEST unit (lowest unit value), not the cheapest after When Defeated payback
-    // ── 2026-10-11 SWU FORGE RESOURCING — Ninin's 22 SWU Forge games on Krennic Blue Splash v2 vs 600 bot games on the same list
-    // (memory `krennic-v2-swuforge-resourcing-gap-2026-10-11`): the bot's OPENING resource pick banks the cards she wins with.
+    // ── 2026-10-11 HUMAN-GAME RESOURCING — Ninin's 22 human games on Krennic Blue Splash v2 vs 600 bot games on the same list
+    // (human-game read, 2026-10-11): the bot's OPENING resource pick banks the cards she wins with.
     'stylemap',         // "is the opponent aggro" read from the meta's leader + BASE map (BotOpponentStyles.php), not SWU_BOT_AGGRO_LEADERS. bot_stylemap_test
     'rampres',          // credit-ramp control seat: keep answers + ramp pieces, Lawbringer vs aggro, HSD resourced unless space. bot_rampres_test
     // ── 2026-10-12 HUMAN-GAME READ — the owner's 31 games on Maul Blue (2-8), Grievous Blue (9-1) and Krennic Splash (6-5); memory
-    // `swuforge-three-deck-analysis-2026-10-12`. General rules for the midrange / control seats; group '@try-leaderwatch'.
+    // the 2026-10-12 human-game read. General rules for the midrange / control seats; group '@try-leaderwatch'.
     // ASH meta screen 2026-10-13: neutral (2.4% of games changed vs the plain stack, no style significant).
     'deploysafe',       // midrange/control (racing rank >= 2) holds a deploy whose leader unit dies at the opponent's next action (a ready
                         // enemy that can attack and kill it, or an enemy deploy strike that can go now) — unless the deploy itself defeats

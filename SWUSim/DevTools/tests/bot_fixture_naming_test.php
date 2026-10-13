@@ -135,6 +135,18 @@ $check(SWUBotFixtureDisplayNameFromFile('maul_hmw_blue_by-ninin') === 'Maul (HMW
     "an author suffix reads back as the plain name; got '" . SWUBotFixtureDisplayNameFromFile('maul_hmw_blue_by-ninin') . "'");
 $check(SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_by-ninin') === 'Doctor Hemlock (HMW) Yellow (Naboo)',
     "…after a trait field too; got '" . SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_by-ninin') . "'");
+// The VARIANT field (owner 2026-10-14): "_v-<variant>" after the derived name, before the author — and part of the shown name.
+$check(SWUBotFixtureVariantSuffix('Space') === '_v-space' && SWUBotFixtureVariantSuffix('  ') === '', "the variant suffix is '_v-' + the slugged variant");
+$check(SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space') === 'Ahsoka Tano (ASH) Yellow Space',
+    "a variant reads back as part of the name; got '" . SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space') . "'");
+$check(SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space_by-ninin') === 'Ahsoka Tano (ASH) Yellow Space'
+    && SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_v-wide') === 'Doctor Hemlock (HMW) Yellow (Naboo) Wide',
+    '…with an author after it, and after a trait field');
+$check(SWUBotFixtureDisplayNameFromFile('a_b_c_v-') === '' && SWUBotFixtureDisplayNameFromFile('a_b_c_by-x_v-y') === '',
+    'an empty variant, or one placed after the author, is not a name');
+$vDeck = SWUBotDeckFromFixtureText("# Author: Ninin\n# Variant: Space\nLeader\n1 ASH_009\nBase\n1 HMW_033\nDeck\n3 SEC_213\n");
+$check($vDeck['variant'] === 'Space' && SWUBotFixtureDisplayName($vDeck) === SWUBotDeckDisplayName('ASH_009', 'HMW_033', ['SEC_213' => 3]) . ' Space By Ninin',
+    "'# Variant:' shows before the author; got '" . SWUBotFixtureDisplayName($vDeck) . "'");
 $check(SWUBotFixtureDisplayNameFromFile('a_b_c_by-') === '' && SWUBotFixtureDisplayNameFromFile('a_b_c_d_by-x_by-y') === '',
     'an EMPTY author, or a second suffix, is not the convention');
 
@@ -159,7 +171,8 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
     foreach ($files as $path) {
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
         $n = SWUBotFixtureFileName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));   // main + sideboard (owner 2026-10-11)
-        $derived[basename($path, '.txt')] = [$n, SWUBotFixtureAuthorSuffix(strval($d['author'] ?? ''))];
+        // The variant (owner 2026-10-14) joins the derived name: it is part of what the deck is called.
+        $derived[basename($path, '.txt')] = [$n . SWUBotFixtureVariantSuffix(strval($d['variant'] ?? '')), SWUBotFixtureAuthorSuffix(strval($d['author'] ?? ''))];
     }
     $sharing = array_count_values(array_column($derived, 0));
     foreach ($derived as $stem => [$n, $suffix]) {
@@ -188,6 +201,7 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
         $path = "./SWUSim/Tests/BotFixtures/{$dir}/{$olds[0]}.txt";
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
         $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));
+        if (trim(strval($d['variant'] ?? '')) !== '') $fromCards .= ' ' . trim(strval($d['variant']));
         $fromFile  = SWUBotFixtureDisplayNameFromFile($newStem);
         // Accents cannot round-trip through a filename (Sabé -> sabe_… -> 'Sabe'), so the card name is compared accent-folded (owner 2026-10-11).
         if (SWUBotAsciiFold($fromCards) !== $fromFile) $bad[] = "{$newStem}: cards='{$fromCards}' file='{$fromFile}'";
@@ -210,7 +224,7 @@ $check($deckOf('# Author: Star Wars Dad')['author'] === 'Star Wars Dad', 'the au
 $authors = [];
 foreach (glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
 $check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-HMW-predictions deck names its author: ' . json_encode($authors));
-$known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
+$known = ['ahsoka-tano_ash_yellow_v-with-neel' => 'Ninin', 'ahsoka-tano_ash_yellow_v-space' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue_naboo' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
           'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad',
           'general-grievous_hmw_blue_kashyyyk' => 'Ninin', 'obi--wan-kenobi_lof_yellow-force' => 'MasterJay',
           'maul_hmw_blue_tatooine_by-ninin' => 'Ninin'];

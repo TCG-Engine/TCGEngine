@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/BotFeatures.php';
 require_once __DIR__ . '/BotFlavours.php';
+require_once __DIR__ . '/BotCreditEngine.php';   // part 49 'creditengine' helpers
 // Resourcing engine v0 for the heuristic bots — the RL bots spec's settled rules: the floor, the per-style
 // card choice (Control's revised 2026-09-13: keep a castable hand plus one bomb), the Plot budget.
 // Phase 1b part 2 (owner rulings 2026-09-14): key cards stay out of resources, and each style has a resource stop —
@@ -139,6 +140,8 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     // 2 resources that pay for it.
     $neelPlan = (SWUResourceCount($seat) === 0 && function_exists('_SWUBotNeelComboPlan')) ? _SWUBotNeelComboPlan($seat, $n) : null;
     $neelKeep = $neelPlan === null ? [] : array_filter([$neelPlan['enabler'], $neelPlan['payoff']], fn($x) => $x !== null);
+    // Features 'fodderkeep' + 'mercres' (p49, BotCreditEngine.php): the Credit engine's fodder and its resource-loop unit stay in hand.
+    $fodderKeep = function_exists('SWUBotFodderKeepIndices') ? SWUBotFodderKeepIndices($seat) : [];
     // Proposal 'mgkeep': the earliest copy of each card in hand. Every later copy is the spare duplicate.
     $firstIndexOf = [];
     foreach (GetHand($seat) as $i => $c) {
@@ -183,6 +186,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // weaker is left, and never a second one in a game.
         if (SWUBotFeatureOn('bokatanres') && ($bk = _SWUBotBokatanResKeep($ctx, $cid, $i === ($firstIndexOf[$cid] ?? $i))) !== null) $keep += $bk;
         if (in_array($i, $neelKeep, true)) $keep += 1000.0;
+        if (in_array($i, $fodderKeep, true)) $keep += SWU_BOT_FODDER_KEEP_BONUS;
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -504,7 +508,7 @@ function SWUBotOpponentIsAggroLeader(int $seat): bool {
 }
 
 // ── PROPOSAL 'rampres' (default OFF) — a credit-ramp control seat's resourcing, from the owner's own games ──────────────────
-// Ninin's 22 SWU Forge games on Krennic Blue Splash v2 (12-10) against 600 bot games with the same list and opponents: the bot's
+// Ninin's 22 human games on Krennic Blue Splash v2 (12-10) against 600 bot games with the same list and opponents: the bot's
 // OPENING pick banks the cards she wins with. Vs a non-aggro leader it resourced Craving Power 21/21, No Glory 29/30, Resupply
 // Carrier 28/31, Lost and Forgotten 21/24 (a 5-6 cost card is "far from castable" at 0 resources) and kept Tireless Magnaguard
 // 31/31; vs an aggro leader it resourced Expendable Mercenary 42/54, Latts 44/50, Lawbringer 41/52 and kept Hyperspace Disaster
@@ -593,7 +597,11 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
     $cheap = 0;
     foreach ($hand as $i => $cid) { if (_SWUBotSeatCost($seat, $cid) <= $cheapCap && $i === $firstIdx[$cid]) $cheap++; }
     $out = [];
+    // Features 'fodderkeep' + 'mercres' (p49, BotCreditEngine.php): the tiered path ignores the keep value, so the Credit engine's kept
+    // fodder and resource-loop unit join the protected tier here (smoke 2026-10-13: vs Ahsoka Yellow, Mercenary was still banked 18/26).
+    $fodderKeepIdx = function_exists('SWUBotFodderKeepIndices') ? SWUBotFodderKeepIndices($seat) : [];
     foreach ($hand as $i => $cid) {
+        if (in_array($i, $fodderKeepIdx, true)) { $out[$i] = [9, 0.0]; continue; }
         $tags = SWUBotCardTags($cid);
         $answer = (bool)array_intersect($tags, ['removal', 'wipe']);
         // Feature 'cravinganswer' (p43; 2026-10-07 gap screen): a power-strike that damages an enemy unit is an answer too — Craving Power

@@ -9,6 +9,9 @@
 #   Owner, 2026-10-01: "Ninin's Ahsoka Yellow is actually a hyperaggro deck and not softaggro" — it races the base
 #   (38 of 39 attacks in 5 human games) and stops resourcing at 6 to keep cards for Aggressive Negotiations.
 # Author: Ninin
+# Variant: With Neel
+#   (owner 2026-10-14: shown "Ahsoka Tano (ASH) Yellow With Neel By Ninin" beside her space build, ahsoka-tano_ash_yellow_v-space.txt;
+#   file was ahsoka-tano_ash_yellow.txt until then)
 # Archetype (owner's label, 2026-10-01): Hyper aggro
 # Style: hyperaggro
 # Flavours: mixed-space

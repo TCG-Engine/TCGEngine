@@ -174,18 +174,34 @@ function SWUBotFixtureAuthorSuffix(string $author): string {
     return $slug === '' ? '' : '_by-' . $slug;
 }
 
+// The VARIANT field (owner 2026-10-14): two lists of one leader + base by ONE author derive the same name — Ninin's "Ahsoka Yellow w Neel"
+// and her space build both read "Ahsoka Tano (ASH) Yellow". The second file names its variant, from its "# Variant:" line, as
+// "_v-<variant>" right after the derived name (before any "_by-<author>"): ahsoka-tano_ash_yellow_v-space. Unlike the author it IS part
+// of the deck's shown name — "Ahsoka Tano (ASH) Yellow Space" — so it round-trips through the filename.
+function SWUBotFixtureVariantSuffix(string $variant): string {
+    $slug = SWUBotFixtureSlug(trim($variant));
+    return $slug === '' ? '' : '_v-' . $slug;
+}
+
 function SWUBotFixtureDisplayNameFromFile(string $stem): string {
     $parts = explode('_', $stem);
     if (count($parts) > 3 && str_starts_with(end($parts), 'by-')) {
         if (end($parts) === 'by-') return '';
         array_pop($parts);
     }
+    $variant = null;
+    if (count($parts) > 3 && str_starts_with(end($parts), 'v-')) {
+        if (end($parts) === 'v-') return '';
+        $variant = substr(array_pop($parts), 2);
+    }
     if (count($parts) !== 3 && count($parts) !== 4) return '';
     [$leader, $set, $base] = $parts;
     $trait = $parts[3] ?? null;
     if ($leader === '' || $set === '' || $base === '' || $trait === '') return '';
+    if ($trait !== null && (str_starts_with($trait, 'v-') || str_starts_with($trait, 'by-'))) return '';   // a misplaced suffix, not a trait
     $name = SWUBotFixtureUnslug($leader) . ' (' . strtoupper($set) . ') ' . SWUBotFixtureUnslug($base);
-    return $trait === null ? $name : $name . ' (' . SWUBotFixtureUnslug($trait) . ')';
+    if ($trait !== null) $name .= ' (' . SWUBotFixtureUnslug($trait) . ')';
+    return $variant === null ? $name : $name . ' ' . SWUBotFixtureUnslug($variant);
 }
 
 // Parse a BotFixtures deck file: '# ' comments, then the sections Leader / Base / Deck / Sideboard, each line
@@ -193,11 +209,13 @@ function SWUBotFixtureDisplayNameFromFile(string $stem): string {
 // ⚠ 'Sideboard' MUST be a recognised header: without it the section stays 'Deck' and the ten sideboard cards
 // are silently counted as main deck — the deck labels, style classifier and size check would all shift.
 function SWUBotDeckFromFixtureText(string $text): array {
-    $sec = ''; $leader = ''; $base = ''; $cards = []; $sideboard = []; $author = '';
+    $sec = ''; $leader = ''; $base = ''; $cards = []; $sideboard = []; $author = ''; $variant = '';
     foreach (preg_split('/\R/', $text) as $line) {
         $line = trim($line);
         // "# Author: Ninin" — who built the list (owner 2026-10-01). Missing or empty → '' (no "By" part).
         if (preg_match('/^#\s*Author:(.*)$/i', $line, $am)) { $author = trim($am[1]); continue; }
+        // "# Variant: Space" — names a second list of one leader + base by the same author (owner 2026-10-14).
+        if (preg_match('/^#\s*Variant:(.*)$/i', $line, $vm)) { $variant = trim($vm[1]); continue; }
         if ($line === '' || $line[0] === '#') continue;
         if ($line === 'Leader' || $line === 'Base' || $line === 'Deck' || $line === 'Sideboard') { $sec = $line; continue; }
         if (!preg_match('/^(\d+)\s+(\S+)/', $line, $m)) continue;
@@ -207,7 +225,7 @@ function SWUBotDeckFromFixtureText(string $text): array {
         elseif ($sec === 'Deck') $cards[$id] = ($cards[$id] ?? 0) + $n;
         elseif ($sec === 'Sideboard') $sideboard[$id] = ($sideboard[$id] ?? 0) + $n;
     }
-    return ['leader' => $leader, 'base' => $base, 'cards' => $cards, 'sideboard' => $sideboard, 'author' => $author];
+    return ['leader' => $leader, 'base' => $base, 'cards' => $cards, 'sideboard' => $sideboard, 'author' => $author, 'variant' => $variant];
 }
 
 // The name a fixture is SHOWN by: the card-derived name, plus " By <Author>" when its "# Author:" line names someone
@@ -215,6 +233,8 @@ function SWUBotDeckFromFixtureText(string $text): array {
 // card/filename invariant stay on SWUBotDeckDisplayName — the author is a credit, not part of the deck's identity.
 function SWUBotFixtureDisplayName(array $deck): string {
     $name = SWUBotDeckDisplayName(strval($deck['leader'] ?? ''), strval($deck['base'] ?? ''), SWUBotNamingCards($deck));
+    $variant = trim(strval($deck['variant'] ?? ''));
+    if ($name !== '' && $variant !== '') $name .= ' ' . $variant;   // "# Variant:" (owner 2026-10-14) is part of the shown name
     $author = trim(strval($deck['author'] ?? ''));
     return ($name !== '' && $author !== '') ? $name . ' By ' . $author : $name;
 }
