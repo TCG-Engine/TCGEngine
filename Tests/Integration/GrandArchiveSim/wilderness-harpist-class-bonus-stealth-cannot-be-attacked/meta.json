@@ -1,0 +1,21 @@
+{
+    "name": "wilderness-harpist-class-bonus-stealth-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKgdkLSBza"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKgdkLSBza"
+        ],
+        "mechanics": [
+            "stealth",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Stealth**"
+        ]
+    }
+}

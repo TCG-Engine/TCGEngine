@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Retort 2 and no omens: 1 + 2 = 3 damage"
+    }
+]

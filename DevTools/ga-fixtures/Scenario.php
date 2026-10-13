@@ -323,6 +323,11 @@ class GaScenario {
         return $this->expect(['type' => 'computed_power_equals', 'mzId' => $mzId, 'value' => $power], $label, $step);
     }
 
+    // The computed level of a champion (its printed level plus every level effect, e.g. Wilderness Harpist's +1 level).
+    public function expectLevel(string $mzId, int $level, ?string $label = null, ?int $step = null): self {
+        return $this->expect(['type' => 'computed_level_equals', 'mzId' => $mzId, 'value' => $level], $label, $step);
+    }
+
     public function expectLife(string $mzId, int $life, ?string $label = null, ?int $step = null): self {
         return $this->expect(['type' => 'computed_life_equals', 'mzId' => $mzId, 'value' => $life], $label, $step);
     }

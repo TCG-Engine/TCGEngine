@@ -14,5 +14,16 @@
         "cardID": "myField-1!FSM!",
         "chkInput": [],
         "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirField-0",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "Taunt: the champion cannot be attacked while the taunting ally is awake"
     }
 ]

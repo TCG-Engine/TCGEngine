@@ -1,0 +1,18 @@
+[
+    {
+        "step": 4,
+        "type": "computed_level_equals",
+        "mzId": "p1Field-0",
+        "value": 1,
+        "semantic": true,
+        "label": "A Melody was activated: the champion is level 0 + 1"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 0,
+        "semantic": true,
+        "label": "The marker is not a power bonus on the Harpist itself"
+    }
+]

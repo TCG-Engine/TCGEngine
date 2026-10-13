@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "A preparation counter was removed: the Reaper woke up"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "One preparation counter left"
+    }
+]

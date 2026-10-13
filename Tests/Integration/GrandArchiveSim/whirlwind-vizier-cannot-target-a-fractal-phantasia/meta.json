@@ -1,0 +1,22 @@
+{
+    "name": "whirlwind-vizier-cannot-target-a-fractal-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:31:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5swaf8urrq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5swaf8urrq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "destroy",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Destroy target non-Fractal phantasia."
+        ]
+    }
+}

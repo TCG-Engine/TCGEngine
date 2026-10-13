@@ -2783,6 +2783,11 @@ $activateAbilityPrereqs["v2OmQJWXqX:0"] = function($player, $mzID, $abilityIndex
     return PlayerControlsElysianObject($player);
 };
 
+// Whirlwind Vizier (5swaf8urrq): "(3), [REST], Sacrifice: Destroy target non-Fractal phantasia." Without a legal target the ability cannot be activated at all (the costs include a sacrifice).
+$activateAbilityPrereqs["5swaf8urrq:0"] = function($player, $mzID, $abilityIndex) { //Whirlwind Vizier prereq
+    return !empty(ZoneSearch("myField", ["PHANTASIA"], excludeSubtypes: ["FRACTAL"])) || !empty(ZoneSearch("theirField", ["PHANTASIA"], excludeSubtypes: ["FRACTAL"]));
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -1,0 +1,24 @@
+{
+    "name": "sword-saint-of-eveswind-class-bonus-entering-from-a-banishment-gets-two-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:31:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a7lr70xglo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a7lr70xglo"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "counter",
+            "suppress",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: If Sword Saint of Eveswind entered from a banishment, put two **buff** counters on it."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T13:25:45+00:00",
+    "generatedAt": "2026-10-13T13:33:22+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1504,
+        "cardsWithExistingFixtures": 1519,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 973,
+        "cardsNeedingSemanticCoverage": 958,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -9319,23 +9319,6 @@
             "priority": 13
         },
         {
-            "cardId": "a5igwbsmks",
-            "name": "Spirited Falconer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "69iq4d5vet",
             "name": "Springleaf",
             "type": "TOKEN,ITEM",
@@ -9693,23 +9676,6 @@
             "priority": 13
         },
         {
-            "cardId": "72rfgveirp",
-            "name": "Vigilant Sentry",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cnjo0ehqyk",
             "name": "Votive Runeblade",
             "type": "REGALIA,WEAPON",
@@ -9744,43 +9710,9 @@
             "priority": 13
         },
         {
-            "cardId": "5swaf8urrq",
-            "name": "Whirlwind Vizier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "x2oydmfcre",
             "name": "Wildgrowth Fatestone",
             "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "3krdvxapdp",
-            "name": "Wildgrowth Feline",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -9802,23 +9734,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "oqcHHAmYCW",
-            "name": "Winbless Lookout",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
                 "counter",
                 "trigger"
             ],
@@ -9855,23 +9770,6 @@
                 "targeting",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "ann23jkuys",
-            "name": "Yunzhou Cavalry",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12954,22 +12852,6 @@
             "priority": 12
         },
         {
-            "cardId": "a7lr70xglo",
-            "name": "Sword Saint of Eveswind",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "57WTJAiXLr",
             "name": "Table Straight",
             "type": "ACTION",
@@ -12978,22 +12860,6 @@
             "mechanics": [
                 "cost",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "xp6qqi6vwf",
-            "name": "Tempus Stalker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13074,22 +12940,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "3TfIePpuZO",
-            "name": "Trained Hawk",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13370,38 +13220,6 @@
             "priority": 12
         },
         {
-            "cardId": "x7yc0ije4d",
-            "name": "Whirlwind Reaper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "aKgdkLSBza",
-            "name": "Wilderness Harpist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "tjot4nmxqs",
             "name": "Wildgrowth Elixir",
             "type": "ITEM",
@@ -13410,22 +13228,6 @@
             "mechanics": [
                 "targeting",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "m4o98vn1vo",
-            "name": "Winbless Arbalest",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15961,21 +15763,6 @@
             "priority": 11
         },
         {
-            "cardId": "9ewgUjy34b",
-            "name": "Sworn Windhand",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "7nau5sw9f8",
             "name": "Synthetic Strike",
             "type": "ATTACK",
@@ -15998,21 +15785,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "HWFWO0TB8l",
-            "name": "Tempest Silverback",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -16238,21 +16010,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "z4fr707pbr",
-            "name": "Windstalker Wolf",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -45197,6 +44954,27 @@
             "priority": 33
         },
         {
+            "cardId": "a5igwbsmks",
+            "name": "Spirited Falconer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirited-falconer-class-bonus-on-enter-buffs-up-to-two-animal-or-beast-allies"
+            ],
+            "semanticFixtures": [
+                "spirited-falconer-class-bonus-on-enter-buffs-up-to-two-animal-or-beast-allies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ba08K8VZnF",
             "name": "Splashing Perch",
             "type": "ACTION",
@@ -45678,6 +45456,27 @@
             "priority": 33
         },
         {
+            "cardId": "72rfgveirp",
+            "name": "Vigilant Sentry",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "vigilant-sentry-class-bonus-taunt-protects-the-champion"
+            ],
+            "semanticFixtures": [
+                "vigilant-sentry-class-bonus-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "tZtoAl4ojK",
             "name": "Visceral Inversion",
             "type": "ACTION",
@@ -45808,6 +45607,79 @@
             "priority": 33
         },
         {
+            "cardId": "5swaf8urrq",
+            "name": "Whirlwind Vizier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "whirlwind-vizier-cannot-target-a-fractal-phantasia",
+                "whirlwind-vizier-class-bonus-gets-plus-one-life",
+                "whirlwind-vizier-pays-three-and-sacrifices-itself-to-destroy-a-non-fractal-phantasia",
+                "whirlwind-vizier-without-the-class-bonus-has-its-printed-life"
+            ],
+            "semanticFixtures": [
+                "whirlwind-vizier-cannot-target-a-fractal-phantasia",
+                "whirlwind-vizier-class-bonus-gets-plus-one-life",
+                "whirlwind-vizier-pays-three-and-sacrifices-itself-to-destroy-a-non-fractal-phantasia",
+                "whirlwind-vizier-without-the-class-bonus-has-its-printed-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "3krdvxapdp",
+            "name": "Wildgrowth Feline",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wildgrowth-feline-a-non-animal-ally-entering-gives-no-counter",
+                "wildgrowth-feline-class-bonus-gets-a-buff-counter-when-another-beast-enters"
+            ],
+            "semanticFixtures": [
+                "wildgrowth-feline-a-non-animal-ally-entering-gives-no-counter",
+                "wildgrowth-feline-class-bonus-gets-a-buff-counter-when-another-beast-enters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "oqcHHAmYCW",
+            "name": "Winbless Lookout",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "winbless-lookout-class-bonus-on-enter-glimpses-one",
+                "winbless-lookout-on-enter-puts-a-preparation-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "winbless-lookout-class-bonus-on-enter-glimpses-one",
+                "winbless-lookout-on-enter-puts-a-preparation-counter-on-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "lx6xwr42i6",
             "name": "Windrider Invoker",
             "type": "ALLY",
@@ -45877,6 +45749,37 @@
                 "xiao-qiao-cinderkeeper-banishes-a-unit-it-would-kill-instead-of-letting-it-die",
                 "xiao-qiao-cinderkeeper-class-bonus-attack-cannot-be-retaliated",
                 "xiao-qiao-cinderkeeper-without-the-class-bonus-the-attack-is-retaliated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "ann23jkuys",
+            "name": "Yunzhou Cavalry",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yunzhou-cavalry-class-bonus-ranged-two-while-distant",
+                "yunzhou-cavalry-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+                "yunzhou-cavalry-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+                "yunzhou-cavalry-equestrian-on-enter-with-a-horse-becomes-distant",
+                "yunzhou-cavalry-on-enter-without-a-horse-stays-not-distant",
+                "yunzhou-cavalry-without-the-class-bonus-has-no-ranged"
+            ],
+            "semanticFixtures": [
+                "yunzhou-cavalry-class-bonus-ranged-two-while-distant",
+                "yunzhou-cavalry-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+                "yunzhou-cavalry-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+                "yunzhou-cavalry-equestrian-on-enter-with-a-horse-becomes-distant",
+                "yunzhou-cavalry-on-enter-without-a-horse-stays-not-distant",
+                "yunzhou-cavalry-without-the-class-bonus-has-no-ranged"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49198,6 +49101,28 @@
             "priority": 32
         },
         {
+            "cardId": "a7lr70xglo",
+            "name": "Sword Saint of Eveswind",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sword-saint-of-eveswind-class-bonus-entering-from-a-banishment-gets-two-buff-counters",
+                "sword-saint-of-eveswind-entering-from-the-hand-gets-no-counters"
+            ],
+            "semanticFixtures": [
+                "sword-saint-of-eveswind-class-bonus-entering-from-a-banishment-gets-two-buff-counters",
+                "sword-saint-of-eveswind-entering-from-the-hand-gets-no-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9cy4wipw4k",
             "name": "Tabula of Salvage",
             "type": "REGALIA,ITEM",
@@ -49254,6 +49179,28 @@
             ],
             "semanticFixtures": [
                 "temper-in-flames-puts-a-durability-counter-on-a-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "xp6qqi6vwf",
+            "name": "Tempus Stalker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat"
+            ],
+            "existingFixtures": [
+                "tempus-stalker-class-bonus-recollection-puts-a-buff-counter-on-it",
+                "tempus-stalker-does-not-obey-a-level-one-champion"
+            ],
+            "semanticFixtures": [
+                "tempus-stalker-class-bonus-recollection-puts-a-buff-counter-on-it",
+                "tempus-stalker-does-not-obey-a-level-one-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49354,6 +49301,28 @@
             ],
             "semanticFixtures": [
                 "tidestone-seeker-class-bonus-enter-glimpses-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "3TfIePpuZO",
+            "name": "Trained Hawk",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "trained-hawk-true-sight-attacks-a-stealth-unit",
+                "trained-hawk-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "semanticFixtures": [
+                "trained-hawk-true-sight-attacks-a-stealth-unit",
+                "trained-hawk-vigor-wakes-it-at-the-end-of-the-turn"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49546,6 +49515,50 @@
             "priority": 32
         },
         {
+            "cardId": "x7yc0ije4d",
+            "name": "Whirlwind Reaper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "whirlwind-reaper-end-phase-declined-stays-rested",
+                "whirlwind-reaper-end-phase-removes-a-preparation-counter-to-wake-up"
+            ],
+            "semanticFixtures": [
+                "whirlwind-reaper-end-phase-declined-stays-rested",
+                "whirlwind-reaper-end-phase-removes-a-preparation-counter-to-wake-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "aKgdkLSBza",
+            "name": "Wilderness Harpist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "wilderness-harpist-class-bonus-stealth-cannot-be-attacked",
+                "wilderness-harpist-melody-gives-your-champion-plus-one-level-until-end-of-turn"
+            ],
+            "semanticFixtures": [
+                "wilderness-harpist-class-bonus-stealth-cannot-be-attacked",
+                "wilderness-harpist-melody-gives-your-champion-plus-one-level-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "f05n4ulo84",
             "name": "Wildheart Hymn",
             "type": "ACTION",
@@ -49562,6 +49575,30 @@
             "semanticFixtures": [
                 "wildheart-hymn-a-non-animal-ally-gets-no-counter",
                 "wildheart-hymn-puts-a-buff-counter-on-an-animal-that-enters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "m4o98vn1vo",
+            "name": "Winbless Arbalest",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-arbalest-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+                "winbless-arbalest-ranged-two-while-distant",
+                "winbless-arbalest-without-the-class-bonus-stays-rested"
+            ],
+            "semanticFixtures": [
+                "winbless-arbalest-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+                "winbless-arbalest-ranged-two-while-distant",
+                "winbless-arbalest-without-the-class-bonus-stays-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51073,6 +51110,52 @@
             "priority": 31
         },
         {
+            "cardId": "9ewgUjy34b",
+            "name": "Sworn Windhand",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "sworn-windhand-class-bonus-taunt-protects-the-champion",
+                "sworn-windhand-retaliates-with-retort-two-plus-the-number-of-omens",
+                "sworn-windhand-without-omens-retaliates-with-retort-two"
+            ],
+            "semanticFixtures": [
+                "sworn-windhand-class-bonus-taunt-protects-the-champion",
+                "sworn-windhand-retaliates-with-retort-two-plus-the-number-of-omens",
+                "sworn-windhand-without-omens-retaliates-with-retort-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "HWFWO0TB8l",
+            "name": "Tempest Silverback",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "tempest-silverback-class-bonus-gets-plus-two-power-and-life",
+                "tempest-silverback-pride-five-does-not-obey-a-level-four-champion",
+                "tempest-silverback-without-the-class-bonus-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "tempest-silverback-class-bonus-gets-plus-two-power-and-life",
+                "tempest-silverback-pride-five-does-not-obey-a-level-four-champion",
+                "tempest-silverback-without-the-class-bonus-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "fln04uv297",
             "name": "The Looking Glass",
             "type": "REGALIA,ITEM",
@@ -51225,6 +51308,27 @@
             ],
             "semanticFixtures": [
                 "windfall-check-champion-hit-opponent-banishes-three-from-their-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "z4fr707pbr",
+            "name": "Windstalker Wolf",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
+                "windstalker-wolf-pride-five-does-not-obey-a-level-four-champion"
+            ],
+            "semanticFixtures": [
+                "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
+                "windstalker-wolf-pride-five-does-not-obey-a-level-four-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

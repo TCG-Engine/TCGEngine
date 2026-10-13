@@ -1,0 +1,22 @@
+{
+    "name": "yunzhou-cavalry-on-enter-without-a-horse-stays-not-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ann23jkuys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ann23jkuys"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control a Horse ally"
+        ]
+    }
+}

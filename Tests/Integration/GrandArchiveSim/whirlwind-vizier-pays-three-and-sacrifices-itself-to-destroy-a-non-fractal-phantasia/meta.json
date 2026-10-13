@@ -1,0 +1,24 @@
+{
+    "name": "whirlwind-vizier-pays-three-and-sacrifices-itself-to-destroy-a-non-fractal-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:32:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5swaf8urrq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5swaf8urrq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "sacrifice",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(3), [REST]**, Sacrifice CARDNAME:** Destroy target non-Fractal phantasia."
+        ]
+    }
+}

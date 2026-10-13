@@ -1,0 +1,22 @@
+{
+    "name": "wildgrowth-feline-class-bonus-gets-a-buff-counter-when-another-beast-enters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3krdvxapdp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3krdvxapdp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever another Animal and/or Beast ally enters the field under your control, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

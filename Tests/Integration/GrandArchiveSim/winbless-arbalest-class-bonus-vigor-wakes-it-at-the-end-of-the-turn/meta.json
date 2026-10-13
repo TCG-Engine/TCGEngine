@@ -1,0 +1,21 @@
+{
+    "name": "winbless-arbalest-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m4o98vn1vo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m4o98vn1vo"
+        ],
+        "mechanics": [
+            "vigor",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

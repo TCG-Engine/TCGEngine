@@ -1,0 +1,22 @@
+{
+    "name": "wilderness-harpist-melody-gives-your-champion-plus-one-level-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKgdkLSBza"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKgdkLSBza"
+        ],
+        "mechanics": [
+            "melody",
+            "trigger",
+            "level"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Harmony or Melody card, your champion gets +1 level until end of turn."
+        ]
+    }
+}

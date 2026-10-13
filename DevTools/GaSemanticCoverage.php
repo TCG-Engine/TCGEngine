@@ -56,6 +56,7 @@ function GaHasObservableSemanticEvidence($assertions) {
             'card_exists',
             'computed_power_equals',
             'computed_life_equals',
+            'computed_level_equals',
             'scalar_zone_equals',
             'phase_is',
             'turn_player_is',

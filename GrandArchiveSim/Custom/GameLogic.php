@@ -6295,6 +6295,7 @@ function GAFieldAbilityCostTable() {
         "aou4be9z82:1" => ['reserve' => 2],
         "8677jq0hfm:0" => ['reserve' => 2, 'toMaterial' => true, 'bonus' => 'jin'], // Sundering Moon
         "7wKegim9Yl:0" => ['reserve' => 2, 'sacrifice' => true], // SignalTech One
+        "5swaf8urrq:0" => ['reserve' => 3, 'rest' => true, 'sacrifice' => true], // Whirlwind Vizier: (3), [REST], Sacrifice (the generated body paid nothing)
         "rZSnsLUzEd:0" => ['reserve' => 3, 'sacrifice' => true], // Vel-ocity Punch
         "tCTH0Bpfr5:0" => ['sacrifice' => true], // Delicious Pastry
         "tCTH0Bpfr5:1" => ['reserve' => 2, 'sacrifice' => true],
@@ -7453,9 +7454,10 @@ function OnCardActivated($player, $mzCard) {
                     AddCounters($player, "myField-" . $fi, "durability", 1);
                 }
                 break;
-            case "aKgdkLSBza": // Wilderness Harpist: when you activate a Melody or Harmony, +1 level this turn
+            case "aKgdkLSBza": // Wilderness Harpist: when you activate a Melody or Harmony, YOUR CHAMPION gets +1 level this turn (the marker went on the Harpist itself and read as +1 POWER)
                 if(PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY")) {
-                    AddTurnEffect("myField-" . $fi, "aKgdkLSBza");
+                    $harpistChampion = FindChampionMZ($player);
+                    if($harpistChampion !== null) AddTurnEffect($harpistChampion, "aKgdkLSBza");
                 }
                 break;
             case "f28y5rn0dt": // Sly Songstress: whenever you activate a Harmony or Melody, may discardâ†’draw
@@ -12941,6 +12943,19 @@ function EndPhase() {
         }
     }
 
+    // Yunzhou Cavalry (ann23jkuys): [Class Bonus] at the beginning of your end phase, if it is the only ally you control, put a buff counter on it (never wired)
+    $field = &GetField($turnPlayer);
+    $yunzhouIndex = -1;
+    $allyCount = 0;
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || !PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
+        ++$allyCount;
+        if($field[$i]->CardID === "ann23jkuys" && !HasNoAbilities($field[$i])) $yunzhouIndex = $i;
+    }
+    if($yunzhouIndex >= 0 && $allyCount === 1 && IsClassBonusActive($turnPlayer, CardClasses("ann23jkuys"))) {
+        AddCounters($turnPlayer, "myField-" . $yunzhouIndex, "buff", 1);
+    }
+
     // Lesser Boon of Shou (rSIXf50oBc): at the beginning of your end phase, put an enlighten counter on your champion
     $field = &GetField($turnPlayer);
     $champMZ = FindChampionMZ($turnPlayer);
@@ -15468,9 +15483,6 @@ function ObjectCurrentPower($obj) {
                 if(IsClassBonusActive($linkedObj->Controller, CardClasses($linkedObj->CardID))) $power += 2;
                 break;
             case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT
-                $power += 1;
-                break;
-            case "aKgdkLSBza": // Wilderness Harpist: +1 level (actually power) from Melody/Harmony activation
                 $power += 1;
                 break;
             case "3jg01o26b4": // Slice and Dice: copy from additional attack gets +3 POWER
@@ -20159,7 +20171,7 @@ function AddTurnEffect($mzCard, $effectID) {
     }
     // Striking Illuminance (2lukkhisu5): one "+1 POWER" marker per luxem card revealed from memory (ObjectCurrentPower counts them), so they must stack.
     // Scorchfire Assassin (o4h8cfo21a): +2 POWER marker per preparation counter removed, so they must stack too.
-    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a";
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "aKgdkLSBza" || $effectID === "qzzadf9q1v-POWER" || $effectID === "2lukkhisu5_REVEAL_POWER" || $effectID === "o4h8cfo21a";
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
@@ -24483,6 +24495,8 @@ function HasVigor($obj) {
     if($obj->CardID === "ioLmt0S7op" && IsFostered($obj)) return true;
     // Imperial Panzer (46neis2lho): [CB] vigor while fostered
     if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Yunzhou Cavalry (ann23jkuys): [CB] Vigor (missed by the keyword parser: the line follows an Equestrian clause)
+    if($obj->CardID === "ann23jkuys" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
     if($obj->CardID === "qxnv0jqeym" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
     // Slime Totem (jwanjcy453): Slime allies you control have vigor

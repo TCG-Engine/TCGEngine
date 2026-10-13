@@ -1,0 +1,23 @@
+{
+    "name": "whirlwind-reaper-end-phase-removes-a-preparation-counter-to-wake-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:31:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7yc0ije4d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7yc0ije4d"
+        ],
+        "mechanics": [
+            "end-phase",
+            "counter",
+            "status",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, you may remove a **preparation** counter from your champion. If you do, wake up Whirlwind Reaper."
+        ]
+    }
+}

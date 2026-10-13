@@ -504,9 +504,24 @@ gaScenario('battlefield-spotter-below-level-two-grants-no-ranged')
     ->covers(['level-gate', 'ranged', 'condition'], '[Level 2+] Other units you control have **ranged 1**.')
     ->register();
 
+// The taunt keyword family on the 'quiet' deck (the standard deck's fast cards open a window that swallows the attack click): player 1 holds the taunter and
+// player 2's Dungeon Guide has to hit it, not the champion.
+if (!function_exists('gaWindTaunt')) {
+    function gaWindTaunt(string $slug, string $ally, string $clause, bool $classBonus = false): void {
+        gaScenario($slug)
+            ->deckTemplate('quiet', $ally)
+            ->readyFor($ally, classBonus: $classBonus)
+            ->seed('myField', $ally, properties: ['Status' => 2])
+            ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
+            ->endTurn()->action(2, 10002, 'myField-1!FSM!')
+            ->rejects(2, 'theirField-0', 'Taunt: the champion cannot be attacked while the taunting ally is awake')
+            ->tested($ally)->covers(['taunt', 'attack-declaration'], $clause)->register();
+    }
+}
+
 // ---- Unrelenting Warden ----
 
-gaWaterTaunt('unrelenting-warden-class-bonus-taunt-protects-the-champion', 'Unrelenting Warden', [], '[Class Bonus] **Taunt**', true);
+gaWindTaunt('unrelenting-warden-class-bonus-taunt-protects-the-champion', 'Unrelenting Warden', '[Class Bonus] **Taunt**', true);
 
 gaScenario('unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn')
     ->deckTemplate('quiet', 'Unrelenting Warden')

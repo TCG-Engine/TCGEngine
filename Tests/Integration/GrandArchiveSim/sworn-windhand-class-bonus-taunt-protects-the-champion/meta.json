@@ -1,0 +1,21 @@
+{
+    "name": "sworn-windhand-class-bonus-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9ewgUjy34b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9ewgUjy34b"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt**"
+        ]
+    }
+}

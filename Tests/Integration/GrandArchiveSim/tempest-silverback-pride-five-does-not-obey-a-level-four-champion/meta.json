@@ -1,0 +1,21 @@
+{
+    "name": "tempest-silverback-pride-five-does-not-obey-a-level-four-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HWFWO0TB8l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HWFWO0TB8l"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 5**"
+        ]
+    }
+}

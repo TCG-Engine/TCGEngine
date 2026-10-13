@@ -1,0 +1,23 @@
+{
+    "name": "yunzhou-cavalry-without-the-class-bonus-has-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ann23jkuys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ann23jkuys"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    }
+}
