@@ -1,0 +1,24 @@
+{
+    "name": "rafales-slash-ciel-bonus-on-attack-pays-three-to-summon-a-rested-servant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:11:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rn1gmo124j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rn1gmo124j"
+        ],
+        "mechanics": [
+            "on-attack",
+            "champion-bonus",
+            "optional-cost",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] **On Attack**: You may pay (3). If you do, **summon** a Vacuous Servant token rested."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "ouragan-sentinel-without-ciel-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:09:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zs1pana81"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zs1pana81"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] **On Enter**"
+        ]
+    }
+}

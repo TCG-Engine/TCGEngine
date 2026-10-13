@@ -514,6 +514,8 @@ function NormalizeImbueOption($cardID, $config) {
 function GetCardImbueOptions($player, $cardID) {
     global $Imbue_Cards;
     $options = [];
+    // Crystalvein Awakening (jH3ZOavGPR) prints "[Merlin Bonus] Imbue 2": only a Merlin champion may imbue it.
+    if($cardID === "jH3ZOavGPR" && !IsMerlinBonusActive($player)) return [];
     if(isset($Imbue_Cards[$cardID])) {
         $config = $Imbue_Cards[$cardID];
         $configs = is_array($config) && isset($config[0]) ? $config : [$config];
@@ -6474,6 +6476,7 @@ function GAActivateAbilityCountOverrides() {
         "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
         "4ZpWIJAmSC" => ["Suppress"], // Lesser Boon of Astraeus
+        "2zs1pana81" => ["Suppress"], // Ouragan Sentinel
         "0z2snsdwmx" => ["Return"], // Scale of Souls
         "vm4xg2hedp" => ["Load"], // Refluxal Ribbon
         "hXERTZPM0w" => ["Damage 1", "Damage 2"], // Unbridled Flare
@@ -25401,6 +25404,7 @@ $rangedCardValues = [
     "xrpx8jypwc" => [2, true, ["RANGER"]], // Gloamspire Wraith
     "por7ch2bbm" => [2, false, []], // Relentless Hexchaser
     "nl1gxrpx8j" => [2, false, []], // Perse, Relentless Raptor
+    "2zs1pana81" => [2, false, []], // Ouragan Sentinel (the generator missed its Ranged 2)
     // Other sets â€” Ranged allies/champions
     "ryvfq3huqj" => [2, false, []], // Polkhawk, Bombastic Shot
     "ki6fxxgmue" => [2, false, []], // Bertha, Spry Howitzer

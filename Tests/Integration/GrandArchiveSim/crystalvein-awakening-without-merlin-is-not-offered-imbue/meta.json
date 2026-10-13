@@ -1,0 +1,22 @@
+{
+    "name": "crystalvein-awakening-without-merlin-is-not-offered-imbue",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:15:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jH3ZOavGPR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jH3ZOavGPR"
+        ],
+        "mechanics": [
+            "imbue",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **Imbue 2**"
+        ]
+    }
+}

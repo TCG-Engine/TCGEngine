@@ -1,0 +1,22 @@
+{
+    "name": "rafales-slash-ciel-bonus-on-attack-declined-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rn1gmo124j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rn1gmo124j"
+        ],
+        "mechanics": [
+            "on-attack",
+            "champion-bonus",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "You may pay (3)."
+        ]
+    }
+}

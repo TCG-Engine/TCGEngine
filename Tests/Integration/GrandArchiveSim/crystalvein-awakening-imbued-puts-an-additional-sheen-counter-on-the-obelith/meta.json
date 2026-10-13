@@ -1,0 +1,24 @@
+{
+    "name": "crystalvein-awakening-imbued-puts-an-additional-sheen-counter-on-the-obelith",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:14:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jH3ZOavGPR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jH3ZOavGPR"
+        ],
+        "mechanics": [
+            "imbue",
+            "champion-bonus",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **Imbue 2**",
+            "If CARDNAME is **imbued**, put an additional **sheen** counter on that token."
+        ]
+    }
+}

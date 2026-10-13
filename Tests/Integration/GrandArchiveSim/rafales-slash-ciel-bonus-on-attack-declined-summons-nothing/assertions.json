@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Declined: no token (the champion and the weapon)"
+    }
+]

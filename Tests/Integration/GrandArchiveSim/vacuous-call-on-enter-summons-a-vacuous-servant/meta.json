@@ -1,0 +1,22 @@
+{
+    "name": "vacuous-call-on-enter-summons-a-vacuous-servant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:10:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ex6AXz6IhB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ex6AXz6IhB"
+        ],
+        "mechanics": [
+            "on-enter",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** a Vacuous Servant token."
+        ]
+    }
+}

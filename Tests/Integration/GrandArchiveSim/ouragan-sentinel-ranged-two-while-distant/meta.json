@@ -1,0 +1,22 @@
+{
+    "name": "ouragan-sentinel-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:09:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zs1pana81"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zs1pana81"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    }
+}

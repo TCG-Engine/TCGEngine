@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Not Alice: no token even though an opposing unit has even life"
+    }
+]

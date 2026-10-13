@@ -1,0 +1,22 @@
+{
+    "name": "fraternal-garrison-jin-bonus-gets-plus-one-power-when-another-ally-enters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ln926ymxdc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ln926ymxdc"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus] Whenever another ally enters the field under your control, CARDNAME gets +1 [POWER] until end of turn."
+        ]
+    }
+}

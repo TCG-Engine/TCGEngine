@@ -2812,6 +2812,61 @@ $activateAbilityPrereqs["4ZpWIJAmSC:0"] = function($player, $mzID, $abilityIndex
     return !empty(ZoneSearch("myField", ["ALLY", "ITEM", "WEAPON"])) || !empty(ZoneSearch("theirField", ["ALLY", "ITEM", "WEAPON"]));
 };
 
+// Perse, Relentless Raptor (nl1gxrpx8j) and Ouragan Sentinel (2zs1pana81): "[REST]: Suppress target ally, item, or weapon. Activate this ability only if CARDNAME is distant." Perse's generated body
+// only offered the OPPONENT's objects (the text says any), and the Sentinel's ability was never generated at all.
+foreach(["nl1gxrpx8j", "2zs1pana81"] as $gaDistantSuppressID) {
+    $activateAbilityAbilities[$gaDistantSuppressID . ":0"] = function($player) use ($gaDistantSuppressID) {
+        $targets = FilterSpellshroudTargets(array_merge(
+            ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]),
+            ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["ITEM"]), ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["ITEM"]),
+            ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["WEAPON"]), ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["WEAPON"])
+        ));
+        $mzID = DecisionQueueController::GetVariable("mzID");
+        $targets = array_values(array_filter($targets, fn($mz) => $mz !== $mzID));
+        if(empty($targets)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "");
+        DecisionQueueController::AddDecision($player, "CUSTOM", $gaDistantSuppressID . ":0:ActivateAbility-1", 1);
+    };
+    $activateAbilityPrereqs[$gaDistantSuppressID . ":0"] = function($player, $mzID, $abilityIndex) { //distant suppress prereq
+        $sourceObject = GetZoneObject($mzID);
+        if($sourceObject === null || $sourceObject->Status != 2 || !IsDistant($sourceObject)) return false;
+        $targets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]),
+            ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["ITEM"]), ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["ITEM"]),
+            ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["WEAPON"]), ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["WEAPON"]));
+        $targets = array_values(array_filter($targets, fn($mz) => $mz !== $mzID));
+        return !empty($targets);
+    };
+}
+$customDQHandlers["2zs1pana81:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Ouragan Sentinel: suppress the chosen object
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    SuppressAlly($player, $lastDecision);
+};
+
+// Schwartz Castler PDLfDZFari: "[Alice Bonus] On Enter: If an opponent controls a unit with an even life stat, summon a Pawn Piece token." The generated body never checked the Alice Bonus.
+$enterAbilities["PDLfDZFari:0"] = function($player) { //Schwartz Castler
+    if(!IsAliceBonusActive($player)) return;
+    $opponent = GetOpponent($player);
+    foreach(GetField($opponent) as $unit) {
+        if($unit === null || $unit->removed) continue;
+        if(ObjectCurrentHP($unit) % 2 === 0) {
+            SummonPawnPieceToken($player, 1);
+            break;
+        }
+    }
+};
+
+// Crystalvein Awakening jH3ZOavGPR: only the "Imbue 2" is a [Merlin Bonus]; the Memorite Obelith is summoned for everyone (the generated body returned early without the bonus). GetCardImbueOptions() withholds the imbue
+// from a non-Merlin champion, so isImbued is only YES for Merlin.
+$cardActivatedAbilities["jH3ZOavGPR:0"] = function($player) { //Crystalvein Awakening
+    global $playerID;
+    SummonMemorite($player, "fdnlbJm3hr");
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $newIdx = count($field) - 1;
+    $sheenCount = DecisionQueueController::GetVariable("isImbued") === "YES" ? 2 : 1;
+    AddCounters($player, $zone . "-" . $newIdx, "sheen", $sheenCount);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

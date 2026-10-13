@@ -1,0 +1,22 @@
+{
+    "name": "schwartz-castler-alice-bonus-without-an-even-life-opposing-unit-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PDLfDZFari"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PDLfDZFari"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If an opponent controls a unit with an even life stat"
+        ]
+    }
+}

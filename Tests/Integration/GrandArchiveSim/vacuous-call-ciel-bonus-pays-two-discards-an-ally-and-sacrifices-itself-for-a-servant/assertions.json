@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The seeded Vacuous Call summoned one Servant on enter; the ability summoned a second"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "L67r0GlRHR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Ciel Bonus] A Vacuous Servant token was summoned"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "ex6AXz6IhB",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Vacuous Call was sacrificed"
+    }
+]

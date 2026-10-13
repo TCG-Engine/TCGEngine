@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:08:17+00:00",
+    "generatedAt": "2026-10-13T14:16:34+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1583,
+        "cardsWithExistingFixtures": 1594,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 894,
+        "cardsNeedingSemanticCoverage": 883,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1530,23 +1530,6 @@
             "priority": 23
         },
         {
-            "cardId": "ex6AXz6IhB",
-            "name": "Vacuous Call",
-            "type": "PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "lcCGyyNGuM",
             "name": "Wool Brook",
             "type": "DOMAIN",
@@ -2235,25 +2218,6 @@
                 "draw-discard",
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "jH3ZOavGPR",
-            "name": "Crystalvein Awakening",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
-                "token",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3046,26 +3010,6 @@
                 "damage",
                 "prevention",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "rn1gmo124j",
-            "name": "Rafale's Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -6060,24 +6004,6 @@
             "priority": 14
         },
         {
-            "cardId": "UdYcJGrJt5",
-            "name": "Visage's Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "PIcB5KuuMd",
             "name": "Vorpal Sword",
             "type": "REGALIA,WEAPON",
@@ -7937,23 +7863,6 @@
             "priority": 13
         },
         {
-            "cardId": "2zs1pana81",
-            "name": "Ouragan Sentinel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "WShYN9M3lU",
             "name": "Owl Familiar",
             "type": "ALLY",
@@ -8490,23 +8399,6 @@
                 "targeting",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "PDLfDZFari",
-            "name": "Schwartz Castler",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10217,22 +10109,6 @@
             "priority": 12
         },
         {
-            "cardId": "vproiWE55M",
-            "name": "Fracturing Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "p4lgdlx7md",
             "name": "Framework Sidearm",
             "type": "REGALIA,WEAPON",
@@ -10241,22 +10117,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "ln926ymxdc",
-            "name": "Fraternal Garrison",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10737,22 +10597,6 @@
             "mechanics": [
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "racxis1ji8",
-            "name": "Landscape Corsair",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13170,21 +13014,6 @@
             "priority": 11
         },
         {
-            "cardId": "5tz8bwcoel",
-            "name": "Effluve Guard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "KmM2o1ozGr",
             "name": "Elusive Headhunter",
             "type": "ALLY",
@@ -14827,21 +14656,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "L67r0GlRHR",
-            "name": "Vacuous Servant",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -32803,6 +32617,28 @@
             "priority": 43
         },
         {
+            "cardId": "ex6AXz6IhB",
+            "name": "Vacuous Call",
+            "type": "PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "vacuous-call-ciel-bonus-pays-two-discards-an-ally-and-sacrifices-itself-for-a-servant",
+                "vacuous-call-on-enter-summons-a-vacuous-servant"
+            ],
+            "semanticFixtures": [
+                "vacuous-call-on-enter-summons-a-vacuous-servant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "5av43ehjdu",
             "name": "Ventus, Staff of Zephyrs",
             "type": "REGALIA,ITEM",
@@ -34001,6 +33837,33 @@
             "priority": 35
         },
         {
+            "cardId": "jH3ZOavGPR",
+            "name": "Crystalvein Awakening",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crystalvein-awakening-imbued-puts-an-additional-sheen-counter-on-the-obelith",
+                "crystalvein-awakening-not-imbued-summons-a-memorite-obelith-with-one-sheen-counter",
+                "crystalvein-awakening-without-merlin-is-not-offered-imbue"
+            ],
+            "semanticFixtures": [
+                "crystalvein-awakening-imbued-puts-an-additional-sheen-counter-on-the-obelith",
+                "crystalvein-awakening-not-imbued-summons-a-memorite-obelith-with-one-sheen-counter",
+                "crystalvein-awakening-without-merlin-is-not-offered-imbue"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "MG4zUMPqIC",
             "name": "Dante, Hematic Overdrive",
             "type": "CHAMPION",
@@ -34958,6 +34821,32 @@
             "semanticFixtures": [
                 "powered-sentinel-class-bonus-enter-hurts-your-champion-and-summons-a-powercell",
                 "powered-sentinel-without-the-class-bonus-does-nothing-on-enter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "rn1gmo124j",
+            "name": "Rafale's Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rafales-slash-ciel-bonus-on-attack-declined-summons-nothing",
+                "rafales-slash-ciel-bonus-on-attack-pays-three-to-summon-a-rested-servant"
+            ],
+            "semanticFixtures": [
+                "rafales-slash-ciel-bonus-on-attack-declined-summons-nothing",
+                "rafales-slash-ciel-bonus-on-attack-pays-three-to-summon-a-rested-servant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40139,6 +40028,30 @@
             "priority": 34
         },
         {
+            "cardId": "UdYcJGrJt5",
+            "name": "Visage's Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "visages-strike-ciel-bonus-on-hit-banishes-itself-as-an-omen",
+                "visages-strike-ciel-bonus-with-three-omens-goes-to-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "visages-strike-ciel-bonus-on-hit-banishes-itself-as-an-omen",
+                "visages-strike-ciel-bonus-with-three-omens-goes-to-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "m3n9yvn1uo",
             "name": "Volatile Fusilier",
             "type": "ALLY",
@@ -43421,6 +43334,33 @@
             "priority": 33
         },
         {
+            "cardId": "2zs1pana81",
+            "name": "Ouragan Sentinel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ouragan-sentinel-ciel-bonus-on-enter-summons-a-vacuous-servant",
+                "ouragan-sentinel-ranged-two-while-distant",
+                "ouragan-sentinel-rests-to-suppress-an-ally-while-distant",
+                "ouragan-sentinel-without-ciel-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "ouragan-sentinel-ciel-bonus-on-enter-summons-a-vacuous-servant",
+                "ouragan-sentinel-ranged-two-while-distant",
+                "ouragan-sentinel-rests-to-suppress-an-ally-while-distant",
+                "ouragan-sentinel-without-ciel-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "YZIyPCvgzH",
             "name": "Outfitted Ravager",
             "type": "ALLY",
@@ -44200,6 +44140,31 @@
             "semanticFixtures": [
                 "scattering-gusts-suppresses-two-allies-and-class-bonus-enlightens",
                 "scattering-gusts-without-the-class-bonus-adds-no-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "PDLfDZFari",
+            "name": "Schwartz Castler",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "schwartz-castler-alice-bonus-on-enter-summons-a-pawn-piece-when-an-opposing-unit-has-even-life",
+                "schwartz-castler-alice-bonus-without-an-even-life-opposing-unit-summons-nothing",
+                "schwartz-castler-without-alice-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "schwartz-castler-alice-bonus-on-enter-summons-a-pawn-piece-when-an-opposing-unit-has-even-life",
+                "schwartz-castler-alice-bonus-without-an-even-life-opposing-unit-summons-nothing",
+                "schwartz-castler-without-alice-summons-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45506,10 +45471,14 @@
                 "counter"
             ],
             "existingFixtures": [
-                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card"
+                "windspire-crest-diao-chan-bonus-removes-two-glimmer-counters-to-buff-an-ally",
+                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card",
+                "windspire-crest-without-diao-chan-cannot-use-its-first-ability"
             ],
             "semanticFixtures": [
-                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card"
+                "windspire-crest-diao-chan-bonus-removes-two-glimmer-counters-to-buff-an-ally",
+                "windspire-crest-pays-four-and-banishes-itself-to-draw-a-card",
+                "windspire-crest-without-diao-chan-cannot-use-its-first-ability"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46936,6 +46905,48 @@
             "priority": 32
         },
         {
+            "cardId": "vproiWE55M",
+            "name": "Fracturing Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fracturing-slash-merlin-bonus-on-attack-moves-sheen-counters-onto-the-defender"
+            ],
+            "semanticFixtures": [
+                "fracturing-slash-merlin-bonus-on-attack-moves-sheen-counters-onto-the-defender"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "ln926ymxdc",
+            "name": "Fraternal Garrison",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fraternal-garrison-jin-bonus-gets-plus-one-power-when-another-ally-enters",
+                "fraternal-garrison-without-jin-gets-no-power-when-another-ally-enters"
+            ],
+            "semanticFixtures": [
+                "fraternal-garrison-jin-bonus-gets-plus-one-power-when-another-ally-enters",
+                "fraternal-garrison-without-jin-gets-no-power-when-another-ally-enters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "qyRKqSkAQX",
             "name": "Freeze Stiff",
             "type": "ACTION",
@@ -47440,6 +47451,28 @@
                 "kind-beastcaller-enter-look-five-decline-all-five-bottom",
                 "kind-beastcaller-enter-look-five-no-animal-all-five-bottom",
                 "kind-beastcaller-enter-look-five-reveal-deep-animal-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "racxis1ji8",
+            "name": "Landscape Corsair",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "landscape-corsair-kongming-bonus-on-enter-changes-the-direction-of-the-shifting-currents",
+                "landscape-corsair-without-kongming-leaves-the-currents-alone"
+            ],
+            "semanticFixtures": [
+                "landscape-corsair-kongming-bonus-on-enter-changes-the-direction-of-the-shifting-currents",
+                "landscape-corsair-without-kongming-leaves-the-currents-alone"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50408,6 +50441,27 @@
             "priority": 31
         },
         {
+            "cardId": "5tz8bwcoel",
+            "name": "Effluve Guard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "effluve-guard-ciel-bonus-as-an-omen-gives-vacuous-servants-vigor",
+                "effluve-guard-not-an-omen-gives-vacuous-servants-no-vigor"
+            ],
+            "semanticFixtures": [
+                "effluve-guard-ciel-bonus-as-an-omen-gives-vacuous-servants-vigor",
+                "effluve-guard-not-an-omen-gives-vacuous-servants-no-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "wu20yoje86",
             "name": "Elder Mandrill",
             "type": "ALLY",
@@ -51564,6 +51618,27 @@
             ],
             "semanticFixtures": [
                 "two-of-hearts-cardistry-gets-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "L67r0GlRHR",
+            "name": "Vacuous Servant",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "vacuous-servant-ciel-bonus-gets-plus-one-power-per-attack-omen-and-plus-one-life-per-ally-omen",
+                "vacuous-servant-without-ciel-has-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "vacuous-servant-ciel-bonus-gets-plus-one-power-per-attack-omen-and-plus-one-life-per-ally-omen",
+                "vacuous-servant-without-ciel-has-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

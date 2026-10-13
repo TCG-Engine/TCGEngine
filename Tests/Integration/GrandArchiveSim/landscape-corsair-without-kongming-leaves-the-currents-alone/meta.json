@@ -1,0 +1,22 @@
+{
+    "name": "landscape-corsair-without-kongming-leaves-the-currents-alone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:15:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "racxis1ji8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "racxis1ji8"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Kongming Bonus] **On Enter:**"
+        ]
+    }
+}

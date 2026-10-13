@@ -1,0 +1,24 @@
+{
+    "name": "ouragan-sentinel-rests-to-suppress-an-ally-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:10:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zs1pana81"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zs1pana81"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "suppress",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]**: Suppress** target ally, item, or weapon. Activate this ability only if CARDNAME is **distant**."
+        ]
+    }
+}

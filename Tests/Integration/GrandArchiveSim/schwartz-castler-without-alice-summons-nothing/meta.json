@@ -1,0 +1,22 @@
+{
+    "name": "schwartz-castler-without-alice-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PDLfDZFari"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PDLfDZFari"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **On Enter: **"
+        ]
+    }
+}

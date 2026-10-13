@@ -1,0 +1,22 @@
+{
+    "name": "windspire-crest-without-diao-chan-cannot-use-its-first-ability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzfkc8ntn4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzfkc8ntn4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "champion-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus]"
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "visages-strike-ciel-bonus-with-three-omens-goes-to-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UdYcJGrJt5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UdYcJGrJt5"
+        ],
+        "mechanics": [
+            "on-hit",
+            "champion-bonus",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you have two or less **omens**"
+        ]
+    }
+}

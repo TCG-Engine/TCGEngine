@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "Rpr6yCQKU6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Alice Bonus] An opposing unit has 6 life: a Pawn Piece token was summoned"
+    }
+]

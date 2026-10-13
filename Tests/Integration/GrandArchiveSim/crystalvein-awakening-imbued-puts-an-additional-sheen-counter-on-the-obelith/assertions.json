@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"sheen\":2}",
+        "semantic": true,
+        "label": "Imbued: an additional sheen counter (two)"
+    }
+]

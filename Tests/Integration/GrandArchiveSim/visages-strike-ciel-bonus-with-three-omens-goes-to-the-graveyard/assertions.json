@@ -1,0 +1,11 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "UdYcJGrJt5",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Three omens: the Strike went to the graveyard as usual"
+    }
+]
