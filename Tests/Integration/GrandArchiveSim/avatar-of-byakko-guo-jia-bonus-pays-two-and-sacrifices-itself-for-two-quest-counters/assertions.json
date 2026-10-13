@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"quest\":2}",
+        "semantic": true,
+        "label": "[Guo Jia Bonus] Two quest counters on the champion"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "TjiH4U35bv",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Avatar was sacrificed"
+    }
+]

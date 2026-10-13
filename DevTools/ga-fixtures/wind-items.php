@@ -469,3 +469,30 @@ gaScenario('invigorating-concoction-rests-and-sacrifices-for-two-buff-counters-a
     ->tested('Invigorating Concoction')
     ->covers(['sacrifice', 'rest', 'counter', 'draw', 'targeting'], '[REST], **Sacrifice Invigorating Concoction**: Put two **buff** counters on up to one target ally. Draw a card.')
     ->register();
+
+// ---- Evaporation Synchron ----
+// Purifying Thurible makes the opponent banish cards from their own graveyard: a water card with floating memory among them is the trigger.
+
+gaScenario('evaporation-synchron-gets-a-refinement-counter-when-a-water-floating-memory-card-is-banished-from-an-opponents-graveyard')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Evaporation Synchron')
+    ->seed('myField', 'Evaporation Synchron')
+    ->seed('myField', 'Purifying Thurible')
+    ->seed('myGraveyard', 'Throne-Keeper Bullfrog', player: 2)
+    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->answer(1, '1')->pay(1)->answer(2, 'myGraveyard-0')
+    ->expectProperty('p1Field-1', 'Counters', '{"refinement":1}', 'A water floating-memory card was banished from the opponent\'s graveyard: a refinement counter')
+    ->tested('Evaporation Synchron')
+    ->covers(['trigger', 'counter', 'floating-memory', 'banish'], 'Whenever a water element card with **floating memory** is banished from an opponent\'s graveyard, put a **refinement** counter on CARDNAME.')
+    ->register();
+
+gaScenario('evaporation-synchron-a-non-water-card-banished-from-an-opponents-graveyard-gives-no-counter')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Evaporation Synchron')
+    ->seed('myField', 'Evaporation Synchron')
+    ->seed('myField', 'Purifying Thurible')
+    ->seed('myGraveyard', 'Dungeon Guide', player: 2)
+    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->answer(1, '1')->pay(1)->answer(2, 'myGraveyard-0')
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'A norm card: no counter')
+    ->tested('Evaporation Synchron')
+    ->covers(['trigger', 'counter', 'condition'], 'a water element card with **floating memory**')
+    ->register();

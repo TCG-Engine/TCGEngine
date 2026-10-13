@@ -1,0 +1,22 @@
+{
+    "name": "avatar-of-byakko-without-guo-jia-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:25:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TjiH4U35bv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TjiH4U35bv"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] As long as you control a Beast, CARDNAME's base power is **X**"
+        ]
+    }
+}

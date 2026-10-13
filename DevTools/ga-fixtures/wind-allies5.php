@@ -171,3 +171,19 @@ gaScenario('bushwhack-bandit-without-the-class-bonus-does-not-empower')
     ->tested('Bushwhack Bandit')
     ->covers(['on-enter', 'class-bonus', 'empower', 'condition'], '[Class Bonus] **On Enter:** **Empower 2**.')
     ->register();
+
+// ---- Tempestuous Seraphim ----
+// Fast Activation: it can be played in response to an attack. Its imbued On Enter (4 damage to an attacking ally) is not exercised yet: the Advanced Imbue 2 with Elysian
+// Aspirants did not produce an imbued Seraphim in the response window (see ENGINE-FINDINGS).
+
+gaScenario('tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Tempestuous Seraphim')
+    ->seed('myHand', 'Tempestuous Seraphim')
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 2])
+    ->endTurn()->pass(1)->pass(1)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(1, 'myHand-7')->answer(1, 'NO')->pay(3)
+    ->expectCardExists('myField', 'Tempestuous Seraphim', 'Fast Activation: the Seraphim was played in response to the attack')
+    ->tested('Tempestuous Seraphim')
+    ->covers(['keyword', 'fast-activation'], '**Fast Activation**')
+    ->register();

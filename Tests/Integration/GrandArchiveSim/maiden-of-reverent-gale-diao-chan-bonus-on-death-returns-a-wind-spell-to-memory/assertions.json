@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "dbuoc8sm7z",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "[Diao Chan Bonus] On Death: the wind Spell returned from the graveyard to memory"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "5wdysg327b",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Maiden died"
+    }
+]

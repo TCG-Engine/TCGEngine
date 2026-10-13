@@ -1000,7 +1000,8 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
         $banishedObj = GetZoneObject($mzCard);
         if($banishedObj === null || $banishedObj->removed) continue;
         $banishedCardID = $banishedObj->CardID;
-        MZMove($player, $mzCard, "myBanish");
+        // A card banished from an OPPONENT's graveyard (Orchestrated Seizure) goes to its owner's banishment, not the payer's.
+        MZMove($player, $mzCard, strpos($mzCard, "their") === 0 ? "theirBanish" : "myBanish");
         if($banishedCardID !== null) {
             PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
             WeavingManastreamOnFloatingBanished($player, $banishedCardID);

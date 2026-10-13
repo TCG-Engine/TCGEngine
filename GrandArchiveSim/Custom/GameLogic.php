@@ -6724,6 +6724,20 @@ function BanishAfterAdd($player, $CardID="-", $TurnEffects="-", $Counters="-") {
             OnBanishedFromMemory($player, $CardID, $added);
         }
     }
+    // Evaporation Synchron (rAiEX6Ra4p): "Whenever a water element card with floating memory is banished from an opponent's graveyard, put a refinement counter on CARDNAME."
+    // The listener function existed (EvaporationSynchronBanish) but nothing ever called it.
+    if(isset($added->_sourceZone) && ($added->_sourceZone === "myGraveyard" || $added->_sourceZone === "theirGraveyard")
+        && PropertyContains(CardElement($added->CardID), "WATER") && HasFloatingMemory($added)) {
+        $synchronOwner = $player == 1 ? 2 : 1;
+        global $playerID;
+        $synchronZone = $synchronOwner == $playerID ? "myField" : "theirField";
+        $synchronField = GetField($synchronOwner);
+        for($si = 0; $si < count($synchronField); ++$si) {
+            if(!$synchronField[$si]->removed && $synchronField[$si]->CardID === "rAiEX6Ra4p" && !HasNoAbilities($synchronField[$si])) {
+                AddCounters($synchronOwner, $synchronZone . "-" . $si, "refinement", 1);
+            }
+        }
+    }
     $triggerPlayer = ResolveOnBanishTriggerPlayer($player, $added);
     $triggerMzID = GetOnBanishTriggerMzID($added, $triggerPlayer);
     $previousMzID = DecisionQueueController::GetVariable("mzID");
@@ -20580,6 +20594,9 @@ function CanAffordCardActivation($player, $obj) {
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
+// Orchestrated Seizure (pwscn0esog): activated in the opponent's end phase, so its pending marker must survive the opponent's end-of-turn expiry (which clears BOTH players' "until end of turn"
+// global effects) until the owner's materialize phase promotes it to pwscn0esog_ACTIVE (MaterializePhase()).
+$foreverEffects["pwscn0esog_PENDING"] = true;
 // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit â€” opponent materializations cost 1 more
 $untilBeginTurnEffects["3vkxrw9462"] = true;
 // Vanitas, Convergent Ruin (8m69iq4d5v): On Champion Hit (7+ damage) â€” opponent materializations cost 1 more

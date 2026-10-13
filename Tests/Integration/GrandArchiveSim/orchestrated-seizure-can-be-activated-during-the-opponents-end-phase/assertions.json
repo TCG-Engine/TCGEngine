@@ -1,0 +1,29 @@
+[
+    {
+        "step": 8,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "pwscn0esog_ACTIVE",
+        "value": 1,
+        "semantic": true,
+        "label": "Activated in the opponent's end phase: the floating-memory access is active in my materialize phase"
+    },
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "pwscn0esog",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The action resolved"
+    },
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "theirBanish",
+        "cardID": "jdog5yo5gg",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The opponent's floating-memory card was banished (into its owner's banishment) to pay the 1 memory cost"
+    }
+]

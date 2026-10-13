@@ -1,0 +1,23 @@
+{
+    "name": "avatar-of-byakko-guo-jia-bonus-pays-two-and-sacrifices-itself-for-two-quest-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:25:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TjiH4U35bv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TjiH4U35bv"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "champion-bonus",
+            "sacrifice",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] (2)**, Sacrifice CARDNAME:** Put two **quest** counters on your champion."
+        ]
+    }
+}

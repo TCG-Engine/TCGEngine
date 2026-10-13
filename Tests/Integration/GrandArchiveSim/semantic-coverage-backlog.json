@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:22:54+00:00",
+    "generatedAt": "2026-10-13T14:31:24+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1602,
+        "cardsWithExistingFixtures": 1607,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 875,
+        "cardsNeedingSemanticCoverage": 870,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1627,24 +1627,6 @@
             "priority": 22
         },
         {
-            "cardId": "rAiEX6Ra4p",
-            "name": "Evaporation Synchron",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "rpELNyrSrM",
             "name": "Fabricator Slime",
             "type": "ALLY",
@@ -1735,22 +1717,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "pwscn0esog",
-            "name": "Orchestrated Seizure",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2758,25 +2724,6 @@
             "priority": 15
         },
         {
-            "cardId": "5wdysg327b",
-            "name": "Maiden of Reverent Gale",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "j3q2svdv3z",
             "name": "Mechanical Hare",
             "type": "ALLY",
@@ -3228,26 +3175,6 @@
                 "recover",
                 "draw-discard",
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "HYFtrEXYFi",
-            "name": "Tempestuous Seraphim",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
                 "trigger",
                 "condition"
             ],
@@ -9298,22 +9225,6 @@
             "mechanics": [
                 "targeting",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "TjiH4U35bv",
-            "name": "Avatar of Byakko",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -32703,6 +32614,30 @@
             "priority": 42
         },
         {
+            "cardId": "rAiEX6Ra4p",
+            "name": "Evaporation Synchron",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "evaporation-synchron-a-non-water-card-banished-from-an-opponents-graveyard-gives-no-counter",
+                "evaporation-synchron-gets-a-refinement-counter-when-a-water-floating-memory-card-is-banished-from-an-opponents-graveyard"
+            ],
+            "semanticFixtures": [
+                "evaporation-synchron-a-non-water-card-banished-from-an-opponents-graveyard-gives-no-counter",
+                "evaporation-synchron-gets-a-refinement-counter-when-a-water-floating-memory-card-is-banished-from-an-opponents-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "bmoqk2c7wk",
             "name": "Fireblooded Oath",
             "type": "ACTION",
@@ -32954,6 +32889,26 @@
             ],
             "semanticFixtures": [
                 "oppressive-presence-attackers-must-pay-the-highest-fire-ally-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "pwscn0esog",
+            "name": "Orchestrated Seizure",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "orchestrated-seizure-can-be-activated-during-the-opponents-end-phase"
+            ],
+            "semanticFixtures": [
+                "orchestrated-seizure-can-be-activated-during-the-opponents-end-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34619,6 +34574,31 @@
             "priority": 35
         },
         {
+            "cardId": "5wdysg327b",
+            "name": "Maiden of Reverent Gale",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "maiden-of-reverent-gale-diao-chan-bonus-on-death-returns-a-wind-spell-to-memory",
+                "maiden-of-reverent-gale-without-diao-chan-returns-nothing-when-it-dies"
+            ],
+            "semanticFixtures": [
+                "maiden-of-reverent-gale-diao-chan-bonus-on-death-returns-a-wind-spell-to-memory",
+                "maiden-of-reverent-gale-without-diao-chan-returns-nothing-when-it-dies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "m6c8xy4cje",
             "name": "Misteye Archer",
             "type": "ALLY",
@@ -35366,6 +35346,30 @@
             "semanticFixtures": [
                 "sylphs-envelopment-a-phantasia-enters-with-a-buff-counter",
                 "sylphs-envelopment-returns-the-ally-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "HYFtrEXYFi",
+            "name": "Tempestuous Seraphim",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack"
+            ],
+            "semanticFixtures": [
+                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45860,6 +45864,30 @@
             "semanticFixtures": [
                 "synthetic-core-banishes-itself-to-return-a-dead-automaton-to-memory",
                 "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "TjiH4U35bv",
+            "name": "Avatar of Byakko",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "avatar-of-byakko-guo-jia-bonus-base-power-is-the-highest-beast-ally-power",
+                "avatar-of-byakko-guo-jia-bonus-pays-two-and-sacrifices-itself-for-two-quest-counters",
+                "avatar-of-byakko-without-guo-jia-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "avatar-of-byakko-guo-jia-bonus-base-power-is-the-highest-beast-ally-power",
+                "avatar-of-byakko-guo-jia-bonus-pays-two-and-sacrifices-itself-for-two-quest-counters",
+                "avatar-of-byakko-without-guo-jia-has-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

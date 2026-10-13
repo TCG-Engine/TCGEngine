@@ -325,3 +325,62 @@ gaScenario('dominating-strike-without-vanitas-is-not-offered-the-alternative-cos
     ->tested('Dominating Strike')
     ->covers(['alt-cost', 'champion-bonus', 'condition'], '[Vanitas Bonus]')
     ->register();
+
+// ---- Avatar of Byakko (Guo Jia) ----
+
+gaBonus('avatar-of-byakko-guo-jia-bonus-base-power-is-the-highest-beast-ally-power', 'Guo Jia, Chosen Disciple')
+    ->seed('myField', 'Inferno Slime')
+    ->seed('myField', 'Avatar of Byakko')
+    ->endTurn()
+    ->expectPower('p1Field-2', 3, '[Guo Jia Bonus] With a Beast ally (Inferno Slime, 3 power) the Avatar\'s base power is 3')
+    ->tested('Avatar of Byakko')
+    ->covers(['champion-bonus', 'stat-change', 'static-ability'], '[Guo Jia Bonus] As long as you control a Beast, CARDNAME\'s base power is **X**, where **X** is the highest base power stat among Beast allies you control.')
+    ->register();
+
+gaScenario('avatar-of-byakko-without-guo-jia-has-its-printed-power')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Avatar of Byakko')
+    ->seed('myField', 'Inferno Slime')
+    ->seed('myField', 'Avatar of Byakko')
+    ->endTurn()
+    ->expectPower('p1Field-2', 1, 'Not Guo Jia: the printed 1 power')
+    ->tested('Avatar of Byakko')
+    ->covers(['champion-bonus', 'stat-change', 'condition'], '[Guo Jia Bonus] As long as you control a Beast, CARDNAME\'s base power is **X**')
+    ->register();
+
+gaBonus('avatar-of-byakko-guo-jia-bonus-pays-two-and-sacrifices-itself-for-two-quest-counters', 'Guo Jia, Chosen Disciple')
+    ->seed('myField', 'Avatar of Byakko')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)
+    ->expectProperty('p1Field-0', 'Counters', '{"quest":2}', '[Guo Jia Bonus] Two quest counters on the champion')
+    ->expectCardExists('myGraveyard', 'Avatar of Byakko', 'The Avatar was sacrificed')
+    ->tested('Avatar of Byakko')
+    ->covers(['activated-ability', 'champion-bonus', 'sacrifice', 'counter'], '[Guo Jia Bonus] (2)**, Sacrifice CARDNAME:** Put two **quest** counters on your champion.')
+    ->register();
+
+// ---- Maiden of Reverent Gale (Diao Chan) ----
+
+gaBonus('maiden-of-reverent-gale-diao-chan-bonus-on-death-returns-a-wind-spell-to-memory', 'Diao Chan, Enchantress')
+    ->seed('myField', 'Maiden of Reverent Gale')
+    ->seed('myGraveyard', 'Rearing Rebound')
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Counters' => ['buff' => 1]])
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, 'myGraveyard-0')
+    ->expectCardExists('myMemory', 'Rearing Rebound', '[Diao Chan Bonus] On Death: the wind Spell returned from the graveyard to memory')
+    ->expectCardExists('myGraveyard', 'Maiden of Reverent Gale', 'The Maiden died')
+    ->tested('Maiden of Reverent Gale')
+    ->covers(['on-death', 'champion-bonus', 'zone-movement', 'targeting'], '[Diao Chan Bonus] **On Death**: Return target wind element Spell action card from your graveyard to your memory.')
+    ->register();
+
+gaScenario('maiden-of-reverent-gale-without-diao-chan-returns-nothing-when-it-dies')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Maiden of Reverent Gale')
+    ->seed('myField', 'Maiden of Reverent Gale')
+    ->seed('myGraveyard', 'Rearing Rebound')
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Counters' => ['buff' => 1]])
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)
+    ->expectCardExists('myGraveyard', 'Maiden of Reverent Gale', 'The Maiden died')
+    ->expectZoneCount('myMemory', 0, 1, 'Not Diao Chan: nothing returned')
+    ->tested('Maiden of Reverent Gale')
+    ->covers(['on-death', 'champion-bonus', 'condition'], '[Diao Chan Bonus] **On Death**')
+    ->register();

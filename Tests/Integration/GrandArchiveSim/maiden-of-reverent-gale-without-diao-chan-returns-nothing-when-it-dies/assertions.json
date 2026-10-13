@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "5wdysg327b",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Maiden died"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Not Diao Chan: nothing returned"
+    }
+]

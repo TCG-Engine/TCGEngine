@@ -151,3 +151,21 @@ gaScenario('winbless-kiteshield-unit-link-gives-the-linked-unit-vigor')
     ->tested('Winbless Kiteshield')
     ->covers(['unit-link', 'vigor'], '**Unit Link**', 'Linked unit has **vigor**.')
     ->register();
+
+// ---- Orchestrated Seizure ----
+
+gaScenario('orchestrated-seizure-can-be-activated-during-the-opponents-end-phase')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Orchestrated Seizure')
+    ->seed('myHand', 'Orchestrated Seizure')
+    ->seed('myGraveyard', 'Throne-Keeper Bullfrog', player: 2)
+    ->endTurn()
+    ->endTurn(2)->answer(1, 'myHand-7')->pay(3)
+    ->expectGlobalEffect(1, 'pwscn0esog_ACTIVE', 'Activated in the opponent\'s end phase: the floating-memory access is active in my materialize phase', 1, 8)
+    ->expectCardExists('myGraveyard', 'Orchestrated Seizure', 'The action resolved')
+    ->answer(1, 'myMaterial-0')->answer(1, 'theirGraveyard-0')
+    ->expectCardExists('theirBanish', 'Throne-Keeper Bullfrog', 'The opponent\'s floating-memory card was banished (into its owner\'s banishment) to pay the 1 memory cost', 1)
+    ->tested('Orchestrated Seizure')
+    ->covers(['floating-memory', 'materialize'], 'During your next materialize phase, you may banish cards with **floating memory** from your opponents’ graveyards to pay for memory costs.')
+    ->covers(['activation-timing', 'floating-memory', 'materialize'], 'Activate this card only during an opponent’s end phase.')
+    ->register();

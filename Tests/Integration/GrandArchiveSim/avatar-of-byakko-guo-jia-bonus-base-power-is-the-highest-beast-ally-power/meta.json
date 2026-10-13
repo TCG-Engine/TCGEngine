@@ -1,0 +1,22 @@
+{
+    "name": "avatar-of-byakko-guo-jia-bonus-base-power-is-the-highest-beast-ally-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:25:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TjiH4U35bv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TjiH4U35bv"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "stat-change",
+            "static-ability"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] As long as you control a Beast, CARDNAME's base power is **X**, where **X** is the highest base power stat among Beast allies you control."
+        ]
+    }
+}

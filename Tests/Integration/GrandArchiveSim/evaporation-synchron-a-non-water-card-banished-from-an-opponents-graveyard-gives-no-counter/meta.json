@@ -1,0 +1,22 @@
+{
+    "name": "evaporation-synchron-a-non-water-card-banished-from-an-opponents-graveyard-gives-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:24:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rAiEX6Ra4p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rAiEX6Ra4p"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "a water element card with **floating memory**"
+        ]
+    }
+}
