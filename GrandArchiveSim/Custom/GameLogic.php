@@ -6298,6 +6298,7 @@ function GAFieldAbilityCostTable() {
     $table = [
         "e5o3cm9lbe:0" => ['reserve' => 5, 'banish' => true], // Scepter of Lumina
         "yxk7e8opr6:0" => ['reserve' => 1, 'banish' => true], // Spectral Beacon (the (1) was never paid)
+        "pgmsK3mcSo:0" => ['rest' => true, 'sacrificePowercell' => true], // Cell Reactor ("[REST], Sacrifice a Powercell" was never paid)
         "gyk90s0hst:0" => ['reserve' => 1, 'rest' => true], // Gossamer Staff
         "znavmjiefw:0" => ['reserve' => 3, 'rest' => true], // Intwined Bangle
         "h1njd7z5j3:0" => ['reserve' => 5, 'banish' => true], // Nefarious Timepiece

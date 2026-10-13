@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Four paid plus one drawn into memory"
+    }
+]

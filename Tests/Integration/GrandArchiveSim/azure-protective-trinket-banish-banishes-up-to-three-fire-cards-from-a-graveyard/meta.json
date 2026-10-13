@@ -1,0 +1,23 @@
+{
+    "name": "azure-protective-trinket-banish-banishes-up-to-three-fire-cards-from-a-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:25:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m3pal7cpvn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m3pal7cpvn"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Banish up to three target fire element cards from a single graveyard."
+        ]
+    }
+}

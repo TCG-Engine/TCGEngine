@@ -1,0 +1,24 @@
+{
+    "name": "fauna-friend-with-two-non-human-ally-cards-in-the-graveyard-gives-a-non-human-ally-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "japulzj7gv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "japulzj7gv"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "stat-change",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Target non-Human ally gets +1 [POWER] until end of turn. Activate this ability only if you have two or more non-Human ally cards in your graveyard."
+        ]
+    }
+}

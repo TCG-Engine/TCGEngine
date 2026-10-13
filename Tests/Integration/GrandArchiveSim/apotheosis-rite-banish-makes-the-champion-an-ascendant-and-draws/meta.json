@@ -1,0 +1,23 @@
+{
+    "name": "apotheosis-rite-banish-makes-the-champion-an-ascendant-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "df594Qoszn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "df594Qoszn"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "type-change",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Your champion becomes an Ascendant in addition to its other types. Draw a card."
+        ]
+    }
+}

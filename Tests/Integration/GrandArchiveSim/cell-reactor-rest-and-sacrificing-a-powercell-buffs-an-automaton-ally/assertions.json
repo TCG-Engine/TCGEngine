@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "The Automaton ally (now at index 2) got a buff counter"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Reactor rested"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The Powercell was sacrificed"
+    }
+]

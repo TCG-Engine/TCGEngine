@@ -1,0 +1,21 @@
+{
+    "name": "prismatic-codex-recollection-puts-an-age-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "czvy67nbin"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "czvy67nbin"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put an **age** counter on CARDNAME."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:22:45+00:00",
+    "generatedAt": "2026-10-13T21:27:41+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1926,
+        "cardsWithExistingFixtures": 1943,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 551,
+        "cardsNeedingSemanticCoverage": 534,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -423,25 +423,6 @@
             "priority": 25
         },
         {
-            "cardId": "rZ6LEFqqIS",
-            "name": "Quickstep Treads",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "pvxb5hrfsu",
             "name": "Ranger Strides",
             "type": "REGALIA,ITEM",
@@ -716,24 +697,6 @@
             "priority": 24
         },
         {
-            "cardId": "pY1TImPn8g",
-            "name": "Oneiric Key",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "kugriwszxr",
             "name": "Pristine Scourge",
             "type": "ACTION",
@@ -779,24 +742,6 @@
                 "targeting",
                 "status",
                 "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "a5uhjxhkur",
-            "name": "Resplendent Kite Shield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -1006,23 +951,6 @@
                 "cost",
                 "recover",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "cc0jmpmman",
-            "name": "Ghostsight Glass",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1287,22 +1215,6 @@
             "cardId": "izm6h38lrj",
             "name": "Celestial Calling",
             "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "EBWWwvSxr3",
-            "name": "Channeling Stone",
-            "type": "REGALIA,ITEM",
             "abilityCount": 2,
             "listenerCount": 0,
             "mechanics": [
@@ -2382,25 +2294,6 @@
             "priority": 15
         },
         {
-            "cardId": "mnz5kgifhd",
-            "name": "Sanguine Goblet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "zmoegdo111",
             "name": "Sempiternal Sage",
             "type": "ALLY",
@@ -3222,24 +3115,6 @@
             "mechanics": [
                 "cost",
                 "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "sz1ty7vq6z",
-            "name": "Fan of Insight",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
                 "trigger",
                 "condition"
             ],
@@ -5299,23 +5174,6 @@
             "priority": 13
         },
         {
-            "cardId": "7ddcgw05qz",
-            "name": "Mercurial Heart",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "rz1bqry41l",
             "name": "Merlin, Kingslayer",
             "type": "CHAMPION",
@@ -5554,23 +5412,6 @@
             "priority": 13
         },
         {
-            "cardId": "czvy67nbin",
-            "name": "Prismatic Codex",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "W3m0tnw4sr",
             "name": "Prismatic Spirit",
             "type": "CHAMPION",
@@ -5741,23 +5582,6 @@
             "priority": 13
         },
         {
-            "cardId": "s7a4tm04ll",
-            "name": "Sage's Urn",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "qSxEKgmQ0I",
             "name": "Saprotrophy",
             "type": "PHANTASIA",
@@ -5801,23 +5625,6 @@
                 "draw-discard",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "usb5FgKvZX",
-            "name": "Sharpening Stone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6329,22 +6136,6 @@
             "priority": 12
         },
         {
-            "cardId": "df594Qoszn",
-            "name": "Apotheosis Rite",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "EKiMJfgvSI",
             "name": "Ardus, Floodborne Deacon",
             "type": "UNIQUE,ALLY",
@@ -6473,22 +6264,6 @@
             "priority": 12
         },
         {
-            "cardId": "m3pal7cpvn",
-            "name": "Azure Protective Trinket",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "sxg6WefxIe",
             "name": "Backstab",
             "type": "ATTACK",
@@ -6593,22 +6368,6 @@
             "mechanics": [
                 "cost",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "pgmsK3mcSo",
-            "name": "Cell Reactor",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6825,22 +6584,6 @@
             "priority": 12
         },
         {
-            "cardId": "473gyf0w3v",
-            "name": "Duxal Proclamation",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "mhc5a9jpi6",
             "name": "Enthralling Chime",
             "type": "REGALIA,ITEM",
@@ -6880,22 +6623,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "japulzj7gv",
-            "name": "Fauna Friend",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
                 "condition"
             ],
             "existingFixtures": [],
@@ -7345,22 +7072,6 @@
             "mechanics": [
                 "cost",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "af098kmoi0",
-            "name": "Orb of Hubris",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -25027,6 +24738,29 @@
             "priority": 45
         },
         {
+            "cardId": "rZ6LEFqqIS",
+            "name": "Quickstep Treads",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "quickstep-treads-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "quickstep-treads-enter-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "si9ux3ak6o",
             "name": "Razor Broadhead",
             "type": "ITEM",
@@ -25732,6 +25466,28 @@
             "priority": 44
         },
         {
+            "cardId": "pY1TImPn8g",
+            "name": "Oneiric Key",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "oneiric-key-pay-four-and-banish-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "oneiric-key-pay-four-and-banish-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "OiyjVzW7Av",
             "name": "Overflow the Barrow",
             "type": "ACTION",
@@ -25863,6 +25619,30 @@
             "semanticFixtures": [
                 "rescue-the-heir-costs-one-less-with-a-unique-ally-at-level-one",
                 "rescue-the-heir-returns-an-ally-to-memory-and-costs-one-without-a-unique-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "a5uhjxhkur",
+            "name": "Resplendent Kite Shield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "resplendent-kite-shield-enter-puts-one-refinement-counter-and-class-bonus-two",
+                "resplendent-kite-shield-without-the-class-bonus-enters-with-one-refinement-counter"
+            ],
+            "semanticFixtures": [
+                "resplendent-kite-shield-enter-puts-one-refinement-counter-and-class-bonus-two",
+                "resplendent-kite-shield-without-the-class-bonus-enters-with-one-refinement-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26829,6 +26609,27 @@
             "priority": 43
         },
         {
+            "cardId": "cc0jmpmman",
+            "name": "Ghostsight Glass",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "ghostsight-glass-pay-three-and-rest-gives-a-unit-true-sight"
+            ],
+            "semanticFixtures": [
+                "ghostsight-glass-pay-three-and-rest-gives-a-unit-true-sight"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "KRNYwHCOVM",
             "name": "Glassgale Flock",
             "type": "PHANTASIA",
@@ -27633,6 +27434,26 @@
             ],
             "semanticFixtures": [
                 "beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "EBWWwvSxr3",
+            "name": "Channeling Stone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "channeling-stone-banish-makes-the-next-card-cost-two-less"
+            ],
+            "semanticFixtures": [
+                "channeling-stone-banish-makes-the-next-card-cost-two-less"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30489,6 +30310,31 @@
             "priority": 35
         },
         {
+            "cardId": "mnz5kgifhd",
+            "name": "Sanguine Goblet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sanguine-goblet-champion-damage-puts-that-many-blood-counters-on-it",
+                "sanguine-goblet-with-eight-blood-counters-banish-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "sanguine-goblet-champion-damage-puts-that-many-blood-counters-on-it",
+                "sanguine-goblet-with-eight-blood-counters-banish-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "e5o3cm9lbe",
             "name": "Scepter of Lumina",
             "type": "REGALIA,ITEM",
@@ -32999,6 +32845,28 @@
             "semanticFixtures": [
                 "fabled-ruby-fatestone-ability-1-pays-its-printed-cost",
                 "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "sz1ty7vq6z",
+            "name": "Fan of Insight",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fan-of-insight-banish-returns-a-card-from-memory-to-hand"
+            ],
+            "semanticFixtures": [
+                "fan-of-insight-banish-returns-a-card-from-memory-to-hand"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40616,6 +40484,27 @@
             "priority": 33
         },
         {
+            "cardId": "7ddcgw05qz",
+            "name": "Mercurial Heart",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "mercurial-heart-enter-puts-a-buff-counter-on-an-automaton-ally"
+            ],
+            "semanticFixtures": [
+                "mercurial-heart-enter-puts-a-buff-counter-on-an-automaton-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "RgloaA6YV2",
             "name": "Message in Shadows",
             "type": "PHANTASIA",
@@ -41399,6 +41288,27 @@
             "priority": 33
         },
         {
+            "cardId": "czvy67nbin",
+            "name": "Prismatic Codex",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prismatic-codex-recollection-puts-an-age-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "prismatic-codex-recollection-puts-an-age-counter-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "l64yfOVhkp",
             "name": "Prodigious Burstmage",
             "type": "ALLY",
@@ -41908,6 +41818,27 @@
             "priority": 33
         },
         {
+            "cardId": "s7a4tm04ll",
+            "name": "Sage's Urn",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sages-urn-recollection-puts-an-age-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "sages-urn-recollection-puts-an-age-counter-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "mob9nu6lal",
             "name": "Salamander's Breath",
             "type": "REGALIA,WEAPON",
@@ -42319,6 +42250,27 @@
             ],
             "semanticFixtures": [
                 "sharpen-blade-class-bonus-gives-a-dagger-plus-two-power-and-a-preparation-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "usb5FgKvZX",
+            "name": "Sharpening Stone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sharpening-stone-banish-gives-a-weapon-plus-one-power-and-draws"
+            ],
+            "semanticFixtures": [
+                "sharpening-stone-banish-gives-a-weapon-plus-one-power-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43932,6 +43884,26 @@
             "priority": 32
         },
         {
+            "cardId": "df594Qoszn",
+            "name": "Apotheosis Rite",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "apotheosis-rite-banish-makes-the-champion-an-ascendant-and-draws"
+            ],
+            "semanticFixtures": [
+                "apotheosis-rite-banish-makes-the-champion-an-ascendant-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9f0nsj62l6",
             "name": "Apprentice Aeromancer",
             "type": "ALLY",
@@ -44232,6 +44204,26 @@
             "priority": 32
         },
         {
+            "cardId": "m3pal7cpvn",
+            "name": "Azure Protective Trinket",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "azure-protective-trinket-banish-banishes-up-to-three-fire-cards-from-a-graveyard"
+            ],
+            "semanticFixtures": [
+                "azure-protective-trinket-banish-banishes-up-to-three-fire-cards-from-a-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9q1vk8ao8b",
             "name": "Bandage Wound",
             "type": "ACTION",
@@ -44512,6 +44504,26 @@
             ],
             "semanticFixtures": [
                 "cell-production-summons-two-rested-powercells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "pgmsK3mcSo",
+            "name": "Cell Reactor",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "cell-reactor-rest-and-sacrificing-a-powercell-buffs-an-automaton-ally"
+            ],
+            "semanticFixtures": [
+                "cell-reactor-rest-and-sacrificing-a-powercell-buffs-an-automaton-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44998,6 +45010,28 @@
             "priority": 32
         },
         {
+            "cardId": "473gyf0w3v",
+            "name": "Duxal Proclamation",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "duxal-proclamation-banish-with-no-opposing-allies-gives-allies-plus-one-power",
+                "duxal-proclamation-with-an-opposing-ally-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "duxal-proclamation-banish-with-no-opposing-allies-gives-allies-plus-one-power",
+                "duxal-proclamation-with-an-opposing-ally-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "jlAc0wWlDZ",
             "name": "Eager Page",
             "type": "ALLY",
@@ -45288,6 +45322,26 @@
             ],
             "semanticFixtures": [
                 "fatal-timepiece-recollection-without-a-materialization-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "japulzj7gv",
+            "name": "Fauna Friend",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fauna-friend-with-two-non-human-ally-cards-in-the-graveyard-gives-a-non-human-ally-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "fauna-friend-with-two-non-human-ally-cards-in-the-graveyard-gives-a-non-human-ally-plus-one-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47350,6 +47404,26 @@
             ],
             "semanticFixtures": [
                 "orb-of-glitter-banish-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "af098kmoi0",
+            "name": "Orb of Hubris",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "orb-of-hubris-banish-draws-up-to-three-and-shuffles-that-many-back"
+            ],
+            "semanticFixtures": [
+                "orb-of-hubris-banish-draws-up-to-three-and-shuffles-that-many-back"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

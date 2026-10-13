@@ -1,0 +1,22 @@
+{
+    "name": "sanguine-goblet-with-eight-blood-counters-banish-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mnz5kgifhd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mnz5kgifhd"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if CARDNAME has eight or more **blood** counters on it."
+        ]
+    }
+}

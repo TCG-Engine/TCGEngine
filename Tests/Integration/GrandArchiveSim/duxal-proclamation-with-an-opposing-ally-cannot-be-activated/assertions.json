@@ -1,0 +1,11 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "473gyf0w3v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "An opponent controls an ally: the ability was refused and the item stays"
+    }
+]

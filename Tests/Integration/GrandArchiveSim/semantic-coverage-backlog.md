@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1926**
+Cards linked to an existing fixture: **1943**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **551**
+Implemented cards still needing semantic coverage: **534**
 
 ## Mechanic groups
 
@@ -47,7 +47,6 @@ Implemented cards still needing semantic coverage: **551**
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Overlord Mk III (`sl7ddcgw05`) | UNIQUE,ALLY | 2 | cost, draw-discard, zone-movement, counter, combat, condition | — | — |
 | Queen's Gambit (`NGAy4rNwUo`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, token, trigger, condition | — | — |
-| Quickstep Treads (`rZ6LEFqqIS`) | REGALIA,ITEM | 2 | cost, draw-discard, status, trigger, condition | — | — |
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
@@ -63,11 +62,9 @@ Implemented cards still needing semantic coverage: **551**
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
 | Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
 | Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
-| Oneiric Key (`pY1TImPn8g`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, trigger | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
-| Resplendent Kite Shield (`a5uhjxhkur`) | REGALIA,ITEM | 2 | damage, prevention, counter, trigger | — | — |
 | Spectral Haunting (`Dtr3jPRAFJ`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | — |
 | Trump Set (`w7g91ru45w`) | ACTION | 2 | cost, targeting, combat, condition | — | — |
 | Waited Accord (`xF9phlSAkE`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, trigger, condition | — | — |
@@ -76,3 +73,6 @@ Implemented cards still needing semantic coverage: **551**
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
 | Arisanna, Lucent Arbiter (`7e22tk3ir1`) | CHAMPION | 2 | cost, targeting, condition | — | — |
 | Bandersnatch, Frumious Foe (`4yqL9xtzVi`) | UNIQUE,ALLY | 2 | damage, recover, trigger | — | — |
+| Ceasing Edict (`4f3bi5lohu`) | ACTION | 2 | cost, zone-movement, condition | — | — |
+| Ebbing Tide (`s7pmqsl3jw`) | REGALIA,ITEM | 2 | zone-movement, status, condition | — | — |
+| Expunge (`r73opcqtzs`) | ACTION | 2 | cost, damage, draw-discard | — | — |

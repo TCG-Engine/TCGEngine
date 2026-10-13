@@ -1,0 +1,23 @@
+{
+    "name": "orb-of-hubris-banish-draws-up-to-three-and-shuffles-that-many-back",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "af098kmoi0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "af098kmoi0"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "zone-movement",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw up to three cards, then shuffle that amount of cards from your hand into your deck."
+        ]
+    }
+}
