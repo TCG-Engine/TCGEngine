@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "RSf7n45fhX",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Chessman Command card returned to memory"
+    }
+]

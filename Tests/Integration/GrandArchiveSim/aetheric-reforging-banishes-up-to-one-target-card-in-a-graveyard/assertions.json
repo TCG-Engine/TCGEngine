@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The graveyard card was banished"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Into its owner's banishment"
+    }
+]

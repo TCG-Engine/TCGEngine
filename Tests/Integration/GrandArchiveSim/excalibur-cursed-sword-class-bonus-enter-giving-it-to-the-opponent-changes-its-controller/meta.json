@@ -1,0 +1,22 @@
+{
+    "name": "excalibur-cursed-sword-class-bonus-enter-giving-it-to-the-opponent-changes-its-controller",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:01:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4sm14RaEkg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4sm14RaEkg"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "control-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Choose a player. That player gains control of CARDNAME."
+        ]
+    }
+}

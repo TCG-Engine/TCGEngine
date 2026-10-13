@@ -1,0 +1,21 @@
+{
+    "name": "chance-level-one-costs-three-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:02:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DKoSnhjX18"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DKoSnhjX18"
+        ],
+        "mechanics": [
+            "level-gate",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Level 1+] This card costs 3 less to activate."
+        ]
+    }
+}

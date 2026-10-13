@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2049**
+Cards linked to an existing fixture: **2062**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **428**
+Implemented cards still needing semantic coverage: **415**
 
 ## Mechanic groups
 
@@ -43,8 +43,6 @@ Implemented cards still needing semantic coverage: **428**
 | Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
 | Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
-| Overlord Mk III (`sl7ddcgw05`) | UNIQUE,ALLY | 2 | cost, draw-discard, zone-movement, counter, combat, condition | — | — |
-| Queen's Gambit (`NGAy4rNwUo`) | UNIQUE,PHANTASIA | 2 | cost, draw-discard, token, trigger, condition | — | — |
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **428**
 | Heirloom of Libra (`MRiM1fnOWC`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement | — | — |
 | Lost Providence (`DNbIpzVgde`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, condition | — | — |
 | Luxera's Map (`s23UHXgcZq`) | REGALIA,ITEM | 2 | cost, zone-movement, status | — | — |
+| Palvor Sword (`wU3OvTrjEt`) | REGALIA,WEAPON | 2 | targeting, zone-movement, trigger | — | — |
+| Prima Materia (`vt9y597fqr`) | UNIQUE,ITEM | 2 | damage, draw-discard, condition | — | — |

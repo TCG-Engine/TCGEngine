@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T22:00:35+00:00",
+    "generatedAt": "2026-10-13T22:06:57+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2049,
+        "cardsWithExistingFixtures": 2062,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 428,
+        "cardsNeedingSemanticCoverage": 415,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -340,45 +340,6 @@
                 "damage",
                 "draw-discard",
                 "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "sl7ddcgw05",
-            "name": "Overlord Mk III",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "NGAy4rNwUo",
-            "name": "Queen's Gambit",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "token",
                 "trigger",
                 "condition"
             ],
@@ -1152,21 +1113,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 22
-        },
-        {
-            "cardId": "DKoSnhjX18",
-            "name": "Chance, Seven of Spades",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
         },
         {
             "cardId": "macqlgvqo3",
@@ -2106,24 +2052,6 @@
             "priority": 14
         },
         {
-            "cardId": "avTtlUGinE",
-            "name": "Aetherwing's Ward",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "daip7s9ztd",
             "name": "Alice, Golden Queen",
             "type": "CHAMPION",
@@ -2457,24 +2385,6 @@
                 "targeting",
                 "damage",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "4sm14RaEkg",
-            "name": "Excalibur, Cursed Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2924,24 +2834,6 @@
             "mechanics": [
                 "recover",
                 "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "az2b8nfh95",
-            "name": "Primal Whip",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -3428,23 +3320,6 @@
                 "cost",
                 "damage",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "Yuj8xCUejq",
-            "name": "Bandit, Gaze Leader",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4082,23 +3957,6 @@
             "priority": 13
         },
         {
-            "cardId": "JwgigfOaG8",
-            "name": "Lagomorph Piece",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "iuixf9rdmu",
             "name": "Legion's Wingspan",
             "type": "REGALIA,WEAPON",
@@ -4592,23 +4450,6 @@
             "priority": 13
         },
         {
-            "cardId": "i7chsbaleg",
-            "name": "Savage Smash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "0d93t7bfwc",
             "name": "Servile Possessions",
             "type": "MASTERY",
@@ -4922,22 +4763,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "yd56vkebu9",
-            "name": "Aetheric Reforging",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6431,21 +6256,6 @@
             "priority": 11
         },
         {
-            "cardId": "RSf7n45fhX",
-            "name": "Classical Opening",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "6SXL09rEzS",
             "name": "Conduit of the Mad Mage",
             "type": "ALLY",
@@ -6663,21 +6473,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "7uveu3avvg",
-            "name": "Fortifying Manashot",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6993,21 +6788,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "9w0ejcyuvu",
-            "name": "Prismatic Sanctuary",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22986,6 +22766,55 @@
             "priority": 45
         },
         {
+            "cardId": "sl7ddcgw05",
+            "name": "Overlord Mk III",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "overlord-mk-iii-sacrificing-four-powercells-as-the-additional-cost-brings-in-a-5-5"
+            ],
+            "semanticFixtures": [
+                "overlord-mk-iii-sacrificing-four-powercells-as-the-additional-cost-brings-in-a-5-5"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "NGAy4rNwUo",
+            "name": "Queen's Gambit",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "queens-gambit-sacrificing-a-chessman-ally-draws-into-memory",
+                "queens-gambit-sacrificing-a-queen-summons-three-pawn-pieces"
+            ],
+            "semanticFixtures": [
+                "queens-gambit-sacrificing-a-chessman-ally-draws-into-memory",
+                "queens-gambit-sacrificing-a-queen-summons-three-pawn-pieces"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "rZ6LEFqqIS",
             "name": "Quickstep Treads",
             "type": "REGALIA,ITEM",
@@ -26666,6 +26495,25 @@
             "priority": 41
         },
         {
+            "cardId": "DKoSnhjX18",
+            "name": "Chance, Seven of Spades",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "chance-level-one-costs-three-less"
+            ],
+            "semanticFixtures": [
+                "chance-level-one-costs-three-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "3lMV08BClz",
             "name": "Current Groover",
             "type": "ALLY",
@@ -30180,6 +30028,30 @@
             "priority": 34
         },
         {
+            "cardId": "avTtlUGinE",
+            "name": "Aetherwing's Ward",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aetherwings-ward-a-distant-champion-draws-a-card",
+                "aetherwings-ward-gives-an-aetherwing-weapon-spellshroud"
+            ],
+            "semanticFixtures": [
+                "aetherwings-ward-a-distant-champion-draws-a-card",
+                "aetherwings-ward-gives-an-aetherwing-weapon-spellshroud"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "609g44vm5k",
             "name": "Airship Cruiser",
             "type": "ALLY",
@@ -31684,6 +31556,30 @@
             ],
             "semanticFixtures": [
                 "erupting-rhapsody-decline-second-banish-still-applies-level-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "4sm14RaEkg",
+            "name": "Excalibur, Cursed Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "excalibur-cursed-sword-class-bonus-enter-giving-it-to-the-opponent-changes-its-controller",
+                "excalibur-cursed-sword-class-bonus-enter-keeping-it-leaves-the-controller"
+            ],
+            "semanticFixtures": [
+                "excalibur-cursed-sword-class-bonus-enter-giving-it-to-the-opponent-changes-its-controller",
+                "excalibur-cursed-sword-class-bonus-enter-keeping-it-leaves-the-controller"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33900,6 +33796,28 @@
             ],
             "semanticFixtures": [
                 "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "az2b8nfh95",
+            "name": "Primal Whip",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "primal-whip-class-bonus-level-two-on-attack-buffs-up-to-two-non-human-allies"
+            ],
+            "semanticFixtures": [
+                "primal-whip-class-bonus-level-two-on-attack-buffs-up-to-two-non-human-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36642,6 +36560,27 @@
                 "bagua-of-cardinal-fate-north-puts-a-buff-counter-on-an-ally",
                 "bagua-of-cardinal-fate-south-returns-an-ally-to-your-hand",
                 "bagua-of-cardinal-fate-west-glimpses-three-and-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "Yuj8xCUejq",
+            "name": "Bandit, Gaze Leader",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bandit-gaze-leader-enter-scavenges-six-for-a-raccoon-ally"
+            ],
+            "semanticFixtures": [
+                "bandit-gaze-leader-enter-scavenges-six-for-a-raccoon-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39470,6 +39409,27 @@
             "priority": 33
         },
         {
+            "cardId": "JwgigfOaG8",
+            "name": "Lagomorph Piece",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lagomorph-piece-pay-three-and-banish-returns-a-chessman-command-card-to-memory"
+            ],
+            "semanticFixtures": [
+                "lagomorph-piece-pay-three-and-banish-returns-a-chessman-command-card-to-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "pfavgpsj3r",
             "name": "Languid Toadtroll",
             "type": "ALLY",
@@ -41357,6 +41317,29 @@
             ],
             "semanticFixtures": [
                 "savage-arrow-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "i7chsbaleg",
+            "name": "Savage Smash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "savage-smash-class-bonus-floating-memory-pays-a-memory-cost",
+                "savage-smash-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "savage-smash-class-bonus-floating-memory-pays-a-memory-cost",
+                "savage-smash-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43382,6 +43365,26 @@
             ],
             "semanticFixtures": [
                 "aenean-swelling-tides-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "yd56vkebu9",
+            "name": "Aetheric Reforging",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "aetheric-reforging-banishes-up-to-one-target-card-in-a-graveyard"
+            ],
+            "semanticFixtures": [
+                "aetheric-reforging-banishes-up-to-one-target-card-in-a-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50819,6 +50822,25 @@
             "priority": 31
         },
         {
+            "cardId": "RSf7n45fhX",
+            "name": "Classical Opening",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "classical-opening-a-chessman-ally-performs-the-attack"
+            ],
+            "semanticFixtures": [
+                "classical-opening-a-chessman-ally-performs-the-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "zcVjsVRBV8",
             "name": "Combo Strike",
             "type": "ATTACK",
@@ -51636,6 +51658,25 @@
             "semanticFixtures": [
                 "floodborne-warrior-deluge-two-gets-plus-one-power-and-life",
                 "floodborne-warrior-one-water-card-keeps-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "7uveu3avvg",
+            "name": "Fortifying Manashot",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "fortifying-manashot-puts-two-durability-counters-on-an-aetherwing-weapon"
+            ],
+            "semanticFixtures": [
+                "fortifying-manashot-puts-two-durability-counters-on-an-aetherwing-weapon"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53001,6 +53042,27 @@
             ],
             "semanticFixtures": [
                 "powercell-pay-one-rest-and-sacrifice-gives-an-automaton-plus-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "9w0ejcyuvu",
+            "name": "Prismatic Sanctuary",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "prismatic-sanctuary-enables-fire-water-and-wind-for-the-champion",
+                "without-prismatic-sanctuary-a-water-card-cannot-be-played-by-a-fire-champion"
+            ],
+            "semanticFixtures": [
+                "prismatic-sanctuary-enables-fire-water-and-wind-for-the-champion",
+                "without-prismatic-sanctuary-a-water-card-cannot-be-played-by-a-fire-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Your champion is distant: a card was drawn (8 - 1 - 2 + 1)"
+    }
+]

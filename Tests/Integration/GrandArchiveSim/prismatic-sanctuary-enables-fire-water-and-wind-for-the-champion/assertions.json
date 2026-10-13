@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "Dgtim99eB5",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Water is enabled by the domain even though the champion is a Spirit of Fire"
+    }
+]

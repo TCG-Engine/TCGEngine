@@ -1,0 +1,21 @@
+{
+    "name": "overlord-mk-iii-sacrificing-four-powercells-as-the-additional-cost-brings-in-a-5-5",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:02:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sl7ddcgw05"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sl7ddcgw05"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice four Powercells."
+        ]
+    }
+}

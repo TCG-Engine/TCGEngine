@@ -2950,12 +2950,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //1.3 Declaring Costs — Golden Gambit (B1EbF6jcYF), Veiled Gambit (hxdfyA0eP1), Freezing Gambit (fgBpQZe0js): sacrifice a Chessman ally
     // (the latter two only checked for a Chessman ally in their play prereq and never sacrificed it)
-    if(in_array($obj->CardID, ["B1EbF6jcYF", "hxdfyA0eP1", "fgBpQZe0js"], true) && !$ignoreCost) {
+    // Queen's Gambit (NGAy4rNwUo) too: its prereq demanded a Chessman ally but nothing ever sacrificed it (the On Enter then never knew whether it was a Queen).
+    if(in_array($obj->CardID, ["B1EbF6jcYF", "hxdfyA0eP1", "fgBpQZe0js", "NGAy4rNwUo"], true) && !$ignoreCost) {
         $targets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
         if(!empty($targets)) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", ($obj->CardID === "NGAy4rNwUo" ? "QueensGambitActivationCost|" : "GoldenGambitActivationCost|") . $reserveCost, 100);
         }
     }
 
@@ -5069,6 +5070,15 @@ $customDQHandlers["InnervateAgilityActivationCost"] = function($player, $parts, 
  * Sacrifice the chosen Chessman ally, then pay reserve and grant opportunity.
  * Parts: [reserveCost].
  */
+$customDQHandlers["QueensGambitActivationCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $sacObj = GetZoneObject($lastDecision);
+        DecisionQueueController::StoreVariable("chessmanSacrificeCardID", $sacObj !== null ? $sacObj->CardID : "");
+        DecisionQueueController::StoreVariable("chessmanSacrificeWasQueen", ($sacObj !== null && PropertyContains(EffectiveCardSubtypes($sacObj), "QUEEN")) ? "YES" : "NO");
+    }
+    $GLOBALS['customDQHandlers']["GoldenGambitActivationCost"]($player, $parts, $lastDecision);
+};
+
 $customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = intval($parts[0] ?? 0);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -22606,6 +22616,8 @@ function GetPlayerEnabledElements($player) {
         if($boonObj->CardID === "nbKHFHcvzd") $enabled["FIRE"] = true;
         if($boonObj->CardID === "bFoUoGdZBX") $enabled["WIND"] = true;
         if($boonObj->CardID === "xTY2LZ01o7") $enabled["WATER"] = true;
+        // Prismatic Sanctuary (9w0ejcyuvu): "Fire, water, and wind elements are enabled for you."
+        if($boonObj->CardID === "9w0ejcyuvu") { $enabled["FIRE"] = true; $enabled["WATER"] = true; $enabled["WIND"] = true; }
     }
 
     // Imperial Seal (by8145w2u2): banish ability enables all basic elements until end of turn

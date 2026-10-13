@@ -1,0 +1,22 @@
+{
+    "name": "aetherwings-ward-gives-an-aetherwing-weapon-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:01:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "avTtlUGinE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "avTtlUGinE"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Aetherwing weapon you control gains **spellshroud** until end of turn."
+        ]
+    }
+}

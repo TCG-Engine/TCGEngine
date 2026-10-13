@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion is on the field: the water ally was not played"
+    }
+]

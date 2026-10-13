@@ -1,0 +1,10 @@
+[
+    {
+        "step": 9,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 3,
+        "semantic": true,
+        "label": "[Class Bonus] [Level 2+] On Attack: the non-Human ally got +1 power, 2 + 1"
+    }
+]

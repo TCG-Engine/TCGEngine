@@ -1,0 +1,21 @@
+{
+    "name": "fortifying-manashot-puts-two-durability-counters-on-an-aetherwing-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:01:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7uveu3avvg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7uveu3avvg"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put two **durability** counters on target Aetherwing weapon you control."
+        ]
+    }
+}

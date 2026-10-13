@@ -1,0 +1,21 @@
+{
+    "name": "prismatic-sanctuary-enables-fire-water-and-wind-for-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:04:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9w0ejcyuvu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9w0ejcyuvu"
+        ],
+        "mechanics": [
+            "static",
+            "element"
+        ],
+        "rulesClauses": [
+            "Fire, water, and wind elements are enabled for you."
+        ]
+    }
+}

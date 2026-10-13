@@ -1,0 +1,23 @@
+{
+    "name": "savage-smash-without-the-class-bonus-cannot-pay-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:04:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i7chsbaleg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i7chsbaleg"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    }
+}
