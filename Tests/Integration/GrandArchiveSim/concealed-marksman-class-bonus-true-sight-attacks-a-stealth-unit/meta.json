@@ -1,0 +1,23 @@
+{
+    "name": "concealed-marksman-class-bonus-true-sight-attacks-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7fqr67duh1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7fqr67duh1"
+        ],
+        "mechanics": [
+            "true-sight",
+            "stealth",
+            "class-bonus",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **True Sight** *(This ally can attack units with stealth.)*"
+        ]
+    }
+}

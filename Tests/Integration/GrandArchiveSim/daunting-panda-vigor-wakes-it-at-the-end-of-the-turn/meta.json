@@ -1,0 +1,20 @@
+{
+    "name": "daunting-panda-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ilpxd1q0vp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ilpxd1q0vp"
+        ],
+        "mechanics": [
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**Vigor** *(At the beginning of your end phase, wake up this unit.)*"
+        ]
+    }
+}

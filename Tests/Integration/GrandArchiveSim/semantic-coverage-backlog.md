@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1486**
+Cards linked to an existing fixture: **1504**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **991**
+Implemented cards still needing semantic coverage: **973**
 
 ## Mechanic groups
 
@@ -35,7 +35,6 @@ Implemented cards still needing semantic coverage: **991**
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
-| Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **991**
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
+| Resplendent Kite Shield (`a5uhjxhkur`) | REGALIA,ITEM | 2 | damage, prevention, counter, trigger | — | — |

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "One payment is not enough: the Aficionado has not entered"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "imperial-alchemist-gets-a-buff-counter-whenever-you-brew-a-potion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ve1d47o7ea"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ve1d47o7ea"
+        ],
+        "mechanics": [
+            "brew",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever you **brew** a Potion, put a **buff** counter on CARDNAME."
+        ]
+    }
+}

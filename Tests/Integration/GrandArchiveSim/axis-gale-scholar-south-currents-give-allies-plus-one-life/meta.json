@@ -1,0 +1,22 @@
+{
+    "name": "axis-gale-scholar-south-currents-give-allies-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:22:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "384b3yjlhu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "384b3yjlhu"
+        ],
+        "mechanics": [
+            "currents",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as your Shifting Currents face South, allies you control get +1 [LIFE]."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "quadrilles-gryphon-gets-a-buff-counter-whenever-you-activate-a-melody",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:22:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "84e2rfex54"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "84e2rfex54"
+        ],
+        "mechanics": [
+            "melody",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Melody or Harmony card, put a **buff** counter on Quadrille's Gryphon."
+        ]
+    }
+}

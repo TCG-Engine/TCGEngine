@@ -1,0 +1,22 @@
+{
+    "name": "galewhisper-rogue-without-the-class-bonus-can-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wnyqmrcwda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wnyqmrcwda"
+        ],
+        "mechanics": [
+            "stealth",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Stealth**"
+        ]
+    }
+}

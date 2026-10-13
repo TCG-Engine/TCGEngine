@@ -1,0 +1,22 @@
+{
+    "name": "music-aficionado-without-a-melody-this-turn-costs-the-printed-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FDWU3lJg0u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FDWU3lJg0u"
+        ],
+        "mechanics": [
+            "melody",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you've activated a Harmony or Melody card this turn"
+        ]
+    }
+}

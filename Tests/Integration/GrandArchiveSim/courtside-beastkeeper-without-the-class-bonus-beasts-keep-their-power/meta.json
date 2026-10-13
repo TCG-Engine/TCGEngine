@@ -1,0 +1,22 @@
+{
+    "name": "courtside-beastkeeper-without-the-class-bonus-beasts-keep-their-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6gy3kq2lc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6gy3kq2lc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Beast allies you control get +1 [POWER]."
+        ]
+    }
+}

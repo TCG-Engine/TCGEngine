@@ -1,0 +1,22 @@
+{
+    "name": "rilewind-sentinel-not-fostered-gives-allies-no-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y1utsihaxv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y1utsihaxv"
+        ],
+        "mechanics": [
+            "foster",
+            "vigor",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as Rilewind Sentinel is **fostered**"
+        ]
+    }
+}

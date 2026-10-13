@@ -1,0 +1,22 @@
+{
+    "name": "concealed-marksman-without-the-class-bonus-cannot-attack-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7fqr67duh1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7fqr67duh1"
+        ],
+        "mechanics": [
+            "true-sight",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **True Sight**"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "ghost-hunter-attacking-a-non-ephemeral-ally-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lgl8pux7v9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lgl8pux7v9"
+        ],
+        "mechanics": [
+            "combat",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as Ghost Hunter is attacking an **ephemeral** ally"
+        ]
+    }
+}

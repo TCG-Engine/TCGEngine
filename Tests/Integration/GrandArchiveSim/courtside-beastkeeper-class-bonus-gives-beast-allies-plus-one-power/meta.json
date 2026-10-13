@@ -1,0 +1,22 @@
+{
+    "name": "courtside-beastkeeper-class-bonus-gives-beast-allies-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6gy3kq2lc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6gy3kq2lc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "static-ability"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Beast allies you control get +1 [POWER]."
+        ]
+    }
+}

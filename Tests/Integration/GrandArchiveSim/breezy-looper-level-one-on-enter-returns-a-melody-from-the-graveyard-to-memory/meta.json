@@ -1,0 +1,23 @@
+{
+    "name": "breezy-looper-level-one-on-enter-returns-a-melody-from-the-graveyard-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hWgb4jDmEg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hWgb4jDmEg"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level-gate",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **On Enter:** Return target Harmony or Melody card from your graveyard to your memory."
+        ]
+    }
+}

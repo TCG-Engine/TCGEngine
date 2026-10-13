@@ -1,0 +1,22 @@
+{
+    "name": "apprentice-aeromancer-class-bonus-gets-plus-one-power-when-you-activate-a-wind-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9f0nsj62l6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9f0nsj62l6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate a wind element Spell card, CARDNAME gets +1 [POWER] until end of turn."
+        ]
+    }
+}

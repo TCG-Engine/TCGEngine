@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "FDWU3lJg0u",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Melody was activated this turn: the Aficionado cost 4 - 3 = 1"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two for the Melody and one for the Aficionado"
+    }
+]

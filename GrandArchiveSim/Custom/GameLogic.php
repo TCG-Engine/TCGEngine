@@ -28784,6 +28784,17 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         $reserveCost = max(0, $reserveCost - 3);
     }
 
+    // Music Aficionado (FDWU3lJg0u): "As long as you've activated a Harmony or Melody card this turn, this card costs 3 less to activate." (never wired)
+    if($cardID === "FDWU3lJg0u") {
+        foreach(CardActivatedTurnCards($player) as $activatedID => $activatedCount) {
+            $activatedSubtypes = explode(",", CardSubtypes($activatedID));
+            if(in_array("MELODY", $activatedSubtypes) || in_array("HARMONY", $activatedSubtypes)) {
+                $reserveCost = max(0, $reserveCost - 3);
+                break;
+            }
+        }
+    }
+
     $isSpellActivation = PropertyContains(CardSubtypes($cardID), "SPELL");
     $pendingEmpowerLevel = 0;
     if($isSpellActivation) {

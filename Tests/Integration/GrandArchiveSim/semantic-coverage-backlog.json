@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T13:19:07+00:00",
+    "generatedAt": "2026-10-13T13:25:45+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1486,
+        "cardsWithExistingFixtures": 1504,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 991,
+        "cardsNeedingSemanticCoverage": 973,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -185,22 +185,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 31
-        },
-        {
-            "cardId": "84e2rfex54",
-            "name": "Quadrille's Gryphon",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 1,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 30
         },
         {
             "cardId": "OVoHxVwodU",
@@ -6921,23 +6905,6 @@
             "priority": 13
         },
         {
-            "cardId": "hWgb4jDmEg",
-            "name": "Breezy Looper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "VMQsdBX2rx",
             "name": "Buddy Raccoon",
             "type": "ALLY",
@@ -7115,23 +7082,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "7fqr67duh1",
-            "name": "Concealed Marksman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "combat",
                 "condition"
             ],
@@ -7958,23 +7908,6 @@
             "priority": 13
         },
         {
-            "cardId": "ve1d47o7ea",
-            "name": "Imperial Alchemist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "2goaqn7ImP",
             "name": "Imperious Galebind",
             "type": "ACTION",
@@ -8680,23 +8613,6 @@
             "mechanics": [
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "qso7cbzrky",
-            "name": "Poised Rearguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -10206,22 +10122,6 @@
             "priority": 12
         },
         {
-            "cardId": "9f0nsj62l6",
-            "name": "Apprentice Aeromancer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "EKiMJfgvSI",
             "name": "Ardus, Floodborne Deacon",
             "type": "UNIQUE,ALLY",
@@ -11230,38 +11130,6 @@
             "priority": 12
         },
         {
-            "cardId": "wnyqmrcwda",
-            "name": "Galewhisper Rogue",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "8gv9f4a0nk",
-            "name": "Galewind Scout",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "4dys05p49w",
             "name": "Gem of Sorority",
             "type": "REGALIA,ITEM",
@@ -11285,22 +11153,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "lgl8pux7v9",
-            "name": "Ghost Hunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -12110,22 +11962,6 @@
             "priority": 12
         },
         {
-            "cardId": "FDWU3lJg0u",
-            "name": "Music Aficionado",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "0794z3ffck",
             "name": "Nameless Champion",
             "type": "CHAMPION",
@@ -12645,22 +12481,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "y1utsihaxv",
-            "name": "Rilewind Sentinel",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -13981,21 +13801,6 @@
             "priority": 11
         },
         {
-            "cardId": "384b3yjlhu",
-            "name": "Axis Gale Scholar",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "bdPYKwzWt5",
             "name": "Baby Slime",
             "type": "TOKEN,ALLY",
@@ -14401,21 +14206,6 @@
             "priority": 11
         },
         {
-            "cardId": "o6gy3kq2lc",
-            "name": "Courtside Beastkeeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "t203gysyp8",
             "name": "Cowl of the Wild",
             "type": "REGALIA,ITEM",
@@ -14468,21 +14258,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ilpxd1q0vp",
-            "name": "Daunting Panda",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -14641,21 +14416,6 @@
             "priority": 11
         },
         {
-            "cardId": "wu20yoje86",
-            "name": "Elder Mandrill",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "KmM2o1ozGr",
             "name": "Elusive Headhunter",
             "type": "ALLY",
@@ -14753,21 +14513,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "u7IxJt1EaD",
-            "name": "Fanclub Leader",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -15016,21 +14761,6 @@
             "priority": 11
         },
         {
-            "cardId": "flHhosV3nC",
-            "name": "Gale's Mare",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "j9s7xQdpf1",
             "name": "Gate of Alterity",
             "type": "REGALIA,ITEM",
@@ -15113,21 +14843,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "nWAMmtAEM7",
-            "name": "Haze Droid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -31927,6 +31642,26 @@
             "priority": 52
         },
         {
+            "cardId": "84e2rfex54",
+            "name": "Quadrille's Gryphon",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 1,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "quadrilles-gryphon-gets-a-buff-counter-whenever-you-activate-a-melody"
+            ],
+            "semanticFixtures": [
+                "quadrilles-gryphon-gets-a-buff-counter-whenever-you-activate-a-melody"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 50
+        },
+        {
             "cardId": "JGQ9LO5DFv",
             "name": "Aenean Guttering Flames",
             "type": "PHANTASIA",
@@ -42111,6 +41846,29 @@
             "priority": 33
         },
         {
+            "cardId": "hWgb4jDmEg",
+            "name": "Breezy Looper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "breezy-looper-level-one-on-enter-returns-a-melody-from-the-graveyard-to-memory",
+                "breezy-looper-level-zero-on-enter-returns-nothing"
+            ],
+            "semanticFixtures": [
+                "breezy-looper-level-one-on-enter-returns-a-melody-from-the-graveyard-to-memory",
+                "breezy-looper-level-zero-on-enter-returns-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "rzsr6aw4hz",
             "name": "Burst Asunder",
             "type": "ACTION",
@@ -42352,6 +42110,31 @@
             ],
             "semanticFixtures": [
                 "commanding-sea-titan-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "7fqr67duh1",
+            "name": "Concealed Marksman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "concealed-marksman-class-bonus-true-sight-attacks-a-stealth-unit",
+                "concealed-marksman-ranged-four-while-distant",
+                "concealed-marksman-without-the-class-bonus-cannot-attack-a-stealth-unit"
+            ],
+            "semanticFixtures": [
+                "concealed-marksman-class-bonus-true-sight-attacks-a-stealth-unit",
+                "concealed-marksman-ranged-four-while-distant",
+                "concealed-marksman-without-the-class-bonus-cannot-attack-a-stealth-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43431,6 +43214,31 @@
             "priority": 33
         },
         {
+            "cardId": "ve1d47o7ea",
+            "name": "Imperial Alchemist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token",
+                "imperial-alchemist-gets-a-buff-counter-whenever-you-brew-a-potion",
+                "imperial-alchemist-without-the-class-bonus-gathers-nothing"
+            ],
+            "semanticFixtures": [
+                "imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token",
+                "imperial-alchemist-gets-a-buff-counter-whenever-you-brew-a-potion",
+                "imperial-alchemist-without-the-class-bonus-gathers-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "WvWRLuPmDG",
             "name": "Induction Strike",
             "type": "ATTACK",
@@ -44338,6 +44146,29 @@
                 "poised-bowman-distant-attack-gets-plus-three-power",
                 "poised-bowman-not-distant-attack-has-base-power",
                 "poised-bowman-on-enter-gains-vigor-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "qso7cbzrky",
+            "name": "Poised Rearguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "poised-rearguard-class-bonus-with-a-horse-ally-wakes-up-on-enter",
+                "poised-rearguard-enters-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "poised-rearguard-class-bonus-with-a-horse-ally-wakes-up-on-enter",
+                "poised-rearguard-enters-the-field-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46160,6 +45991,30 @@
             "priority": 32
         },
         {
+            "cardId": "9f0nsj62l6",
+            "name": "Apprentice Aeromancer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "apprentice-aeromancer-class-bonus-gets-plus-one-power-when-you-activate-a-wind-spell",
+                "apprentice-aeromancer-class-bonus-on-enter-empowers-two",
+                "apprentice-aeromancer-without-the-class-bonus-gets-no-power-from-a-wind-spell"
+            ],
+            "semanticFixtures": [
+                "apprentice-aeromancer-class-bonus-gets-plus-one-power-when-you-activate-a-wind-spell",
+                "apprentice-aeromancer-class-bonus-on-enter-empowers-two",
+                "apprentice-aeromancer-without-the-class-bonus-gets-no-power-from-a-wind-spell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "C89p0c3Sqb",
             "name": "AquaTech Shield",
             "type": "ITEM",
@@ -47368,6 +47223,48 @@
             "priority": 32
         },
         {
+            "cardId": "wnyqmrcwda",
+            "name": "Galewhisper Rogue",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "galewhisper-rogue-class-bonus-stealth-cannot-be-attacked",
+                "galewhisper-rogue-without-the-class-bonus-can-be-attacked"
+            ],
+            "semanticFixtures": [
+                "galewhisper-rogue-class-bonus-stealth-cannot-be-attacked",
+                "galewhisper-rogue-without-the-class-bonus-can-be-attacked"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "8gv9f4a0nk",
+            "name": "Galewind Scout",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "galewind-scout-ranged-three-while-distant"
+            ],
+            "semanticFixtures": [
+                "galewind-scout-ranged-three-while-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "du50pcescf",
             "name": "Gawain, Chivalrous Thief",
             "type": "UNIQUE,ALLY",
@@ -47410,6 +47307,30 @@
                 "general-at-arms-class-bonus-does-not-boost-a-non-polearm-attack",
                 "general-at-arms-class-bonus-polearm-attack-enters-the-intent-with-plus-two-power",
                 "general-at-arms-without-the-class-bonus-gives-no-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "lgl8pux7v9",
+            "name": "Ghost Hunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ghost-hunter-attacking-a-non-ephemeral-ally-has-its-printed-power",
+                "ghost-hunter-attacking-an-ephemeral-ally-gets-plus-three-power",
+                "ghost-hunter-ranged-two-while-distant"
+            ],
+            "semanticFixtures": [
+                "ghost-hunter-attacking-a-non-ephemeral-ally-has-its-printed-power",
+                "ghost-hunter-attacking-an-ephemeral-ally-gets-plus-three-power",
+                "ghost-hunter-ranged-two-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47928,6 +47849,28 @@
             ],
             "semanticFixtures": [
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "FDWU3lJg0u",
+            "name": "Music Aficionado",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "music-aficionado-costs-three-less-after-a-melody-this-turn",
+                "music-aficionado-without-a-melody-this-turn-costs-the-printed-four"
+            ],
+            "semanticFixtures": [
+                "music-aficionado-costs-three-less-after-a-melody-this-turn",
+                "music-aficionado-without-a-melody-this-turn-costs-the-printed-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48534,6 +48477,30 @@
             ],
             "semanticFixtures": [
                 "rhesus-eradication-deals-level-plus-two-per-elysian-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "y1utsihaxv",
+            "name": "Rilewind Sentinel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rilewind-sentinel-class-bonus-foster-becomes-fostered",
+                "rilewind-sentinel-fostered-gives-allies-vigor",
+                "rilewind-sentinel-not-fostered-gives-allies-no-vigor"
+            ],
+            "semanticFixtures": [
+                "rilewind-sentinel-class-bonus-foster-becomes-fostered",
+                "rilewind-sentinel-fostered-gives-allies-vigor",
+                "rilewind-sentinel-not-fostered-gives-allies-no-vigor"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49706,6 +49673,27 @@
             "priority": 31
         },
         {
+            "cardId": "384b3yjlhu",
+            "name": "Axis Gale Scholar",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "axis-gale-scholar-north-currents-give-it-plus-two-power",
+                "axis-gale-scholar-south-currents-give-allies-plus-one-life"
+            ],
+            "semanticFixtures": [
+                "axis-gale-scholar-north-currents-give-it-plus-two-power",
+                "axis-gale-scholar-south-currents-give-allies-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "24ansclpqc",
             "name": "Bauble of Scarcity",
             "type": "REGALIA,ITEM",
@@ -49984,6 +49972,46 @@
             "priority": 31
         },
         {
+            "cardId": "o6gy3kq2lc",
+            "name": "Courtside Beastkeeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "courtside-beastkeeper-class-bonus-gives-beast-allies-plus-one-power",
+                "courtside-beastkeeper-without-the-class-bonus-beasts-keep-their-power"
+            ],
+            "semanticFixtures": [
+                "courtside-beastkeeper-class-bonus-gives-beast-allies-plus-one-power",
+                "courtside-beastkeeper-without-the-class-bonus-beasts-keep-their-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ilpxd1q0vp",
+            "name": "Daunting Panda",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "daunting-panda-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "semanticFixtures": [
+                "daunting-panda-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "At1UNRG7F0",
             "name": "Devastating Blow",
             "type": "ATTACK",
@@ -50047,6 +50075,25 @@
             "priority": 31
         },
         {
+            "cardId": "wu20yoje86",
+            "name": "Elder Mandrill",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "elder-mandrill-can-be-played-for-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "elder-mandrill-can-be-played-for-its-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "PptfA8gG6h",
             "name": "Emberwrath Witch",
             "type": "ALLY",
@@ -50100,6 +50147,25 @@
             ],
             "semanticFixtures": [
                 "expeditious-opening-draws-into-memory-and-waits-for-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "u7IxJt1EaD",
+            "name": "Fanclub Leader",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fanclub-leader-resonator-allies-get-plus-one-power-when-you-activate-a-melody"
+            ],
+            "semanticFixtures": [
+                "fanclub-leader-resonator-allies-get-plus-one-power-when-you-activate-a-melody"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50287,6 +50353,25 @@
             "priority": 31
         },
         {
+            "cardId": "flHhosV3nC",
+            "name": "Gale's Mare",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "gales-mare-can-be-played-for-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "gales-mare-can-be-played-for-its-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "k8bwlx70qj",
             "name": "Genbu, Black Tortoise",
             "type": "ALLY",
@@ -50403,6 +50488,25 @@
             ],
             "semanticFixtures": [
                 "halcyon-prism-banish-glimpses-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "nWAMmtAEM7",
+            "name": "Haze Droid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "haze-droid-stealth-cannot-be-attacked"
+            ],
+            "semanticFixtures": [
+                "haze-droid-stealth-cannot-be-attacked"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
