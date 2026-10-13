@@ -442,3 +442,30 @@ gaScenario('stridetech-w-pays-one-and-sacrifices-itself-to-return-the-linked-all
     ->tested('StrideTech W')
     ->covers(['ally-link', 'sacrifice', 'zone-movement'], '**(1), Sacrifice CARDNAME: **Return the linked ally to its owner\'s memory.')
     ->register();
+
+// ---- Draught of Stamina / Invigorating Concoction ----
+
+gaScenario('draught-of-stamina-sacrifice-wakes-up-an-ally')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Draught of Stamina')
+    ->seed('myField', 'Draught of Stamina')
+    ->seed('myField', 'Dungeon Guide', properties: ['Status' => 1])
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Status', '2', 'The sacrifice woke the rested ally (it is now the first ally on the field)')
+    ->expectCardExists('myGraveyard', 'Draught of Stamina', 'The Draught was sacrificed')
+    ->tested('Draught of Stamina')
+    ->covers(['sacrifice', 'status', 'targeting'], '**Sacrifice CARDNAME:** Wake up target ally you control.')
+    ->register();
+
+gaScenario('invigorating-concoction-rests-and-sacrifices-for-two-buff-counters-and-a-card')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Invigorating Concoction')
+    ->seed('myField', 'Invigorating Concoction', properties: ['Status' => 2])
+    ->seed('myField', 'Dungeon Guide')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":2}', 'Two buff counters on the target ally (now the first ally)')
+    ->expectZoneCount('myHand', 8, 1, 'Drew a card')
+    ->expectCardExists('myGraveyard', 'Invigorating Concoction', 'The Concoction was sacrificed')
+    ->tested('Invigorating Concoction')
+    ->covers(['sacrifice', 'rest', 'counter', 'draw', 'targeting'], '[REST], **Sacrifice Invigorating Concoction**: Put two **buff** counters on up to one target ally. Draw a card.')
+    ->register();

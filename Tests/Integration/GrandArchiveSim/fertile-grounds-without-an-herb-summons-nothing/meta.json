@@ -1,0 +1,22 @@
+{
+    "name": "fertile-grounds-without-an-herb-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8bls6g7xgw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8bls6g7xgw"
+        ],
+        "mechanics": [
+            "recollection",
+            "token",
+            "condition"
+        ],
+        "rulesClauses": [
+            "a token copy of an Herb item you control"
+        ]
+    }
+}

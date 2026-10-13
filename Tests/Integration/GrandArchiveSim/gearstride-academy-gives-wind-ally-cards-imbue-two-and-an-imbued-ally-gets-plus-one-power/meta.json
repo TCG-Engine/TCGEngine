@@ -1,0 +1,23 @@
+{
+    "name": "gearstride-academy-gives-wind-ally-cards-imbue-two-and-an-imbued-ally-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:59:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lxnq80yu75"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lxnq80yu75"
+        ],
+        "mechanics": [
+            "imbue",
+            "static-ability",
+            "on-enter"
+        ],
+        "rulesClauses": [
+            "Wind ally cards you activate have **imbue 2**.",
+            "Wind allies you control have \u201c**On Enter:** If this ally is **imbued**, it gets +1 [POWER] until end of turn.\u201d"
+        ]
+    }
+}

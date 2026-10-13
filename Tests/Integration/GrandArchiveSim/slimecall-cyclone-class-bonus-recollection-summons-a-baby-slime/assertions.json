@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "bdPYKwzWt5",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Baby Slime token was summoned"
+    }
+]

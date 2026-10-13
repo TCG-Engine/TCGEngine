@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "1m48260b7b",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Class Bonus: it cost 4 - 2 = 2"
+    }
+]

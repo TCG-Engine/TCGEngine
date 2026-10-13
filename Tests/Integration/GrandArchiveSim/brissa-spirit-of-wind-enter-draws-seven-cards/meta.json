@@ -1,0 +1,22 @@
+{
+    "name": "brissa-spirit-of-wind-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7wra95faoq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7wra95faoq"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}

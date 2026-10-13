@@ -1,0 +1,22 @@
+{
+    "name": "winbless-hurricane-farm-declined-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:59:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1dvdlhtiym"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1dvdlhtiym"
+        ],
+        "mechanics": [
+            "recollection",
+            "reveal",
+            "optional"
+        ],
+        "rulesClauses": [
+            "you may reveal three wind element cards from your memory"
+        ]
+    }
+}

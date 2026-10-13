@@ -1,0 +1,29 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":2}",
+        "semantic": true,
+        "label": "Two buff counters on the target ally (now the first ally)"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Drew a card"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "nsjukk5zk4",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Concoction was sacrificed"
+    }
+]

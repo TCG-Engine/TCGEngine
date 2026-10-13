@@ -1,0 +1,23 @@
+{
+    "name": "spirit-of-serene-wind-enter-glimpses-and-draws-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h973fdt8pt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h973fdt8pt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Glimpse 6**. Draw six cards."
+        ]
+    }
+}

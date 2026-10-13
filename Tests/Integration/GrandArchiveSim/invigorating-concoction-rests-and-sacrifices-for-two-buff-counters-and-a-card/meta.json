@@ -1,0 +1,24 @@
+{
+    "name": "invigorating-concoction-rests-and-sacrifices-for-two-buff-counters-and-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:00:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nsjukk5zk4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nsjukk5zk4"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "rest",
+            "counter",
+            "draw",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST], **Sacrifice Invigorating Concoction**: Put two **buff** counters on up to one target ally. Draw a card."
+        ]
+    }
+}

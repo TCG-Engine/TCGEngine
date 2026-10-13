@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "wum3f33kay",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "No class bonus, no spellshroud: the Blast hit the 2 life Maiden and destroyed it"
+    }
+]

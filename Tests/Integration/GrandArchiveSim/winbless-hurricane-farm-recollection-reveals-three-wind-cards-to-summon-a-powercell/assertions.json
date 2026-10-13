@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "qzzadf9q1v",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Three wind cards revealed: a Powercell token was summoned"
+    }
+]

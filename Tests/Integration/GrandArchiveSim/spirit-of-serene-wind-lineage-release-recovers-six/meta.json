@@ -1,0 +1,21 @@
+{
+    "name": "spirit-of-serene-wind-lineage-release-recovers-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h973fdt8pt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h973fdt8pt"
+        ],
+        "mechanics": [
+            "lineage-release",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**Lineage Release** -- **Recover 6**."
+        ]
+    }
+}

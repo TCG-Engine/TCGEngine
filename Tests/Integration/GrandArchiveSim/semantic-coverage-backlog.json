@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T13:55:44+00:00",
+    "generatedAt": "2026-10-13T14:02:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1555,
+        "cardsWithExistingFixtures": 1574,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 922,
+        "cardsNeedingSemanticCoverage": 903,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3150,25 +3150,6 @@
             "priority": 15
         },
         {
-            "cardId": "1m48260b7b",
-            "name": "Razorgale Calling",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "o6gb0op3nq",
             "name": "Resolute Stand",
             "type": "ACTION",
@@ -4621,24 +4602,6 @@
             "priority": 14
         },
         {
-            "cardId": "lxnq80yu75",
-            "name": "Gearstride Academy",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "SkAe1hsw5H",
             "name": "Ghosts of Pendragon",
             "type": "ALLY",
@@ -4829,24 +4792,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "nsjukk5zk4",
-            "name": "Invigorating Concoction",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -7314,23 +7259,6 @@
             "priority": 13
         },
         {
-            "cardId": "1trn0yetae",
-            "name": "Fragmented Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "bdhjszsj2z",
             "name": "Frostbitten Etui",
             "type": "REGALIA,ITEM",
@@ -7790,23 +7718,6 @@
             "priority": 13
         },
         {
-            "cardId": "wum3f33kay",
-            "name": "Maiden of Shrouded Fog",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "24I0xn0OQ1",
             "name": "Maledictum Vitae",
             "type": "ACTION",
@@ -7883,23 +7794,6 @@
             "mechanics": [
                 "draw-discard",
                 "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "RgloaA6YV2",
-            "name": "Message in Shadows",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8819,23 +8713,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "h973fdt8pt",
-            "name": "Spirit of Serene Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -9816,22 +9693,6 @@
             "priority": 12
         },
         {
-            "cardId": "7wra95faoq",
-            "name": "Brissa, Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "rfnrow8iop",
             "name": "Buried Grief",
             "type": "ACTION",
@@ -10208,22 +10069,6 @@
             "mechanics": [
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "lpnvx7mnu1",
-            "name": "Draught of Stamina",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10680,38 +10525,6 @@
             "priority": 12
         },
         {
-            "cardId": "cMixAGt8zv",
-            "name": "Gustmark Gauge",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "74wa4x7e22",
-            "name": "Gwendolyn, Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "G2XFRE8rFX",
             "name": "Harness Mana",
             "type": "ACTION",
@@ -11000,22 +10813,6 @@
             "priority": 12
         },
         {
-            "cardId": "FwXm0Bb6di",
-            "name": "Kaze, Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "racxis1ji8",
             "name": "Landscape Corsair",
             "type": "ALLY",
@@ -11176,22 +10973,6 @@
             "priority": 12
         },
         {
-            "cardId": "qa4ke7txh0",
-            "name": "Maiden of Glimmer's Dusk",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "3n4l6aoj4t",
             "name": "Maiden of Shimmering Air",
             "type": "PHANTASIA,ALLY",
@@ -11232,22 +11013,6 @@
             "mechanics": [
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "80mttsvbgl",
-            "name": "Mark of Fervor",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12040,22 +11805,6 @@
             "priority": 12
         },
         {
-            "cardId": "9Kgr2prI9E",
-            "name": "Slimecall Cyclone",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "dv3zb9p4lg",
             "name": "Sorrowcaller",
             "type": "REGALIA,WEAPON",
@@ -12090,22 +11839,6 @@
         {
             "cardId": "AYe0neu31W",
             "name": "Spirit of Chess",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "gqxdu1fn5b",
-            "name": "Spirit of Fortuitous Wind",
             "type": "CHAMPION",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -12680,22 +12413,6 @@
             "priority": 12
         },
         {
-            "cardId": "1dvdlhtiym",
-            "name": "Winbless Hurricane Farm",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "0mf1ug6yfi",
             "name": "Wonderland's Reign",
             "type": "UNIQUE,PHANTASIA",
@@ -13022,21 +12739,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "43rtqovkti",
-            "name": "Baidi, Oathsworn Palace",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13738,21 +13440,6 @@
             "cardId": "4hm8uzmf8v",
             "name": "Feathery Tune",
             "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "8bls6g7xgw",
-            "name": "Fertile Grounds",
-            "type": "PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -35403,6 +35090,31 @@
             "priority": 35
         },
         {
+            "cardId": "1m48260b7b",
+            "name": "Razorgale Calling",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "razorgale-calling-class-bonus-costs-two-less",
+                "razorgale-calling-deals-one-damage-to-a-champion-whenever-you-activate-a-wind-card"
+            ],
+            "semanticFixtures": [
+                "razorgale-calling-class-bonus-costs-two-less",
+                "razorgale-calling-deals-one-damage-to-a-champion-whenever-you-activate-a-wind-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "dY36bObi9p",
             "name": "Reckless Researcher",
             "type": "ALLY",
@@ -38068,6 +37780,28 @@
             "priority": 34
         },
         {
+            "cardId": "lxnq80yu75",
+            "name": "Gearstride Academy",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gearstride-academy-gives-wind-ally-cards-imbue-two-and-an-imbued-ally-gets-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "gearstride-academy-gives-wind-ally-cards-imbue-two-and-an-imbued-ally-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "jjwp945rlb",
             "name": "Genbu's Command",
             "type": "ACTION",
@@ -38620,6 +38354,28 @@
             ],
             "semanticFixtures": [
                 "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "nsjukk5zk4",
+            "name": "Invigorating Concoction",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "invigorating-concoction-rests-and-sacrifices-for-two-buff-counters-and-a-card"
+            ],
+            "semanticFixtures": [
+                "invigorating-concoction-rests-and-sacrifices-for-two-buff-counters-and-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42604,6 +42360,27 @@
             "priority": 33
         },
         {
+            "cardId": "1trn0yetae",
+            "name": "Fragmented Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fragmented-spirit-of-wind-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "semanticFixtures": [
+                "fragmented-spirit-of-wind-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "x7mdk0xhi5",
             "name": "Freezing Steel",
             "type": "ACTION",
@@ -43343,6 +43120,29 @@
             "priority": 33
         },
         {
+            "cardId": "wum3f33kay",
+            "name": "Maiden of Shrouded Fog",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "maiden-of-shrouded-fog-class-bonus-spellshroud-cannot-be-targeted-by-spells",
+                "maiden-of-shrouded-fog-without-the-class-bonus-can-be-targeted-by-spells"
+            ],
+            "semanticFixtures": [
+                "maiden-of-shrouded-fog-class-bonus-spellshroud-cannot-be-targeted-by-spells",
+                "maiden-of-shrouded-fog-without-the-class-bonus-can-be-targeted-by-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "up6fw61vf1",
             "name": "Malevolent Vow",
             "type": "ACTION",
@@ -43431,6 +43231,27 @@
             "semanticFixtures": [
                 "menagerie-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level",
                 "menagerie-beastbonder-without-an-animal-or-beast-ally-gives-no-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "RgloaA6YV2",
+            "name": "Message in Shadows",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "message-in-shadows-on-enter-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "message-in-shadows-on-enter-glimpses-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44976,6 +44797,29 @@
             "priority": 33
         },
         {
+            "cardId": "h973fdt8pt",
+            "name": "Spirit of Serene Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-serene-wind-enter-glimpses-and-draws-six",
+                "spirit-of-serene-wind-lineage-release-recovers-six"
+            ],
+            "semanticFixtures": [
+                "spirit-of-serene-wind-enter-glimpses-and-draws-six",
+                "spirit-of-serene-wind-lineage-release-recovers-six"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "a5igwbsmks",
             "name": "Spirited Falconer",
             "type": "ALLY",
@@ -46275,6 +46119,26 @@
             "priority": 32
         },
         {
+            "cardId": "7wra95faoq",
+            "name": "Brissa, Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "brissa-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "brissa-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9asvHr4bsz",
             "name": "Brookside Scout",
             "type": "ALLY",
@@ -46683,6 +46547,26 @@
             ],
             "semanticFixtures": [
                 "doubled-pawns-summons-two-pawn-piece-tokens"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "lpnvx7mnu1",
+            "name": "Draught of Stamina",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "draught-of-stamina-sacrifice-wakes-up-an-ally"
+            ],
+            "semanticFixtures": [
+                "draught-of-stamina-sacrifice-wakes-up-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47349,6 +47233,46 @@
             "priority": 32
         },
         {
+            "cardId": "cMixAGt8zv",
+            "name": "Gustmark Gauge",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gustmark-gauge-pays-two-and-rests-to-glimpse-one"
+            ],
+            "semanticFixtures": [
+                "gustmark-gauge-pays-two-and-rests-to-glimpse-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "74wa4x7e22",
+            "name": "Gwendolyn, Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "gwendolyn-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "gwendolyn-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vnz9HSvVUZ",
             "name": "Hanabi, Spirit of Fire",
             "type": "CHAMPION",
@@ -47537,6 +47461,26 @@
             "priority": 32
         },
         {
+            "cardId": "FwXm0Bb6di",
+            "name": "Kaze, Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kaze-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "semanticFixtures": [
+                "kaze-spirit-of-wind-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "k02kvfblwa",
             "name": "Kind Beastcaller",
             "type": "ALLY",
@@ -47703,6 +47647,28 @@
             "priority": 32
         },
         {
+            "cardId": "qa4ke7txh0",
+            "name": "Maiden of Glimmer's Dusk",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "maiden-of-glimmers-dusk-class-bonus-costs-one-less-for-each-of-up-to-two-phantasias",
+                "maiden-of-glimmers-dusk-without-phantasias-costs-the-printed-three"
+            ],
+            "semanticFixtures": [
+                "maiden-of-glimmers-dusk-class-bonus-costs-one-less-for-each-of-up-to-two-phantasias",
+                "maiden-of-glimmers-dusk-without-phantasias-costs-the-printed-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "smse0zjalx",
             "name": "Manabolt Convergence",
             "type": "ACTION",
@@ -47737,6 +47703,26 @@
             ],
             "semanticFixtures": [
                 "manic-zealot-on-death-deals-two-damage-to-each-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "80mttsvbgl",
+            "name": "Mark of Fervor",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mark-of-fervor-links-to-an-ally-for-plus-one-power-plus-one-life-and-vigor"
+            ],
+            "semanticFixtures": [
+                "mark-of-fervor-links-to-an-ally-for-plus-one-power-plus-one-life-and-vigor"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48903,6 +48889,28 @@
             "priority": 32
         },
         {
+            "cardId": "9Kgr2prI9E",
+            "name": "Slimecall Cyclone",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slimecall-cyclone-class-bonus-recollection-summons-a-baby-slime",
+                "slimecall-cyclone-without-the-class-bonus-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "slimecall-cyclone-class-bonus-recollection-summons-a-baby-slime",
+                "slimecall-cyclone-without-the-class-bonus-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "jH6F9XYrL5",
             "name": "Sneaky Raccoon",
             "type": "ALLY",
@@ -49000,6 +49008,26 @@
             ],
             "semanticFixtures": [
                 "spirit-of-fortuitous-water-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "gqxdu1fn5b",
+            "name": "Spirit of Fortuitous Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-fortuitous-wind-enter-glimpses-and-draws-seven-into-memory"
+            ],
+            "semanticFixtures": [
+                "spirit-of-fortuitous-wind-enter-glimpses-and-draws-seven-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49738,6 +49766,30 @@
             "priority": 32
         },
         {
+            "cardId": "1dvdlhtiym",
+            "name": "Winbless Hurricane Farm",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-hurricane-farm-declined-summons-nothing",
+                "winbless-hurricane-farm-recollection-reveals-three-wind-cards-to-summon-a-powercell",
+                "winbless-hurricane-farm-with-only-two-wind-memory-cards-is-not-offered"
+            ],
+            "semanticFixtures": [
+                "winbless-hurricane-farm-declined-summons-nothing",
+                "winbless-hurricane-farm-recollection-reveals-three-wind-cards-to-summon-a-powercell",
+                "winbless-hurricane-farm-with-only-two-wind-memory-cards-is-not-offered"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "gc18dq28my",
             "name": "Xia Hou Dun, Gloryseeker",
             "type": "UNIQUE,ALLY",
@@ -49904,6 +49956,25 @@
             "semanticFixtures": [
                 "axis-gale-scholar-north-currents-give-it-plus-two-power",
                 "axis-gale-scholar-south-currents-give-allies-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "43rtqovkti",
+            "name": "Baidi, Oathsworn Palace",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "baidi-oathsworn-palace-gives-distant-ranger-units-ranged-one"
+            ],
+            "semanticFixtures": [
+                "baidi-oathsworn-palace-gives-distant-ranger-units-ranged-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50422,6 +50493,27 @@
             ],
             "semanticFixtures": [
                 "fellowships-gale-loads-into-the-aetherwing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "8bls6g7xgw",
+            "name": "Fertile Grounds",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "fertile-grounds-recollection-summons-a-token-copy-of-an-herb-item",
+                "fertile-grounds-without-an-herb-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "fertile-grounds-recollection-summons-a-token-copy-of-an-herb-item",
+                "fertile-grounds-without-an-herb-summons-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

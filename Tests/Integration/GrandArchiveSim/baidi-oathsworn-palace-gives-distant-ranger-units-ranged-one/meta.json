@@ -1,0 +1,21 @@
+{
+    "name": "baidi-oathsworn-palace-gives-distant-ranger-units-ranged-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:59:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "43rtqovkti"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "43rtqovkti"
+        ],
+        "mechanics": [
+            "ranged",
+            "static-ability"
+        ],
+        "rulesClauses": [
+            "Ranger units you control have **ranged 1**."
+        ]
+    }
+}

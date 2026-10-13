@@ -1,0 +1,22 @@
+{
+    "name": "kaze-spirit-of-wind-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FwXm0Bb6di"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FwXm0Bb6di"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    }
+}

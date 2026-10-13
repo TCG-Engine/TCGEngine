@@ -1,0 +1,22 @@
+{
+    "name": "slimecall-cyclone-without-the-class-bonus-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9Kgr2prI9E"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9Kgr2prI9E"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "recollection",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase"
+        ]
+    }
+}

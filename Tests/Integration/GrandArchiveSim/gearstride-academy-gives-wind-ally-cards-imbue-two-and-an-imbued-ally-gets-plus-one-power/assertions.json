@@ -1,0 +1,19 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"IMBUED\",\"ENTERED_THIS_TURN\",\"lxnq80yu75\"]",
+        "semantic": true,
+        "label": "The Mage was offered imbue 2, reserved two wind cards and is imbued"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Imbued by the Academy: On Enter gave it +1 power (1 + 1)"
+    }
+]

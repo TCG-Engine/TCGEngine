@@ -1,0 +1,23 @@
+{
+    "name": "spirit-of-fortuitous-wind-enter-glimpses-and-draws-seven-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gqxdu1fn5b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gqxdu1fn5b"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw-into-memory",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter**: **Glimpse 7**. Draw seven cards into your memory."
+        ]
+    }
+}
