@@ -1,0 +1,22 @@
+{
+    "name": "vanitas-convergent-ruin-without-a-spell-attacks-for-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:07:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8m69iq4d5v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8m69iq4d5v"
+        ],
+        "mechanics": [
+            "champion",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Spell card"
+        ]
+    }
+}

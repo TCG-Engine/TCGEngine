@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T14:02:26+00:00",
+    "generatedAt": "2026-10-13T14:08:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1574,
+        "cardsWithExistingFixtures": 1583,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 903,
+        "cardsNeedingSemanticCoverage": 894,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1539,23 +1539,6 @@
                 "draw-discard",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "uoy5ttkat9",
-            "name": "Winbless Kiteshield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3466,25 +3449,6 @@
             "mechanics": [
                 "zone-movement",
                 "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "8m69iq4d5v",
-            "name": "Vanitas, Convergent Ruin",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
                 "combat",
                 "trigger",
                 "condition"
@@ -9677,22 +9641,6 @@
             "priority": 12
         },
         {
-            "cardId": "1ybdJi1VN5",
-            "name": "Breath's Coloratura",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "rfnrow8iop",
             "name": "Buried Grief",
             "type": "ACTION",
@@ -10021,22 +9969,6 @@
             "mechanics": [
                 "targeting",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "6F5hCQ8I9S",
-            "name": "Destined Encounter",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -10829,22 +10761,6 @@
             "priority": 12
         },
         {
-            "cardId": "4ZpWIJAmSC",
-            "name": "Lesser Boon of Astraeus",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "jQMIfe3Xvw",
             "name": "Lesser Boon of Awilix",
             "type": "LESSER BOON",
@@ -11013,22 +10929,6 @@
             "mechanics": [
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "qsm3n9yvn1",
-            "name": "Mechanized Smasher",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -12269,22 +12169,6 @@
             "priority": 12
         },
         {
-            "cardId": "k5RG5TNLAp",
-            "name": "Updraft Slice",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "vghJqNdG8F",
             "name": "Vanguard's Reversal",
             "type": "ATTACK",
@@ -12293,22 +12177,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "3vkxrw9462",
-            "name": "Vanitas, Dominus Rex",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -13039,21 +12907,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "zcVjsVRBV8",
-            "name": "Combo Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -32973,6 +32826,27 @@
             "priority": 43
         },
         {
+            "cardId": "uoy5ttkat9",
+            "name": "Winbless Kiteshield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-kiteshield-unit-link-gives-the-linked-unit-vigor"
+            ],
+            "semanticFixtures": [
+                "winbless-kiteshield-unit-link-gives-the-linked-unit-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "XZFXOE9sEV",
             "name": "Zephyr Assistant",
             "type": "ALLY",
@@ -35810,6 +35684,31 @@
             ],
             "semanticFixtures": [
                 "undying-dreams-refuses-spellshroud-ally-targets-ordinary-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "8m69iq4d5v",
+            "name": "Vanitas, Convergent Ruin",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "vanitas-convergent-ruin-gets-plus-one-power-on-its-next-attack-after-a-spell",
+                "vanitas-convergent-ruin-without-a-spell-attacks-for-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "vanitas-convergent-ruin-gets-plus-one-power-on-its-next-attack-after-a-spell",
+                "vanitas-convergent-ruin-without-a-spell-attacks-for-its-printed-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46119,6 +46018,26 @@
             "priority": 32
         },
         {
+            "cardId": "1ybdJi1VN5",
+            "name": "Breath's Coloratura",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one"
+            ],
+            "semanticFixtures": [
+                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "7wra95faoq",
             "name": "Brissa, Spirit of Wind",
             "type": "CHAMPION",
@@ -46421,6 +46340,28 @@
             ],
             "semanticFixtures": [
                 "crystallized-anthem-marks-each-unit-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "6F5hCQ8I9S",
+            "name": "Destined Encounter",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "destined-encounter-an-elysian-ally-draws-a-card-into-memory",
+                "destined-encounter-scavenge-six-finds-an-ally"
+            ],
+            "semanticFixtures": [
+                "destined-encounter-an-elysian-ally-draws-a-card-into-memory",
+                "destined-encounter-scavenge-six-finds-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47525,6 +47466,26 @@
             "priority": 32
         },
         {
+            "cardId": "4ZpWIJAmSC",
+            "name": "Lesser Boon of Astraeus",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-astraeus-pays-three-to-suppress-an-ally-once-only"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-astraeus-pays-three-to-suppress-an-ally-once-only"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "P8sbt2gXkn",
             "name": "Lesser Boon of Kanaloa",
             "type": "LESSER BOON",
@@ -47723,6 +47684,28 @@
             ],
             "semanticFixtures": [
                 "mark-of-fervor-links-to-an-ally-for-plus-one-power-plus-one-life-and-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "qsm3n9yvn1",
+            "name": "Mechanized Smasher",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat"
+            ],
+            "existingFixtures": [
+                "mechanized-smasher-attack-reveals-four-wind-cards-from-memory-as-an-additional-cost",
+                "mechanized-smasher-cannot-attack-with-fewer-than-four-wind-cards-in-memory"
+            ],
+            "semanticFixtures": [
+                "mechanized-smasher-attack-reveals-four-wind-cards-from-memory-as-an-additional-cost",
+                "mechanized-smasher-cannot-attack-with-fewer-than-four-wind-cards-in-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49490,6 +49473,28 @@
             "priority": 32
         },
         {
+            "cardId": "k5RG5TNLAp",
+            "name": "Updraft Slice",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "updraft-slice-class-bonus-gets-plus-one-power",
+                "updraft-slice-without-the-class-bonus-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "updraft-slice-class-bonus-gets-plus-one-power",
+                "updraft-slice-without-the-class-bonus-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "ulzrh3pmxq",
             "name": "Usurp the Winds",
             "type": "ACTION",
@@ -49504,6 +49509,26 @@
             ],
             "semanticFixtures": [
                 "usurp-the-winds-gives-an-ally-plus-one-power-and-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "3vkxrw9462",
+            "name": "Vanitas, Dominus Rex",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "vanitas-dominus-rex-on-champion-hit-makes-the-opponents-materializations-cost-one-more"
+            ],
+            "semanticFixtures": [
+                "vanitas-dominus-rex-on-champion-hit-makes-the-opponents-materializations-cost-one-more"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50234,6 +50259,27 @@
             ],
             "semanticFixtures": [
                 "chime-of-endless-dreams-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "zcVjsVRBV8",
+            "name": "Combo Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "combo-strike-below-level-two-on-kill-leaves-the-champion-rested",
+                "combo-strike-class-bonus-level-two-on-kill-wakes-up-your-champion"
+            ],
+            "semanticFixtures": [
+                "combo-strike-below-level-two-on-kill-leaves-the-champion-rested",
+                "combo-strike-class-bonus-level-two-on-kill-wakes-up-your-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

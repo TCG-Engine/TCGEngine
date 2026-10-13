@@ -1,0 +1,22 @@
+{
+    "name": "mechanized-smasher-attack-reveals-four-wind-cards-from-memory-as-an-additional-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:05:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qsm3n9yvn1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qsm3n9yvn1"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "reveal",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As an additional cost to use CARDNAME for an attack, reveal four wind element cards from your memory."
+        ]
+    }
+}

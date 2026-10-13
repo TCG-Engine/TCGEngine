@@ -1,0 +1,22 @@
+{
+    "name": "destined-encounter-an-elysian-ally-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:03:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6F5hCQ8I9S"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6F5hCQ8I9S"
+        ],
+        "mechanics": [
+            "scavenge",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If the **scavenged **card is Elysian, draw a card into your memory."
+        ]
+    }
+}

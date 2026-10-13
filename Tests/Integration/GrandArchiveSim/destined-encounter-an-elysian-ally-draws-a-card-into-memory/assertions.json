@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "HHtlkEeyQR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Elysian ally was scavenged"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three paid cards plus a card drawn into memory (the scavenged card was Elysian)"
+    }
+]

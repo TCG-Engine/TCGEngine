@@ -1,0 +1,22 @@
+{
+    "name": "vanitas-dominus-rex-on-champion-hit-makes-the-opponents-materializations-cost-one-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:07:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3vkxrw9462"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3vkxrw9462"
+        ],
+        "mechanics": [
+            "champion",
+            "on-champion-hit",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "**On Champion Hit**: Cards that opponent materializes cost 1 more to materialize until the beginning of your next turn."
+        ]
+    }
+}

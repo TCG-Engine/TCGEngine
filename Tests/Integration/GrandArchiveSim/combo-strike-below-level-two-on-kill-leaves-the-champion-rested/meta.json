@@ -1,0 +1,23 @@
+{
+    "name": "combo-strike-below-level-two-on-kill-leaves-the-champion-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:04:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zcVjsVRBV8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zcVjsVRBV8"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "on-kill",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] **On Kill:**"
+        ]
+    }
+}

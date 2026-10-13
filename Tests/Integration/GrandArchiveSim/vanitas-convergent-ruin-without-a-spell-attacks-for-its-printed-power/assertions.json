@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "No Spell: only the printed 1 power"
+    }
+]

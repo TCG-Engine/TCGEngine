@@ -1,0 +1,24 @@
+{
+    "name": "combo-strike-class-bonus-level-two-on-kill-wakes-up-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:04:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zcVjsVRBV8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zcVjsVRBV8"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "on-kill",
+            "status",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] **On Kill:** Wake up your champion."
+        ]
+    }
+}

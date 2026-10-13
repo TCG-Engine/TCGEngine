@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "3vkxrw9462",
+        "value": 1,
+        "semantic": true,
+        "label": "On Champion Hit: the opponent's materializations cost 1 more until my next turn"
+    }
+]

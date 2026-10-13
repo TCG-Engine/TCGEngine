@@ -1,0 +1,22 @@
+{
+    "name": "winbless-kiteshield-unit-link-gives-the-linked-unit-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:05:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uoy5ttkat9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uoy5ttkat9"
+        ],
+        "mechanics": [
+            "unit-link",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**Unit Link**",
+            "Linked unit has **vigor**."
+        ]
+    }
+}

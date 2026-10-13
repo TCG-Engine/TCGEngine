@@ -1,0 +1,22 @@
+{
+    "name": "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:03:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ybdJi1VN5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1ybdJi1VN5"
+        ],
+        "mechanics": [
+            "counter",
+            "trigger",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put a **buff** counter on each Human ally you control. Until end of turn, Human allies that enter the field under your control enter with an additional **buff** counter on them."
+        ]
+    }
+}

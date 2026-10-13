@@ -1,0 +1,22 @@
+{
+    "name": "updraft-slice-without-the-class-bonus-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:04:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k5RG5TNLAp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k5RG5TNLAp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1[POWER]."
+        ]
+    }
+}

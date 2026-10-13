@@ -6289,6 +6289,7 @@ function GAFieldAbilityCostTable() {
         "AOFRjoIHVe:0" => ['reserve' => 3], // Lesser Boon of Revelry
         "V8aPGgLyh5:0" => ['reserve' => 3], // Lesser Boon of Rakko (twice; its prereq counts the uses)
         "fJJBJ9M4c4:0" => ['reserve' => 3], // Lesser Boon of Rosen (once; the override in GeneratedAbilityOverrides.php counts the use)
+        "4ZpWIJAmSC:0" => ['reserve' => 3], // Lesser Boon of Astraeus (once; the override in GeneratedAbilityOverrides.php counts the use)
         "UC9byG4aD5:0" => ['reserve' => 'GAZerusaReserve'], // Lesser Boon of Zerusa: (2), +1 for each time it was activated this game
         "UI0lAtGQBb:0" => ['reserve' => 'GABulletsReserve'], // Lesser Boon of Bullets: (2), +1 for each time it was activated this game
         "aou4be9z82:0" => ['rest' => true], // Humpty Dumpty, Fate's Fall
@@ -6472,6 +6473,7 @@ function GAActivateAbilityCountOverrides() {
         "YGz8gN8M69" => ["Cardistry"], // Eight of Hearts
         "fbs9qzo3f6" => ["Distant"], // Ranger Boots
         "9ggfiy38t2" => ["Prevent"], // Baby Blue Slime
+        "4ZpWIJAmSC" => ["Suppress"], // Lesser Boon of Astraeus
         "0z2snsdwmx" => ["Return"], // Scale of Souls
         "vm4xg2hedp" => ["Load"], // Refluxal Ribbon
         "hXERTZPM0w" => ["Damage 1", "Damage 2"], // Unbridled Flare

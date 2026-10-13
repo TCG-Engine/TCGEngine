@@ -2794,6 +2794,24 @@ $enterAbilities["kT8CeTFj82:0"] = function($player) { //Bushwhack Bandit
     Empower($player, 2, "kT8CeTFj82");
 };
 
+// Lesser Boon of Astraeus 4ZpWIJAmSC: "(3): As a Spell, suppress target ally, item, or weapon. Activate this ability only once." The generator emitted the body as a card activation (reserve 2, no once-only
+// limit); it is a field ability like Lesser Boon of Rosen, with the (3) paid via GAFieldAbilityCostTable() and the use counted on the boon.
+$cardActivatedAbilities["4ZpWIJAmSC:0"] = function($player) { // Lesser Boon of Astraeus: no on-play effect (the suppress ability lives in $activateAbilityAbilities)
+};
+$activateAbilityAbilities["4ZpWIJAmSC:0"] = function($player) { //Astraeus: suppress target ally, item or weapon, once
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    AddCounters($player, $mzID, "4ZpWIJAmSC_used", 1);
+    $targets = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY", "ITEM", "WEAPON"]), ZoneSearch("theirField", ["ALLY", "ITEM", "WEAPON"])));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "4ZpWIJAmSC:0:CardActivated-1", 1);
+};
+$activateAbilityPrereqs["4ZpWIJAmSC:0"] = function($player, $mzID, $abilityIndex) { //Astraeus prereq: only once, needs a target
+    $obj = GetZoneObject($mzID);
+    if($obj === null || GetCounterCount($obj, "4ZpWIJAmSC_used") >= 1) return false;
+    return !empty(ZoneSearch("myField", ["ALLY", "ITEM", "WEAPON"])) || !empty(ZoneSearch("theirField", ["ALLY", "ITEM", "WEAPON"]));
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

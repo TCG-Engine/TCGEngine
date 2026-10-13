@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The ally was suppressed"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The (3) cost was paid"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Activate this ability only once: the second activation paid nothing"
+    }
+]
