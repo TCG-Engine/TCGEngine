@@ -1,0 +1,22 @@
+{
+    "name": "trained-birdroid-automaton-allies-have-true-sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "84lj40Kyhv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "84lj40Kyhv"
+        ],
+        "mechanics": [
+            "static",
+            "true-sight",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Automaton allies you control have **true sight**."
+        ]
+    }
+}

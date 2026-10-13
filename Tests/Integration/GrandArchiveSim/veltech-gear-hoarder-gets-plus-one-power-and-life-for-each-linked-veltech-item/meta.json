@@ -1,0 +1,22 @@
+{
+    "name": "veltech-gear-hoarder-gets-plus-one-power-and-life-for-each-linked-veltech-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3EiA5HoKv2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3EiA5HoKv2"
+        ],
+        "mechanics": [
+            "link",
+            "stat-change",
+            "static"
+        ],
+        "rulesClauses": [
+            "CARDNAME gets +1[POWER] and +1[LIFE] for each VelTech item linked to it."
+        ]
+    }
+}

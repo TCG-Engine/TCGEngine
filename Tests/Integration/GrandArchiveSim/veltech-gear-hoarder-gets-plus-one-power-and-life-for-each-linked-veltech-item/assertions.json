@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "One linked VelTech item: 1 printed, +1 from the Hoarder's own text and +1 from the Knife's Ally Link"
+    }
+]

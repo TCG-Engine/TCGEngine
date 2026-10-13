@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "[Class Bonus] The Martyr was banished from the graveyard: recover 2 (5 - 2)"
+    }
+]

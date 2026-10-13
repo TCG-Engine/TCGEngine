@@ -1,0 +1,22 @@
+{
+    "name": "innocuous-disposer-attack-cannot-be-retaliated-by-a-human-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pd2aigr677"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pd2aigr677"
+        ],
+        "mechanics": [
+            "restriction",
+            "retaliate",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Innocuous Disposer's attacks can't be retaliated by Human allies."
+        ]
+    }
+}

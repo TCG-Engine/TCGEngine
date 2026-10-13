@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "axxaUOWHA3",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "Attacking a domain: 2 + 2 = 4 damage removed all four durability counters"
+    }
+]

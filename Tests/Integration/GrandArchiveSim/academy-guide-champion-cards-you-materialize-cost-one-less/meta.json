@@ -1,0 +1,21 @@
+{
+    "name": "academy-guide-champion-cards-you-materialize-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kk39i1f0ht"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kk39i1f0ht"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "Champion cards you materialize cost 1 less to materialize."
+        ]
+    }
+}

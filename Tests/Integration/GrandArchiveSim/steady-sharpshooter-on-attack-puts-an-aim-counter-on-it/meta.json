@@ -1,0 +1,22 @@
+{
+    "name": "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yakyp6odw3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yakyp6odw3"
+        ],
+        "mechanics": [
+            "on-attack",
+            "counter",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Attack**: Put an **aim** counter on Steady Sharpshooter. Then you may remove all **aim** counters from Steady Sharpshooter."
+        ]
+    }
+}

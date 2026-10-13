@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Two cards to the bottom and two drawn: the hand stays at the 8 it had after the turn draw"
+    }
+]

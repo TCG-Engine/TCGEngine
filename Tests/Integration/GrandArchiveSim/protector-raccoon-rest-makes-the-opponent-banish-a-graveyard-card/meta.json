@@ -1,0 +1,22 @@
+{
+    "name": "protector-raccoon-rest-makes-the-opponent-banish-a-graveyard-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:37:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JeyOuhr3sj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JeyOuhr3sj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "banish"
+        ],
+        "rulesClauses": [
+            "[REST]: Target opponent banishes a card from their graveyard."
+        ]
+    }
+}

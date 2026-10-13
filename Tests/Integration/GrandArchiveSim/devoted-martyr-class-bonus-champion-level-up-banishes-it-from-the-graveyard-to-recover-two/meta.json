@@ -1,0 +1,24 @@
+{
+    "name": "devoted-martyr-class-bonus-champion-level-up-banishes-it-from-the-graveyard-to-recover-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:36:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p16w5j93mk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p16w5j93mk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "level-up",
+            "banish",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever your champion levels up, you may banish this card from your graveyard. If you do, **recover 2**."
+        ]
+    }
+}

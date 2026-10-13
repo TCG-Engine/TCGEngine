@@ -1,0 +1,22 @@
+{
+    "name": "siege-mauler-attacking-a-domain-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:38:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bsuO8TVe7p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bsuO8TVe7p"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is attacking a domain, it gets +2 [POWER]."
+        ]
+    }
+}

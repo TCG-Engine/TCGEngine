@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **1962**
+Cards linked to an existing fixture: **1974**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **515**
+Implemented cards still needing semantic coverage: **503**
 
 ## Mechanic groups
 
@@ -32,7 +32,6 @@ Implemented cards still needing semantic coverage: **515**
 | Fatestone of Progress (`2sn7hlyrkw`) | ITEM | 3 | counter, trigger, condition | — | — |
 | Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
-| Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **515**
 | Ceasing Edict (`4f3bi5lohu`) | ACTION | 2 | cost, zone-movement, condition | — | — |
 | Ebbing Tide (`s7pmqsl3jw`) | REGALIA,ITEM | 2 | zone-movement, status, condition | — | — |
 | Expunge (`r73opcqtzs`) | ACTION | 2 | cost, damage, draw-discard | — | — |
+| Flourishing Restoration (`alnjt7DyZL`) | ACTION | 2 | cost, recover, condition | — | — |

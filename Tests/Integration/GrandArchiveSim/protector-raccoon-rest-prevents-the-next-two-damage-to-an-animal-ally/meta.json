@@ -1,0 +1,23 @@
+{
+    "name": "protector-raccoon-rest-prevents-the-next-two-damage-to-an-animal-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:38:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JeyOuhr3sj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JeyOuhr3sj"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]: Prevent the next 2 damage that would be dealt to target Animal ally this turn."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T21:35:44+00:00",
+    "generatedAt": "2026-10-13T21:39:07+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1962,
+        "cardsWithExistingFixtures": 1974,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 515,
+        "cardsNeedingSemanticCoverage": 503,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -129,23 +129,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
-        },
-        {
-            "cardId": "84lj40Kyhv",
-            "name": "Trained Birdroid",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 1,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1078,23 +1061,6 @@
             "priority": 23
         },
         {
-            "cardId": "JeyOuhr3sj",
-            "name": "Protector Raccoon",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "dcgw05q66h",
             "name": "Purified Shot",
             "type": "ITEM",
@@ -1307,21 +1273,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 22
-        },
-        {
-            "cardId": "kk39i1f0ht",
-            "name": "Academy Guide",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 21
         },
         {
             "cardId": "DKoSnhjX18",
@@ -1597,26 +1548,6 @@
                 "prevention",
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "p16w5j93mk",
-            "name": "Devoted Martyr",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2348,25 +2279,6 @@
                 "cost",
                 "damage",
                 "recover",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "5tphi6xl26",
-            "name": "Suspicious Concoction",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "zone-movement",
                 "trigger",
                 "condition"
             ],
@@ -3414,24 +3326,6 @@
             "priority": 14
         },
         {
-            "cardId": "0xayo7mk1w",
-            "name": "Liminal Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "2nc48s3oqh",
             "name": "Mad Hatter, Morose Heritor",
             "type": "UNIQUE,ALLY",
@@ -3712,24 +3606,6 @@
                 "targeting",
                 "damage",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "k45swaf8ur",
-            "name": "Sanctum of Esoteric Truth",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4593,23 +4469,6 @@
             "priority": 13
         },
         {
-            "cardId": "kkz07nau5s",
-            "name": "Engineered Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "4zEOAaLdap",
             "name": "Ethereal Absorption",
             "type": "ACTION",
@@ -4890,23 +4749,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "pd2aigr677",
-            "name": "Innocuous Disposer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -5554,23 +5396,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "yakyp6odw3",
-            "name": "Steady Sharpshooter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -8563,21 +8388,6 @@
             "priority": 11
         },
         {
-            "cardId": "bsuO8TVe7p",
-            "name": "Siege Mauler",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "3p5iqigcom",
             "name": "Spirit Shard",
             "type": "TOKEN,PHANTASIA",
@@ -8671,21 +8481,6 @@
             "cardId": "vb9xebivoe",
             "name": "vb9xebivoe",
             "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "3EiA5HoKv2",
-            "name": "VelTech Gear Hoarder",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -24098,6 +23893,27 @@
             "priority": 51
         },
         {
+            "cardId": "84lj40Kyhv",
+            "name": "Trained Birdroid",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 1,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "trained-birdroid-automaton-allies-have-true-sight"
+            ],
+            "semanticFixtures": [
+                "trained-birdroid-automaton-allies-have-true-sight"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 51
+        },
+        {
             "cardId": "84e2rfex54",
             "name": "Quadrille's Gryphon",
             "type": "ALLY",
@@ -26677,6 +26493,29 @@
             "priority": 43
         },
         {
+            "cardId": "JeyOuhr3sj",
+            "name": "Protector Raccoon",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "protector-raccoon-rest-makes-the-opponent-banish-a-graveyard-card",
+                "protector-raccoon-rest-prevents-the-next-two-damage-to-an-animal-ally"
+            ],
+            "semanticFixtures": [
+                "protector-raccoon-rest-makes-the-opponent-banish-a-graveyard-card",
+                "protector-raccoon-rest-prevents-the-next-two-damage-to-an-animal-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "cxyky280mt",
             "name": "Quicksilver Grail",
             "type": "REGALIA,ITEM",
@@ -27893,6 +27732,25 @@
             "priority": 42
         },
         {
+            "cardId": "kk39i1f0ht",
+            "name": "Academy Guide",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "academy-guide-champion-cards-you-materialize-cost-one-less"
+            ],
+            "semanticFixtures": [
+                "academy-guide-champion-cards-you-materialize-cost-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 41
+        },
+        {
             "cardId": "QZT9pQQltw",
             "name": "AquaTech Shell",
             "type": "ITEM",
@@ -28678,6 +28536,30 @@
             ],
             "semanticFixtures": [
                 "desperate-dive-prevents-damage-equal-to-water-cards-in-the-graveyard-and-makes-the-unit-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "p16w5j93mk",
+            "name": "Devoted Martyr",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "devoted-martyr-class-bonus-champion-level-up-banishes-it-from-the-graveyard-to-recover-two"
+            ],
+            "semanticFixtures": [
+                "devoted-martyr-class-bonus-champion-level-up-banishes-it-from-the-graveyard-to-recover-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30478,6 +30360,29 @@
             "semanticFixtures": [
                 "surging-undertow-class-bonus-mills-three-and-makes-a-unit-distant",
                 "surging-undertow-with-fewer-than-three-water-cards-does-not-make-a-unit-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "5tphi6xl26",
+            "name": "Suspicious Concoction",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suspicious-concoction-champion-level-up-banishes-it-to-draw-into-memory-and-recover-two"
+            ],
+            "semanticFixtures": [
+                "suspicious-concoction-champion-level-up-banishes-it-to-draw-into-memory-and-recover-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -34041,6 +33946,28 @@
             "priority": 34
         },
         {
+            "cardId": "0xayo7mk1w",
+            "name": "Liminal Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "liminal-guide-champion-level-up-returns-it-from-the-graveyard-ephemeral-and-draws"
+            ],
+            "semanticFixtures": [
+                "liminal-guide-champion-level-up-returns-it-from-the-graveyard-ephemeral-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "BZMKfFZ22T",
             "name": "Liturgy of Corruption",
             "type": "ACTION",
@@ -35146,6 +35073,28 @@
             ],
             "semanticFixtures": [
                 "rusted-warshield-banish-prevents-two-damage-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "k45swaf8ur",
+            "name": "Sanctum of Esoteric Truth",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sanctum-of-esoteric-truth-champion-level-up-bottoms-two-cards-and-draws-two"
+            ],
+            "semanticFixtures": [
+                "sanctum-of-esoteric-truth-champion-level-up-bottoms-two-cards-and-draws-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38690,6 +38639,27 @@
             "priority": 33
         },
         {
+            "cardId": "kkz07nau5s",
+            "name": "Engineered Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "engineered-slime-pride-two-does-not-obey-a-level-one-champion"
+            ],
+            "semanticFixtures": [
+                "engineered-slime-pride-two-does-not-obey-a-level-one-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "df9q1wl8ao",
             "name": "Enhance Potency",
             "type": "ACTION",
@@ -39632,6 +39602,27 @@
             ],
             "semanticFixtures": [
                 "infusion-of-crescent-jade-gives-a-polearm-plus-one-power-per-wind-non-champion-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pd2aigr677",
+            "name": "Innocuous Disposer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "innocuous-disposer-attack-cannot-be-retaliated-by-a-human-ally"
+            ],
+            "semanticFixtures": [
+                "innocuous-disposer-attack-cannot-be-retaliated-by-a-human-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42608,6 +42599,27 @@
             ],
             "semanticFixtures": [
                 "staggering-strike-on-champion-hit-removes-three-preparation-counters-from-the-hit-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "yakyp6odw3",
+            "name": "Steady Sharpshooter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52930,6 +52942,27 @@
             "priority": 31
         },
         {
+            "cardId": "bsuO8TVe7p",
+            "name": "Siege Mauler",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "siege-mauler-attacking-a-domain-gets-plus-two-power",
+                "siege-mauler-control-an-ordinary-ally-leaves-the-domain-standing"
+            ],
+            "semanticFixtures": [
+                "siege-mauler-attacking-a-domain-gets-plus-two-power",
+                "siege-mauler-control-an-ordinary-ally-leaves-the-domain-standing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "bd7ozuj68m",
             "name": "Silvershine",
             "type": "TOKEN,ITEM",
@@ -53372,6 +53405,25 @@
             "semanticFixtures": [
                 "varuckan-soulknife-activates-from-the-material-deck-in-the-main-phase-by-banishing-three-fire-cards",
                 "varuckan-soulknife-is-not-activated-from-the-material-deck-with-only-two-fire-cards-in-the-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "3EiA5HoKv2",
+            "name": "VelTech Gear Hoarder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "veltech-gear-hoarder-gets-plus-one-power-and-life-for-each-linked-veltech-item"
+            ],
+            "semanticFixtures": [
+                "veltech-gear-hoarder-gets-plus-one-power-and-life-for-each-linked-veltech-item"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
