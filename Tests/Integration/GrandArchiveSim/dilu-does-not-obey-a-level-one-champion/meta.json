@@ -1,0 +1,21 @@
+{
+    "name": "dilu-does-not-obey-a-level-one-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "du4eaktghh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "du4eaktghh"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 3** *(This ally won't obey you unless your champion is level 3 or higher."
+        ]
+    }
+}

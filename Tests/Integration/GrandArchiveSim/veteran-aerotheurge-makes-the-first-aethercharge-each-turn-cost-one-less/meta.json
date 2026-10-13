@@ -1,0 +1,20 @@
+{
+    "name": "veteran-aerotheurge-makes-the-first-aethercharge-each-turn-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:18:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fta5isdgrk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fta5isdgrk"
+        ],
+        "mechanics": [
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "The first Aethercharge card you activate each turn costs 1 less to activate."
+        ]
+    }
+}

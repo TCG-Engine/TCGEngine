@@ -1,0 +1,22 @@
+{
+    "name": "battlefield-spotter-below-level-two-grants-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "44vm5kt3q2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "44vm5kt3q2"
+        ],
+        "mechanics": [
+            "level-gate",
+            "ranged",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Other units you control have **ranged 1**."
+        ]
+    }
+}

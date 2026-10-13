@@ -1,0 +1,23 @@
+{
+    "name": "winbless-rangefinder-on-enter-puts-a-buff-counter-on-a-distant-automaton-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uyv3fpvw2i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uyv3fpvw2i"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that unit is an Automaton ally, put a **buff** counter on it."
+        ]
+    }
+}

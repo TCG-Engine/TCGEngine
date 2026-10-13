@@ -1,0 +1,22 @@
+{
+    "name": "brisk-windtrotter-level-two-puts-a-second-buff-counter-on-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mala1jaff7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mala1jaff7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **On Enter:** Put a **buff** counter on another target ally you control."
+        ]
+    }
+}

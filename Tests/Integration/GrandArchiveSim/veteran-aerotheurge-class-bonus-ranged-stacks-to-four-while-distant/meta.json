@@ -1,0 +1,23 @@
+{
+    "name": "veteran-aerotheurge-class-bonus-ranged-stacks-to-four-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:18:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fta5isdgrk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fta5isdgrk"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "class-bonus",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    }
+}

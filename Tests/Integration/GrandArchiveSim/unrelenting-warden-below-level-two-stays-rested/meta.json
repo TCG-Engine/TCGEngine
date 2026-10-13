@@ -1,0 +1,22 @@
+{
+    "name": "unrelenting-warden-below-level-two-stays-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "icvkegsdve"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "icvkegsdve"
+        ],
+        "mechanics": [
+            "level-gate",
+            "vigor",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 2+] **Vigor**"
+        ]
+    }
+}

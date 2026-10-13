@@ -1,0 +1,22 @@
+{
+    "name": "longtail-grovesward-below-level-one-has-its-printed-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jn4mwv930y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jn4mwv930y"
+        ],
+        "mechanics": [
+            "level-gate",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+] Longtail Grovesward gets +1[LIFE]."
+        ]
+    }
+}

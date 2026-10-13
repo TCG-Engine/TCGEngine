@@ -1,0 +1,23 @@
+{
+    "name": "mistral-ranger-without-the-class-bonus-has-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:18:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lClyP34mj6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lClyP34mj6"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 2**"
+        ]
+    }
+}

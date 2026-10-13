@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T01:48:08+00:00",
+    "generatedAt": "2026-10-13T13:19:07+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 1477,
+        "cardsWithExistingFixtures": 1486,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1000,
+        "cardsNeedingSemanticCoverage": 991,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1423,23 +1423,6 @@
                 "cost",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "lClyP34mj6",
-            "name": "Mistral Ranger",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3764,27 +3747,6 @@
             "priority": 15
         },
         {
-            "cardId": "uyv3fpvw2i",
-            "name": "Winbless Rangefinder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "fz1nr5a3pm",
             "name": "Windmill Engineer",
             "type": "ALLY",
@@ -4152,24 +4114,6 @@
             "priority": 14
         },
         {
-            "cardId": "44vm5kt3q2",
-            "name": "Battlefield Spotter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "rTesQpssPz",
             "name": "Beckon Attention",
             "type": "ACTION",
@@ -4251,24 +4195,6 @@
                 "targeting",
                 "draw-discard",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "mala1jaff7",
-            "name": "Brisk Windtrotter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -8423,23 +8349,6 @@
             "priority": 13
         },
         {
-            "cardId": "izGEjxBPo9",
-            "name": "Menagerie Beastbonder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "7ddcgw05qz",
             "name": "Mercurial Heart",
             "type": "REGALIA,ITEM",
@@ -9783,23 +9692,6 @@
             "priority": 13
         },
         {
-            "cardId": "icvkegsdve",
-            "name": "Unrelenting Warden",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "597fqr67du",
             "name": "Vampiric Slime",
             "type": "ALLY",
@@ -9876,23 +9768,6 @@
             "mechanics": [
                 "status",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "fta5isdgrk",
-            "name": "Veteran Aerotheurge",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -11026,22 +10901,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "du4eaktghh",
-            "name": "Dilu, Auspicious Charger",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -15659,21 +15518,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "jn4mwv930y",
-            "name": "Longtail Grovesward",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34066,6 +33910,33 @@
             "priority": 43
         },
         {
+            "cardId": "lClyP34mj6",
+            "name": "Mistral Ranger",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mistral-ranger-class-bonus-costs-one-less-after-an-aethercharge-this-turn",
+                "mistral-ranger-class-bonus-ranged-two-while-distant",
+                "mistral-ranger-class-bonus-without-an-aethercharge-this-turn-costs-the-printed-three",
+                "mistral-ranger-without-the-class-bonus-has-no-ranged"
+            ],
+            "semanticFixtures": [
+                "mistral-ranger-class-bonus-costs-one-less-after-an-aethercharge-this-turn",
+                "mistral-ranger-class-bonus-ranged-two-while-distant",
+                "mistral-ranger-class-bonus-without-an-aethercharge-this-turn-costs-the-printed-three",
+                "mistral-ranger-without-the-class-bonus-has-no-ranged"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "6JMwc6cpRm",
             "name": "Peer the Depths",
             "type": "ACTION",
@@ -37292,6 +37163,33 @@
             "priority": 35
         },
         {
+            "cardId": "uyv3fpvw2i",
+            "name": "Winbless Rangefinder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winbless-rangefinder-on-enter-makes-another-unit-distant",
+                "winbless-rangefinder-on-enter-puts-a-buff-counter-on-a-distant-automaton-ally"
+            ],
+            "semanticFixtures": [
+                "winbless-rangefinder-on-enter-makes-another-unit-distant",
+                "winbless-rangefinder-on-enter-puts-a-buff-counter-on-a-distant-automaton-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "9cef7aknvn",
             "name": "Wuji of Lingering Fate",
             "type": "PHANTASIA",
@@ -37613,6 +37511,32 @@
             "priority": 34
         },
         {
+            "cardId": "44vm5kt3q2",
+            "name": "Battlefield Spotter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "battlefield-spotter-below-level-two-grants-no-ranged",
+                "battlefield-spotter-class-bonus-on-enter-makes-another-ally-distant",
+                "battlefield-spotter-level-two-gives-other-units-ranged-one"
+            ],
+            "semanticFixtures": [
+                "battlefield-spotter-below-level-two-grants-no-ranged",
+                "battlefield-spotter-class-bonus-on-enter-makes-another-ally-distant",
+                "battlefield-spotter-level-two-gives-other-units-ranged-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "776yt8UxhU",
             "name": "Benevolent Battle Priest",
             "type": "ALLY",
@@ -37725,6 +37649,30 @@
             "semanticFixtures": [
                 "breakwater-cadet-class-bonus-attack-mills-the-chosen-player",
                 "breakwater-cadet-without-the-class-bonus-mills-nobody"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "mala1jaff7",
+            "name": "Brisk Windtrotter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "brisk-windtrotter-level-two-puts-a-second-buff-counter-on-another-ally",
+                "brisk-windtrotter-on-enter-puts-a-buff-counter-on-another-ally"
+            ],
+            "semanticFixtures": [
+                "brisk-windtrotter-level-two-puts-a-second-buff-counter-on-another-ally",
+                "brisk-windtrotter-on-enter-puts-a-buff-counter-on-another-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41719,12 +41667,10 @@
             ],
             "existingFixtures": [
                 "armored-valkyrie-retaliates-with-two-extra-power-under-the-class-bonus",
-                "armored-valkyrie-retaliates-with-two_extra_power_under_the_class_bonus",
                 "armored-valkyrie-without-the-class-bonus-retaliates-for-its-printed-power"
             ],
             "semanticFixtures": [
                 "armored-valkyrie-retaliates-with-two-extra-power-under-the-class-bonus",
-                "armored-valkyrie-retaliates-with-two_extra_power_under_the_class_bonus",
                 "armored-valkyrie-without-the-class-bonus-retaliates-for-its-printed-power"
             ],
             "starterDecks": [],
@@ -42336,13 +42282,13 @@
             ],
             "existingFixtures": [
                 "charged-assailant-on-enter-with-a-powercell-gains-agility-three",
-                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility",
-                "charged-assailant-on-enter-without_a_powercell-gains-no-agility"
+                "charged-assailant-on-enter-without-a-powercell-gains-no-agility",
+                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility"
             ],
             "semanticFixtures": [
                 "charged-assailant-on-enter-with-a-powercell-gains-agility-three",
-                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility",
-                "charged-assailant-on-enter-without_a_powercell-gains-no-agility"
+                "charged-assailant-on-enter-without-a-powercell-gains-no-agility",
+                "charged-assailant-on-enter-without-the-class-bonus-gains-no-agility"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43944,6 +43890,29 @@
                 "martial-flowstate-class-bonus-floating-memory-pays-a-memory-cost",
                 "martial-flowstate-class-bonus-sacrifices-itself-when-your-champion-levels-up",
                 "martial-flowstate-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "izGEjxBPo9",
+            "name": "Menagerie Beastbonder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "menagerie-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level",
+                "menagerie-beastbonder-without-an-animal-or-beast-ally-gives-no-level"
+            ],
+            "semanticFixtures": [
+                "menagerie-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level",
+                "menagerie-beastbonder-without-an-animal-or-beast-ally-gives-no-level"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45755,6 +45724,31 @@
             "priority": 33
         },
         {
+            "cardId": "icvkegsdve",
+            "name": "Unrelenting Warden",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "unrelenting-warden-below-level-two-stays-rested",
+                "unrelenting-warden-class-bonus-taunt-protects-the-champion",
+                "unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "semanticFixtures": [
+                "unrelenting-warden-below-level-two-stays-rested",
+                "unrelenting-warden-class-bonus-taunt-protects-the-champion",
+                "unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "8lrj52215u",
             "name": "Vaporjet Shieldbearer",
             "type": "ALLY",
@@ -45799,6 +45793,33 @@
                 "verita-queen-of-hearts-banishes-suited-allies-from-the-graveyard-instead-of-paying-ten",
                 "verita-queen-of-hearts-on-death-suited-allies-get-plus-one-power",
                 "verita-queen-of-hearts-other-suited-allies-have-immortality"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "fta5isdgrk",
+            "name": "Veteran Aerotheurge",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "veteran-aerotheurge-class-bonus-ranged-stacks-to-four-while-distant",
+                "veteran-aerotheurge-makes-the-first-aethercharge-each-turn-cost-one-less",
+                "veteran-aerotheurge-ranged-two-while-distant",
+                "veteran-aerotheurge-second-aethercharge-in-a-turn-costs-full-price"
+            ],
+            "semanticFixtures": [
+                "veteran-aerotheurge-class-bonus-ranged-stacks-to-four-while-distant",
+                "veteran-aerotheurge-makes-the-first-aethercharge-each-turn-cost-one-less",
+                "veteran-aerotheurge-ranged-two-while-distant",
+                "veteran-aerotheurge-second-aethercharge-in-a-turn-costs-full-price"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46733,6 +46754,30 @@
             ],
             "semanticFixtures": [
                 "diamond-ribbon-banish-generates-two-bolts-of-diamonds-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "du4eaktghh",
+            "name": "Dilu, Auspicious Charger",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dilu-does-not-obey-a-level-one-champion",
+                "dilu-with-a-wind-unique-human-ally-loses-pride",
+                "dilu-with-a-wind-unique-human-ally-wakes-up-at-the-end-of-the-turn-with-vigor"
+            ],
+            "semanticFixtures": [
+                "dilu-does-not-obey-a-level-one-champion",
+                "dilu-with-a-wind-unique-human-ally-loses-pride",
+                "dilu-with-a-wind-unique-human-ally-wakes-up-at-the-end-of-the-turn-with-vigor"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50537,6 +50582,29 @@
             "semanticFixtures": [
                 "lesser-boon-of-vritra-draws-and-damages-champions-with-influence-over-seven",
                 "lesser-boon-of-vritra-spares-a-champion-with-low-influence"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "jn4mwv930y",
+            "name": "Longtail Grovesward",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "longtail-grovesward-below-level-one-has-its-printed-life",
+                "longtail-grovesward-fast-activation-can-be-played-from-a-response-window",
+                "longtail-grovesward-level-one-gets-plus-one-life"
+            ],
+            "semanticFixtures": [
+                "longtail-grovesward-below-level-one-has-its-printed-life",
+                "longtail-grovesward-fast-activation-can-be-played-from-a-response-window",
+                "longtail-grovesward-level-one-gets-plus-one-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

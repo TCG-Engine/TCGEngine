@@ -22141,7 +22141,7 @@ function NightframeFastActivationTrigger($player, $listenerMZ, $activatedMZ) {
     $isFastAction = PropertyContains(CardType($cardID), "ACTION") && CardSpeed($cardID) === true;
     global $unconditionalFastCards, $cbFastActivationCards;
     $lower = strtolower($cardID);
-    $isFastActivation = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$lower]);
+    $isFastActivation = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$lower]) || PrintedFastActivationActive($player, $cardID);
     $fastClasses = $cbFastActivationCards[$cardID] ?? ($cbFastActivationCards[$lower] ?? null);
     if($fastClasses !== null && IsClassBonusActive($player, $fastClasses)) $isFastActivation = true;
     if(!$isFastAction && !$isFastActivation) return;

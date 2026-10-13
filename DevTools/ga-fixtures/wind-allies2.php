@@ -82,7 +82,7 @@ gaScenario('charged-assailant-on-enter-with-a-powercell-gains-agility-three')
     ->covers(['on-enter', 'class-bonus', 'condition', 'agility'], '[Class Bonus] **On Enter:** If you control a Powercell, you gain **agility 3** for this turn.')
     ->register();
 
-gaScenario('charged-assailant-on-enter-without_a_powercell-gains-no-agility')
+gaScenario('charged-assailant-on-enter-without-a-powercell-gains-no-agility')
     ->deckTemplate('quiet', 'Charged Assailant')
     ->readyFor('Charged Assailant', classBonus: true)
     ->seed('myHand', 'Charged Assailant')
@@ -376,4 +376,282 @@ gaScenario('blightheart-penitent-without-an-elysian-object-cannot-use-its-abilit
     ->expectDqEmpty()
     ->tested('Blightheart Penitent')
     ->covers(['activated-ability', 'condition'], 'If you control an Elysian object')
+    ->register();
+
+// ---- Dilu, Auspicious Charger ----
+
+gaScenario('dilu-does-not-obey-a-level-one-champion')
+    ->deckTemplate('quiet', 'Dilu, Auspicious Charger')
+    ->readyFor('Dilu, Auspicious Charger', classBonus: true, level: 1)
+    ->seed('myField', 'Dilu, Auspicious Charger')
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-0')
+    ->expectDamage('p2Field-0', 0, 'Pride 3: a level 1 champion cannot make Dilu attack')
+    ->tested('Dilu, Auspicious Charger')
+    ->covers(['pride', 'condition'], '**Pride 3** *(This ally won\'t obey you unless your champion is level 3 or higher.')
+    ->register();
+
+gaScenario('dilu-with-a-wind-unique-human-ally-loses-pride')
+    ->deckTemplate('quiet', 'Dilu, Auspicious Charger')
+    ->readyFor('Dilu, Auspicious Charger', classBonus: true, level: 1)
+    ->seed('myField', 'Dilu, Auspicious Charger')
+    ->seed('myField', 'Parcenet, Royal Maid')
+    ->reachTurnThree(fastCardInHand: true)
+    ->attack('myField-1', 'theirField-0')->pass(1)
+    ->expectDamage('p2Field-0', 3, 'A wind unique Human ally: Dilu lost pride and attacked for 3 at level 1')
+    ->tested('Dilu, Auspicious Charger')
+    ->covers(['pride', 'static-ability', 'condition'], 'As long as you control a wind element unique Human ally, Dilu loses **pride**')
+    ->register();
+
+gaScenario('dilu-with-a-wind-unique-human-ally-wakes-up-at-the-end-of-the-turn-with-vigor')
+    ->deckTemplate('quiet', 'Dilu, Auspicious Charger')
+    ->readyFor('Dilu, Auspicious Charger', classBonus: true, level: 1)
+    ->seed('myField', 'Dilu, Auspicious Charger')
+    ->seed('myField', 'Parcenet, Royal Maid')
+    ->reachTurnThree(fastCardInHand: true)
+    ->attack('myField-1', 'theirField-0')->pass(1)->endTurn()->pass(1)->pass(1)
+    ->expectProperty('p1Field-1', 'Status', '2', 'Vigor: Dilu woke up at the beginning of the end phase')
+    ->tested('Dilu, Auspicious Charger')
+    ->covers(['vigor', 'static-ability', 'condition'], 'As long as you control a wind element unique Human ally, Dilu loses **pride** and has **vigor**.')
+    ->register();
+
+// ---- Winbless Rangefinder ----
+
+gaScenario('winbless-rangefinder-on-enter-makes-another-unit-distant')
+    ->deckTemplate('quiet', 'Winbless Rangefinder')
+    ->readyFor('Winbless Rangefinder')
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Winbless Rangefinder')
+    ->play('Winbless Rangefinder')->pay(2)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The other unit became distant')
+    ->expectProperty('p1Field-1', 'Counters', '[]', 'Not an Automaton: no buff counter')
+    ->tested('Winbless Rangefinder')
+    ->covers(['on-enter', 'distant', 'targeting'], '**On Enter:** Another target unit you control becomes **distant**.')
+    ->register();
+
+gaScenario('winbless-rangefinder-on-enter-puts-a-buff-counter-on-a-distant-automaton-ally')
+    ->deckTemplate('quiet', 'Winbless Rangefinder')
+    ->readyFor('Winbless Rangefinder')
+    ->seed('myField', 'Automaton Drone')
+    ->seed('myHand', 'Winbless Rangefinder')
+    ->play('Winbless Rangefinder')->pay(2)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The Drone became distant')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'An Automaton ally: a buff counter too')
+    ->tested('Winbless Rangefinder')
+    ->covers(['on-enter', 'distant', 'counter', 'condition'], 'If that unit is an Automaton ally, put a **buff** counter on it.')
+    ->register();
+
+// ---- Menagerie Beastbonder ----
+
+gaScenario('menagerie-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level')
+    ->deckTemplate('quiet', 'Menagerie Beastbonder')
+    ->readyFor('Menagerie Beastbonder', level: 1)
+    ->seed('myField', 'Menagerie Beastbonder')
+    ->seed('myField', 'Inferno Slime')
+    ->reachTurnThree()
+    ->attack('myField-2', 'theirField-0')
+    ->expectDamage('p2Field-0', 3, 'Level 1 + 1 = 2 with a Beast ally: Pride 2 is satisfied and the Slime attacked for 3')
+    ->tested('Menagerie Beastbonder')
+    ->covers(['static-ability', 'level-gate', 'pride'], 'Your champion gets +1 level as long as you control an Animal or Beast ally.')
+    ->register();
+
+gaScenario('menagerie-beastbonder-without-an-animal-or-beast-ally-gives-no-level')
+    ->deckTemplate('quiet', 'Menagerie Beastbonder')
+    ->readyFor('Menagerie Beastbonder', level: 1)
+    ->seed('myField', 'Menagerie Beastbonder')
+    ->seed('myField', 'Dungeon Guide')
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-0')
+    ->expectDamage('p2Field-0', 1, 'Controlled by a level 1 champion: the Beastbonder itself attacks (no pride) for its 1 power')
+    ->tested('Menagerie Beastbonder')
+    ->covers(['static-ability', 'condition'], 'as long as you control an Animal or Beast ally')
+    ->register();
+
+// ---- Battlefield Spotter ----
+
+gaScenario('battlefield-spotter-class-bonus-on-enter-makes-another-ally-distant')
+    ->deckTemplate('quiet', 'Battlefield Spotter')
+    ->readyFor('Battlefield Spotter', classBonus: true)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Battlefield Spotter')
+    ->play('Battlefield Spotter')->pay(2)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The other ally became distant')
+    ->tested('Battlefield Spotter')
+    ->covers(['on-enter', 'class-bonus', 'distant', 'targeting'], '[Class Bonus] **On Enter:** Another target ally you control becomes **distant**.')
+    ->register();
+
+gaScenario('battlefield-spotter-level-two-gives-other-units-ranged-one')
+    ->deckTemplate('quiet', 'Battlefield Spotter')
+    ->readyFor('Battlefield Spotter', level: 2, player: 2)
+    ->seed('myField', 'Battlefield Spotter', player: 2)
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()
+    ->attack('myField-2', 'theirField-0', player: 2)
+    ->expectDamage('p1Field-0', 2, 'Level 2: the distant Tortoise has ranged 1, so 1 + 1 = 2')
+    ->tested('Battlefield Spotter')
+    ->covers(['level-gate', 'ranged', 'static-ability'], '[Level 2+] Other units you control have **ranged 1**.')
+    ->register();
+
+gaScenario('battlefield-spotter-below-level-two-grants-no-ranged')
+    ->deckTemplate('quiet', 'Battlefield Spotter')
+    ->readyFor('Battlefield Spotter', level: 1, player: 2)
+    ->seed('myField', 'Battlefield Spotter', player: 2)
+    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+    ->endTurn()
+    ->attack('myField-2', 'theirField-0', player: 2)
+    ->expectDamage('p1Field-0', 1, 'Level 1: no ranged, only the Tortoise\'s 1 power')
+    ->tested('Battlefield Spotter')
+    ->covers(['level-gate', 'ranged', 'condition'], '[Level 2+] Other units you control have **ranged 1**.')
+    ->register();
+
+// ---- Unrelenting Warden ----
+
+gaWaterTaunt('unrelenting-warden-class-bonus-taunt-protects-the-champion', 'Unrelenting Warden', [], '[Class Bonus] **Taunt**', true);
+
+gaScenario('unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn')
+    ->deckTemplate('quiet', 'Unrelenting Warden')
+    ->readyFor('Unrelenting Warden', level: 2)
+    ->seed('myField', 'Unrelenting Warden', properties: ['Status' => 1])
+    ->endTurn()
+    ->expectProperty('p1Field-1', 'Status', '2', 'Level 2: vigor woke the Warden at the end phase')
+    ->tested('Unrelenting Warden')
+    ->covers(['level-gate', 'vigor'], '[Level 2+] **Vigor**')
+    ->register();
+
+gaScenario('unrelenting-warden-below-level-two-stays-rested')
+    ->deckTemplate('quiet', 'Unrelenting Warden')
+    ->readyFor('Unrelenting Warden', level: 1)
+    ->seed('myField', 'Unrelenting Warden', properties: ['Status' => 1])
+    ->endTurn()
+    ->expectProperty('p1Field-1', 'Status', '1', 'Level 1: no vigor, the Warden is still rested')
+    ->tested('Unrelenting Warden')
+    ->covers(['level-gate', 'vigor', 'condition'], '[Level 2+] **Vigor**')
+    ->register();
+
+// ---- Brisk Windtrotter ----
+
+gaScenario('brisk-windtrotter-on-enter-puts-a-buff-counter-on-another-ally')
+    ->deckTemplate('quiet', 'Brisk Windtrotter')
+    ->readyFor('Brisk Windtrotter', level: 1)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Brisk Windtrotter')
+    ->play('Brisk Windtrotter')->pay(2)->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'On Enter: one buff counter')
+    ->tested('Brisk Windtrotter')
+    ->covers(['on-enter', 'counter', 'targeting'], '**On Enter:** Put a **buff** counter on another target ally you control.')
+    ->register();
+
+gaScenario('brisk-windtrotter-level-two-puts-a-second-buff-counter-on-another-ally')
+    ->deckTemplate('quiet', 'Brisk Windtrotter')
+    ->readyFor('Brisk Windtrotter', level: 2)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Brisk Windtrotter')
+    ->play('Brisk Windtrotter')->pay(2)->answer(1, 'myField-1')->answer(1, 'myField-1')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":2}', 'Level 2: the second On Enter added another buff counter')
+    ->tested('Brisk Windtrotter')
+    ->covers(['on-enter', 'counter', 'level-gate'], '[Level 2+] **On Enter:** Put a **buff** counter on another target ally you control.')
+    ->register();
+
+// ---- Longtail Grovesward ----
+
+gaScenario('longtail-grovesward-level-one-gets-plus-one-life')
+    ->deckTemplate('quiet', 'Longtail Grovesward')
+    ->readyFor('Longtail Grovesward', level: 1)
+    ->seed('myField', 'Longtail Grovesward')
+    ->endTurn()
+    ->expectLife('p1Field-1', 3, 'Level 1: 2 + 1 life')
+    ->tested('Longtail Grovesward')
+    ->covers(['level-gate', 'stat-change'], '[Level 1+] Longtail Grovesward gets +1[LIFE].')
+    ->register();
+
+gaScenario('longtail-grovesward-below-level-one-has-its-printed-life')
+    ->deckTemplate('quiet', 'Longtail Grovesward')
+    ->readyFor('Longtail Grovesward', level: 0)
+    ->seed('myField', 'Longtail Grovesward')
+    ->endTurn()
+    ->expectLife('p1Field-1', 2, 'Level 0: printed 2 life')
+    ->tested('Longtail Grovesward')
+    ->covers(['level-gate', 'stat-change', 'condition'], '[Level 1+] Longtail Grovesward gets +1[LIFE].')
+    ->register();
+
+gaScenario('longtail-grovesward-fast-activation-can-be-played-from-a-response-window')
+    ->deckTemplate('quiet', 'Longtail Grovesward')
+    ->readyFor('Longtail Grovesward')
+    ->seed('myHand', 'Longtail Grovesward')
+    ->endTurn()->answer(1, 'myHand-7')->pay(3)
+    ->expectCardExists('myField', 'Longtail Grovesward', 'Fast Activation: the ally was activated from a response window')
+    ->tested('Longtail Grovesward')
+    ->covers(['keyword', 'fast-activation'], '**Fast Activation** *(You may activate this card at fast speed.)*')
+    ->register();
+
+// The ranged keyword family on the 'quiet' deck: the ally attacks from player 2 while distant.
+if (!function_exists('gaWindRanged')) {
+    function gaWindRanged(string $slug, string $ally, int $damage, string $label, string $clause, bool $classBonus = false, array $mechanics = ['keyword', 'ranged', 'combat']): void {
+        gaScenario($slug)
+            ->deckTemplate('quiet', $ally)
+            ->readyFor($ally, classBonus: $classBonus, player: 2)
+            ->seed('myField', $ally, player: 2, properties: ['TurnEffects' => ['DISTANT'], 'Status' => 2])
+            ->endTurn()
+            ->attack('myField-1', 'theirField-0', player: 2)
+            ->expectDamage('p1Field-0', $damage, $label)
+            ->tested($ally)
+            ->covers($mechanics, $clause)
+            ->register();
+    }
+}
+
+// ---- Mistral Ranger ----
+
+gaWindRanged('mistral-ranger-class-bonus-ranged-two-while-distant', 'Mistral Ranger', 4, '[Class Bonus] Ranged 2 while distant: 2 + 2 = 4 damage', '[Class Bonus] **Ranged 2**', true, ['keyword', 'ranged', 'class-bonus', 'combat']);
+gaWindRanged('mistral-ranger-without-the-class-bonus-has-no-ranged', 'Mistral Ranger', 2, 'No Class Bonus: only its printed 2 POWER', '[Class Bonus] **Ranged 2**', false, ['keyword', 'ranged', 'class-bonus', 'condition']);
+
+gaScenario('mistral-ranger-class-bonus-costs-one-less-after-an-aethercharge-this-turn')
+    ->deckTemplate('quiet', 'Mistral Ranger')
+    ->readyFor('Mistral Ranger', classBonus: true)
+    ->seed('myHand', 'Inspiring Aethercharge')
+    ->seed('myHand', 'Mistral Ranger')
+    ->castSpell('Inspiring Aethercharge', pay: 2, window: '')
+    ->play('Mistral Ranger')->pay(2)
+    ->expectCardExists('myField', 'Mistral Ranger', 'An Aethercharge was activated this turn: the Ranger cost 2 instead of 3')
+    ->expectZoneCount('myMemory', 4, 1, 'Two for the Aethercharge and two for the Ranger')
+    ->tested('Mistral Ranger')
+    ->covers(['class-bonus', 'cost-reduction', 'condition'], '[Class Bonus] As long as you\'ve activated an Aethercharge card this turn, this card costs 1 less to activate.')
+    ->register();
+
+gaScenario('mistral-ranger-class-bonus-without-an-aethercharge-this-turn-costs-the-printed-three')
+    ->deckTemplate('quiet', 'Mistral Ranger')
+    ->readyFor('Mistral Ranger', classBonus: true)
+    ->seed('myHand', 'Mistral Ranger')
+    ->play('Mistral Ranger')->pay(2)
+    ->expectZoneCount('myField', 1, 1, 'Two payments are not enough: the Ranger has not entered')
+    ->tested('Mistral Ranger')
+    ->covers(['class-bonus', 'cost-reduction', 'condition'], 'As long as you\'ve activated an Aethercharge card this turn')
+    ->register();
+
+// ---- Veteran Aerotheurge ----
+
+gaWindRanged('veteran-aerotheurge-ranged-two-while-distant', 'Veteran Aerotheurge', 4, 'Ranged 2 while distant: 2 + 2 = 4 damage', '**Ranged 2**');
+gaWindRanged('veteran-aerotheurge-class-bonus-ranged-stacks-to-four-while-distant', 'Veteran Aerotheurge', 6, '[Class Bonus] Ranged 2 stacks with the printed Ranged 2: 2 + 4 = 6 damage', '[Class Bonus] **Ranged 2**', true, ['keyword', 'ranged', 'class-bonus', 'combat']);
+
+gaScenario('veteran-aerotheurge-makes-the-first-aethercharge-each-turn-cost-one-less')
+    ->deckTemplate('quiet', 'Veteran Aerotheurge')
+    ->readyFor('Veteran Aerotheurge')
+    ->seed('myField', 'Veteran Aerotheurge')
+    ->seed('myHand', 'Inspiring Aethercharge')
+    ->castSpell('Inspiring Aethercharge', pay: 1, window: '')
+    ->expectZoneCount('myMemory', 1, 1, 'The Aethercharge cost 1 instead of 2')
+    ->tested('Veteran Aerotheurge')
+    ->covers(['cost-reduction'], 'The first Aethercharge card you activate each turn costs 1 less to activate.')
+    ->register();
+
+gaScenario('veteran-aerotheurge-second-aethercharge-in-a-turn-costs-full-price')
+    ->deckTemplate('quiet', 'Veteran Aerotheurge')
+    ->readyFor('Veteran Aerotheurge')
+    ->seed('myField', 'Veteran Aerotheurge')
+    ->seed('myHand', 'Inspiring Aethercharge')->seed('myHand', 'Inspiring Aethercharge')
+    ->castSpell('Inspiring Aethercharge', pay: 1, window: '')
+    ->castSpell('Inspiring Aethercharge', pay: 2, window: '')
+    ->expectZoneCount('myMemory', 3, 1, 'One for the first Aethercharge, two for the second')
+    ->tested('Veteran Aerotheurge')
+    ->covers(['cost-reduction', 'condition'], 'The first Aethercharge card you activate each turn')
     ->register();

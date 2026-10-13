@@ -761,6 +761,44 @@ $unconditionalFastCards = [
     "oye74ibwo8" => true, // Baleful Oblation
 ];
 
+// Fast Activation printed as a line of its own ("[Class Bonus] **Fast Activation**", "[Level 2+] **Fast Activation**", "**Fast Activation**, **Ranged 2**"), as opposed to
+// text that merely grants it to other cards ("the next Horse ally card you activate ... as though it had fast activation"). The two tables above only know the cards that were
+// registered by hand; every other card that prints the keyword was never playable at fast speed. Returns the bracketed conditions on that line, or null when the card prints none.
+// Champion-bonus conditions ([Merlin Bonus] ...) and counters ([Sheen 8+]) are not evaluated here: a card with one of those stays out of this path.
+function PrintedFastActivationConditions($cardID) {
+    static $cache = [];
+    $cardID = strval($cardID);
+    if(array_key_exists($cardID, $cache)) return $cache[$cardID];
+    $text = strval(CardEffect($cardID));
+    $result = null;
+    if(preg_match('/(?:^|<br>|\n)\s*((?:\[[^\]]+\]\s*)*)\*{0,2}Fast Activation/i', $text, $m)) {
+        $result = [];
+        preg_match_all('/\[([^\]]+)\]/', $m[1], $conds);
+        foreach($conds[1] as $c) {
+            if(strcasecmp($c, "Class Bonus") === 0) $result[] = ["type" => "class"];
+            else if(preg_match('/^Level (\d+)\+$/i', $c, $lv)) $result[] = ["type" => "level", "level" => intval($lv[1])];
+            else $result[] = ["type" => "unsupported"];
+        }
+    }
+    $cache[$cardID] = $result;
+    return $result;
+}
+
+function PrintedFastActivationActive($player, $cardID) {
+    $conditions = PrintedFastActivationConditions($cardID);
+    if($conditions === null) return false;
+    foreach($conditions as $c) {
+        if($c["type"] === "class") {
+            if(!IsClassBonusActive($player, CardClasses($cardID))) return false;
+        } else if($c["type"] === "level") {
+            if(PlayerLevel($player) < $c["level"]) return false;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
     $cleanLabel = trim(preg_replace('/\s+/', '_', str_replace(["@", "&", ":"], ["", "_", "-"], $label)));
     return $mzID . "@Activate-" . intval($abilityIndex) . ($cleanLabel !== "" ? "@" . $cleanLabel : "");
@@ -1034,7 +1072,7 @@ function GetPlayableFastCards($player) {
         if(!CanActivateOpportunityCard($player, $mzID, $obj)) continue;
         $speed = CardSpeed($cardID);
         $cbFastClasses = $cbFastActivationCards[$cardID] ?? ($cbFastActivationCards[$cardIDLower] ?? null);
-        $isUnconditionalFast = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$cardIDLower]);
+        $isUnconditionalFast = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$cardIDLower]) || PrintedFastActivationActive($player, $cardID);
         if($speed === true) {
             // Check if player can afford the reserve cost
             if(CanAffordCardActivation($player, $obj)) {

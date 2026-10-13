@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "[Class Bonus] Ranged 2 stacks with the printed Ranged 2: 2 + 4 = 6 damage"
+    }
+]
