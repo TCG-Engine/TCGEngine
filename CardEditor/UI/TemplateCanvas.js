@@ -179,6 +179,9 @@ class TemplateCanvas {
                 `)}
                 ${!isImage ? `<label class="inline-filter"><input type="checkbox" ${this.isBehindTemplate(element) ? 'checked' : ''} onchange="app.templateCanvas.updateStyle('behindTemplate', this.checked ? 1 : '')" ${disabled}> Behind Template</label>` : ''}
                 <label>Background<input value="${PreviewRenderer.escape(style.backgroundColor || '')}" placeholder="transparent or #ffffff" onchange="app.templateCanvas.updateStyle('backgroundColor', this.value)" ${disabled}></label>
+                ${field?.field_type === 'multiselect' ? `<label>Display<select onchange="app.templateCanvas.updateStyle('displayMode', this.value)" ${disabled}><option value="" ${style.displayMode !== 'colorOrbs' ? 'selected' : ''}>Text</option><option value="colorOrbs" ${style.displayMode === 'colorOrbs' ? 'selected' : ''}>Colored orbs</option></select></label>
+                    ${style.displayMode === 'colorOrbs' ? `<label>Orb size<input type="number" min="16" max="100" value="${PreviewRenderer.escape(style.orbSize || 42)}" onchange="app.templateCanvas.updateStyle('orbSize', Number(this.value))" ${disabled}></label>${(field.settings_json?.options || []).map(value => `<label>${PreviewRenderer.escape(value)} orb<input type="color" data-orb-value="${PreviewRenderer.escape(value)}" value="${PreviewRenderer.escape(/^#[0-9a-f]{6}$/i.test(style.orbColors?.[value] || '') ? style.orbColors[value] : '#808080')}" onchange="app.templateCanvas.updateOrbColor(this.dataset.orbValue, this.value)" ${disabled}></label>`).join('')}` : ''}` : ''}
+                ${!isImage && field?.field_type !== 'image' ? `<label>Section caption<input value="${PreviewRenderer.escape(style.caption || '')}" onchange="app.templateCanvas.updateStyle('caption', this.value)" ${disabled}></label>` : ''}
                 <label>Image Fit
                     <select onchange="app.templateCanvas.updateStyle('fitMode', this.value)" ${disabled}>
                         ${['cover', 'contain', 'stretch'].map(value => `<option value="${value}" ${style.fitMode === value ? 'selected' : ''}>${value}</option>`).join('')}
@@ -227,6 +230,15 @@ class TemplateCanvas {
             this.scheduleLayoutSave(0);
             return;
         }
+        this.renderInspector();
+        this.scheduleLayoutSave();
+    }
+
+    updateOrbColor(value, color) {
+        const element = this.selectedElement();
+        if (!element || !/^#[0-9a-f]{6}$/i.test(color)) return;
+        const style = this.ensureStyleObject(element);
+        style.orbColors = { ...(style.orbColors || {}), [value]: color };
         this.renderInspector();
         this.scheduleLayoutSave();
     }

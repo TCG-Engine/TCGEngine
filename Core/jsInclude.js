@@ -85,6 +85,26 @@ function CardDetailHoverDelay(options) {
   return 1;
 }
 
+// Text-rendered prototypes can use the same hover lifecycle and viewport placement as card art.
+function ShowHTMLCardDetail(e, html, avoidEl, options) {
+  options = options || {};
+  if (ShouldIgnoreCardDetailEvent(e, options) || IsCardDetailSuppressed()) return;
+  var requestToken = ++cardDetailRequestToken;
+  TrackCardDetailMouse(e);
+  clearTimeout(showDetailTimeout);
+  showDetailTimeout = setTimeout(function() {
+    if (requestToken !== cardDetailRequestToken || IsCardDetailSuppressed()) return;
+    var el = document.getElementById('cardDetail');
+    if (!el) return;
+    el.innerHTML = html;
+    el.style.display = 'block';
+    el.style.opacity = 1;
+    el.style.zIndex = 100000;
+    PositionCardDetail(el, e.clientX, e.clientY, el.offsetWidth, el.offsetHeight, avoidEl);
+    if (options.pin) { cardDetailPinned = true; el.style.pointerEvents = 'auto'; }
+  }, CardDetailHoverDelay(options));
+}
+
 function ShowCardDetail(e, that, options) {
   options = options || {};
   if (ShouldIgnoreCardDetailEvent(e, options)) return;
@@ -1578,13 +1598,14 @@ function fetchPopupContent(name, callback) {
   xmlhttp.send();
 }
 
-function createPopupHTML(name, responseText) {
+function createPopupHTML(name, responseText, options) {
+  options = options || {};
   var id = name + "Popup";
   var folderPath = document.getElementById("folderPath").value;
   var popup = "<div id='" + id + "' class='tcg-zone-popup' style='" + ZonePopupStyle() + "'>";
   popup += "<style>" + ZonePopupContentStyle() + "</style>";
   popup += "<div style='display: flex; justify-content: center; align-items: center; padding-bottom: 10px; position: sticky; top: -10px; z-index: 1; background: rgba(0, 0, 0, 0.64); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);'>";
-  popup += "<h2 style='text-align: center; color: white; margin: 0;'>" + name.split(/(?=[A-Z])/).join(" ").replace(/^./, str => str.toUpperCase()) + "</h2>";
+  popup += "<h2 style='text-align: center; color: white; margin: 0;'>" + (options.titleHTML || name.split(/(?=[A-Z])/).join(" ").replace(/^./, str => str.toUpperCase())) + "</h2>";
   popup += "<button style='background-color: transparent; border: none; color: white; font-size: 24px; cursor: pointer; position: absolute; right: 10px;' onclick='ClosePopup()'>&times;</button>";
   popup += "</div>";
   var responseArr = responseText.split("</>");
@@ -1604,7 +1625,7 @@ function createPopupHTML(name, responseText) {
   var popupArtFolder = (typeof window !== 'undefined' && window.assetImageFolder)
     ? String(window.assetImageFolder)
     : ("./" + folderPath + "/concat");
-  popup += PopulateZone(name, cards, 96, popupArtFolder, 1, "All");
+  popup += typeof options.contentHTML === 'string' ? options.contentHTML : PopulateZone(name, cards, 96, popupArtFolder, 1, "All");
   popup += "</div>";
   macros.forEach(function(macro) {
     popup += "<button style='margin: 5px; padding: 5px 10px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;' onclick='SubmitInput(10000, \"&buttonInput=" + macro + "&inputText=" + name + "\")'>" + macro + "</button>";

@@ -11,7 +11,7 @@ const PreviewRenderer = {
 
     css(style = {}, fallback = {}) {
         const merged = { ...fallback, ...(style || {}) };
-        const ignoredKeys = new Set(['fitMode', 'behindTemplate']);
+        const ignoredKeys = new Set(['fitMode', 'behindTemplate', 'displayMode', 'orbColors', 'orbSize', 'caption', 'emptyText', 'placeholderText']);
         return Object.entries(merged)
             .filter(([, value]) => value !== undefined && value !== null && value !== '')
             .filter(([key]) => !ignoredKeys.has(key))
@@ -36,6 +36,18 @@ const PreviewRenderer = {
         const enumId = field?.settings_json?.enumId;
         if (!enumId) return null;
         return (template.enums || []).find(item => Number(item.id) === Number(enumId)) || null;
+    },
+
+    colorOrbs(field, valuesByFieldId, style) {
+        const entry = valuesByFieldId[field.id];
+        const values = Array.isArray(entry?.value_json) ? entry.value_json : String(field.default_value || '').split(',').map(value => value.trim()).filter(Boolean);
+        const size = Math.max(16, Math.min(100, Number(style.orbSize) || 42));
+        return [...new Set(values)].map(value => {
+            const color = style.orbColors?.[value];
+            // Accept only literal hex colors; unknown options keep their readable name.
+            if (typeof color !== 'string' || !/^#[0-9a-f]{6}$/i.test(color)) return `<span>${this.escape(value)}</span>`;
+            return `<span role="img" aria-label="${this.escape(value)}" title="${this.escape(value)}" style="display:inline-flex;align-items:center;gap:7px;flex:none"><span aria-hidden="true" style="display:block;box-sizing:border-box;width:${size}px;height:${size}px;border-radius:50%;border:2px solid #ffffff;background:radial-gradient(circle at 30% 25%,#ffffffaa,transparent 55%),${color};box-shadow:0 2px 4px #0005,inset 0 -3px 5px #0004"></span><span style="font-size:15px;font-weight:700">${this.escape(value)}</span></span>`;
+        }).join('');
     },
 
     enumOptionForValue(field, template, value) {
@@ -94,7 +106,7 @@ const PreviewRenderer = {
             if (field.field_type === 'image') {
                 const assetUrl = this.valueFor(field, valuesByFieldId);
                 const fit = style.fitMode || 'cover';
-                return `<div class="preview-el image-el" data-element-id="${element.id}" style="${this.css(style, base)}">${assetUrl ? `<img src="${this.escape(assetUrl)}" style="object-fit:${this.escapeCss(fit)}" alt="">` : ''}</div>`;
+                return `<div class="preview-el image-el" data-element-id="${element.id}" style="${this.css(style, base)}">${assetUrl ? `<img src="${this.escape(assetUrl)}" style="object-fit:${this.escapeCss(fit)}" alt="">` : `<span style="display:flex;align-items:center;justify-content:center;height:100%;font:700 18px Arial,sans-serif;letter-spacing:4px">${this.escape(style.placeholderText || '')}</span>`}</div>`;
             }
             if (field.field_type === 'icon_enum') {
                 const value = this.valueFor(field, valuesByFieldId);
@@ -112,7 +124,12 @@ const PreviewRenderer = {
                 overflow: 'hidden',
                 ...base
             };
-            return `<div class="preview-el text-el" data-element-id="${element.id}" style="${this.css(style, textStyle)}">${this.escape(this.valueFor(field, valuesByFieldId))}</div>`;
+            const value = this.valueFor(field, valuesByFieldId);
+            const content = field.field_type === 'multiselect' && style.displayMode === 'colorOrbs'
+                ? this.colorOrbs(field, valuesByFieldId, style)
+                : this.escape(value === '' ? (style.emptyText || '') : value);
+            const caption = style.caption ? `<div style="font-size:15px;line-height:20px;font-weight:800;letter-spacing:1.5px;margin-bottom:6px">${this.escape(style.caption)}</div>` : '';
+            return `<div class="preview-el text-el" data-element-id="${element.id}" style="${this.css(style, textStyle)}">${caption}${content}</div>`;
         }).join('');
 
         container.innerHTML = `
