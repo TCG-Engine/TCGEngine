@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMaterial",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "The Training Sword went back to the material deck"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Eight in hand minus the ally and two payments, plus two drawn (8 - 1 - 2 + 2)"
+    }
+]

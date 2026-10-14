@@ -1,0 +1,21 @@
+{
+    "name": "merlin-surreal-figment-without-the-merlin-bonus-the-attack-puts-no-sheen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:10:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "P8RBSywC30"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "P8RBSywC30"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Attack: **Put a **sheen** counter on target unit."
+        ]
+    }
+}

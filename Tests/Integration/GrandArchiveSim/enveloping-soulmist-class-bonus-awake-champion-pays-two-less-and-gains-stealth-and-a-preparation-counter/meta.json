@@ -1,0 +1,23 @@
+{
+    "name": "enveloping-soulmist-class-bonus-awake-champion-pays-two-less-and-gains-stealth-and-a-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:04:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kYG1EDltdI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kYG1EDltdI"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "stealth",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Your champion gains **stealth** until end of turn. Put a **preparation** counter on your champion."
+        ]
+    }
+}

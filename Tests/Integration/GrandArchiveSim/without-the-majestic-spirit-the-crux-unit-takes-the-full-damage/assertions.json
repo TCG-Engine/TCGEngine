@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "No Majestic Spirit: the full 2 damage"
+    }
+]

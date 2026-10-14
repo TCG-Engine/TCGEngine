@@ -1,0 +1,23 @@
+{
+    "name": "ghosts-of-pendragon-enter-returns-a-regalia-to-the-material-deck-to-draw-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:05:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SkAe1hsw5H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SkAe1hsw5H"
+        ],
+        "mechanics": [
+            "on-enter",
+            "return-to-material",
+            "draw",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may return a regalia you control to its owner's material deck. If you do, draw two cards."
+        ]
+    }
+}

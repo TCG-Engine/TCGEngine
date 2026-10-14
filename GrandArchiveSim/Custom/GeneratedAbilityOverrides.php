@@ -3021,6 +3021,38 @@ $leaveFieldAbilities["5h8asbierp:0"] = function($player) {
     }
 };
 
+// Claimed From Beyond (nzt7qILJSl): "Banish target non-champion object IF one of its types matches one of the types among cards in your banishment". The generated handler skipped the
+// condition and always sent the card to the caster's banishment instead of its owner's.
+$customDQHandlers["nzt7qILJSl:0:CardActivated-1"] = function($player, $parts, $lastDecision) {
+    $chosen = $lastDecision;
+    if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
+    $obj = GetZoneObject($chosen);
+    if($obj === null || $obj->removed) return;
+    $objectTypes = array_filter(["ALLY", "DOMAIN", "ITEM", "PHANTASIA", "WEAPON"], fn($t) => PropertyContains(EffectiveCardType($obj), $t));
+    $matches = false;
+    foreach(GetBanish($player) as $banished) {
+        if($banished->removed) continue;
+        foreach($objectTypes as $t) if(PropertyContains(CardType($banished->CardID), $t)) $matches = true;
+    }
+    if(!$matches) return;
+    MZMove($player, $chosen, BanishDestinationOf($chosen));
+};
+
+// Votive Runeblade (cnjo0ehqyk): "sacrifice ANOTHER Sword regalia". The generated filter compared the candidates with the attacker's mzID (the champion), so the Runeblade itself was
+// always offered; the weapon being used for this attack is the one to exclude.
+$onAttackAbilities["cnjo0ehqyk:0"] = function($player) {
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    $weaponMZ = GetCombatWeapon();
+    $filtered = [];
+    foreach(ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["SWORD"]) as $s) {
+        if($weaponMZ !== null && $s === $weaponMZ) continue;
+        $filtered[] = $s;
+    }
+    if(empty($filtered)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $filtered), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "cnjo0ehqyk:0:OnAttack-1", 1);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

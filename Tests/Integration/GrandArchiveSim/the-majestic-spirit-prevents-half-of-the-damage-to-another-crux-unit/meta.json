@@ -1,0 +1,21 @@
+{
+    "name": "the-majestic-spirit-prevents-half-of-the-damage-to-another-crux-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:07:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "prevention",
+            "crux"
+        ],
+        "rulesClauses": [
+            "If another crux element unit you control would take damage, prevent half of that damage, rounded up."
+        ]
+    }
+}

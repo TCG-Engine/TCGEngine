@@ -1,0 +1,22 @@
+{
+    "name": "without-vorpal-sword-the-specter-ally-retaliates",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:10:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "retaliate",
+            "specter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Specter allies can't retaliate."
+        ]
+    }
+}

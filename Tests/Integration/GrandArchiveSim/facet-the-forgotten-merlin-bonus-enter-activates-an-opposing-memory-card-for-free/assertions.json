@@ -1,0 +1,20 @@
+[
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The opposing memory card entered under my control without payment"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Eight in hand minus Facet and the five payments (nothing paid for the Dungeon Guide)"
+    }
+]

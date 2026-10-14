@@ -1,0 +1,21 @@
+{
+    "name": "the-majestic-spirit-gives-your-champions-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:08:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "spellshroud",
+            "champion"
+        ],
+        "rulesClauses": [
+            "Champions you control have **spellshroud**."
+        ]
+    }
+}

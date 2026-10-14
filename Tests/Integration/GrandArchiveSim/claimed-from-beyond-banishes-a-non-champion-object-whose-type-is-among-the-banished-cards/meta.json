@@ -1,0 +1,23 @@
+{
+    "name": "claimed-from-beyond-banishes-a-non-champion-object-whose-type-is-among-the-banished-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:04:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nzt7qILJSl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nzt7qILJSl"
+        ],
+        "mechanics": [
+            "banish",
+            "condition",
+            "type-match",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Banish target non-champion object if one of its types matches one of the types among cards in your banishment."
+        ]
+    }
+}

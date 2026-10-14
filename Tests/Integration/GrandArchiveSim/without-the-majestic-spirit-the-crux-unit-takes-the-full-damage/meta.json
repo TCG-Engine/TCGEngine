@@ -1,0 +1,21 @@
+{
+    "name": "without-the-majestic-spirit-the-crux-unit-takes-the-full-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:07:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If another crux element unit you control would take damage, prevent half of that damage, rounded up."
+        ]
+    }
+}

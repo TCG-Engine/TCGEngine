@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2140**
+Cards linked to an existing fixture: **2153**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **337**
+Implemented cards still needing semantic coverage: **324**
 
 ## Mechanic groups
 
@@ -45,11 +45,9 @@ Implemented cards still needing semantic coverage: **337**
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
 | Dawn's Reversal (`x53jgq8aad`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
-| Enveloping Soulmist (`kYG1EDltdI`) | ACTION | 2 | cost, counter, status, condition | — | — |
 | Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
 | Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
-| Merlin, Surreal Figment (`P8RBSywC30`) | UNIQUE,ALLY | 2 | targeting, counter, combat, trigger | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **337**
 | Fabricator Slime (`rpELNyrSrM`) | ALLY | 2 | counter, token | — | — |
 | Jianyu, Fate's Premonition (`qv0vn6tuow`) | UNIQUE,PHANTASIA | 2 | cost, targeting | — | — |
 | Obsequious Blow (`macqlgvqo3`) | ATTACK | 2 | cost | — | — |
+| Aenean Crystallization (`YDjxpBd8Fm`) | ACTION | 1 | targeting, zone-movement, status, token, condition | — | — |
+| Atmos Shield (`80yu75k0hl`) | TOKEN,ALLY | 1 | targeting, damage, prevention, combat, trigger | — | — |

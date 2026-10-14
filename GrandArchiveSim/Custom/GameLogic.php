@@ -837,7 +837,12 @@ $customDQHandlers["FacetTheForgottenActivate"] = function($player, $parts, $last
     MZMove($player, $sourceMZ, "myHand");
     $hand = &GetHand($player);
     $handMZ = "myHand-" . (count($hand) - 1);
-    $activated = ActivateCard($player, $handMZ, true);
+    $handIdxBefore = count($hand) - 1;
+    $chosenCardID = $chosenObj->CardID;
+    ActivateCard($player, $handMZ, true);
+    // ActivateCard returns null whether or not the activation started, so "did it begin" is whether the card left the hand slot it was moved to.
+    $handNow = GetHand($player);
+    $activated = (isset($handNow[$handIdxBefore]) && !$handNow[$handIdxBefore]->removed && $handNow[$handIdxBefore]->CardID === $chosenCardID) ? null : true;
     if($activated === null) {
         DecisionQueueController::ClearVariable("activationSourceZoneOverride");
         if(GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT") > $ignoreElementCountBefore) {
@@ -1445,7 +1450,11 @@ function ActionMapInner($actionCard, $allowDuringDecisionQueue = false)
             $cardType = EffectiveCardType($obj);
             $countsAsAllyAttacker = PropertyContains($cardType, "ALLY")
                 || ($obj !== null && $obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
-            if($countsAsAllyAttacker || PropertyContains($cardType, "CHAMPION")) {
+            // Spirit Blade: Ensoul (CQ1bxUyi0Q): Sword weapons may attack as though they were allies (BeginCombatPhase has the matching exception).
+            $ensoulSwordAttacking = $obj !== null && PropertyContains($cardType, "WEAPON")
+                && PropertyContains(CardSubtypes($obj->CardID), "SWORD")
+                && GlobalEffectCount($playerID, "CQ1bxUyi0Q_SWORDS_AS_ALLY") > 0;
+            if($countsAsAllyAttacker || $ensoulSwordAttacking || PropertyContains($cardType, "CHAMPION")) {
                 BeginCombatPhase($actionCard);
             }
             break;
@@ -13335,8 +13344,9 @@ function EndPhase() {
     // Skip if card also has ENTERED_THIS_TURN (it just entered; sacrifice on the NEXT end phase).
     $field = &GetField($turnPlayer);
     for($i = count($field) - 1; $i >= 0; --$i) {
+        // Weapons tagged by Spirit Blade: Ensoul entered this turn and are sacrificed at THIS turn's end phase (its "next end phase"), so the entered-this-turn skip is for non-weapons only.
         if(!$field[$i]->removed && in_array("SACRIFICE_NEXT_END_PHASE", $field[$i]->TurnEffects)
-            && !in_array("ENTERED_THIS_TURN", $field[$i]->TurnEffects)) {
+            && (!in_array("ENTERED_THIS_TURN", $field[$i]->TurnEffects) || PropertyContains(EffectiveCardType($field[$i]), "WEAPON"))) {
             AllyDestroyed($turnPlayer, "myField-" . $i);
             DecisionQueueController::CleanupRemovedCards();
         }

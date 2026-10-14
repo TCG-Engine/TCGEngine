@@ -1,0 +1,23 @@
+{
+    "name": "merlin-kingslayer-recollection-puts-a-level-counter-and-an-even-count-draws-and-boosts-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:07:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rz1bqry41l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rz1bqry41l"
+        ],
+        "mechanics": [
+            "recollection",
+            "counter",
+            "draw",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put a **level** counter on CARDNAME. Then, if there's an even amount of **level** counters on CARDNAME, draw a card and CARDNAME's attacks get +2 [POWER] until end of turn."
+        ]
+    }
+}

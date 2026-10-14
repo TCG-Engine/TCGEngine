@@ -1,0 +1,22 @@
+{
+    "name": "claimed-from-beyond-does-nothing-when-no-banished-card-shares-the-objects-type",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:04:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nzt7qILJSl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nzt7qILJSl"
+        ],
+        "mechanics": [
+            "banish",
+            "condition",
+            "type-match"
+        ],
+        "rulesClauses": [
+            "if one of its types matches one of the types among cards in your banishment"
+        ]
+    }
+}
