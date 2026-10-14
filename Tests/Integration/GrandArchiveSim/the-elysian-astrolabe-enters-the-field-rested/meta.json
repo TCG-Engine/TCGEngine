@@ -1,0 +1,21 @@
+{
+    "name": "the-elysian-astrolabe-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:42:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4nmxqsm4o9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4nmxqsm4o9"
+        ],
+        "mechanics": [
+            "hindered",
+            "enters-rested"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This object enters the field rested.)*"
+        ]
+    }
+}

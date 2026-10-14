@@ -1,0 +1,24 @@
+{
+    "name": "chamber-of-reflections-sacrifice-searches-for-a-cheap-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:28:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pbtudivyzb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pbtudivyzb"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "sacrifice",
+            "search",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[REST], **Sacrifice Chamber of Reflections**: Search your deck for a non-advanced element non-Distortion domain card with reserve cost 3 or less and put it onto the field."
+        ]
+    }
+}

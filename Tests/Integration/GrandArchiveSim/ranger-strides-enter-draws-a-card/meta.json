@@ -1,0 +1,21 @@
+{
+    "name": "ranger-strides-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:22:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pvxb5hrfsu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pvxb5hrfsu"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Draw a card."
+        ]
+    }
+}

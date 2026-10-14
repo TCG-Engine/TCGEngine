@@ -1,0 +1,23 @@
+{
+    "name": "claude-fated-visionary-enter-mills-lv-and-returns-automaton-allies-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:30:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "52215upufy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "52215upufy"
+        ],
+        "mechanics": [
+            "on-enter",
+            "mill",
+            "zone-movement",
+            "level"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put the top **LV** cards of your deck into your graveyard. Then return up to two Automaton ally cards from your graveyard to your memory."
+        ]
+    }
+}

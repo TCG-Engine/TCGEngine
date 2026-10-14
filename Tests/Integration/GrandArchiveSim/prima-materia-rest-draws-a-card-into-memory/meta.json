@@ -1,0 +1,22 @@
+{
+    "name": "prima-materia-rest-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:28:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vt9y597fqr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vt9y597fqr"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Draw a card into your memory."
+        ]
+    }
+}

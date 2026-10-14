@@ -1,0 +1,22 @@
+{
+    "name": "celestial-calling-activates-the-banished-card-free-at-the-next-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:27:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "izm6h38lrj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "izm6h38lrj"
+        ],
+        "mechanics": [
+            "recollection",
+            "free-activation",
+            "banish"
+        ],
+        "rulesClauses": [
+            "At the beginning of your next recollection phase, you may activate the banished card without paying its reserve cost."
+        ]
+    }
+}

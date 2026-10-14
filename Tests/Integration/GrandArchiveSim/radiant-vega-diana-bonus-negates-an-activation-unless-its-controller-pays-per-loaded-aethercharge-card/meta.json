@@ -1,0 +1,24 @@
+{
+    "name": "radiant-vega-diana-bonus-negates-an-activation-unless-its-controller-pays-per-loaded-aethercharge-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:40:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "odcgpm3ugw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "odcgpm3ugw"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "activated-ability",
+            "negate",
+            "rest",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] (2), [REST], **Remove two durability counters from Radiant Vega**: **Negate** target card activation unless its controller pays (X), where **X** is the amount of Aethercharge cards loaded into Radiant Vega. Activate this ability only if your champion is **distant**."
+        ]
+    }
+}

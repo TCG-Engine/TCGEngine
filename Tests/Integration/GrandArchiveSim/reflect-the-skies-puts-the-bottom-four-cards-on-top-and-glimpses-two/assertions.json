@@ -1,0 +1,16 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "The glimpse keeps both cards in the deck: nothing was drawn"
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

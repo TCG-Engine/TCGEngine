@@ -3122,6 +3122,12 @@ $cardActivatedAbilities["d253WtyIXr:0"] = function($player) {
     }
 };
 
+// Consumption Ring (g8q7imka92): "Activate this ability only during an opponent's recollection phase." The generated prereq refused it while ANY opportunity
+// window was pending (so the REC_START window, the one place it is legal, never offered it) and allowed it on every other step of the opponent's turn.
+$activateAbilityPrereqs["g8q7imka92:0"] = function($player, $mzID, $abilityIndex) {
+    return GetCurrentPhase() === "BREC" && GetTurnPlayer() != $player;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

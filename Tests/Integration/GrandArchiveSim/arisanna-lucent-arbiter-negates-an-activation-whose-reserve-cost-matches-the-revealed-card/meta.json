@@ -1,0 +1,23 @@
+{
+    "name": "arisanna-lucent-arbiter-negates-an-activation-whose-reserve-cost-matches-the-revealed-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:34:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7e22tk3ir1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7e22tk3ir1"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "negate",
+            "reveal"
+        ],
+        "rulesClauses": [
+            "(3), [REST]**:** Reveal the top card of your deck. **Negate** target card activation if its reserve cost is equal to the reserve cost of the revealed card."
+        ]
+    }
+}

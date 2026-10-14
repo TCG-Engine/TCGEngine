@@ -1,0 +1,21 @@
+{
+    "name": "cosmic-alignment-the-next-glimpse-draws-that-many-cards-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b2buhbediq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b2buhbediq"
+        ],
+        "mechanics": [
+            "glimpse",
+            "replacement"
+        ],
+        "rulesClauses": [
+            "The next time you would **glimpse** an amount this turn, draw that many cards instead."
+        ]
+    }
+}

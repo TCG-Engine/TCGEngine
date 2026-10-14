@@ -1,0 +1,23 @@
+{
+    "name": "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "67duh1cy3g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "67duh1cy3g"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "zone-movement",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. Put the bottom four cards of your deck on top of your deck in a random order. **Glimpse 2**."
+        ]
+    }
+}

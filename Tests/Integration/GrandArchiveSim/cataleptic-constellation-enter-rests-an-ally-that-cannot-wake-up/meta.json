@@ -1,0 +1,22 @@
+{
+    "name": "cataleptic-constellation-enter-rests-an-ally-that-cannot-wake-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:29:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lflzwiiewz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lflzwiiewz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Rest target ally."
+        ]
+    }
+}

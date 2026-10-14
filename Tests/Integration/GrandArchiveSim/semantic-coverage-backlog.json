@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T08:17:35+00:00",
+    "generatedAt": "2026-10-14T08:49:20+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2243,
+        "cardsWithExistingFixtures": 2280,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 234,
+        "cardsNeedingSemanticCoverage": 197,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -38,27 +38,6 @@
                 "damage",
                 "zone-movement",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 35
-        },
-        {
-            "cardId": "ms2x2v4qe3",
-            "name": "Stellarion Shift",
-            "type": "ACTION",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -163,25 +142,6 @@
             "priority": 25
         },
         {
-            "cardId": "0yetaebjlw",
-            "name": "Lunar Conduit",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "3fe3c97s71",
             "name": "Nightmare Coil",
             "type": "ACTION",
@@ -190,26 +150,6 @@
             "mechanics": [
                 "damage",
                 "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "pvxb5hrfsu",
-            "name": "Ranger Strides",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
                 "status",
                 "trigger",
                 "condition"
@@ -275,24 +215,6 @@
             "priority": 24
         },
         {
-            "cardId": "x53jgq8aad",
-            "name": "Dawn's Reversal",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "SpENiP3jbN",
             "name": "Focusing Gem",
             "type": "REGALIA,ITEM",
@@ -303,24 +225,6 @@
                 "zone-movement",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "NyPQW7hkAq",
-            "name": "Gemini Starbearer",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -427,23 +331,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "7e22tk3ir1",
-            "name": "Arisanna, Lucent Arbiter",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -571,40 +458,6 @@
             "priority": 23
         },
         {
-            "cardId": "wU3OvTrjEt",
-            "name": "Palvor Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "vt9y597fqr",
-            "name": "Prima Materia",
-            "type": "UNIQUE,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "dcgw05q66h",
             "name": "Purified Shot",
             "type": "ITEM",
@@ -662,22 +515,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "izm6h38lrj",
-            "name": "Celestial Calling",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
                 "zone-movement"
             ],
             "existingFixtures": [],
@@ -777,25 +614,6 @@
             "priority": 15
         },
         {
-            "cardId": "lflzwiiewz",
-            "name": "Cataleptic Constellation",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "TYlWgIYsq3",
             "name": "Cauterizing Seraphim",
             "type": "ALLY",
@@ -806,25 +624,6 @@
                 "damage",
                 "status",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "y4c89re0bd",
-            "name": "Cometary Vantage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1101,25 +900,6 @@
             "priority": 15
         },
         {
-            "cardId": "yd609g44vm",
-            "name": "The Constellatory Spire",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "6emPe9OEUn",
             "name": "Treacle, Drowned Mouse",
             "type": "UNIQUE,ALLY",
@@ -1367,24 +1147,6 @@
                 "cost",
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "idpdon8f0h",
-            "name": "Enfeebled Dagger",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1718,42 +1480,6 @@
             "priority": 14
         },
         {
-            "cardId": "EPy8OUmPxa",
-            "name": "Stardust Oracle",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "xmtjrvfpuc",
-            "name": "Stellaria Shower",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "6Rb25k7OjY",
             "name": "Tempestuous Conviction",
             "type": "ACTION",
@@ -1843,23 +1569,6 @@
             "priority": 13
         },
         {
-            "cardId": "pbtudivyzb",
-            "name": "Chamber of Reflections",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "nlufjh84vm",
             "name": "Confidant's Oath",
             "type": "REGALIA,ITEM",
@@ -1885,23 +1594,6 @@
             "mechanics": [
                 "combat",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dWgPzoEbIE",
-            "name": "Cosmic Focus",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2251,23 +1943,6 @@
             "priority": 13
         },
         {
-            "cardId": "5ybMub985n",
-            "name": "Meteoric Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5bbae3z4py",
             "name": "Nico, Whiplash Allure",
             "type": "CHAMPION",
@@ -2310,23 +1985,6 @@
             "mechanics": [
                 "damage",
                 "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "qM9yzxQbfF",
-            "name": "Orbiting Cosmos",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2412,23 +2070,6 @@
             "mechanics": [
                 "targeting",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "odcgpm3ugw",
-            "name": "Radiant Vega",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2540,23 +2181,6 @@
             "priority": 13
         },
         {
-            "cardId": "4nmxqsm4o9",
-            "name": "The Elysian Astrolabe",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "E09lX95cb9",
             "name": "Ticket to the Afterlife",
             "type": "REGALIA,ITEM",
@@ -2600,23 +2224,6 @@
                 "damage",
                 "recover",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "gamylrj1fc",
-            "name": "Vanishing Eclipse",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2722,22 +2329,6 @@
             "priority": 12
         },
         {
-            "cardId": "f0ht2tsn0y",
-            "name": "Astarte, Celestial Dawn",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "41WnFOT5YS",
             "name": "Avalon, Cursed Isle",
             "type": "UNIQUE,DOMAIN",
@@ -2786,22 +2377,6 @@
             "priority": 12
         },
         {
-            "cardId": "52215upufy",
-            "name": "Claude, Fated Visionary",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "vke9gsgfdm",
             "name": "Conflagrative Trounce",
             "type": "ATTACK",
@@ -2810,22 +2385,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "g8q7imka92",
-            "name": "Consumption Ring",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3010,22 +2569,6 @@
             "priority": 12
         },
         {
-            "cardId": "2s08hssegf",
-            "name": "Inert Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WLPf8QTdsP",
             "name": "Lesser Boon of Knox",
             "type": "LESSER BOON",
@@ -3049,22 +2592,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "c34iTVRS8h",
-            "name": "Moonveil Android",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "trigger"
             ],
             "existingFixtures": [],
@@ -3106,22 +2633,6 @@
             "priority": 12
         },
         {
-            "cardId": "67duh1cy3g",
-            "name": "Reflect the Skies",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "r5a3pmmloe",
             "name": "Revenant's Scourge",
             "type": "ATTACK",
@@ -3146,22 +2657,6 @@
             "mechanics": [
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "oz23yfzk96",
-            "name": "Scry the Stars",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3218,38 +2713,6 @@
             "priority": 12
         },
         {
-            "cardId": "btjuxztaug",
-            "name": "Stargazer's Portent",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "gwWociEfxb",
-            "name": "Starstrung Reading",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "bYrLVjKSCL",
             "name": "Stifling Aethercharge",
             "type": "ACTION",
@@ -3273,22 +2736,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "zcvq77mdgd",
-            "name": "Sword of Shadows",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3437,21 +2884,6 @@
             "priority": 11
         },
         {
-            "cardId": "eP07Xxscuq",
-            "name": "Astral Shard",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "vgu1C2Lw6e",
             "name": "Chamberlain Toad",
             "type": "ALLY",
@@ -3504,21 +2936,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "b2buhbediq",
-            "name": "Cosmic Alignment",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3635,21 +3052,6 @@
             "cardId": "fhi78gfkli",
             "name": "fhi78gfkli",
             "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "lnhzj43qiw",
-            "name": "Foretold Bloom",
-            "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -3864,36 +3266,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "jaiTSvaLOQ",
-            "name": "Stellar Cosmos",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "62u1231c0z",
-            "name": "Twilight Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -19189,6 +18561,31 @@
             "priority": 55
         },
         {
+            "cardId": "ms2x2v4qe3",
+            "name": "Stellarion Shift",
+            "type": "ACTION",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stellarion-shift-makes-a-unit-distant-and-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "stellarion-shift-makes-a-unit-distant-and-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 55
+        },
+        {
             "cardId": "jz7odeqku4",
             "name": "Fabled Emerald Fatestone",
             "type": "REGALIA,ITEM",
@@ -19825,6 +19222,31 @@
             "priority": 45
         },
         {
+            "cardId": "0yetaebjlw",
+            "name": "Lunar Conduit",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lunar-conduit-activating-an-astra-card-puts-a-charge-counter-on-it",
+                "lunar-conduit-pay-three-and-rest-deals-damage-equal-to-its-charge-counters-and-removes-one"
+            ],
+            "semanticFixtures": [
+                "lunar-conduit-activating-an-astra-card-puts-a-charge-counter-on-it",
+                "lunar-conduit-pay-three-and-rest-deals-damage-equal-to-its-charge-counters-and-removes-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "xkzLY4vWMk",
             "name": "Maiden of Waning Bloom",
             "type": "PHANTASIA,ALLY",
@@ -19940,6 +19362,32 @@
             ],
             "semanticFixtures": [
                 "quickstep-treads-enter-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "pvxb5hrfsu",
+            "name": "Ranger Strides",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ranger-strides-banish-gives-a-ranger-unit-ranged-four",
+                "ranger-strides-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "ranger-strides-banish-gives-a-ranger-unit-ranged-four",
+                "ranger-strides-enter-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -20345,6 +19793,28 @@
             "priority": 44
         },
         {
+            "cardId": "x53jgq8aad",
+            "name": "Dawn's Reversal",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dawns-reversal-glimpses-lv-and-deals-lv-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "dawns-reversal-glimpses-lv-and-deals-lv-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "CzwVavXMQU",
             "name": "Dorumegian Foundry",
             "type": "DOMAIN",
@@ -20549,6 +20019,30 @@
             ],
             "semanticFixtures": [
                 "focusing-round-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "NyPQW7hkAq",
+            "name": "Gemini Starbearer",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "gemini-starbearer-enter-summons-an-astral-shard-token",
+                "gemini-starbearer-rest-deals-damage-equal-to-the-astral-shards-you-control"
+            ],
+            "semanticFixtures": [
+                "gemini-starbearer-enter-summons-an-astral-shard-token",
+                "gemini-starbearer-rest-deals-damage-equal-to-the-astral-shards-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -21592,6 +21086,29 @@
             "priority": 43
         },
         {
+            "cardId": "7e22tk3ir1",
+            "name": "Arisanna, Lucent Arbiter",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arisanna-lucent-arbiter-does-not-negate-when-the-reserve-costs-differ",
+                "arisanna-lucent-arbiter-negates-an-activation-whose-reserve-cost-matches-the-revealed-card"
+            ],
+            "semanticFixtures": [
+                "arisanna-lucent-arbiter-does-not-negate-when-the-reserve-costs-differ",
+                "arisanna-lucent-arbiter-negates-an-activation-whose-reserve-cost-matches-the-revealed-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "ek5r5YlFQv",
             "name": "Bolt of Diamonds",
             "type": "ACTION",
@@ -22423,6 +21940,27 @@
             "priority": 43
         },
         {
+            "cardId": "wU3OvTrjEt",
+            "name": "Palvor Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "palvor-sword-level-one-enter-banishes-the-cards-in-a-graveyard-face-down"
+            ],
+            "semanticFixtures": [
+                "palvor-sword-level-one-enter-banishes-the-cards-in-a-graveyard-face-down"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "6JMwc6cpRm",
             "name": "Peer the Depths",
             "type": "ACTION",
@@ -22467,6 +22005,27 @@
             "semanticFixtures": [
                 "poised-strike-prepared-class-bonus-on-hit-wakes-the-champion",
                 "poised-strike-unprepared-on-hit-leaves-the-champion-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "vt9y597fqr",
+            "name": "Prima Materia",
+            "type": "UNIQUE,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prima-materia-rest-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "prima-materia-rest-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -23032,6 +22591,28 @@
             ],
             "semanticFixtures": [
                 "beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "izm6h38lrj",
+            "name": "Celestial Calling",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "celestial-calling-activates-the-banished-card-free-at-the-next-recollection-phase",
+                "celestial-calling-class-bonus-banishes-the-first-astra-spell-and-bottoms-the-rest"
+            ],
+            "semanticFixtures": [
+                "celestial-calling-activates-the-banished-card-free-at-the-next-recollection-phase",
+                "celestial-calling-class-bonus-banishes-the-first-astra-spell-and-bottoms-the-rest"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -24564,6 +24145,31 @@
             "priority": 35
         },
         {
+            "cardId": "lflzwiiewz",
+            "name": "Cataleptic Constellation",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cataleptic-constellation-enter-rests-an-ally-that-cannot-wake-up",
+                "cataleptic-constellation-imbued-enter-summons-two-astral-shards"
+            ],
+            "semanticFixtures": [
+                "cataleptic-constellation-enter-rests-an-ally-that-cannot-wake-up",
+                "cataleptic-constellation-imbued-enter-summons-two-astral-shards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "vc8sugly4w",
             "name": "Cell Assembler",
             "type": "ALLY",
@@ -24732,6 +24338,29 @@
             "semanticFixtures": [
                 "combat-training-class-bonus-floating-memory-pays-a-memory-cost",
                 "combat-training-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "y4c89re0bd",
+            "name": "Cometary Vantage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cometary-vantage-draw-mode-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "cometary-vantage-draw-mode-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -24950,13 +24579,11 @@
                 "condition"
             ],
             "existingFixtures": [
-                "dong-zhou-false-liege-class-bonus-enter-explore",
                 "dong-zhou-false-liege-class-bonus-enter-rested-deals-three-damage-to-other-allies-and-gains-vigor",
                 "dong-zhou-false-liege-class-bonus-enter-rested-empowers-three",
                 "dong-zhou-false-liege-declining-the-rest-does-nothing"
             ],
             "semanticFixtures": [
-                "dong-zhou-false-liege-class-bonus-enter-explore",
                 "dong-zhou-false-liege-class-bonus-enter-rested-deals-three-damage-to-other-allies-and-gains-vigor",
                 "dong-zhou-false-liege-class-bonus-enter-rested-empowers-three",
                 "dong-zhou-false-liege-declining-the-rest-does-nothing"
@@ -27388,6 +27015,29 @@
             "priority": 35
         },
         {
+            "cardId": "yd609g44vm",
+            "name": "The Constellatory Spire",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "the-constellatory-spire-class-bonus-enter-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "the-constellatory-spire-class-bonus-enter-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "QJHpGP4kpe",
             "name": "Thermal Break",
             "type": "ACTION",
@@ -29675,6 +29325,28 @@
                 "enchaining-gale-class-bonus-costs-one-less-and-suppresses-the-ally",
                 "enchaining-gale-suppressed-ally-returns-at-the-end-phase",
                 "enchaining-gale-without-the-class-bonus-costs-the-full-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "idpdon8f0h",
+            "name": "Enfeebled Dagger",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "enfeebled-dagger-banish-deals-one-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "enfeebled-dagger-banish-deals-one-damage-to-a-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33746,6 +33418,28 @@
             "priority": 34
         },
         {
+            "cardId": "EPy8OUmPxa",
+            "name": "Stardust Oracle",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stardust-oracle-class-bonus-summons-an-astral-shard-at-the-end-phase"
+            ],
+            "semanticFixtures": [
+                "stardust-oracle-class-bonus-summons-an-astral-shard-at-the-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "ao8bki6fxx",
             "name": "Steel Slug",
             "type": "REGALIA,ITEM",
@@ -33762,6 +33456,28 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "xmtjrvfpuc",
+            "name": "Stellaria Shower",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stellaria-shower-starcalled-enter-deals-damage-equal-to-the-phantasias-you-control"
+            ],
+            "semanticFixtures": [
+                "stellaria-shower-starcalled-enter-deals-damage-equal-to-the-phantasias-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36198,6 +35914,27 @@
             "priority": 33
         },
         {
+            "cardId": "pbtudivyzb",
+            "name": "Chamber of Reflections",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "chamber-of-reflections-sacrifice-searches-for-a-cheap-domain"
+            ],
+            "semanticFixtures": [
+                "chamber-of-reflections-sacrifice-searches-for-a-cheap-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "kmuuqzfvg8",
             "name": "Changban, Heroic Impasse",
             "type": "UNIQUE,DOMAIN",
@@ -36627,6 +36364,29 @@
             "semanticFixtures": [
                 "corrosive-juggler-enter-declined-does-nothing",
                 "corrosive-juggler-enter-resting-it-deals-one-damage-and-shrinks-the-targets-attacks"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dWgPzoEbIE",
+            "name": "Cosmic Focus",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cosmic-focus-distant-champion-gains-ranged-four",
+                "cosmic-focus-not-distant-becomes-distant"
+            ],
+            "semanticFixtures": [
+                "cosmic-focus-distant-champion-gains-ranged-four",
+                "cosmic-focus-not-distant-becomes-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39177,6 +38937,27 @@
             "priority": 33
         },
         {
+            "cardId": "5ybMub985n",
+            "name": "Meteoric Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "meteoric-slime-class-bonus-end-phase-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "meteoric-slime-class-bonus-end-phase-glimpses-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7imoz7vrlr",
             "name": "Mire Reparation",
             "type": "ACTION",
@@ -39521,6 +39302,29 @@
             ],
             "semanticFixtures": [
                 "obelisk-of-fabrication-six-rest-summons-a-buffed-automaton-drone-costing-one-less-per-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "qM9yzxQbfF",
+            "name": "Orbiting Cosmos",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "orbiting-cosmos-banish-draws-a-card-into-memory",
+                "orbiting-cosmos-glimpses-one-more-card"
+            ],
+            "semanticFixtures": [
+                "orbiting-cosmos-banish-draws-a-card-into-memory",
+                "orbiting-cosmos-glimpses-one-more-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40285,6 +40089,29 @@
             ],
             "semanticFixtures": [
                 "radiant-origin-trials-printed-omnishroud-spell-cannot-target-them"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "odcgpm3ugw",
+            "name": "Radiant Vega",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "radiant-vega-diana-bonus-negates-an-activation-unless-its-controller-pays-per-loaded-aethercharge-card",
+                "radiant-vega-the-controller-can-pay-the-loaded-aethercharge-count-to-avoid-the-negate"
+            ],
+            "semanticFixtures": [
+                "radiant-vega-diana-bonus-negates-an-activation-unless-its-controller-pays-per-loaded-aethercharge-card",
+                "radiant-vega-the-controller-can-pay-the-loaded-aethercharge-count-to-avoid-the-negate"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42029,6 +41856,29 @@
             "priority": 33
         },
         {
+            "cardId": "4nmxqsm4o9",
+            "name": "The Elysian Astrolabe",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "the-elysian-astrolabe-enters-the-field-rested",
+                "the-elysian-astrolabe-rest-lets-you-pay-nothing-for-starcalling-costs-this-turn"
+            ],
+            "semanticFixtures": [
+                "the-elysian-astrolabe-enters-the-field-rested",
+                "the-elysian-astrolabe-rest-lets-you-pay-nothing-for-starcalling-costs-this-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "zRG5hmBcsP",
             "name": "Tidal Fractal ",
             "type": "PHANTASIA",
@@ -42247,6 +42097,27 @@
                 "unrelenting-warden-below-level-two-stays-rested",
                 "unrelenting-warden-class-bonus-taunt-protects-the-champion",
                 "unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "gamylrj1fc",
+            "name": "Vanishing Eclipse",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant"
+            ],
+            "semanticFixtures": [
+                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43453,6 +43324,28 @@
             "priority": 32
         },
         {
+            "cardId": "f0ht2tsn0y",
+            "name": "Astarte, Celestial Dawn",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "astarte-celestial-dawn-banishes-objects-that-enter-under-an-opponents-control-from-outside-the-effects-stack",
+                "astarte-celestial-dawn-lets-an-opponents-ally-enter-from-the-effects-stack"
+            ],
+            "semanticFixtures": [
+                "astarte-celestial-dawn-banishes-objects-that-enter-under-an-opponents-control-from-outside-the-effects-stack",
+                "astarte-celestial-dawn-lets-an-opponents-ally-enter-from-the-effects-stack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "rh0foylxnq",
             "name": "Atmos Armor Type-Ares",
             "type": "UNIQUE,ALLY",
@@ -44221,6 +44114,28 @@
             "priority": 32
         },
         {
+            "cardId": "52215upufy",
+            "name": "Claude, Fated Visionary",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "claude-fated-visionary-enter-mills-lv-and-returns-automaton-allies-to-memory",
+                "claude-fated-visionary-gives-automaton-allies-taunt"
+            ],
+            "semanticFixtures": [
+                "claude-fated-visionary-enter-mills-lv-and-returns-automaton-allies-to-memory",
+                "claude-fated-visionary-gives-automaton-allies-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "71i7d3JB9A",
             "name": "Clean Cut",
             "type": "ATTACK",
@@ -44257,6 +44172,30 @@
             ],
             "semanticFixtures": [
                 "condemned-trinket-pays-three-banishes-itself-and-omens-a-graveyard-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "g8q7imka92",
+            "name": "Consumption Ring",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "consumption-ring-banish-during-the-opponents-recollection-makes-their-non-ally-cards-cost-four-more",
+                "consumption-ring-cannot-be-banished-during-the-opponents-main-phase",
+                "consumption-ring-cannot-be-banished-outside-an-opponents-recollection-phase"
+            ],
+            "semanticFixtures": [
+                "consumption-ring-banish-during-the-opponents-recollection-makes-their-non-ally-cards-cost-four-more",
+                "consumption-ring-cannot-be-banished-during-the-opponents-main-phase",
+                "consumption-ring-cannot-be-banished-outside-an-opponents-recollection-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46153,6 +46092,28 @@
             "priority": 32
         },
         {
+            "cardId": "2s08hssegf",
+            "name": "Inert Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inert-sword-class-bonus-gets-plus-one-power",
+                "inert-sword-without-the-class-bonus-keeps-two-power"
+            ],
+            "semanticFixtures": [
+                "inert-sword-class-bonus-gets-plus-one-power",
+                "inert-sword-without-the-class-bonus-keeps-two-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vgWgu1DUYv",
             "name": "Infernal Vessel",
             "type": "REGALIA,ITEM",
@@ -46929,6 +46890,26 @@
             ],
             "semanticFixtures": [
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "c34iTVRS8h",
+            "name": "Moonveil Android",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse"
+            ],
+            "semanticFixtures": [
+                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48031,6 +48012,26 @@
             "priority": 32
         },
         {
+            "cardId": "67duh1cy3g",
+            "name": "Reflect the Skies",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "OvihPzTqcP",
             "name": "Regal Expulsion",
             "type": "ACTION",
@@ -48427,6 +48428,26 @@
             ],
             "semanticFixtures": [
                 "scorching-knowledge-empowers-the-next-spell-by-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "oz23yfzk96",
+            "name": "Scry the Stars",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49038,6 +49059,46 @@
             "priority": 32
         },
         {
+            "cardId": "btjuxztaug",
+            "name": "Stargazer's Portent",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy"
+            ],
+            "semanticFixtures": [
+                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "gwWociEfxb",
+            "name": "Starstrung Reading",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "starstrung-reading-distant-champion-glimpses-four"
+            ],
+            "semanticFixtures": [
+                "starstrung-reading-distant-champion-glimpses-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "33mWk4HYLF",
             "name": "Staves X Ultra",
             "type": "UNIQUE,ITEM",
@@ -49286,6 +49347,28 @@
             ],
             "semanticFixtures": [
                 "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "zcvq77mdgd",
+            "name": "Sword of Shadows",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sword-of-shadows-class-bonus-gets-plus-one-power",
+                "sword-of-shadows-gets-minus-one-power-while-an-opponent-controls-an-ally-with-stealth"
+            ],
+            "semanticFixtures": [
+                "sword-of-shadows-class-bonus-gets-plus-one-power",
+                "sword-of-shadows-gets-minus-one-power-while-an-opponent-controls-an-ally-with-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50607,6 +50690,25 @@
             "priority": 31
         },
         {
+            "cardId": "eP07Xxscuq",
+            "name": "Astral Shard",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "astral-shard-sacrifice-glimpses-two"
+            ],
+            "semanticFixtures": [
+                "astral-shard-sacrifice-glimpses-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "hkurfp66pv",
             "name": "Aurousteel Greatsword",
             "type": "TOKEN,WEAPON",
@@ -51447,6 +51549,27 @@
             "priority": 31
         },
         {
+            "cardId": "b2buhbediq",
+            "name": "Cosmic Alignment",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "cosmic-alignment-flag-turns-the-next-glimpse-into-drawing-that-many-cards",
+                "cosmic-alignment-the-next-glimpse-draws-that-many-cards-instead"
+            ],
+            "semanticFixtures": [
+                "cosmic-alignment-flag-turns-the-next-glimpse-into-drawing-that-many-cards",
+                "cosmic-alignment-the-next-glimpse-draws-that-many-cards-instead"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "o6gy3kq2lc",
             "name": "Courtside Beastkeeper",
             "type": "ALLY",
@@ -52262,6 +52385,25 @@
             ],
             "semanticFixtures": [
                 "flowerbud-token-sits-on-the-field-as-a-vanilla-phantasia"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "lnhzj43qiw",
+            "name": "Foretold Bloom",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "foretold-bloom-herbs-gain-glimpse-two-on-sacrifice"
+            ],
+            "semanticFixtures": [
+                "foretold-bloom-herbs-gain-glimpse-two-on-sacrifice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -54300,6 +54442,26 @@
             "priority": 31
         },
         {
+            "cardId": "jaiTSvaLOQ",
+            "name": "Stellar Cosmos",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "stellar-cosmos-class-bonus-spellshroud-ranger-champion-spell-cannot-target-it",
+                "stellar-cosmos-diana-bonus-third-charge-counter-gives-aethercharge-cards-aethercalling"
+            ],
+            "semanticFixtures": [
+                "stellar-cosmos-diana-bonus-third-charge-counter-gives-aethercharge-cards-aethercalling"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "csMiEObm2l",
             "name": "Strapping Conscript",
             "type": "ALLY",
@@ -54605,6 +54767,27 @@
             "semanticFixtures": [
                 "tweedledee-contrarian-poet-class-bonus-taunt-protects-the-champion",
                 "tweedledee-contrarian-poet-on-hit-loses-three-power-permanently"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "62u1231c0z",
+            "name": "Twilight Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "twilight-slime-class-bonus-gives-other-slimes-spellshroud",
+                "twilight-slime-without-the-class-bonus-leaves-other-slimes-targetable"
+            ],
+            "semanticFixtures": [
+                "twilight-slime-class-bonus-gives-other-slimes-spellshroud",
+                "twilight-slime-without-the-class-bonus-leaves-other-slimes-targetable"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

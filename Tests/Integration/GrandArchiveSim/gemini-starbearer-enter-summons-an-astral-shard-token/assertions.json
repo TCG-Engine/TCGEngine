@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "eP07Xxscuq",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Enter: an Astral Shard token"
+    }
+]

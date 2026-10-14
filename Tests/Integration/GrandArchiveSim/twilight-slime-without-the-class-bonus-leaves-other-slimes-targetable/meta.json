@@ -1,0 +1,22 @@
+{
+    "name": "twilight-slime-without-the-class-bonus-leaves-other-slimes-targetable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:21:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "62u1231c0z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "62u1231c0z"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "spellshroud",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Your champion and other Slime objects you control have **spellshroud**."
+        ]
+    }
+}

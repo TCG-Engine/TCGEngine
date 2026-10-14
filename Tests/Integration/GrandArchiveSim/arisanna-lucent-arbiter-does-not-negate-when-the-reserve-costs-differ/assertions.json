@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Reserve 2 against a revealed reserve-3 card: not negated"
+    }
+]

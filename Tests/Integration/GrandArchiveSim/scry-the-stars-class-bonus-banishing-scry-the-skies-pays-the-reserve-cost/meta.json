@@ -1,0 +1,22 @@
+{
+    "name": "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oz23yfzk96"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oz23yfzk96"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "alternative-cost",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may banish a card named Scry the Skies from your graveyard rather than pay this card's reserve cost."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "cometary-vantage-draw-mode-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4c89re0bd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4c89re0bd"
+        ],
+        "mechanics": [
+            "modal",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Choose one. \u2022 Draw a card."
+        ]
+    }
+}

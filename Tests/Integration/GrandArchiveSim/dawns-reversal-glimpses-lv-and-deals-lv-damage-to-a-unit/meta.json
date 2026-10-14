@@ -1,0 +1,23 @@
+{
+    "name": "dawns-reversal-glimpses-lv-and-deals-lv-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x53jgq8aad"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x53jgq8aad"
+        ],
+        "mechanics": [
+            "glimpse",
+            "damage",
+            "level",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Glimpse LV**. Deal **LV** damage to target unit."
+        ]
+    }
+}

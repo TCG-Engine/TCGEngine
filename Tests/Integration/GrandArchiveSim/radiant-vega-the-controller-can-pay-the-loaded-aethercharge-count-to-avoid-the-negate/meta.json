@@ -1,0 +1,22 @@
+{
+    "name": "radiant-vega-the-controller-can-pay-the-loaded-aethercharge-count-to-avoid-the-negate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:42:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "odcgpm3ugw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "odcgpm3ugw"
+        ],
+        "mechanics": [
+            "negate",
+            "payment",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (X)"
+        ]
+    }
+}

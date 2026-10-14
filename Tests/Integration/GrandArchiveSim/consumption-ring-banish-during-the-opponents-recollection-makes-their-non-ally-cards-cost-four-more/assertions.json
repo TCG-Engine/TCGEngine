@@ -1,0 +1,20 @@
+[
+    {
+        "step": 14,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "g8q7imka92",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Ring banished itself"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Cell Production (3) cost 7 with the Ring: seven cards paid, two Powercells arrived"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "foretold-bloom-herbs-gain-glimpse-two-on-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lnhzj43qiw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lnhzj43qiw"
+        ],
+        "mechanics": [
+            "grant-ability",
+            "glimpse",
+            "herb"
+        ],
+        "rulesClauses": [
+            "Until end of turn, Herbs you control gain \u201c**On Sacrifice: Glimpse 2**.\u201d"
+        ]
+    }
+}

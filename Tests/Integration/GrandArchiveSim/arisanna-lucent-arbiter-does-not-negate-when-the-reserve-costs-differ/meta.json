@@ -1,0 +1,21 @@
+{
+    "name": "arisanna-lucent-arbiter-does-not-negate-when-the-reserve-costs-differ",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:34:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7e22tk3ir1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7e22tk3ir1"
+        ],
+        "mechanics": [
+            "negate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation if its reserve cost is equal to the reserve cost of the revealed card."
+        ]
+    }
+}

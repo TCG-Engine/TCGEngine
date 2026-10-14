@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "ziHdB4vzQH",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The first chosen Automaton ally card returned to memory"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "pk9xycwz9g",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "And the second one"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the card milled by On Enter remains in the graveyard (level 1: one card)"
+    }
+]

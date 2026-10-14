@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "ASTROLABE_FREE_STARCALLING",
+        "value": 1,
+        "semantic": true,
+        "label": "Starcalling costs may be paid with (0) until end of turn"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Astrolabe rested"
+    }
+]

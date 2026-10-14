@@ -1,0 +1,20 @@
+[
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Gray Wolf (reserve 2) matched the revealed Foretold Bloom (2): negated, it never entered"
+    },
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The negated card went to its owner's graveyard"
+    }
+]

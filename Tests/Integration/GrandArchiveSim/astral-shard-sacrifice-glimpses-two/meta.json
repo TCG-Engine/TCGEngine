@@ -1,0 +1,22 @@
+{
+    "name": "astral-shard-sacrifice-glimpses-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eP07Xxscuq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eP07Xxscuq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME: Glimpse 2**."
+        ]
+    }
+}

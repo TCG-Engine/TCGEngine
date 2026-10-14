@@ -1,0 +1,25 @@
+{
+    "name": "lunar-conduit-pay-three-and-rest-deals-damage-equal-to-its-charge-counters-and-removes-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:24:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0yetaebjlw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0yetaebjlw"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "damage",
+            "counter",
+            "spell",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(3), [REST]**:** As a Spell, deal an amount of damage to target unit equal to the amount of **charge** counters on CARDNAME. Then remove a **charge** counter from CARDNAME."
+        ]
+    }
+}

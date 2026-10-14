@@ -1,0 +1,22 @@
+{
+    "name": "palvor-sword-level-one-enter-banishes-the-cards-in-a-graveyard-face-down",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wU3OvTrjEt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wU3OvTrjEt"
+        ],
+        "mechanics": [
+            "level",
+            "on-enter",
+            "banish"
+        ],
+        "rulesClauses": [
+            "[Level 1+]**On Enter:** Banish all cards in target player's graveyard face down until CARDNAME leaves the field."
+        ]
+    }
+}

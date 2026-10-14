@@ -1,0 +1,21 @@
+{
+    "name": "inert-sword-without-the-class-bonus-keeps-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2s08hssegf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2s08hssegf"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Inert Sword gets +1[POWER]."
+        ]
+    }
+}

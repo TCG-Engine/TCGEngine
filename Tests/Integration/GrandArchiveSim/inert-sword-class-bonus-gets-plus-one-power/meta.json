@@ -1,0 +1,21 @@
+{
+    "name": "inert-sword-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2s08hssegf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2s08hssegf"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Inert Sword gets +1[POWER]."
+        ]
+    }
+}

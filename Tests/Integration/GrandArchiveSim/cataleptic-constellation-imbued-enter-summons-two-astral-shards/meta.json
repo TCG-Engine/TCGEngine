@@ -1,0 +1,24 @@
+{
+    "name": "cataleptic-constellation-imbued-enter-summons-two-astral-shards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:30:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lflzwiiewz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lflzwiiewz"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "summon",
+            "token",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If Cataleptic Constellation is **imbued**, **summon** two Astral Shard tokens."
+        ]
+    }
+}

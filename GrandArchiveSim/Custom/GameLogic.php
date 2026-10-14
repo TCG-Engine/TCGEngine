@@ -20237,6 +20237,11 @@ function ExpireEffects($isEndTurn=true) {
                 if(strpos($effect, "KONGMING_") === 0) {
                     $newBanishEffects[] = $effect;
                 }
+                // Celestial Calling (izm6h38lrj): the banished astra Spell is offered "at the beginning of your NEXT recollection phase", so its tag has to outlive
+                // the turn it was made in (it used to be wiped by this cleanup, and the offer never came). CelestialCallingActivate clears it.
+                if($effect === "CELESTIAL_CALLING") {
+                    $newBanishEffects[] = $effect;
+                }
             }
             if(in_array('_warriorFaeRealm', $newBanishEffects) && !in_array('_warriorFaeRealmLater', $newBanishEffects)) {
                 $newBanishEffects[] = '_warriorFaeRealmLater';

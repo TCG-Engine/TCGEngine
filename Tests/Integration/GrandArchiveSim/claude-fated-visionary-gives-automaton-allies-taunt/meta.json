@@ -1,0 +1,21 @@
+{
+    "name": "claude-fated-visionary-gives-automaton-allies-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:29:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "52215upufy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "52215upufy"
+        ],
+        "mechanics": [
+            "taunt",
+            "static"
+        ],
+        "rulesClauses": [
+            "Automaton allies you control have **taunt**"
+        ]
+    }
+}

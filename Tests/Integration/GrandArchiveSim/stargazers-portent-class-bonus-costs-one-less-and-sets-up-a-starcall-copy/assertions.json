@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "btjuxztaug",
+        "value": 1,
+        "semantic": true,
+        "label": "The next starcalled activation will be copied"
+    }
+]

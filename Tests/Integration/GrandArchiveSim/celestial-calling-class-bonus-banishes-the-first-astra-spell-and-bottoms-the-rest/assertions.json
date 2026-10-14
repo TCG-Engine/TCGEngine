@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "lnhzj43qiw",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The first astra Spell revealed was banished (the Dungeon Guide above it was not)"
+    }
+]

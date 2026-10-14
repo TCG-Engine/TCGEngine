@@ -1,0 +1,22 @@
+{
+    "name": "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:21:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c34iTVRS8h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c34iTVRS8h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "glimpse",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you **glimpse**, Moonveil Android gains **stealth** until end of turn."
+        ]
+    }
+}

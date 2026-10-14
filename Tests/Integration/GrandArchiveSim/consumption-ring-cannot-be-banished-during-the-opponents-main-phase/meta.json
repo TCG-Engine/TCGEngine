@@ -1,0 +1,22 @@
+{
+    "name": "consumption-ring-cannot-be-banished-during-the-opponents-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:36:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g8q7imka92"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g8q7imka92"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "condition",
+            "timing"
+        ],
+        "rulesClauses": [
+            "Activate this ability only during an opponent's recollection phase."
+        ]
+    }
+}
