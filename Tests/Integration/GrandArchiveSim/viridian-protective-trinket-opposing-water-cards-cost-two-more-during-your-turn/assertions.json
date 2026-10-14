@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "y7wbtbasch",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Paid 2 + 2 and the water spell resolved"
+    }
+]

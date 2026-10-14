@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T02:17:29+00:00",
+    "generatedAt": "2026-10-14T02:26:35+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2076,
+        "cardsWithExistingFixtures": 2084,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 401,
+        "cardsNeedingSemanticCoverage": 393,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -168,26 +168,6 @@
             "mechanics": [
                 "cost",
                 "targeting",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "X7rh3Yi26A",
-            "name": "Endura, Reimagined",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
                 "zone-movement",
                 "trigger",
                 "condition"
@@ -1554,25 +1534,6 @@
                 "counter",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "f0jbv5n196",
-            "name": "Memento Pocketwatch",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3187,23 +3148,6 @@
             "priority": 14
         },
         {
-            "cardId": "782mm2tq5l",
-            "name": "Amorphous Missile",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "pvzvqx16w4",
             "name": "Annihilation",
             "type": "ACTION",
@@ -3816,23 +3760,6 @@
             "priority": 13
         },
         {
-            "cardId": "v1iyt8rugx",
-            "name": "Huaji of Heaven's Rise",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "2goaqn7ImP",
             "name": "Imperious Galebind",
             "type": "ACTION",
@@ -4216,23 +4143,6 @@
                 "targeting",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "mSOHJGjrIu",
-            "name": "Reciprocity, Dorumegia's Call",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5857,21 +5767,6 @@
             "priority": 11
         },
         {
-            "cardId": "Bt9xeTum94",
-            "name": "Alchemist's Cauldron",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "eP07Xxscuq",
             "name": "Astral Shard",
             "type": "TOKEN,PHANTASIA",
@@ -5969,21 +5864,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "0nlhgqpckq",
-            "name": "Censer of Restful Peace",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6749,21 +6629,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "s3572j3oda",
-            "name": "Viridian Protective Trinket",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22461,6 +22326,32 @@
             "priority": 45
         },
         {
+            "cardId": "X7rh3Yi26A",
+            "name": "Endura, Reimagined",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "endura-reimagined-rai-bonus-removes-three-enlighten-counters-to-deal-two-damage-and-draw",
+                "endura-reimagined-without-the-rai-bonus-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "endura-reimagined-rai-bonus-removes-three-enlighten-counters-to-deal-two-damage-and-draw",
+                "endura-reimagined-without-the-rai-bonus-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "jh9s424gjr",
             "name": "Enervating Decay",
             "type": "ACTION",
@@ -28327,6 +28218,29 @@
             ],
             "semanticFixtures": [
                 "mechanical-hare-class-bonus-enter-puts-a-buff-counter-on-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "f0jbv5n196",
+            "name": "Memento Pocketwatch",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "combat"
+            ],
+            "existingFixtures": [
+                "memento-pocketwatch-third-charge-counter-banishes-it-draws-and-buffs-the-next-attack"
+            ],
+            "semanticFixtures": [
+                "memento-pocketwatch-third-charge-counter-banishes-it-draws-and-buffs-the-next-attack"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36264,6 +36178,27 @@
             "priority": 33
         },
         {
+            "cardId": "782mm2tq5l",
+            "name": "Amorphous Missile",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "amorphous-missile-loads-itself-into-an-unloaded-ranger-weapon"
+            ],
+            "semanticFixtures": [
+                "amorphous-missile-loads-itself-into-an-unloaded-ranger-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "sg2ghTKuDt",
             "name": "Apostle of the Woods",
             "type": "ALLY",
@@ -38861,6 +38796,27 @@
             "priority": 33
         },
         {
+            "cardId": "v1iyt8rugx",
+            "name": "Huaji of Heaven's Rise",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "huaji-of-heavens-rise-class-bonus-a-unique-warrior-ally-attacks-using-it"
+            ],
+            "semanticFixtures": [
+                "huaji-of-heavens-rise-class-bonus-a-unique-warrior-ally-attacks-using-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "LAfJuHgUbm",
             "name": "Hydrating Fractal",
             "type": "PHANTASIA",
@@ -40914,6 +40870,33 @@
             ],
             "semanticFixtures": [
                 "razorvine-sacrifice-puts-a-hand-card-on-the-bottom-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "mSOHJGjrIu",
+            "name": "Reciprocity, Dorumegia's Call",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "reciprocity-dorumegias-call-each-non-token-domain-makes-the-material-activation-three-cheaper",
+                "reciprocity-dorumegias-call-tonoris-bonus-level-one-cannot-use-its-rest-ability",
+                "reciprocity-dorumegias-call-tonoris-bonus-level-two-rest-summons-an-automaton-drone",
+                "reciprocity-dorumegias-call-tonoris-bonus-pay-six-to-activate-it-from-the-material-deck"
+            ],
+            "semanticFixtures": [
+                "reciprocity-dorumegias-call-each-non-token-domain-makes-the-material-activation-three-cheaper",
+                "reciprocity-dorumegias-call-tonoris-bonus-level-one-cannot-use-its-rest-ability",
+                "reciprocity-dorumegias-call-tonoris-bonus-level-two-rest-summons-an-automaton-drone",
+                "reciprocity-dorumegias-call-tonoris-bonus-pay-six-to-activate-it-from-the-material-deck"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50198,6 +50181,27 @@
             "priority": 31
         },
         {
+            "cardId": "Bt9xeTum94",
+            "name": "Alchemist's Cauldron",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "alchemists-cauldron-arisanna-bonus-banishes-itself-to-gather-twice",
+                "alchemists-cauldron-without-the-arisanna-bonus-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "alchemists-cauldron-arisanna-bonus-banishes-itself-to-gather-twice",
+                "alchemists-cauldron-without-the-arisanna-bonus-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ezIeRDL7jm",
             "name": "Allowance Race",
             "type": "ACTION",
@@ -50773,6 +50777,25 @@
             ],
             "semanticFixtures": [
                 "cardinal-of-divine-rite-angel-cards-cannot-become-imbued"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "0nlhgqpckq",
+            "name": "Censer of Restful Peace",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "censer-of-restful-peace-graveyard-cards-lose-floating-memory"
+            ],
+            "semanticFixtures": [
+                "censer-of-restful-peace-graveyard-cards-lose-floating-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53931,6 +53954,29 @@
             "semanticFixtures": [
                 "vicious-slice-class-bonus-attacking-a-human-gets-plus-one-power",
                 "vicious-slice-without-the-class-bonus-attacking-a-human-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "s3572j3oda",
+            "name": "Viridian Protective Trinket",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
+                "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
+                "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"
+            ],
+            "semanticFixtures": [
+                "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
+                "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
+                "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

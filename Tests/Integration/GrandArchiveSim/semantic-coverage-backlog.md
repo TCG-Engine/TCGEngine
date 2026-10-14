@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2076**
+Cards linked to an existing fixture: **2084**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **401**
+Implemented cards still needing semantic coverage: **393**
 
 ## Mechanic groups
 
@@ -34,7 +34,6 @@ Implemented cards still needing semantic coverage: **401**
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
-| Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
 | Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **401**
 | Prima Materia (`vt9y597fqr`) | UNIQUE,ITEM | 2 | damage, draw-discard, condition | — | — |
 | Purified Shot (`dcgw05q66h`) | ITEM | 2 | targeting, damage, zone-movement | — | — |
 | Royal Line Defense (`9urNxU7SZw`) | ACTION | 2 | cost, targeting, condition | — | — |
+| Total Whiteout (`O4mD40xpbY`) | UNIQUE,PHANTASIA | 2 | cost, status, combat | — | — |

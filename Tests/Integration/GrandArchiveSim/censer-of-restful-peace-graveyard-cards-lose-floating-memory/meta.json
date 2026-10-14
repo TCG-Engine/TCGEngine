@@ -1,0 +1,22 @@
+{
+    "name": "censer-of-restful-peace-graveyard-cards-lose-floating-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:17:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0nlhgqpckq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0nlhgqpckq"
+        ],
+        "mechanics": [
+            "static",
+            "no-abilities",
+            "floating-memory"
+        ],
+        "rulesClauses": [
+            "Cards in graveyards lose all abilities."
+        ]
+    }
+}

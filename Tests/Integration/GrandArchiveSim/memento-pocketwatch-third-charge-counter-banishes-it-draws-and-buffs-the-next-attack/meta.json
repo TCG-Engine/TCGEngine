@@ -1,0 +1,23 @@
+{
+    "name": "memento-pocketwatch-third-charge-counter-banishes-it-draws-and-buffs-the-next-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:18:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f0jbv5n196"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f0jbv5n196"
+        ],
+        "mechanics": [
+            "on-charge",
+            "banish-self",
+            "draw",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Charge 3**: Banish Memento Pocketwatch and draw a card. The next attack you declare with a unit this turn gets +3[POWER]."
+        ]
+    }
+}

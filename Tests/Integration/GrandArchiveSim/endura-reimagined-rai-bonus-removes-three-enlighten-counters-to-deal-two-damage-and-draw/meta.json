@@ -1,0 +1,25 @@
+{
+    "name": "endura-reimagined-rai-bonus-removes-three-enlighten-counters-to-deal-two-damage-and-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:18:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "X7rh3Yi26A"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "X7rh3Yi26A"
+        ],
+        "mechanics": [
+            "rai-bonus",
+            "activated-ability",
+            "counter-cost",
+            "rest",
+            "damage",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Rai Bonus] **Remove three enlighten counters from your champion,  [REST]:** As a Spell, deal 2 damage to up to one target unit. Draw a card."
+        ]
+    }
+}

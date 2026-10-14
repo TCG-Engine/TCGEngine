@@ -1,0 +1,22 @@
+{
+    "name": "huaji-of-heavens-rise-class-bonus-a-unique-warrior-ally-attacks-using-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:20:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1iyt8rugx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v1iyt8rugx"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "weapon-attack",
+            "allies"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Unique Warrior allies you control can attack using this weapon."
+        ]
+    }
+}

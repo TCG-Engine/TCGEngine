@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "Bt9xeTum94",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Cauldron was banished as a cost"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Gathered twice: two plant tokens beside the champion"
+    }
+]

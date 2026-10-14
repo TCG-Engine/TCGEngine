@@ -69,10 +69,10 @@ LeyUk5auEP
 6
 MZMAYCHOOSE myMaterial-0&myMaterial-1 1  0
 CUSTOM MATERIALIZE 1  0
-CUSTOM EVENTIDE_MATERIAL_CHECK 1  0
-CUSTOM VARUCKAN_MATERIAL_CHECK 1  0
-CUSTOM FRAMEWORK_SIDEARM_MATERIAL_CHECK 1  0
-CUSTOM RECIPROCITY_MATERIAL_CHECK 1  0
+CUSTOM EVENTIDE_MATERIAL_CHECK 1  1
+CUSTOM VARUCKAN_MATERIAL_CHECK 1  1
+CUSTOM FRAMEWORK_SIDEARM_MATERIAL_CHECK 1  1
+CUSTOM RECIPROCITY_MATERIAL_CHECK 1  1
 1
 0:1<v0>MAIN<v0>2<v0><v0>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v0><v0><v0>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>1<v1>4wuq20gvcg<v2>2<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>3<v0><v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v0><v0><v0>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-1","isImbued":"NO","amount":1}<v0><v0>{"MaterializeCalls":{"1":1},"Materialize":{"1":{"4wuq20gvcg":1}},"EnterCalls":{"1":1},"Enter":{"1":{"4wuq20gvcg":1}},"DrawCalls":{"1":1},"Draw":{"1":1}}<v0>3<v0>{"DrawCalls":{"2":1,"1":1},"MaterializeCalls":{"1":1},"Materialize":{"1":{"4wuq20gvcg":1}},"EnterCalls":{"1":1},"Enter":{"1":{"4wuq20gvcg":1}}}<v0>72<v0>{"cards":{"1":{"px60u5n1do":{"drawn":5,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"4wuq20gvcg":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15}],"cur":{"1":{"cardsPlayed":1},"2":[]},"combatEvents":[]}
 1

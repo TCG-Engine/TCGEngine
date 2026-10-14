@@ -21,16 +21,17 @@ function MaterializePhase() {
 
 
     $hasMaterial = MaterializeChoice();
+    // The checks below are independent of the materialize choice: queue them with dontSkipOnPass so declining to materialize (PASS) does not skip them.
     // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1, "", 1);
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1, "", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1, "", 1);
     if(ShouldQueueCapacitanceMaterialCheck(GetTurnPlayer())) {
-        DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "CAPACITANCE_MATERIAL_CHECK", 1);
+        DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "CAPACITANCE_MATERIAL_CHECK", 1, "", 1);
     }
     // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1, "", 1);
     
     // If the player has no cards left in material, run the same path as a skipped
     // materialize callback (lastDecision="-") so phase progression remains consistent.
