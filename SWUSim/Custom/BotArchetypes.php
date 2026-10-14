@@ -117,6 +117,11 @@ function SWUBotWeightTable(): array {
 
 // Starting values for the fallback scorer (layer 4), indexed by RANK.
 function SWUBotWeights(string $style, int $seat): array {
+    // Per-decision memo (BotEvaluator.php): the racing column reads the board; the probes/features are fixed within a decision.
+    $force = json_encode($GLOBALS['SWUBotTestForceRacing'] ?? null);
+    return function_exists('SWUBotMemo') ? SWUBotMemo("weights|$style|$seat|$force", fn() => _SWUBotWeightsNow($style, $seat)) : _SWUBotWeightsNow($style, $seat);
+}
+function _SWUBotWeightsNow(string $style, int $seat): array {
     $T = SWUBotWeightTable();
     $col = SWUBotRacingRank($style, $seat);
     $out = [];
@@ -160,6 +165,11 @@ function SWUBotWeights(string $style, int $seat): array {
     if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('mgkill') && SWUBotStyleRank($style) === 2) {
         $out['kill'] *= 0.6;
     }
+    // Who is reading these weights (2026-10-12): the deck's ARCHETYPE rank and the rank it ACTS at (racing shifts it). The weights are
+    // the racing column, so a scorer that only receives $W could not tell a racing midrange deck from an aggro one ('leaderkill',
+    // 'spenttrade'). Not tag names — no card tag reads them.
+    $out['archetypeRank'] = SWUBotStyleRank($style);
+    $out['racingRank'] = $col;
     return $out;
 }
 

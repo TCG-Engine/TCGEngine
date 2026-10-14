@@ -1,0 +1,47 @@
+# Self-play fixture — "Ahsoka Yellow" SPACE variant (Ahsoka Tano, Trust in the Force - Otoh Gunga)
+# Source: given by the owner as JSON 2026-10-14. 51 main-deck cards, 10 sideboard. Ninin's space build of Ahsoka Yellow — a
+#   different deck from her "Ahsoka Yellow w Neel" (ahsoka-tano_ash_yellow.txt): Blue Leader JTL_096, Blue Ace SEC_204, Mando's N-1
+#   Starfighter ASH_203 and the A-Wings in place of the Neel ground package.
+#   Name: the convention derives "Ahsoka Tano (ASH) Yellow" for both lists, so this one carries the VARIANT field "_v-space" (owner
+#   2026-10-14: "it's the Ahsoka Yellow Space variant. might need to name it 'Ahsoka (ASH) Yellow Space' by Ninin").
+#   Base trait: Otoh Gunga is Naboo, but no card in the deck cares, so the trait is not part of its name.
+# Author: Ninin
+# Variant: Space
+# Archetype (owner's label, 2026-10-14): Hyper aggro
+# Style: hyperaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 HMW_033
+
+Deck
+3 HMW_213
+3 SEC_213
+3 JTL_203
+3 SEC_098
+3 SEC_099
+3 SEC_111
+2 ASH_110
+3 ASH_201
+3 ASH_203
+2 ASH_109
+3 JTL_095
+3 SEC_215
+3 HMW_256
+3 SEC_101
+2 JTL_103
+3 JTL_096
+3 SEC_204
+2 SEC_179
+1 LOF_191
+
+Sideboard
+3 LAW_233
+1 JTL_103
+2 LOF_191
+2 SEC_207
+1 ASH_109
+1 SEC_179

@@ -62,6 +62,7 @@ missing here — **change both together**. The weights are the printed values; `
 | `defeat-upgrade` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `defeat-wipe-enemy` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `defeat-wipe-friendly` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| `discard-opponent-hand` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `discount` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `draw` | 0.20 | 0.30 | 0.50 | 1.00 | 1.40 |
 | `exhaust` | 0.25 | 0.30 | 0.40 | 0.40 | 0.40 |
@@ -94,6 +95,7 @@ missing here — **change both together**. The weights are the printed values; `
 | `indirect-damage` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `mill-opponent` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `mill-self` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| `opponent-draw` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `overwhelm` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `piloting` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 | `plot` | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |

@@ -130,7 +130,8 @@ function _SWUBotCardEffect(int $seat, string $cid, array $tags, array $W, int $H
             if ($view !== null) $enemyVals[] = SWUBotUnitValue($view);
         }
     }
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+    // 'team…' = my units plus a Team Suns teammate's (a friendly wipe clears theirs too); exactly 'my…' outside a team game.
+    foreach (['teamGroundArena', 'teamSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $view = SWUBotViewForMz($seat, $mz);
             if ($view !== null) $friendlyVals[] = SWUBotUnitValue($view);

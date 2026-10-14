@@ -6695,6 +6695,14 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
               onclick="SWUGearCopySpectatorLink()">Copy Spectator Link</button>
       <div id="swuSettingsBlockMount"></div>
     </div>
+    <!-- The spectator's way out. The Match section above is player-only (its Return to Main Menu routes
+         through SWUGearConcede, which refuses a non-seat), so without this a spectator had no exit in the
+         gear menu at all. Plain navigation: a spectator has nothing to concede and announces nothing.
+         Revealed by swuOpenSettings for non-players only. -->
+    <div class="swu-settings-section" id="swuSettingsSpectatorSection" style="display:none; border-top:1px solid var(--border);">
+      <div class="swu-settings-section-title">Spectating</div>
+      <button class="btn btn-primary swu-settings-action" onclick="swuCloseSettings(); SWUGoMainMenu();">Return to Main Menu</button>
+    </div>
     <div class="swu-settings-section" style="border-top:1px solid var(--border);">
       <div class="swu-settings-section-title">Report</div>
       <button class="btn swu-settings-action" onclick="SWUReportBug()">Report Bug</button>
@@ -6756,6 +6764,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       var pid = pf ? parseInt(pf.value || '', 10) : NaN;
       var isPlayer = swuViewerIsSeatedPlayer(pid);
       ms.style.display = isPlayer ? 'block' : 'none';
+      // Spectators get their own Return to Main Menu — except in the SWU-PGN replay viewer, which adds
+      // its own "Replay" section with one (SwuPgnViewerClient.js addMenuExit); never show two.
+      var ss = document.getElementById('swuSettingsSpectatorSection');
+      if (ss) ss.style.display = (!isPlayer && !document.getElementById('swupgnSettingsSection')) ? 'block' : 'none';
       // Copy Spectator Link: seated players only. A PRIVATE game needs the per-game spectator key to
       // exist (it rides in the link); a PUBLIC game needs no key, so the button is simply available.
       var cs = document.getElementById('swuGearCopySpectate');

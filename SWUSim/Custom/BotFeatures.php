@@ -3,9 +3,13 @@
 // SWUBotFeatureOn() where its behaviour lives, so a chooser profile can switch some of them off.
 // ⚠ SHIP/HOLD RULE (owner, 2026-10-03 — replaces 2026-09-14's "every change must beat the stack head-to-head", which the
 // 2026-09-16 fidelity reframe had already retired): a lever that CORRECTS something demonstrably wrong (shown on a test
-// board), measures with no deck significantly hurt (a NULL passes), and has every line under a mutation-checked test ships
-// ON as a feature group. A proposal stays a "@try-" only when it measures HARMFUL or is a judgement call rather than a fix.
+// board), measures with no deck significantly hurt (a NULL passes), and is shown to FIRE in a smoke run ships ON as a feature
+// group. A proposal stays a "@try-" only when it measures HARMFUL or is a judgement call rather than a fix.
 // Owner: "i fear this outdated rule might be hurting potential explorations." The measurement is a SAFETY check.
+// ⚠ NO PER-FEATURE UNIT TESTS (owner, 2026-10-12): bot features are verified by RUNS — a smoke run whose coverage shows the
+// branch fired ("proposal:<name>", _SWUBotFired in BotFallback.php) and the ASH meta run. The ~156 per-feature pick/score tests
+// were retired that day; the "Guard: bot_<x>_test.php" notes below name files that now live only in git history. Kept: the
+// infrastructure tests (lookahead, legal actions, stack, tags, labels, traces, Bot Practice gates) and bot_invariants_test.php.
 // Chooser profiles:
 //   heuristic-<style>            everything on
 //   heuristic-<style>@base       every feature in SWUBotFeatureList() off — the stack before them
@@ -640,6 +644,84 @@ const SWU_BOT_PART41_FEATURES = ['phaseexpiry', 'observertax', 'uniquerefresh', 
 //   wallstack — hard control vs an aggro leader keeps putting Sentinels down in rounds 1-4 even with one already up ('wallfirst' stopped at
 //          one per arena) — owner, Mando vs aggro 2026-10-09: "sentinel up most turns". Guard: bot_wallstack_test.php.
 const SWU_BOT_PART42_FEATURES = ['tuck', 'doubleplay', 'unitedge', 'playdefeat', 'deployreplay', 'villainpitch', 'attackreserve', 'shipdiscount', 'deployfirst', 'pilotchoice', 'plantruncate', 'twoping', 'forcebuff', 'dedra', 'thrawnwd', 'armorerpicks', 'freekill', 'advready', 'tokenfirst', 'deploybuff', 'creditdeploy', 'aspectpick', 'actionfirst', 'healamount', 'deployswing', 'landomill', 'landoflip', 'splitzero', 'yodaloop', 'healwaste', 'searchvalue', 'mandoclaim', 'baseheal', 'lciwplan', 'supportfirst', 'cleanup', 'stabkeep', 'pitchtarget', 'anakinpitch', 'bokatanres', 'forceregen', 'chewieattack', 'sentinelsac', 'selectivewipe', 'mitigation', 'wallstack'];
+// Part 43 (2026-10-12, owner "let's ship gapstack") — the 2026-10-07 gap screen's '@try-gapstack' group (control vs SPACE aggro),
+// shipped after the ASH meta screen (.claude/tmp/ash-meta-runs/gapstack-20261012, 19,515 games paired with today's plain stack):
+// hyper aggro 176:222 newly won:lost (p .024), hard control 90:67 (p .08), soft control 240:217; archetype Pearson +0.03 → +0.06, MAE
+// 0.100 → 0.097, style bias +9.6/−12.5 → +9.0/−12.0 — the first lever to move the anti-control gradient the right way.
+//   wallkeeparena — resourcing vs SPACE aggro: 'wallkeep' (p39) no longer keeps a Sentinel in an arena the opponent has no unit in; it is
+//          the card that goes, ahead of a space answer (Aurra s012 resourced Pirate Snub Fighter, kept a ground Moff Gideon vs four Vader
+//          ships). Owner ruling 2026-10-12 by shipping: "never resource a Sentinel vs aggro" means a Sentinel that can wall. Guard: bot_wallkeeparena_test.php.
+//   cravinganswer — resourcing: a power-strike that damages an enemy unit (Craving Power LOF_091) counts as an answer — Krennic Blue's
+//          only spot answer to a piloted ship, resourced in 30 of 82 losses to Boba Blue. Guard: bot_bobaspace_test.php.
+//   wallarena — rule 'wall-first': against a SPACE-flavoured deck a wall stands only where the opponent has units, so a ground Sentinel
+//          is not the first play into an all-space board. Guard: bot_wallarena_test.php.
+//   bobaspace — Boba Fett (JTL_009) reads as a 'space' deck (owner: "space midrange, 27 of 41 units space"), so Hyperspace Disaster is
+//          kept against him, not resourced. ⚠ keyed on the leader alone, every base (the 10-07 canary suspected Lake Country). Guard: bot_bobaspace_test.php.
+const SWU_BOT_PART43_FEATURES = ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'];
+// Part 44 'controlvalue' (2026-10-13, owner "let's ship it") — ten value / answer rules for the midrange and control seats, built from the
+// owner's rulings on Ninin's Maul Blue v2, Grievous Blue and Krennic Blue Splash games (human-game read, 2026-10-12).
+// ASH meta screen (2026-10-13, paired with the plain stack on the same code): hard control 234:169
+// newly won:lost (p .0014), midrange 290:345 (p .032) — lost mostly TO control, moving hard control vs midrange 36.9% → 40.4% (real 56.4%);
+// archetype Pearson +0.04 → +0.08, matchup-cell Pearson +0.20 → +0.22, hard control bias −12.2 → −10.7. '@no-p44' / '@no-controlvalue'.
+//   handhate — a look-and-discard play (tag discard-opponent-hand) is worth the card it takes (seen cards in full, else the meta model);
+//          "If you do, they draw" (tag opponent-draw) hands one back (owner: Bazine Netal SHD gets the same treatment).
+//   leaderkill — a midrange/control deck's kill of an enemy leader unit passes the racing target filter and adds 2 rounds of that leader's damage.
+//   freshsac — rounds 1-5: a non-fodder unit played this phase (not yet attacked) is charged like a ready one when sacrificed.
+//   maulpitch — Maul's play-then-defeat Action on an off-aspect Heroism unit sets up Anakin (in hand, or still in the deck); a hard cast of
+//          that unit waits for the Action (owner: always via Maul's ability).
+//   condetb — a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on (owner: "B1 should always come
+//          after other units").
+//   gloom — "give each enemy unit -N/-N" joins the control wing's wipe plan (rule 5), judged by the lookahead's actual kills (owner: these
+//          are gloom effects, not guaranteed wipes).
+//   wdattack — an attacker that dies also fires its When Defeated: its damage kills count toward the attack.
+//   spenttrade — midrange: a cheap spent body (When Played fired / When Defeated pays back) trades into an equal unit.
+//   enginekill — a kill of an engine (Restore, base burn, Credit maker, Sentinel strip, ally buff) adds its per-round value.
+//   cleanupsoft — feature 'cleanup' extends to SOFT control vs an aggro leader in rounds 1-5.
+const SWU_BOT_PART44_FEATURES = ['handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft'];
+// Part 45 (2026-10-13, owner bug report, game 1647080).
+//   playdefeatwd — Maul's "play it, then defeat it" fires the unit's DAMAGE When Defeated at once, so it is priced by what it kills on the
+//          board as it stands (_SWUBotWdKillValue), not by flat damage tags. The bot played Snub Fighter Squadron on 4 resources with The
+//          Legacy Run in hand (6 divided = Disposable B1 + Supreme Council Aide), then hard-cast The Legacy Run for 5 a round later; owner:
+//          "should have used Maul's ability to use Legacy Run as almost a board wipe".
+//   uniquewd — Maul's Action on a second copy of a unique I control: the uniqueness rule defeats the old copy too, so its body is lost and
+//          its damage When Defeated fires as well (Ninin vs Poggle: The Legacy Run twice, 6 + 6); the uniqueness pick defeats the copy
+//          Maul is NOT about to defeat.
+//   wdshieldpop — that When Defeated's value counts a point spent popping an enemy Shield (Ninin vs Ahsoka: 4 to Neel, 2 into Han's Shield),
+//          priced as the split picker already prices it ('splitpop', p32).
+const SWU_BOT_PART45_FEATURES = ['playdefeatwd', 'uniquewd', 'wdshieldpop'];
+// Part 46 'tempolines' (2026-10-13, owner "drop only softenkill and ship the rest") — from the deep read of Ninin's 18 Maul Blue v2 games.
+// Maul v3 single-rule screen (.claude/tmp/maul-v3-single-screen, Maul's seat only, 9 opponents x 128 paired games each): nightpick −4
+// (20:24), wdbait +3 (5:2), ambushsetup −2 (0:2) — all near neutral; 'softenkill' (−16, p .06) was dropped. '@no-p46' / '@no-tempolines'.
+//   nightpick — HMW_204 Nightbrother's replay from the discard is the unit worth its EFFECTS (When Played now; a damage When Defeated at
+//          the regroup, priced by its kills) plus the one attack it makes now — not the first unit in the discard.
+//   wdbait — a damage When Defeated unit (The Legacy Run) played while a SEEN card in an opponent's hand would defeat it is bait: + half
+//          of what its When Defeated kills now. A take-control card (No Glory, Only Results) is no bait.
+//   ambushsetup — a ping counts the just-played unit's pending Ambush as a finisher (Snub Fighter Squadron pings what its Ambush then kills).
+const SWU_BOT_PART46_FEATURES = ['nightpick', 'wdbait', 'ambushsetup'];
+// Part 47 'neelcombo' (2026-10-13, owner: "this list should now try to get the 'Neel combo' on Turn 1 … play Neel first, then Tarpals, and
+// buff Tarpals for a free 4 damage to base") — Ahsoka Yellow w Neel (force-fam-HMW-predictions/ahsoka-tano_ash_yellow_v-with-neel). Round 1 under
+// ASH_009: a hard rule plays ASH_248 Neel, then the payoff with the most power + Raid (HMW_254 Tarpals); the opening resourcer never banks
+// either. Logic: _SWUBotNeelComboPlan / SWUBotRuleNeelCombo (BotRules.php). SHIPPED ON THE OWNER'S RULING, like p7/p9. '@no-p47'.
+const SWU_BOT_PART47_FEATURES = ['neelcombo'];
+// Part 48 'sentinelclear' (2026-10-13, owner on Bug Report game 1647080: "an aggro bot should not ignore attacks into a Sentinel if it means
+// it can clear it this round especially if the opponent has no resources left"). An aggro hit softening the lone unshielded Sentinel that
+// this round's ready attackers (+ a ready leader buff Action) can clear is worth its share of the kill — in full when the opponent has no
+// ready resource. Logic: _SWUBotSentinelClearShare (BotFallback.php). SHIPPED ON THE OWNER'S RULING, like p47. '@no-p48'.
+const SWU_BOT_PART48_FEATURES = ['sentinelclear'];
+// Part 49 'creditengine' (2026-10-13, owner: "do a deep, thorough analysis of these games. look for at least 10 bot features we can ship
+// immediately and turn them on") — Ninin's 5 human games on Krennic Blue Naboo vs 420 bot games on the list. Logic + evidence per
+// feature: BotCreditEngine.php. SHIPPED ON at the owner's request (each corrects a measured gap); '@no-p49' / '@no-creditengine' is the stack before.
+//   powerdamage   — "deal damage equal to its power to a unit" (ASH_102 Ravager) is hostile, its amount the dealer's power (self-hits 55/90).
+//   fodderkeep    — the opening/early resource pick keeps the Credit engine's first 2 fodder bodies (Ant Droid banked 26/30).
+//   mercres       — …and its resource-loop unit (LAW_159 Expendable Mercenary, banked 12/26).
+//   mercplay      — Mercenary's play carries the resource it becomes while the Credit Action is ready (never cast in 88/120 games).
+//   sachealwait   — the Credit Action yields while the unit it takes would heal an undamaged base (43% of heal sacs healed nothing).
+//   healfodder    — a heal-on-defeat counts toward sacrifice pricing only up to my base's damage.
+//   condetbvalue  — an unmet conditional When Played (Disposable B1, Lifetree Caravan) carries none of its value (B1 61%, Lifetree 43%).
+//   krennicengine — JTL_032's "first When Defeated unit each round costs 1 less" is priced as an engine (sacrificed 46x, Chimaera'd 22x).
+//   strikeleader  — a deploy/Strike True strike takes a killable enemy leader unit (missed 3 of 14).
+//   foddermull    — a Credit-sac hand with no unit costing 2 or less is mulliganed (owner's keep: Krennic unit + a 1-drop; bot 0/120).
+const SWU_BOT_PART49_FEATURES = ['powerdamage', 'fodderkeep', 'mercres', 'mercplay', 'sachealwait', 'healfodder', 'condetbvalue', 'krennicengine', 'strikeleader', 'foddermull'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -649,7 +731,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES);   // part 2, then 3-42
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -664,7 +746,8 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES,
+            'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -1001,13 +1084,7 @@ const SWU_BOT_PROPOSALS = [
     'mullhandsize',    // curvemull: the castable requirement is max(1, hand size - 4) (6 cards -> 2, a Colossus 5 -> 1)
     'mulleventclamp',  // curvemull: an Event's surplus counts max(0, s) at the mulligan — removal has nothing to price against
     'mullanswer',      // curvemull: control (rank >= 3) keeps an answer (removal / wipe) plus one castable card
-    // Krennic vs Boba Fett (JTL) Blue (diagnosis .claude/tmp/diag_boba: Krennic loses the SPACE arena). Guard: bot_bobaspace_test.php.
-    'bobaspace',       // Boba Fett JTL_009 reads as a 'space' deck, so Hyperspace Disaster is kept, not resourced
-    'cravinganswer',   // resourcing: a power-strike that damages an enemy unit (Craving Power) counts as an answer
-    // Vader (JTL) Yellow vs control (diagnosis .claude/tmp/diag_vader: control plays GROUND walls into a SPACE-only Vader).
-    'wallarena',       // wall-first: a Sentinel is a wall only where the opponent has units (or vs a deck not space-flavoured). bot_wallarena_test
-    'wallkeeparena',   // resourcing vs SPACE aggro: 'wallkeep' skips a Sentinel whose arena the opponent is not in. ⚠ owner ruling
-                       // needed ("never resource a Sentinel vs aggro" — off-arena too?). bot_wallkeeparena_test
+    // ('bobaspace', 'cravinganswer', 'wallarena', 'wallkeeparena' — the 'gapstack' four — SHIPPED 2026-10-12 as feature group 'p43'.)
     'indirectthreat',  // a unit's base threat adds its On Attack damage to the defending player (TIE Bomber: 3). bot_indirectthreat_test
     'indirectsoak',    // a split share that puts my unit within the strongest enemy attacker's reach costs 0.75 x its loss, not chip.
                        // ⚠ owner ruling needed (base or units vs indirect while the base is healthy?). bot_indirectsoak_test
@@ -1058,15 +1135,30 @@ const SWU_BOT_PROPOSALS = [
                         // bomb and i know they won't play anything else or attack with anything else"
     'nogideon',         // Q3: ASH_097 Moff Gideon is never sacrificed (Credit Action, Chimaera, any sacrifice pick)
     'chimaeraweakest',  // Q3: Chimaera's friendly pick is the WEAKEST unit (lowest unit value), not the cheapest after When Defeated payback
-    // ── 2026-10-11 SWU FORGE RESOURCING — Ninin's 22 SWU Forge games on Krennic Blue Splash v2 vs 600 bot games on the same list
-    // (memory `krennic-v2-swuforge-resourcing-gap-2026-10-11`): the bot's OPENING resource pick banks the cards she wins with.
+    // ── 2026-10-11 HUMAN-GAME RESOURCING — Ninin's 22 human games on Krennic Blue Splash v2 vs 600 bot games on the same list
+    // (human-game read, 2026-10-11): the bot's OPENING resource pick banks the cards she wins with.
     'stylemap',         // "is the opponent aggro" read from the meta's leader + BASE map (BotOpponentStyles.php), not SWU_BOT_AGGRO_LEADERS. bot_stylemap_test
     'rampres',          // credit-ramp control seat: keep answers + ramp pieces, Lawbringer vs aggro, HSD resourced unless space. bot_rampres_test
+    // ── 2026-10-12 HUMAN-GAME READ — the owner's 31 games on Maul Blue (2-8), Grievous Blue (9-1) and Krennic Splash (6-5); memory
+    // the 2026-10-12 human-game read. General rules for the midrange / control seats; group '@try-leaderwatch'.
+    // ASH meta screen 2026-10-13: neutral (2.4% of games changed vs the plain stack, no style significant).
+    'deploysafe',       // midrange/control (racing rank >= 2) holds a deploy whose leader unit dies at the opponent's next action (a ready
+                        // enemy that can attack and kill it, or an enemy deploy strike that can go now) — unless the deploy itself defeats
+                        // an enemy unit. ~12 opponent leaders died within one action of deploying. bot_deploysafe_test
+    'leaderhunt',       // a kill of a deployed ENEMY LEADER unit carries a premium (it cannot deploy again): x W['kill'], so control most,
+                        // aggro least. Grievous killed 9/9 deployed leaders, Krennic answered 9/10. bot_leaderhunt_test
+    'handpick',         // "look at an opponent's hand and discard a card" (~20 cards) takes the card that hurts me most — the answer to my
+                        // best unit, then the bomb they can cast soonest — not the first in hand. bot_handpick_test
+    // ('handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft' — the
+    // 2026-10-12 re-read's ten owner-ruled rules — SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+    // ('nightpick', 'wdbait', 'ambushsetup' — the 2026-10-13 deep read of the Maul Blue v2 games — SHIPPED 2026-10-13 as feature group 'p46'.)
     // Levers considered and DROPPED after grounding against the real scorer (kept as notes so they are not re-proposed):
     //   legacysplitkill — _SWUBotSplitScore already scores W['kill'] x value + 0.5 per killed target, plus 'splitlethal'.
     //   debuffkill      — _SWUBotWeaknessScore already returns a KILL when a -X/-X's loss >= the target's remaining HP (~line 1159).
     //   graveyardtheft  — _SWUBotPlayValue already prices a play-from-discard ('discard' route); opponent-discard theft is a ~2-card niche.
-    //   handhate        — there is no opponent-hand-discard CARD TAG; only the YESNO picker prices it (flat 0.5). Needs a text detector.
+    //   (handhate was dropped here for want of a tag, then built on the discard-opponent-hand tag and shipped in p44.)
+    //   softenkill      — 'popkill' for plain damage (an attack that leaves its target alive, credited the kill a follow-up then makes).
+    //                     Maul v3 single-rule screen 2026-10-13: −16 (24:40, p .06) — DROPPED by the owner.
     //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
     //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
 ];
@@ -1142,10 +1234,13 @@ function SWUBotProposalList(): array {
 const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicfull' => ['creditvalue', 'krennicscript'],
                                  'mullfix'     => ['mullhandsize', 'mulleventclamp', 'mullanswer'],   // 2026-10-07 gap screen
-                                 // 2026-10-07 canary: the four gap-screen levers that pointed the right way (unconfirmed at 60 g/cell).
-                                 'gapstack'    => ['wallkeeparena', 'cravinganswer', 'wallarena', 'bobaspace'],
+                                 // ('gapstack' SHIPPED 2026-10-12 as feature group 'p43' — '@no-p43' switches the four off.)
                                  // 2026-10-11 Krennic workshop: all five owner rulings together.
                                  'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
+                                 // 2026-10-12 human-game read: the three general rules together.
+                                 'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
+                                 // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
+                                 // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just

@@ -31,7 +31,11 @@ foreach ($fixtureFiles as $f) {
         if (preg_match('/^\d+\s+(\S+)/', $l, $m)) { if ($sec === 'Leader' && $leader === '') $leader = $m[1]; if ($sec === 'Base' && $base === '') $base = $m[1]; }
     }
     $build(function ($b) use ($leader, $base) { $b->MyLeader($leader, false); $b->MyBase($base); });
+    // Feature 'bobaspace' (p43, 2026-10-12) adds 'space' to every Boba Fett (JTL_009) deck on top of the registry; the headers record
+    // the registry, so it is switched off here (its own guard: bot_bobaspace_test).
+    SWUBotSetDisabledFeatures(['bobaspace']);
     $check(SWUBotDeckFlavours(1) === $want, basename($f) . ': registry ' . json_encode(SWUBotDeckFlavours(1)) . ' = header ' . json_encode($want));
+    SWUBotSetDisabledFeatures([]);
 }
 
 bot_test_finish();

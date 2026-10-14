@@ -125,6 +125,31 @@ $check(SWUBotFixtureDisplayNameFromFile('tarfful_hmw_blue_kashyyyk') === 'Tarffu
 $check(SWUBotFixtureDisplayNameFromFile('a_b_c_d_e') === '' && SWUBotFixtureDisplayNameFromFile('a_b_c_') === '',
     'five fields, or an EMPTY 4th field (a trailing underscore), is not the convention');
 
+// ── the AUTHOR suffix (owner 2026-10-12): two creators' lists that derive the SAME name in one folder (Ninin's and Star Wars Dad's
+// Maul (HMW) Blue) — the second carries "_by-<author>" as its LAST field. It is a credit, not part of the deck's name, so the
+// filename reads back as the plain deck name.
+$check(SWUBotFixtureAuthorSuffix('Ninin') === '_by-ninin' && SWUBotFixtureAuthorSuffix('Star Wars Dad') === '_by-star-wars-dad',
+    "the suffix is '_by-' + the slugged author; got '" . SWUBotFixtureAuthorSuffix('Ninin') . "' / '" . SWUBotFixtureAuthorSuffix('Star Wars Dad') . "'");
+$check(SWUBotFixtureAuthorSuffix('') === '' && SWUBotFixtureAuthorSuffix('   ') === '', 'no author, no suffix');
+$check(SWUBotFixtureDisplayNameFromFile('maul_hmw_blue_by-ninin') === 'Maul (HMW) Blue',
+    "an author suffix reads back as the plain name; got '" . SWUBotFixtureDisplayNameFromFile('maul_hmw_blue_by-ninin') . "'");
+$check(SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_by-ninin') === 'Doctor Hemlock (HMW) Yellow (Naboo)',
+    "…after a trait field too; got '" . SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_by-ninin') . "'");
+// The VARIANT field (owner 2026-10-14): "_v-<variant>" after the derived name, before the author — and part of the shown name.
+$check(SWUBotFixtureVariantSuffix('Space') === '_v-space' && SWUBotFixtureVariantSuffix('  ') === '', "the variant suffix is '_v-' + the slugged variant");
+$check(SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space') === 'Ahsoka Tano (ASH) Yellow Space',
+    "a variant reads back as part of the name; got '" . SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space') . "'");
+$check(SWUBotFixtureDisplayNameFromFile('ahsoka-tano_ash_yellow_v-space_by-ninin') === 'Ahsoka Tano (ASH) Yellow Space'
+    && SWUBotFixtureDisplayNameFromFile('doctor-hemlock_hmw_yellow_naboo_v-wide') === 'Doctor Hemlock (HMW) Yellow (Naboo) Wide',
+    '…with an author after it, and after a trait field');
+$check(SWUBotFixtureDisplayNameFromFile('a_b_c_v-') === '' && SWUBotFixtureDisplayNameFromFile('a_b_c_by-x_v-y') === '',
+    'an empty variant, or one placed after the author, is not a name');
+$vDeck = SWUBotDeckFromFixtureText("# Author: Ninin\n# Variant: Space\nLeader\n1 ASH_009\nBase\n1 HMW_033\nDeck\n3 SEC_213\n");
+$check($vDeck['variant'] === 'Space' && SWUBotFixtureDisplayName($vDeck) === SWUBotDeckDisplayName('ASH_009', 'HMW_033', ['SEC_213' => 3]) . ' Space By Ninin',
+    "'# Variant:' shows before the author; got '" . SWUBotFixtureDisplayName($vDeck) . "'");
+$check(SWUBotFixtureDisplayNameFromFile('a_b_c_by-') === '' && SWUBotFixtureDisplayNameFromFile('a_b_c_d_by-x_by-y') === '',
+    'an EMPTY author, or a second suffix, is not the convention');
+
 // ── every fixture in the renamed dirs must produce a UNIQUE name ─────────────────────────────────
 // A collision silently makes one deck unreachable, so this is the invariant that matters most. It is
 // computed from the files on disk, so adding a colliding fixture fails here rather than at rename time.
@@ -142,13 +167,22 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
     // star-wars-dad-HMW-predictions/ to force-fam-HMW-predictions/ mid-session, and this test kept passing on nothing.
     $files = glob("./SWUSim/Tests/BotFixtures/{$dir}/*.txt") ?: [];
     $check(count($files) > 0, "{$dir}: the directory exists and holds fixtures (" . count($files) . ")");
+    $derived = [];
     foreach ($files as $path) {
-        $stem = basename($path, '.txt');
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
         $n = SWUBotFixtureFileName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));   // main + sideboard (owner 2026-10-11)
+        // The variant (owner 2026-10-14) joins the derived name: it is part of what the deck is called.
+        $derived[basename($path, '.txt')] = [$n . SWUBotFixtureVariantSuffix(strval($d['variant'] ?? '')), SWUBotFixtureAuthorSuffix(strval($d['author'] ?? ''))];
+    }
+    $sharing = array_count_values(array_column($derived, 0));
+    foreach ($derived as $stem => [$n, $suffix]) {
         $check($n !== '', "{$dir}/{$stem}: resolves to a name");
-        $byName[$n][] = $stem;
-        if ($n !== $stem) $misnamed[] = "{$stem} (should be {$n})";
+        // The author suffix (owner 2026-10-12): only the file's OWN "# Author:", after the exact derived name — otherwise a suffix could
+        // hide a misnamed file. Owner 2026-10-13: a creator's list may carry it before a collision exists (Ninin's Maul Blue Tatooine
+        // keeps "_by-ninin": Star Wars Dad's list is moving to the same base).
+        $ok = $stem === $n || ($suffix !== '' && $stem === $n . $suffix);
+        $byName[$ok ? $stem : $n][] = $stem;
+        if (!$ok) $misnamed[] = "{$stem} (should be {$n}" . (($sharing[$n] ?? 0) > 1 && $suffix !== '' ? " or {$n}{$suffix}" : '') . ")";
     }
     // The file on disk must carry the name its cards derive — otherwise a deck that gains or loses its only trait
     // carer (a list edit) keeps a stale "(Naboo)" in its filename and the picker disagrees with the file.
@@ -167,6 +201,7 @@ foreach (['ash-meta-2026-09', 'force-fam-HMW-predictions', 'hmw-meta-2026-09'] a
         $path = "./SWUSim/Tests/BotFixtures/{$dir}/{$olds[0]}.txt";
         $d = SWUBotDeckFromFixtureText((string)file_get_contents($path));
         $fromCards = SWUBotDeckDisplayName(strval($d['leader'] ?? ''), strval($d['base'] ?? ''), SWUBotNamingCards($d));
+        if (trim(strval($d['variant'] ?? '')) !== '') $fromCards .= ' ' . trim(strval($d['variant']));
         $fromFile  = SWUBotFixtureDisplayNameFromFile($newStem);
         // Accents cannot round-trip through a filename (Sabé -> sabe_… -> 'Sabe'), so the card name is compared accent-folded (owner 2026-10-11).
         if (SWUBotAsciiFold($fromCards) !== $fromFile) $bad[] = "{$newStem}: cards='{$fromCards}' file='{$fromFile}'";
@@ -189,9 +224,10 @@ $check($deckOf('# Author: Star Wars Dad')['author'] === 'Star Wars Dad', 'the au
 $authors = [];
 foreach (glob('./SWUSim/Tests/BotFixtures/force-fam-HMW-predictions/*.txt') ?: [] as $p) $authors[basename($p, '.txt')] = SWUBotDeckFromFixtureText((string)file_get_contents($p))['author'];
 $check(count($authors) >= 5 && !in_array('', $authors, true), 'every force-fam-HMW-predictions deck names its author: ' . json_encode($authors));
-$known = ['ahsoka-tano_ash_yellow' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue-splash' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
+$known = ['ahsoka-tano_ash_yellow_v-with-neel' => 'Ninin', 'ahsoka-tano_ash_yellow_v-space' => 'Ninin', 'doctor-hemlock_hmw_red' => 'Ninin', 'director-krennic_law_blue_naboo' => 'Ninin', 'doctor-hemlock_hmw_yellow_naboo' => 'Star Wars Dad',
           'maul_hmw_blue' => 'Star Wars Dad', 'tarfful_hmw_blue_kashyyyk' => 'Star Wars Dad', 'wicket_hmw_green-splash' => 'Star Wars Dad',
-          'general-grievous_hmw_blue_kashyyyk' => 'Ninin', 'obi--wan-kenobi_lof_yellow-force' => 'MasterJay'];
+          'general-grievous_hmw_blue_kashyyyk' => 'Ninin', 'obi--wan-kenobi_lof_yellow-force' => 'MasterJay',
+          'maul_hmw_blue_tatooine_by-ninin' => 'Ninin'];
 $wrong = array_filter($known, fn($a, $f) => ($authors[$f] ?? null) !== $a, ARRAY_FILTER_USE_BOTH);
 $check(empty($wrong), 'each known creator deck credits the right author', json_encode(array_map(fn($f) => $authors[$f] ?? '(missing)', array_keys($wrong))));
 

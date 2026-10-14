@@ -55,6 +55,17 @@ $check($has('LOF_061', 'shielded'), 'Secretive Sage "Shielded (…)" → shielde
 $check($has('SHD_036', 'grit') && $has('SHD_036', 'smuggle'), 'First Light SHD_036 → grit + smuggle');
 $check(!$has('SOR_100', 'ambush'), 'Wedge GRANTS Ambush mid-sentence — he does not have it');
 $check($has('SHD_036', 'grit'), 'SHD_036 has "Grit" on its own line AND "gains Grit" in a clause — line position decides');
+// Hand hate (owner 2026-10-12): "If you do, they draw a card" is the OPPONENT's draw, never mine; the discard is tagged when I LOOK at
+// their hand and pick. A discard the opponent chooses (Giant Gorax) is not hand hate; a DECK look (Sabé's front side) is not either;
+// "Choose a player. They draw 2 cards" (Mission Briefing) is usually me and keeps `draw`.
+$check($has('ASH_220', 'opponent-draw') && $has('ASH_220', 'discard-opponent-hand') && !$has('ASH_220', 'draw'),
+    'Remnant Lookouts: opponent-draw + discard-opponent-hand, not draw');
+$check($has('SHD_184', 'opponent-draw') && $has('SHD_184', 'discard-opponent-hand'), 'Bazine Netal (SHD): the same treatment');
+$check($has('SEC_186', 'discard-opponent-hand') && !$has('SEC_186', 'opponent-draw'), 'Garindan discards and gives no draw');
+$check($has('SOR_171', 'draw') && !$has('SOR_171', 'opponent-draw'), 'Mission Briefing ("Choose a player. They draw 2") keeps draw');
+$check(!$has('HMW_188', 'discard-opponent-hand'), 'Giant Gorax — the opponent chooses their discard: not hand hate');
+$check($face('SEC_017', 'deployed', 'discard-opponent-hand') && !$face('SEC_017', 'front', 'discard-opponent-hand'),
+    "Sabé: the deployed HAND look is hand hate, the front DECK look is not");
 $check($has('TWI_106', 'coordinate'), 'Coordinate prints its payoff after a DASH ("Coordinate - Ambush") — the separator set must allow it');
 $check($has('SHD_027', 'bounty'), 'Bounty prints after a dash too ("Bounty - Draw a card.")');
 
@@ -298,6 +309,7 @@ const TAG_BASELINE = [
     'defeat-wipe-enemy' => 8,
     'defeat-wipe-friendly' => 10,
     'discount' => 91,
+    'discard-opponent-hand' => 15,
     'draw' => 111,
     'exhaust' => 80,
     'exhaust-enemy-resource' => 1,
@@ -329,6 +341,7 @@ const TAG_BASELINE = [
     'indirect-damage' => 22,
     'mill-opponent' => 4,
     'mill-self' => 20,
+    'opponent-draw' => 8,
     'overwhelm' => 89,
     'piloting' => 38,
     'plot' => 30,

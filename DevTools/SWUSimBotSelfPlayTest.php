@@ -159,7 +159,7 @@ $swuDir = __DIR__ . '/../SWUSim/';
 function SWUBotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
            'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null,
-           'memoryOnly' => false, 'workers' => 2, 'superset' => []];
+           'memoryOnly' => false, 'workers' => 2, 'superset' => [], 'fork' => false];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
@@ -176,6 +176,10 @@ function SWUBotTestParseArgs($argv) {
     elseif (str_starts_with($arg, '--chooser2=')) $args['chooser2'] = substr($arg, 11);
     elseif ($arg === '--verbose') $args['verbose'] = true;
     elseif ($arg === '--memory-only') $args['memoryOnly'] = true;
+    // FORK mode (2026-10-13, owner: "a one-time-paid setup and many games running there"): a sweep boots the engine ONCE and
+    // pcntl_fork()s a child per game, instead of proc_open'ing a fresh PHP that re-loads ~1,600 card files (~0.3 s) per game.
+    // Each child starts from the same untouched post-bootstrap image, so games stay as independent as separate processes.
+    elseif ($arg === '--fork') $args['fork'] = true;
     // SUPERSET research mode (owner 2026-10-01): fold each deck's Sideboard section into its main deck.
     // `--superset` folds BOTH seats; `--superset=1` / `--superset=2` folds ONE, so a deck's own sideboard answers
     // can be measured apart from the opponent's dilution (owner 2026-10-01). Held as the list of folded seats.
@@ -373,11 +377,28 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
 
   $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = []; $metrics = [];
   $running = []; $completed = []; $next = 1;
+  $fork = !empty($args['fork']);
+  if ($fork && !function_exists('pcntl_fork')) { fwrite(STDERR, "--fork needs the pcntl extension (Dockerfile dev stage).\n"); return 1; }
   while ($next <= $games || !empty($running)) {
     while ($next <= $games && count($running) < $workers) {
       $game = $next++;
       $seed = 's' . str_pad(strval(intdiv($game + 1, 2)), 2, '0', STR_PAD_LEFT);
       $firstPlayer = (($game - 1) % 2) + 1;
+      if ($fork) {
+        // The child plays its one game on the normal single-game path below (it returns null to the top level), with its
+        // stdout captured to a file the parent reads exactly as it reads a proc_open child's. Nothing game-specific has run
+        // in this parent, so every child starts from the same clean image; the game counter (flock'd file) keeps names unique.
+        $outPath = tempnam(sys_get_temp_dir(), 'swubot-out-');
+        $pid = pcntl_fork();
+        if ($pid === -1) throw new RuntimeException("Could not fork SWUSim sweep child {$game}.");
+        if ($pid === 0) {
+          $GLOBALS['SWUBotForkChildArgs'] = array_merge($args, ['games' => 1, 'seed' => $seed, 'firstPlayer' => $firstPlayer]);
+          ob_start(function ($buf) use ($outPath) { if ($buf !== '') file_put_contents($outPath, $buf, FILE_APPEND); return ''; }, 65536);
+          return null;
+        }
+        $running[$game] = ['pid' => $pid, 'stdout' => $outPath, 'stderr' => null];
+        continue;
+      }
       // The array form bypasses shell quoting and works on Windows as well as Linux.
       $cmd = [PHP_BINARY, '-d', 'apc.enable_cli=1', '-d', 'xdebug.mode=off',
         '-d', 'xdebug.start_with_request=no', $selfPath, '--games=1',
@@ -401,6 +422,18 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
       $running[$game] = ['process' => $process, 'stdout' => $stdoutPath, 'stderr' => $stderrPath];
     }
     foreach ($running as $game => $child) {
+      if ($fork) {
+        $st = 0;
+        if (pcntl_waitpid($child['pid'], $st, WNOHANG) === 0) continue;
+        $exitCode = pcntl_wifexited($st) ? pcntl_wexitstatus($st) : 255;
+        $output = file($child['stdout'], FILE_IGNORE_NEW_LINES) ?: [];
+        $stderr = [];
+        @unlink($child['stdout']);
+        $completed[$game] = ['output' => $output, 'exitCode' => $exitCode];
+        unset($running[$game]);
+        echo '[SWEEP PROGRESS] finished ' . count($completed) . "/{$games}\n";
+        continue;
+      }
       $status = proc_get_status($child['process']);
       if ($status['running']) continue;
       $exitCode = intval($status['exitcode']);
@@ -517,7 +550,11 @@ function SWUBotTestPrintSweepMetrics(array $metrics) {
   return $invalid;
 }
 
-if ($args['games'] > 1) exit(SWUBotTestRunSweep($args, __FILE__));
+if ($args['games'] > 1) {
+  $swuBotSweepExit = SWUBotTestRunSweep($args, __FILE__);
+  if ($swuBotSweepExit !== null) exit($swuBotSweepExit);
+  $args = $GLOBALS['SWUBotForkChildArgs'];   // a --fork child: play its one game below, as a proc_open child would
+}
 
 // ── Decision trace: saved for EVERY run ─────────────────────────────────────────────────────────
 // Owner ruling 2026-09-29. A run's own metrics line says who won; only the trace says what the bot was

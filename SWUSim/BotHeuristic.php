@@ -165,9 +165,11 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     // The deciding seat, for valuations that read a hand: feature 'lockpiece' (p35) prices a name-lock only from the locked seat.
     $prevViewer = $GLOBALS['SWUBotViewerSeat'] ?? null;
     $GLOBALS['SWUBotViewerSeat'] = intval($legal['playerID'] ?? 0);
+    if (function_exists('SWUBotMemoBegin')) SWUBotMemoBegin();   // per-decision memo (BotEvaluator.php)
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
+        if (function_exists('SWUBotMemoEnd')) SWUBotMemoEnd();
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
         $GLOBALS['SWUValueOn'] = $prevValue;

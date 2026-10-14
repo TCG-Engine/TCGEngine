@@ -77,6 +77,17 @@ nothing, produces zero `@@FILE` markers, and every test then falls through to HT
 slow-but-working run and misreported two CLI-only tests as red. The runner now warns when the batch
 produces no markers.
 
+## Opting a file out: `REGRESSION-SKIP:`
+
+A file with `REGRESSION-SKIP: <reason>` in its first 5 lines is left out of every run. Use it for manual or runbook
+gates, not as a way to silence a red test. No file carries it today (the one it was added for, the SET_NNN migration's
+`test_swu_card_art_corpus.php`, was deleted once the migration had run on prod).
+
+⚠ **A repo-wide scan must PRUNE while walking** (`RecursiveCallbackFilterIterator`), never filter afterwards. A
+`continue` on the path still visits every file under it. `SWUSim/Games` (tens of thousands of game folders),
+`SWUSim/DevTools/traces` (~200k files) and `.claude/` (whole-repo control copies) made three scans take 175–346 s each
+(2026-10-13); pruned, they take 1–3 s.
+
 ## The known-red baseline
 
 `scripts/known-red.txt` lists tests that were already failing before the skill existed, with a reason
