@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-13T22:13:26+00:00",
+    "generatedAt": "2026-10-14T02:08:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2065,
+        "cardsWithExistingFixtures": 2069,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 412,
+        "cardsNeedingSemanticCoverage": 408,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -101,23 +101,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 33
-        },
-        {
-            "cardId": "PboHrwPZgP",
-            "name": "Nightframe, Hound's Bike",
-            "type": "UNIQUE,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 1,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 31
         },
         {
             "cardId": "OVoHxVwodU",
@@ -1049,24 +1032,6 @@
             "priority": 22
         },
         {
-            "cardId": "BoQUtdry1C",
-            "name": "Forese, Fervid Cantor",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "B1EbF6jcYF",
             "name": "Golden Gambit",
             "type": "ACTION",
@@ -1182,25 +1147,6 @@
                 "targeting",
                 "damage",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "q5CXVeHGIf",
-            "name": "Camil, Basked Abundance",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -5803,22 +5749,6 @@
             "mechanics": [
                 "cost",
                 "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "vghJqNdG8F",
-            "name": "Vanguard's Reversal",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22343,6 +22273,31 @@
             "priority": 52
         },
         {
+            "cardId": "PboHrwPZgP",
+            "name": "Nightframe, Hound's Bike",
+            "type": "UNIQUE,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 1,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nightframe-activating-a-fast-action-puts-a-buff-counter-on-the-linked-ally",
+                "nightframe-protection-declining-to-pay-negates-the-opposing-action-targeting-the-linked-ally",
+                "nightframe-protection-paying-three-lets-the-opposing-action-resolve"
+            ],
+            "semanticFixtures": [
+                "nightframe-activating-a-fast-action-puts-a-buff-counter-on-the-linked-ally",
+                "nightframe-protection-declining-to-pay-negates-the-opposing-action-targeting-the-linked-ally",
+                "nightframe-protection-paying-three-lets-the-opposing-action-resolve"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 51
+        },
+        {
             "cardId": "uy4xippor7",
             "name": "Oasis Trading Post",
             "type": "DOMAIN",
@@ -25795,6 +25750,28 @@
             "priority": 42
         },
         {
+            "cardId": "BoQUtdry1C",
+            "name": "Forese, Fervid Cantor",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "forese-activating-a-melody-rests-it-to-scavenge-a-resonator-onto-the-field"
+            ],
+            "semanticFixtures": [
+                "forese-activating-a-melody-rests-it-to-scavenge-a-resonator-onto-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "fgBpQZe0js",
             "name": "Freezing Gambit",
             "type": "ACTION",
@@ -27000,6 +26977,33 @@
             "semanticFixtures": [
                 "calming-breeze-does-not-prevent-four-damage",
                 "calming-breeze-prevents-three-or-less-damage-to-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "q5CXVeHGIf",
+            "name": "Camil, Basked Abundance",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "camil-leaving-the-field-puts-its-linked-items-into-memory",
+                "camil-linked-to-three-or-more-objects-draws-a-card-into-memory",
+                "camil-on-attack-puts-a-veltech-ally-link-item-from-hand-onto-the-field-linked-to-it"
+            ],
+            "semanticFixtures": [
+                "camil-leaving-the-field-puts-its-linked-items-into-memory",
+                "camil-linked-to-three-or-more-objects-draws-a-card-into-memory",
+                "camil-on-attack-puts-a-veltech-ally-link-item-from-hand-onto-the-field-linked-to-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49648,6 +49652,28 @@
             ],
             "semanticFixtures": [
                 "usurp-the-winds-gives-an-ally-plus-one-power-and-plus-one-life"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "vghJqNdG8F",
+            "name": "Vanguard's Reversal",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "vanguards-reversal-class-bonus-with-a-taunting-champion-costs-three-less",
+                "vanguards-reversal-without-a-taunting-champion-costs-its-full-five"
+            ],
+            "semanticFixtures": [
+                "vanguards-reversal-class-bonus-with-a-taunting-champion-costs-three-less",
+                "vanguards-reversal-without-a-taunting-champion-costs-its-full-five"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

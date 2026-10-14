@@ -140,3 +140,121 @@ gaScenario('sacramental-rite-banish-makes-the-champion-an-ascendant-and-lets-you
     ->tested('Sacramental Rite')
     ->covers(['activated-ability', 'banish-self', 'type-change', 'play-from-banishment'], '**Banish Sacramental Rite:** Your champion becomes an Ascendant in addition to its other types. You may play the banished card.')
     ->register();
+
+// ---- Vanguard's Reversal ----
+
+gaScenario('vanguards-reversal-class-bonus-with-a-taunting-champion-costs-three-less')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Vanguard\'s Reversal', classBonus: true, player: 2)
+    ->seed('myHand', 'Vanguard\'s Reversal', player: 2)->seed('myHand', 'Take Point', player: 2)->endTurn()
+    ->castSpell('Take Point', pay: 2, player: 2)
+    ->play('Vanguard\'s Reversal', 2)->pay(2, 2)->target('theirField-0', 2)
+    ->expectDamage('p1Field-0', 5, '[Class Bonus] The attack was activated for 5 - 3 = 2 reserve and dealt its 5 damage')
+    ->tested('Vanguard\'s Reversal')
+    ->covers(['class-bonus', 'condition', 'cost-reduction', 'taunt'], '[Class Bonus] As long as your champion has **taunt**, this card costs 3 less to activate.')
+    ->register();
+
+gaScenario('vanguards-reversal-without-a-taunting-champion-costs-its-full-five')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Vanguard\'s Reversal', classBonus: true, player: 2)
+    ->seed('myHand', 'Vanguard\'s Reversal', player: 2)->endTurn()
+    ->play('Vanguard\'s Reversal', 2)->pay(2, 2)
+    ->rejects(2, 'theirField-0', 'Without taunt the attack still costs 5: two cards are not enough to pick the target')
+    ->tested('Vanguard\'s Reversal')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] As long as your champion has **taunt**, this card costs 3 less to activate.')
+    ->register();
+
+// ---- Camil, Basked Abundance ----
+
+gaScenario('camil-on-attack-puts-a-veltech-ally-link-item-from-hand-onto-the-field-linked-to-it')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Camil, Basked Abundance')
+    ->seed('myField', 'Camil, Basked Abundance')
+    ->seed('myHand', 'CookTech Knife')
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-0')->answer(1, 'myHand-7')
+    ->expectCardExists('myField', 'CookTech Knife', 'The Knife came from the hand onto the field')
+    ->expectPower('p1Field-1', 2, 'Linked to Camil: 1 + 1 power from the Knife')
+    ->tested('Camil, Basked Abundance')
+    ->covers(['on-attack', 'ally-link', 'zone-movement'], '**On Attack:** You may put a non-advanced element VelTech item card with **ally link** from your hand or memory onto the field linked to CARDNAME.')
+    ->register();
+
+gaScenario('camil-leaving-the-field-puts-its-linked-items-into-memory')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Camil, Basked Abundance')
+    ->seed('myField', 'Camil, Basked Abundance', properties: ['Subcards' => [GaScenario::id('CookTech Knife')]])
+    ->seed('myField', 'CookTech Knife', properties: ['Counters' => ['linkedToAlly' => GaScenario::id('Camil, Basked Abundance')]])
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, 'myField-1')
+    ->attack('myField-2', 'theirField-1', player: 2)->answer(1, 'myField-1')
+    ->expectCardExists('myMemory', 'CookTech Knife', 'Camil was destroyed on the opponent\'s turn: the linked Knife went into memory')
+    ->expectCardExists('theirField', 'Dungeon Guide', 'Neither opposing Dungeon Guide was swept into the wrong zone')
+    ->expectZoneCount('myMemory', 1, 1, 'Nothing else landed in memory')
+    ->tested('Camil, Basked Abundance')
+    ->covers(['on-leave', 'ally-link', 'zone-movement'], '**On Leave:** Put the items that were linked to CARDNAME into your memory.')
+    ->register();
+
+gaScenario('camil-linked-to-three-or-more-objects-draws-a-card-into-memory')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Camil, Basked Abundance')
+    ->seed('myField', 'Camil, Basked Abundance', properties: ['Subcards' => [GaScenario::id('CookTech Knife'), GaScenario::id('CookTech Apron')]])
+    ->seed('myField', 'CookTech Knife', properties: ['Counters' => ['linkedToAlly' => GaScenario::id('Camil, Basked Abundance')]])
+    ->seed('myField', 'CookTech Apron', properties: ['Counters' => ['linkedToAlly' => GaScenario::id('Camil, Basked Abundance')]])
+    ->seed('myHand', 'PlasmaTech Blaster')
+    ->reachTurnThree()
+    ->attack('myField-1', 'theirField-0')->answer(1, 'myHand-7')
+    ->expectZoneCount('myMemory', 1, 1, 'Linked to three objects: a card was drawn into memory')
+    ->tested('Camil, Basked Abundance')
+    ->covers(['on-attack', 'ally-link', 'draw-into-memory', 'condition'], 'Then if CARDNAME is linked to three or more objects, draw a card into your memory.')
+    ->register();
+
+// ---- Forese, Fervid Cantor ----
+
+gaScenario('forese-activating-a-melody-rests-it-to-scavenge-a-resonator-onto-the-field')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Forese, Fervid Cantor')
+    ->deckTop(['Performance Enthusiast'])
+    ->seed('myField', 'Forese, Fervid Cantor')
+    ->seed('myHand', 'Belted Tune')
+    ->play('Belted Tune')->pay(2)->target('myField-1')->answer(1, 'YES')->answer(1, 'myTempZone-4')
+    ->expectCardExists('myField', 'Performance Enthusiast', 'The scavenged Resonator ally was put onto the field')
+    ->expectProperty('p1Field-1', 'Status', '1', 'Forese rested')
+    ->tested('Forese, Fervid Cantor')
+    ->covers(['trigger', 'rest', 'scavenge', 'zone-movement'], 'Whenever you activate a Harmony or Melody card, you may rest CARDNAME. If you do, **scavenge 5** for a non-advanced element Resonator ally card with reserve cost 3 or less. Put the scavenged card onto the field rather than into your hand.')
+    ->register();
+
+// ---- Nightframe, Hound's Bike (Ally Link): the linked Dungeon Guide is myField-1, Nightframe myField-2 ----
+
+if (!function_exists('gaNightframe')) {
+    function gaNightframe(string $slug): GaScenario {
+        return gaScenario($slug)->deckTemplate('quiet', 'Dungeon Guide')->readyFor('Nightframe, Hound\'s Bike')
+            ->seed('myField', 'Dungeon Guide', properties: ['Subcards' => [GaScenario::id('Nightframe, Hound\'s Bike')]])
+            ->seed('myField', 'Nightframe, Hound\'s Bike', properties: ['Counters' => ['linkedToAlly' => GaScenario::id('Dungeon Guide')]]);
+    }
+}
+
+gaNightframe('nightframe-activating-a-fast-action-puts-a-buff-counter-on-the-linked-ally')
+    ->seed('myHand', 'Journey\'s Beginning')
+    ->play('Journey\'s Beginning')->pay(3)->answer(1, 'YES')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Nightframe put a buff counter on the linked Dungeon Guide')
+    ->tested('Nightframe, Hound\'s Bike')
+    ->covers(['trigger', 'fast-activation', 'counter', 'ally-link'], 'Whenever you activate a fast speed action card or a card with **fast activation**, you may put a **buff** counter on linked ally if it has two or less **buff** counters on it.')
+    ->register();
+
+gaNightframe('nightframe-protection-declining-to-pay-negates-the-opposing-action-targeting-the-linked-ally')
+    ->seed('myHand', 'Aenean Ward', player: 2)->endTurn()
+    ->answer(2, 'myHand-7')->pay(1, 2)->target('theirField-1', 2)->answer(2, 'NO')
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN"]', 'Declined to pay (3): the activation was negated and the ally got no damage prevention')
+    ->tested('Nightframe, Hound\'s Bike')
+    ->covers(['negate', 'targeting', 'ally-link', 'tax'], '**On Enter:** For each activation and trigger targeting linked ally, **negate** it unless the controller of the activation or trigger pays (3).')
+    ->register();
+
+gaNightframe('nightframe-protection-paying-three-lets-the-opposing-action-resolve')
+    ->seed('myHand', 'Aenean Ward', player: 2)->endTurn()
+    ->answer(2, 'myHand-7')->pay(1, 2)->target('theirField-1', 2)->answer(2, 'YES')->pay(3, 2)
+    ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","PREVENT_ALL_2"]', 'Paid (3): the Ward resolved and the linked ally has its damage prevention')
+    ->tested('Nightframe, Hound\'s Bike')
+    ->covers(['negate', 'targeting', 'ally-link', 'tax'], 'negate it unless the controller of the activation or trigger pays (3).')
+    ->register();

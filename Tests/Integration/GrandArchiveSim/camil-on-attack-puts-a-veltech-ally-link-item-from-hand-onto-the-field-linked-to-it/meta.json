@@ -1,0 +1,22 @@
+{
+    "name": "camil-on-attack-puts-a-veltech-ally-link-item-from-hand-onto-the-field-linked-to-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:15:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q5CXVeHGIf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q5CXVeHGIf"
+        ],
+        "mechanics": [
+            "on-attack",
+            "ally-link",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Attack:** You may put a non-advanced element VelTech item card with **ally link** from your hand or memory onto the field linked to CARDNAME."
+        ]
+    }
+}

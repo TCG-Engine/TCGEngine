@@ -9445,7 +9445,8 @@ function OnLeaveField($player, $mzID) {
         $linkedItems = GetLinkedCards($obj);
         foreach($linkedItems as $linkedItem) {
             $linkedMZ = $linkedItem->GetMzID();
-            if($linkedMZ !== null && $linkedMZ !== "") MZMove($controller, $linkedMZ, "myMemory");
+            // GetMzID() is relative to the viewer ($playerID); MZMove flips it again for any other player, so normalise it to the controller first.
+            if($linkedMZ !== null && $linkedMZ !== "") MZMove($controller, NormalizeMZForPlayerPerspective($controller, $linkedMZ), "myMemory");
         }
     }
 
@@ -21931,10 +21932,21 @@ $customDQHandlers["PeerTheDepthsBottom"] = function($player,$parts,$lastDecision
     foreach($ordered as $cardID) MZAddZone($opponent,"myDeck",$cardID);
 };
 
+// CardActivated listeners: the activated card's ID. Its EffectStack object may already be gone when the listener runs, so fall back to the event's card ID.
+function ActivatedEventCardID($activatedMZ) {
+    $activated = $activatedMZ !== "" ? GetZoneObject($activatedMZ) : null;
+    if($activated !== null && !$activated->removed) return $activated->CardID;
+    $eventParams = DecisionQueueController::GetVariable("eventParams");
+    return is_array($eventParams) ? strval($eventParams["cardID"] ?? "") : "";
+}
+
 function ForeseFervidCantorTrigger($player, $activatedMZ) {
-    $activated = GetZoneObject($activatedMZ);
-    if($activated === null) return;
-    $subtypes = EffectiveCardSubtypes($activated);
+    // "Whenever YOU activate": ignore the opponent's activations (the generated listener has no player check).
+    $eventPlayer = DecisionQueueController::GetVariable("eventPlayer");
+    if($eventPlayer !== null && $eventPlayer !== "" && intval($eventPlayer) !== intval($player)) return;
+    $activatedCardID = ActivatedEventCardID($activatedMZ);
+    if($activatedCardID === "") return;
+    $subtypes = CardSubtypes($activatedCardID);
     if(!PropertyContains($subtypes,"HARMONY") && !PropertyContains($subtypes,"MELODY")) return;
     $field = GetField($player);
     for($i=0;$i<count($field);++$i) {
@@ -22206,10 +22218,12 @@ function TrainedBirdroidPowercellTrigger($player, $sourceMZ) {
 }
 
 function NightframeFastActivationTrigger($player, $listenerMZ, $activatedMZ) {
+    // "Whenever YOU activate": ignore the opponent's activations (the generated listener has no player check).
+    $eventPlayer = DecisionQueueController::GetVariable("eventPlayer");
+    if($eventPlayer !== null && $eventPlayer !== "" && intval($eventPlayer) !== intval($player)) return;
     $nightframe = GetZoneObject($listenerMZ);
-    $activated = GetZoneObject($activatedMZ);
-    if($nightframe === null || $activated === null || HasNoAbilities($nightframe)) return;
-    $cardID = $activated->CardID;
+    $cardID = ActivatedEventCardID($activatedMZ);
+    if($nightframe === null || $cardID === "" || HasNoAbilities($nightframe)) return;
     $isFastAction = PropertyContains(CardType($cardID), "ACTION") && CardSpeed($cardID) === true;
     global $unconditionalFastCards, $cbFastActivationCards;
     $lower = strtolower($cardID);

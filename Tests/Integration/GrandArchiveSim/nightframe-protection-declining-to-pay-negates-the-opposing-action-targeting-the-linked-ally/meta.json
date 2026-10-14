@@ -1,0 +1,23 @@
+{
+    "name": "nightframe-protection-declining-to-pay-negates-the-opposing-action-targeting-the-linked-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:05:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PboHrwPZgP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PboHrwPZgP"
+        ],
+        "mechanics": [
+            "negate",
+            "targeting",
+            "ally-link",
+            "tax"
+        ],
+        "rulesClauses": [
+            "**On Enter:** For each activation and trigger targeting linked ally, **negate** it unless the controller of the activation or trigger pays (3)."
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "6sZXj2SZW6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Knife came from the hand onto the field"
+    },
+    {
+        "step": 6,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Linked to Camil: 1 + 1 power from the Knife"
+    }
+]

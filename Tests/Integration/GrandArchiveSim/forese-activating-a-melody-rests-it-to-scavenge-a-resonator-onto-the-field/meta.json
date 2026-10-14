@@ -1,0 +1,23 @@
+{
+    "name": "forese-activating-a-melody-rests-it-to-scavenge-a-resonator-onto-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:17:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BoQUtdry1C"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BoQUtdry1C"
+        ],
+        "mechanics": [
+            "trigger",
+            "rest",
+            "scavenge",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Harmony or Melody card, you may rest CARDNAME. If you do, **scavenge 5** for a non-advanced element Resonator ally card with reserve cost 3 or less. Put the scavenged card onto the field rather than into your hand."
+        ]
+    }
+}

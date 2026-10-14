@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "6sZXj2SZW6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Camil was destroyed on the opponent's turn: the linked Knife went into memory"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Neither opposing Dungeon Guide was swept into the wrong zone"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Nothing else landed in memory"
+    }
+]
