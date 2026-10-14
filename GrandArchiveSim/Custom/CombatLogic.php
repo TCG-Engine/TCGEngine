@@ -4695,6 +4695,27 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
+    // Hector, Praetorian Guard (AsDKTmP3kp): [Class Bonus] if damage would be dealt to one or more non-token neos element units you control, prevent X of that damage
+    // where X is the amount of tokens you control. Apply this replacement effect only once per turn.
+    if($amount > 0 && (PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION"))
+       && !PropertyContains(EffectiveCardType($targetObj), "TOKEN") && EffectiveCardElement($targetObj) === "NEOS") {
+        $hcController = $targetObj->Controller ?? $player;
+        foreach(GetField($hcController) as $hcObj) {
+            if($hcObj === null || $hcObj->removed || $hcObj->CardID !== "AsDKTmP3kp" || HasNoAbilities($hcObj)) continue;
+            if(in_array("AsDKTmP3kp_USED", $hcObj->TurnEffects ?? [])) break;
+            if(!IsClassBonusActive($hcController, ["GUARDIAN"])) break;
+            $hcTokens = 0;
+            foreach(GetField($hcController) as $hcToken) {
+                if($hcToken !== null && !$hcToken->removed && PropertyContains(EffectiveCardType($hcToken), "TOKEN")) ++$hcTokens;
+            }
+            if($hcTokens <= 0) break;
+            $hcObj->TurnEffects[] = "AsDKTmP3kp_USED";
+            $amount -= min($amount, $hcTokens);
+            break;
+        }
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
+    }
+
     // Radiant Repudiation (RO2CcBrILQ): prevent up to N damage to this neos unit,
     // and when damage is prevented this way, deal 2 damage to stored target.
     if($amount > 0) {
@@ -4710,12 +4731,16 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 } else {
                     $targetObj->TurnEffects[$idx] = "RADIANT_REPUDIATION_" . $remaining;
                 }
-                if($prevented > 0 && isset($targetObj->Counters['_radiantTarget'])) {
-                    $rtMZ = $targetObj->Counters['_radiantTarget'];
-                    $rtObj = GetZoneObject($rtMZ);
-                    if($rtObj !== null && !$rtObj->removed) {
-                        $rtPlayer = $rtObj->Controller ?? $player;
-                        DealDamage($rtPlayer, $target, $rtMZ, 2);
+                if($prevented > 0 && isset($targetObj->Counters['_radiantTargetUID'])) {
+                    // Find the stored target by UniqueID on either field (the zone name depends on which seat is resolving).
+                    $rtUID = intval($targetObj->Counters['_radiantTargetUID']);
+                    foreach(["myField", "theirField"] as $rtZone) {
+                        foreach(GetZone($rtZone) as $rtIdx => $rtCandidate) {
+                            if($rtCandidate === null || $rtCandidate->removed || intval($rtCandidate->UniqueID ?? 0) !== $rtUID) continue;
+                            $rtMZ = $rtZone . "-" . $rtIdx;
+                            DealDamage($rtCandidate->Controller ?? $player, $target, $rtMZ, 2);
+                            break 2;
+                        }
                     }
                 }
                 break;

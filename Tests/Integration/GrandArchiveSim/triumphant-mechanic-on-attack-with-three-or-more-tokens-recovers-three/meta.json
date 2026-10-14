@@ -1,0 +1,23 @@
+{
+    "name": "triumphant-mechanic-on-attack-with-three-or-more-tokens-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tQTQqCnaZU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tQTQqCnaZU"
+        ],
+        "mechanics": [
+            "on-attack",
+            "tokens",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Attack:** If you control three or more tokens, **recover 3**."
+        ]
+    }
+}

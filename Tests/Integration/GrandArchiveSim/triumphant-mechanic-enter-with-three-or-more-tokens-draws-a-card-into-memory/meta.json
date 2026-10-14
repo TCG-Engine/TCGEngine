@@ -1,0 +1,23 @@
+{
+    "name": "triumphant-mechanic-enter-with-three-or-more-tokens-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tQTQqCnaZU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tQTQqCnaZU"
+        ],
+        "mechanics": [
+            "on-enter",
+            "tokens",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If you control three or more tokens, draw a card into your memory."
+        ]
+    }
+}

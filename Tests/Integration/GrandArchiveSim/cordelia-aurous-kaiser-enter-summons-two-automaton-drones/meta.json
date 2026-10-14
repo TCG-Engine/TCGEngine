@@ -1,0 +1,22 @@
+{
+    "name": "cordelia-aurous-kaiser-enter-summons-two-automaton-drones",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:20:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4mwrg35j36"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4mwrg35j36"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** two Automaton Drone tokens."
+        ]
+    }
+}

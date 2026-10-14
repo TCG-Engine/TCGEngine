@@ -1,0 +1,23 @@
+{
+    "name": "alchemical-scripture-end-phase-with-four-or-more-tokens-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:19:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h9v2214upu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h9v2214upu"
+        ],
+        "mechanics": [
+            "end-phase",
+            "tokens",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, if you control four or more tokens, draw a card into your memory."
+        ]
+    }
+}

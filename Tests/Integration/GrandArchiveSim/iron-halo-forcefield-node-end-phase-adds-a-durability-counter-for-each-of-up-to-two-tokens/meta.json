@@ -1,0 +1,22 @@
+{
+    "name": "iron-halo-forcefield-node-end-phase-adds-a-durability-counter-for-each-of-up-to-two-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:25:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8GTa6NS2RG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8GTa6NS2RG"
+        ],
+        "mechanics": [
+            "end-phase",
+            "durability",
+            "tokens"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, put a **durability** counter on CARDNAME for each of up to two tokens you control."
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2179**
+Cards linked to an existing fixture: **2208**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **298**
+Implemented cards still needing semantic coverage: **269**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **298**
 | Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
-| Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
@@ -67,12 +66,13 @@ Implemented cards still needing semantic coverage: **298**
 | Aenean Repudiation (`t91W06HOqY`) | ACTION | 2 | cost, condition | — | — |
 | Anointed Purifier (`mt1I9kfowQ`) | ALLY | 2 | targeting, zone-movement | — | — |
 | Celestial Calling (`izm6h38lrj`) | ACTION | 2 | cost, zone-movement | — | — |
-| Fabricator Slime (`rpELNyrSrM`) | ALLY | 2 | counter, token | — | — |
 | Jianyu, Fate's Premonition (`qv0vn6tuow`) | UNIQUE,PHANTASIA | 2 | cost, targeting | — | — |
 | Obsequious Blow (`macqlgvqo3`) | ATTACK | 2 | cost | — | — |
 | Aenean Crystallization (`YDjxpBd8Fm`) | ACTION | 1 | targeting, zone-movement, status, token, condition | — | — |
-| Atmos Shield (`80yu75k0hl`) | TOKEN,ALLY | 1 | targeting, damage, prevention, combat, trigger | — | — |
 | Beguiling Coup (`q1b6htzcox`) | ATTACK | 1 | cost, targeting, zone-movement, counter, combat, trigger, condition | — | — |
 | Buffeting Hurricane (`CjL1WPvWHw`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | — | — |
 | Cataleptic Constellation (`lflzwiiewz`) | PHANTASIA | 1 | targeting, status, token, trigger, condition | — | — |
 | Cauterizing Seraphim (`TYlWgIYsq3`) | ALLY | 1 | cost, damage, status, trigger, condition | — | — |
+| Cometary Vantage (`y4c89re0bd`) | ACTION | 1 | targeting, draw-discard, status, combat, condition | — | — |
+| Conduit of Seasons (`nm77bnz4cc`) | ALLY | 1 | damage, prevention, recover, draw-discard, combat, trigger, condition | — | — |
+| Deflecting Advantage (`40TLLuE6oG`) | ACTION | 1 | targeting, damage, prevention, counter, trigger | — | — |

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "4 power plus the banished Off With Her Head's 2"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "deO56qXfbP",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "It was banished from the graveyard"
+    }
+]

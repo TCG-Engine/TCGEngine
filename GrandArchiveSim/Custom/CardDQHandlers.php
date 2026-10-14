@@ -2,22 +2,32 @@
 
 function ProvokeObstinanceStart($player) {
     DecisionQueueController::StoreVariable("ProvokeObstinanceCount", "0");
+    DecisionQueueController::StoreVariable("ProvokeObstinanceChosenList", "");
     ProvokeObstinanceChooseNext($player);
+}
+
+// "[Class Bonus] Whenever you activate this card, if there's exactly one target for its activation, draw a card into your memory." (never implemented)
+function ProvokeObstinanceFinish($player) {
+    $chosen = intval(DecisionQueueController::GetVariable("ProvokeObstinanceCount") ?? "0");
+    DecisionQueueController::ClearVariable("ProvokeObstinanceCount");
+    DecisionQueueController::ClearVariable("ProvokeObstinanceChosenList");
+    if($chosen === 1 && IsClassBonusActive($player, ["GUARDIAN"])) DrawIntoMemory($player, 1);
 }
 
 function ProvokeObstinanceChooseNext($player) {
     $chosen = intval(DecisionQueueController::GetVariable("ProvokeObstinanceCount") ?? "0");
-    if($chosen >= 5) return;
-    $objects = ZoneSearch("myField");
-    if(empty($objects)) return;
+    if($chosen >= 5) { ProvokeObstinanceFinish($player); return; }
+    $already = array_filter(explode("&", strval(DecisionQueueController::GetVariable("ProvokeObstinanceChosenList") ?? "")), fn($m) => $m !== "");
+    $objects = array_values(array_diff(ZoneSearch("myField"), $already));
+    if(empty($objects)) { ProvokeObstinanceFinish($player); return; }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $objects), 1, "Choose_object_for_spellshroud_and_prevention");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ProvokeObstinanceApply", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ProvokeObstinanceApply", 1, "", 1);
 }
 
 $customDQHandlers["ProvokeObstinanceApply"] = function($player, $parts, $lastDecision) {
     $lastDecision = ConsumeDeclinedChoice($player, $lastDecision);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        DecisionQueueController::ClearVariable("ProvokeObstinanceCount");
+        ProvokeObstinanceFinish($player);
         return;
     }
     AddTurnEffect($lastDecision, "SPELLSHROUD");
@@ -27,6 +37,8 @@ $customDQHandlers["ProvokeObstinanceApply"] = function($player, $parts, $lastDec
     }
     $chosen = intval(DecisionQueueController::GetVariable("ProvokeObstinanceCount") ?? "0") + 1;
     DecisionQueueController::StoreVariable("ProvokeObstinanceCount", strval($chosen));
+    $list = strval(DecisionQueueController::GetVariable("ProvokeObstinanceChosenList") ?? "");
+    DecisionQueueController::StoreVariable("ProvokeObstinanceChosenList", $list === "" ? $lastDecision : $list . "&" . $lastDecision);
     ProvokeObstinanceChooseNext($player);
 };
 

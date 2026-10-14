@@ -1,0 +1,19 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "The ally and two Atmos Shield tokens beside the champion"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "1 power + 1 for each of the two Atmos Shield allies"
+    }
+]

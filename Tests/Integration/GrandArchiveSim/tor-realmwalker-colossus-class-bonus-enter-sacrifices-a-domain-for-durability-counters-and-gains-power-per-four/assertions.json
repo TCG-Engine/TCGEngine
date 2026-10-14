@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"durability\":7}",
+        "semantic": true,
+        "label": "Its 3 durability plus 2 + 2 (the sacrificed domain's reserve cost) = 4"
+    },
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 1,
+        "semantic": true,
+        "label": "+1 power for every four durability counters (7 counters)"
+    }
+]

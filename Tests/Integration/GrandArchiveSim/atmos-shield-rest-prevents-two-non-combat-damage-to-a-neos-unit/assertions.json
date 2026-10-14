@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"PREVENT_NONCOMBAT_2\"]",
+        "semantic": true,
+        "label": "The next non-combat damage will be reduced by 2"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "fractal-of-creation-reservable-rests-to-pay-for-one-of-a-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:26:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7mnu1xhs5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7mnu1xhs5"
+        ],
+        "mechanics": [
+            "reservable",
+            "rest"
+        ],
+        "rulesClauses": [
+            "**Reservable**"
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "blade-of-creation-class-bonus-costs-one-less-per-token-and-cleaves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:20:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iqs2hipwsc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iqs2hipwsc"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "tokens",
+            "cleave"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate for each token object you control.",
+            "**Cleave**"
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "tor-realmwalker-colossus-class-bonus-enter-sacrifices-a-domain-for-durability-counters-and-gains-power-per-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:28:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YKrCbNs3rh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YKrCbNs3rh"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "sacrifice",
+            "durability",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Sacrifice up to three domains. For each domain sacrificed this way, put 2+**X** **durability** counters on CARDNAME where **X** is that domain's reserve cost.",
+            "CARDNAME gets +1[POWER] for every four **durability** counters on it."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three payments plus the card drawn into memory (exactly one target)"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The champion got spellshroud and 2 damage prevention: the attack dealt nothing"
+    }
+]

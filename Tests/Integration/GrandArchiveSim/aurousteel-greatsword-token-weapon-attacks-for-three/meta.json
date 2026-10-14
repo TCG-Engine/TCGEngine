@@ -1,0 +1,22 @@
+{
+    "name": "aurousteel-greatsword-token-weapon-attacks-for-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:20:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hkurfp66pv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hkurfp66pv"
+        ],
+        "mechanics": [
+            "token",
+            "weapon",
+            "attack"
+        ],
+        "rulesClauses": [
+            "Token weapon with 3 power"
+        ]
+    }
+}

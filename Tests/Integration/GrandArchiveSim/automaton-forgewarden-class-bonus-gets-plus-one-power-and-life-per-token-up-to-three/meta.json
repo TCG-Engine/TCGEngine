@@ -1,0 +1,22 @@
+{
+    "name": "automaton-forgewarden-class-bonus-gets-plus-one-power-and-life-per-token-up-to-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:14:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XOfDNzX4ck"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XOfDNzX4ck"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "tokens"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1[POWER] and +1[LIFE] for each of up to three tokens you control."
+        ]
+    }
+}

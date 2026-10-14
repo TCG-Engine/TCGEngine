@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T07:13:23+00:00",
+    "generatedAt": "2026-10-14T07:30:37+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2179,
+        "cardsWithExistingFixtures": 2208,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 298,
+        "cardsNeedingSemanticCoverage": 269,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -230,25 +230,6 @@
                 "draw-discard",
                 "zone-movement",
                 "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "tQTQqCnaZU",
-            "name": "Triumphant Mechanic",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -760,22 +741,6 @@
             "priority": 22
         },
         {
-            "cardId": "rpELNyrSrM",
-            "name": "Fabricator Slime",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "qv0vn6tuow",
             "name": "Jianyu, Fate's Premonition",
             "type": "UNIQUE,PHANTASIA",
@@ -818,25 +783,6 @@
                 "status",
                 "token",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "80yu75k0hl",
-            "name": "Atmos Shield",
-            "type": "TOKEN,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1134,26 +1080,6 @@
             "priority": 15
         },
         {
-            "cardId": "AsDKTmP3kp",
-            "name": "Hector, Praetorian Guard",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "status",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "okDVkV1l76",
             "name": "Hymn of Gaia's Grace",
             "type": "ACTION",
@@ -1300,45 +1226,6 @@
                 "zone-movement",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "OWnWJNstCO",
-            "name": "Powerforged Burst",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "16r0zadf9q",
-            "name": "Provoke Obstinance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1538,24 +1425,6 @@
             "priority": 15
         },
         {
-            "cardId": "abipl6gt7l",
-            "name": "Aegis of Dawn",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "tzV8YfYdHg",
             "name": "Alice, Trifle's Royalty",
             "type": "CHAMPION",
@@ -1565,24 +1434,6 @@
                 "cost",
                 "draw-discard",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "5kt3q2svd5",
-            "name": "Amorphous Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1880,24 +1731,6 @@
             "priority": 14
         },
         {
-            "cardId": "1f3sLuuCtV",
-            "name": "Fractal of Duplication",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "qVtWCAx3zb",
             "name": "Fractal of Waves",
             "type": "PHANTASIA",
@@ -2024,24 +1857,6 @@
             "priority": 14
         },
         {
-            "cardId": "8GTa6NS2RG",
-            "name": "Iron Halo, Forcefield Node",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "w7annwvl5q",
             "name": "Lacuna's Grasp",
             "type": "REGALIA,WEAPON",
@@ -2114,24 +1929,6 @@
             "priority": 14
         },
         {
-            "cardId": "d6soporhlq",
-            "name": "Obelisk of Protection",
-            "type": "UNIQUE,TOKEN,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "lhtiymuyv3",
             "name": "Possessed Remnant",
             "type": "ALLY",
@@ -2142,42 +1939,6 @@
                 "token",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "RO2CcBrILQ",
-            "name": "Radiant Repudiation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "xWqduqhMNp",
-            "name": "Reactivate Drone",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "status",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2384,23 +2145,6 @@
             "priority": 14
         },
         {
-            "cardId": "iqs2hipwsc",
-            "name": "Blade of Creation",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "u8LjHnH6iC",
             "name": "Blight's Ring",
             "type": "REGALIA,ITEM",
@@ -2495,23 +2239,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "4mwrg35j36",
-            "name": "Cordelia, Aurous Kaiser",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2631,23 +2358,6 @@
                 "cost",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "x7mnu1xhs5",
-            "name": "Fractal of Creation",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2911,23 +2621,6 @@
             "priority": 13
         },
         {
-            "cardId": "jwsl7dedg6",
-            "name": "Neos Elemental",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "5bbae3z4py",
             "name": "Nico, Whiplash Allure",
             "type": "CHAMPION",
@@ -2954,23 +2647,6 @@
                 "targeting",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "xy5lh23qu7",
-            "name": "Obelisk of Fabrication",
-            "type": "UNIQUE,TOKEN,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "token"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3106,23 +2782,6 @@
             "mechanics": [
                 "targeting",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "cri23mf3vs",
-            "name": "Refabrication",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -3302,40 +2961,6 @@
             "priority": 13
         },
         {
-            "cardId": "n2jnltv5kl",
-            "name": "Tonoris, Creation's Will",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "YKrCbNs3rh",
-            "name": "Tor, Realmwalker Colossus",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "597fqr67du",
             "name": "Vampiric Slime",
             "type": "ALLY",
@@ -3411,22 +3036,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "h9v2214upu",
-            "name": "Alchemical Scripture",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3523,22 +3132,6 @@
             "mechanics": [
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "rh0foylxnq",
-            "name": "Atmos Armor Type-Ares",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3947,38 +3540,6 @@
             "priority": 12
         },
         {
-            "cardId": "wk0pw0y6is",
-            "name": "Obelisk of Armaments",
-            "type": "UNIQUE,TOKEN,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "AVgvV2L2k7",
-            "name": "Production Crawldroid",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "LHFUG6stdS",
             "name": "Psychopomp's Gale",
             "type": "ACTION",
@@ -4360,51 +3921,6 @@
             "cardId": "eP07Xxscuq",
             "name": "Astral Shard",
             "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "hkurfp66pv",
-            "name": "Aurousteel Greatsword",
-            "type": "TOKEN,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "0L0AUYTwqU",
-            "name": "Automata Genesis",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "XOfDNzX4ck",
-            "name": "Automaton Forgewarden",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -4945,21 +4461,6 @@
             "cardId": "jaiTSvaLOQ",
             "name": "Stellar Cosmos",
             "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "r79VgzA3W4",
-            "name": "Titan Mk II",
-            "type": "TOKEN,ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -21072,6 +20573,33 @@
             "priority": 45
         },
         {
+            "cardId": "tQTQqCnaZU",
+            "name": "Triumphant Mechanic",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "triumphant-mechanic-enter-with-fewer-than-three-tokens-draws-nothing",
+                "triumphant-mechanic-enter-with-three-or-more-tokens-draws-a-card-into-memory",
+                "triumphant-mechanic-on-attack-with-three-or-more-tokens-recovers-three"
+            ],
+            "semanticFixtures": [
+                "triumphant-mechanic-enter-with-fewer-than-three-tokens-draws-nothing",
+                "triumphant-mechanic-enter-with-three-or-more-tokens-draws-a-card-into-memory",
+                "triumphant-mechanic-on-attack-with-three-or-more-tokens-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "5h8asbierp",
             "name": "Uther, Illustrious King",
             "type": "UNIQUE,ALLY",
@@ -24195,6 +23723,28 @@
             "priority": 42
         },
         {
+            "cardId": "rpELNyrSrM",
+            "name": "Fabricator Slime",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "fabricator-slime-class-bonus-rest-summons-a-baby-slime-per-buff-counter-up-to-three",
+                "fabricator-slime-enters-with-a-buff-counter"
+            ],
+            "semanticFixtures": [
+                "fabricator-slime-class-bonus-rest-summons-a-baby-slime-per-buff-counter-up-to-three",
+                "fabricator-slime-enters-with-a-buff-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
             "cardId": "bmoqk2c7wk",
             "name": "Fireblooded Oath",
             "type": "ACTION",
@@ -25287,6 +24837,31 @@
             ],
             "semanticFixtures": [
                 "ariel-imbued-enter-reveals-the-top-card-into-the-material-deck-preserved"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "80yu75k0hl",
+            "name": "Atmos Shield",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "atmos-shield-may-take-the-attack-aimed-at-another-neos-unit",
+                "atmos-shield-rest-prevents-two-non-combat-damage-to-a-neos-unit"
+            ],
+            "semanticFixtures": [
+                "atmos-shield-may-take-the-attack-aimed-at-another-neos-unit",
+                "atmos-shield-rest-prevents-two-non-combat-damage-to-a-neos-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26519,6 +26094,30 @@
             "priority": 35
         },
         {
+            "cardId": "AsDKTmP3kp",
+            "name": "Hector, Praetorian Guard",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "status",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hector-praetorian-guard-class-bonus-prevents-damage-equal-to-your-token-count-once-per-turn"
+            ],
+            "semanticFixtures": [
+                "hector-praetorian-guard-class-bonus-prevents-damage-equal-to-your-token-count-once-per-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "FqFdOEOTbJ",
             "name": "Hot Cake",
             "type": "ITEM",
@@ -27170,6 +26769,29 @@
             "priority": 35
         },
         {
+            "cardId": "OWnWJNstCO",
+            "name": "Powerforged Burst",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory"
+            ],
+            "semanticFixtures": [
+                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "l2ipxnctse",
             "name": "Protective Helm",
             "type": "REGALIA,ITEM",
@@ -27187,6 +26809,30 @@
             ],
             "semanticFixtures": [
                 "protective-helm-prevents-one-damage-to-the-linked-unit-from-a-distant-source"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "16r0zadf9q",
+            "name": "Provoke Obstinance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "provoke-obstinance-class-bonus-single-target-draws-into-memory-and-protects-it"
+            ],
+            "semanticFixtures": [
+                "provoke-obstinance-class-bonus-single-target-draws-into-memory-and-protects-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28691,6 +28337,28 @@
             "priority": 34
         },
         {
+            "cardId": "abipl6gt7l",
+            "name": "Aegis of Dawn",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "aegis-of-dawn-champion-dealt-four-or-more-damage-summons-an-automaton-drone"
+            ],
+            "semanticFixtures": [
+                "aegis-of-dawn-champion-dealt-four-or-more-damage-summons-an-automaton-drone"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "avTtlUGinE",
             "name": "Aetherwing's Ward",
             "type": "ACTION",
@@ -28843,6 +28511,28 @@
             ],
             "semanticFixtures": [
                 "alkahest-level-four-banishes-itself-to-destroy-a-low-cost-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "5kt3q2svd5",
+            "name": "Amorphous Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "amorphous-strike-class-bonus-on-attack-banishes-a-graveyard-attack-card-for-plus-its-power"
+            ],
+            "semanticFixtures": [
+                "amorphous-strike-class-bonus-on-attack-banishes-a-graveyard-attack-card-for-plus-its-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30933,6 +30623,28 @@
             "priority": 34
         },
         {
+            "cardId": "1f3sLuuCtV",
+            "name": "Fractal of Duplication",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fractal-of-duplication-becoming-rested-summons-a-rested-token-copy-of-itself"
+            ],
+            "semanticFixtures": [
+                "fractal-of-duplication-becoming-rested-summons-a-rested-token-copy-of-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "3zb9p4lgdl",
             "name": "Fractal of Rain",
             "type": "PHANTASIA",
@@ -31881,6 +31593,30 @@
             "priority": 34
         },
         {
+            "cardId": "8GTa6NS2RG",
+            "name": "Iron Halo, Forcefield Node",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "iron-halo-forcefield-node-end-phase-adds-a-durability-counter-for-each-of-up-to-two-tokens",
+                "iron-halo-forcefield-node-prevents-two-damage-to-another-object-you-control"
+            ],
+            "semanticFixtures": [
+                "iron-halo-forcefield-node-end-phase-adds-a-durability-counter-for-each-of-up-to-two-tokens",
+                "iron-halo-forcefield-node-prevents-two-damage-to-another-object-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "572j3oda2h",
             "name": "Kraal, Stonescale Tyrant",
             "type": "UNIQUE,ALLY",
@@ -32479,6 +32215,28 @@
             "priority": 34
         },
         {
+            "cardId": "d6soporhlq",
+            "name": "Obelisk of Protection",
+            "type": "UNIQUE,TOKEN,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "obelisk-of-protection-four-rest-prevents-two-damage-costing-one-less-per-domain"
+            ],
+            "semanticFixtures": [
+                "obelisk-of-protection-four-rest-prevents-two-damage-costing-one-less-per-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "R4IZe3rh4V",
             "name": "Ovation Guide",
             "type": "ALLY",
@@ -32860,6 +32618,28 @@
             "priority": 34
         },
         {
+            "cardId": "RO2CcBrILQ",
+            "name": "Radiant Repudiation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "radiant-repudiation-prevents-four-to-a-neos-unit-and-the-prevention-deals-two-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "radiant-repudiation-prevents-four-to-a-neos-unit-and-the-prevention-deals-two-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "SPESFtKHLw",
             "name": "Rallied Advance",
             "type": "ATTACK",
@@ -32924,6 +32704,30 @@
             "semanticFixtures": [
                 "razorblade-execution-imbued-class-bonus-on-kill-puts-a-preparation-counter-on-the-champion",
                 "razorblade-execution-not-imbued-on-kill-adds-no-preparation-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "xWqduqhMNp",
+            "name": "Reactivate Drone",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "reactivate-drone-ephemerate-two-activates-it-from-the-graveyard",
+                "reactivate-drone-summons-a-rested-automaton-drone-with-a-buff-counter"
+            ],
+            "semanticFixtures": [
+                "reactivate-drone-ephemerate-two-activates-it-from-the-graveyard",
+                "reactivate-drone-summons-a-rested-automaton-drone-with-a-buff-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36002,6 +35806,27 @@
             "priority": 33
         },
         {
+            "cardId": "iqs2hipwsc",
+            "name": "Blade of Creation",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "combat"
+            ],
+            "existingFixtures": [
+                "blade-of-creation-class-bonus-costs-one-less-per-token-and-cleaves"
+            ],
+            "semanticFixtures": [
+                "blade-of-creation-class-bonus-costs-one-less-per-token-and-cleaves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ZSYwzoUEdz",
             "name": "Bladed Riftseer",
             "type": "ALLY",
@@ -36877,6 +36702,29 @@
                 "convergent-beam-without-fractal-deals-one-damage",
                 "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free",
                 "inquisitive-magician-enter-reveals-two-mage-cards-for-an-enlighten-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "4mwrg35j36",
+            "name": "Cordelia, Aurous Kaiser",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "cordelia-aurous-kaiser-class-bonus-tokens-are-reservable",
+                "cordelia-aurous-kaiser-enter-summons-two-automaton-drones"
+            ],
+            "semanticFixtures": [
+                "cordelia-aurous-kaiser-class-bonus-tokens-are-reservable",
+                "cordelia-aurous-kaiser-enter-summons-two-automaton-drones"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38087,6 +37935,29 @@
             ],
             "semanticFixtures": [
                 "four-of-hearts-cardistry-draws-into-memory-and-puts-a-suited-ally-onto-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "x7mnu1xhs5",
+            "name": "Fractal of Creation",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "fractal-of-creation-reservable-rests-to-pay-for-one-of-a-reserve-cost",
+                "fractal-of-creation-sacrifice-summons-a-token-copy-of-a-token-you-control"
+            ],
+            "semanticFixtures": [
+                "fractal-of-creation-reservable-rests-to-pay-for-one-of-a-reserve-cost",
+                "fractal-of-creation-sacrifice-summons-a-token-copy-of-a-token-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39670,6 +39541,27 @@
             "priority": 33
         },
         {
+            "cardId": "jwsl7dedg6",
+            "name": "Neos Elemental",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "neos-elemental-class-bonus-costs-one-less-per-token-and-gets-plus-one-power-and-life-per-token"
+            ],
+            "semanticFixtures": [
+                "neos-elemental-class-bonus-costs-one-less-per-token-and-gets-plus-one-power-and-life-per-token"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "wtHBZAdTSv",
             "name": "Nether Dodobird",
             "type": "ALLY",
@@ -39752,6 +39644,27 @@
             ],
             "semanticFixtures": [
                 "nocturnal-blossom-recovers-one-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "xy5lh23qu7",
+            "name": "Obelisk of Fabrication",
+            "type": "UNIQUE,TOKEN,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "obelisk-of-fabrication-six-rest-summons-a-buffed-automaton-drone-costing-one-less-per-domain"
+            ],
+            "semanticFixtures": [
+                "obelisk-of-fabrication-six-rest-summons-a-buffed-automaton-drone-costing-one-less-per-domain"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40669,6 +40582,29 @@
             ],
             "semanticFixtures": [
                 "reduce-to-ash-refuses-memory-only-item-destroys-low-reserve-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "cri23mf3vs",
+            "name": "Refabrication",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "refabrication-influence-five-or-less-draws-two-cards",
+                "refabrication-may-sacrifice-two-tokens-rather-than-pay-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "refabrication-influence-five-or-less-draws-two-cards",
+                "refabrication-may-sacrifice-two-tokens-rather-than-pay-its-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42281,6 +42217,48 @@
             "priority": 33
         },
         {
+            "cardId": "n2jnltv5kl",
+            "name": "Tonoris, Creation's Will",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tonoris-creations-will-token-summons-may-become-aurousteel-greatswords"
+            ],
+            "semanticFixtures": [
+                "tonoris-creations-will-token-summons-may-become-aurousteel-greatswords"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "YKrCbNs3rh",
+            "name": "Tor, Realmwalker Colossus",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tor-realmwalker-colossus-class-bonus-enter-sacrifices-a-domain-for-durability-counters-and-gains-power-per-four"
+            ],
+            "semanticFixtures": [
+                "tor-realmwalker-colossus-class-bonus-enter-sacrifices-a-domain-for-durability-counters-and-gains-power-per-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "kHhxq4UZTe",
             "name": "Torching Reach",
             "type": "ACTION",
@@ -43200,6 +43178,28 @@
             "priority": 32
         },
         {
+            "cardId": "h9v2214upu",
+            "name": "Alchemical Scripture",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alchemical-scripture-end-phase-with-fewer-than-four-tokens-draws-nothing",
+                "alchemical-scripture-end-phase-with-four-or-more-tokens-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "alchemical-scripture-end-phase-with-fewer-than-four-tokens-draws-nothing",
+                "alchemical-scripture-end-phase-with-four-or-more-tokens-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "GiQxfpKTUC",
             "name": "Alice, Distorted Queen",
             "type": "CHAMPION",
@@ -43524,6 +43524,26 @@
             "semanticFixtures": [
                 "ashwound-shot-class-bonus-stops-the-opponent-recovering",
                 "ashwound-shot-without-the-class-bonus-does-not-stop-recovering"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "rh0foylxnq",
+            "name": "Atmos Armor Type-Ares",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "atmos-armor-type-ares-enter-summons-two-atmos-shield-tokens-and-class-bonus-gains-power-per-shield"
+            ],
+            "semanticFixtures": [
+                "atmos-armor-type-ares-enter-summons-two-atmos-shield-tokens-and-class-bonus-gains-power-per-shield"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47364,6 +47384,26 @@
             "priority": 32
         },
         {
+            "cardId": "wk0pw0y6is",
+            "name": "Obelisk of Armaments",
+            "type": "UNIQUE,TOKEN,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token"
+            ],
+            "existingFixtures": [
+                "obelisk-of-armaments-five-rest-summons-an-aurousteel-greatsword-costing-one-less-per-domain"
+            ],
+            "semanticFixtures": [
+                "obelisk-of-armaments-five-rest-summons-an-aurousteel-greatsword-costing-one-less-per-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "4muq2r6v37",
             "name": "Ocean's Blessing",
             "type": "PHANTASIA",
@@ -47794,6 +47834,26 @@
             ],
             "semanticFixtures": [
                 "priscilla-lost-spirit-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "AVgvV2L2k7",
+            "name": "Production Crawldroid",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "production-crawldroid-enter-summons-two-powercell-tokens"
+            ],
+            "semanticFixtures": [
+                "production-crawldroid-enter-summons-two-powercell-tokens"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50523,6 +50583,25 @@
             "priority": 31
         },
         {
+            "cardId": "hkurfp66pv",
+            "name": "Aurousteel Greatsword",
+            "type": "TOKEN,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "aurousteel-greatsword-token-weapon-attacks-for-three"
+            ],
+            "semanticFixtures": [
+                "aurousteel-greatsword-token-weapon-attacks-for-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "k0sln8vnuo",
             "name": "Auspicious Feast",
             "type": "ACTION",
@@ -50542,6 +50621,25 @@
             "priority": 31
         },
         {
+            "cardId": "0L0AUYTwqU",
+            "name": "Automata Genesis",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "automata-genesis-summons-three-titan-mk-ii-tokens-and-the-tonoris-bonus-buffs-each-by-the-token-count"
+            ],
+            "semanticFixtures": [
+                "automata-genesis-summons-three-titan-mk-ii-tokens-and-the-tonoris-bonus-buffs-each-by-the-token-count"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "mu6gvnta6q",
             "name": "Automaton Drone",
             "type": "TOKEN,ALLY",
@@ -50555,6 +50653,25 @@
             ],
             "semanticFixtures": [
                 "automaton-drone-token-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "XOfDNzX4ck",
+            "name": "Automaton Forgewarden",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "automaton-forgewarden-class-bonus-gets-plus-one-power-and-life-per-token-up-to-three"
+            ],
+            "semanticFixtures": [
+                "automaton-forgewarden-class-bonus-gets-plus-one-power-and-life-per-token-up-to-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -54228,6 +54345,25 @@
             ],
             "semanticFixtures": [
                 "the-looking-glass-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "r79VgzA3W4",
+            "name": "Titan Mk II",
+            "type": "TOKEN,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "titan-mk-ii-token-taunt-must-be-attacked-first"
+            ],
+            "semanticFixtures": [
+                "titan-mk-ii-token-taunt-must-be-attacked-first"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

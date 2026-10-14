@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was paid from hand: the three tokens were rested instead"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Only the played card left the hand"
+    }
+]

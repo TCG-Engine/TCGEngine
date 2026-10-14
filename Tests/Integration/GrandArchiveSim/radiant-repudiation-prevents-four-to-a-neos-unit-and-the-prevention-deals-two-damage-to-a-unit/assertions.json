@@ -1,0 +1,20 @@
+[
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The Dungeon Guide's damage was prevented"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "And the prevention dealt 2 damage to the Dungeon Guide"
+    }
+]

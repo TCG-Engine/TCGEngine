@@ -1,0 +1,22 @@
+{
+    "name": "cordelia-aurous-kaiser-class-bonus-tokens-are-reservable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:20:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4mwrg35j36"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4mwrg35j36"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "reservable",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Token objects you control have **reservable**."
+        ]
+    }
+}

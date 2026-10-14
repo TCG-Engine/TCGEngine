@@ -1,0 +1,23 @@
+{
+    "name": "aegis-of-dawn-champion-dealt-four-or-more-damage-summons-an-automaton-drone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:19:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "abipl6gt7l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "abipl6gt7l"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "Whenever your champion is dealt four or more damage, **summon** an Automaton Drone Drone token."
+        ]
+    }
+}

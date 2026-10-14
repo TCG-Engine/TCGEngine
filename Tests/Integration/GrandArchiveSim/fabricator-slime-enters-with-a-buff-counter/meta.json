@@ -1,0 +1,21 @@
+{
+    "name": "fabricator-slime-enters-with-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:14:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rpELNyrSrM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rpELNyrSrM"
+        ],
+        "mechanics": [
+            "enters-with-counter",
+            "buff"
+        ],
+        "rulesClauses": [
+            "CARDNAME enters the field with a **buff** counter on it."
+        ]
+    }
+}

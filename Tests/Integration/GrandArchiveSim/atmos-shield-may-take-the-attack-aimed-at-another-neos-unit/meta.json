@@ -1,0 +1,22 @@
+{
+    "name": "atmos-shield-may-take-the-attack-aimed-at-another-neos-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:18:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "80yu75k0hl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "80yu75k0hl"
+        ],
+        "mechanics": [
+            "redirect",
+            "attack",
+            "neos"
+        ],
+        "rulesClauses": [
+            "Whenever another neos element unit you control is targeted for an attack, you may change the target of that attack to this ally."
+        ]
+    }
+}

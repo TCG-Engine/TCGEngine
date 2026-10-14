@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Three payments plus the card drawn into memory"
+    }
+]

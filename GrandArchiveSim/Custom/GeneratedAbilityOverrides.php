@@ -3058,6 +3058,18 @@ $cardActivatedPrereqs["TfBuA9PUAO:0"] = function($player, $mzID) {
     return !empty(ZoneSearch("myField", ["ALLY"]));
 };
 
+// Radiant Repudiation (RO2CcBrILQ): the damage target was stored as a zone name relative to whoever cast it, but the prevention fires while the opponent's attack resolves from the other
+// seat, so "theirField-1" named the wrong object. It is stored by the target's UniqueID now (looked up where the damage is dealt).
+$customDQHandlers["RO2CcBrILQ:0:CardActivated-2"] = function($player, $parts, $lastDecision) {
+    $pTarget = DecisionQueueController::GetVariable("RR_ProtectTarget");
+    $protectObj = &GetZoneObject($pTarget);
+    if($protectObj === null) return;
+    AddTurnEffect($pTarget, "RADIANT_REPUDIATION_4");
+    $damageObj = ($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") ? null : GetZoneObject($lastDecision);
+    if(!is_array($protectObj->Counters)) $protectObj->Counters = [];
+    if($damageObj !== null && isset($damageObj->UniqueID)) $protectObj->Counters['_radiantTargetUID'] = intval($damageObj->UniqueID);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
