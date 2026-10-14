@@ -1,0 +1,21 @@
+{
+    "name": "arima-gaias-wings-dying-puts-it-into-its-owners-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "075L8pLihO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "075L8pLihO"
+        ],
+        "mechanics": [
+            "on-death",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Death:** Put Arima into its owner's memory."
+        ]
+    }
+}

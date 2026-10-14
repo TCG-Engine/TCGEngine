@@ -1,0 +1,25 @@
+{
+    "name": "scepter-of-awakening-makes-a-phantasia-an-ally-with-power-and-life-equal-to-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:04:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zh208013h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zh208013h"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "type-change",
+            "stat-change",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "*(2)*, [REST]: Target phantasia you control becomes an ally in addition to its other types with base power and life equal to its reserve cost until end of turn. Put a **buff** counter on it."
+        ]
+    }
+}

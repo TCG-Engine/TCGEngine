@@ -1,0 +1,23 @@
+{
+    "name": "channel-manifold-desire-banishes-a-preserved-card-and-empowers-by-its-reserve-cost-plus-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:07:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kywpjf1b4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kywpjf1b4k"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "banish",
+            "preserve",
+            "empower"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish a **preserved** card from your material deck. **Empower X+2**, where **X** is the reserve cost of the banished card."
+        ]
+    }
+}

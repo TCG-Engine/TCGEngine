@@ -1,0 +1,23 @@
+{
+    "name": "bloom-autumns-fall-class-bonus-opponent-sacrifices-flowerbuds-and-summons-the-chosen-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:10:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pebu7agtcd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pebu7agtcd"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "sacrifice",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Each opponent sacrifices all Flowerbuds. For each Flowerbud sacrificed this way, their controller **summons** your choice of an Acerbica or a Washuru token."
+        ]
+    }
+}

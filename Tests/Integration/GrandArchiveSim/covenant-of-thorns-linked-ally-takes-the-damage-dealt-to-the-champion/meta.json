@@ -1,0 +1,22 @@
+{
+    "name": "covenant-of-thorns-linked-ally-takes-the-damage-dealt-to-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:04:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1vt1cn1tzg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1vt1cn1tzg"
+        ],
+        "mechanics": [
+            "ally-link",
+            "redirect",
+            "damage"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to your champion, that damage is dealt to linked ally instead."
+        ]
+    }
+}

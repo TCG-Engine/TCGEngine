@@ -1,0 +1,23 @@
+{
+    "name": "maiden-of-waning-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-two-flowerbuds",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:32:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xkzLY4vWMk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xkzLY4vWMk"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "on-enter",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] **On Enter: **Up to one target opponent **summons** two Flowerbud tokens."
+        ]
+    }
+}

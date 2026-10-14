@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "6W5AJwF3Y3",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Animal ally (reserve 0, LV 2 or less) came from the hand onto the field"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Hymn and the Squirrels left the hand; one card drawn"
+    }
+]

@@ -1,0 +1,24 @@
+{
+    "name": "enthralling-chime-diao-chan-bonus-gains-control-of-an-ally-with-three-wither-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:05:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mhc5a9jpi6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mhc5a9jpi6"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "control",
+            "spell",
+            "banish-self",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] (3), **Banish Enthralling Chime**: As a Spell, gain control of target ally with three or more **wither** counters on it."
+        ]
+    }
+}

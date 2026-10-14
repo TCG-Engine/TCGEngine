@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The opponent's champion and two Flowerbud tokens"
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "rxxwQT054x_VIGOR",
+        "value": 1,
+        "semantic": true,
+        "label": "Paid the full four after an attack"
+    }
+]

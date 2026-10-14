@@ -19442,9 +19442,9 @@ function CardHasAbility($obj) {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 1) return 0;
     }
 
-    // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] (2), REST targeting a phantasia you control
+    // Scepter of Awakening (2zh208013h): (2), REST targeting a phantasia you control. The Diao Chan Bonus only governs activating the card from the material
+    // deck (its own paragraph); the (2),[REST] ability is printed without a bonus, so any champion may use it.
     if($obj->CardID === "2zh208013h") {
-        if(!IsDiaoChanBonus($obj->Controller)) return 0;
         if($obj->Status != 2) return 0;
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
         if(empty(ZoneSearch("myField", ["PHANTASIA"]))) return 0;
@@ -23001,6 +23001,21 @@ function IsKongmingBonus($player) {
 /**
  * Check if a player's champion is Diao Chan (any level).
  */
+// Attacks declared this turn (telemetry logs an attack_initiated event per declaration, stamped with the turn number). $seat / $cardID narrow it to one
+// attacking seat / one attacking card. Costs no gamestate of its own: the telemetry blob is already part of every game.
+function GAAttackCountThisTurn($seat = null, $cardID = null) {
+    if(!function_exists('GATelemetryGet')) return 0;
+    $turn = intval(GetTurnNumber());
+    $count = 0;
+    foreach(GATelemetryGet()['combatEvents'] as $event) {
+        if(($event['type'] ?? '') !== 'attack_initiated' || intval($event['turn'] ?? -1) !== $turn) continue;
+        if($seat !== null && intval($event['attackerSeat'] ?? 0) !== intval($seat)) continue;
+        if($cardID !== null && strval($event['attackerCardId'] ?? '') !== strval($cardID)) continue;
+        ++$count;
+    }
+    return $count;
+}
+
 function IsDiaoChanBonus($player) {
     return ChampionHasInLineage($player, "00xbh8oc00")  // Diao Chan L1
         || ChampionHasInLineage($player, "pknaxnn0xo")  // Diao Chan L2
@@ -26745,7 +26760,7 @@ function KraalStonescaleOnAttack($player) {
 }
 
 function LuBuIndomitableTitanOnAttack($player, $mzID) {
-    if(OnAttackCallCount($player) !== 1) return;
+    if(GAAttackCountThisTurn($player, "xyan7zbtxi") > 1) return; // "If this is CARDNAME's first attack this turn" (this attack is already logged)
     if(CountAvailableReservePayments($player) < 2) return;
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_2_to_wake_up_Lu_Bu?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LuBuIndomitableTitanOnAttack|" . $mzID, 1);
@@ -28922,6 +28937,11 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
                 break;
             }
         }
+    }
+
+    // Command the Hunt (rxxwQT054x): "This card costs 2 less to activate if no units have attacked this turn."
+    if($cardID === "rxxwQT054x" && OnAttackCallCount(1) == 0 && OnAttackCallCount(2) == 0) {
+        $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Command the Hunt (rxxwQT054x): next card costs 2 less (one-shot)

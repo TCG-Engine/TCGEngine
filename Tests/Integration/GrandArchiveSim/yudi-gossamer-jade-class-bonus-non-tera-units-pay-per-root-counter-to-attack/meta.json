@@ -1,0 +1,22 @@
+{
+    "name": "yudi-gossamer-jade-class-bonus-non-tera-units-pay-per-root-counter-to-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:46:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l94wp7qjwb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l94wp7qjwb"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "attack-tax",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Players can't declare attacks with non-tera element units unless they pay (X) for each attack declaration, where **X** is the amount of **root** counters on CARDNAME."
+        ]
+    }
+}

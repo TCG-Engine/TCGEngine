@@ -3070,6 +3070,58 @@ $customDQHandlers["RO2CcBrILQ:0:CardActivated-2"] = function($player, $parts, $l
     if($damageObj !== null && isset($damageObj->UniqueID)) $protectObj->Counters['_radiantTargetUID'] = intval($damageObj->UniqueID);
 };
 
+// Perishing Florets (Vwc52lmFvi): "memory cost 0" needs a printed memory cost of 0. The generated filter used CardMemoryCost(), which clamps "no memory cost" (-1)
+// up to 0, so every ally (and every other reserve-only object) was a legal target regardless of its reserve cost.
+$enterAbilities["Vwc52lmFvi:0"] = function($player) {
+    $validTargets = [];
+    foreach(array_merge(ZoneSearch("myField"), ZoneSearch("theirField")) as $objMZ) {
+        $obj = GetZoneObject($objMZ);
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        $reserveCost = intval(CardCost_reserve($obj->CardID));
+        $printedMemory = CardCost_memory($obj->CardID);
+        $memoryZero = $printedMemory !== null && intval($printedMemory) >= 0 && CardMemoryCost($obj) == 0;
+        if(($reserveCost >= 1 && $reserveCost <= 3) || $memoryZero) $validTargets[] = $objMZ;
+    }
+    if(empty($validTargets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $validTargets), 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "Vwc52lmFvi:0:Enter-1", 1);
+};
+
+// Scepter of Awakening (2zh208013h): the [Diao Chan Bonus] is the first paragraph only (activating the card from the material deck). The (2),[REST] ability is
+// printed without a bonus, but the generated prereq demanded Diao Chan for it.
+$activateAbilityPrereqs["2zh208013h:0"] = function($player, $mzID, $abilityIndex) {
+    $sourceObject = GetZoneObject($mzID);
+    if($sourceObject === null) return false;
+    if($sourceObject->Status != 2) return false;
+    if(CountAvailableReservePayments($player, $mzID) < 2) return false;
+    return !empty(ZoneSearch("myField", ["PHANTASIA"]));
+};
+
+// Heartsong Reclamation (d253WtyIXr): the buff counters are a [Silvie Bonus], but the generated ability gated them on the Tamer class bonus, so every Tamer
+// champion got five buff counters on each Animal/Beast ally.
+$cardActivatedAbilities["d253WtyIXr:0"] = function($player) {
+    foreach(["theirField", "myField"] as $zoneRef) {
+        $zone = GetZone($zoneRef);
+        for($i = count($zone) - 1; $i >= 0; --$i) {
+            if($zone[$i]->removed) continue;
+            if(!PropertyContains(EffectiveCardType($zone[$i]), "REGALIA")) continue;
+            if(intval($zone[$i]->Controller) === $player) continue;
+            DoAllyDestroyed($player, $zoneRef . "-" . $i);
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    AddGlobalEffects($player, "d253WtyIXr_CLEAVE");
+    $isSilvie = false;
+    foreach(["GKEpAulogu", "mdwbkuhtjm", "nllCALIXDT", "RfPP8h16Wv", "ZR8tnLruR6"] as $silvieID) {
+        if(ChampionHasInLineage($player, $silvieID)) { $isSilvie = true; break; }
+    }
+    if($isSilvie) {
+        foreach(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]) as $allyMZ) {
+            AddCounters($player, $allyMZ, "buff", 5);
+        }
+    }
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

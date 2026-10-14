@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "075L8pLihO",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "On Death: Arima went into its owner's memory"
+    }
+]

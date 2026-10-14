@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "zmoegdo111",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The preserved card was banished as an additional cost"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"kywpjf1b4k-5\"]",
+        "semantic": true,
+        "label": "Empower X+2: the banished Sempiternal Sage has reserve cost 3, so 5"
+    }
+]

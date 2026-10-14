@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Dungeon Guide (reserve 3) was destroyed; the reserve-4 Giant Tortoise was not a legal target"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The reserve-4 ally survives"
+    }
+]

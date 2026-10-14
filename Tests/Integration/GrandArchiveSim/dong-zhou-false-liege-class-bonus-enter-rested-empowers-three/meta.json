@@ -1,0 +1,24 @@
+{
+    "name": "dong-zhou-false-liege-class-bonus-enter-rested-empowers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:45:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lrbcgpny3d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lrbcgpny3d"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "rest",
+            "modal",
+            "empower"
+        ],
+        "rulesClauses": [
+            "**Empower 3**."
+        ]
+    }
+}

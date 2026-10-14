@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Beast ally (reserve 2) entered with nothing paid: 3 less"
+    }
+]

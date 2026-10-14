@@ -1,0 +1,22 @@
+{
+    "name": "conduit-of-seasons-facing-west-prevents-two-damage-dealt-to-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nm77bnz4cc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nm77bnz4cc"
+        ],
+        "mechanics": [
+            "prevention",
+            "shifting-currents",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to CARDNAME while your Shifting Currents face West, prevent 2 of that damage."
+        ]
+    }
+}

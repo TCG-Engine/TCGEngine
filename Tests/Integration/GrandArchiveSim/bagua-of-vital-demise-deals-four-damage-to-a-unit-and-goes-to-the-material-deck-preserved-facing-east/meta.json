@@ -1,0 +1,23 @@
+{
+    "name": "bagua-of-vital-demise-deals-four-damage-to-a-unit-and-goes-to-the-material-deck-preserved-facing-east",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "imdj3c7oh0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "imdj3c7oh0"
+        ],
+        "mechanics": [
+            "damage",
+            "shifting-currents",
+            "preserve",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target unit. If your Shifting Currents face East, put this card into its owner's material deck **preserved**."
+        ]
+    }
+}

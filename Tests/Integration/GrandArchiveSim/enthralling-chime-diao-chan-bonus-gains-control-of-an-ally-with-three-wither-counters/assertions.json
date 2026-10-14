@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Controller",
+        "value": "1",
+        "semantic": true,
+        "label": "The withered Giant Tortoise is now controlled by the caster"
+    }
+]

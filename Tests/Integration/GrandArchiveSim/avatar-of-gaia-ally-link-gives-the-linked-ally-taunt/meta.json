@@ -1,0 +1,22 @@
+{
+    "name": "avatar-of-gaia-ally-link-gives-the-linked-ally-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:40:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fqsuo6gb0o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fqsuo6gb0o"
+        ],
+        "mechanics": [
+            "ally-link",
+            "taunt",
+            "preserve"
+        ],
+        "rulesClauses": [
+            "**Ally Link** *(This object enters the field linked to target ally. If the link is broken, sacrifice this object.)* Linked ally has **taunt** and loses **pride**."
+        ]
+    }
+}

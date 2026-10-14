@@ -1,0 +1,38 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The hand went to the bottom of the deck"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the preserved card from the material deck is in memory"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "zmoegdo111",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The preserved Sempiternal Sage came from the material deck"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 17,
+        "semantic": true,
+        "label": "9 + the 7 hand cards + the memory card"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "yudi-gossamer-jade-empowering-puts-a-root-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:46:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l94wp7qjwb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l94wp7qjwb"
+        ],
+        "mechanics": [
+            "trigger",
+            "empower",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever you **empower** an amount, if that amount is greater than the amount of **root** counters on CARDNAME, put a **root** counter on it."
+        ]
+    }
+}

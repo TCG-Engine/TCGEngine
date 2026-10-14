@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "Four damage to the unit"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myMaterial",
+        "cardID": "imdj3c7oh0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Facing East it went to the material deck preserved"
+    }
+]

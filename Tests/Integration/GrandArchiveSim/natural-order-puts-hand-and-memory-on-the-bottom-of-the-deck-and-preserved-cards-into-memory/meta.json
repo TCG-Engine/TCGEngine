@@ -1,0 +1,22 @@
+{
+    "name": "natural-order-puts-hand-and-memory-on-the-bottom-of-the-deck-and-preserved-cards-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:04:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ny1te7hcjm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ny1te7hcjm"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "preserve",
+            "efficiency"
+        ],
+        "rulesClauses": [
+            "Put all cards from your hand and memory on the bottom of your deck in any order. Then put all **preserved** cards from your material deck into your memory."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "bairui-resplendent-barrier-prevents-two-damage-to-the-champion-and-gains-a-charge-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:47:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sqGcyYocLW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sqGcyYocLW"
+        ],
+        "mechanics": [
+            "prevention",
+            "counter",
+            "damage"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to your champion while CARDNAME has two or less **charge** counters on it, prevent 2 of that damage and put a **charge** counter on CARDNAME instead."
+        ]
+    }
+}

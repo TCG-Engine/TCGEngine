@@ -1,0 +1,11 @@
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "It was Lu Bu's own first attack: it woke up even though the Dungeon Guide attacked before"
+    }
+]

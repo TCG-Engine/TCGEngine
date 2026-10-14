@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2208**
+Cards linked to an existing fixture: **2243**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **269**
+Implemented cards still needing semantic coverage: **234**
 
 ## Mechanic groups
 
@@ -34,7 +34,6 @@ Implemented cards still needing semantic coverage: **269**
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
 | Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
 | Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
-| Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
@@ -43,7 +42,6 @@ Implemented cards still needing semantic coverage: **269**
 | Dawn's Reversal (`x53jgq8aad`) | ACTION | 2 | cost, targeting, damage, condition | — | — |
 | Focusing Gem (`SpENiP3jbN`) | REGALIA,ITEM | 2 | cost, zone-movement, status, condition | — | — |
 | Gemini Starbearer (`NyPQW7hkAq`) | ALLY | 2 | targeting, damage, token, trigger | — | — |
-| Horn of Beastcalling (`6e7lRnczfL`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, condition | — | — |
 | Pristine Scourge (`kugriwszxr`) | ACTION | 2 | cost, targeting, draw-discard, condition | — | — |
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
@@ -55,7 +53,6 @@ Implemented cards still needing semantic coverage: **269**
 | Ceasing Edict (`4f3bi5lohu`) | ACTION | 2 | cost, zone-movement, condition | — | — |
 | Ebbing Tide (`s7pmqsl3jw`) | REGALIA,ITEM | 2 | zone-movement, status, condition | — | — |
 | Expunge (`r73opcqtzs`) | ACTION | 2 | cost, damage, draw-discard | — | — |
-| Flourishing Restoration (`alnjt7DyZL`) | ACTION | 2 | cost, recover, condition | — | — |
 | Golden Checkmate (`KbE9R1mi3n`) | ATTACK | 2 | cost, combat, condition | — | — |
 | Heirloom of Libra (`MRiM1fnOWC`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement | — | — |
 | Lost Providence (`DNbIpzVgde`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, condition | — | — |
@@ -74,5 +71,8 @@ Implemented cards still needing semantic coverage: **269**
 | Cataleptic Constellation (`lflzwiiewz`) | PHANTASIA | 1 | targeting, status, token, trigger, condition | — | — |
 | Cauterizing Seraphim (`TYlWgIYsq3`) | ALLY | 1 | cost, damage, status, trigger, condition | — | — |
 | Cometary Vantage (`y4c89re0bd`) | ACTION | 1 | targeting, draw-discard, status, combat, condition | — | — |
-| Conduit of Seasons (`nm77bnz4cc`) | ALLY | 1 | damage, prevention, recover, draw-discard, combat, trigger, condition | — | — |
 | Deflecting Advantage (`40TLLuE6oG`) | ACTION | 1 | targeting, damage, prevention, counter, trigger | — | — |
+| Devouring Malice (`1keruycrwi`) | REGALIA,ITEM | 1 | targeting, damage, recover, draw-discard, counter | — | — |
+| Extorting Blackjack (`bfg5ubeczk`) | ATTACK | 1 | cost, recover, combat, trigger, condition | — | — |
+| False Step (`47o7eanl1g`) | ACTION | 1 | cost, damage, prevention, status, condition | — | — |
+| Gloamspire Mantle (`fooz13xfpk`) | REGALIA,ITEM | 1 | cost, token, combat, trigger, condition | — | — |

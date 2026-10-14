@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T07:30:37+00:00",
+    "generatedAt": "2026-10-14T08:17:35+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2208,
+        "cardsWithExistingFixtures": 2243,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 269,
+        "cardsNeedingSemanticCoverage": 234,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -182,25 +182,6 @@
             "priority": 25
         },
         {
-            "cardId": "xkzLY4vWMk",
-            "name": "Maiden of Waning Bloom",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "3fe3c97s71",
             "name": "Nightmare Coil",
             "type": "ACTION",
@@ -340,24 +321,6 @@
                 "damage",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "6e7lRnczfL",
-            "name": "Horn of Beastcalling",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -549,23 +512,6 @@
                 "cost",
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "alnjt7DyZL",
-            "name": "Flourishing Restoration",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -888,27 +834,6 @@
             "priority": 15
         },
         {
-            "cardId": "nm77bnz4cc",
-            "name": "Conduit of Seasons",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "recover",
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "40TLLuE6oG",
             "name": "Deflecting Advantage",
             "type": "ACTION",
@@ -947,25 +872,6 @@
             "priority": 15
         },
         {
-            "cardId": "lrbcgpny3d",
-            "name": "Dong Zhou, False Liege",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "bfg5ubeczk",
             "name": "Extorting Blackjack",
             "type": "ATTACK",
@@ -996,25 +902,6 @@
                 "prevention",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "5WP1TXJo9E",
-            "name": "Full Bloom",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "recover",
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1080,26 +967,6 @@
             "priority": 15
         },
         {
-            "cardId": "okDVkV1l76",
-            "name": "Hymn of Gaia's Grace",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "yicNKtzC3H",
             "name": "Jabberwocky, Calamity's Call",
             "type": "UNIQUE,ALLY",
@@ -1110,26 +977,6 @@
                 "prevention",
                 "recover",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "xyan7zbtxi",
-            "name": "Lu Bu, Indomitable Titan",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1177,25 +1024,6 @@
             "priority": 15
         },
         {
-            "cardId": "rzk3mjblse",
-            "name": "Nightshade",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "nt1lyk1dvd",
             "name": "Penumbral Waltz",
             "type": "ACTION",
@@ -1206,44 +1034,6 @@
                 "damage",
                 "prevention",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "Vwc52lmFvi",
-            "name": "Perishing Florets",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "zmoegdo111",
-            "name": "Sempiternal Sage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1406,25 +1196,6 @@
             "priority": 15
         },
         {
-            "cardId": "l94wp7qjwb",
-            "name": "Yudi, Gossamer Jade",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "tzV8YfYdHg",
             "name": "Alice, Trifle's Royalty",
             "type": "CHAMPION",
@@ -1434,42 +1205,6 @@
                 "cost",
                 "draw-discard",
                 "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "imdj3c7oh0",
-            "name": "Bagua of Vital Demise",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "sqGcyYocLW",
-            "name": "Bairui, Resplendent Barrier",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1542,24 +1277,6 @@
                 "recover",
                 "draw-discard",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "1vt1cn1tzg",
-            "name": "Covenant of Thorns",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1839,24 +1556,6 @@
             "priority": 14
         },
         {
-            "cardId": "16hrusesqi",
-            "name": "Invigoration",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "w7annwvl5q",
             "name": "Lacuna's Grasp",
             "type": "REGALIA,WEAPON",
@@ -1956,24 +1655,6 @@
                 "zone-movement",
                 "status",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "2zh208013h",
-            "name": "Scepter of Awakening",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "counter",
                 "condition"
             ],
             "existingFixtures": [],
@@ -2171,40 +1852,6 @@
                 "cost",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "kywpjf1b4k",
-            "name": "Channel Manifold Desire",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "rxxwQT054x",
-            "name": "Command the Hunt",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2859,23 +2506,6 @@
             "priority": 13
         },
         {
-            "cardId": "qSxEKgmQ0I",
-            "name": "Saprotrophy",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "IcxG2jsqmu",
             "name": "Sinister Composure",
             "type": "ACTION",
@@ -3092,38 +2722,6 @@
             "priority": 12
         },
         {
-            "cardId": "075L8pLihO",
-            "name": "Arima, Gaia's Wings",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "G5E0PIUd0W",
-            "name": "Artificer's Opus",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "f0ht2tsn0y",
             "name": "Astarte, Celestial Dawn",
             "type": "UNIQUE,ALLY",
@@ -3156,38 +2754,6 @@
             "priority": 12
         },
         {
-            "cardId": "fqsuo6gb0o",
-            "name": "Avatar of Gaia",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "pebu7agtcd",
-            "name": "Bloom: Autumn's Fall",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "sl7dedg616",
             "name": "Calculated Foresight",
             "type": "ACTION",
@@ -3196,22 +2762,6 @@
             "mechanics": [
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "mdiK8UC78c",
-            "name": "Call the Pack",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3324,22 +2874,6 @@
             "mechanics": [
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "mhc5a9jpi6",
-            "name": "Enthralling Chime",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3903,38 +3437,8 @@
             "priority": 11
         },
         {
-            "cardId": "7ax4ywyv19",
-            "name": "Acerbica",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "eP07Xxscuq",
             "name": "Astral Shard",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "i59eamoov0",
-            "name": "Baihua",
             "type": "TOKEN,PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -4143,36 +3647,6 @@
             "priority": 11
         },
         {
-            "cardId": "4s1kmjeaks",
-            "name": "Floodbloom",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "yn78t73w1p",
-            "name": "Flowerbud",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "lnhzj43qiw",
             "name": "Foretold Bloom",
             "type": "ACTION",
@@ -4210,21 +3684,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "d253WtyIXr",
-            "name": "Heartsong Reclamation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4308,36 +3767,6 @@
             "priority": 11
         },
         {
-            "cardId": "89nl1vcn33",
-            "name": "Lycoria",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "hbt487eux7",
-            "name": "Maiden of Primal Virtue",
-            "type": "PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "1ubrwubSQN",
             "name": "Mantle of the Abyss",
             "type": "REGALIA,ITEM",
@@ -4360,21 +3789,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ny1te7hcjm",
-            "name": "Natural Order",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4525,21 +3939,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "k5iv040vcq",
-            "name": "Washuru",
-            "type": "TOKEN,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20426,6 +19825,29 @@
             "priority": 45
         },
         {
+            "cardId": "xkzLY4vWMk",
+            "name": "Maiden of Waning Bloom",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "maiden-of-waning-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-two-flowerbuds"
+            ],
+            "semanticFixtures": [
+                "maiden-of-waning-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-two-flowerbuds"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "flzvpkc0ni",
             "name": "Moontide Illusionist",
             "type": "ALLY",
@@ -21175,6 +20597,28 @@
             ],
             "semanticFixtures": [
                 "harrow-the-saved-alice-curse-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "6e7lRnczfL",
+            "name": "Horn of Beastcalling",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "horn-of-beastcalling-banish-makes-the-next-beast-ally-cost-three-less-and-class-bonus-draws"
+            ],
+            "semanticFixtures": [
+                "horn-of-beastcalling-banish-makes-the-next-beast-ally-cost-three-less-and-class-bonus-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -22516,6 +21960,27 @@
             "semanticFixtures": [
                 "five-of-hearts-cardistry-puts-a-buff-counter-on-each-suited-ally-and-only-once",
                 "five-of-hearts-enters-the-field-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "alnjt7DyZL",
+            "name": "Flourishing Restoration",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flourishing-restoration-recovers-three-and-three-more-for-each-of-two-opposing-allies"
+            ],
+            "semanticFixtures": [
+                "flourishing-restoration-recovers-three-and-three-more-for-each-of-two-opposing-allies"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -25273,6 +24738,35 @@
             "priority": 35
         },
         {
+            "cardId": "nm77bnz4cc",
+            "name": "Conduit of Seasons",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "recover",
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "conduit-of-seasons-facing-east-takes-the-full-damage",
+                "conduit-of-seasons-facing-west-prevents-two-damage-dealt-to-it",
+                "conduit-of-seasons-on-attack-facing-east-recovers-one-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "conduit-of-seasons-facing-east-takes-the-full-damage",
+                "conduit-of-seasons-facing-west-prevents-two-damage-dealt-to-it",
+                "conduit-of-seasons-on-attack-facing-east-recovers-one-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "jH3ZOavGPR",
             "name": "Crystalvein Awakening",
             "type": "ACTION",
@@ -25437,6 +24931,35 @@
             ],
             "semanticFixtures": [
                 "divine-comedy-once-per-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "lrbcgpny3d",
+            "name": "Dong Zhou, False Liege",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dong-zhou-false-liege-class-bonus-enter-explore",
+                "dong-zhou-false-liege-class-bonus-enter-rested-deals-three-damage-to-other-allies-and-gains-vigor",
+                "dong-zhou-false-liege-class-bonus-enter-rested-empowers-three",
+                "dong-zhou-false-liege-declining-the-rest-does-nothing"
+            ],
+            "semanticFixtures": [
+                "dong-zhou-false-liege-class-bonus-enter-explore",
+                "dong-zhou-false-liege-class-bonus-enter-rested-deals-three-damage-to-other-allies-and-gains-vigor",
+                "dong-zhou-false-liege-class-bonus-enter-rested-empowers-three",
+                "dong-zhou-false-liege-declining-the-rest-does-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -25949,6 +25472,29 @@
             "priority": 35
         },
         {
+            "cardId": "5WP1TXJo9E",
+            "name": "Full Bloom",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "recover",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "full-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-four-flowerbuds-each-dealing-two-and-recovering-two"
+            ],
+            "semanticFixtures": [
+                "full-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-four-flowerbuds-each-dealing-two-and-recovering-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "s4oelWMRJE",
             "name": "Golden Bishop",
             "type": "ALLY",
@@ -26181,6 +25727,30 @@
             ],
             "semanticFixtures": [
                 "hulao-gate-upkeep-declined-banish-sacrifices-the-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "okDVkV1l76",
+            "name": "Hymn of Gaia's Grace",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hymn-of-gaias-grace-puts-an-animal-ally-from-hand-onto-the-field"
+            ],
+            "semanticFixtures": [
+                "hymn-of-gaias-grace-puts-an-animal-ally-from-hand-onto-the-field"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26554,6 +26124,36 @@
             "priority": 35
         },
         {
+            "cardId": "xyan7zbtxi",
+            "name": "Lu Bu, Indomitable Titan",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lu-bu-indomitable-titan-first-attack-counts-per-unit-not-per-player",
+                "lu-bu-indomitable-titan-first-attack-pays-two-to-wake-up",
+                "lu-bu-indomitable-titan-has-taunt",
+                "lu-bu-indomitable-titan-wake-up-option-is-only-offered-on-its-first-attack"
+            ],
+            "semanticFixtures": [
+                "lu-bu-indomitable-titan-first-attack-counts-per-unit-not-per-player",
+                "lu-bu-indomitable-titan-first-attack-pays-two-to-wake-up",
+                "lu-bu-indomitable-titan-has-taunt",
+                "lu-bu-indomitable-titan-wake-up-option-is-only-offered-on-its-first-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "5wdysg327b",
             "name": "Maiden of Reverent Gale",
             "type": "PHANTASIA,ALLY",
@@ -26651,6 +26251,29 @@
             "priority": 35
         },
         {
+            "cardId": "rzk3mjblse",
+            "name": "Nightshade",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nightshade-token-recollection-puts-a-wither-counter-on-a-non-champion-non-token-object"
+            ],
+            "semanticFixtures": [
+                "nightshade-token-recollection-puts-a-wither-counter-on-a-non-champion-non-token-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "wbjc9t8ycp",
             "name": "Noire, Ace of Spades",
             "type": "UNIQUE,ALLY",
@@ -26691,6 +26314,29 @@
             ],
             "semanticFixtures": [
                 "perilous-mend-decline-further-curse-still-recovers"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "Vwc52lmFvi",
+            "name": "Perishing Florets",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "perishing-florets-enter-destroys-a-non-champion-object-with-reserve-cost-three-or-less"
+            ],
+            "semanticFixtures": [
+                "perishing-florets-enter-destroys-a-non-champion-object-with-reserve-cost-three-or-less"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27318,6 +26964,29 @@
             ],
             "semanticFixtures": [
                 "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "zmoegdo111",
+            "name": "Sempiternal Sage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sempiternal-sage-class-bonus-on-attack-recovers-three"
+            ],
+            "semanticFixtures": [
+                "sempiternal-sage-class-bonus-on-attack-recovers-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28266,6 +27935,31 @@
             "priority": 35
         },
         {
+            "cardId": "l94wp7qjwb",
+            "name": "Yudi, Gossamer Jade",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "yudi-gossamer-jade-class-bonus-non-tera-units-pay-per-root-counter-to-attack",
+                "yudi-gossamer-jade-empowering-puts-a-root-counter-on-it"
+            ],
+            "semanticFixtures": [
+                "yudi-gossamer-jade-class-bonus-non-tera-units-pay-per-root-counter-to-attack",
+                "yudi-gossamer-jade-empowering-puts-a-root-counter-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "w822tmc0yc",
             "name": "Zhang Liao, Bloodmonger",
             "type": "UNIQUE,ALLY",
@@ -28789,6 +28483,54 @@
             ],
             "semanticFixtures": [
                 "backup-charger-summons-a-rested-powercell-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "imdj3c7oh0",
+            "name": "Bagua of Vital Demise",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bagua-of-vital-demise-deals-four-damage-to-a-unit-and-goes-to-the-material-deck-preserved-facing-east"
+            ],
+            "semanticFixtures": [
+                "bagua-of-vital-demise-deals-four-damage-to-a-unit-and-goes-to-the-material-deck-preserved-facing-east"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "sqGcyYocLW",
+            "name": "Bairui, Resplendent Barrier",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bairui-resplendent-barrier-kongming-bonus-sacrifice-empowers-seven-with-three-charge-counters-facing-south",
+                "bairui-resplendent-barrier-prevents-two-damage-to-the-champion-and-gains-a-charge-counter",
+                "bairui-resplendent-barrier-with-three-charge-counters-prevents-nothing"
+            ],
+            "semanticFixtures": [
+                "bairui-resplendent-barrier-kongming-bonus-sacrifice-empowers-seven-with-three-charge-counters-facing-south",
+                "bairui-resplendent-barrier-prevents-two-damage-to-the-champion-and-gains-a-charge-counter",
+                "bairui-resplendent-barrier-with-three-charge-counters-prevents-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29517,6 +29259,28 @@
                 "coup-de-grace-prepare-4-paid-critical-4-doubles-damage",
                 "coup-de-grace-prepare-4-paid-non-assassin-no-critical",
                 "coup-de-grace-three-counters-cannot-pay-prepare-4"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "1vt1cn1tzg",
+            "name": "Covenant of Thorns",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "covenant-of-thorns-linked-ally-takes-the-damage-dealt-to-the-champion"
+            ],
+            "semanticFixtures": [
+                "covenant-of-thorns-linked-ally-takes-the-damage-dealt-to-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -31569,6 +31333,28 @@
             "priority": 34
         },
         {
+            "cardId": "16hrusesqi",
+            "name": "Invigoration",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "invigoration-class-bonus-puts-lv-buff-counters-on-a-rested-ally"
+            ],
+            "semanticFixtures": [
+                "invigoration-class-bonus-puts-lv-buff-counters-on-a-rested-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "1Hb6HXKXzG",
             "name": "Ionizer X Ultra",
             "type": "ITEM",
@@ -33226,6 +33012,30 @@
             ],
             "semanticFixtures": [
                 "scathing-seminary-class-bonus-balance-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "2zh208013h",
+            "name": "Scepter of Awakening",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scepter-of-awakening-ability-needs-no-diao-chan-bonus",
+                "scepter-of-awakening-makes-a-phantasia-an-ally-with-power-and-life-equal-to-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "scepter-of-awakening-ability-needs-no-diao-chan-bonus",
+                "scepter-of-awakening-makes-a-phantasia-an-ally-with-power-and-life-equal-to-its-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36411,6 +36221,29 @@
             "priority": 33
         },
         {
+            "cardId": "kywpjf1b4k",
+            "name": "Channel Manifold Desire",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "channel-manifold-desire-banishes-a-preserved-card-and-empowers-by-its-reserve-cost-plus-two",
+                "channel-manifold-desire-facing-north-puts-a-preserved-card-into-hand"
+            ],
+            "semanticFixtures": [
+                "channel-manifold-desire-banishes-a-preserved-card-and-empowers-by-its-reserve-cost-plus-two",
+                "channel-manifold-desire-facing-north-puts-a-preserved-card-into-hand"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "ffy4dwavco",
             "name": "Charged Assailant",
             "type": "ALLY",
@@ -36581,6 +36414,29 @@
             "semanticFixtures": [
                 "clear-pastures-equestrian-with-a-horse-glimpses-three-then-draws-into-memory",
                 "clear-pastures-without-a-horse-only-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "rxxwQT054x",
+            "name": "Command the Hunt",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "command-the-hunt-costs-full-price-after-a-unit-has-attacked",
+                "command-the-hunt-gives-allies-plus-two-power-and-vigor-for-two-less-if-no-unit-attacked"
+            ],
+            "semanticFixtures": [
+                "command-the-hunt-costs-full-price-after-a-unit-has-attacked",
+                "command-the-hunt-gives-allies-plus-two-power-and-vigor-for-two-less-if-no-unit-attacked"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40839,6 +40695,27 @@
             "priority": 33
         },
         {
+            "cardId": "qSxEKgmQ0I",
+            "name": "Saprotrophy",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "saprotrophy-enter-recovers-two-plus-the-tera-cards-in-the-banishment"
+            ],
+            "semanticFixtures": [
+                "saprotrophy-enter-recovers-two-plus-the-tera-cards-in-the-banishment"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "GRlUlcYRmV",
             "name": "Sasha, Purifying Acolyte",
             "type": "UNIQUE,ALLY",
@@ -43410,6 +43287,32 @@
             "priority": 32
         },
         {
+            "cardId": "075L8pLihO",
+            "name": "Arima, Gaia's Wings",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "arima-gaias-wings-dying-puts-it-into-its-owners-memory",
+                "arima-gaias-wings-pride-five-obeys-at-champion-level-five",
+                "arima-gaias-wings-pride-five-will-not-attack-below-champion-level-five",
+                "arima-gaias-wings-recollection-puts-three-buff-counters-on-it"
+            ],
+            "semanticFixtures": [
+                "arima-gaias-wings-dying-puts-it-into-its-owners-memory",
+                "arima-gaias-wings-pride-five-obeys-at-champion-level-five",
+                "arima-gaias-wings-pride-five-will-not-attack-below-champion-level-five",
+                "arima-gaias-wings-recollection-puts-three-buff-counters-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "e7782pjg1d",
             "name": "Armed Squallguard",
             "type": "ALLY",
@@ -43448,6 +43351,26 @@
             ],
             "semanticFixtures": [
                 "art-of-war-an-ally-that-entered-this-turn-cannot-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "G5E0PIUd0W",
+            "name": "Artificer's Opus",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status"
+            ],
+            "existingFixtures": [
+                "artificers-opus-class-bonus-efficiency-and-enters-rested"
+            ],
+            "semanticFixtures": [
+                "artificers-opus-class-bonus-efficiency-and-enters-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43642,6 +43565,28 @@
             "priority": 32
         },
         {
+            "cardId": "fqsuo6gb0o",
+            "name": "Avatar of Gaia",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "avatar-of-gaia-ally-link-gives-the-linked-ally-taunt",
+                "avatar-of-gaia-the-linked-ally-has-taunt"
+            ],
+            "semanticFixtures": [
+                "avatar-of-gaia-ally-link-gives-the-linked-ally-taunt",
+                "avatar-of-gaia-the-linked-ally-has-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "67CIhG8hmG",
             "name": "Avatar of Genbu",
             "type": "UNIQUE,ALLY",
@@ -43820,6 +43765,26 @@
             "semanticFixtures": [
                 "blightheart-thaumaturge-on-enter-with-an-elysian-object-gets-plus-two-power",
                 "blightheart-thaumaturge-on-enter-without-an-elysian-object-keeps-its-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "pebu7agtcd",
+            "name": "Bloom: Autumn's Fall",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "token"
+            ],
+            "existingFixtures": [
+                "bloom-autumns-fall-class-bonus-opponent-sacrifices-flowerbuds-and-summons-the-chosen-tokens"
+            ],
+            "semanticFixtures": [
+                "bloom-autumns-fall-class-bonus-opponent-sacrifices-flowerbuds-and-summons-the-chosen-tokens"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44006,6 +43971,26 @@
             ],
             "semanticFixtures": [
                 "calamity-cannon-arms-the-first-gun-attack-for-plus-ten-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "mdiK8UC78c",
+            "name": "Call the Pack",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "call-the-pack-class-bonus-puts-a-beast-ally-from-hand-onto-the-field-for-each-animal-ally"
+            ],
+            "semanticFixtures": [
+                "call-the-pack-class-bonus-puts-a-beast-ally-from-hand-onto-the-field-for-each-animal-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44902,6 +44887,26 @@
                 "ensnaring-fumes-returns-every-ally-to-its-owners-hand",
                 "ensnaring-fumes-three-preparation-counters-replace-the-reserve-cost",
                 "ensnaring-fumes-two-preparation-counters-are-not-enough-for-the-alternate-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "mhc5a9jpi6",
+            "name": "Enthralling Chime",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "enthralling-chime-diao-chan-bonus-gains-control-of-an-ally-with-three-wither-counters"
+            ],
+            "semanticFixtures": [
+                "enthralling-chime-diao-chan-bonus-gains-control-of-an-ally-with-three-wither-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50446,6 +50451,25 @@
             "priority": 32
         },
         {
+            "cardId": "7ax4ywyv19",
+            "name": "Acerbica",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "acerbica-token-champions-you-control-get-minus-one-level"
+            ],
+            "semanticFixtures": [
+                "acerbica-token-champions-you-control-get-minus-one-level"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "d3e311f211",
             "name": "Airborne Squirrel",
             "type": "ALLY",
@@ -50731,6 +50755,25 @@
             ],
             "semanticFixtures": [
                 "baidi-oathsworn-palace-gives-distant-ranger-units-ranged-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "i59eamoov0",
+            "name": "Baihua",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "baihua-token-recollection-makes-each-opponent-recover-one"
+            ],
+            "semanticFixtures": [
+                "baihua-token-recollection-makes-each-opponent-recover-one"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52145,6 +52188,25 @@
             "priority": 31
         },
         {
+            "cardId": "4s1kmjeaks",
+            "name": "Floodbloom",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "floodbloom-token-recollection-banishes-the-top-two-cards-of-your-deck"
+            ],
+            "semanticFixtures": [
+                "floodbloom-token-recollection-banishes-the-top-two-cards-of-your-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "5wLtoxd4Wc",
             "name": "Floodborne Swing",
             "type": "ATTACK",
@@ -52181,6 +52243,25 @@
             "semanticFixtures": [
                 "floodborne-warrior-deluge-two-gets-plus-one-power-and-life",
                 "floodborne-warrior-one-water-card-keeps-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "yn78t73w1p",
+            "name": "Flowerbud",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "flowerbud-token-sits-on-the-field-as-a-vanilla-phantasia"
+            ],
+            "semanticFixtures": [
+                "flowerbud-token-sits-on-the-field-as-a-vanilla-phantasia"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52543,6 +52624,29 @@
             ],
             "semanticFixtures": [
                 "haze-droid-stealth-cannot-be-attacked"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "d253WtyIXr",
+            "name": "Heartsong Reclamation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "heartsong-reclamation-destroys-regalia-you-do-not-control-and-silvie-bonus-puts-five-buff-counters-on-animal-allies",
+                "heartsong-reclamation-gives-animal-allies-cleave-and-leaves-other-allies-alone",
+                "heartsong-reclamation-without-a-silvie-champion-puts-no-buff-counters-even-with-the-class-bonus"
+            ],
+            "semanticFixtures": [
+                "heartsong-reclamation-destroys-regalia-you-do-not-control-and-silvie-bonus-puts-five-buff-counters-on-animal-allies",
+                "heartsong-reclamation-gives-animal-allies-cleave-and-leaves-other-allies-alone",
+                "heartsong-reclamation-without-a-silvie-champion-puts-no-buff-counters-even-with-the-class-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53288,6 +53392,44 @@
             "priority": 31
         },
         {
+            "cardId": "89nl1vcn33",
+            "name": "Lycoria",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "lycoria-token-recollection-deals-one-unpreventable-damage-to-your-champion"
+            ],
+            "semanticFixtures": [
+                "lycoria-token-recollection-deals-one-unpreventable-damage-to-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "hbt487eux7",
+            "name": "Maiden of Primal Virtue",
+            "type": "PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "maiden-of-primal-virtue-gets-plus-one-power-and-life-for-each-phantasia-you-control"
+            ],
+            "semanticFixtures": [
+                "maiden-of-primal-virtue-gets-plus-one-power-and-life-for-each-phantasia-you-control"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "5joh300z2s",
             "name": "Manaroot",
             "type": "TOKEN,ITEM",
@@ -53417,6 +53559,25 @@
             "semanticFixtures": [
                 "nagas-fang-can-be-activated-again-for-another-plus-one-power",
                 "nagas-fang-removing-a-preparation-counter-gets-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ny1te7hcjm",
+            "name": "Natural Order",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "natural-order-puts-hand-and-memory-on-the-bottom-of-the-deck-and-preserved-cards-into-memory"
+            ],
+            "semanticFixtures": [
+                "natural-order-puts-hand-and-memory-on-the-bottom-of-the-deck-and-preserved-cards-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -54627,6 +54788,25 @@
                 "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
                 "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
                 "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "k5iv040vcq",
+            "name": "Washuru",
+            "type": "TOKEN,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "washuru-token-recollection-banishes-a-card-from-your-graveyard"
+            ],
+            "semanticFixtures": [
+                "washuru-token-recollection-banishes-a-card-from-your-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,21 @@
+{
+    "name": "lu-bu-indomitable-titan-wake-up-option-is-only-offered-on-its-first-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:14:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xyan7zbtxi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xyan7zbtxi"
+        ],
+        "mechanics": [
+            "on-attack",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If this is CARDNAME's first attack this turn"
+        ]
+    }
+}
