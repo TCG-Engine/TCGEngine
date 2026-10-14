@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two Animal cards from memory entered the field beside the champion"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Seven in memory (4 seeded + 3 paid) minus the two"
+    }
+]

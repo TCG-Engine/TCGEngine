@@ -1,0 +1,23 @@
+{
+    "name": "lumen-borealis-class-bonus-animal-allies-get-plus-one-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:59:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ejd9yj9rl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3ejd9yj9rl"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "static",
+            "stat-change",
+            "animal"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Animal allies you control get +1 [POWER] and +1 [LIFE]."
+        ]
+    }
+}

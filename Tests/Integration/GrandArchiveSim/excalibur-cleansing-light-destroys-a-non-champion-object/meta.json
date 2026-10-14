@@ -1,0 +1,21 @@
+{
+    "name": "excalibur-cleansing-light-destroys-a-non-champion-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:57:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qtRBz9azeZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qtRBz9azeZ"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Destroy target non-champion object."
+        ]
+    }
+}

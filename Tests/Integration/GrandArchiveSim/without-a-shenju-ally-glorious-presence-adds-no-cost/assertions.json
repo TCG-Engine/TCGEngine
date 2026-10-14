@@ -1,0 +1,11 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "theirGraveyard",
+        "cardID": "0ymvddv1au",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Paid only 2 and the luxem spell resolved"
+    }
+]

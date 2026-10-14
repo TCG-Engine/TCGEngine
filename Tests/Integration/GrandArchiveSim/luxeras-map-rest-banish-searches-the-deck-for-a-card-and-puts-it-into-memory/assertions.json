@@ -1,0 +1,29 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The chosen card was put into memory"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "s23UHXgcZq",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Map banished itself"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "One card left the deck (the rest was shuffled)"
+    }
+]

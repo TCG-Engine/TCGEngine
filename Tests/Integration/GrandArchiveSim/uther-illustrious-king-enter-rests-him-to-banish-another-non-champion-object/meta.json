@@ -1,0 +1,23 @@
+{
+    "name": "uther-illustrious-king-enter-rests-him-to-banish-another-non-champion-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:56:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5h8asbierp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5h8asbierp"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "banish",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may rest Uther. When you do, banish another target non-champion object."
+        ]
+    }
+}

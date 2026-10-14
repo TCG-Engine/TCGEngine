@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2126**
+Cards linked to an existing fixture: **2140**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **351**
+Implemented cards still needing semantic coverage: **337**
 
 ## Mechanic groups
 
@@ -41,7 +41,6 @@ Implemented cards still needing semantic coverage: **351**
 | Nightmare Coil (`3fe3c97s71`) | ACTION | 2 | damage, draw-discard, status, trigger, condition | — | — |
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
-| Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
@@ -67,7 +66,6 @@ Implemented cards still needing semantic coverage: **351**
 | Golden Checkmate (`KbE9R1mi3n`) | ATTACK | 2 | cost, combat, condition | — | — |
 | Heirloom of Libra (`MRiM1fnOWC`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement | — | — |
 | Lost Providence (`DNbIpzVgde`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, condition | — | — |
-| Luxera's Map (`s23UHXgcZq`) | REGALIA,ITEM | 2 | cost, zone-movement, status | — | — |
 | Palvor Sword (`wU3OvTrjEt`) | REGALIA,WEAPON | 2 | targeting, zone-movement, trigger | — | — |
 | Prima Materia (`vt9y597fqr`) | UNIQUE,ITEM | 2 | damage, draw-discard, condition | — | — |
 | Purified Shot (`dcgw05q66h`) | ITEM | 2 | targeting, damage, zone-movement | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **351**
 | Anointed Purifier (`mt1I9kfowQ`) | ALLY | 2 | targeting, zone-movement | — | — |
 | Celestial Calling (`izm6h38lrj`) | ACTION | 2 | cost, zone-movement | — | — |
 | Fabricator Slime (`rpELNyrSrM`) | ALLY | 2 | counter, token | — | — |
+| Jianyu, Fate's Premonition (`qv0vn6tuow`) | UNIQUE,PHANTASIA | 2 | cost, targeting | — | — |
+| Obsequious Blow (`macqlgvqo3`) | ATTACK | 2 | cost | — | — |

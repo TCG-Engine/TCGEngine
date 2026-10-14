@@ -1,0 +1,21 @@
+{
+    "name": "caliburn-of-silencing-without-the-class-bonus-the-hit-champion-keeps-its-abilities",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:56:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bA3tRrJr2T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bA3tRrJr2T"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:**"
+        ]
+    }
+}

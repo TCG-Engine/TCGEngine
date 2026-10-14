@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "0mz09ojy0t",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Hand 7 and memory 0 are different: the 5 damage killed him (4 life)"
+    }
+]

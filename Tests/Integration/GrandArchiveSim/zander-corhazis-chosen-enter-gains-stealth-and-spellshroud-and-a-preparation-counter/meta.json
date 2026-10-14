@@ -1,0 +1,23 @@
+{
+    "name": "zander-corhazis-chosen-enter-gains-stealth-and-spellshroud-and-a-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:54:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gSNyXOQ4Iw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gSNyXOQ4Iw"
+        ],
+        "mechanics": [
+            "on-enter",
+            "stealth",
+            "spellshroud",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter:** CARDNAME gains **stealth** and **spellshroud** until the beginning of your next turn. Put a **preparation** counter on CARDNAME."
+        ]
+    }
+}

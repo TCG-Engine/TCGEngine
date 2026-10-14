@@ -2989,6 +2989,38 @@ $activationCostModifierAbilities["JuKoCVIvCG:0"] = function($player, $subjectObj
     return 0;
 };
 
+// Uther, Illustrious King (5h8asbierp): the banished object was tagged with the TurnEffect UTHER_BANISHED, which expires at the end of the turn, so On Leave on any later turn
+// found nothing to return. The tag is now a counter (counters survive turn changes) and the return moves the card from its owner's banishment with that owner's perspective.
+$customDQHandlers["5h8asbierp:0:Enter-2"] = function($player, $parts, $lastDecision) {
+    $chosen = $lastDecision;
+    if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
+    $chosenObj = GetZoneObject($chosen);
+    if($chosenObj === null) return;
+    $ownerPlayer = $chosenObj->Owner;
+    OnLeaveField($player, $chosen);
+    $banishZone = ($ownerPlayer == $player) ? "myBanish" : "theirBanish";
+    $banishObj = MZMove($player, $chosen, $banishZone);
+    if($banishObj !== null) {
+        $banishObj->ClearTurnEffects();
+        if(!is_array($banishObj->Counters)) $banishObj->Counters = [];
+        $banishObj->Counters['utherBanished'] = 1;
+    }
+};
+$leaveFieldAbilities["5h8asbierp:0"] = function($player) {
+    for($p = 1; $p <= 2; ++$p) {
+        $banish = GetBanish($p);
+        for($bi = count($banish) - 1; $bi >= 0; --$bi) {
+            if($banish[$bi]->removed || !is_array($banish[$bi]->Counters) || !isset($banish[$bi]->Counters['utherBanished'])) continue;
+            $returnedObj = MZMove($p, "myBanish-" . $bi, "myField");
+            if($returnedObj !== null) {
+                unset($returnedObj->Counters['utherBanished']);
+                $returnedObj->Status = 1;
+            }
+            return;
+        }
+    }
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

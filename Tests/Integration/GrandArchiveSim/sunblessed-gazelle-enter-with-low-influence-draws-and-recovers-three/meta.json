@@ -1,0 +1,25 @@
+{
+    "name": "sunblessed-gazelle-enter-with-low-influence-draws-and-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:54:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ilomec3u3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ilomec3u3"
+        ],
+        "mechanics": [
+            "on-enter",
+            "influence",
+            "draw",
+            "recover",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter**: If your **influence** is three or less, draw a card and **recover 3**.",
+            "Sunblessed Gazelle gets +**X** [LIFE] where **X** is the **highest** influence among your opponents."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "caliburn-of-silencing-class-bonus-champion-hit-removes-the-hit-champions-abilities",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:55:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bA3tRrJr2T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bA3tRrJr2T"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-champion-hit",
+            "no-abilities"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** The hit champion loses all abilities until the beginning of your next turn."
+        ]
+    }
+}

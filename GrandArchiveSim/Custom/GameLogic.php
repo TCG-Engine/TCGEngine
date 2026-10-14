@@ -16566,6 +16566,8 @@ function ObjectCurrentHP($obj) {
             foreach($gyAllies as $gyMZ) {
                 $gyObj = GetZoneObject($gyMZ);
                 if($gyObj === null || $gyObj->removed) continue;
+                // "unique ally card": a Unique ally (it counted every distinct ally card name before).
+                if(!PropertyContains(CardType($gyObj->CardID), "UNIQUE")) continue;
                 $uniqueAllies[$gyObj->CardID] = true;
             }
             $cardLife += count($uniqueAllies) * 2;

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T02:53:05+00:00",
+    "generatedAt": "2026-10-14T03:04:04+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2126,
+        "cardsWithExistingFixtures": 2140,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 351,
+        "cardsNeedingSemanticCoverage": 337,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -308,25 +308,6 @@
                 "combat",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "5h8asbierp",
-            "name": "Uther, Illustrious King",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -766,23 +747,6 @@
                 "draw-discard",
                 "zone-movement",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "s23UHXgcZq",
-            "name": "Luxera's Map",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2066,24 +2030,6 @@
             "priority": 14
         },
         {
-            "cardId": "it9jbu4axg",
-            "name": "Felicitous Flock",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "aws20fsihd",
             "name": "Fervent Lancer",
             "type": "ALLY",
@@ -2678,24 +2624,6 @@
             "priority": 14
         },
         {
-            "cardId": "4ilomec3u3",
-            "name": "Sunblessed Gazelle",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "6Rb25k7OjY",
             "name": "Tempestuous Conviction",
             "type": "ACTION",
@@ -3162,23 +3090,6 @@
             "priority": 13
         },
         {
-            "cardId": "qtRBz9azeZ",
-            "name": "Excalibur, Cleansing Light",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "cicanyx695",
             "name": "Exsanguinating Wallop",
             "type": "ATTACK",
@@ -3222,23 +3133,6 @@
                 "cost",
                 "targeting",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "suo6gb0op3",
-            "name": "Fractured Crown",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3612,23 +3506,6 @@
             "mechanics": [
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "0mz09ojy0t",
-            "name": "Pang Tong, Young Phoenix",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4063,23 +3940,6 @@
             "priority": 13
         },
         {
-            "cardId": "gSNyXOQ4Iw",
-            "name": "Zander, Corhazi's Chosen",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "7JjxD8xRVq",
             "name": "Abnegation",
             "type": "ACTION",
@@ -4496,22 +4356,6 @@
             "priority": 12
         },
         {
-            "cardId": "5s2aumgjzn",
-            "name": "Glorious Presence",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "B9RzxSut57",
             "name": "Greater Boon of Astraeus",
             "type": "GREATER BOON",
@@ -4568,22 +4412,6 @@
             "mechanics": [
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "0ymvddv1au",
-            "name": "Illuminate Secrets",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5237,36 +5065,6 @@
             "priority": 11
         },
         {
-            "cardId": "bA3tRrJr2T",
-            "name": "Caliburn of Silencing",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "Au8eN2Jtuu",
-            "name": "Carnwennan, Shrouded Edge",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "vgu1C2Lw6e",
             "name": "Chamberlain Toad",
             "type": "ALLY",
@@ -5582,21 +5380,6 @@
             "priority": 11
         },
         {
-            "cardId": "6ddfdn8y9f",
-            "name": "Illuminating Charge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "iozkgfx68u",
             "name": "iozkgfx68u",
             "type": "",
@@ -5679,21 +5462,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "3ejd9yj9rl",
-            "name": "Lumen Borealis",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21909,6 +21677,31 @@
             "priority": 45
         },
         {
+            "cardId": "5h8asbierp",
+            "name": "Uther, Illustrious King",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "uther-illustrious-king-enter-rests-him-to-banish-another-non-champion-object",
+                "uther-illustrious-king-on-leave-returns-the-banished-object-rested"
+            ],
+            "semanticFixtures": [
+                "uther-illustrious-king-enter-rests-him-to-banish-another-non-champion-object",
+                "uther-illustrious-king-on-leave-returns-the-banished-object-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "nbznVwdylT",
             "name": "Aenean Swelling Gusts",
             "type": "ACTION",
@@ -24074,6 +23867,29 @@
             ],
             "semanticFixtures": [
                 "lucenia-reign-pays-two-and-discards-a-chessman-command-as-the-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "s23UHXgcZq",
+            "name": "Luxera's Map",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "luxeras-map-ability-cannot-be-activated-at-fast-speed",
+                "luxeras-map-rest-banish-searches-the-deck-for-a-card-and-puts-it-into-memory"
+            ],
+            "semanticFixtures": [
+                "luxeras-map-ability-cannot-be-activated-at-fast-speed",
+                "luxeras-map-rest-banish-searches-the-deck-for-a-card-and-puts-it-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -31219,6 +31035,30 @@
             "priority": 34
         },
         {
+            "cardId": "it9jbu4axg",
+            "name": "Felicitous Flock",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "felicitous-flock-element-and-class-bonus-revealing-it-from-memory-summons-a-buffed-intercepting-fledgling",
+                "felicitous-flock-without-the-bonuses-revealing-it-summons-nothing"
+            ],
+            "semanticFixtures": [
+                "felicitous-flock-element-and-class-bonus-revealing-it-from-memory-summons-a-buffed-intercepting-fledgling",
+                "felicitous-flock-without-the-bonuses-revealing-it-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "wc8tuhuy4x",
             "name": "Fiery Duelist",
             "type": "ALLY",
@@ -34750,6 +34590,30 @@
             "priority": 34
         },
         {
+            "cardId": "4ilomec3u3",
+            "name": "Sunblessed Gazelle",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sunblessed-gazelle-enter-with-higher-influence-does-nothing",
+                "sunblessed-gazelle-enter-with-low-influence-draws-and-recovers-three"
+            ],
+            "semanticFixtures": [
+                "sunblessed-gazelle-enter-with-higher-influence-does-nothing",
+                "sunblessed-gazelle-enter-with-low-influence-draws-and-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "qhBecpDUO9",
             "name": "Supernova Divination",
             "type": "UNIQUE,PHANTASIA",
@@ -37867,6 +37731,29 @@
             "priority": 33
         },
         {
+            "cardId": "qtRBz9azeZ",
+            "name": "Excalibur, Cleansing Light",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "excalibur-cleansing-light-class-bonus-chosen-elements-cannot-be-activated-until-your-next-turn",
+                "excalibur-cleansing-light-destroys-a-non-champion-object"
+            ],
+            "semanticFixtures": [
+                "excalibur-cleansing-light-class-bonus-chosen-elements-cannot-be-activated-until-your-next-turn",
+                "excalibur-cleansing-light-destroys-a-non-champion-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "u1a1s4ys44",
             "name": "Excalibur, Reflected Edge",
             "type": "UNIQUE,WEAPON",
@@ -38253,6 +38140,31 @@
             ],
             "semanticFixtures": [
                 "four-of-hearts-cardistry-draws-into-memory-and-puts-a-suited-ally-onto-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "suo6gb0op3",
+            "name": "Fractured Crown",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fractured-crown-class-bonus-linked-champion-gets-plus-two-life-per-unique-ally-in-the-graveyard",
+                "fractured-crown-linked-champions-first-attack-gets-plus-two-power",
+                "fractured-crown-without-the-class-bonus-the-linked-champion-has-its-base-life"
+            ],
+            "semanticFixtures": [
+                "fractured-crown-class-bonus-linked-champion-gets-plus-two-life-per-unique-ally-in-the-graveyard",
+                "fractured-crown-linked-champions-first-attack-gets-plus-two-power",
+                "fractured-crown-without-the-class-bonus-the-linked-champion-has-its-base-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40037,6 +39949,29 @@
                 "palace-guard-class-bonus-retort-two-retaliates-for-two-extra-power",
                 "palace-guard-taunt-protects-the-champion",
                 "palace-guard-without-the-class-bonus-retaliates-for-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "0mz09ojy0t",
+            "name": "Pang Tong, Young Phoenix",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pang-tong-young-phoenix-balance-prevents-all-but-three-damage",
+                "pang-tong-young-phoenix-without-balance-takes-the-full-damage"
+            ],
+            "semanticFixtures": [
+                "pang-tong-young-phoenix-balance-prevents-all-but-three-damage",
+                "pang-tong-young-phoenix-without-balance-takes-the-full-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43030,6 +42965,27 @@
             "priority": 33
         },
         {
+            "cardId": "gSNyXOQ4Iw",
+            "name": "Zander, Corhazi's Chosen",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "zander-corhazis-chosen-enter-gains-stealth-and-spellshroud-and-a-preparation-counter"
+            ],
+            "semanticFixtures": [
+                "zander-corhazis-chosen-enter-gains-stealth-and-spellshroud-and-a-preparation-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "el7cwdzin7",
             "name": "Zhang Jiao, Way of Peace",
             "type": "UNIQUE,ALLY",
@@ -45603,6 +45559,30 @@
             "priority": 32
         },
         {
+            "cardId": "5s2aumgjzn",
+            "name": "Glorious Presence",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "glorious-presence-paying-only-the-printed-cost-is-not-enough",
+                "glorious-presence-with-a-shenju-ally-opposing-advanced-element-cards-cost-two-more",
+                "without-a-shenju-ally-glorious-presence-adds-no-cost"
+            ],
+            "semanticFixtures": [
+                "glorious-presence-paying-only-the-printed-cost-is-not-enough",
+                "glorious-presence-with-a-shenju-ally-opposing-advanced-element-cards-cost-two-more",
+                "without-a-shenju-ally-glorious-presence-adds-no-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "dJlNMQ5rWP",
             "name": "Golden Knight",
             "type": "ALLY",
@@ -45995,6 +45975,26 @@
             "semanticFixtures": [
                 "hydrocask-droid-enter-with-a-floating-memory-card-in-the-graveyard-gets-plus-two-power",
                 "hydrocask-droid-enter-without-a-floating-memory-card-keeps-its-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "0ymvddv1au",
+            "name": "Illuminate Secrets",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "illuminate-secrets-deals-damage-equal-to-the-owners-influence-minus-yours"
+            ],
+            "semanticFixtures": [
+                "illuminate-secrets-deals-damage-equal-to-the-owners-influence-minus-yours"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50812,6 +50812,27 @@
             "priority": 31
         },
         {
+            "cardId": "bA3tRrJr2T",
+            "name": "Caliburn of Silencing",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "caliburn-of-silencing-class-bonus-champion-hit-removes-the-hit-champions-abilities",
+                "caliburn-of-silencing-without-the-class-bonus-the-hit-champion-keeps-its-abilities"
+            ],
+            "semanticFixtures": [
+                "caliburn-of-silencing-class-bonus-champion-hit-removes-the-hit-champions-abilities",
+                "caliburn-of-silencing-without-the-class-bonus-the-hit-champion-keeps-its-abilities"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "v1au7t9m4m",
             "name": "Capricious Lynx",
             "type": "ALLY",
@@ -50850,6 +50871,27 @@
             ],
             "semanticFixtures": [
                 "cardinal-of-divine-rite-angel-cards-cannot-become-imbued"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "Au8eN2Jtuu",
+            "name": "Carnwennan, Shrouded Edge",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "carnwennan-shrouded-edge-class-bonus-attacks-cannot-be-retaliated",
+                "carnwennan-shrouded-edge-without-the-class-bonus-the-target-retaliates"
+            ],
+            "semanticFixtures": [
+                "carnwennan-shrouded-edge-class-bonus-attacks-cannot-be-retaliated",
+                "carnwennan-shrouded-edge-without-the-class-bonus-the-target-retaliates"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52302,6 +52344,25 @@
             "priority": 31
         },
         {
+            "cardId": "6ddfdn8y9f",
+            "name": "Illuminating Charge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "illuminating-charge-reveals-memory-and-puts-up-to-two-animal-cards-onto-the-field"
+            ],
+            "semanticFixtures": [
+                "illuminating-charge-reveals-memory-and-puts-up-to-two-animal-cards-onto-the-field"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "by8145w2u2",
             "name": "Imperial Seal",
             "type": "REGALIA,ITEM",
@@ -52848,6 +52909,27 @@
             ],
             "semanticFixtures": [
                 "lumbering-steed-hindered-enters-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "3ejd9yj9rl",
+            "name": "Lumen Borealis",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lumen-borealis-class-bonus-animal-allies-get-plus-one-power-and-life",
+                "lumen-borealis-enter-may-reveal-a-card-from-memory"
+            ],
+            "semanticFixtures": [
+                "lumen-borealis-class-bonus-animal-allies-get-plus-one-power-and-life",
+                "lumen-borealis-enter-may-reveal-a-card-from-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

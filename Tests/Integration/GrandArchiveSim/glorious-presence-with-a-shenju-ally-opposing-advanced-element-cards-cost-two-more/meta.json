@@ -1,0 +1,22 @@
+{
+    "name": "glorious-presence-with-a-shenju-ally-opposing-advanced-element-cards-cost-two-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:03:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5s2aumgjzn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5s2aumgjzn"
+        ],
+        "mechanics": [
+            "static",
+            "cost-increase",
+            "shenju"
+        ],
+        "rulesClauses": [
+            "As long as you control a Shenju ally, advanced element cards your opponents activate cost 2 more to activate."
+        ]
+    }
+}

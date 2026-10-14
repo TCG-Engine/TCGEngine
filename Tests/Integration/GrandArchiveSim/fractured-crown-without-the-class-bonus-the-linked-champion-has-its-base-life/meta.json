@@ -1,0 +1,22 @@
+{
+    "name": "fractured-crown-without-the-class-bonus-the-linked-champion-has-its-base-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:01:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "suo6gb0op3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "suo6gb0op3"
+        ],
+        "mechanics": [
+            "champion-link",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Linked champion's first attack each turn gets +2 [POWER]. **Class Bonus:** That champion also gets +2 [LIFE] for each unique ally card in your graveyard."
+        ]
+    }
+}

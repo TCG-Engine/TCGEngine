@@ -1,0 +1,22 @@
+{
+    "name": "carnwennan-shrouded-edge-without-the-class-bonus-the-target-retaliates",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:55:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Au8eN2Jtuu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Au8eN2Jtuu"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "retaliate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Attacks using CARDNAME can't be retaliated."
+        ]
+    }
+}

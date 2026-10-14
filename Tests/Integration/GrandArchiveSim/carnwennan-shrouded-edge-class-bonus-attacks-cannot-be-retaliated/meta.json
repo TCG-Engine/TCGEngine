@@ -1,0 +1,22 @@
+{
+    "name": "carnwennan-shrouded-edge-class-bonus-attacks-cannot-be-retaliated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:55:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Au8eN2Jtuu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Au8eN2Jtuu"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "retaliate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Attacks using CARDNAME can't be retaliated."
+        ]
+    }
+}

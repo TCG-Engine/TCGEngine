@@ -1849,6 +1849,8 @@ function OnAttackTrigger($player, $mzID) {
         foreach($intentCards as $iMZ) {
             AddTurnEffect($iMZ, "suo6gb0op3");
         }
+        // A weapon attack has no attack card in the intent: the bonus goes on the champion itself (as Servile Possessions does).
+        if(empty($intentCards)) AddTurnEffect($mzID, "suo6gb0op3");
     }
 
     // Tonoris, Might of Humanity (yevpmu6gvn): next attack +3 POWER — consume and apply
@@ -4426,8 +4428,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count
     if($targetObj->CardID === "0mz09ojy0t" && !HasNoAbilities($targetObj) && $amount > 3) {
         $ptController = $targetObj->Controller ?? $player;
-        $handCount = count(array_filter(GetZone($ptController == 1 ? "myHand" : "theirHand"), fn($c) => !$c->removed));
-        $memCount = count(array_filter(GetZone($ptController == 1 ? "myMemory" : "theirMemory"), fn($c) => !$c->removed));
+        // GetHand/GetMemory take the player directly; the old "myHand"/"theirHand" pick assumed the viewer was player 1 and compared the wrong player's zones on player 2's turn.
+        $handCount = count(array_filter(GetHand($ptController), fn($c) => !$c->removed));
+        $memCount = count(array_filter(GetMemory($ptController), fn($c) => !$c->removed));
         if($handCount === $memCount) {
             $amount = 3;
         }
@@ -5143,8 +5146,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $field = GetField($targetController);
         foreach($field as $idx => $fieldObj) {
             if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "tsvbgl6ffq" || HasNoAbilities($fieldObj)) continue;
-            $majesticMZ = ($targetController == 1 ? "myField-" : "theirField-") . $idx;
-            if($majesticMZ === $targetMZ) continue;
+            // "Another" object: compare the objects themselves (the old string compare built the zone name as if the viewer were player 1).
+            if($fieldObj === $targetObj || (isset($fieldObj->UniqueID, $targetObj->UniqueID) && $fieldObj->UniqueID === $targetObj->UniqueID)) continue;
             $amount = intdiv($amount, 2);
             if($amount <= 0) {
                 $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
