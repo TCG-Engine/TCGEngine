@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-if (!in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true)) { http_response_code(403); exit('Local simulator only'); }
 header('Cache-Control: no-store');
 require_once __DIR__ . '/Custom/GameLogic.php';
 $galleryData = ['cards' => array_values(array_map('DFGCardPublic', DFGCatalog())), 'colors' => DFG_STYLES];

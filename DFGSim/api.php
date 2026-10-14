@@ -4,7 +4,6 @@ ini_set('display_errors', '0');
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
-if (!in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true)) { http_response_code(403); echo '{"ok":false,"error":"Local simulator only"}'; exit; }
 require_once __DIR__ . '/Bot/HeuristicBot.php';
 try {
     session_name('DFGSimLocal');

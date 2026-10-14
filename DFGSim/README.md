@@ -1,4 +1,4 @@
-# Deterministic Fighting Game — local simulator
+# Deterministic Fighting Game — simulator
 
 Playable human-versus-bot prototype with the 36-card Core Set from the hosted card editor.
 No database, hosted editor connection, API token, npm build, or generated engine files are needed
@@ -18,7 +18,8 @@ Alternatively, from the repository root:
 php -S 127.0.0.1:8786 -t DFGSim
 ```
 
-Then open `http://127.0.0.1:8786/`. The pages and API reject non-loopback clients. PHP 8.1+ is required.
+Then open `http://127.0.0.1:8786/`. The pages and API also support hosted access at the site's
+`/TCGEngine/DFGSim/` path. PHP 8.1+ is required.
 The match persists in a dedicated PHP session across refreshes; cookies must be enabled. Only one
 match is stored per browser session. New match replaces it. Two tabs share the match; stale actions
 are rejected rather than silently applied to a different round or reset match.

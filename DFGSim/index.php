@@ -1,7 +1,6 @@
 <?php
-if (!in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true)) { http_response_code(403); exit('Local simulator only'); }
 ?><!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deterministic Fighting Game · Local simulator</title><link rel="stylesheet" href="app.css?v=<?= filemtime(__DIR__ . '/app.css') ?>"><link rel="stylesheet" href="compact.css?v=<?= filemtime(__DIR__ . '/compact.css') ?>"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deterministic Fighting Game · Simulator</title><link rel="stylesheet" href="app.css?v=<?= filemtime(__DIR__ . '/app.css') ?>"><link rel="stylesheet" href="compact.css?v=<?= filemtime(__DIR__ . '/compact.css') ?>"></head>
 <body>
 <header class="topbar"><a class="brand" href="./"><span class="brand-mark">DFG</span><span>Deterministic Fighting Game</span></a><div class="match-actions"><a class="text-button gallery-link" href="gallery.php">Card gallery</a><button id="showRules" class="text-button" aria-haspopup="dialog" aria-expanded="false">Rules</button><button id="resign" class="text-button" hidden>Resign match</button><button id="newMatch">New match</button></div></header>
 <main class="shell">
