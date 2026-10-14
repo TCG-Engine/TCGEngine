@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2153**
+Cards linked to an existing fixture: **2179**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **324**
+Implemented cards still needing semantic coverage: **298**
 
 ## Mechanic groups
 
@@ -26,12 +26,9 @@ Implemented cards still needing semantic coverage: **324**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
-| Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
-| Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
@@ -52,7 +49,6 @@ Implemented cards still needing semantic coverage: **324**
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
 | Spectral Haunting (`Dtr3jPRAFJ`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | — |
-| Zhao Yun, Dragonsblood (`mwfrfo3wzq`) | UNIQUE,ALLY | 2 | damage, combat, trigger, condition | — | — |
 | Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
 | Arisanna, Lucent Arbiter (`7e22tk3ir1`) | CHAMPION | 2 | cost, targeting, condition | — | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **324**
 | Obsequious Blow (`macqlgvqo3`) | ATTACK | 2 | cost | — | — |
 | Aenean Crystallization (`YDjxpBd8Fm`) | ACTION | 1 | targeting, zone-movement, status, token, condition | — | — |
 | Atmos Shield (`80yu75k0hl`) | TOKEN,ALLY | 1 | targeting, damage, prevention, combat, trigger | — | — |
+| Beguiling Coup (`q1b6htzcox`) | ATTACK | 1 | cost, targeting, zone-movement, counter, combat, trigger, condition | — | — |
+| Buffeting Hurricane (`CjL1WPvWHw`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | — | — |
+| Cataleptic Constellation (`lflzwiiewz`) | PHANTASIA | 1 | targeting, status, token, trigger, condition | — | — |
+| Cauterizing Seraphim (`TYlWgIYsq3`) | ALLY | 1 | cost, damage, status, trigger, condition | — | — |

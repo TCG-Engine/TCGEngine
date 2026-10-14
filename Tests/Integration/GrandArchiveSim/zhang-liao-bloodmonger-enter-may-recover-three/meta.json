@@ -1,0 +1,22 @@
+{
+    "name": "zhang-liao-bloodmonger-enter-may-recover-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:19:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w822tmc0yc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w822tmc0yc"
+        ],
+        "mechanics": [
+            "on-enter",
+            "recover",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Enter**: You may **recover 3**."
+        ]
+    }
+}

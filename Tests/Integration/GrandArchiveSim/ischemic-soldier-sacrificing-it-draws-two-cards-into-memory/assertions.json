@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Sacrificed as the Ritual's cost: two cards drawn into memory"
+    }
+]

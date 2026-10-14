@@ -1,0 +1,22 @@
+{
+    "name": "limitless-defiance-banishes-the-top-card-of-the-deck-for-each-damage-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:08:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9gRhhR0bGR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9gRhhR0bGR"
+        ],
+        "mechanics": [
+            "banish",
+            "damage-scaling",
+            "deck"
+        ],
+        "rulesClauses": [
+            "For each damage counter on your champion, banish the top card of your deck."
+        ]
+    }
+}

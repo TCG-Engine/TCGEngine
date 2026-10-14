@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T03:13:06+00:00",
+    "generatedAt": "2026-10-14T07:13:23+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2153,
+        "cardsWithExistingFixtures": 2179,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 324,
+        "cardsNeedingSemanticCoverage": 298,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,25 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "5xjzPh6l2M",
-            "name": "Cardiac Vessel",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 35
-        },
         {
             "cardId": "p2n1953som",
             "name": "Spirelle, Schwartz Queen",
@@ -96,44 +77,6 @@
                 "targeting",
                 "zone-movement",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "0dsdojl6l3",
-            "name": "Crimson Prescience",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "qeZRvGbXkF",
-            "name": "Crimson Rupture",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -505,24 +448,6 @@
                 "cost",
                 "targeting",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "mwfrfo3wzq",
-            "name": "Zhao Yun, Dragonsblood",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1268,25 +1193,6 @@
             "priority": 15
         },
         {
-            "cardId": "9gRhhR0bGR",
-            "name": "Limitless Defiance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "counter",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "xyan7zbtxi",
             "name": "Lu Bu, Indomitable Titan",
             "type": "UNIQUE,ALLY",
@@ -1537,25 +1443,6 @@
             "priority": 15
         },
         {
-            "cardId": "7qWYuRNoYI",
-            "name": "Transfusive Aura",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "6emPe9OEUn",
             "name": "Treacle, Drowned Mouse",
             "type": "UNIQUE,ALLY",
@@ -1641,25 +1528,6 @@
                 "cost",
                 "counter",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "w822tmc0yc",
-            "name": "Zhang Liao, Bloodmonger",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "draw-discard",
                 "trigger",
                 "condition"
             ],
@@ -1922,24 +1790,6 @@
             "priority": 14
         },
         {
-            "cardId": "JQQXhhIla9",
-            "name": "Embryonic Hemosynth",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "GGRtLQgaYU",
             "name": "Eminent Lethargy",
             "type": "ACTION",
@@ -2138,24 +1988,6 @@
             "priority": 14
         },
         {
-            "cardId": "ntnm81369o",
-            "name": "Huaji of Abyssal Fall",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "dfchplzf6m",
             "name": "Ingress of Sanguine Ire",
             "type": "ACTION",
@@ -2300,24 +2132,6 @@
             "priority": 14
         },
         {
-            "cardId": "wAabqFjdM5",
-            "name": "Plasma Vanguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "lhtiymuyv3",
             "name": "Possessed Remnant",
             "type": "ALLY",
@@ -2418,24 +2232,6 @@
                 "damage",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "iZRVjvAZVG",
-            "name": "Siphoning Stab",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2570,24 +2366,6 @@
             "priority": 14
         },
         {
-            "cardId": "wjaq7t8vbf",
-            "name": "Wrathful Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "xpb20rar4k",
             "name": "Xuchang, Frozen Citadel",
             "type": "UNIQUE,DOMAIN",
@@ -2604,23 +2382,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 14
-        },
-        {
-            "cardId": "pvzvqx16w4",
-            "name": "Annihilation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
         },
         {
             "cardId": "iqs2hipwsc",
@@ -2649,57 +2410,6 @@
                 "targeting",
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "g23WBQW2Ro",
-            "name": "Blood Dragon's Pact",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "3zvDCFRaoH",
-            "name": "Bloodseeker Magus",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "6vzr7yc6vi",
-            "name": "Bloodshroud Temper",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2751,23 +2461,6 @@
                 "cost",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "epwl2vqikh",
-            "name": "Conduit of Bloodfire",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3329,23 +3022,6 @@
                 "recover",
                 "draw-discard",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "rRfRKqCBqF",
-            "name": "Perfusive Envelopment",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4223,22 +3899,6 @@
             "priority": 12
         },
         {
-            "cardId": "Hb9JCa6lM5",
-            "name": "Ischemic Soldier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WLPf8QTdsP",
             "name": "Lesser Boon of Knox",
             "type": "LESSER BOON",
@@ -4399,22 +4059,6 @@
             "priority": 12
         },
         {
-            "cardId": "5mnvohcd0o",
-            "name": "Savage Sunder",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "oz23yfzk96",
             "name": "Scry the Stars",
             "type": "ACTION",
@@ -4567,54 +4211,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "TfBuA9PUAO",
-            "name": "Umbilical Ritual",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "Tt2Ew9RmIt",
-            "name": "Varicose Amplification",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "WaoGzrPGyd",
-            "name": "Vascular Collapse",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4941,21 +4537,6 @@
             "priority": 11
         },
         {
-            "cardId": "ZfgRLDRGzJ",
-            "name": "Devil's Lifeline",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "qp2r93Bgpj",
             "name": "Diana, Haunt Reminiscence",
             "type": "UNIQUE,ALLY",
@@ -5203,36 +4784,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "l5izukgdmh",
-            "name": "Lu Bu, Wrath Incarnate",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "pkp61yhi4k",
-            "name": "Lu Bu, Wrath Incarnate",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -20690,6 +20241,29 @@
             "priority": 70
         },
         {
+            "cardId": "5xjzPh6l2M",
+            "name": "Cardiac Vessel",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cardiac-vessel-class-bonus-moves-all-damage-counters-onto-it-and-draws-with-fifteen-or-more"
+            ],
+            "semanticFixtures": [
+                "cardiac-vessel-class-bonus-moves-all-damage-counters-onto-it-and-draws-with-fifteen-or-more"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 55
+        },
+        {
             "cardId": "Bq2kynKJvx",
             "name": "Golden Measure Patisserie",
             "type": "UNIQUE,DOMAIN",
@@ -21075,6 +20649,56 @@
             ],
             "semanticFixtures": [
                 "combustible-potion-played-for-reserve-enters-without-its-brew-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "0dsdojl6l3",
+            "name": "Crimson Prescience",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crimson-prescience-prevents-damage-from-sources-with-the-chosen-name",
+                "without-crimson-prescience-the-dungeon-guide-hits-the-champion"
+            ],
+            "semanticFixtures": [
+                "crimson-prescience-prevents-damage-from-sources-with-the-chosen-name",
+                "without-crimson-prescience-the-dungeon-guide-hits-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "qeZRvGbXkF",
+            "name": "Crimson Rupture",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crimson-rupture-below-twenty-damage-costs-its-full-three",
+                "crimson-rupture-damage-twenty-costs-two-less-and-destroys-an-item-or-weapon"
+            ],
+            "semanticFixtures": [
+                "crimson-rupture-below-twenty-damage-costs-its-full-three",
+                "crimson-rupture-damage-twenty-costs-two-less-and-destroys-an-item-or-weapon"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -22876,6 +22500,28 @@
                 "wuthering-sforzando-class-bonus-after-a-melody-costs-three-less-and-gives-the-next-attack-plus-six",
                 "wuthering-sforzando-class-bonus-without-a-melody-pays-the-full-seven",
                 "wuthering-sforzando-without-the-class-bonus-a-melody-does-not-reduce-the-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "mwfrfo3wzq",
+            "name": "Zhao Yun, Dragonsblood",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zhao-yun-dragonsblood-class-bonus-on-attack-trades-two-damage-for-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "zhao-yun-dragonsblood-class-bonus-on-attack-trades-two-damage-for-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27263,6 +26909,29 @@
             "priority": 35
         },
         {
+            "cardId": "9gRhhR0bGR",
+            "name": "Limitless Defiance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "counter",
+                "combat"
+            ],
+            "existingFixtures": [
+                "limitless-defiance-banishes-the-top-card-of-the-deck-for-each-damage-counter-on-your-champion"
+            ],
+            "semanticFixtures": [
+                "limitless-defiance-banishes-the-top-card-of-the-deck-for-each-damage-counter-on-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "gN8uFKSip0",
             "name": "Lost Promises",
             "type": "ACTION",
@@ -28500,6 +28169,31 @@
             "priority": 35
         },
         {
+            "cardId": "7qWYuRNoYI",
+            "name": "Transfusive Aura",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "transfusive-aura-damage-twenty-recover-becomes-two-plus-the-amount",
+                "transfusive-aura-enter-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "transfusive-aura-damage-twenty-recover-becomes-two-plus-the-amount",
+                "transfusive-aura-enter-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "y5koddlyv8",
             "name": "Undying Dreams",
             "type": "ACTION",
@@ -28920,6 +28614,31 @@
             "semanticFixtures": [
                 "young-beastbonder-class-bonus-enter-puts-one-buff-counter-on-a-non-beast",
                 "young-beastbonder-class-bonus-enter-puts-two-buff-counters-on-a-beast"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "w822tmc0yc",
+            "name": "Zhang Liao, Bloodmonger",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zhang-liao-bloodmonger-class-bonus-recollection-with-no-damage-deals-twenty-to-your-champion-and-draws-three",
+                "zhang-liao-bloodmonger-enter-may-recover-three"
+            ],
+            "semanticFixtures": [
+                "zhang-liao-bloodmonger-class-bonus-recollection-with-no-damage-deals-twenty-to-your-champion-and-draws-three",
+                "zhang-liao-bloodmonger-enter-may-recover-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30460,6 +30179,28 @@
             "priority": 34
         },
         {
+            "cardId": "JQQXhhIla9",
+            "name": "Embryonic Hemosynth",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "embryonic-hemosynth-class-bonus-enters-with-a-bulwark-counter"
+            ],
+            "semanticFixtures": [
+                "embryonic-hemosynth-class-bonus-enters-with-a-bulwark-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "xhs5jwsl7d",
             "name": "Enchaining Gale",
             "type": "ACTION",
@@ -31794,6 +31535,28 @@
             "priority": 34
         },
         {
+            "cardId": "ntnm81369o",
+            "name": "Huaji of Abyssal Fall",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "XikXt8WyNp",
             "name": "Huang Zhong, Unerring Aim",
             "type": "UNIQUE,ALLY",
@@ -32876,6 +32639,30 @@
                 "piccarda-decline-further-static-removal-pays-rest-of-cost",
                 "piccarda-night-rider-class-bonus-spellshroud-assassin-champion-spell-cannot-target-her",
                 "piccarda-night-rider-class-bonus-spellshroud-ranger-champion-spell-can-target-her"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "wAabqFjdM5",
+            "name": "Plasma Vanguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plasma-vanguard-class-bonus-with-eleven-damage-gets-no-buff-counters",
+                "plasma-vanguard-class-bonus-with-ten-or-less-damage-enters-with-three-buff-counters"
+            ],
+            "semanticFixtures": [
+                "plasma-vanguard-class-bonus-with-eleven-damage-gets-no-buff-counters",
+                "plasma-vanguard-class-bonus-with-ten-or-less-damage-enters-with-three-buff-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33995,6 +33782,30 @@
             ],
             "semanticFixtures": [
                 "singed-emotions-sets-up-the-level-up-punisher"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "iZRVjvAZVG",
+            "name": "Siphoning Stab",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "siphoning-stab-class-bonus-with-a-polearm-weapon-recovers-the-damage-dealt",
+                "siphoning-stab-without-a-polearm-weapon-recovers-nothing"
+            ],
+            "semanticFixtures": [
+                "siphoning-stab-class-bonus-with-a-polearm-weapon-recovers-the-damage-dealt",
+                "siphoning-stab-without-a-polearm-weapon-recovers-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -35382,6 +35193,28 @@
             "priority": 34
         },
         {
+            "cardId": "wjaq7t8vbf",
+            "name": "Wrathful Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wrathful-slime-class-bonus-enter-puts-a-buff-counter-per-five-damage-counters"
+            ],
+            "semanticFixtures": [
+                "wrathful-slime-class-bonus-enter-puts-a-buff-counter-per-five-damage-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "09axbotwlz",
             "name": "Zhang He, Cloak of Night",
             "type": "UNIQUE,ALLY",
@@ -35730,6 +35563,27 @@
             ],
             "semanticFixtures": [
                 "amorphous-missile-loads-itself-into-an-unloaded-ranger-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pvzvqx16w4",
+            "name": "Annihilation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36416,6 +36270,73 @@
             "priority": 33
         },
         {
+            "cardId": "g23WBQW2Ro",
+            "name": "Blood Dragon's Pact",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blood-dragons-pact-linked-ally-gets-plus-four-and-the-end-phase-deals-four-to-your-champion"
+            ],
+            "semanticFixtures": [
+                "blood-dragons-pact-linked-ally-gets-plus-four-and-the-end-phase-deals-four-to-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "3zvDCFRaoH",
+            "name": "Bloodseeker Magus",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bloodseeker-magus-damage-twenty-ephemerate-one-activates-it-from-the-graveyard",
+                "bloodseeker-magus-enter-deals-three-unpreventable-damage-to-your-champion"
+            ],
+            "semanticFixtures": [
+                "bloodseeker-magus-damage-twenty-ephemerate-one-activates-it-from-the-graveyard",
+                "bloodseeker-magus-enter-deals-three-unpreventable-damage-to-your-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "6vzr7yc6vi",
+            "name": "Bloodshroud Temper",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bloodshroud-temper-below-twenty-damage-gives-no-durability-counters",
+                "bloodshroud-temper-gives-a-weapon-omnishroud-and-with-damage-twenty-two-durability-counters"
+            ],
+            "semanticFixtures": [
+                "bloodshroud-temper-below-twenty-damage-gives-no-durability-counters",
+                "bloodshroud-temper-gives-a-weapon-omnishroud-and-with-damage-twenty-two-durability-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "hWgb4jDmEg",
             "name": "Breezy Looper",
             "type": "ALLY",
@@ -36908,6 +36829,27 @@
                 "condemning-evisceration-prepare-1-declined-no-banish-offer",
                 "condemning-evisceration-prepare-1-paid-banish-floating-deals-4-more",
                 "condemning-evisceration-prepare-1-paid-skip-banish-no-extra-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "epwl2vqikh",
+            "name": "Conduit of Bloodfire",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "conduit-of-bloodfire-enter-removes-the-opposing-champions-damage-and-gains-a-buff-per-four"
+            ],
+            "semanticFixtures": [
+                "conduit-of-bloodfire-enter-removes-the-opposing-champions-damage-and-gains-a-buff-per-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40021,6 +39963,31 @@
             ],
             "semanticFixtures": [
                 "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "rRfRKqCBqF",
+            "name": "Perfusive Envelopment",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "perfusive-envelopment-a-sacrificed-ally-adds-a-blood-counter",
+                "perfusive-envelopment-enters-with-a-blood-counter",
+                "perfusive-envelopment-recollection-recovers-the-amount-of-blood-counters"
+            ],
+            "semanticFixtures": [
+                "perfusive-envelopment-a-sacrificed-ally-adds-a-blood-counter",
+                "perfusive-envelopment-enters-with-a-blood-counter",
+                "perfusive-envelopment-recollection-recovers-the-amount-of-blood-counters"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46263,6 +46230,26 @@
             "priority": 32
         },
         {
+            "cardId": "Hb9JCa6lM5",
+            "name": "Ischemic Soldier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ischemic-soldier-sacrificing-it-draws-two-cards-into-memory"
+            ],
+            "semanticFixtures": [
+                "ischemic-soldier-sacrificing-it-draws-two-cards-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "c3plbuv3fr",
             "name": "Jueying, Shadowmare",
             "type": "UNIQUE,ALLY",
@@ -48273,6 +48260,30 @@
             "priority": 32
         },
         {
+            "cardId": "5mnvohcd0o",
+            "name": "Savage Sunder",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "combat"
+            ],
+            "existingFixtures": [
+                "savage-sunder-class-bonus-floating-memory-pays-a-memory-cost",
+                "savage-sunder-class-bonus-on-hit-recovers-five",
+                "savage-sunder-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "savage-sunder-class-bonus-floating-memory-pays-a-memory-cost",
+                "savage-sunder-class-bonus-on-hit-recovers-five",
+                "savage-sunder-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "swy2NJ4q6O",
             "name": "Scarlet Tassel",
             "type": "REGALIA,ITEM",
@@ -49692,6 +49703,28 @@
             "priority": 32
         },
         {
+            "cardId": "TfBuA9PUAO",
+            "name": "Umbilical Ritual",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover"
+            ],
+            "existingFixtures": [
+                "umbilical-ritual-cannot-be-activated-without-an-ally-to-sacrifice",
+                "umbilical-ritual-sacrifices-an-ally-as-the-additional-cost-to-recover-four-and-empower-four"
+            ],
+            "semanticFixtures": [
+                "umbilical-ritual-cannot-be-activated-without-an-ally-to-sacrifice",
+                "umbilical-ritual-sacrifices-an-ally-as-the-additional-cost-to-recover-four-and-empower-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "Nr5GpfLNrh",
             "name": "Uncanny Realization",
             "type": "ATTACK",
@@ -49836,6 +49869,28 @@
             "priority": 32
         },
         {
+            "cardId": "Tt2Ew9RmIt",
+            "name": "Varicose Amplification",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "varicose-amplification-damage-to-your-champion-adds-that-many-blood-counters",
+                "varicose-amplification-main-phase-sacrifices-it-and-empowers-by-three-plus-the-blood-counters"
+            ],
+            "semanticFixtures": [
+                "varicose-amplification-damage-to-your-champion-adds-that-many-blood-counters",
+                "varicose-amplification-main-phase-sacrifices-it-and-empowers-by-three-plus-the-blood-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "IyM7IBCQeb",
             "name": "Varuck, Smoldering Spire",
             "type": "UNIQUE,DOMAIN",
@@ -49850,6 +49905,28 @@
             ],
             "semanticFixtures": [
                 "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "WaoGzrPGyd",
+            "name": "Vascular Collapse",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "vascular-collapse-first-mode-destroys-one-target-non-champion-object",
+                "vascular-collapse-level-fifteen-mode-destroys-all-non-champion-objects"
+            ],
+            "semanticFixtures": [
+                "vascular-collapse-first-mode-destroys-one-target-non-champion-object",
+                "vascular-collapse-level-fifteen-mode-destroys-all-non-champion-objects"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51366,6 +51443,25 @@
             ],
             "semanticFixtures": [
                 "develop-mana-puts-a-level-counter-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "ZfgRLDRGzJ",
+            "name": "Devil's Lifeline",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "devils-lifeline-deals-unpreventable-damage-to-your-champion-and-scavenges-two-plus-that-many"
+            ],
+            "semanticFixtures": [
+                "devils-lifeline-deals-unpreventable-damage-to-your-champion-and-scavenges-two-plus-that-many"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52943,6 +53039,46 @@
             ],
             "semanticFixtures": [
                 "lost-being-token-has-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "l5izukgdmh",
+            "name": "Lu Bu, Wrath Incarnate",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "lu-bu-wrath-incarnate-alternate-printing-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
+            ],
+            "semanticFixtures": [
+                "lu-bu-wrath-incarnate-alternate-printing-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "pkp61yhi4k",
+            "name": "Lu Bu, Wrath Incarnate",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "lu-bu-wrath-incarnate-on-ally-kill-deals-the-killed-allys-power-plus-life-to-each-other-champion",
+                "lu-bu-wrath-incarnate-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
+            ],
+            "semanticFixtures": [
+                "lu-bu-wrath-incarnate-on-ally-kill-deals-the-killed-allys-power-plus-life-to-each-other-champion",
+                "lu-bu-wrath-incarnate-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

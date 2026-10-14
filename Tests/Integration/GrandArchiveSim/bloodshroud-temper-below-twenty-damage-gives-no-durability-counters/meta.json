@@ -1,0 +1,21 @@
+{
+    "name": "bloodshroud-temper-below-twenty-damage-gives-no-durability-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:14:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6vzr7yc6vi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6vzr7yc6vi"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Damage 20+] Put two **durability** counters on that weapon."
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "3zvDCFRaoH",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Activated from the graveyard for (1)"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "23",
+        "semantic": true,
+        "label": "Twenty damage counters plus the 3 from its On Enter"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "lu-bu-wrath-incarnate-alternate-printing-other-champions-get-minus-three-level-and-all-allies-minus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:11:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l5izukgdmh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l5izukgdmh"
+        ],
+        "mechanics": [
+            "static",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Other champions get -3 level and all allies get -3 [POWER]."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:16:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pvzvqx16w4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pvzvqx16w4"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "self-damage",
+            "destroy",
+            "reserve-cost-match"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Deal up to 7 damage to your champion. Destroy all non-champion objects with reserve cost equal to the amount of damage dealt to your champion this way."
+        ]
+    }
+}

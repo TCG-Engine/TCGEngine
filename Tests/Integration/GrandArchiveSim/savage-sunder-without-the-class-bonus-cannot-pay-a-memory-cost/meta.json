@@ -1,0 +1,23 @@
+{
+    "name": "savage-sunder-without-the-class-bonus-cannot-pay-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5mnvohcd0o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5mnvohcd0o"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    }
+}

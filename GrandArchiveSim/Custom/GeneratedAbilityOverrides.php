@@ -3053,6 +3053,11 @@ $onAttackAbilities["cnjo0ehqyk:0"] = function($player) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "cnjo0ehqyk:0:OnAttack-1", 1);
 };
 
+// Umbilical Ritual (TfBuA9PUAO): the additional cost "sacrifice an ally" needs an ally to sacrifice before the card can be activated.
+$cardActivatedPrereqs["TfBuA9PUAO:0"] = function($player, $mzID) {
+    return !empty(ZoneSearch("myField", ["ALLY"]));
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

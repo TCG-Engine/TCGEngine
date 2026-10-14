@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Three damage to my own champion"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Dungeon Guide (reserve cost 3) was destroyed"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "L0RmNaDzhk",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Giant Tortoise (reserve cost 4) was not"
+    }
+]

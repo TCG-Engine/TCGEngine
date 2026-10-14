@@ -1,0 +1,23 @@
+{
+    "name": "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:20:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ntnm81369o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ntnm81369o"
+        ],
+        "mechanics": [
+            "on-attack",
+            "self-damage",
+            "stat-change",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**On Attack:** You may have CARDNAME deal 10 unpreventable damage to the attacker. If you do, this attack gets +3 [POWER]."
+        ]
+    }
+}

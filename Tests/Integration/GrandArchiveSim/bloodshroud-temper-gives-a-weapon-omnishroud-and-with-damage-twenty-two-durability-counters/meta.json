@@ -1,0 +1,23 @@
+{
+    "name": "bloodshroud-temper-gives-a-weapon-omnishroud-and-with-damage-twenty-two-durability-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:14:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6vzr7yc6vi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6vzr7yc6vi"
+        ],
+        "mechanics": [
+            "omnishroud",
+            "damage-threshold",
+            "durability"
+        ],
+        "rulesClauses": [
+            "Target weapon gains **omnishroud** until end of turn.",
+            "[Damage 20+] Put two **durability** counters on that weapon."
+        ]
+    }
+}

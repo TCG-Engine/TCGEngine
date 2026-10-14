@@ -1,0 +1,22 @@
+{
+    "name": "lu-bu-wrath-incarnate-on-ally-kill-deals-the-killed-allys-power-plus-life-to-each-other-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:05:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pkp61yhi4k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pkp61yhi4k"
+        ],
+        "mechanics": [
+            "on-ally-kill",
+            "unpreventable",
+            "damage"
+        ],
+        "rulesClauses": [
+            "**On Ally Kill**: Deal **X** unpreventable damage to each other champion where **X** is the killed ally's power stat plus its life stat."
+        ]
+    }
+}

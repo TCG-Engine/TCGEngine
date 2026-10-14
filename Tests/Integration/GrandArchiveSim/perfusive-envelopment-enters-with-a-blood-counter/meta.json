@@ -1,0 +1,21 @@
+{
+    "name": "perfusive-envelopment-enters-with-a-blood-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rRfRKqCBqF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rRfRKqCBqF"
+        ],
+        "mechanics": [
+            "enters-with-counter",
+            "blood"
+        ],
+        "rulesClauses": [
+            "CARDNAME enters the field with a **blood** counter on it."
+        ]
+    }
+}

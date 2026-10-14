@@ -1,0 +1,23 @@
+{
+    "name": "varicose-amplification-damage-to-your-champion-adds-that-many-blood-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tt2Ew9RmIt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Tt2Ew9RmIt"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "counter",
+            "blood"
+        ],
+        "rulesClauses": [
+            "Whenever an amount of damage is dealt to your champion, put that many **blood** counters on CARDNAME."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Four damage counters: the top four cards of the deck were banished"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "name": "devils-lifeline-deals-unpreventable-damage-to-your-champion-and-scavenges-two-plus-that-many",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:14:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZfgRLDRGzJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZfgRLDRGzJ"
+        ],
+        "mechanics": [
+            "unpreventable",
+            "self-damage",
+            "scavenge",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Deal up to 7 unpreventable damage to your champion. Then **scavenge 2+X** for an exia element card, where **X** is the amount of damage dealt to your champion this way."
+        ]
+    }
+}

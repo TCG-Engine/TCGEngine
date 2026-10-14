@@ -1,0 +1,24 @@
+{
+    "name": "crimson-rupture-damage-twenty-costs-two-less-and-destroys-an-item-or-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:13:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qeZRvGbXkF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qeZRvGbXkF"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "cost-reduction",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Damage 20+] This card costs 2 less to activate.",
+            "Destroy target item or weapon."
+        ]
+    }
+}

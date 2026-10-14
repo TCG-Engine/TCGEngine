@@ -1,0 +1,23 @@
+{
+    "name": "siphoning-stab-class-bonus-with-a-polearm-weapon-recovers-the-damage-dealt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iZRVjvAZVG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iZRVjvAZVG"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "polearm",
+            "on-hit",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as the attacker is attacking using a Polearm weapon, CARDNAME has \"**On Hit:** **Recover X**, where **X** is the amount of damage dealt by this hit.\""
+        ]
+    }
+}

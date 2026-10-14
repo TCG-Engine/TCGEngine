@@ -1,0 +1,22 @@
+{
+    "name": "savage-sunder-class-bonus-on-hit-recovers-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5mnvohcd0o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5mnvohcd0o"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-hit",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit**: You may **recover 5**."
+        ]
+    }
+}

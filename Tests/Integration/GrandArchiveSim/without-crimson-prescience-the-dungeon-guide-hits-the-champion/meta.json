@@ -1,0 +1,21 @@
+{
+    "name": "without-crimson-prescience-the-dungeon-guide-hits-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:07:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0dsdojl6l3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0dsdojl6l3"
+        ],
+        "mechanics": [
+            "reaction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if damage would be dealt to your champion by a source with that name, prevent that damage."
+        ]
+    }
+}

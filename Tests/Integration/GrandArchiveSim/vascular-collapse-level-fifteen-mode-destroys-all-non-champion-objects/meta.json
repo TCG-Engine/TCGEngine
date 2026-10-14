@@ -1,0 +1,22 @@
+{
+    "name": "vascular-collapse-level-fifteen-mode-destroys-all-non-champion-objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:16:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WaoGzrPGyd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WaoGzrPGyd"
+        ],
+        "mechanics": [
+            "modal",
+            "destroy",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "Choose one\u2014 \u2022 Destroy target non-champion object. \u2022 [Level 9+] Destroy two target non-champion objects. \u2022 [Level 15+] Destroy all non-champion objects."
+        ]
+    }
+}

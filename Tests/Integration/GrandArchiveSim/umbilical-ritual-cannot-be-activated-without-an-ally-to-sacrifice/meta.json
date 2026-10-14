@@ -1,0 +1,21 @@
+{
+    "name": "umbilical-ritual-cannot-be-activated-without-an-ally-to-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:15:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TfBuA9PUAO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TfBuA9PUAO"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally."
+        ]
+    }
+}

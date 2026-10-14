@@ -1,0 +1,22 @@
+{
+    "name": "transfusive-aura-damage-twenty-recover-becomes-two-plus-the-amount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7qWYuRNoYI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7qWYuRNoYI"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "replacement",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Damage 20+] If you would **recover** an amount, **recover 2+X** instead, where **X** is that amount."
+        ]
+    }
+}

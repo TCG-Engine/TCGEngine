@@ -2969,6 +2969,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Umbilical Ritual (TfBuA9PUAO): "As an additional cost to activate this card, sacrifice an ally." (nothing ever asked for or sacrificed the ally)
+    if($obj->CardID === "TfBuA9PUAO" && !$ignoreCost) {
+        $targets = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($targets)) {
+            $hasGoldenGambitCost = true;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
     // 1.3 Declaring Costs - Sacrifice Play (1jmQ9XSLph): "sacrifice up to two awake Chessman allies"; it enters the intent with +2 POWER for each ally sacrificed
     if($obj->CardID === "1jmQ9XSLph" && !$ignoreCost) {
         $awakeChessman = [];
@@ -15826,7 +15836,7 @@ function ObjectCurrentPower($obj) {
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fObj) {
             if($fObj == null || $fObj->removed || HasNoAbilities($fObj)) continue;
-            if($fObj->CardID === "l5izukgdmh" && $fObj !== $obj) {
+            if(IsLuBuWrathIncarnateCard($fObj->CardID) && $fObj !== $obj) {
                 $power -= 3;
                 break;
             }
@@ -15922,6 +15932,11 @@ function ReturnRevokerBellCards($controller, $bellUniqueID) {
             MZMove($controller, $zoneName . "-" . $i, $destination);
         }
     }
+}
+
+// Lu Bu, Wrath Incarnate exists under two card IDs (two printings); the passives were only wired for l5izukgdmh.
+function IsLuBuWrathIncarnateCard($cardID) {
+    return $cardID === "l5izukgdmh" || $cardID === "pkp61yhi4k";
 }
 
 function ObjectCurrentLevel($obj) {
@@ -16248,12 +16263,12 @@ function ObjectCurrentLevel($obj) {
     }
 
     // Lu Bu, Wrath Incarnate: other champions get -3 level.
-    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller != -1 && $obj->CardID !== "l5izukgdmh") {
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller != -1 && !IsLuBuWrathIncarnateCard($obj->CardID)) {
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fObj) {
                 if($fObj === null) continue;
             if($fObj->removed || HasNoAbilities($fObj)) continue;
-            if($fObj->CardID === "l5izukgdmh") {
+            if(IsLuBuWrathIncarnateCard($fObj->CardID)) {
                 $cardLevel -= 3;
                 break;
             }

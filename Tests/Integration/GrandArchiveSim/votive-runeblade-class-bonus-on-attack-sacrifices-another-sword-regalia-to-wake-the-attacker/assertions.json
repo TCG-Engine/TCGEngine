@@ -20,6 +20,15 @@
     {
         "step": 7,
         "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "b0qlk9j6le",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A regalia that would go to the graveyard is banished instead"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
         "zone": "myField",
         "cardID": "cnjo0ehqyk",
         "viewerPlayerID": 1,

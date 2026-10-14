@@ -118,6 +118,7 @@ gaScenario('votive-runeblade-class-bonus-on-attack-sacrifices-another-sword-rega
     ->action(1, 10002, 'myField-0!FSM!')->answer(1, 'myField-1')->answer(1, 'theirField-0')->answer(1, 'myField-2')
     ->expectProperty('p1Field-0', 'Status', '2', 'The champion woke up after attacking')
     ->expectZoneCount('myField', 2, 1, 'The other Sword regalia was sacrificed; the champion and the Runeblade itself remain')
+    ->expectCardExists('myBanish', 'Training Sword', 'A regalia that would go to the graveyard is banished instead')
     ->expectCardExists('myField', 'Votive Runeblade', 'The Runeblade itself stayed (it was not offered)')
     ->tested('Votive Runeblade')->covers(['class-bonus', 'on-attack', 'sacrifice', 'wake-up'], $gaVotiveClause)->register();
 
