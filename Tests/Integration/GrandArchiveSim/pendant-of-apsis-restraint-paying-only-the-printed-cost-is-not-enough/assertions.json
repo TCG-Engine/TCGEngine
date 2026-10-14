@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Two payments are not enough: the Ultimate action is still being paid for"
+    }
+]

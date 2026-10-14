@@ -181,3 +181,109 @@ gaScenario('reciprocity-dorumegias-call-tonoris-bonus-level-one-cannot-use-its-r
     ->tested('Reciprocity, Dorumegia\'s Call')
     ->covers(['tonoris-bonus', 'level-gate'], '[Tonoris Bonus] [Level 2+] **[REST]:**')
     ->register();
+
+// ---- Pendant of Apsis Restraint ----
+
+if (!function_exists('gaPendant')) {
+    function gaPendant(string $slug, bool $pendant): GaScenario {
+        $s = gaScenario($slug)->deckTemplate('quiet', 'Dungeon Guide')->readyFor('Auspicious Manifestation');
+        if ($pendant) $s->seed('myField', 'Pendant of Apsis Restraint');
+        return $s->seed('myHand', 'Auspicious Manifestation');
+    }
+}
+
+$gaPendantClause = 'Ultimate cards cost (3) more to activate.';
+
+gaPendant('pendant-of-apsis-restraint-ultimate-cards-cost-three-more', true)
+    ->play('Auspicious Manifestation')->pay(5)
+    ->expectCardExists('myGraveyard', 'Auspicious Manifestation', 'Paid 2 + 3 and the Ultimate action resolved')
+    ->tested('Pendant of Apsis Restraint')->covers(['static', 'cost-increase', 'ultimate'], $gaPendantClause)->register();
+
+gaPendant('pendant-of-apsis-restraint-paying-only-the-printed-cost-is-not-enough', true)
+    ->play('Auspicious Manifestation')->pay(2)
+    ->expectZoneCount('myGraveyard', 0, 1, 'Two payments are not enough: the Ultimate action is still being paid for')
+    ->tested('Pendant of Apsis Restraint')->covers(['static', 'cost-increase', 'ultimate'], $gaPendantClause)->register();
+
+gaPendant('without-pendant-of-apsis-restraint-the-ultimate-card-costs-its-printed-two', false)
+    ->play('Auspicious Manifestation')->pay(2)
+    ->expectCardExists('myGraveyard', 'Auspicious Manifestation', 'Paid only 2 and the Ultimate action resolved')
+    ->tested('Pendant of Apsis Restraint')->covers(['static', 'condition'], $gaPendantClause)->register();
+
+// ---- Reliable Blade ----
+
+if (!function_exists('gaReliableBlade')) {
+    function gaReliableBlade(string $slug, int $advancedBanished): GaScenario {
+        $s = gaScenario($slug)->deckTemplate('quiet', 'Dungeon Guide')->readyFor('Reliable Blade', classBonus: true)->seed('myField', 'Reliable Blade');
+        for ($i = 0; $i < $advancedBanished; ++$i) $s->seed('myBanish', 'Sidereal Spellshot');
+        return $s->seed('myHand', 'Break Apart', player: 2)->endTurn()->play('Break Apart', 2)->pay(5, 2);
+    }
+}
+
+$gaBladeClause = '[Class Bonus] As long as you have three or more advanced element cards in your banishment, CARDNAME has **spellshroud**.';
+
+gaReliableBlade('reliable-blade-class-bonus-three-advanced-banished-cards-give-it-spellshroud', 3)
+    ->expectCardExists('myField', 'Reliable Blade', 'Break Apart could not target the spellshrouded sword: it is still on the field')
+    ->tested('Reliable Blade')->covers(['class-bonus', 'spellshroud', 'condition'], $gaBladeClause)->register();
+
+gaReliableBlade('reliable-blade-class-bonus-two-advanced-banished-cards-leave-it-targetable', 2)
+    ->target('theirField-1', 2)->passBoth()
+    ->expectZoneCount('myField', 1, 1, 'Only two advanced cards banished: Break Apart destroyed the sword')
+    ->tested('Reliable Blade')->covers(['class-bonus', 'spellshroud', 'condition'], $gaBladeClause)->register();
+
+// ---- Framework Sidearm ([Class Bonus]) ----
+
+gaScenario('framework-sidearm-class-bonus-pay-three-to-activate-it-from-the-material-deck')
+    ->deck(<<<'DECK'
+# Material
+1 Spirit of Fire
+1 Framework Sidearm
+# Main
+20 Dungeon Guide
+DECK
+    )
+    ->readyFor('Framework Sidearm', classBonus: true)
+    ->endTurn()->endTurn(2)->pass(1)->answer(1, 'myMaterial-0')->pay(3)
+    ->expectCardExists('myField', 'Framework Sidearm', 'Activated from the material deck for (3): it is on the field')
+    ->expectZoneCount('myMaterial', 0, 1, 'It left the material deck')
+    ->tested('Framework Sidearm')
+    ->covers(['class-bonus', 'activate-from-material', 'cost'], '[Class Bonus] You may pay (3) to activate this card from your material deck.')
+    ->register();
+
+gaScenario('framework-sidearm-without-the-class-bonus-cannot-be-activated-from-the-material-deck')
+    ->deck(<<<'DECK'
+# Material
+1 Spirit of Fire
+1 Framework Sidearm
+# Main
+20 Dungeon Guide
+DECK
+    )
+    ->endTurn()->endTurn(2)->pass(1)
+    ->expectZoneCount('myMaterial', 1, 1, 'No class bonus: no offer and the sidearm stays in the material deck')
+    ->tested('Framework Sidearm')
+    ->covers(['class-bonus', 'condition'], '[Class Bonus] You may pay (3) to activate this card from your material deck.')
+    ->register();
+
+// ---- Trivariate Dream ----
+
+if (!function_exists('gaTrivariate')) {
+    function gaTrivariate(string $slug, int $loaded): GaScenario {
+        return gaScenario($slug)->deckTemplate('quiet', 'Dungeon Guide')->readyFor('Trivariate Dream', classBonus: true)
+            ->seed('myField', 'Trivariate Dream', properties: ['Subcards' => array_fill(0, $loaded, GaScenario::id('Resonant Aether'))])
+            ->reachTurnThree()->action(1, 10002, 'myField-0!FSM!')->answer(1, 'myField-1')->answer(1, 'theirField-0')->passBoth();
+    }
+}
+
+$gaTrivariateClause = '[Class Bonus] **On Attack**: If there are exactly three Aethercharge cards in the attacker\'s intent, this attack gets +3[POWER].';
+
+gaTrivariate('trivariate-dream-class-bonus-exactly-three-aethercharge-cards-gets-plus-three-power', 3)
+    ->expectDamage('p2Field-0', 7, 'The weapon\'s 1, three loaded 1-power Resonant Aethers and +3 for exactly three Aethercharge cards')
+    ->tested('Trivariate Dream')->covers(['class-bonus', 'on-attack', 'stat-change', 'condition'], $gaTrivariateClause)->register();
+
+gaTrivariate('trivariate-dream-class-bonus-two-aethercharge-cards-get-no-bonus', 2)
+    ->expectDamage('p2Field-0', 3, 'The weapon\'s 1 plus two loaded Aethers: no bonus')
+    ->tested('Trivariate Dream')->covers(['class-bonus', 'on-attack', 'condition'], $gaTrivariateClause)->register();
+
+gaTrivariate('trivariate-dream-class-bonus-four-aethercharge-cards-get-no-bonus', 4)
+    ->expectDamage('p2Field-0', 5, 'The weapon\'s 1 plus four loaded Aethers: not exactly three, no bonus')
+    ->tested('Trivariate Dream')->covers(['class-bonus', 'on-attack', 'condition'], $gaTrivariateClause)->register();

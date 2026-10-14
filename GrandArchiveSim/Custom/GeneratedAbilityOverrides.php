@@ -2978,6 +2978,17 @@ $cardActivatedAbilities["rTesQpssPz:0"] = function($player) {
     GainCrowdsFavor($player);
 };
 
+// Lesser Boon of Allurement (JuKoCVIvCG): the generated modifier also set the *boon card's own* activation cost to 5 - phantasias (that is the cost of its (5) ability, which the
+// ability body already pays), so playing the 0-cost boon demanded five payments. Only the "next phantasia costs (2) less" global-effect branch belongs in the card-cost modifier.
+$activationCostModifierAbilities["JuKoCVIvCG:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+    if($sourceObj !== null && $sourceObj->CardID === "JuKoCVIvCG" && isset($sourceObj->_sourceZone) && $sourceObj->_sourceZone === "GlobalEffects") {
+        if(intval($sourceObj->Controller ?? 0) !== intval($player)) return 0;
+        if(!PropertyContains(CardType($subjectObj->CardID), "PHANTASIA")) return 0;
+        return ["delta" => -2, "consume" => true, "applied" => true];
+    }
+    return 0;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2099**
+Cards linked to an existing fixture: **2109**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **378**
+Implemented cards still needing semantic coverage: **368**
 
 ## Mechanic groups
 
@@ -29,7 +29,6 @@ Implemented cards still needing semantic coverage: **378**
 | Cardiac Vessel (`5xjzPh6l2M`) | UNIQUE,PHANTASIA | 3 | cost, damage, draw-discard, trigger, condition | — | — |
 | Spirelle, Schwartz Queen (`p2n1953som`) | UNIQUE,ALLY | 3 | cost, targeting, damage, zone-movement, trigger | — | — |
 | Stellarion Shift (`ms2x2v4qe3`) | ACTION | 3 | targeting, damage, prevention, draw-discard, zone-movement, status, condition | — | — |
-| Lesser Boon of Allurement (`JuKoCVIvCG`) | LESSER BOON | 3 | cost, draw-discard, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
 | Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **378**
 | Total Whiteout (`O4mD40xpbY`) | UNIQUE,PHANTASIA | 2 | cost, status, combat | — | — |
 | Aenean Repudiation (`t91W06HOqY`) | ACTION | 2 | cost, condition | — | — |
 | Anointed Purifier (`mt1I9kfowQ`) | ALLY | 2 | targeting, zone-movement | — | — |
+| Celestial Calling (`izm6h38lrj`) | ACTION | 2 | cost, zone-movement | — | — |

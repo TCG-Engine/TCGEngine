@@ -1,0 +1,22 @@
+{
+    "name": "pendant-of-apsis-restraint-paying-only-the-printed-cost-is-not-enough",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:43:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FuPPK2ixjq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FuPPK2ixjq"
+        ],
+        "mechanics": [
+            "static",
+            "cost-increase",
+            "ultimate"
+        ],
+        "rulesClauses": [
+            "Ultimate cards cost (3) more to activate."
+        ]
+    }
+}

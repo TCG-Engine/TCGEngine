@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-the-underdog-draws-two-and-puts-two-buff-counters-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:41:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nETOkMHYwv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nETOkMHYwv"
+        ],
+        "mechanics": [
+            "level-locked",
+            "draw",
+            "counter"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, draw two cards and put two **buff** counters on an ally you control."
+        ]
+    }
+}

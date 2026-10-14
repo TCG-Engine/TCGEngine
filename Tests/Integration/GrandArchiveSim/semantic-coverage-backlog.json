@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T02:39:47+00:00",
+    "generatedAt": "2026-10-14T02:44:45+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2099,
+        "cardsWithExistingFixtures": 2109,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 378,
+        "cardsNeedingSemanticCoverage": 368,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -84,23 +84,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 35
-        },
-        {
-            "cardId": "JuKoCVIvCG",
-            "name": "Lesser Boon of Allurement",
-            "type": "LESSER BOON",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 33
         },
         {
             "cardId": "OVoHxVwodU",
@@ -1335,25 +1318,6 @@
             "priority": 15
         },
         {
-            "cardId": "WOTtcgwVc9",
-            "name": "Greater Boon of Parvati",
-            "type": "GREATER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "1i5z6r7s9k",
             "name": "Harbinger of Lightning",
             "type": "ALLY",
@@ -2485,24 +2449,6 @@
             "priority": 14
         },
         {
-            "cardId": "l8PytM9CpG",
-            "name": "Lesser Boon of Distance",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "CW73nq8jCR",
             "name": "Lesser Boon of Nuwa",
             "type": "LESSER BOON",
@@ -3620,23 +3566,6 @@
             "priority": 13
         },
         {
-            "cardId": "GlqhpkmflM",
-            "name": "Lesser Boon of Isis",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "hh88rx6p3p",
             "name": "Loaded Thoughts",
             "type": "REGALIA,WEAPON",
@@ -4232,23 +4161,6 @@
             "priority": 13
         },
         {
-            "cardId": "6g7x7tja9h",
-            "name": "Trivariate Dream",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "597fqr67du",
             "name": "Vampiric Slime",
             "type": "ALLY",
@@ -4750,22 +4662,6 @@
             "priority": 12
         },
         {
-            "cardId": "p4lgdlx7md",
-            "name": "Framework Sidearm",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "cECG4Wrl9M",
             "name": "Fulminating Storm",
             "type": "ACTION",
@@ -4837,22 +4733,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "nETOkMHYwv",
-            "name": "Greater Boon of the Underdog",
-            "type": "GREATER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
                 "condition"
             ],
             "existingFixtures": [],
@@ -6023,21 +5903,6 @@
             "priority": 11
         },
         {
-            "cardId": "NidqQ6MOuy",
-            "name": "Lesser Boon of Parvati",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "lildjctw73",
             "name": "lildjctw73",
             "type": "",
@@ -6203,21 +6068,6 @@
             "priority": 11
         },
         {
-            "cardId": "FuPPK2ixjq",
-            "name": "Pendant of Apsis Restraint",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "qusirqt538",
             "name": "qusirqt538",
             "type": "",
@@ -6255,21 +6105,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "LtwQoptWzR",
-            "name": "Reliable Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -21724,6 +21559,29 @@
             "priority": 53
         },
         {
+            "cardId": "JuKoCVIvCG",
+            "name": "Lesser Boon of Allurement",
+            "type": "LESSER BOON",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-allurement-five-draws-a-card-into-memory-only-once",
+                "lesser-boon-of-allurement-the-next-phantasia-costs-two-less"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-allurement-five-draws-a-card-into-memory-only-once",
+                "lesser-boon-of-allurement-the-next-phantasia-costs-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 53
+        },
+        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -27524,6 +27382,29 @@
             "priority": 35
         },
         {
+            "cardId": "WOTtcgwVc9",
+            "name": "Greater Boon of Parvati",
+            "type": "GREATER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "greater-boon-of-parvati-gaining-it-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "greater-boon-of-parvati-gaining-it-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "95ynk6lmnf",
             "name": "Guandu, Theater of War",
             "type": "UNIQUE,DOMAIN",
@@ -32806,6 +32687,30 @@
                 "lena-rest-look-four-decline-all-four-bottom",
                 "lena-rest-look-four-no-ranger-all-four-bottom",
                 "lena-rest-look-four-reveal-deep-ranger-rest-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "l8PytM9CpG",
+            "name": "Lesser Boon of Distance",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-distance-the-third-resolution-draws-a-card-into-memory",
+                "lesser-boon-of-distance-two-makes-a-ranger-unit-distant"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-distance-the-third-resolution-draws-a-card-into-memory",
+                "lesser-boon-of-distance-two-makes-a-ranger-unit-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39355,6 +39260,27 @@
             "priority": 33
         },
         {
+            "cardId": "GlqhpkmflM",
+            "name": "Lesser Boon of Isis",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-isis-gaining-it-empowers-the-champion-by-three"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-isis-gaining-it-empowers-the-champion-by-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "k0hliqs2hi",
             "name": "Liquid Amnesia",
             "type": "ITEM",
@@ -42519,6 +42445,31 @@
             "priority": 33
         },
         {
+            "cardId": "6g7x7tja9h",
+            "name": "Trivariate Dream",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "trivariate-dream-class-bonus-exactly-three-aethercharge-cards-gets-plus-three-power",
+                "trivariate-dream-class-bonus-four-aethercharge-cards-get-no-bonus",
+                "trivariate-dream-class-bonus-two-aethercharge-cards-get-no-bonus"
+            ],
+            "semanticFixtures": [
+                "trivariate-dream-class-bonus-exactly-three-aethercharge-cards-gets-plus-three-power",
+                "trivariate-dream-class-bonus-four-aethercharge-cards-get-no-bonus",
+                "trivariate-dream-class-bonus-two-aethercharge-cards-get-no-bonus"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "UmZpK4rt2M",
             "name": "Tweedledum, Rattled Dancer",
             "type": "UNIQUE,ALLY",
@@ -45385,6 +45336,28 @@
             "priority": 32
         },
         {
+            "cardId": "p4lgdlx7md",
+            "name": "Framework Sidearm",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat"
+            ],
+            "existingFixtures": [
+                "framework-sidearm-class-bonus-pay-three-to-activate-it-from-the-material-deck",
+                "framework-sidearm-without-the-class-bonus-cannot-be-activated-from-the-material-deck"
+            ],
+            "semanticFixtures": [
+                "framework-sidearm-class-bonus-pay-three-to-activate-it-from-the-material-deck",
+                "framework-sidearm-without-the-class-bonus-cannot-be-activated-from-the-material-deck"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "ln926ymxdc",
             "name": "Fraternal Garrison",
             "type": "ALLY",
@@ -45717,6 +45690,26 @@
             ],
             "semanticFixtures": [
                 "greater-boon-of-shou-draw-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "nETOkMHYwv",
+            "name": "Greater Boon of the Underdog",
+            "type": "GREATER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "greater-boon-of-the-underdog-draws-two-and-puts-two-buff-counters-on-an-ally"
+            ],
+            "semanticFixtures": [
+                "greater-boon-of-the-underdog-draws-two-and-puts-two-buff-counters-on-an-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52510,6 +52503,27 @@
             "priority": 31
         },
         {
+            "cardId": "NidqQ6MOuy",
+            "name": "Lesser Boon of Parvati",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-parvati-puts-six-durability-counters-on-your-siegeable-domain",
+                "lesser-boon-of-parvati-puts-three-durability-counters-on-an-opposing-siegeable-domain"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-parvati-puts-six-durability-counters-on-your-siegeable-domain",
+                "lesser-boon-of-parvati-puts-three-durability-counters-on-an-opposing-siegeable-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "xTY2LZ01o7",
             "name": "Lesser Boon of Poseidon",
             "type": "LESSER BOON",
@@ -53142,6 +53156,29 @@
             "priority": 31
         },
         {
+            "cardId": "FuPPK2ixjq",
+            "name": "Pendant of Apsis Restraint",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "pendant-of-apsis-restraint-paying-only-the-printed-cost-is-not-enough",
+                "pendant-of-apsis-restraint-ultimate-cards-cost-three-more",
+                "without-pendant-of-apsis-restraint-the-ultimate-card-costs-its-printed-two"
+            ],
+            "semanticFixtures": [
+                "pendant-of-apsis-restraint-paying-only-the-printed-cost-is-not-enough",
+                "pendant-of-apsis-restraint-ultimate-cards-cost-three-more",
+                "without-pendant-of-apsis-restraint-the-ultimate-card-costs-its-printed-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "7j79KANWEP",
             "name": "Pole-armed Steed",
             "type": "ALLY",
@@ -53292,6 +53329,27 @@
             ],
             "semanticFixtures": [
                 "refurbish-puts-two-durability-counters-on-a-sword-weapon"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "LtwQoptWzR",
+            "name": "Reliable Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "reliable-blade-class-bonus-three-advanced-banished-cards-give-it-spellshroud",
+                "reliable-blade-class-bonus-two-advanced-banished-cards-leave-it-targetable"
+            ],
+            "semanticFixtures": [
+                "reliable-blade-class-bonus-three-advanced-banished-cards-give-it-spellshroud",
+                "reliable-blade-class-bonus-two-advanced-banished-cards-leave-it-targetable"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

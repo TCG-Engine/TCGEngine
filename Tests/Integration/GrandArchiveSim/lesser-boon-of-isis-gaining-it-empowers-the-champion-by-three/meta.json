@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-isis-gaining-it-empowers-the-champion-by-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:40:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GlqhpkmflM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GlqhpkmflM"
+        ],
+        "mechanics": [
+            "class-locked",
+            "empower"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, **empower 3**."
+        ]
+    }
+}

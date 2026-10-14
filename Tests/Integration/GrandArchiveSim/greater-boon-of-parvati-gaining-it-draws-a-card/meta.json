@@ -1,0 +1,21 @@
+{
+    "name": "greater-boon-of-parvati-gaining-it-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:41:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WOTtcgwVc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WOTtcgwVc9"
+        ],
+        "mechanics": [
+            "level-locked",
+            "draw"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, draw a card."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "without-pendant-of-apsis-restraint-the-ultimate-card-costs-its-printed-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:43:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FuPPK2ixjq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FuPPK2ixjq"
+        ],
+        "mechanics": [
+            "static",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Ultimate cards cost (3) more to activate."
+        ]
+    }
+}

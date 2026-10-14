@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "LtwQoptWzR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Break Apart could not target the spellshrouded sword: it is still on the field"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":2}",
+        "semantic": true,
+        "label": "Two buff counters on the ally"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight in hand, minus the boon and three payments, plus two drawn (8 - 1 - 3 + 2)"
+    }
+]

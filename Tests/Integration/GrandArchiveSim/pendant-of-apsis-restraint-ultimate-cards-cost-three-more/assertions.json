@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "vZH2xr4yq2",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Paid 2 + 3 and the Ultimate action resolved"
+    }
+]

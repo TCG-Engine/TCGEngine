@@ -1,0 +1,22 @@
+{
+    "name": "pendant-of-apsis-restraint-ultimate-cards-cost-three-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:43:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FuPPK2ixjq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FuPPK2ixjq"
+        ],
+        "mechanics": [
+            "static",
+            "cost-increase",
+            "ultimate"
+        ],
+        "rulesClauses": [
+            "Ultimate cards cost (3) more to activate."
+        ]
+    }
+}

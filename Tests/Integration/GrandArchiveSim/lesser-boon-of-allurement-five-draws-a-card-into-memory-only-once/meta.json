@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-allurement-five-draws-a-card-into-memory-only-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:42:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JuKoCVIvCG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JuKoCVIvCG"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw-into-memory",
+            "once"
+        ],
+        "rulesClauses": [
+            "(5): Draw a card into your memory. This ability costs (1) less to activate for each phantasia you control. Activate this ability only once."
+        ]
+    }
+}

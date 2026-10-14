@@ -1,0 +1,22 @@
+{
+    "name": "reliable-blade-class-bonus-two-advanced-banished-cards-leave-it-targetable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:43:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LtwQoptWzR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LtwQoptWzR"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "spellshroud",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you have three or more advanced element cards in your banishment, CARDNAME has **spellshroud**."
+        ]
+    }
+}

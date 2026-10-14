@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-distance-two-makes-a-ranger-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:42:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l8PytM9CpG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l8PytM9CpG"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distant"
+        ],
+        "rulesClauses": [
+            "(2): Target Ranger unit becomes **distant**."
+        ]
+    }
+}
