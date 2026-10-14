@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "One omen: the sword's 1 + 1"
+    }
+]

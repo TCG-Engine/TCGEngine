@@ -1,0 +1,23 @@
+{
+    "name": "fatestone-of-balance-guo-jia-bonus-an-opponent-activating-with-exactly-three-memory-cards-transforms-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:14:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v4gtq1ibth"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v4gtq1ibth"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "trigger",
+            "transform",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Whenever an opponent activates a card, if that opponent has exactly three cards in their memory, transform Fatestone of Balance."
+        ]
+    }
+}

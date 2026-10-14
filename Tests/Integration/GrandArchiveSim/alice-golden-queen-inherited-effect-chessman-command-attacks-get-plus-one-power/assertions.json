@@ -1,0 +1,11 @@
+[
+    {
+        "step": 18,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "The Golden Pawn attacked with 0 power + the card's 2 + 1 from the inherited effect"
+    }
+]

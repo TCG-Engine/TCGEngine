@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Direction",
+        "value": "EAST",
+        "semantic": true,
+        "label": "At the beginning of the end phase the direction was changed from North to East"
+    }
+]

@@ -708,7 +708,6 @@ $customDQHandlers["WildgrowthFatestoneTransform"] = function($player, $parts, $l
 // ============================================================================
 
 function FatestoneOfBalanceOnOpponentActivated($activatingPlayer) {
-    if(!IsGuoJiaBonus($activatingPlayer)) return; // The owner has Guo Jia, not the activating player
     // Check if the OPPONENT of the activating player has a Fatestone of Balance
     $owner = ($activatingPlayer == 1) ? 2 : 1;
     if(!IsGuoJiaBonus($owner)) return;

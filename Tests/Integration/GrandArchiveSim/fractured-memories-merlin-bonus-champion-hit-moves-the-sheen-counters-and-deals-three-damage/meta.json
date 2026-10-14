@@ -1,0 +1,23 @@
+{
+    "name": "fractured-memories-merlin-bonus-champion-hit-moves-the-sheen-counters-and-deals-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UAJGQFbXjs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UAJGQFbXjs"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-champion-hit",
+            "counter",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus]Your champion has \"**On Champion Hit:** You may move all **sheen** counters on the hit champion to your Fractured Memories. When three or more counters are moved this way, deal 3 damage to that champion.\""
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "alice-golden-queen-lineage-release-prevents-damage-to-each-awake-chessman-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:08:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "daip7s9ztd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "daip7s9ztd"
+        ],
+        "mechanics": [
+            "lineage-release",
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Lineage Release** \u2014 For each awake Chessman ally you control, prevent the next 3 damage that would be dealt to that ally this turn."
+        ]
+    }
+}

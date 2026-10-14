@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":4}",
+        "semantic": true,
+        "label": "All four sheen counters moved to Fractured Memories"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":4}",
+        "semantic": true,
+        "label": "The hit champion lost its sheen counters (only the damage tracker remains)"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The sword's 1 plus 3 damage because three or more counters were moved"
+    }
+]

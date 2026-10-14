@@ -1,0 +1,22 @@
+{
+    "name": "shifting-currents-kongming-bonus-end-phase-changes-its-direction",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qh5mpkyl60"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qh5mpkyl60"
+        ],
+        "mechanics": [
+            "kongming-bonus",
+            "trigger",
+            "direction"
+        ],
+        "rulesClauses": [
+            "[Kongming Bonus] At the beginning of your end phase, you may change the direction of your CARDNAME to a different direction of your choice."
+        ]
+    }
+}

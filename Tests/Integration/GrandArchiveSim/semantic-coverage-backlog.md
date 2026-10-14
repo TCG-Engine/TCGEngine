@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2069**
+Cards linked to an existing fixture: **2076**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **408**
+Implemented cards still needing semantic coverage: **401**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **408**
 | Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
 | Gloamspire Prowler (`igpck2z4rs`) | ALLY | 2 | cost, recover, draw-discard, trigger, condition | — | — |
 | Hunt, Weiss King (`Y6PZntlVDl`) | UNIQUE,ALLY | 2 | cost, targeting, draw-discard, counter, combat, condition | — | — |
-| Idle Fatestone (`qiv63tpshe`) | ITEM | 2 | cost, zone-movement, counter, trigger, condition | — | — |
 | Labyrinth, Jeweled Opus (`A58xZJJMz6`) | UNIQUE,PHANTASIA | 2 | cost, targeting, draw-discard, status, condition | — | — |
 | Lunar Conduit (`0yetaebjlw`) | REGALIA,ITEM | 2 | cost, targeting, damage, counter, trigger | — | — |
 | Maiden of Waning Bloom (`xkzLY4vWMk`) | PHANTASIA,ALLY | 2 | targeting, token, combat, trigger, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **408**
 | Palvor Sword (`wU3OvTrjEt`) | REGALIA,WEAPON | 2 | targeting, zone-movement, trigger | — | — |
 | Prima Materia (`vt9y597fqr`) | UNIQUE,ITEM | 2 | damage, draw-discard, condition | — | — |
 | Purified Shot (`dcgw05q66h`) | ITEM | 2 | targeting, damage, zone-movement | — | — |
+| Royal Line Defense (`9urNxU7SZw`) | ACTION | 2 | cost, targeting, condition | — | — |

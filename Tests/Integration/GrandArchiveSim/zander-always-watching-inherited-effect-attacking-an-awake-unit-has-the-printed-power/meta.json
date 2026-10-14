@@ -1,0 +1,22 @@
+{
+    "name": "zander-always-watching-inherited-effect-attacking-an-awake-unit-has-the-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:09:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tOK1Gr0N8f"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tOK1Gr0N8f"
+        ],
+        "mechanics": [
+            "inherited-effect",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**Inherited Effect:** As long as CARDNAME is attacking a rested unit, CARDNAME's attacks get +1 [POWER]."
+        ]
+    }
+}

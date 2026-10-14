@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T02:08:04+00:00",
+    "generatedAt": "2026-10-14T02:17:29+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2069,
+        "cardsWithExistingFixtures": 2076,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 408,
+        "cardsNeedingSemanticCoverage": 401,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -229,25 +229,6 @@
                 "draw-discard",
                 "counter",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "qiv63tpshe",
-            "name": "Idle Fatestone",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "counter",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1974,24 +1955,6 @@
                 "damage",
                 "token",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "daip7s9ztd",
-            "name": "Alice, Golden Queen",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "status",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4380,23 +4343,6 @@
             "priority": 13
         },
         {
-            "cardId": "0d93t7bfwc",
-            "name": "Servile Possessions",
-            "type": "MASTERY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "IcxG2jsqmu",
             "name": "Sinister Composure",
             "type": "ACTION",
@@ -5077,22 +5023,6 @@
             "mechanics": [
                 "cost",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "v4gtq1ibth",
-            "name": "Fatestone of Balance",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5821,22 +5751,6 @@
             "priority": 12
         },
         {
-            "cardId": "tOK1Gr0N8f",
-            "name": "Zander, Always Watching",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "N0GEBrywbW",
             "name": "Zinn, Volnia Abbess",
             "type": "UNIQUE,ALLY",
@@ -6363,21 +6277,6 @@
             "priority": 11
         },
         {
-            "cardId": "UAJGQFbXjs",
-            "name": "Fractured Memories",
-            "type": "MASTERY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "j9s7xQdpf1",
             "name": "Gate of Alterity",
             "type": "REGALIA,ITEM",
@@ -6760,21 +6659,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "qh5mpkyl60",
-            "name": "Shifting Currents",
-            "type": "MASTERY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22647,6 +22531,33 @@
             "priority": 45
         },
         {
+            "cardId": "qiv63tpshe",
+            "name": "Idle Fatestone",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "idle-fatestone-guo-jia-bonus-an-even-reserve-cost-puts-a-buff-counter-on-it",
+                "idle-fatestone-guo-jia-bonus-an-odd-reserve-cost-transforms-it",
+                "idle-fatestone-without-the-guo-jia-bonus-cannot-be-activated"
+            ],
+            "semanticFixtures": [
+                "idle-fatestone-guo-jia-bonus-an-even-reserve-cost-puts-a-buff-counter-on-it",
+                "idle-fatestone-guo-jia-bonus-an-odd-reserve-cost-transforms-it",
+                "idle-fatestone-without-the-guo-jia-bonus-cannot-be-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "flzvpkc0ni",
             "name": "Moontide Illusionist",
             "type": "ALLY",
@@ -30090,6 +30001,30 @@
             ],
             "semanticFixtures": [
                 "alchemists-kit-gathering-puts-a-refinement-counter-on-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "daip7s9ztd",
+            "name": "Alice, Golden Queen",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "alice-golden-queen-inherited-effect-chessman-command-attacks-get-plus-one-power",
+                "alice-golden-queen-lineage-release-prevents-damage-to-each-awake-chessman-ally"
+            ],
+            "semanticFixtures": [
+                "alice-golden-queen-inherited-effect-chessman-command-attacks-get-plus-one-power",
+                "alice-golden-queen-lineage-release-prevents-damage-to-each-awake-chessman-ally"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41586,6 +41521,33 @@
             "priority": 33
         },
         {
+            "cardId": "0d93t7bfwc",
+            "name": "Servile Possessions",
+            "type": "MASTERY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "servile-possessions-ciel-bonus-with-five-omens-the-attack-gets-plus-three-power-and-draws-into-memory",
+                "servile-possessions-ciel-bonus-with-one-omen-the-attack-gets-plus-one-power",
+                "servile-possessions-ciel-bonus-with-three-omens-the-attack-gets-plus-two-power",
+                "servile-possessions-without-the-ciel-bonus-the-attack-has-its-printed-power"
+            ],
+            "semanticFixtures": [
+                "servile-possessions-ciel-bonus-with-five-omens-the-attack-gets-plus-three-power-and-draws-into-memory",
+                "servile-possessions-ciel-bonus-with-one-omen-the-attack-gets-plus-one-power",
+                "servile-possessions-ciel-bonus-with-three-omens-the-attack-gets-plus-two-power",
+                "servile-possessions-without-the-ciel-bonus-the-attack-has-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "xipHhhsgJy",
             "name": "Set the Traps",
             "type": "ACTION",
@@ -45115,6 +45077,30 @@
             ],
             "semanticFixtures": [
                 "fatal-timepiece-recollection-without-a-materialization-deals-two-unpreventable-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "v4gtq1ibth",
+            "name": "Fatestone of Balance",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-activating-with-exactly-three-memory-cards-transforms-it",
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-with-a-different-memory-count-leaves-it",
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-with-four-memory-cards-leaves-it"
+            ],
+            "semanticFixtures": [
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-activating-with-exactly-three-memory-cards-transforms-it",
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-with-a-different-memory-count-leaves-it",
+                "fatestone-of-balance-guo-jia-bonus-an-opponent-with-four-memory-cards-leaves-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50104,6 +50090,28 @@
             "priority": 32
         },
         {
+            "cardId": "tOK1Gr0N8f",
+            "name": "Zander, Always Watching",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zander-always-watching-inherited-effect-attacking-a-rested-unit-gets-plus-one-power",
+                "zander-always-watching-inherited-effect-attacking-an-awake-unit-has-the-printed-power"
+            ],
+            "semanticFixtures": [
+                "zander-always-watching-inherited-effect-attacking-a-rested-unit-gets-plus-one-power",
+                "zander-always-watching-inherited-effect-attacking-an-awake-unit-has-the-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "vxzsjRxMIn",
             "name": "ZENA, Echo Weaver",
             "type": "UNIQUE,ALLY",
@@ -51731,6 +51739,31 @@
             "priority": 31
         },
         {
+            "cardId": "UAJGQFbXjs",
+            "name": "Fractured Memories",
+            "type": "MASTERY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "fractured-memories-merlin-bonus-ally-kill-puts-the-killed-allys-sheen-counters-on-it",
+                "fractured-memories-merlin-bonus-champion-hit-moves-the-sheen-counters-and-deals-three-damage",
+                "fractured-memories-merlin-bonus-declining-the-champion-hit-leaves-the-sheen-counters",
+                "fractured-memories-without-the-merlin-bonus-the-champion-hit-does-nothing"
+            ],
+            "semanticFixtures": [
+                "fractured-memories-merlin-bonus-ally-kill-puts-the-killed-allys-sheen-counters-on-it",
+                "fractured-memories-merlin-bonus-champion-hit-moves-the-sheen-counters-and-deals-three-damage",
+                "fractured-memories-merlin-bonus-declining-the-champion-hit-leaves-the-sheen-counters",
+                "fractured-memories-without-the-merlin-bonus-the-champion-hit-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "cpvn96659y",
             "name": "Fracturize",
             "type": "ACTION",
@@ -53349,6 +53382,27 @@
             "semanticFixtures": [
                 "serpentine-judicator-its-controller-can-still-recover",
                 "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "qh5mpkyl60",
+            "name": "Shifting Currents",
+            "type": "MASTERY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "shifting-currents-kongming-bonus-end-phase-changes-its-direction",
+                "shifting-currents-without-the-kongming-bonus-keeps-its-direction"
+            ],
+            "semanticFixtures": [
+                "shifting-currents-kongming-bonus-end-phase-changes-its-direction",
+                "shifting-currents-without-the-kongming-bonus-keeps-its-direction"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
