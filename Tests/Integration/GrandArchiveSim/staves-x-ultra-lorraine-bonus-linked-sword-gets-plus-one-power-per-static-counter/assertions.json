@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "Training Sword's 1 power plus its two static counters"
+    }
+]

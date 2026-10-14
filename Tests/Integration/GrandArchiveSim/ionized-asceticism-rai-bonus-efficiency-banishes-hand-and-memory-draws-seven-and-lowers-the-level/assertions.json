@@ -1,0 +1,28 @@
+[
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Everything in hand and memory was banished, then seven cards were drawn"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Memory was banished too"
+    },
+    {
+        "step": 15,
+        "type": "computed_level_equals",
+        "mzId": "p1Field-0",
+        "value": -9,
+        "semantic": true,
+        "label": "Rai's level 1 minus 10 until the next turn"
+    }
+]

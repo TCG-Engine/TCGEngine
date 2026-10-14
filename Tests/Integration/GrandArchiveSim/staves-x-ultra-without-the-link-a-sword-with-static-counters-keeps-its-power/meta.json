@@ -1,0 +1,22 @@
+{
+    "name": "staves-x-ultra-without-the-link-a-sword-with-static-counters-keeps-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:52:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "33mWk4HYLF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "33mWk4HYLF"
+        ],
+        "mechanics": [
+            "lorraine-bonus",
+            "weapon-link",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Lorraine Bonus] Linked weapon has **spellshroud** and gets +1[POWER] for each **static** counter on it."
+        ]
+    }
+}

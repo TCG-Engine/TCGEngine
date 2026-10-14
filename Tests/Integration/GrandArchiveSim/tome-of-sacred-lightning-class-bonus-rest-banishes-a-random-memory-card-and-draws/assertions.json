@@ -1,0 +1,29 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The only memory card was banished at random"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Memory is empty"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "A card was drawn because one was banished (7 + 1)"
+    }
+]

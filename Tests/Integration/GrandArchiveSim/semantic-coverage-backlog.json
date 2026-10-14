@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T02:44:45+00:00",
+    "generatedAt": "2026-10-14T02:53:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2109,
+        "cardsWithExistingFixtures": 2126,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 368,
+        "cardsNeedingSemanticCoverage": 351,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -333,24 +333,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 25
-        },
-        {
-            "cardId": "wFH1kBLrWh",
-            "name": "Arcane Elemental",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
         },
         {
             "cardId": "vZH2xr4yq2",
@@ -1185,25 +1167,6 @@
             "priority": 15
         },
         {
-            "cardId": "DqtlaMGMvd",
-            "name": "Erratic Bolt",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "bfg5ubeczk",
             "name": "Extorting Blackjack",
             "type": "ATTACK",
@@ -1308,26 +1271,6 @@
                 "cost",
                 "draw-discard",
                 "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "1i5z6r7s9k",
-            "name": "Harbinger of Lightning",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
                 "trigger",
                 "condition"
             ],
@@ -1579,26 +1522,6 @@
                 "recover",
                 "zone-movement",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "uutqo9hm33",
-            "name": "Shattering Discharge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "counter",
                 "trigger",
                 "condition"
             ],
@@ -2395,24 +2318,6 @@
             "priority": 14
         },
         {
-            "cardId": "1Hb6HXKXzG",
-            "name": "Ionizer X Ultra",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "8GTa6NS2RG",
             "name": "Iron Halo, Forcefield Node",
             "type": "UNIQUE,DOMAIN",
@@ -2629,24 +2534,6 @@
             "priority": 14
         },
         {
-            "cardId": "zVdqJRbsk1",
-            "name": "Reversal's Polarity",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "2zh208013h",
             "name": "Scepter of Awakening",
             "type": "REGALIA,ITEM",
@@ -2657,42 +2544,6 @@
                 "targeting",
                 "counter",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "v9d2242357",
-            "name": "Seiryuu's Command",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "tyj2s3572j",
-            "name": "Shock Therapy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4110,23 +3961,6 @@
             "priority": 13
         },
         {
-            "cardId": "MyUTeqUJ0H",
-            "name": "Tome of Sacred Lightning",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "n2jnltv5kl",
             "name": "Tonoris, Creation's Will",
             "type": "CHAMPION",
@@ -4486,22 +4320,6 @@
             "priority": 12
         },
         {
-            "cardId": "AxUVNNipII",
-            "name": "Charger X Ultra",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "CyiA6N2geQ",
             "name": "Chasing Shadows",
             "type": "PHANTASIA",
@@ -4662,22 +4480,6 @@
             "priority": 12
         },
         {
-            "cardId": "cECG4Wrl9M",
-            "name": "Fulminating Storm",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "XFWU8KTVW9",
             "name": "Ghastly Slime",
             "type": "ALLY",
@@ -4814,22 +4616,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "u2Peefob8w",
-            "name": "Ionized Asceticism",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5126,22 +4912,6 @@
             "priority": 12
         },
         {
-            "cardId": "33mWk4HYLF",
-            "name": "Staves X Ultra",
-            "type": "UNIQUE,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "bYrLVjKSCL",
             "name": "Stifling Aethercharge",
             "type": "ACTION",
@@ -5198,22 +4968,6 @@
             "mechanics": [
                 "cost",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "uL4wFn96Hg",
-            "name": "Triboelectric Fortification",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -5528,21 +5282,6 @@
             "priority": 11
         },
         {
-            "cardId": "lOlMDYL2hc",
-            "name": "Charge Static",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "cUltOcPo26",
             "name": "Cheshire Cat, Impish Grin",
             "type": "UNIQUE,ALLY",
@@ -5565,21 +5304,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "6SXL09rEzS",
-            "name": "Conduit of the Mad Mage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -6135,21 +5859,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "h0vBIZjzrI",
-            "name": "Surging Search",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -22266,6 +21975,32 @@
             "priority": 44
         },
         {
+            "cardId": "wFH1kBLrWh",
+            "name": "Arcane Elemental",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "arcane-elemental-class-bonus-costs-one-less-for-each-arcane-card-in-the-banishment",
+                "arcane-elemental-on-attack-banishes-itself-at-the-next-end-phase",
+                "arcane-elemental-pride-seven-will-not-attack-below-level-seven"
+            ],
+            "semanticFixtures": [
+                "arcane-elemental-class-bonus-costs-one-less-for-each-arcane-card-in-the-banishment",
+                "arcane-elemental-on-attack-banishes-itself-at-the-next-end-phase",
+                "arcane-elemental-pride-seven-will-not-attack-below-level-seven"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "e3aebjvwbc",
             "name": "Astral Seal",
             "type": "ACTION",
@@ -26928,6 +26663,31 @@
             "priority": 35
         },
         {
+            "cardId": "DqtlaMGMvd",
+            "name": "Erratic Bolt",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "erratic-bolt-class-bonus-banishes-two-random-memory-cards-to-draw-two",
+                "erratic-bolt-deals-lv-damage-to-a-unit"
+            ],
+            "semanticFixtures": [
+                "erratic-bolt-class-bonus-banishes-two-random-memory-cards-to-draw-two",
+                "erratic-bolt-deals-lv-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "7n0bv1sqgb",
             "name": "Etherealys' Promise",
             "type": "REGALIA,ITEM",
@@ -27448,6 +27208,30 @@
             ],
             "semanticFixtures": [
                 "haniel-imbued-enter-debuffs-an-opposing-ally-buffs-itself-and-recovers-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "1i5z6r7s9k",
+            "name": "Harbinger of Lightning",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage"
+            ],
+            "semanticFixtures": [
+                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28607,6 +28391,36 @@
             ],
             "semanticFixtures": [
                 "shangxiang-imbue-three-with-norm-cards-becomes-imbued"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "uutqo9hm33",
+            "name": "Shattering Discharge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shattering-discharge-class-bonus-banished-from-memory-gets-a-charge-counter",
+                "shattering-discharge-deals-two-unpreventable-damage-to-a-champion-and-banishes-itself",
+                "shattering-discharge-with-a-charge-counter-can-be-activated-from-the-banishment",
+                "shattering-discharge-without-a-charge-counter-cannot-be-activated-from-the-banishment"
+            ],
+            "semanticFixtures": [
+                "shattering-discharge-class-bonus-banished-from-memory-gets-a-charge-counter",
+                "shattering-discharge-deals-two-unpreventable-damage-to-a-champion-and-banishes-itself",
+                "shattering-discharge-with-a-charge-counter-can-be-activated-from-the-banishment",
+                "shattering-discharge-without-a-charge-counter-cannot-be-activated-from-the-banishment"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32575,6 +32389,30 @@
             "priority": 34
         },
         {
+            "cardId": "1Hb6HXKXzG",
+            "name": "Ionizer X Ultra",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ionizer-x-ultra-enter-puts-two-static-counters-on-the-linked-object",
+                "ionizer-x-ultra-four-or-more-static-counters-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "ionizer-x-ultra-enter-puts-two-static-counters-on-the-linked-object",
+                "ionizer-x-ultra-four-or-more-static-counters-draws-a-card-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "572j3oda2h",
             "name": "Kraal, Stonescale Tyrant",
             "type": "UNIQUE,ALLY",
@@ -33802,6 +33640,30 @@
             "priority": 34
         },
         {
+            "cardId": "zVdqJRbsk1",
+            "name": "Reversal's Polarity",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "reversals-polarity-a-negated-arcane-activation-deals-damage-equal-to-its-reserve-cost",
+                "reversals-polarity-an-activation-that-resolves-deals-no-damage"
+            ],
+            "semanticFixtures": [
+                "reversals-polarity-a-negated-arcane-activation-deals-damage-equal-to-its-reserve-cost",
+                "reversals-polarity-an-activation-that-resolves-deals-no-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Tx3kHOY6vh",
             "name": "Rig for Detonation",
             "type": "ACTION",
@@ -34196,6 +34058,28 @@
             "priority": 34
         },
         {
+            "cardId": "v9d2242357",
+            "name": "Seiryuu's Command",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice"
+            ],
+            "semanticFixtures": [
+                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "vkqzk1jik7",
             "name": "Shackled Theurgist",
             "type": "ALLY",
@@ -34314,6 +34198,28 @@
             ],
             "semanticFixtures": [
                 "shining-marchador-enter-paying-two-puts-a-buff-counter-on-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "tyj2s3572j",
+            "name": "Shock Therapy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "shock-therapy-deals-damage-equal-to-the-enlighten-counters-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "shock-therapy-deals-damage-equal-to-the-enlighten-counters-on-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42399,6 +42305,29 @@
             "priority": 33
         },
         {
+            "cardId": "MyUTeqUJ0H",
+            "name": "Tome of Sacred Lightning",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tome-of-sacred-lightning-class-bonus-rest-banishes-a-random-memory-card-and-draws",
+                "tome-of-sacred-lightning-with-an-empty-memory-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "tome-of-sacred-lightning-class-bonus-rest-banishes-a-random-memory-card-and-draws",
+                "tome-of-sacred-lightning-with-an-empty-memory-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "kHhxq4UZTe",
             "name": "Torching Reach",
             "type": "ACTION",
@@ -44148,6 +44077,26 @@
             "priority": 32
         },
         {
+            "cardId": "AxUVNNipII",
+            "name": "Charger X Ultra",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "charger-x-ultra-recollection-puts-a-static-counter-on-an-object-that-has-one"
+            ],
+            "semanticFixtures": [
+                "charger-x-ultra-recollection-puts-a-static-counter-on-an-object-that-has-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "qu9wwsi17b",
             "name": "Charging Galeshot",
             "type": "ACTION",
@@ -45440,6 +45389,26 @@
             "priority": 32
         },
         {
+            "cardId": "cECG4Wrl9M",
+            "name": "Fulminating Storm",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "fulminating-storm-removes-enlighten-counters-to-damage-the-opposing-champion-and-draw"
+            ],
+            "semanticFixtures": [
+                "fulminating-storm-removes-enlighten-counters-to-damage-the-opposing-champion-and-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "r3bmriltuw",
             "name": "Fumant Shieldmaiden",
             "type": "ALLY",
@@ -46194,6 +46163,26 @@
             ],
             "semanticFixtures": [
                 "intwined-bangle-ability-1-pays-its-printed-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "u2Peefob8w",
+            "name": "Ionized Asceticism",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ionized-asceticism-rai-bonus-efficiency-banishes-hand-and-memory-draws-seven-and-lowers-the-level"
+            ],
+            "semanticFixtures": [
+                "ionized-asceticism-rai-bonus-efficiency-banishes-hand-and-memory-draws-seven-and-lowers-the-level"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48899,6 +48888,28 @@
             "priority": 32
         },
         {
+            "cardId": "33mWk4HYLF",
+            "name": "Staves X Ultra",
+            "type": "UNIQUE,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "staves-x-ultra-lorraine-bonus-linked-sword-gets-plus-one-power-per-static-counter",
+                "staves-x-ultra-without-the-link-a-sword-with-static-counters-keeps-its-power"
+            ],
+            "semanticFixtures": [
+                "staves-x-ultra-lorraine-bonus-linked-sword-gets-plus-one-power-per-static-counter",
+                "staves-x-ultra-without-the-link-a-sword-with-static-counters-keeps-its-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "sbierp5k1v",
             "name": "Steady Verse",
             "type": "ACTION",
@@ -49473,6 +49484,26 @@
             "semanticFixtures": [
                 "trained-hawk-true-sight-attacks-a-stealth-unit",
                 "trained-hawk-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "uL4wFn96Hg",
+            "name": "Triboelectric Fortification",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "triboelectric-fortification-removes-three-static-counters-to-deal-that-much-damage-and-add-durability"
+            ],
+            "semanticFixtures": [
+                "triboelectric-fortification-removes-three-static-counters-to-deal-that-much-damage-and-add-durability"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50844,6 +50875,25 @@
             "priority": 31
         },
         {
+            "cardId": "lOlMDYL2hc",
+            "name": "Charge Static",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "charge-static-puts-lv-static-counters-on-an-arcane-element-object"
+            ],
+            "semanticFixtures": [
+                "charge-static-puts-lv-static-counters-on-an-arcane-element-object"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "v4vm4kj3q2",
             "name": "Charged Alchemist",
             "type": "ALLY",
@@ -50996,6 +51046,29 @@
             ],
             "semanticFixtures": [
                 "conceal-allies-you-control-gain-stealth-until-end-of-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "6SXL09rEzS",
+            "name": "Conduit of the Mad Mage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "conduit-of-the-mad-mage-activating-a-mage-spell-wakes-it-and-gives-plus-one-power",
+                "conduit-of-the-mad-mage-floating-memory-pays-a-memory-cost",
+                "conduit-of-the-mad-mage-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "semanticFixtures": [
+                "conduit-of-the-mad-mage-activating-a-mage-spell-wakes-it-and-gives-plus-one-power",
+                "conduit-of-the-mad-mage-floating-memory-pays-a-memory-cost",
+                "conduit-of-the-mad-mage-is-sacrificed-at-the-beginning-of-your-end-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53714,6 +53787,29 @@
             "semanticFixtures": [
                 "sturdy-droid-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
                 "sturdy-droid-without-the-class-bonus-stays-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "h0vBIZjzrI",
+            "name": "Surging Search",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "surging-search-class-bonus-floating-memory-pays-a-memory-cost",
+                "surging-search-scavenges-six-for-an-arcane-element-card",
+                "surging-search-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "surging-search-class-bonus-floating-memory-pays-a-memory-cost",
+                "surging-search-scavenges-six-for-an-arcane-element-card",
+                "surging-search-without-the-class-bonus-cannot-pay-a-memory-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

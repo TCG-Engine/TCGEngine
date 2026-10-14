@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "lOlMDYL2hc",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The arcane card within the top six was put into the hand"
+    }
+]

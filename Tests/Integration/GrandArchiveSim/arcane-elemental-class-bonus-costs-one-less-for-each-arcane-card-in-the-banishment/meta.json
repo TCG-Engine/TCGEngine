@@ -1,0 +1,22 @@
+{
+    "name": "arcane-elemental-class-bonus-costs-one-less-for-each-arcane-card-in-the-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:49:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wFH1kBLrWh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wFH1kBLrWh"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "banishment"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate for each arcane element card in your banishment."
+        ]
+    }
+}

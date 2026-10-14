@@ -1,0 +1,22 @@
+{
+    "name": "charger-x-ultra-recollection-puts-a-static-counter-on-an-object-that-has-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:47:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AxUVNNipII"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AxUVNNipII"
+        ],
+        "mechanics": [
+            "trigger",
+            "recollection",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of each player's recollection phase, put a **static** counter on target object with one or more **static** counters on it."
+        ]
+    }
+}

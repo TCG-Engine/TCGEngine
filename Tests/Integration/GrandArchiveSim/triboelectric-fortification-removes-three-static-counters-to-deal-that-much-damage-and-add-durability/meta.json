@@ -1,0 +1,22 @@
+{
+    "name": "triboelectric-fortification-removes-three-static-counters-to-deal-that-much-damage-and-add-durability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:46:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uL4wFn96Hg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uL4wFn96Hg"
+        ],
+        "mechanics": [
+            "counter-cost",
+            "damage",
+            "durability"
+        ],
+        "rulesClauses": [
+            "Remove up to three **static** counters from among objects you control. Deal **X** damage to target unit, where **X** is the amount of counters removed this way. Then put **X** **durability** counters on a Warrior weapon you control."
+        ]
+    }
+}

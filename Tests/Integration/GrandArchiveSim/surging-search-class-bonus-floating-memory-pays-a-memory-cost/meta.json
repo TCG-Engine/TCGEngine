@@ -1,0 +1,23 @@
+{
+    "name": "surging-search-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h0vBIZjzrI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h0vBIZjzrI"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    }
+}

@@ -10911,7 +10911,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             if(CreateNonChampionObjectLink($player, $linkingMZ, $objectLinkTargetMZ)) {
                 AddCounters($player, $objectLinkTargetMZ, "static", 2);
                 $linkedObj = GetZoneObject($objectLinkTargetMZ);
-                if($linkedObj !== null && GetCounterCount($linkedObj, "static") >= 4) Draw($player, 1);
+                if($linkedObj !== null && GetCounterCount($linkedObj, "static") >= 4) DrawIntoMemory($player, 1);
             }
             DecisionQueueController::StoreVariable("objectLinkTargetMZ", "");
             DecisionQueueController::StoreVariable("objectLinkTargetCardID", "");
@@ -22025,17 +22025,24 @@ $customDQHandlers["TributeSingerChoose"] = function($player,$parts,$lastDecision
 };
 
 function TriboelectricFortificationStart($player,$sourceMZ) {
-    $static=[];
-    foreach(ZoneSearch("myField",forPlayer:$player) as $mz){$o=GetZoneObject($mz);if($o!==null&&GetCounterCount($o,"static")>0)$static[]=$mz;}
-    $max=min(3,count($static));
-    if($max<=0){TriboelectricFortificationTargets($player,0);return;}
-    DecisionQueueController::AddDecision($player,"MZMULTICHOOSE","0|".$max."|".implode("&",$static),1,tooltip:"Remove_up_to_three_static_counters");
-    DecisionQueueController::AddDecision($player,"CUSTOM","TriboelectricRemove",1);
+    TriboelectricRemoveStep($player,3,0);
 }
 
-$customDQHandlers["TriboelectricRemove"] = function($player,$parts,$lastDecision){
-    $amount=0; foreach(array_filter(explode("&",strval($lastDecision))) as $mz){$o=GetZoneObject($mz);if($o!==null&&GetCounterCount($o,"static")>0){RemoveCounters($player,$mz,"static",1);++$amount;}}
-    TriboelectricFortificationTargets($player,$amount);
+// "Remove up to three static counters from among objects you control": one counter per choice, so several can come off the same object. Declining ends the removal and keeps what was removed.
+function TriboelectricRemoveStep($player,$left,$removed) {
+    $static=[];
+    foreach(ZoneSearch("myField",forPlayer:$player) as $mz){$o=GetZoneObject($mz);if($o!==null&&GetCounterCount($o,"static")>0)$static[]=$mz;}
+    if($left<=0||empty($static)){TriboelectricFortificationTargets($player,$removed);return;}
+    DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$static),1,tooltip:"Remove_a_static_counter_(".$left."_left)");
+    DecisionQueueController::AddDecision($player,"CUSTOM","TriboelectricRemoveOne|".$left."|".$removed,1,"",1);
+}
+
+$customDQHandlers["TriboelectricRemoveOne"] = function($player,$parts,$lastDecision){
+    $left=intval($parts[0]??0); $removed=intval($parts[1]??0);
+    $o=($lastDecision===""||$lastDecision==="-"||$lastDecision==="PASS")?null:GetZoneObject($lastDecision);
+    if($o===null||GetCounterCount($o,"static")<=0){TriboelectricFortificationTargets($player,$removed);return;}
+    RemoveCounters($player,$lastDecision,"static",1);
+    TriboelectricRemoveStep($player,$left-1,$removed+1);
 };
 
 function TriboelectricFortificationTargets($player,$amount){

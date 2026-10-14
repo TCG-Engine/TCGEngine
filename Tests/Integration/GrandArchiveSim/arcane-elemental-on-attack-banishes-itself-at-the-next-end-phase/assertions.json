@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "7",
+        "semantic": true,
+        "label": "Seven power at level 7 or higher"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "wFH1kBLrWh",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "At the beginning of the next end phase it was banished"
+    }
+]

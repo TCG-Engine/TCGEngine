@@ -1,0 +1,23 @@
+{
+    "name": "erratic-bolt-class-bonus-banishes-two-random-memory-cards-to-draw-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:45:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DqtlaMGMvd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DqtlaMGMvd"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "banish",
+            "random",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may banish two cards at random from your memory. If you do, draw two cards."
+        ]
+    }
+}

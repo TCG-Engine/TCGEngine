@@ -1,0 +1,23 @@
+{
+    "name": "shattering-discharge-deals-two-unpreventable-damage-to-a-champion-and-banishes-itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uutqo9hm33"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uutqo9hm33"
+        ],
+        "mechanics": [
+            "damage",
+            "unpreventable",
+            "banish-self",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 2 unpreventable damage to target champion. Banish CARDNAME."
+        ]
+    }
+}

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2109**
+Cards linked to an existing fixture: **2126**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **368**
+Implemented cards still needing semantic coverage: **351**
 
 ## Mechanic groups
 
@@ -42,7 +42,6 @@ Implemented cards still needing semantic coverage: **368**
 | Ranger Strides (`pvxb5hrfsu`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, status, trigger, condition | — | — |
 | Triumphant Mechanic (`tQTQqCnaZU`) | ALLY | 2 | recover, draw-discard, combat, trigger, condition | — | — |
 | Uther, Illustrious King (`5h8asbierp`) | UNIQUE,ALLY | 2 | targeting, zone-movement, status, combat, trigger | — | — |
-| Arcane Elemental (`wFH1kBLrWh`) | ALLY | 2 | cost, zone-movement, combat, trigger | — | — |
 | Auspicious Manifestation (`vZH2xr4yq2`) | ACTION | 2 | draw-discard, zone-movement, counter, condition | — | — |
 | Cascading Round (`ywc08c9htu`) | REGALIA,ITEM | 2 | targeting, zone-movement, combat, condition | — | — |
 | Curse Amplification (`x9z2k2a5ig`) | ACTION | 2 | cost, damage, recover, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **368**
 | Aenean Repudiation (`t91W06HOqY`) | ACTION | 2 | cost, condition | — | — |
 | Anointed Purifier (`mt1I9kfowQ`) | ALLY | 2 | targeting, zone-movement | — | — |
 | Celestial Calling (`izm6h38lrj`) | ACTION | 2 | cost, zone-movement | — | — |
+| Fabricator Slime (`rpELNyrSrM`) | ALLY | 2 | counter, token | — | — |

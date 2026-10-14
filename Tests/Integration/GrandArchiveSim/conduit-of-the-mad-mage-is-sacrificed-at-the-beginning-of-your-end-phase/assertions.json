@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "6SXL09rEzS",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Sacrificed at the beginning of the end phase"
+    }
+]

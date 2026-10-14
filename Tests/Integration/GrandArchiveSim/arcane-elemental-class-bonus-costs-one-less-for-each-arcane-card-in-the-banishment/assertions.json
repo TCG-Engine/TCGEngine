@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "wFH1kBLrWh",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "7 - 2 arcane cards in the banishment = 5 payments"
+    }
+]

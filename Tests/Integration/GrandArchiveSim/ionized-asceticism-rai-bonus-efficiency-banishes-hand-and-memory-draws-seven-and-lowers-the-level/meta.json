@@ -1,0 +1,24 @@
+{
+    "name": "ionized-asceticism-rai-bonus-efficiency-banishes-hand-and-memory-draws-seven-and-lowers-the-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:50:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u2Peefob8w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "u2Peefob8w"
+        ],
+        "mechanics": [
+            "rai-bonus",
+            "efficiency",
+            "banish",
+            "draw",
+            "level"
+        ],
+        "rulesClauses": [
+            "Banish all cards from your hand and memory, then draw seven cards. Until the beginning of your next turn, your champion gets -10 level."
+        ]
+    }
+}

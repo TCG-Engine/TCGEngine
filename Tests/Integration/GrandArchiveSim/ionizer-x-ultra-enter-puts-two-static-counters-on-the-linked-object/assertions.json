@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"static\":2}",
+        "semantic": true,
+        "label": "Two static counters on the linked ally"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only two static counters: nothing drawn into memory (the one payment is in memory)"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "ionizer-x-ultra-enter-puts-two-static-counters-on-the-linked-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:47:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1Hb6HXKXzG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1Hb6HXKXzG"
+        ],
+        "mechanics": [
+            "on-enter",
+            "object-link",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put two **static** counters on linked object."
+        ]
+    }
+}

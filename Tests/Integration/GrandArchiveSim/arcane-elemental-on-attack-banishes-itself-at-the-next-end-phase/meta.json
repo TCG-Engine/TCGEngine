@@ -1,0 +1,23 @@
+{
+    "name": "arcane-elemental-on-attack-banishes-itself-at-the-next-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:49:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wFH1kBLrWh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wFH1kBLrWh"
+        ],
+        "mechanics": [
+            "pride",
+            "on-attack",
+            "delayed-trigger",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**On Attack:** At the beginning of the next end phase, banish CARDNAME."
+        ]
+    }
+}
