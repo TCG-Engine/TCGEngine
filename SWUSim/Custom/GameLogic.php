@@ -878,10 +878,21 @@ function ObjectCurrentPowerRaw($obj): int {
             break;
         case 'ASH_206': // Kelleran Beq: +1/+0 for each OTHER unit (friendly and enemy) with 0 power.
             $selfUid206 = intval($obj->UniqueID ?? 0);
-            foreach (GetLiveSeatsArray() as $p206) {
-                foreach (array_merge(GetGroundArena($p206), GetSpaceArena($p206)) as $u) {
-                    if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid206 && intval(ObjectCurrentPower($u)) === 0) $base += 1;
+            // RE-ENTRY GUARD: asking whether ANOTHER Kelleran Beq is at 0 power computes ITS count, which asks about this one again —
+            // that recursed forever and ran PHP out of memory (one per side, or a second copy before the uniqueness rule; all 7 failed
+            // games of the ASH meta baseline v2.1, 2026-10-14). The bonus only ever ADDS, so while this copy is already being counted
+            // its own bonus is left out: the inner question ("is it at 0 power?") is answered by the rest of its power.
+            // Guard: ash/KelleranBeq_WhereAreTheOthers.md::TwoKelleranBeqs_OnePerSide_EachCountsOnlyTheZeroPowerUnit.
+            if (!empty($GLOBALS['gAsh206Counting'][$selfUid206])) break;
+            $GLOBALS['gAsh206Counting'][$selfUid206] = true;
+            try {
+                foreach (GetLiveSeatsArray() as $p206) {
+                    foreach (array_merge(GetGroundArena($p206), GetSpaceArena($p206)) as $u) {
+                        if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid206 && intval(ObjectCurrentPower($u)) === 0) $base += 1;
+                    }
                 }
+            } finally {
+                unset($GLOBALS['gAsh206Counting'][$selfUid206]);
             }
             break;
         case 'ASH_197': // Executor: +1/+0 for each upgrade on OTHER friendly units.

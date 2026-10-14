@@ -56,6 +56,11 @@ function _SWUBotLookaheadTransientGlobalNames(): array {
         'gPlayGrantShield', 'gPlayGrantPrevent2', 'gEntryPlayGrantTE', 'gForceEnterReady', 'gInCombatDamage',
         // Not in the request-boundary list (they are not continuation state) but a dispatch mutates them:
         'playerID', 'updateNumber', 'frameAnimations', 'gFlashMessage',
+        // The in-memory winner SWUDeclareGameWinner() sets beside GAMEOVER_WINNER. The payload restore puts the serialized winner
+        // back, but this one stayed set after a WINNING line, so every later DoDrawCard() bailed as if the game were decided — no
+        // regroup draws, no deck-out — and the real game never ended (ASH meta run 2026-10-14: Dedra Colossus vs Krennic Nevarro City,
+        // 300+ rounds at 1 HP each). In production it is reset only by the next ParseGamestate, so the rest of the request was affected too.
+        'gWinner',
     ];
 }
 
