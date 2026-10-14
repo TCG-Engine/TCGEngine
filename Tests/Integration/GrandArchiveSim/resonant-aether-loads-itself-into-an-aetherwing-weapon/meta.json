@@ -1,0 +1,21 @@
+{
+    "name": "resonant-aether-loads-itself-into-an-aetherwing-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:29:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ppahdhe7g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3ppahdhe7g"
+        ],
+        "mechanics": [
+            "load",
+            "aetherwing"
+        ],
+        "rulesClauses": [
+            "Load Resonant Aether into an Aetherwing weapon you control."
+        ]
+    }
+}

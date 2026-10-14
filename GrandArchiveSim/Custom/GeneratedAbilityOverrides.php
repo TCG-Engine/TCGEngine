@@ -2960,6 +2960,24 @@ $customDQHandlers["fuqfxq13uz:0:OnAttack-1"] = function($player, $parts, $lastDe
     DecisionQueueController::AddDecision($player, "CUSTOM", "fuqfxq13uz:0:OnAttack-2", 1);
 };
 
+// Beckon Attention (rTesQpssPz): the generated body only rewrote the CombatTarget variable, which neither redirected the damage nor read the target in the attacker's perspective.
+// The stored target is relative to the attacker; the caster's champion has to be re-expressed the same way (as Trump Set does) and the combat target state/marker re-set.
+$cardActivatedAbilities["rTesQpssPz:0"] = function($player) {
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($attackerPlayer <= 0 || $combatTarget === null || $combatTarget === "" || $combatTarget === "-") return;
+    $targetObj = GetZoneObjectForPlayerPerspective($attackerPlayer, $combatTarget);
+    if($targetObj === null || $targetObj->removed) return;
+    if(!PropertyContains(EffectiveCardType($targetObj), "ALLY") && !PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return;
+    if(intval($targetObj->Controller) === intval($player)) return;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    $redirectTarget = ConvertMzToPlayerPerspective($champMZ, $attackerPlayer);
+    StoreCombatTargetState($redirectTarget, $attackerPlayer);
+    MarkCombatTarget($attackerPlayer, $redirectTarget);
+    GainCrowdsFavor($player);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

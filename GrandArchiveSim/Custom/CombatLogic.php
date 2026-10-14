@@ -1506,8 +1506,9 @@ function BeginCombatPhase($actionCard) {
     }
 
     // Crowd's Favor (gpmJdGYqoC): pay (1) for each attack declaration.
-    // Effect is stored on the current holder; check both players for safety.
-    $crowdFavorActive = (GlobalEffectCount($turnPlayer, "gpmJdGYqoC") > 0 || GlobalEffectCount($prOpp, "gpmJdGYqoC") > 0);
+    // Only attacks that target an object the status holder controls pay: in a two-player game that is the attacker's opponent holding the status
+    // (the holder's own attacks are free).
+    $crowdFavorActive = GlobalEffectCount($prOpp, "gpmJdGYqoC") > 0;
     if($crowdFavorActive) {
         $hand = GetZone("myHand");
         if(count($hand) < 1) {

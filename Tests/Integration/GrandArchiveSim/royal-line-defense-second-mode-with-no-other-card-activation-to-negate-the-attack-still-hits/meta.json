@@ -1,0 +1,22 @@
+{
+    "name": "royal-line-defense-second-mode-with-no-other-card-activation-to-negate-the-attack-still-hits",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:35:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9urNxU7SZw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9urNxU7SZw"
+        ],
+        "mechanics": [
+            "reaction",
+            "modal",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation if a Chessman ally is attacking."
+        ]
+    }
+}

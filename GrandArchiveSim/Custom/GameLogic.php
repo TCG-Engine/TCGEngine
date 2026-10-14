@@ -21295,6 +21295,12 @@ function ClassBonusActivateCostReduction($cardID) {
         '6gt6zkly69' => 2, // Shriveling Vines: [Class Bonus] costs 2 less
         'kvoqk1l75t' => 2, // Heavy Swing: [Class Bonus] costs 2 less
         'a8mmiv2ptn' => 2, // Manaflare Barrage: [Class Bonus] costs 2 less
+        'rTesQpssPz' => 2, // Beckon Attention: [Class Bonus] costs 2 less
+        '2RKjpzEFV6' => 1, // Mendcall Mercy: [Class Bonus] costs 1 less
+        'rhlq2kkvoq' => 2, // Rocket Jump: [Class Bonus] costs 2 less
+        '300z2snsdw' => 2, // Potion Infusion: Clarity: [Class Bonus] costs 2 less
+        '08kuz07nk4' => 2, // Veiled Dash: [Class Bonus] costs 2 less
+        '3zc9p4lpnv' => 2, // Clockwork Amalgam: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }

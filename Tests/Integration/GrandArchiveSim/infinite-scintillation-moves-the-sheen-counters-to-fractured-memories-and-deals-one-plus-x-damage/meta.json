@@ -1,0 +1,22 @@
+{
+    "name": "infinite-scintillation-moves-the-sheen-counters-to-fractured-memories-and-deals-one-plus-x-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:28:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tC7GrWnlR5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tC7GrWnlR5"
+        ],
+        "mechanics": [
+            "sheen",
+            "counter-move",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Move all **sheen** counters from target unit to your Fractured Memories. Then deal 1+**X** damage to that unit, where **X** is the amount of counters moved this way."
+        ]
+    }
+}

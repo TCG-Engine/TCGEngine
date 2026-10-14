@@ -1,0 +1,24 @@
+{
+    "name": "trump-set-class-bonus-redirects-an-attack-to-a-suited-ally-which-gets-plus-three-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:30:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w7g91ru45w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w7g91ru45w"
+        ],
+        "mechanics": [
+            "reaction",
+            "class-bonus",
+            "cost-reduction",
+            "retarget",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Change the target of an attack to a Suited ally you control. If you do, that ally gets +3[POWER] and +3[LIFE] until end of turn."
+        ]
+    }
+}

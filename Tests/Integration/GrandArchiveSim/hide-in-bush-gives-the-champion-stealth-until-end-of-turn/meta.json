@@ -1,0 +1,21 @@
+{
+    "name": "hide-in-bush-gives-the-champion-stealth-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:27:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hj1trn0yet"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hj1trn0yet"
+        ],
+        "mechanics": [
+            "stealth",
+            "champion"
+        ],
+        "rulesClauses": [
+            "Your champion gains **stealth** until end of turn."
+        ]
+    }
+}

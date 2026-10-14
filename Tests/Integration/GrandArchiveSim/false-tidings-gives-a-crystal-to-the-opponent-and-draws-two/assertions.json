@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "4dys05p49w",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The opponent gained control of the Crystal"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight in hand minus the spell and three payments, plus two drawn (8 - 1 - 3 + 2)"
+    }
+]

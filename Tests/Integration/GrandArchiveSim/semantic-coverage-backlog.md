@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2084**
+Cards linked to an existing fixture: **2099**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **393**
+Implemented cards still needing semantic coverage: **378**
 
 ## Mechanic groups
 
@@ -57,7 +57,6 @@ Implemented cards still needing semantic coverage: **393**
 | Punishing Cartridge (`XgzTexcCSA`) | REGALIA,ITEM | 2 | targeting, draw-discard, combat, trigger | — | — |
 | Reconnaissance Field (`2rz308kuz0`) | PHANTASIA | 2 | targeting, status, combat, trigger | — | — |
 | Spectral Haunting (`Dtr3jPRAFJ`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | — |
-| Trump Set (`w7g91ru45w`) | ACTION | 2 | cost, targeting, combat, condition | — | — |
 | Zhao Yun, Dragonsblood (`mwfrfo3wzq`) | UNIQUE,ALLY | 2 | damage, combat, trigger, condition | — | — |
 | Accursed Strength (`j3fkza233s`) | ACTION | 2 | cost, draw-discard, condition | — | — |
 | Aenean Cyclone (`eCxOH7BgsS`) | ACTION | 2 | cost, targeting, zone-movement | — | — |
@@ -74,5 +73,6 @@ Implemented cards still needing semantic coverage: **393**
 | Palvor Sword (`wU3OvTrjEt`) | REGALIA,WEAPON | 2 | targeting, zone-movement, trigger | — | — |
 | Prima Materia (`vt9y597fqr`) | UNIQUE,ITEM | 2 | damage, draw-discard, condition | — | — |
 | Purified Shot (`dcgw05q66h`) | ITEM | 2 | targeting, damage, zone-movement | — | — |
-| Royal Line Defense (`9urNxU7SZw`) | ACTION | 2 | cost, targeting, condition | — | — |
 | Total Whiteout (`O4mD40xpbY`) | UNIQUE,PHANTASIA | 2 | cost, status, combat | — | — |
+| Aenean Repudiation (`t91W06HOqY`) | ACTION | 2 | cost, condition | — | — |
+| Anointed Purifier (`mt1I9kfowQ`) | ALLY | 2 | targeting, zone-movement | — | — |

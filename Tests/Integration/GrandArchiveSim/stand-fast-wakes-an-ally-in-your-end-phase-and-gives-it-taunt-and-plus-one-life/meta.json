@@ -1,0 +1,22 @@
+{
+    "name": "stand-fast-wakes-an-ally-in-your-end-phase-and-gives-it-taunt-and-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:29:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ao1cfkhbp6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ao1cfkhbp6"
+        ],
+        "mechanics": [
+            "wake-up",
+            "taunt",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Wake up target ally you control. It gains **taunt** and gets +1 [LIFE] until the beginning of your next turn."
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "step": 15,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "semantic": true,
+        "label": "Golden Pawn's 1 life + 3"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "It survived the Dungeon Guide's attack with the extra life"
+    }
+]

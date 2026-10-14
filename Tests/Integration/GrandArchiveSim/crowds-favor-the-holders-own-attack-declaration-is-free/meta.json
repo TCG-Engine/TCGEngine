@@ -1,0 +1,22 @@
+{
+    "name": "crowds-favor-the-holders-own-attack-declaration-is-free",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:33:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gpmJdGYqoC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gpmJdGYqoC"
+        ],
+        "mechanics": [
+            "status",
+            "attack-tax",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Players can't declare attacks targeting an object you control unless they pay (1) for each attack declaration."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "crowds-favor-an-attack-targeting-the-holder-costs-one-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:33:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gpmJdGYqoC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gpmJdGYqoC"
+        ],
+        "mechanics": [
+            "status",
+            "attack-tax"
+        ],
+        "rulesClauses": [
+            "Players can't declare attacks targeting an object you control unless they pay (1) for each attack declaration."
+        ]
+    }
+}

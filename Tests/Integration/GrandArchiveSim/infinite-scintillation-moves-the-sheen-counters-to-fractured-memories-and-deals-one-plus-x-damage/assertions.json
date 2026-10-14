@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":3}",
+        "semantic": true,
+        "label": "All three sheen counters moved to Fractured Memories"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "1 + X damage with X = 3"
+    }
+]

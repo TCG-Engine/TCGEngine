@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Subcards",
+        "value": "[\"3ppahdhe7g\"]",
+        "semantic": true,
+        "label": "Resonant Aether is loaded into the Aetherwing weapon"
+    }
+]

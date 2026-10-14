@@ -1,0 +1,22 @@
+{
+    "name": "false-tidings-gives-a-crystal-to-the-opponent-and-draws-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:27:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OgqsRSQVX6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OgqsRSQVX6"
+        ],
+        "mechanics": [
+            "control-change",
+            "draw",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target opponent gains control of target Crystal object you control. If they do, you draw two cards."
+        ]
+    }
+}
