@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "1ubrwubSQN",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Mantle banished itself"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myMemory",
+        "cardID": "ye7f7o5yut",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A generated Rile the Abyss went into memory"
+    }
+]

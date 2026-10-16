@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "A norm ally takes X = 2"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "The 1-life basic element Red Slime took X = 2 and died"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The advanced element ally is untouched"
+    }
+]

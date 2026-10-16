@@ -1,0 +1,22 @@
+{
+    "name": "weiss-knight-gains-unblockable-when-you-activate-a-chessman-command-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:49:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IBXLKkBUe1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IBXLKkBUe1"
+        ],
+        "mechanics": [
+            "trigger",
+            "unblockable",
+            "command-chessman"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Chessman Command card, CARDNAME gains **unblockable** until end of turn. *(The attacks of a unit with **unblockable** can\u2019t be intercepted and ignores **taunt**.)*"
+        ]
+    }
+}

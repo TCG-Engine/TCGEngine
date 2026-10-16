@@ -1,0 +1,21 @@
+{
+    "name": "ceasing-edict-kongming-bonus-ends-the-combat-phase-of-an-attacking-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:46:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4f3bi5lohu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4f3bi5lohu"
+        ],
+        "mechanics": [
+            "shifting-currents",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "As long as your Shifting Currents face South, this card costs 2 less to activate."
+        ]
+    }
+}

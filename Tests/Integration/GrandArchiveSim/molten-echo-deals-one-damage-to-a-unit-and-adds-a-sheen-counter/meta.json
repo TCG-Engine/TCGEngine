@@ -1,0 +1,22 @@
+{
+    "name": "molten-echo-deals-one-damage-to-a-unit-and-adds-a-sheen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:36:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p7FWS3DA4a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p7FWS3DA4a"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "sheen"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit. Then put a **sheen** counter on your Fractured Memories."
+        ]
+    }
+}

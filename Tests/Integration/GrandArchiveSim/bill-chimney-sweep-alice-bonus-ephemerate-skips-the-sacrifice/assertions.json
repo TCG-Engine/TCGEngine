@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "s9ICPMYPNx",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Bill came back from the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "zyEMI5XNHt",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "And it was ephemeral: no Specter ally was sacrificed"
+    }
+]

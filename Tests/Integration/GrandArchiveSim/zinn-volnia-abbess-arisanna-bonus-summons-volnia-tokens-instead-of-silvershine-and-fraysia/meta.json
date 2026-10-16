@@ -1,0 +1,23 @@
+{
+    "name": "zinn-volnia-abbess-arisanna-bonus-summons-volnia-tokens-instead-of-silvershine-and-fraysia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:44:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "N0GEBrywbW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "N0GEBrywbW"
+        ],
+        "mechanics": [
+            "arisanna-bonus",
+            "replacement",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Arisanna Bonus] If you would **summon** one or more Silvershine and/or Fraysia tokens, **summon** that many Volnia tokens instead."
+        ]
+    }
+}

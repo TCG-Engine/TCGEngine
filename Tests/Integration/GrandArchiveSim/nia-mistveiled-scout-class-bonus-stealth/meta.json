@@ -1,0 +1,21 @@
+{
+    "name": "nia-mistveiled-scout-class-bonus-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:58:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PZM9uvCFai"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PZM9uvCFai"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Stealth** *(This unit can't be targeted by attacks unless permitted by **true sight**.)*"
+        ]
+    }
+}

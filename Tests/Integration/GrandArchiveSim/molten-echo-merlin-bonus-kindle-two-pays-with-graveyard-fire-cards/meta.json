@@ -1,0 +1,21 @@
+{
+    "name": "molten-echo-merlin-bonus-kindle-two-pays-with-graveyard-fire-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:36:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p7FWS3DA4a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p7FWS3DA4a"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "kindle"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **Kindle 2**"
+        ]
+    }
+}

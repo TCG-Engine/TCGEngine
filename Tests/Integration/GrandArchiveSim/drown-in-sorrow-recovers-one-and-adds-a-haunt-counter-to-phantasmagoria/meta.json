@@ -1,0 +1,21 @@
+{
+    "name": "drown-in-sorrow-recovers-one-and-adds-a-haunt-counter-to-phantasmagoria",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:46:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vA5ZmzZL9I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vA5ZmzZL9I"
+        ],
+        "mechanics": [
+            "recover",
+            "haunt"
+        ],
+        "rulesClauses": [
+            "**Recover 1** and put a **haunt** counter on your Phantasmagoria. "
+        ]
+    }
+}

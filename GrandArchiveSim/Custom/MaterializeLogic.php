@@ -1452,10 +1452,11 @@ function DoMaterialize($player, $mzCard) {
             // gets sacrificed and the field compacts before later triggers resolve.
             for($fwi = count($field) - 1; $fwi >= 0; --$fwi) {
                 if($field[$fwi]->removed || $field[$fwi]->CardID !== "qVtWCAx3zb" || HasNoAbilities($field[$fwi])) continue;
-                $fractalMZ = $fZone . "-" . $fwi;
+                // The level-up removes the old champion and appends the new one, so the Fractal's field index shifts before the answer comes back: carry its UniqueID instead of the index.
+                $fractalUniqueID = intval($field[$fwi]->UniqueID ?? 0);
                 DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                     tooltip:"Sacrifice_Fractal_of_Waves_to_draw_2_into_memory?");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalUniqueID, 1);
             }
         }
 
@@ -1587,7 +1588,7 @@ function DoMaterialize($player, $mzCard) {
 
 $customDQHandlers["FractalOfWavesLevel3"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $fractalMZ = $parts[0] ?? "";
+    $fractalMZ = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
     if($fractalMZ === "") return;
     $obj = GetZoneObject($fractalMZ);
     if($obj === null || $obj->removed || $obj->CardID !== "qVtWCAx3zb") return;

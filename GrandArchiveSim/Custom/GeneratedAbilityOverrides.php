@@ -3233,6 +3233,25 @@ $activationCostModifierAbilities["A58xZJJMz6:0"] = function($player, $subjectObj
   return IsClassBonusActive($player, ["ASSASSIN"]) ? -3 : 0;
 };
 
+// Calculated Foresight (sl7dedg616): banishing a floating-memory card from your graveyard has to tell Nico, Whiplash Allure (lash counter); the generated handler moved it without calling NicoOnFloatingMemoryBanished.
+$customDQHandlers["sl7dedg616:0:CardActivated-1"] = function($player, $parts, $lastDecision) {
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "sl7dedg616:0:CardActivated-1")) return;
+  if($lastDecision === "-") return;
+  MZMove($player, $lastDecision, "myBanish");
+  NicoOnFloatingMemoryBanished($player);
+  $champions = ZoneSearch("myField", ["CHAMPION"]);
+  if(!empty($champions)) AddTurnEffect($champions[0], "RANGED_3");
+};
+
+// Sablemere, Warden's Grip (WAodKSuGuX): the opponent-graveyard condition belongs to activating it from the material deck (handled where that click is routed); the field ability "[Nico Bonus] (3+X), Banish CARDNAME"
+// has no such condition, but the generated prereq demanded three cards in an opponent's graveyard for it as well.
+$activateAbilityPrereqs["WAodKSuGuX:0"] = function($player, $mzID, $abilityIndex) {
+  if(!IsNicoBonusActive($player)) return false;
+  return CountAvailableReservePayments($player, $mzID) >= 3;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)
@@ -3244,3 +3263,25 @@ unset($gaClassBonusTables);
 
 // Printed-cost prereqs for the abilities in GAFieldAbilityCostTable() (Custom/GameLogic.php): wraps the final $activateAbilityPrereqs closures.
 GAInstallFieldAbilityCostPrereqs($activateAbilityPrereqs);
+
+// Total Whiteout (O4mD40xpbY): "Rested non-champion objects you don't control lose all activated abilities." CanActivateAbility() is the single gate, but most abilities have no prereq closure at all, so one is
+// installed for every printed activated ability: it refuses while a Total Whiteout of the other player is on the field and the object is a rested non-champion.
+function GATotalWhiteoutBlocks($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || !isset($obj->Controller) || ($obj->Status ?? 2) != 1) return false;
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) return false;
+    foreach(GetField($obj->Controller == 1 ? 2 : 1) as $fieldObj) {
+        if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "O4mD40xpbY" && !HasNoAbilities($fieldObj)) return true;
+    }
+    return false;
+}
+foreach($CardActivateAbilityCountData as $gaWhiteoutCardID => $gaWhiteoutCount) {
+    for($gaWhiteoutIdx = 0; $gaWhiteoutIdx < $gaWhiteoutCount; ++$gaWhiteoutIdx) {
+        $gaWhiteoutKey = $gaWhiteoutCardID . ":" . $gaWhiteoutIdx;
+        $gaWhiteoutOriginal = $activateAbilityPrereqs[$gaWhiteoutKey] ?? null;
+        $activateAbilityPrereqs[$gaWhiteoutKey] = function($player, $mzID, $abilityIndex) use ($gaWhiteoutOriginal) {
+            if(GATotalWhiteoutBlocks($player, $mzID)) return false;
+            return $gaWhiteoutOriginal === null ? true : $gaWhiteoutOriginal($player, $mzID, $abilityIndex);
+        };
+    }
+}

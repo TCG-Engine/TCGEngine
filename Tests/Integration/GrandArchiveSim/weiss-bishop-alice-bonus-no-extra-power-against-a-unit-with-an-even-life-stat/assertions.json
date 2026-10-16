@@ -1,0 +1,11 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The Tortoise has 6 life, an even stat: the printed 1"
+    }
+]

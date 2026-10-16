@@ -1,0 +1,47 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Everything in hand was discarded"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "And everything in memory"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two graveyard cards banished"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "{\"omen\":1}",
+        "semantic": true,
+        "label": "With an omen counter"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "Counters",
+        "value": "{\"omen\":1}",
+        "semantic": true,
+        "label": "On each"
+    }
+]

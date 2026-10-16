@@ -1,0 +1,11 @@
+[
+    {
+        "step": 13,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight in hand, minus the attack and two payments, plus the card drawn (8 - 1 - 2 + 1)"
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "Y6PZntlVDl",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "6 - 2 x 2 (the third Pawn does not count) = 2"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "drown-in-sorrow-alice-bonus-ephemerate-activates-it-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:46:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vA5ZmzZL9I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vA5ZmzZL9I"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "ephemerate",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **Ephemerate \u2014 (2)** *(You may activate this card from your graveyard by paying this cost. Action cards played this way become **ephemeral** on the effects stack.)*"
+        ]
+    }
+}

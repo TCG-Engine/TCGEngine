@@ -1,0 +1,22 @@
+{
+    "name": "total-whiteout-rested-opposing-non-champion-objects-lose-their-activated-abilities",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:04:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "O4mD40xpbY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "O4mD40xpbY"
+        ],
+        "mechanics": [
+            "static",
+            "lose-abilities",
+            "rested"
+        ],
+        "rulesClauses": [
+            "Rested non-champion objects you don't control lose all activated abilities and can't be used for an attack."
+        ]
+    }
+}

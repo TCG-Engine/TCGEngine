@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "1PrDQ1EX0F",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Frozen Divinity was sacrificed"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myDeck",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "And a card was drawn into memory (the recollection phase then returned it to the hand)"
+    }
+]

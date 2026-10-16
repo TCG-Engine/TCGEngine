@@ -1,0 +1,21 @@
+{
+    "name": "calculated-foresight-declining-the-banish-gives-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:46:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sl7dedg616"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sl7dedg616"
+        ],
+        "mechanics": [
+            "mill",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Then you may banish a card with **floating memory** from your graveyard. If you do, your champion gains **ranged 3** until end of turn."
+        ]
+    }
+}

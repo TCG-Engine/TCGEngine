@@ -1,0 +1,22 @@
+{
+    "name": "nico-whiplash-allure-on-champion-hit-mills-the-opponent-x-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:50:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5bbae3z4py"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5bbae3z4py"
+        ],
+        "mechanics": [
+            "on-champion-hit",
+            "mill",
+            "lash"
+        ],
+        "rulesClauses": [
+            "**On Champion Hit:** You may have that opponent put the top **X** cards of their deck into their graveyard, where **X** is the amount of **lash** counters on Nico."
+        ]
+    }
+}

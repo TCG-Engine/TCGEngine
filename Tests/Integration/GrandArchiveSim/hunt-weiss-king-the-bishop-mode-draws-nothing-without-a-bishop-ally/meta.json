@@ -1,0 +1,22 @@
+{
+    "name": "hunt-weiss-king-the-bishop-mode-draws-nothing-without-a-bishop-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:56:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Y6PZntlVDl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Y6PZntlVDl"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "modal",
+            "condition"
+        ],
+        "rulesClauses": [
+            "\u2022 If you control a Chessman Bishop ally, draw a card."
+        ]
+    }
+}

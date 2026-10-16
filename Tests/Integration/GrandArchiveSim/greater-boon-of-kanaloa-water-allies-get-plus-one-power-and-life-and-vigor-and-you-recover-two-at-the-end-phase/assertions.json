@@ -1,0 +1,36 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Water ally: printed 1 + 1"
+    },
+    {
+        "step": 1,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-2",
+        "value": 7,
+        "semantic": true,
+        "label": "Printed 6 + 1"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "Vigor woke the rested Tortoise at the end phase"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Recover 2 at the beginning of the end phase (5 -> 3)"
+    }
+]

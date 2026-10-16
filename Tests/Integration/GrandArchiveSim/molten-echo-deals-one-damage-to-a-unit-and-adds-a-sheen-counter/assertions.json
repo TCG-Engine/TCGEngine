@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "One damage to the target unit"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":1}",
+        "semantic": true,
+        "label": "A sheen counter on Fractured Memories"
+    }
+]

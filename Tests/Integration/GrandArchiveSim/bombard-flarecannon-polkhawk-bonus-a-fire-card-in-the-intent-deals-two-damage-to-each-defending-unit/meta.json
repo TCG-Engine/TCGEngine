@@ -1,0 +1,23 @@
+{
+    "name": "bombard-flarecannon-polkhawk-bonus-a-fire-card-in-the-intent-deals-two-damage-to-each-defending-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:40:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oqk1l75tlz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oqk1l75tlz"
+        ],
+        "mechanics": [
+            "polkhawk-bonus",
+            "on-attack",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Polkhawk Bonus] **On Attack:** If there is a fire element card in this attacker's intent, deal 2 damage to each unit the defending player controls. *(Apply this effect only if your champion is Polkhawk.)*"
+        ]
+    }
+}

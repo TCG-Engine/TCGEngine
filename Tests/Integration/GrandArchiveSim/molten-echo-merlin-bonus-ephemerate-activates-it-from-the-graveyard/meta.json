@@ -1,0 +1,22 @@
+{
+    "name": "molten-echo-merlin-bonus-ephemerate-activates-it-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:36:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p7FWS3DA4a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p7FWS3DA4a"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "ephemerate",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **Ephemerate** \u2014 (2) *(You may activate this card from your graveyard by paying this cost. Action cards played this way become **ephemeral** on the effects stack.)*"
+        ]
+    }
+}

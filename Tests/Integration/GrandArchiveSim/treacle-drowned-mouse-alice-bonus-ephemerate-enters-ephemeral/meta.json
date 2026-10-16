@@ -1,0 +1,23 @@
+{
+    "name": "treacle-drowned-mouse-alice-bonus-ephemerate-enters-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:58:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6emPe9OEUn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6emPe9OEUn"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "ephemerate",
+            "cost",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **Ephemerate \u2014 **(2), Discard a card."
+        ]
+    }
+}

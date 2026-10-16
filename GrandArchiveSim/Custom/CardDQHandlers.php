@@ -7875,10 +7875,11 @@ $customDQHandlers["HuntChooseMode"] = function($player, $parts, $lastDecision) {
 
     if($modeName === "BISHOP") {
         AddCounters($player, $huntMZ, "hunt_bishop", 1);
-        Draw($player, amount: 1);
+        // "If you control a Chessman Bishop ally, draw a card." (the draw happened with no Bishop too)
+        if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BISHOP"]))) Draw($player, amount: 1);
     } elseif($modeName === "KNIGHT") {
         AddCounters($player, $huntMZ, "hunt_knight", 1);
-        $knights = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "KNIGHT"]);
+        $knights = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["KNIGHT"]);
         if(!empty($knights)) {
             if(count($knights) === 1) {
                 AddCounters($player, $knights[0], "buff", 1);
@@ -7890,15 +7891,10 @@ $customDQHandlers["HuntChooseMode"] = function($player, $parts, $lastDecision) {
         }
     } elseif($modeName === "ROOK") {
         AddCounters($player, $huntMZ, "hunt_rook", 1);
-        $rooks = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]);
+        $rooks = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ROOK"]);
         if(!empty($rooks)) {
             if(count($rooks) === 1) {
-                $rookMZ = $rooks[0];
-                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
-                if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-                    StoreCombatTargetState($rookMZ, ($player == 1) ? 2 : 1);
-                }
-                AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
+                HuntRedirectAttackToRook($player, $rooks[0]);
             } else {
                 $rookStr = implode("&", $rooks);
                 DecisionQueueController::AddDecision($player, "MZCHOOSE", $rookStr, 1, tooltip:"Redirect_attack_to_Rook");
@@ -7915,13 +7911,20 @@ $customDQHandlers["HuntKnightBuff"] = function($player, $parts, $lastDecision) {
 };
 
 // HuntRookRedirect: redirect attack to chosen Rook and give +2 LIFE.
+// Hunt, Weiss King: "Change the target of an attack to a Chessman Rook ally you control. If you do, that ally gets +2 LIFE until end of turn."
+// The combat target is held in the ATTACKER's coordinate space and carries a marker (the Intercept redirect does both), so the Rook's "myField-N" has to be converted and marked.
+function HuntRedirectAttackToRook($player, $rookMZ) {
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget === null || $combatTarget === "-" || $combatTarget === "") return;
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? (($player == 1) ? 2 : 1));
+    $rookForAttacker = ConvertMzToPlayerPerspective($rookMZ, $attackerPlayer);
+    StoreCombatTargetState($rookForAttacker, $attackerPlayer);
+    MarkCombatTarget($attackerPlayer, $rookForAttacker);
+    AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
+}
 $customDQHandlers["HuntRookRedirect"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
-    if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-        StoreCombatTargetState($lastDecision, ($player == 1) ? 2 : 1);
-    }
-    AddTurnEffect($lastDecision, "Y6PZntlVDl_LIFE");
+    HuntRedirectAttackToRook($player, $lastDecision);
 };
 
 // LagomorphPieceReturn: return a chosen Chessman Command card from GY to memory.

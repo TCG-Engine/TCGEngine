@@ -1,0 +1,11 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Two cards banished"
+    }
+]

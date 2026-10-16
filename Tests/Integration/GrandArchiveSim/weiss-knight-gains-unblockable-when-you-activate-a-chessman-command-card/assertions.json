@@ -1,0 +1,7 @@
+[
+    {
+        "step": 13,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

@@ -1,0 +1,21 @@
+{
+    "name": "total-whiteout-class-bonus-costs-three-less-and-opposing-objects-enter-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:03:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "O4mD40xpbY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "O4mD40xpbY"
+        ],
+        "mechanics": [
+            "static",
+            "enter-rested"
+        ],
+        "rulesClauses": [
+            "Objects you don't control enter the field rested."
+        ]
+    }
+}

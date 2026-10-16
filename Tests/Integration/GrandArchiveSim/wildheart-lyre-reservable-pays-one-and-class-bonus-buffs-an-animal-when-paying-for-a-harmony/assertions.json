@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Lyre rested to pay for 1"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "The Animal ally got a buff counter"
+    }
+]

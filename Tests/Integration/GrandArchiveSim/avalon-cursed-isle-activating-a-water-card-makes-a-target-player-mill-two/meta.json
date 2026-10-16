@@ -1,0 +1,23 @@
+{
+    "name": "avalon-cursed-isle-activating-a-water-card-makes-a-target-player-mill-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:59:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "41WnFOT5YS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "41WnFOT5YS"
+        ],
+        "mechanics": [
+            "trigger",
+            "water",
+            "mill",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a water element card, target player puts the top two cards of their deck into their graveyard."
+        ]
+    }
+}

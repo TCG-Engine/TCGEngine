@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "MRiM1fnOWC",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The awake Heirloom could still be used"
+    }
+]

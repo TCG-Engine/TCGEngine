@@ -1,0 +1,23 @@
+{
+    "name": "mantle-of-the-abyss-alice-bonus-pay-three-and-banish-generates-rile-the-abyss-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:41:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ubrwubSQN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1ubrwubSQN"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "activated-ability",
+            "banish-self",
+            "generate"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] (3), **Banish CARDNAME:** **Generate** a Rile the Abyss card and put it into your memory."
+        ]
+    }
+}

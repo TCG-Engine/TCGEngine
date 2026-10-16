@@ -131,6 +131,11 @@ function QueueEffectStackOpportunityRound($priorityPlayer, $windowId = "STACK_RE
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return false;
 
+    // Interdiction (Feu Awakening, 0rKmarZ8QN): while its activation is on the effects stack, players can't gain opportunity.
+    foreach($effectStack as $stackObj) {
+        if(($stackObj->CardID ?? "") === "0rKmarZ8QN") return false;
+    }
+
     $otherPlayer = ($priorityPlayer == 1) ? 2 : 1;
     $fastCards = GetPlayableOpportunityChoices($priorityPlayer);
     if(QueueShortcutAwareMayChoose($priorityPlayer, $fastCards, "EffectStackActiveResponse", [$otherPlayer], $windowId)) {

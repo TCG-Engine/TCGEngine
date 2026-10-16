@@ -1,0 +1,22 @@
+{
+    "name": "seafletched-serpent-class-bonus-on-hit-loads-it-into-a-bow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:48:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h0g7nndc4s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h0g7nndc4s"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-hit",
+            "load"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** You may load CARDNAME into target unloaded Bow weapon you control."
+        ]
+    }
+}

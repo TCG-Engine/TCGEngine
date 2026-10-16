@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "s9ICPMYPNx",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Bill stays"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "zyEMI5XNHt",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The other Specter ally was sacrificed"
+    }
+]

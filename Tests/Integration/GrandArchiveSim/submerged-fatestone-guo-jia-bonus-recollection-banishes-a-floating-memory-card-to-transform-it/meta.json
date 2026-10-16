@@ -1,0 +1,23 @@
+{
+    "name": "submerged-fatestone-guo-jia-bonus-recollection-banishes-a-floating-memory-card-to-transform-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:51:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zfb0pzm6qp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zfb0pzm6qp"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "recollection",
+            "banish",
+            "transform"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] At the beginning of your recollection phase, you may banish a card with **floating memory** from your graveyard. If you do, transform Submerged Fatestone."
+        ]
+    }
+}

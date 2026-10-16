@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The graveyard copy resolved"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "And it did not return to the graveyard (ephemeral)"
+    }
+]

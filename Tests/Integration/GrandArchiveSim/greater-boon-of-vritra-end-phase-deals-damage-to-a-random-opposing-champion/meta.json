@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-vritra-end-phase-deals-damage-to-a-random-opposing-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:42:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jMH26KLgcd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jMH26KLgcd"
+        ],
+        "mechanics": [
+            "end-phase",
+            "damage",
+            "random"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, deal **X**+**Y** damage to a random target champion you don\u2019t control, where **X** is the amount of fire element boons in your pantheon, and **Y** is the amount of fire element cards in your champion\u2019s lineage."
+        ]
+    }
+}

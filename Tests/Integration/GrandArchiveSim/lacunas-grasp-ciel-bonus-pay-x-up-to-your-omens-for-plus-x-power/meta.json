@@ -1,0 +1,23 @@
+{
+    "name": "lacunas-grasp-ciel-bonus-pay-x-up-to-your-omens-for-plus-x-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:41:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w7annwvl5q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w7annwvl5q"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "on-attack",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] **On Attack**: If there are no cards in the attacker's intent, you may pay (X). **X** can't be more than the amount of omens you have. If you do, Lacuna's Grasp gets +**X**[POWER]."
+        ]
+    }
+}

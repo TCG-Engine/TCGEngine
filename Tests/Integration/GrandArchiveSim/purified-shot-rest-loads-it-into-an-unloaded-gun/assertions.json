@@ -1,0 +1,11 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Subcards",
+        "value": "[\"dcgw05q66h\"]",
+        "semantic": true,
+        "label": "The Revolver (now at myField-1) is loaded with the Purified Shot"
+    }
+]

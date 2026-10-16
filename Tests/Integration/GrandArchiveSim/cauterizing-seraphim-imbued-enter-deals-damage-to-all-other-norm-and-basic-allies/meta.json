@@ -1,0 +1,23 @@
+{
+    "name": "cauterizing-seraphim-imbued-enter-deals-damage-to-all-other-norm-and-basic-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:37:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TYlWgIYsq3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TYlWgIYsq3"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME was **imbued**, deal X damage to all other norm and basic element allies."
+        ]
+    }
+}

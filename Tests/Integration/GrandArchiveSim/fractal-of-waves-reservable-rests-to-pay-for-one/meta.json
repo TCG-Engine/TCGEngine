@@ -1,0 +1,21 @@
+{
+    "name": "fractal-of-waves-reservable-rests-to-pay-for-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:01:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qVtWCAx3zb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qVtWCAx3zb"
+        ],
+        "mechanics": [
+            "keyword",
+            "reservable"
+        ],
+        "rulesClauses": [
+            "**Reservable** *(While paying for a reserve cost, you may rest this object to pay for 1 of that cost.)*"
+        ]
+    }
+}

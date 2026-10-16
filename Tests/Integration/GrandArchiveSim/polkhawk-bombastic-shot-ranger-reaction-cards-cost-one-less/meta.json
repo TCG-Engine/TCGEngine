@@ -1,0 +1,21 @@
+{
+    "name": "polkhawk-bombastic-shot-ranger-reaction-cards-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:39:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ryvfq3huqj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ryvfq3huqj"
+        ],
+        "mechanics": [
+            "static",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Ranger Reaction cards you activate cost 1 less to activate."
+        ]
+    }
+}

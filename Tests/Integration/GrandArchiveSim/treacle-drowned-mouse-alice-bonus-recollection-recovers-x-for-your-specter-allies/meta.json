@@ -1,0 +1,23 @@
+{
+    "name": "treacle-drowned-mouse-alice-bonus-recollection-recovers-x-for-your-specter-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:58:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6emPe9OEUn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6emPe9OEUn"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "recollection",
+            "recover",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] At the beginning of your recollection phase, **recover X**, where **X **is the amount of Specter allies you control."
+        ]
+    }
+}

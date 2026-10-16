@@ -1,0 +1,23 @@
+{
+    "name": "sablemere-wardens-grip-nico-bonus-pay-three-to-activate-it-from-the-material-deck-while-an-opponent-has-three-graveyard-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:05:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WAodKSuGuX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WAodKSuGuX"
+        ],
+        "mechanics": [
+            "nico-bonus",
+            "material-deck-activation",
+            "condition",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Nico Bonus] As long as an opponent has three or more cards in their graveyard, you may pay (3) to activate this card from your material deck."
+        ]
+    }
+}

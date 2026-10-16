@@ -1,0 +1,21 @@
+{
+    "name": "cascading-round-on-hit-puts-the-top-card-of-your-deck-into-your-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:52:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ywc08c9htu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ywc08c9htu"
+        ],
+        "mechanics": [
+            "on-hit",
+            "mill"
+        ],
+        "rulesClauses": [
+            "**On Hit:** Put the top card of your deck into your graveyard."
+        ]
+    }
+}

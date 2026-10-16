@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Memory cost 2 - 1: one memory card was banished"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "5iqigcom2r",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Claymore was materialized"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "name": "conflagrative-trounce-omens-with-different-reserve-costs-do-not-count",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:38:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vke9gsgfdm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vke9gsgfdm"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] As long as you have two or more omens with the same reserve cost, Conflagrative Trounce gets +2[POWER]."
+        ]
+    }
+}

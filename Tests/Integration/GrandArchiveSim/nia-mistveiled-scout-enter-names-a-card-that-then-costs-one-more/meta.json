@@ -1,0 +1,21 @@
+{
+    "name": "nia-mistveiled-scout-enter-names-a-card-that-then-costs-one-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:58:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PZM9uvCFai"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PZM9uvCFai"
+        ],
+        "mechanics": [
+            "on-enter",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Look at target opponent's memory, then choose any card name. Cards with the chosen name cost 1 more to play."
+        ]
+    }
+}

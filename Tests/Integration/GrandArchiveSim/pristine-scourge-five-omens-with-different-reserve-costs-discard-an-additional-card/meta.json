@@ -1,0 +1,22 @@
+{
+    "name": "pristine-scourge-five-omens-with-different-reserve-costs-discard-an-additional-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:47:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kugriwszxr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kugriwszxr"
+        ],
+        "mechanics": [
+            "omen",
+            "discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you have five or more omens with different reserve costs, discard an additional card from among them."
+        ]
+    }
+}

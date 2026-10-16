@@ -1,0 +1,22 @@
+{
+    "name": "mantle-of-the-abyss-alice-bonus-sacrifice-a-specter-ally-to-activate-it-from-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:41:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ubrwubSQN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1ubrwubSQN"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "material-deck-activation",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] You may sacrifice a Specter ally to activate this card from your material deck."
+        ]
+    }
+}

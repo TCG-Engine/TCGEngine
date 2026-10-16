@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_level_equals",
+        "mzId": "p2Field-0",
+        "value": 2,
+        "semantic": true,
+        "label": "Level 3 - 1"
+    }
+]

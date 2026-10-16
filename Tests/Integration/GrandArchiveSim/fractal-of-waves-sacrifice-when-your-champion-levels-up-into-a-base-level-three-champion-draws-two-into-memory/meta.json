@@ -1,0 +1,24 @@
+{
+    "name": "fractal-of-waves-sacrifice-when-your-champion-levels-up-into-a-base-level-three-champion-draws-two-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:01:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qVtWCAx3zb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qVtWCAx3zb"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "sacrifice",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up into a champion with base level 3, you may sacrifice CARDNAME. If you do, draw two cards into your memory."
+        ]
+    }
+}

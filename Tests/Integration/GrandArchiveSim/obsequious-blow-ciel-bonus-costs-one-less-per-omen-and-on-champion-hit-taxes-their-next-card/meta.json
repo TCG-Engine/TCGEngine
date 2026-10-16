@@ -1,0 +1,21 @@
+{
+    "name": "obsequious-blow-ciel-bonus-costs-one-less-per-omen-and-on-champion-hit-taxes-their-next-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:49:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "macqlgvqo3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "macqlgvqo3"
+        ],
+        "mechanics": [
+            "on-champion-hit",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "**On Champion Hit**: The first card that opponent activates during their next turn costs 2 more to activate."
+        ]
+    }
+}

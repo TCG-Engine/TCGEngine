@@ -474,8 +474,8 @@ $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
 $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
-$Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
-$Imbue_Cards["HYFtrEXYFi"] = 2; // Tempestuous Seraphim (WIND) - Advanced Imbue 2 (was missing: it could never become imbued)
+$Imbue_Cards["TYlWgIYsq3"] = ['threshold' => 2, 'matcher' => 'advanced']; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2 (a plain 2 meant "two fire cards")
+$Imbue_Cards["HYFtrEXYFi"] = ['threshold' => 2, 'matcher' => 'advanced']; // Tempestuous Seraphim (WIND) - Advanced Imbue 2 (was missing, then registered as "two wind cards")
 $Imbue_Cards["92mnQJPfR8"] = ['threshold' => 1, 'matcher' => 'advanced']; // Angel Attendant (NORM) - Advanced Imbue 1
 $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
@@ -5839,7 +5839,7 @@ $customDQHandlers["9ggfiy38t2:0:ActivateAbility-1"] = function($player, $parts, 
 // ---------------------------------------------------------------------------------------------------------------------------------
 function GAItemAwake($mzID) {
     $obj = GetZoneObject($mzID);
-    return $obj !== null && !$obj->removed && $obj->Status == 2;
+    return $obj !== null && !$obj->removed && ($obj->Status ?? 0) == 2; // an object in an intent has no Status
 }
 function GAAllAllyTargets() {
     return FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"])));
@@ -6509,7 +6509,7 @@ function GAInstallFieldAbilityCostPrereqs(array &$prereqTable) {
             $obj = GetZoneObject($mzID);
             if($obj === null || $obj->removed) return false;
             $cardID = $obj->CardID;
-            if(!empty($spec['rest']) && $obj->Status != 2) return false;
+            if(!empty($spec['rest']) && ($obj->Status ?? 0) != 2) return false; // an object in an intent has no Status
             if(!empty($spec['bonus']) && !GAFieldAbilityBonusActive($player, $spec['bonus'], $cardID)) return false;
             foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) {
                 if(GetCounterCount($obj, $counterName) < $counterAmount) return false;
@@ -13564,6 +13564,36 @@ function EndPhase() {
         }
     }
 
+    // Greater Boon of Kanaloa (xqkjh2YMT1): "At the beginning of your end phase, recover 2."
+    $kanaloaField = &GetField($turnPlayer);
+    for($ki = 0; $ki < count($kanaloaField); ++$ki) {
+        if(!$kanaloaField[$ki]->removed && $kanaloaField[$ki]->CardID === "xqkjh2YMT1" && !HasNoAbilities($kanaloaField[$ki])) RecoverChampion($turnPlayer, 2);
+    }
+
+    // Greater Boon of Vritra (jMH26KLgcd): "At the beginning of your end phase, deal X+Y damage to a random target champion you don't control, where X is the amount of fire element
+    // boons in your pantheon and Y is the amount of fire element cards in your champion's lineage." (Implemented nowhere before.)
+    $vritraField = &GetField($turnPlayer);
+    for($vi = 0; $vi < count($vritraField); ++$vi) {
+        if($vritraField[$vi]->removed || $vritraField[$vi]->CardID !== "jMH26KLgcd" || HasNoAbilities($vritraField[$vi])) continue;
+        $vritraMZ = $vritraField[$vi]->GetMzID();
+        $fireBoons = 0;
+        foreach($vritraField as $boonObj) {
+            if(!$boonObj->removed && strpos(strval(EffectiveCardType($boonObj)), "BOON") !== false && PropertyContains(EffectiveCardElement($boonObj), "FIRE")) ++$fireBoons;
+        }
+        $fireLineage = 0;
+        foreach(GetChampionLineage($turnPlayer) as $lineageCardID) {
+            if(PropertyContains(CardElement($lineageCardID), "FIRE")) ++$fireLineage;
+        }
+        $enemyChampions = [];
+        foreach([1, 2] as $enemySeat) {
+            if($enemySeat == $turnPlayer) continue;
+            $enemyChampMZ = FindChampionMZ($enemySeat);
+            if($enemyChampMZ !== null) $enemyChampions[] = $enemyChampMZ;
+        }
+        if(empty($enemyChampions) || $fireBoons + $fireLineage <= 0) continue;
+        DealDamage($turnPlayer, $vritraMZ, $enemyChampions[array_rand($enemyChampions)], $fireBoons + $fireLineage);
+    }
+
     // Mirrorbound Covenant (PKnOTdQJJ1): each player's max influence is 7.
     // Check both fields for the Unique/Phantasia; if present, enforce cap on turn player.
     $hasMirrorbound = false;
@@ -13710,6 +13740,16 @@ function EndPhase() {
     $playerID = $savedPlayerID;
 }
 
+// Greater Boon of Kanaloa (xqkjh2YMT1): "Water element allies you control get +1 POWER and +1 LIFE, and have intercept and vigor." (Implemented nowhere before.)
+function GAKanaloaBuffsAlly($obj) {
+    if($obj === null || !isset($obj->Controller) || $obj->Controller === -1) return false;
+    if(!PropertyContains(EffectiveCardType($obj), "ALLY") || !PropertyContains(EffectiveCardElement($obj), "WATER")) return false;
+    foreach(GetField($obj->Controller) as $fieldObj) {
+        if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "xqkjh2YMT1" && !HasNoAbilities($fieldObj)) return true;
+    }
+    return false;
+}
+
 function ObjectCurrentPower($obj) {
     $power = (is_array($obj->Counters ?? null) && isset($obj->Counters["potion_animate_power"]))
         ? intval($obj->Counters["potion_animate_power"])
@@ -13736,6 +13776,7 @@ function ObjectCurrentPower($obj) {
             $power += 1;
         }
     }
+    if(GAKanaloaBuffsAlly($obj)) ++$power;
     foreach($obj->TurnEffects ?? [] as $effect) if($effect === "TRAINED_BIRDROID_POWER") ++$power;
     if($obj->CardID === "xdgpdcD33h" && PlayerLevel($obj->Controller) >= 1) {
         $powercells = ZoneSearch("myField", cardSubtypes:["POWERCELL"], forPlayer:$obj->Controller);
@@ -16131,7 +16172,7 @@ function ObjectCurrentLevel($obj) {
                 }
             }
         }
-        // Submerged Fatestone (zfb0pzm6qp): [Guo Jia Bonus] opponent's champions get -1 level
+        // Submerged Fatestone (zfb0pzm6qp): "Champions you don't control get -1 level." Only its recollection clause is a [Guo Jia Bonus]; this was gated on it too.
         {
             global $playerID;
             $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
@@ -16139,9 +16180,7 @@ function ObjectCurrentLevel($obj) {
             foreach($subField as $sObj) {
                     if($sObj === null) continue;
                 if(!$sObj->removed && $sObj->CardID === "zfb0pzm6qp" && !HasNoAbilities($sObj)) {
-                    if(IsGuoJiaBonus($sObj->Controller)) {
-                        $cardLevel -= 1;
-                    }
+                    $cardLevel -= 1;
                     break;
                 }
             }
@@ -16537,6 +16576,7 @@ function ObjectCurrentHP($obj) {
                 }
             }
         }
+        if(GAKanaloaBuffsAlly($obj)) $cardLife += 1;
         // Seaguard Bulwark (acmde97dbu): while facing East, +2 LIFE
         if($obj->CardID === "acmde97dbu" && GetShiftingCurrents($obj->Controller) === "EAST") {
             $cardLife += 2;
@@ -22303,7 +22343,24 @@ $customDQHandlers["NightframeBuff"] = function($player, $parts, $lastDecision) {
     AddCounters($player, $targetMZ, "buff", 1);
 };
 
+// Crimson Tear (9q1wl8ao8b): "[Level 2+] Whenever you activate a Reaction card that targets CARDNAME, draw a card into your memory. Then if it's not your turn, wake up CARDNAME."
+// Every generated target handler calls ApplyVirgilProgramTargetDiscount with the chosen target, which makes it the one place that sees "a card of yours chose this target" (targets are chosen as the card resolves).
+function GACrimsonTearReactionTrigger($player, $selection) {
+    // The resolving action card has already left the effect stack, so read it from the "resolving graveyard slot" variable ("seat:index:cardID").
+    $resolving = explode(":", strval(DecisionQueueController::GetVariable("GAResolvingGY") ?? ""), 3);
+    if(count($resolving) < 3 || intval($resolving[0]) !== intval($player)) return;
+    if(!PropertyContains(CardSubtypes($resolving[2]), "REACTION")) return;
+    foreach(explode("&", strval($selection)) as $targetMZ) {
+        $target = $targetMZ === "" ? null : GetZoneObject($targetMZ);
+        if($target === null || $target->removed || $target->CardID !== "9q1wl8ao8b" || HasNoAbilities($target)) continue;
+        if(intval($target->Controller ?? 0) !== intval($player) || PlayerLevel($player) < 2) continue;
+        DrawIntoMemory($player, 1);
+        if(GetTurnPlayer() != $player) WakeupCard($player, $targetMZ);
+    }
+}
+
 function ApplyVirgilProgramTargetDiscount($player, $selection) {
+    GACrimsonTearReactionTrigger($player, $selection);
     if(DecisionQueueController::GetVariable("virgilProgramTracking") !== "YES") return;
     if(DecisionQueueController::GetVariable("virgilProgramDiscountApplied") === "YES") return;
     $sourceMZ = strval(DecisionQueueController::GetVariable("mzID") ?? "");
@@ -24567,6 +24624,7 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
 
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(GAKanaloaBuffsAlly($obj)) return true;
     if($obj->CardID === "vxzsjRxMIn" && PlayerLevel($obj->Controller) >= 1) return true;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if($obj->CardID === "xyan7zbtxi") return true; // Lu Bu, Indomitable Titan
@@ -25008,6 +25066,7 @@ function HasIntercept($obj) {
     if($obj === null || HasNoAbilities($obj)) return false;
     if(MaryAnnOmensHaveKeyword($obj, "Intercept")) return true;
     if(in_array("NO_INTERCEPT", $obj->TurnEffects ?? [])) return false;
+    if(GAKanaloaBuffsAlly($obj)) return true;
     if(HasKeyword_Intercept($obj)) return true;
     // Overlord Mk III (sl7ddcgw05): printed Intercept missed by keyword parser
     if($obj->CardID === "sl7ddcgw05") return true;
@@ -29165,6 +29224,23 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         foreach(GetZone("myField") as $fObj) {
             if($fObj !== null && !$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
                 if(in_array($fObj->CardID, ["ryvfq3huqj", "8eyeqhc37y"])) $reserveCost = max(0, $reserveCost - 3);
+                break;
+            }
+        }
+    }
+
+    // Greater Boon of Kanaloa (xqkjh2YMT1): "This card costs 4 less to bestow for each graveyard with eight or more cards in it."
+    if($cardID === "xqkjh2YMT1") {
+        foreach([1, 2] as $kanaloaSeat) {
+            if(count(array_filter(GetGraveyard($kanaloaSeat), fn($g) => !$g->removed)) >= 8) $reserveCost = max(0, $reserveCost - 4);
+        }
+    }
+
+    // Polkhawk, Bombastic Shot (ryvfq3huqj): "Ranger Reaction cards you activate cost 1 less to activate." Not in the generated modifiers; applied here for a Polkhawk champion on the field.
+    if(PropertyContains(CardClasses($cardID), "RANGER") && PropertyContains(CardSubtypes($cardID), "REACTION")) {
+        foreach(GetField($player) as $fObj) {
+            if($fObj !== null && !$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                if($fObj->CardID === "ryvfq3huqj" && !HasNoAbilities($fObj)) $reserveCost = max(0, $reserveCost - 1);
                 break;
             }
         }
