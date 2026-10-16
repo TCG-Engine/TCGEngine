@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "XFWU8KTVW9",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Ephemerate (2) costs 1 with the Ticket"
+    }
+]

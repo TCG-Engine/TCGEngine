@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-14T08:49:20+00:00",
+    "generatedAt": "2026-10-16T01:00:47+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2280,
+        "cardsWithExistingFixtures": 2342,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 197,
+        "cardsNeedingSemanticCoverage": 135,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -27,44 +27,6 @@
     },
     "cards": [
         {
-            "cardId": "p2n1953som",
-            "name": "Spirelle, Schwartz Queen",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 35
-        },
-        {
-            "cardId": "OVoHxVwodU",
-            "name": "Awaken Ombre",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "5upufyoz23",
             "name": "Dusklight Communion",
             "type": "UNIQUE,PHANTASIA",
@@ -74,25 +36,6 @@
                 "cost",
                 "targeting",
                 "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "igpck2z4rs",
-            "name": "Gloamspire Prowler",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "draw-discard",
                 "trigger",
                 "condition"
             ],
@@ -142,25 +85,6 @@
             "priority": 25
         },
         {
-            "cardId": "3fe3c97s71",
-            "name": "Nightmare Coil",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "vZH2xr4yq2",
             "name": "Auspicious Manifestation",
             "type": "ACTION",
@@ -188,24 +112,6 @@
                 "targeting",
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "x9z2k2a5ig",
-            "name": "Curse Amplification",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "recover",
                 "condition"
             ],
             "existingFixtures": [],
@@ -251,24 +157,6 @@
             "priority": 24
         },
         {
-            "cardId": "XgzTexcCSA",
-            "name": "Punishing Cartridge",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "2rz308kuz0",
             "name": "Reconnaissance Field",
             "type": "PHANTASIA",
@@ -287,41 +175,6 @@
             "priority": 24
         },
         {
-            "cardId": "Dtr3jPRAFJ",
-            "name": "Spectral Haunting",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "j3fkza233s",
-            "name": "Accursed Strength",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "eCxOH7BgsS",
             "name": "Aenean Cyclone",
             "type": "ACTION",
@@ -331,23 +184,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "4yqL9xtzVi",
-            "name": "Bandersnatch, Frumious Foe",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -382,23 +218,6 @@
                 "zone-movement",
                 "status",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "r73opcqtzs",
-            "name": "Expunge",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -574,27 +393,6 @@
             "priority": 15
         },
         {
-            "cardId": "q1b6htzcox",
-            "name": "Beguiling Coup",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "CjL1WPvWHw",
             "name": "Buffeting Hurricane",
             "type": "PHANTASIA",
@@ -652,101 +450,6 @@
             "priority": 15
         },
         {
-            "cardId": "1keruycrwi",
-            "name": "Devouring Malice",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "recover",
-                "draw-discard",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "bfg5ubeczk",
-            "name": "Extorting Blackjack",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "47o7eanl1g",
-            "name": "False Step",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "fooz13xfpk",
-            "name": "Gloamspire Mantle",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "xrpx8jypwc",
-            "name": "Gloamspire Wraith",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "fZZqzAXNAc",
             "name": "Greater Boon of Enki",
             "type": "GREATER BOON",
@@ -756,44 +459,6 @@
                 "cost",
                 "draw-discard",
                 "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "yicNKtzC3H",
-            "name": "Jabberwocky, Calamity's Call",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "9xycwz9gv4",
-            "name": "Memento Mori",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
                 "trigger",
                 "condition"
             ],
@@ -823,25 +488,6 @@
             "priority": 15
         },
         {
-            "cardId": "nt1lyk1dvd",
-            "name": "Penumbral Waltz",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "CfU2EmuKwY",
             "name": "Sighing Crownwing",
             "type": "ALLY",
@@ -852,44 +498,6 @@
                 "counter",
                 "status",
                 "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "j43qiwqjt0",
-            "name": "Siphoning Fractal",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "du4df43ci2",
-            "name": "Soutirer Vortex",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "recover",
                 "trigger",
                 "condition"
             ],
@@ -1038,60 +646,6 @@
             "mechanics": [
                 "cost",
                 "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "1wl8ao8bls",
-            "name": "Carter, Synthetic Reaper",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ddag7ue0k7",
-            "name": "Death Essence Amulet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "o0qtb31x97",
-            "name": "Diana, Cursebreaker",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -1282,24 +836,6 @@
             "priority": 14
         },
         {
-            "cardId": "RfQhLQ539Z",
-            "name": "Hexbound Blade",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "dfchplzf6m",
             "name": "Ingress of Sanguine Ire",
             "type": "ACTION",
@@ -1354,24 +890,6 @@
             "priority": 14
         },
         {
-            "cardId": "mt5zs1w6c0",
-            "name": "Mary Ann, Maladroit Maid",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "PZM9uvCFai",
             "name": "Nia, Mistveiled Scout",
             "type": "UNIQUE,ALLY",
@@ -1390,42 +908,6 @@
             "priority": 14
         },
         {
-            "cardId": "lhtiymuyv3",
-            "name": "Possessed Remnant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "por7ch2bbm",
-            "name": "Relentless Hexchaser",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "g31dg6zl3j",
             "name": "Sigil of Budding Embers",
             "type": "REGALIA,ITEM",
@@ -1436,24 +918,6 @@
                 "damage",
                 "zone-movement",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "ooffy4dwav",
-            "name": "Slip Away",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1552,23 +1016,6 @@
             "priority": 14
         },
         {
-            "cardId": "u8LjHnH6iC",
-            "name": "Blight's Ring",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "nlufjh84vm",
             "name": "Confidant's Oath",
             "type": "REGALIA,ITEM",
@@ -1620,91 +1067,6 @@
             "priority": 13
         },
         {
-            "cardId": "y7AFl2B1B3",
-            "name": "Curtain of Shadows",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dih0LPaigc",
-            "name": "Devised Conspiracy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "pw9b6IJWEr",
-            "name": "Embrace Noir",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "cicanyx695",
-            "name": "Exsanguinating Wallop",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "HL4Q3UBoH8",
-            "name": "Folded Shadows",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "bdhjszsj2z",
             "name": "Frostbitten Etui",
             "type": "REGALIA,ITEM",
@@ -1731,23 +1093,6 @@
                 "cost",
                 "targeting",
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "8vn1voy5tt",
-            "name": "Gloamspire Lance",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1909,23 +1254,6 @@
             "priority": 13
         },
         {
-            "cardId": "24I0xn0OQ1",
-            "name": "Maledictum Vitae",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "xywyzv14iv",
             "name": "Mana's Cascade",
             "type": "REGALIA,WEAPON",
@@ -1977,23 +1305,6 @@
             "priority": 13
         },
         {
-            "cardId": "gveirpdm44",
-            "name": "Ominous Shadow",
-            "type": "TOKEN,PHANTASIA,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "HLcmZLe7Xr",
             "name": "Pearled Prayer",
             "type": "ACTION",
@@ -2028,23 +1339,6 @@
             "priority": 13
         },
         {
-            "cardId": "fpvw2ifz1n",
-            "name": "Powered Armsmaster",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "W3m0tnw4sr",
             "name": "Prismatic Spirit",
             "type": "CHAMPION",
@@ -2054,57 +1348,6 @@
                 "targeting",
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "7h2k6p8fss",
-            "name": "Profane Bindings",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "1leLWsgBkb",
-            "name": "Reflected Blight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "XK3NiQ5MdR",
-            "name": "Remnant of Will",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2147,23 +1390,6 @@
             "priority": 13
         },
         {
-            "cardId": "IcxG2jsqmu",
-            "name": "Sinister Composure",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "no5tu5412v",
             "name": "Skewering Advance",
             "type": "ATTACK",
@@ -2173,57 +1399,6 @@
                 "draw-discard",
                 "combat",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "E09lX95cb9",
-            "name": "Ticket to the Afterlife",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "dz4qd82liq",
-            "name": "Tome of Ignorance",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "597fqr67du",
-            "name": "Vampiric Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2249,22 +1424,6 @@
             "priority": 13
         },
         {
-            "cardId": "7JjxD8xRVq",
-            "name": "Abnegation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "G8pN8Hackq",
             "name": "Aella, Zephyr's Hand",
             "type": "UNIQUE,ALLY",
@@ -2273,22 +1432,6 @@
             "mechanics": [
                 "cost",
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "emqOANitoD",
-            "name": "Alice, Phantom Monarch",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2361,22 +1504,6 @@
             "priority": 12
         },
         {
-            "cardId": "CyiA6N2geQ",
-            "name": "Chasing Shadows",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "vke9gsgfdm",
             "name": "Conflagrative Trounce",
             "type": "ATTACK",
@@ -2385,22 +1512,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "6g7xgwve1d",
-            "name": "Demon's Aim",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2465,22 +1576,6 @@
             "mechanics": [
                 "cost",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "XFWU8KTVW9",
-            "name": "Ghastly Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2617,38 +1712,6 @@
             "priority": 12
         },
         {
-            "cardId": "m3nlelc53u",
-            "name": "Reckoning's Wake",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "r5a3pmmloe",
-            "name": "Revenant's Scourge",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "g3DQoQvyjI",
             "name": "Royal Oathguard",
             "type": "ALLY",
@@ -2673,38 +1736,6 @@
             "mechanics": [
                 "targeting",
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "oqk2c7wklz",
-            "name": "Shadecursed Hunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "dv3zb9p4lg",
-            "name": "Sorrowcaller",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2959,36 +1990,6 @@
             "priority": 11
         },
         {
-            "cardId": "wbsmks4etk",
-            "name": "Debilitating Grasp",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "qp2r93Bgpj",
-            "name": "Diana, Haunt Reminiscence",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "owq8s5fefw",
             "name": "Duplicitous Replication",
             "type": "ACTION",
@@ -3011,21 +2012,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "KmM2o1ozGr",
-            "name": "Elusive Headhunter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3067,21 +2053,6 @@
             "cardId": "j9s7xQdpf1",
             "name": "Gate of Alterity",
             "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "6hjlgx72rf",
-            "name": "Gloamspire Sniper",
-            "type": "ALLY",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -3154,21 +2125,6 @@
             "priority": 11
         },
         {
-            "cardId": "8tuhuy4xip",
-            "name": "Load Soul",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "1ubrwubSQN",
             "name": "Mantle of the Abyss",
             "type": "REGALIA,ITEM",
@@ -3176,21 +2132,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "OwhKGEMTXm",
-            "name": "Miasmic Fog",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -3251,21 +2192,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "Jr4Ivpcnst",
-            "name": "Shaded Doppelganger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -18561,6 +17487,29 @@
             "priority": 55
         },
         {
+            "cardId": "p2n1953som",
+            "name": "Spirelle, Schwartz Queen",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down"
+            ],
+            "semanticFixtures": [
+                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 55
+        },
+        {
             "cardId": "ms2x2v4qe3",
             "name": "Stellarion Shift",
             "type": "ACTION",
@@ -18851,6 +17800,29 @@
             ],
             "semanticFixtures": [
                 "aenean-guttering-flames-enter-draws-then-discards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "OVoHxVwodU",
+            "name": "Awaken Ombre",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "awaken-ombre-ciel-bonus-puts-ally-omens-onto-the-field-rested"
+            ],
+            "semanticFixtures": [
+                "awaken-ombre-ciel-bonus-puts-ally-omens-onto-the-field-rested"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -19171,6 +18143,29 @@
             "priority": 45
         },
         {
+            "cardId": "igpck2z4rs",
+            "name": "Gloamspire Prowler",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gloamspire-prowler-costs-three-less-with-two-curse-cards-in-the-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "gloamspire-prowler-costs-three-less-with-two-curse-cards-in-the-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "Lewf9sfv9m",
             "name": "Golden Pawn",
             "type": "ALLY",
@@ -19290,6 +18285,29 @@
             "semanticFixtures": [
                 "moontide-illusionist-imbued-on-death-puts-the-top-two-cards-into-the-graveyard",
                 "moontide-illusionist-not-imbued-on-death-mills-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "3fe3c97s71",
+            "name": "Nightmare Coil",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant"
+            ],
+            "semanticFixtures": [
+                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -19787,6 +18805,28 @@
             ],
             "semanticFixtures": [
                 "crystallized-destiny-with-two-fatestones-costs-two-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "x9z2k2a5ig",
+            "name": "Curse Amplification",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "curse-amplification-diana-bonus-costs-three-less-and-recovers-four-at-twenty-damage"
+            ],
+            "semanticFixtures": [
+                "curse-amplification-diana-bonus-costs-three-less-and-recovers-four-at-twenty-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -20405,6 +19445,28 @@
             "priority": 44
         },
         {
+            "cardId": "XgzTexcCSA",
+            "name": "Punishing Cartridge",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "punishing-cartridge-class-bonus-rest-loads-it-into-an-unloaded-gun"
+            ],
+            "semanticFixtures": [
+                "punishing-cartridge-class-bonus-rest-loads-it-into-an-unloaded-gun"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "n06isycm60",
             "name": "Pupil of Sacred Flames",
             "type": "ALLY",
@@ -20584,6 +19646,28 @@
             ],
             "semanticFixtures": [
                 "soothing-potion-sacrifice-draws-a-card-and-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "Dtr3jPRAFJ",
+            "name": "Spectral Haunting",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral"
+            ],
+            "semanticFixtures": [
+                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -20994,6 +20078,33 @@
             "priority": 44
         },
         {
+            "cardId": "j3fkza233s",
+            "name": "Accursed Strength",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "accursed-strength-a-ranger-that-is-not-diana-pays-full-price",
+                "accursed-strength-diana-bonus-costs-one-less",
+                "accursed-strength-draws-three-plus-the-curse-cards-minus-influence",
+                "accursed-strength-with-a-full-hand-and-memory-draws-nothing"
+            ],
+            "semanticFixtures": [
+                "accursed-strength-a-ranger-that-is-not-diana-pays-full-price",
+                "accursed-strength-diana-bonus-costs-one-less",
+                "accursed-strength-draws-three-plus-the-curse-cards-minus-influence",
+                "accursed-strength-with-a-full-hand-and-memory-draws-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "3GjTPUfsp3",
             "name": "Aenean Cyclic Winds",
             "type": "ACTION",
@@ -21103,6 +20214,27 @@
             "semanticFixtures": [
                 "arisanna-lucent-arbiter-does-not-negate-when-the-reserve-costs-differ",
                 "arisanna-lucent-arbiter-negates-an-activation-whose-reserve-cost-matches-the-revealed-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "4yqL9xtzVi",
+            "name": "Bandersnatch, Frumious Foe",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bandersnatch-frumious-foe-class-bonus-taunt-and-recovers-three-when-dealt-damage"
+            ],
+            "semanticFixtures": [
+                "bandersnatch-frumious-foe-class-bonus-taunt-and-recovers-three-when-dealt-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -21407,6 +20539,27 @@
             ],
             "semanticFixtures": [
                 "drowned-exorcist-level-two-enter-banishes-non-water-cards-from-both-graveyards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "r73opcqtzs",
+            "name": "Expunge",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "expunge-discards-a-curse-from-a-lineage-and-damages-all-units-by-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "expunge-discards-a-curse-from-a-lineage-and-damages-all-units-by-its-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -23963,6 +23116,31 @@
             "priority": 35
         },
         {
+            "cardId": "q1b6htzcox",
+            "name": "Beguiling Coup",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "beguiling-coup-element-bonus-as-your-only-reserve-cost-one-omen-gives-the-champions-attacks-plus-one-power"
+            ],
+            "semanticFixtures": [
+                "beguiling-coup-element-bonus-as-your-only-reserve-cost-one-omen-gives-the-champions-attacks-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "kl4bTg57Cj",
             "name": "Benediction Angel",
             "type": "ALLY",
@@ -24517,6 +23695,29 @@
             "priority": 35
         },
         {
+            "cardId": "1keruycrwi",
+            "name": "Devouring Malice",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "recover",
+                "draw-discard",
+                "counter"
+            ],
+            "existingFixtures": [
+                "devouring-malice-rest-removes-a-gem-counter-and-puts-three-debuff-counters-on-an-ally"
+            ],
+            "semanticFixtures": [
+                "devouring-malice-rest-removes-a-gem-counter-and-puts-three-debuff-counters-on-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "NSNozlKKmW",
             "name": "Dewy Slime",
             "type": "ALLY",
@@ -24789,6 +23990,29 @@
             "priority": 35
         },
         {
+            "cardId": "bfg5ubeczk",
+            "name": "Extorting Blackjack",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "extorting-blackjack-with-omens-totalling-exactly-21-gets-plus-ten-power-and-class-bonus-recovers-per-distinct-cost"
+            ],
+            "semanticFixtures": [
+                "extorting-blackjack-with-omens-totalling-exactly-21-gets-plus-ten-power-and-class-bonus-recovers-per-distinct-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "iiZtKTulPg",
             "name": "Eye of Argus",
             "type": "REGALIA,ITEM",
@@ -24806,6 +24030,29 @@
             ],
             "semanticFixtures": [
                 "eye-of-argus-banish-gives-an-ally-true-sight-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "47o7eanl1g",
+            "name": "False Step",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "false-step-prevents-two-damage-to-the-champion-and-makes-it-distant"
+            ],
+            "semanticFixtures": [
+                "false-step-prevents-two-damage-to-the-champion-and-makes-it-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -25116,6 +24363,54 @@
             ],
             "semanticFixtures": [
                 "full-bloom-diao-chan-bonus-enter-makes-the-opponent-summon-four-flowerbuds-each-dealing-two-and-recovering-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "fooz13xfpk",
+            "name": "Gloamspire Mantle",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gloamspire-mantle-tristan-bonus-enter-pay-three-summons-an-ominous-shadow"
+            ],
+            "semanticFixtures": [
+                "gloamspire-mantle-tristan-bonus-enter-pay-three-summons-an-ominous-shadow"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "xrpx8jypwc",
+            "name": "Gloamspire Wraith",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gloamspire-wraith-class-bonus-ranged-two",
+                "gloamspire-wraith-without-the-class-bonus-has-no-ranged"
+            ],
+            "semanticFixtures": [
+                "gloamspire-wraith-class-bonus-ranged-two",
+                "gloamspire-wraith-without-the-class-bonus-has-no-ranged"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -25627,6 +24922,31 @@
             "priority": 35
         },
         {
+            "cardId": "yicNKtzC3H",
+            "name": "Jabberwocky, Calamity's Call",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "jabberwocky-calamitys-call-banish-a-specter-ally-card-recovers-two-and-gets-plus-two-power",
+                "jabberwocky-calamitys-call-prevents-all-damage-without-a-vorpal-sword"
+            ],
+            "semanticFixtures": [
+                "jabberwocky-calamitys-call-banish-a-specter-ally-card-recovers-two-and-gets-plus-two-power",
+                "jabberwocky-calamitys-call-prevents-all-damage-without-a-vorpal-sword"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "3p6i0iqmyn",
             "name": "Krustallan Archer",
             "type": "ALLY",
@@ -25830,6 +25150,31 @@
             "priority": 35
         },
         {
+            "cardId": "9xycwz9gv4",
+            "name": "Memento Mori",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "memento-mori-banish-with-six-prize-counters-draws-three-cards",
+                "memento-mori-puts-a-prize-counter-on-it-whenever-an-ally-dies"
+            ],
+            "semanticFixtures": [
+                "memento-mori-banish-with-six-prize-counters-draws-three-cards",
+                "memento-mori-puts-a-prize-counter-on-it-whenever-an-ally-dies"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "f0jbv5n196",
             "name": "Memento Pocketwatch",
             "type": "REGALIA,ITEM",
@@ -25918,6 +25263,29 @@
             ],
             "semanticFixtures": [
                 "noire-with-another-suited-ally-has-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "nt1lyk1dvd",
+            "name": "Penumbral Waltz",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-three-damage"
+            ],
+            "semanticFixtures": [
+                "penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-three-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26696,6 +26064,29 @@
             "priority": 35
         },
         {
+            "cardId": "j43qiwqjt0",
+            "name": "Siphoning Fractal",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "siphoning-fractal-whenever-an-ally-dies-deals-one-damage-to-the-opposing-champion-and-recovers-one"
+            ],
+            "semanticFixtures": [
+                "siphoning-fractal-whenever-an-ally-dies-deals-one-damage-to-the-opposing-champion-and-recovers-one"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "brq9x9z2k2",
             "name": "Skirting Step",
             "type": "ACTION",
@@ -26767,6 +26158,29 @@
             ],
             "semanticFixtures": [
                 "snow-white-weiss-queen-level-one-enter-rests-a-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "du4df43ci2",
+            "name": "Soutirer Vortex",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs"
+            ],
+            "semanticFixtures": [
+                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28605,6 +28019,30 @@
             "priority": 34
         },
         {
+            "cardId": "1wl8ao8bls",
+            "name": "Carter, Synthetic Reaper",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "carter-synthetic-reaper-class-bonus-whenever-an-ally-dies-recovers-one",
+                "carter-synthetic-reaper-enter-sacrificing-an-automaton-ally-gets-plus-two-power-and-draws"
+            ],
+            "semanticFixtures": [
+                "carter-synthetic-reaper-class-bonus-whenever-an-ally-dies-recovers-one",
+                "carter-synthetic-reaper-enter-sacrificing-an-automaton-ally-gets-plus-two-power-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "Nn4NzegwdX",
             "name": "Cato, Meadow's Channeler",
             "type": "UNIQUE,ALLY",
@@ -29055,6 +28493,28 @@
             "priority": 34
         },
         {
+            "cardId": "ddag7ue0k7",
+            "name": "Death Essence Amulet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard"
+            ],
+            "semanticFixtures": [
+                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "2ghdzy9tz7",
             "name": "Delusional Vapors",
             "type": "ACTION",
@@ -29095,6 +28555,28 @@
             "semanticFixtures": [
                 "demolition-class-bonus-costs-one-less",
                 "demolition-deals-three-damage-to-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "o0qtb31x97",
+            "name": "Diana, Cursebreaker",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "diana-cursebreaker-banishing-four-curse-cards-from-the-lineage-materializes-two-bullets"
+            ],
+            "semanticFixtures": [
+                "diana-cursebreaker-banishing-four-curse-cards-from-the-lineage-materializes-two-bullets"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30613,6 +30095,28 @@
             "priority": 34
         },
         {
+            "cardId": "RfQhLQ539Z",
+            "name": "Hexbound Blade",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hexbound-blade-tristan-bonus-champion-hit-goes-to-the-target-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "hexbound-blade-tristan-bonus-champion-hit-goes-to-the-target-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "0op51dZYc6",
             "name": "Hidden Secrets",
             "type": "ACTION",
@@ -31533,6 +31037,28 @@
             "priority": 34
         },
         {
+            "cardId": "mt5zs1w6c0",
+            "name": "Mary Ann, Maladroit Maid",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "umSsPWqb5H",
             "name": "Merlin, Memory Thief",
             "type": "CHAMPION",
@@ -31907,6 +31433,28 @@
                 "plutus-fortunes-favor-class-bonus-low-influence-gets-plus-two-power",
                 "plutus-fortunes-favor-discards-a-card-as-an-additional-cost",
                 "plutus-fortunes-favor-high-influence-keeps-its-printed-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "lhtiymuyv3",
+            "name": "Possessed Remnant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "possessed-remnant-tristan-bonus-on-death-summons-an-ominous-shadow-and-recovers-three"
+            ],
+            "semanticFixtures": [
+                "possessed-remnant-tristan-bonus-on-death-summons-an-ominous-shadow-and-recovers-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32300,6 +31848,28 @@
             "semanticFixtures": [
                 "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
                 "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "por7ch2bbm",
+            "name": "Relentless Hexchaser",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "relentless-hexchaser-enter-becomes-distant-when-you-control-a-distant-unit"
+            ],
+            "semanticFixtures": [
+                "relentless-hexchaser-enter-becomes-distant-when-you-control-a-distant-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -33184,6 +32754,28 @@
             "semanticFixtures": [
                 "slime-swarm-class-bonus-enter-summons-two-rested-baby-slimes",
                 "slime-swarm-without-the-class-bonus-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "ooffy4dwav",
+            "name": "Slip Away",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slip-away-makes-a-unit-distant"
+            ],
+            "semanticFixtures": [
+                "slip-away-makes-a-unit-distant"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -35554,6 +35146,27 @@
             "priority": 33
         },
         {
+            "cardId": "u8LjHnH6iC",
+            "name": "Blight's Ring",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "blights-ring-pay-four-and-rest-draws-into-memory-and-goes-to-the-target-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "blights-ring-pay-four-and-rest-draws-into-memory-and-goes-to-the-target-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "hbpu4fo8oo",
             "name": "Blighted Jewel",
             "type": "ITEM",
@@ -36573,6 +36186,27 @@
             "priority": 33
         },
         {
+            "cardId": "y7AFl2B1B3",
+            "name": "Curtain of Shadows",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token",
+                "combat"
+            ],
+            "existingFixtures": [
+                "curtain-of-shadows-tristan-bonus-summons-an-ominous-shadow-for-each-preparation-counter"
+            ],
+            "semanticFixtures": [
+                "curtain-of-shadows-tristan-bonus-summons-an-ominous-shadow-for-each-preparation-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "hjdu50pces",
             "name": "Deep Sea Fractal",
             "type": "PHANTASIA",
@@ -36655,6 +36289,27 @@
             ],
             "semanticFixtures": [
                 "deploy-gunshield-floating-memory-pays-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dih0LPaigc",
+            "name": "Devised Conspiracy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "devised-conspiracy-tristan-bonus-prepare-two-and-the-champions-next-attack-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "devised-conspiracy-tristan-bonus-prepare-two-and-the-champions-next-attack-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36900,6 +36555,27 @@
             ],
             "semanticFixtures": [
                 "embersong-deals-two-damage-to-an-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "pw9b6IJWEr",
+            "name": "Embrace Noir",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "embrace-noir-all-allies-gain-stealth"
+            ],
+            "semanticFixtures": [
+                "embrace-noir-all-allies-gain-stealth"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37186,6 +36862,27 @@
             "priority": 33
         },
         {
+            "cardId": "cicanyx695",
+            "name": "Exsanguinating Wallop",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "exsanguinating-wallop-class-bonus-on-attack-recovers-three"
+            ],
+            "semanticFixtures": [
+                "exsanguinating-wallop-class-bonus-on-attack-recovers-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "WdkZU2wwnw",
             "name": "Extortion Scheme",
             "type": "ACTION",
@@ -37465,6 +37162,29 @@
             ],
             "semanticFixtures": [
                 "focal-intensity-deals-one-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "HL4Q3UBoH8",
+            "name": "Folded Shadows",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "folded-shadows-ciel-bonus-gives-the-champion-stealth-with-omens-totalling-33-reserve-cost",
+                "folded-shadows-with-omens-totalling-less-than-33-leaves-the-champion-targetable"
+            ],
+            "semanticFixtures": [
+                "folded-shadows-ciel-bonus-gives-the-champion-stealth-with-omens-totalling-33-reserve-cost",
+                "folded-shadows-with-omens-totalling-less-than-33-leaves-the-champion-targetable"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37846,6 +37566,27 @@
             ],
             "semanticFixtures": [
                 "gleaming-smolder-draws-then-discards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "8vn1voy5tt",
+            "name": "Gloamspire Lance",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "combat"
+            ],
+            "existingFixtures": [
+                "gloamspire-lance-class-bonus-on-hit-deals-unpreventable-damage-per-curse-card-plus-one-and-recovers-as-much"
+            ],
+            "semanticFixtures": [
+                "gloamspire-lance-class-bonus-on-hit-deals-unpreventable-damage-per-curse-card-plus-one-and-recovers-as-much"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -38757,6 +38498,27 @@
             "priority": 33
         },
         {
+            "cardId": "24I0xn0OQ1",
+            "name": "Maledictum Vitae",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "maledictum-vitae-goes-to-the-targets-lineage-and-its-controller-recovers-four"
+            ],
+            "semanticFixtures": [
+                "maledictum-vitae-goes-to-the-targets-lineage-and-its-controller-recovers-four"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "up6fw61vf1",
             "name": "Malevolent Vow",
             "type": "ACTION",
@@ -39308,6 +39070,29 @@
             "priority": 33
         },
         {
+            "cardId": "gveirpdm44",
+            "name": "Ominous Shadow",
+            "type": "TOKEN,PHANTASIA,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ominous-shadow-may-only-attack-units-your-champion-has-dealt-combat-damage-to-this-turn",
+                "ominous-shadow-prevents-three-damage-dealt-to-it"
+            ],
+            "semanticFixtures": [
+                "ominous-shadow-may-only-attack-units-your-champion-has-dealt-combat-damage-to-this-turn",
+                "ominous-shadow-prevents-three-damage-dealt-to-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "qM9yzxQbfF",
             "name": "Orbiting Cosmos",
             "type": "REGALIA,ITEM",
@@ -39812,6 +39597,27 @@
             "priority": 33
         },
         {
+            "cardId": "fpvw2ifz1n",
+            "name": "Powered Armsmaster",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "powered-armsmaster-on-death-summons-a-powercell"
+            ],
+            "semanticFixtures": [
+                "powered-armsmaster-on-death-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "f8uqrptjej",
             "name": "Powered Swordsman",
             "type": "ALLY",
@@ -39890,6 +39696,27 @@
             ],
             "semanticFixtures": [
                 "prodigious-burstmage-class-bonus-death-draws-then-discards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "7h2k6p8fss",
+            "name": "Profane Bindings",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "profane-bindings-negates-an-activation-banishes-it-and-goes-to-the-lineage"
+            ],
+            "semanticFixtures": [
+                "profane-bindings-negates-an-activation-banishes-it-and-goes-to-the-lineage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40294,6 +40121,27 @@
             "priority": 33
         },
         {
+            "cardId": "1leLWsgBkb",
+            "name": "Reflected Blight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "reflected-blight-returns-a-graveyard-card-to-memory-and-goes-to-the-lineage-hurting-the-champion"
+            ],
+            "semanticFixtures": [
+                "reflected-blight-returns-a-graveyard-card-to-memory-and-goes-to-the-lineage-hurting-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "7nk45swaf8",
             "name": "Refresh Chamber",
             "type": "ACTION",
@@ -40336,6 +40184,27 @@
                 "refreshing-charge-class-bonus-floating-memory-pays-a-memory-cost",
                 "refreshing-charge-recovers-three",
                 "refreshing-charge-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "XK3NiQ5MdR",
+            "name": "Remnant of Will",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "remnant-of-will-recovers-four"
+            ],
+            "semanticFixtures": [
+                "remnant-of-will-recovers-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41094,6 +40963,27 @@
                 "searing-rebuke-class-bonus-deals-three-damage-only-when-damage-is-prevented",
                 "searing-rebuke-prevents-three-damage-without-the-class-bonus",
                 "singeing-leap-damages-your-champion-and-makes-it-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "IcxG2jsqmu",
+            "name": "Sinister Composure",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sinister-composure-draws-a-card-and-puts-a-preparation-counter-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "sinister-composure-draws-a-card-and-puts-a-preparation-counter-on-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -41879,6 +41769,29 @@
             "priority": 33
         },
         {
+            "cardId": "E09lX95cb9",
+            "name": "Ticket to the Afterlife",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "ticket-to-the-afterlife-alice-bonus-rest-banishes-a-specter-card-from-the-graveyard-to-recover-two",
+                "ticket-to-the-afterlife-specter-cards-activated-from-the-graveyard-cost-one-less"
+            ],
+            "semanticFixtures": [
+                "ticket-to-the-afterlife-alice-bonus-rest-banishes-a-specter-card-from-the-graveyard-to-recover-two",
+                "ticket-to-the-afterlife-specter-cards-activated-from-the-graveyard-cost-one-less"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "zRG5hmBcsP",
             "name": "Tidal Fractal ",
             "type": "PHANTASIA",
@@ -41915,6 +41828,29 @@
             ],
             "semanticFixtures": [
                 "tidal-sweep-cleave-hits-every-unit-an-opponent-controls"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "dz4qd82liq",
+            "name": "Tome of Ignorance",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tome-of-ignorance-banish-draws-a-card",
+                "tome-of-ignorance-class-bonus-opposing-champions-get-minus-one-level"
+            ],
+            "semanticFixtures": [
+                "tome-of-ignorance-banish-draws-a-card",
+                "tome-of-ignorance-class-bonus-opposing-champions-get-minus-one-level"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42097,6 +42033,27 @@
                 "unrelenting-warden-below-level-two-stays-rested",
                 "unrelenting-warden-class-bonus-taunt-protects-the-champion",
                 "unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "597fqr67du",
+            "name": "Vampiric Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "combat"
+            ],
+            "existingFixtures": [
+                "vampiric-slime-class-bonus-on-hit-recovers-the-damage-dealt"
+            ],
+            "semanticFixtures": [
+                "vampiric-slime-class-bonus-on-hit-recovers-the-damage-dealt"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42774,6 +42731,26 @@
             "priority": 33
         },
         {
+            "cardId": "7JjxD8xRVq",
+            "name": "Abnegation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "abnegation-recovers-eight-plus-twice-the-curse-cards-in-the-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "abnegation-recovers-eight-plus-twice-the-curse-cards-in-the-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "nsowyyn6jt",
             "name": "Acolyte of Cultivation",
             "type": "ALLY",
@@ -42962,6 +42939,26 @@
             ],
             "semanticFixtures": [
                 "alice-distorted-queen-enter-gains-the-phantasmagoria-mastery-with-two-haunt-counters"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "emqOANitoD",
+            "name": "Alice, Phantom Monarch",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "alice-phantom-monarch-inherited-playing-an-advanced-element-card-with-no-curse-in-the-lineage-deals-seven-unpreventable-damage-to-the-champion"
+            ],
+            "semanticFixtures": [
+                "alice-phantom-monarch-inherited-playing-an-advanced-element-card-with-no-curse-in-the-lineage-deals-seven-unpreventable-damage-to-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44012,6 +44009,26 @@
             "priority": 32
         },
         {
+            "cardId": "CyiA6N2geQ",
+            "name": "Chasing Shadows",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "chasing-shadows-enter-gains-agility-three"
+            ],
+            "semanticFixtures": [
+                "chasing-shadows-enter-gains-agility-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "OUqX2BBcGv",
             "name": "Cheerful Slime",
             "type": "ALLY",
@@ -44400,6 +44417,26 @@
             ],
             "semanticFixtures": [
                 "delivery-droid-on-death-summons-a-powercell"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "6g7xgwve1d",
+            "name": "Demon's Aim",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat"
+            ],
+            "existingFixtures": [
+                "demons-aim-goes-to-the-lineage-and-the-champions-attacks-gain-true-sight"
+            ],
+            "semanticFixtures": [
+                "demons-aim-goes-to-the-lineage-and-the-champions-attacks-gain-true-sight"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -45514,6 +45551,26 @@
                 "general-at-arms-class-bonus-does-not-boost-a-non-polearm-attack",
                 "general-at-arms-class-bonus-polearm-attack-enters-the-intent-with-plus-two-power",
                 "general-at-arms-without-the-class-bonus-gives-no-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "XFWU8KTVW9",
+            "name": "Ghastly Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ghastly-slime-ephemeral-gets-plus-two-power"
+            ],
+            "semanticFixtures": [
+                "ghastly-slime-ephemeral-gets-plus-two-power"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48012,6 +48069,26 @@
             "priority": 32
         },
         {
+            "cardId": "m3nlelc53u",
+            "name": "Reckoning's Wake",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "reckonings-wake-looks-at-the-top-three-cards"
+            ],
+            "semanticFixtures": [
+                "reckonings-wake-looks-at-the-top-three-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "67duh1cy3g",
             "name": "Reflect the Skies",
             "type": "ACTION",
@@ -48130,6 +48207,26 @@
             ],
             "semanticFixtures": [
                 "reveal-the-hidden-level-1-draws-a-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "r5a3pmmloe",
+            "name": "Revenant's Scourge",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "revenants-scourge-class-bonus-champion-hit-with-a-curse-in-their-lineage-wakes-the-attacker-and-draws"
+            ],
+            "semanticFixtures": [
+                "revenants-scourge-class-bonus-champion-hit-with-a-curse-in-their-lineage-wakes-the-attacker-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48516,6 +48613,28 @@
             "priority": 32
         },
         {
+            "cardId": "oqk2c7wklz",
+            "name": "Shadecursed Hunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "shadecursed-hunter-inherited-effect-gives-minus-two-life",
+                "shadecursed-hunter-on-death-goes-to-the-bottom-of-the-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "shadecursed-hunter-inherited-effect-gives-minus-two-life",
+                "shadecursed-hunter-on-death-goes-to-the-bottom-of-the-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "n1voy5ttkk",
             "name": "Shatterfall Keep",
             "type": "UNIQUE,DOMAIN",
@@ -48829,6 +48948,26 @@
             "semanticFixtures": [
                 "sneaky-raccoon-has-stealth-while-the-opponent-graveyard-is-empty",
                 "sneaky-raccoon-loses-stealth-once-the-opponent-has-a-graveyard-card"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "dv3zb9p4lg",
+            "name": "Sorrowcaller",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "sorrowcaller-class-bonus-champion-hit-deals-damage-per-revealed-memory-card-with-reserve-cost-three-or-more"
+            ],
+            "semanticFixtures": [
+                "sorrowcaller-class-bonus-champion-hit-deals-damage-per-revealed-memory-card-with-reserve-cost-three-or-more"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51692,6 +51831,25 @@
             "priority": 31
         },
         {
+            "cardId": "wbsmks4etk",
+            "name": "Debilitating Grasp",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "debilitating-grasp-class-bonus-champion-hit-goes-to-the-hit-champions-lineage"
+            ],
+            "semanticFixtures": [
+                "debilitating-grasp-class-bonus-champion-hit-goes-to-the-hit-champions-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "At1UNRG7F0",
             "name": "Devastating Blow",
             "type": "ATTACK",
@@ -51764,6 +51922,25 @@
             ],
             "semanticFixtures": [
                 "diablerie-registers-the-steal-the-next-divine-relic-effect"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "qp2r93Bgpj",
+            "name": "Diana, Haunt Reminiscence",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "diana-haunt-reminiscence-class-bonus-ranged-grows-with-the-curse-cards-in-the-lineage"
+            ],
+            "semanticFixtures": [
+                "diana-haunt-reminiscence-class-bonus-ranged-grows-with-the-curse-cards-in-the-lineage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51865,6 +52042,25 @@
             ],
             "semanticFixtures": [
                 "elder-mandrill-can-be-played-for-its-reserve-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "KmM2o1ozGr",
+            "name": "Elusive Headhunter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "elusive-headhunter-class-bonus-on-kill-gains-agility-three"
+            ],
+            "semanticFixtures": [
+                "elusive-headhunter-class-bonus-on-kill-gains-agility-three"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52650,6 +52846,25 @@
             "priority": 31
         },
         {
+            "cardId": "6hjlgx72rf",
+            "name": "Gloamspire Sniper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "gloamspire-sniper-class-bonus-on-kill-generates-a-creeping-torment-into-the-targets-lineage"
+            ],
+            "semanticFixtures": [
+                "gloamspire-sniper-class-bonus-on-kill-generates-a-creeping-torment-into-the-targets-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "waf8urrqtj",
             "name": "Gloamspire, Black Market",
             "type": "UNIQUE,DOMAIN",
@@ -53366,6 +53581,25 @@
             "priority": 31
         },
         {
+            "cardId": "8tuhuy4xip",
+            "name": "Load Soul",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "load-soul-materializes-a-bullet-and-may-put-two-durability-counters-on-a-gun-then-goes-to-the-lineage"
+            ],
+            "semanticFixtures": [
+                "load-soul-materializes-a-bullet-and-may-put-two-durability-counters-on-a-gun-then-goes-to-the-lineage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "jn4mwv930y",
             "name": "Longtail Grovesward",
             "type": "ALLY",
@@ -53642,6 +53876,25 @@
             ],
             "semanticFixtures": [
                 "memorite-shardwing-has-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "OwhKGEMTXm",
+            "name": "Miasmic Fog",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "miasmic-fog-gives-all-allies-minus-one-life"
+            ],
+            "semanticFixtures": [
+                "miasmic-fog-gives-all-allies-minus-one-life"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -54316,6 +54569,25 @@
             "semanticFixtures": [
                 "serpentine-judicator-its-controller-can-still-recover",
                 "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "Jr4Ivpcnst",
+            "name": "Shaded Doppelganger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "shaded-doppelganger-gets-the-highest-base-power-among-other-allies-you-control"
+            ],
+            "semanticFixtures": [
+                "shaded-doppelganger-gets-the-highest-base-power-among-other-allies-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -1,0 +1,22 @@
+{
+    "name": "hexbound-blade-tristan-bonus-champion-hit-goes-to-the-target-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RfQhLQ539Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "RfQhLQ539Z"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "on-hit",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] **On Hit: **Put CARDNAME on the bottom of target champion's lineage."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "sinister-composure-draws-a-card-and-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IcxG2jsqmu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IcxG2jsqmu"
+        ],
+        "mechanics": [
+            "draw",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Draw a card, then put a **preparation** counter on your champion."
+        ]
+    }
+}

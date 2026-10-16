@@ -1,0 +1,16 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Refused: only usable during your recollection phase"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

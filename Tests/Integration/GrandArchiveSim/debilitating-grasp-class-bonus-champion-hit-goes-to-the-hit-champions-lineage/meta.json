@@ -1,0 +1,22 @@
+{
+    "name": "debilitating-grasp-class-bonus-champion-hit-goes-to-the-hit-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wbsmks4etk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wbsmks4etk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-champion-hit",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** Put CARDNAME on the bottom of the hit champion\u2019s lineage."
+        ]
+    }
+}

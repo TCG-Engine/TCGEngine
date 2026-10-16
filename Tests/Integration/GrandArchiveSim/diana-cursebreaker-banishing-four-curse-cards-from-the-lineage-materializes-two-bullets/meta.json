@@ -1,0 +1,23 @@
+{
+    "name": "diana-cursebreaker-banishing-four-curse-cards-from-the-lineage-materializes-two-bullets",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:55:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o0qtb31x97"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o0qtb31x97"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "lineage",
+            "materialize",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Banish all Curse cards from Diana's lineage:** Materialize two Bullet cards from your material deck. Until end of turn, Diana gains \"**On Attack:** Wake up Diana.\" Activate this ability only if there are four or more Curse cards in Diana's lineage."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "folded-shadows-ciel-bonus-gives-the-champion-stealth-with-omens-totalling-33-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:14:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HL4Q3UBoH8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HL4Q3UBoH8"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "stealth",
+            "spellshroud",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] As long as the total reserve cost among your **omens** is 33 or greater, your champion has **spellshroud** and **stealth**."
+        ]
+    }
+}

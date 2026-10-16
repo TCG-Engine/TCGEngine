@@ -1,0 +1,22 @@
+{
+    "name": "carter-synthetic-reaper-class-bonus-whenever-an-ally-dies-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:57:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1wl8ao8bls"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1wl8ao8bls"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Whenever an ally dies, **recover 1.**"
+        ]
+    }
+}

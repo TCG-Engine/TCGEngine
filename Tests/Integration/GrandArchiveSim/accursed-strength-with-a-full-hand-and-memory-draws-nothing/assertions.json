@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Influence 7 (hand and memory): 3 + 1 - 7 is negative, nothing drawn"
+    }
+]

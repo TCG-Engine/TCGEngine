@@ -1,0 +1,23 @@
+{
+    "name": "curtain-of-shadows-tristan-bonus-summons-an-ominous-shadow-for-each-preparation-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:07:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y7AFl2B1B3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y7AFl2B1B3"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "summon",
+            "token",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] **Summon** **X** Ominous Shadow tokens where **X** is the amount of **preparation** counters on your champion."
+        ]
+    }
+}

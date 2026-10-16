@@ -1,0 +1,23 @@
+{
+    "name": "sorrowcaller-class-bonus-champion-hit-deals-damage-per-revealed-memory-card-with-reserve-cost-three-or-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:14:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dv3zb9p4lg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dv3zb9p4lg"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-champion-hit",
+            "reveal",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** Reveal the hit opponent\u2019s memory. Deal an amount of unpreventable damage to the hit champion equal to the amount of cards with reserve cost 3 or greater revealed this way."
+        ]
+    }
+}

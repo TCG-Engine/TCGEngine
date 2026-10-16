@@ -1,0 +1,23 @@
+{
+    "name": "blights-ring-pay-four-and-rest-draws-into-memory-and-goes-to-the-target-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:13:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u8LjHnH6iC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "u8LjHnH6iC"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "draw-into-memory",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "(4), [REST]: Draw a card into your memory. Then put CARDNAME on the bottom of target champion's lineage."
+        ]
+    }
+}

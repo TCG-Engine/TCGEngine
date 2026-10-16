@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Six total omen cost: no stealth, the attack on the champion was declared"
+    }
+]

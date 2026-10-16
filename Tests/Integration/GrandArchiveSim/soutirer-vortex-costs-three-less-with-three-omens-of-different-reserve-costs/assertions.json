@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "du4df43ci2",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Cost 6 - 3 = 3 with omens costing 2, 3 and 4"
+    }
+]

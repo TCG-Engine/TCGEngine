@@ -1,0 +1,22 @@
+{
+    "name": "elusive-headhunter-class-bonus-on-kill-gains-agility-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:59:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KmM2o1ozGr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KmM2o1ozGr"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-kill",
+            "agility"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Kill:** You gain **agility 3** for this turn."
+        ]
+    }
+}

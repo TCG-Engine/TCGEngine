@@ -1,0 +1,23 @@
+{
+    "name": "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ddag7ue0k7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ddag7ue0k7"
+        ],
+        "mechanics": [
+            "trigger",
+            "banish-self",
+            "discard",
+            "look"
+        ],
+        "rulesClauses": [
+            "Whenever an ally you control dies while it's not your turn, you may banish Death Essence Amulet. When you do, look at target opponent's hand or memory and discard a card from it."
+        ]
+    }
+}

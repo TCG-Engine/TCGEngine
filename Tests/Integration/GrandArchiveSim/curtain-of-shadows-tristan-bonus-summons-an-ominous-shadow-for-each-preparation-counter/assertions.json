@@ -1,0 +1,11 @@
+[
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two preparation counters: two Ominous Shadow tokens"
+    }
+]

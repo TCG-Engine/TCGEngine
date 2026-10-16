@@ -1,0 +1,22 @@
+{
+    "name": "load-soul-materializes-a-bullet-and-may-put-two-durability-counters-on-a-gun-then-goes-to-the-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:06:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8tuhuy4xip"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8tuhuy4xip"
+        ],
+        "mechanics": [
+            "materialize",
+            "counter",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "Materialize a Bullet card from your material deck, then you may put two **durability** counters on a Gun weapon you control. If you do, put CARDNAME on the bottom of your champion's lineage."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Subcards",
+        "value": "[\"RfQhLQ539Z\"]",
+        "semantic": true,
+        "label": "Hexbound Blade went to the bottom of the target champion's lineage"
+    }
+]

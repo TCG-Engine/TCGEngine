@@ -1,0 +1,22 @@
+{
+    "name": "expunge-discards-a-curse-from-a-lineage-and-damages-all-units-by-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r73opcqtzs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r73opcqtzs"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "lineage",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Deal **X** damage to all units where **X** is the reserve cost of the discarded card."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "shaded-doppelganger-gets-the-highest-base-power-among-other-allies-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Jr4Ivpcnst"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Jr4Ivpcnst"
+        ],
+        "mechanics": [
+            "static",
+            "stat-change",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "CARDNAME gets +**X**[POWER], where **X** is the highest base power stat among other allies you control."
+        ]
+    }
+}

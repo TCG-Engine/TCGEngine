@@ -1,0 +1,22 @@
+{
+    "name": "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Dtr3jPRAFJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Dtr3jPRAFJ"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "ephemeral",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Return target ally card from your graveyard to the field. It becomes **ephemeral**."
+        ]
+    }
+}

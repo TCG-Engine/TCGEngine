@@ -1,0 +1,21 @@
+{
+    "name": "ominous-shadow-may-only-attack-units-your-champion-has-dealt-combat-damage-to-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:58:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gveirpdm44"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gveirpdm44"
+        ],
+        "mechanics": [
+            "attack-restriction",
+            "unblockable"
+        ],
+        "rulesClauses": [
+            "CARDNAME may only declare attacks against units your champion has dealt combat damage to this turn."
+        ]
+    }
+}

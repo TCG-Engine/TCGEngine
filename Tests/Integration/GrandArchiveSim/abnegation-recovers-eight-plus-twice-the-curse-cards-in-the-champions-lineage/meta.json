@@ -1,0 +1,21 @@
+{
+    "name": "abnegation-recovers-eight-plus-twice-the-curse-cards-in-the-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7JjxD8xRVq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7JjxD8xRVq"
+        ],
+        "mechanics": [
+            "recover",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "**Recover 8+X**, where **X** is twice the amount of Curse cards in your champion's lineage."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-three-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:07:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nt1lyk1dvd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nt1lyk1dvd"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "additional-cost",
+            "prevention",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "Prevent the next **X+3** damage that would be dealt to your champion this turn. [Tristan Bonus] If **X** is 3 or greater, **summon** two Ominous Shadow tokens."
+        ]
+    }
+}

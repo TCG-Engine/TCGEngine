@@ -1,0 +1,21 @@
+{
+    "name": "reckonings-wake-looks-at-the-top-three-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:00:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m3nlelc53u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m3nlelc53u"
+        ],
+        "mechanics": [
+            "look",
+            "rearrange"
+        ],
+        "rulesClauses": [
+            "Look at the top 3+**X** cards of your deck, where **X** is the amount of Distortion objects you control. Put those cards back on top of your deck in any order."
+        ]
+    }
+}

@@ -85,7 +85,10 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         $targetCardID = $targetObj !== null ? ($targetObj->CardID ?? null) : null;
         global $activateAbilityAbilities;
         $hasRealActivateAbilityEntry = $targetCardID !== null && isset($activateAbilityAbilities[$targetCardID . ":" . $abilityIndex]);
-        if($targetCardID !== null && !$hasRealActivateAbilityEntry
+        // A champion on the field is never "activated" as a card: its dynamic abilities (Diana, Cursebreaker's Cursebreaker, Enlighten, lineage releases) are indexed from
+        // CardActivateAbilityCount() = 0, so Activate:0 used to be mistaken for casting the champion, which never terminated (the effect stack kept re-offering it).
+        $targetIsFieldChampion = $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($targetCardID !== null && !$hasRealActivateAbilityEntry && !$targetIsFieldChampion
             && function_exists("CardActivateAbilityCount") && function_exists("CardCardActivatedCount")
             && CardActivateAbilityCount($targetCardID) === 0 && CardCardActivatedCount($targetCardID) > 0) {
             ActivateCard($playerID, $actionCard, false);

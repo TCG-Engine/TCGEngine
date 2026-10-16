@@ -1,0 +1,22 @@
+{
+    "name": "tome-of-ignorance-banish-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:11:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dz4qd82liq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dz4qd82liq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish Tome of Ignorance**: Draw a card."
+        ]
+    }
+}

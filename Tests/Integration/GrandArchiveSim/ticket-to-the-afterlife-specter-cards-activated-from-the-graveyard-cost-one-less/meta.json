@@ -1,0 +1,21 @@
+{
+    "name": "ticket-to-the-afterlife-specter-cards-activated-from-the-graveyard-cost-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:14:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "E09lX95cb9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "E09lX95cb9"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "graveyard-activation"
+        ],
+        "rulesClauses": [
+            "Specter cards you activate from your graveyard cost (1) less to activate."
+        ]
+    }
+}

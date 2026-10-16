@@ -1,0 +1,24 @@
+{
+    "name": "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:58:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p2n1953som"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "p2n1953som"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "banish",
+            "spell",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter**: As a Spell, deal 3 damage to target unit. Then you may banish a card from your hand or memory face down."
+        ]
+    }
+}

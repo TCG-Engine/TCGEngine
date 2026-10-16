@@ -1,0 +1,21 @@
+{
+    "name": "accursed-strength-a-ranger-that-is-not-diana-pays-full-price",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:03:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j3fkza233s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j3fkza233s"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] This card costs 1 less to activate."
+        ]
+    }
+}

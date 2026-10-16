@@ -1,0 +1,28 @@
+[
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "semantic": true,
+        "label": "Carter got +2 power: 2 + 2"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight in hand, minus Carter and the two paid, plus the card drawn for the sacrificed Automaton"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "fpvw2ifz1n",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Automaton ally was sacrificed"
+    }
+]

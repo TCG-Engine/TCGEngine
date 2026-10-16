@@ -3128,6 +3128,29 @@ $activateAbilityPrereqs["g8q7imka92:0"] = function($player, $mzID, $abilityIndex
     return GetCurrentPhase() === "BREC" && GetTurnPlayer() != $player;
 };
 
+// Accursed Strength (j3fkza233s): the discount is a [Diana Bonus], but the generated modifier gated it on the Ranger class bonus, so every Ranger champion paid 1 less.
+$activationCostModifierAbilities["j3fkza233s:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+  if($subjectObj->CardID !== "j3fkza233s") return 0;
+  return IsDianaBonus($player) ? -1 : 0;
+};
+
+// Maledictum Vitae (24I0xn0OQ1): "Put CARDNAME on the bottom of TARGET champion's lineage ... that champion's controller recovers 4." The generated body always used the caster's own
+// champion and never asked for a target, so it could not be pointed at an opponent's champion.
+$cardActivatedAbilities["24I0xn0OQ1:0"] = function($player) {
+    $champions = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"])));
+    if(empty($champions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1, "Choose_a_champion_for_Maledictum_Vitae");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MaledictumVitaeLineage", 1);
+};
+$customDQHandlers["MaledictumVitaeLineage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $champObj = GetZoneObject($lastDecision);
+    if($champObj === null || $champObj->removed) return;
+    $owner = intval($champObj->Controller);
+    AddToChampionLineage($owner, "24I0xn0OQ1");
+    RecoverChampion($owner, 4);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -6345,6 +6345,8 @@ function GAFieldAbilityCostTable() {
         "j68m69iq4d:0" => ['rest' => true], // Sentinel Fabricator (its body pays the (3))
         "7yacwhzzfb:0" => ['reserve' => 2, 'rest' => true], // Focusing Round
         "swy2NJ4q6O:0" => ['reserve' => 2, 'rest' => true], // Scarlet Tassel
+        "E09lX95cb9:0" => ['reserve' => 2, 'rest' => true], // Ticket to the Afterlife ("(2), [REST]" was never paid; its generated prereq checks the Alice Bonus)
+        "u8LjHnH6iC:0" => ['reserve' => 4, 'rest' => true], // Blight's Ring ("(4), [REST]:" was never paid: it stayed awake and could be used for free every turn)
         // Graveyard-activated abilities ("(N), Banish this card from your graveyard: ..."): clicked from the graveyard in ActionMap(); the card is banished as part of the cost.
         "eirpdm44nt:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true, 'bonus' => 'classelement'], // Seaside Ringleader
         "ms2x2v4qe3:0" => ['reserve' => 2, 'graveyard' => true, 'noAutoRest' => true], // Stellarion Shift (its generated prereq checks the Class/Element Bonus and a distant champion)

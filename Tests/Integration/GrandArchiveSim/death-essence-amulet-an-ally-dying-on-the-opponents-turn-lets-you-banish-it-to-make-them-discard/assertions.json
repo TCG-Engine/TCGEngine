@@ -1,0 +1,20 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "ddag7ue0k7",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Amulet banished itself"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "A card from the opponent's hand was discarded"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "Prepare 2 removed both preparation counters"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"dih0LPaigc\"]",
+        "semantic": true,
+        "label": "The next attack is marked for +2 power"
+    },
+    {
+        "step": 3,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "dih0LPaigc_ON_HIT",
+        "value": 1,
+        "semantic": true,
+        "label": "Prepared: the champion and Ominous Shadows banish the top card on a champion hit"
+    }
+]

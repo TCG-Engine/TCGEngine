@@ -1,0 +1,22 @@
+{
+    "name": "gloamspire-prowler-costs-three-less-with-two-curse-cards-in-the-champions-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:55:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "igpck2z4rs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "igpck2z4rs"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "lineage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "This card costs 3 less to activate as long as there are two or more Curse cards in your champion's lineage."
+        ]
+    }
+}

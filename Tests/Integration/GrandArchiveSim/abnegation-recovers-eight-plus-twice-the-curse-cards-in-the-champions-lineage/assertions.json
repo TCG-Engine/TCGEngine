@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Recover 8 + 2 * 2 curse cards = 12: 15 down to 3"
+    }
+]

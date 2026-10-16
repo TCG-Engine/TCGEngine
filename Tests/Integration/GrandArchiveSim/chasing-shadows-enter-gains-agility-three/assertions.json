@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "AGILITY_3",
+        "value": 1,
+        "semantic": true,
+        "label": "Agility 3 until the end phase"
+    }
+]

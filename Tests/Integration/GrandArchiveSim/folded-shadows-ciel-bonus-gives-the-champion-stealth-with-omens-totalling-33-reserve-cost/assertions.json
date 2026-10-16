@@ -1,0 +1,16 @@
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The only opposing target would be the stealthy champion: no attack was declared, the Dungeon Guide stays awake"
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Recover 2: 5 down to 3"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Ticket rested"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The (2) was paid"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "XFWU8KTVW9",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Specter card was banished as the cost"
+    }
+]

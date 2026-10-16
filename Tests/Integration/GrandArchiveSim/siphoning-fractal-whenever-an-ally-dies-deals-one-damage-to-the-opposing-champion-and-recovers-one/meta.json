@@ -1,0 +1,22 @@
+{
+    "name": "siphoning-fractal-whenever-an-ally-dies-deals-one-damage-to-the-opposing-champion-and-recovers-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j43qiwqjt0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j43qiwqjt0"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Whenever an ally dies, deal 1 damage to target champion you don't control and **recover 1**."
+        ]
+    }
+}

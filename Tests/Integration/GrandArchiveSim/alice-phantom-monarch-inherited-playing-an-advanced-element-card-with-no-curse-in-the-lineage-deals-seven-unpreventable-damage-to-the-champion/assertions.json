@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "7",
+        "semantic": true,
+        "label": "Playing an advanced element card with no Curse card in the lineage: 7 unpreventable damage"
+    }
+]

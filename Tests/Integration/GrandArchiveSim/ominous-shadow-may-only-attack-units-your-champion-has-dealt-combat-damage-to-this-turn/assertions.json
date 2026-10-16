@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The champion has dealt no combat damage this turn: the Shadow has no legal attack target and stays awake"
+    }
+]

@@ -1,0 +1,24 @@
+{
+    "name": "possessed-remnant-tristan-bonus-on-death-summons-an-ominous-shadow-and-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:55:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lhtiymuyv3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lhtiymuyv3"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "on-death",
+            "summon",
+            "recover",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] **On Death:** **Summon** an Ominous Shadow token and **recover 3**."
+        ]
+    }
+}
