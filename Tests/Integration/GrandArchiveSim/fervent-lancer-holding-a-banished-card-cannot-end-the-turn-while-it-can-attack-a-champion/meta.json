@@ -1,0 +1,21 @@
+{
+    "name": "fervent-lancer-holding-a-banished-card-cannot-end-the-turn-while-it-can-attack-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:23:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aws20fsihd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aws20fsihd"
+        ],
+        "mechanics": [
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "must attack a champion each turn if able."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "fervent-lancer-declining-the-banish-leaves-the-exia-card-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:22:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aws20fsihd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aws20fsihd"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Whenever you activate an exia element card, you may banish it as it resolves."
+        ]
+    }
+}

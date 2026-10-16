@@ -1,0 +1,22 @@
+{
+    "name": "auspicious-manifestation-banishes-a-shenju-ally-and-returns-it-at-the-next-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:34:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vZH2xr4yq2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vZH2xr4yq2"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "transform",
+            "guo-jia-bonus"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Banish a Shenju ally you control. Return that ally to the field under its owner's control transformed at the beginning of the next end phase."
+        ]
+    }
+}

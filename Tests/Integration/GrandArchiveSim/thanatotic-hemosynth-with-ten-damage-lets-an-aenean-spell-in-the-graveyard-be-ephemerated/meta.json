@@ -1,0 +1,22 @@
+{
+    "name": "thanatotic-hemosynth-with-ten-damage-lets-an-aenean-spell-in-the-graveyard-be-ephemerated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:31:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MKiuesDVdW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MKiuesDVdW"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "ephemerate",
+            "graveyard-ability"
+        ],
+        "rulesClauses": [
+            "[Damage 10+] **On Enter: **Target Aenean Spell card in your graveyard gains \"**Ephemerate \u2014 (X)**\", where **X** is that card\u2019s reserve cost."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "auspicious-manifestation-discarded-for-two-draws-a-card-and-adds-a-quest-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:34:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vZH2xr4yq2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vZH2xr4yq2"
+        ],
+        "mechanics": [
+            "discard",
+            "draw-discard",
+            "quest",
+            "guo-jia-bonus"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] (2), **Discard this card from your hand:** Draw a card. Then if your champion has five or less **quest** counters on them, put a **quest** counter on them."
+        ]
+    }
+}

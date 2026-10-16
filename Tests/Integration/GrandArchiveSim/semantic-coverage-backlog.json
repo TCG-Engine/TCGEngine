@@ -2,30 +2,54 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-16T02:06:28+00:00",
+    "generatedAt": "2026-10-16T13:35:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2429,
+        "cardsWithExistingFixtures": 2454,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 48,
+        "cardsNeedingSemanticCoverage": 23,
         "mechanics": {
-            "condition": 1324,
-            "zone-movement": 857,
-            "trigger": 812,
+            "condition": 1332,
+            "zone-movement": 860,
+            "trigger": 816,
             "targeting": 801,
-            "cost": 780,
-            "draw-discard": 558,
-            "damage": 517,
-            "status": 427,
+            "cost": 782,
+            "draw-discard": 559,
+            "damage": 519,
+            "status": 431,
             "counter": 399,
-            "combat": 390,
+            "combat": 398,
             "token": 150,
-            "recover": 140,
+            "recover": 142,
             "prevention": 119,
-            "unclassified": 90
+            "unclassified": 73
         }
     },
     "cards": [
+        {
+            "cardId": "g7uDOmUf2u",
+            "name": "Deflecting Edge",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter",
+                "Mordred Re:Collection, Aurelian Regent"
+            ],
+            "needsSemanticCoverage": true,
+            "priority": 125
+        },
         {
             "cardId": "5upufyoz23",
             "name": "Dusklight Communion",
@@ -44,43 +68,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 25
-        },
-        {
-            "cardId": "vZH2xr4yq2",
-            "name": "Auspicious Manifestation",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "40TLLuE6oG",
-            "name": "Deflecting Advantage",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
         },
         {
             "cardId": "fZZqzAXNAc",
@@ -140,24 +127,6 @@
             "priority": 15
         },
         {
-            "cardId": "aws20fsihd",
-            "name": "Fervent Lancer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "asZfaFnTXs",
             "name": "Greater Boon of Horses",
             "type": "GREATER BOON",
@@ -194,24 +163,6 @@
             "priority": 14
         },
         {
-            "cardId": "dfchplzf6m",
-            "name": "Ingress of Sanguine Ire",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "CW73nq8jCR",
             "name": "Lesser Boon of Nuwa",
             "type": "LESSER BOON",
@@ -222,24 +173,6 @@
                 "zone-movement",
                 "trigger",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "MKiuesDVdW",
-            "name": "Thanatotic Hemosynth",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -307,23 +240,6 @@
             "mechanics": [
                 "targeting",
                 "recover",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "PR4OkzJBVr",
-            "name": "Hemorrhaged Intimidation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
                 "draw-discard"
             ],
             "existingFixtures": [],
@@ -464,84 +380,9 @@
             "priority": 12
         },
         {
-            "cardId": "0g1drhiwhn",
-            "name": "0g1drhiwhn",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "1hlxj4rywq",
-            "name": "1hlxj4rywq",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "1qg2c7mfdj",
-            "name": "1qg2c7mfdj",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "63zw4a01wf",
-            "name": "63zw4a01wf",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "cl8s8yxarq",
-            "name": "cl8s8yxarq",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ddfwa6m0e9",
-            "name": "ddfwa6m0e9",
-            "type": "",
+            "cardId": "k0sln8vnuo",
+            "name": "Auspicious Feast",
+            "type": "ACTION",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -569,36 +410,6 @@
             "priority": 11
         },
         {
-            "cardId": "emszllu6dm",
-            "name": "emszllu6dm",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "fhi78gfkli",
-            "name": "fhi78gfkli",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "j9s7xQdpf1",
             "name": "Gate of Alterity",
             "type": "REGALIA,ITEM",
@@ -606,201 +417,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ig8dv0n7fl",
-            "name": "ig8dv0n7fl",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "iozkgfx68u",
-            "name": "iozkgfx68u",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "l5nqwq5ujh",
-            "name": "l5nqwq5ujh",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "lildjctw73",
-            "name": "lildjctw73",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "oo0p7gxtf3",
-            "name": "oo0p7gxtf3",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "qusirqt538",
-            "name": "qusirqt538",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "r1sc1xaf9l",
-            "name": "r1sc1xaf9l",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "reks5jzk7c",
-            "name": "reks5jzk7c",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "us6ou7utnx",
-            "name": "us6ou7utnx",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "vb9xebivoe",
-            "name": "vb9xebivoe",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "xkthg3cwx5",
-            "name": "xkthg3cwx5",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "yyj96p4pm3",
-            "name": "yyj96p4pm3",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "zth3uamdjb",
-            "name": "zth3uamdjb",
-            "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1052,34 +668,6 @@
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
-            ],
-            "needsSemanticCoverage": false,
-            "priority": 145
-        },
-        {
-            "cardId": "g7uDOmUf2u",
-            "name": "Deflecting Edge",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [
-                "deflecting-edge-sword-discount"
-            ],
-            "semanticFixtures": [
-                "deflecting-edge-sword-discount"
-            ],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter",
-                "Mordred Re:Collection, Aurelian Regent"
             ],
             "needsSemanticCoverage": false,
             "priority": 145
@@ -17209,6 +16797,30 @@
             "priority": 44
         },
         {
+            "cardId": "vZH2xr4yq2",
+            "name": "Auspicious Manifestation",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "auspicious-manifestation-banishes-a-shenju-ally-and-returns-it-at-the-next-end-phase",
+                "auspicious-manifestation-discarded-for-two-draws-a-card-and-adds-a-quest-counter"
+            ],
+            "semanticFixtures": [
+                "auspicious-manifestation-banishes-a-shenju-ally-and-returns-it-at-the-next-end-phase",
+                "auspicious-manifestation-discarded-for-two-draws-a-card-and-adds-a-quest-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "n0esog2898",
             "name": "Bolster Ranks",
             "type": "ACTION",
@@ -22638,6 +22250,33 @@
             ],
             "semanticFixtures": [
                 "dante-hematic-overdrive-end-phase-decline-destroys-dante"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "40TLLuE6oG",
+            "name": "Deflecting Advantage",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "deflecting-advantage-jin-bonus-triggers-the-on-enter-of-a-polearm-and-adds-a-durability-counter",
+                "deflecting-advantage-prevents-one-damage-per-three-damage-counters-from-the-opponents-attack",
+                "deflecting-advantage-without-jin-skips-the-polearm-clause"
+            ],
+            "semanticFixtures": [
+                "deflecting-advantage-jin-bonus-triggers-the-on-enter-of-a-polearm-and-adds-a-durability-counter",
+                "deflecting-advantage-prevents-one-damage-per-three-damage-counters-from-the-opponents-attack",
+                "deflecting-advantage-without-jin-skips-the-polearm-clause"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28468,6 +28107,38 @@
             "priority": 34
         },
         {
+            "cardId": "vb9xebivoe",
+            "name": "Fatebound Caracal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fatebound-caracal-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-third-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-third-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "semanticFixtures": [
+                "fatebound-caracal-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power",
+                "fatebound-caracal-third-printing-intercept-redirects-the-attack-on-the-champion",
+                "fatebound-caracal-third-printing-retort-two-retaliates-for-two-extra-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "x8wc254ris",
             "name": "Fatebound Caracal",
             "type": "ALLY",
@@ -28536,6 +28207,34 @@
             "semanticFixtures": [
                 "felicitous-flock-element-and-class-bonus-revealing-it-from-memory-summons-a-buffed-intercepting-fledgling",
                 "felicitous-flock-without-the-bonuses-revealing-it-summons-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "aws20fsihd",
+            "name": "Fervent Lancer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fervent-lancer-banishes-the-exia-card-it-resolves-and-gets-plus-two-power",
+                "fervent-lancer-declining-the-banish-leaves-the-exia-card-in-the-graveyard",
+                "fervent-lancer-holding-a-banished-card-cannot-end-the-turn-while-it-can-attack-a-champion",
+                "fervent-lancer-without-a-banished-card-may-end-the-turn-without-attacking"
+            ],
+            "semanticFixtures": [
+                "fervent-lancer-banishes-the-exia-card-it-resolves-and-gets-plus-two-power",
+                "fervent-lancer-declining-the-banish-leaves-the-exia-card-in-the-graveyard",
+                "fervent-lancer-holding-a-banished-card-cannot-end-the-turn-while-it-can-attack-a-champion",
+                "fervent-lancer-without-a-banished-card-may-end-the-turn-without-attacking"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28693,6 +28392,30 @@
                 "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
             ],
             "semanticFixtures": [
+                "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "yyj96p4pm3",
+            "name": "Firebird Trailblazer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "firebird-trailblazer-attack-discards-a-card-to-draw",
+                "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
+            ],
+            "semanticFixtures": [
+                "firebird-trailblazer-attack-discards-a-card-to-draw",
                 "firebird-trailblazer-second-printing-attack-discards-a-card-to-draw"
             ],
             "starterDecks": [],
@@ -29594,6 +29317,28 @@
             "priority": 34
         },
         {
+            "cardId": "reks5jzk7c",
+            "name": "Huaji of Abyssal Fall",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+            ],
+            "semanticFixtures": [
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "XikXt8WyNp",
             "name": "Huang Zhong, Unerring Aim",
             "type": "UNIQUE,ALLY",
@@ -29772,6 +29517,30 @@
             "semanticFixtures": [
                 "infernal-manastreak-deals-three-damage-while-distant",
                 "infernal-manastreak-deals-two-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "dfchplzf6m",
+            "name": "Ingress of Sanguine Ire",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ingress-of-sanguine-ire-draws-nothing-when-the-champion-took-damage-this-turn",
+                "ingress-of-sanguine-ire-in-the-opponents-end-phase-draws-two-into-memory-and-buffs-the-first-attack"
+            ],
+            "semanticFixtures": [
+                "ingress-of-sanguine-ire-draws-nothing-when-the-champion-took-damage-this-turn",
+                "ingress-of-sanguine-ire-in-the-opponents-end-phase-draws-two-into-memory-and-buffs-the-first-attack"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32918,6 +32687,30 @@
             "priority": 34
         },
         {
+            "cardId": "MKiuesDVdW",
+            "name": "Thanatotic Hemosynth",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "thanatotic-hemosynth-below-ten-damage-grants-nothing",
+                "thanatotic-hemosynth-with-ten-damage-lets-an-aenean-spell-in-the-graveyard-be-ephemerated"
+            ],
+            "semanticFixtures": [
+                "thanatotic-hemosynth-below-ten-damage-grants-nothing",
+                "thanatotic-hemosynth-with-ten-damage-lets-an-aenean-spell-in-the-graveyard-be-ephemerated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "tsvbgl6ffq",
             "name": "The Majestic Spirit",
             "type": "REGALIA,ALLY",
@@ -35344,6 +35137,27 @@
             "priority": 33
         },
         {
+            "cardId": "l5nqwq5ujh",
+            "name": "Commanding Sea Titan",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "commanding-sea-titan-taunt-protects-the-champion"
+            ],
+            "semanticFixtures": [
+                "commanding-sea-titan-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "y5e4a8a23l",
             "name": "Commanding Sea Titan",
             "type": "ALLY",
@@ -37292,6 +37106,29 @@
             "priority": 33
         },
         {
+            "cardId": "PR4OkzJBVr",
+            "name": "Hemorrhaged Intimidation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "hemorrhaged-intimidation-draws-into-memory-and-with-sixteen-damage-taxes-the-opponents-next-card-two",
+                "hemorrhaged-intimidation-without-the-class-bonus-taxes-nothing"
+            ],
+            "semanticFixtures": [
+                "hemorrhaged-intimidation-draws-into-memory-and-with-sixteen-damage-taxes-the-opponents-next-card-two",
+                "hemorrhaged-intimidation-without-the-class-bonus-taxes-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "wXsHpcrH3P",
             "name": "Herd of the Hearth",
             "type": "ACTION",
@@ -38525,6 +38362,27 @@
         },
         {
             "cardId": "84oyeld6dn",
+            "name": "Mocking Otter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mocking-otter-taunt-protects-the-champion"
+            ],
+            "semanticFixtures": [
+                "mocking-otter-taunt-protects-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "oo0p7gxtf3",
             "name": "Mocking Otter",
             "type": "ALLY",
             "abilityCount": 1,
@@ -44072,6 +43930,28 @@
             "priority": 32
         },
         {
+            "cardId": "0g1drhiwhn",
+            "name": "Cheetah of Bound Fury",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "cheetah-of-bound-fury-on-hit-banishes-and-returns-as-fatestone",
+                "cheetah-of-bound-fury-second-printing-on-hit-banishes-and-returns-as-fatestone"
+            ],
+            "semanticFixtures": [
+                "cheetah-of-bound-fury-on-hit-banishes-and-returns-as-fatestone",
+                "cheetah-of-bound-fury-second-printing-on-hit-banishes-and-returns-as-fatestone"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "5giGYm8WlR",
             "name": "Cheetah of Bound Fury",
             "type": "ALLY",
@@ -46017,6 +45897,28 @@
         },
         {
             "cardId": "loSCQzxqi1",
+            "name": "Heavenly Drake",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it",
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [
+                "heavenly-drake-printed-spellshroud-spell-cannot-target-it",
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "xkthg3cwx5",
             "name": "Heavenly Drake",
             "type": "ALLY",
             "abilityCount": 1,
@@ -49767,6 +49669,26 @@
             "priority": 32
         },
         {
+            "cardId": "zth3uamdjb",
+            "name": "Suzaku, Vermillion Phoenix",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "suzaku-vermillion-phoenix-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "zcvq77mdgd",
             "name": "Sword of Shadows",
             "type": "REGALIA,WEAPON",
@@ -50883,6 +50805,26 @@
             "priority": 32
         },
         {
+            "cardId": "cl8s8yxarq",
+            "name": "Woodland Shoats",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "woodland-shoats-steadfast-retaliates-while-rested"
+            ],
+            "semanticFixtures": [
+                "woodland-shoats-steadfast-retaliates-while-rested"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "gc18dq28my",
             "name": "Xia Hou Dun, Gloryseeker",
             "type": "UNIQUE,ALLY",
@@ -51095,6 +51037,25 @@
             "priority": 31
         },
         {
+            "cardId": "ig8dv0n7fl",
+            "name": "Airborne Squirrel",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "airborne-squirrel-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "airborne-squirrel-enters-with-its-printed-stats"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "Bt9xeTum94",
             "name": "Alchemist's Cauldron",
             "type": "REGALIA,ITEM",
@@ -51245,25 +51206,6 @@
             ],
             "semanticFixtures": [
                 "aurousteel-greatsword-token-weapon-attacks-for-three"
-            ],
-            "starterDecks": [],
-            "needsSemanticCoverage": false,
-            "priority": 31
-        },
-        {
-            "cardId": "k0sln8vnuo",
-            "name": "Auspicious Feast",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [
-                "auspicious-feast-each-player-recovers-four"
-            ],
-            "semanticFixtures": [
-                "auspicious-feast-each-player-recovers-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51605,6 +51547,27 @@
             "priority": 31
         },
         {
+            "cardId": "ddfwa6m0e9",
+            "name": "Bolstered Boar",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "bolstered-boar-with-one-buff-counter-has-no-taunt",
+                "bolstered-boar-with-two-buff-counters-has-taunt"
+            ],
+            "semanticFixtures": [
+                "bolstered-boar-with-one-buff-counter-has-no-taunt",
+                "bolstered-boar-with-two-buff-counters-has-taunt"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "t4owmcva0f",
             "name": "Bombastic Sprint",
             "type": "ACTION",
@@ -51705,6 +51668,25 @@
         },
         {
             "cardId": "mhilppwfgx",
+            "name": "Byakko, White Tiger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "byakko-white-tiger-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "r1sc1xaf9l",
             "name": "Byakko, White Tiger",
             "type": "ALLY",
             "abilityCount": 1,
@@ -52267,6 +52249,25 @@
             "priority": 31
         },
         {
+            "cardId": "1qg2c7mfdj",
+            "name": "Daunting Panda",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "daunting-panda-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "semanticFixtures": [
+                "daunting-panda-vigor-wakes-it-at-the-end-of-the-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "ilpxd1q0vp",
             "name": "Daunting Panda",
             "type": "ALLY",
@@ -52497,6 +52498,25 @@
             "semanticFixtures": [
                 "effluve-guard-ciel-bonus-as-an-omen-gives-vacuous-servants-vigor",
                 "effluve-guard-not-an-omen-gives-vacuous-servants-no-vigor"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "qusirqt538",
+            "name": "Elder Mandrill",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "elder-mandrill-can-be-played-for-its-reserve-cost"
+            ],
+            "semanticFixtures": [
+                "elder-mandrill-can-be-played-for-its-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53234,6 +53254,25 @@
             ],
             "semanticFixtures": [
                 "gear-haul-scavenges-five-for-a-veltech-item-twice"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "fhi78gfkli",
+            "name": "Genbu, Black Tortoise",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
+            ],
+            "semanticFixtures": [
+                "genbu-and-seiryuu-existing-spellshroud-holders-still-block-spells"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -54116,6 +54155,29 @@
             "priority": 31
         },
         {
+            "cardId": "1hlxj4rywq",
+            "name": "Lu Bu, Wrath Incarnate",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "lu-bu-wrath-incarnate-on-ally-kill-deals-the-killed-allys-power-plus-life-to-each-other-champion",
+                "lu-bu-wrath-incarnate-other-champions-get-minus-three-level-and-all-allies-minus-three-power",
+                "lu-bu-wrath-incarnate-alternate-printing-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
+            ],
+            "semanticFixtures": [
+                "lu-bu-wrath-incarnate-on-ally-kill-deals-the-killed-allys-power-plus-life-to-each-other-champion",
+                "lu-bu-wrath-incarnate-other-champions-get-minus-three-level-and-all-allies-minus-three-power",
+                "lu-bu-wrath-incarnate-alternate-printing-other-champions-get-minus-three-level-and-all-allies-minus-three-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "l5izukgdmh",
             "name": "Lu Bu, Wrath Incarnate",
             "type": "CHAMPION",
@@ -54572,6 +54634,25 @@
         },
         {
             "cardId": "40oe1wf79p",
+            "name": "Obstinate Cragback",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "semanticFixtures": [
+                "obstinate-cragback-printed-spellshroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "63zw4a01wf",
             "name": "Obstinate Cragback",
             "type": "ALLY",
             "abilityCount": 1,
@@ -55049,6 +55130,27 @@
             "priority": 31
         },
         {
+            "cardId": "emszllu6dm",
+            "name": "Serpentine Judicator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover"
+            ],
+            "existingFixtures": [
+                "serpentine-judicator-its-controller-can-still-recover",
+                "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "semanticFixtures": [
+                "serpentine-judicator-its-controller-can-still-recover",
+                "serpentine-judicator-opponents-cannot-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "koyegh1snb",
             "name": "Serpentine Judicator",
             "type": "ALLY",
@@ -55165,6 +55267,25 @@
             "semanticFixtures": [
                 "sink-into-oblivion-can-target-yourself",
                 "sink-into-oblivion-mills-three-from-the-target-player"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "lildjctw73",
+            "name": "Slick Torrentrider",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slick-torrentrider-recollection-phase-mills-the-top-card"
+            ],
+            "semanticFixtures": [
+                "slick-torrentrider-recollection-phase-mills-the-top-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -55839,6 +55960,27 @@
             "priority": 31
         },
         {
+            "cardId": "us6ou7utnx",
+            "name": "Windstalker Wolf",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
+                "windstalker-wolf-pride-five-does-not-obey-a-level-four-champion"
+            ],
+            "semanticFixtures": [
+                "windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-pride-level",
+                "windstalker-wolf-pride-five-does-not-obey-a-level-four-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "z4fr707pbr",
             "name": "Windstalker Wolf",
             "type": "ALLY",
@@ -55911,6 +56053,27 @@
             ],
             "semanticFixtures": [
                 "wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "iozkgfx68u",
+            "name": "Young Wyrmling",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "young-wyrmling-enters-with-its-printed-stats",
+                "young-wyrmling-second-printing-enters-with-its-printed-stats"
+            ],
+            "semanticFixtures": [
+                "young-wyrmling-enters-with-its-printed-stats",
+                "young-wyrmling-second-printing-enters-with-its-printed-stats"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

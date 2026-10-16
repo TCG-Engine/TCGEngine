@@ -3252,6 +3252,34 @@ $activateAbilityPrereqs["WAodKSuGuX:0"] = function($player, $mzID, $abilityIndex
   return CountAvailableReservePayments($player, $mzID) >= 3;
 };
 
+// Hemorrhaged Intimidation (PR4OkzJBVr): "[Class Bonus] The next card your opponent activates this turn costs (1) more to activate for every eight damage counters on your champion."
+// The generated body only drew the card; the tax is one PR4OkzJBVr_COST global effect per eight damage counters on the opponent (consumed together by the next activation, see CalculateActivationReserveCost).
+$cardActivatedAbilities["PR4OkzJBVr:0"] = function($player) {
+    DrawIntoMemory($player, 1);
+    if(IsClassBonusActive($player, ["WARRIOR"])) {
+        $opponent = ($player == 1) ? 2 : 1;
+        for($tax = intdiv(GetChampionDamage($player), 8); $tax > 0; --$tax) AddGlobalEffects($opponent, "PR4OkzJBVr_COST");
+    }
+};
+
+// Auspicious Manifestation (vZH2xr4yq2): "[Guo Jia Bonus] Banish a Shenju ally you control." This is a choice, not a target, but the generated body ran its candidates through
+// FilterSpellshroudTargets -- and every Shenju prints spellshroud, so there was never a candidate -- and OnCardActivated() strips spellshroud objects from every MZCHOOSE a Spell's opener queues
+// (GASpellshroudFilterNewDecisions). The choice is therefore queued by a CUSTOM decision that runs after that filter.
+$cardActivatedAbilities["vZH2xr4yq2:0"] = function($player) {
+    if(!IsGuoJiaBonus($player)) return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AuspiciousManifestationChoose", 1);
+};
+$customDQHandlers["AuspiciousManifestationChoose"] = function($player, $parts, $lastDecision) {
+    $shenju = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SHENJU"]);
+    if(empty($shenju)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $shenju), 1, tooltip:"Banish_a_Shenju_ally_you_control");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AuspiciousManifestationBanish", 1);
+};
+$customDQHandlers["AuspiciousManifestationBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    SuppressAllyTransformedNextEnd($player, $lastDecision);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

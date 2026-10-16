@@ -1,0 +1,29 @@
+[
+    {
+        "step": 9,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "THANATOTIC_EPHEMERATE_50m1nBduUZ",
+        "value": 1,
+        "semantic": true,
+        "label": "The Aenean spell gained ephemerate"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The ephemerated action was banished as it resolved"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Aenean Scorching Comet dealt 2 damage"
+    }
+]

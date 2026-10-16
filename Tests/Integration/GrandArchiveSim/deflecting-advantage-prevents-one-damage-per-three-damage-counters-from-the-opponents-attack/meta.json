@@ -1,0 +1,21 @@
+{
+    "name": "deflecting-advantage-prevents-one-damage-per-three-damage-counters-from-the-opponents-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:30:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "40TLLuE6oG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "40TLLuE6oG"
+        ],
+        "mechanics": [
+            "damage-prevention",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "Prevent the next 1 damage that would be dealt to target unit this turn from sources you don't control for every three damage counters on your champion."
+        ]
+    }
+}

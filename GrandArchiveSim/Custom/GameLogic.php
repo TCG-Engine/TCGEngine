@@ -7633,7 +7633,8 @@ function OnCardActivated($player, $mzCard) {
                 break;
             case "aws20fsihd": // Fervent Lancer: whenever you activate an exia element card, may banish it as it resolves
                 if($activatedElement === "EXIA" && !HasNoAbilities($field[$fi])) {
-                    DecisionQueueController::StoreVariable("FerventLancerIdx", strval($fi));
+                    DecisionQueueController::StoreVariable("FerventLancerUID", strval($field[$fi]->UniqueID));
+                    DecisionQueueController::StoreVariable("FerventLancerCardID", $obj->CardID);
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                         tooltip:"Banish_this_card_via_Fervent_Lancer?");
                     DecisionQueueController::AddDecision($player, "CUSTOM", "FerventLancerBanish", 1);
@@ -29078,6 +29079,13 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     if(GlobalEffectCount($player, "XUCHANG_COST_INCREASE") > 0) {
         $reserveCost += 2;
         if(!$dryRun) RemoveGlobalEffect($player, "XUCHANG_COST_INCREASE");
+    }
+
+    // Hemorrhaged Intimidation (PR4OkzJBVr): next card costs 1 more per eight damage counters (one-shot, one effect per point)
+    $hemorrhagedTax = GlobalEffectCount($player, "PR4OkzJBVr_COST");
+    if($hemorrhagedTax > 0) {
+        $reserveCost += $hemorrhagedTax;
+        if(!$dryRun) { for($ti = 0; $ti < $hemorrhagedTax; ++$ti) RemoveGlobalEffect($player, "PR4OkzJBVr_COST"); }
     }
 
     // Burnished Obelith (mz1dJZExOk): next card costs 2 more (one-shot)

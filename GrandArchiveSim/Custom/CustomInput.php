@@ -27,6 +27,11 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             SetFlashMessage("Cannot pass while decisions are pending.");
             break;
         }
+        // Fervent Lancer: must attack a champion each turn if able.
+        if(FerventLancerMustAttack($playerID)) {
+            SetFlashMessage("Fervent Lancer must attack a champion if able.");
+            break;
+        }
         // Grand Archive rules: passing out of the main phase requires the non-turn
         // player to also pass Opportunity before the phase actually advances.
         RequestMainPhasePass($playerID);

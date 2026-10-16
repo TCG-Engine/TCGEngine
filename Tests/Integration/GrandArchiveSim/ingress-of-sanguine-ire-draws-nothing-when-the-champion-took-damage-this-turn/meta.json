@@ -1,0 +1,21 @@
+{
+    "name": "ingress-of-sanguine-ire-draws-nothing-when-the-champion-took-damage-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:28:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dfchplzf6m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dfchplzf6m"
+        ],
+        "mechanics": [
+            "condition",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "If your champion hasn't taken damage this turn, draw two cards into your memory."
+        ]
+    }
+}

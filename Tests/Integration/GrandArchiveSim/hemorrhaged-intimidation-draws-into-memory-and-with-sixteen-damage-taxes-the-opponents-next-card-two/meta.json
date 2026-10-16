@@ -1,0 +1,25 @@
+{
+    "name": "hemorrhaged-intimidation-draws-into-memory-and-with-sixteen-damage-taxes-the-opponents-next-card-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:27:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PR4OkzJBVr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PR4OkzJBVr"
+        ],
+        "mechanics": [
+            "timing-restriction",
+            "draw-discard",
+            "cost-increase",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Activate this card only during an opponent's recollection phase.",
+            "Draw a card into your memory.",
+            "[Class Bonus] The next card your opponent activates this turn costs (1) more to activate for every eight damage counters on your champion."
+        ]
+    }
+}

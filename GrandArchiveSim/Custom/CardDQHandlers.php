@@ -690,26 +690,28 @@ $customDQHandlers["RazorgaleCallingDamage"] = function($player, $parts, $lastDec
     DealDamage($player, $sourceMZ, $lastDecision, 1);
 };
 
-// Fervent Lancer: may banish the exia card as it resolves
+// Fervent Lancer: may banish the exia card as it resolves. The trigger runs once an Action has left the effects stack,
+// so the card is the newest graveyard card with that CardID by the time the YESNO is answered (graveyard objects carry
+// no UniqueID, and the hand/stack index it was activated from is long gone). The Lancer is found again by UniqueID.
 $customDQHandlers["FerventLancerBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $lancerIdx = DecisionQueueController::GetVariable("FerventLancerIdx");
-    // The card just resolved — it should be on the effect stack or in graveyard.
-    // Find the card that just resolved (top of effect stack or last resolved)
-    $mzID = DecisionQueueController::GetVariable("mzID");
-    if($mzID === null || $mzID === "" || $mzID === "-") return;
-    $obj = GetZoneObject($mzID);
-    if($obj === null) return;
-    // Banish the resolved card
-    MZMove($player, $mzID, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
-    // Mark this Fervent Lancer as having banished a card (for +2 POWER)
-    $lancerMZ = "myField-" . $lancerIdx;
-    $lancerObj = &GetZoneObject($lancerMZ);
-    if($lancerObj !== null && $lancerObj->CardID === "aws20fsihd") {
-        if(!is_array($lancerObj->Counters)) $lancerObj->Counters = [];
-        $lancerObj->Counters['banished_card'] = true;
+    $cardID = DecisionQueueController::GetVariable("FerventLancerCardID");
+    $lancerUID = intval(DecisionQueueController::GetVariable("FerventLancerUID"));
+    if(empty($cardID) || $lancerUID <= 0) return;
+    $cardMZ = null;
+    $graveyard = GetZone("myGraveyard");
+    for($gi = count($graveyard) - 1; $gi >= 0; --$gi) {
+        if(!$graveyard[$gi]->removed && $graveyard[$gi]->CardID === $cardID) { $cardMZ = "myGraveyard-" . $gi; break; }
     }
+    if($cardMZ === null) return;
+    MZMove($player, $cardMZ, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $lancerMZ = FindFieldMzByUniqueID($lancerUID);
+    if($lancerMZ === "") return;
+    $lancerObj = &GetZoneObject($lancerMZ);
+    if($lancerObj === null || $lancerObj->CardID !== "aws20fsihd") return;
+    if(!is_array($lancerObj->Counters)) $lancerObj->Counters = [];
+    $lancerObj->Counters['banished_card'] = true;
 };
 
 // Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow.

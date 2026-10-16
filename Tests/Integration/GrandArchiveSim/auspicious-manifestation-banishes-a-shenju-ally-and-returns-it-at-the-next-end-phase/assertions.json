@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Suzaku was banished"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion is left on the field until the end phase"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "mzf5dmpqbc",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Suzaku returned transformed at the end phase"
+    }
+]

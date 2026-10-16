@@ -1,0 +1,21 @@
+{
+    "name": "fervent-lancer-without-a-banished-card-may-end-the-turn-without-attacking",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:23:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aws20fsihd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aws20fsihd"
+        ],
+        "mechanics": [
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as there's a card banished by CARDNAME, it gets +2 [POWER] and must attack a champion each turn if able."
+        ]
+    }
+}

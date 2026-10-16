@@ -1,0 +1,28 @@
+[
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Nothing was banished"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The exia card went to the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "computed_power_equals",
+        "mzId": "myField-1",
+        "value": 3,
+        "semantic": true,
+        "label": "No banished card, no bonus"
+    }
+]

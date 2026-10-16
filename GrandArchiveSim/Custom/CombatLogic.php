@@ -1411,6 +1411,30 @@ $customDQHandlers["CommandAutomatonAttack"] = function($player, $parts, $lastDec
  *   2.e  Reconcile restrictions (Taunt, etc.).
  *        If at any point the attack becomes illegal, reverse all steps.
  */
+/**
+ * Fervent Lancer: "As long as there's a card banished by this ally, it must attack a champion each turn if able."
+ * True when the turn player controls an awake Lancer holding a banished card that still has a champion to attack
+ * (it is a power-positive attacker, and it is not the first player's first turn).
+ */
+function FerventLancerMustAttack($player) {
+    global $playerID;
+    if(GetTurnNumber() == 1 && $player == GetFirstPlayer()) return false;
+    $field = GetField($player);
+    for($fi = 0; $fi < count($field); ++$fi) {
+        $obj = $field[$fi];
+        if($obj->removed || $obj->CardID !== "aws20fsihd" || HasNoAbilities($obj) || $obj->Status != 2) continue;
+        if(!is_array($obj->Counters) || empty($obj->Counters['banished_card'])) continue;
+        if(ObjectCurrentPower($obj) <= 0) continue;
+        if(function_exists("TotalWhiteoutSuppressesActivatedAbilities") && TotalWhiteoutSuppressesActivatedAbilities($obj)) continue;
+        $mz = (($player == $playerID) ? "myField-" : "theirField-") . $fi;
+        foreach(GetValidAttackTargets($mz) as $targetMZ) {
+            $targetObj = GetZoneObject($targetMZ);
+            if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return true;
+        }
+    }
+    return false;
+}
+
 function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
