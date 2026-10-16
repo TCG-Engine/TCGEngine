@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-16T14:12:18+00:00",
+    "generatedAt": "2026-10-16T14:23:57+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2474,
@@ -38564,10 +38564,26 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "nico-lash-cao-cao-on-attack-banish",
+                "nico-lash-cloak-of-stillwater-banish-cost",
+                "nico-lash-fractal-of-intrusion-enter-banish",
+                "nico-lash-froglet-footman-enter-banish",
+                "nico-lash-krustallan-archer-on-attack-banish",
+                "nico-lash-rainweaver-mage-enter-banish",
+                "nico-lash-refresh-chamber-banish",
+                "nico-lash-sudden-snow-banish",
                 "nico-whiplash-allure-banishing-a-floating-memory-card-from-your-graveyard-adds-a-lash-counter",
                 "nico-whiplash-allure-on-champion-hit-mills-the-opponent-x-cards"
             ],
             "semanticFixtures": [
+                "nico-lash-cao-cao-on-attack-banish",
+                "nico-lash-cloak-of-stillwater-banish-cost",
+                "nico-lash-fractal-of-intrusion-enter-banish",
+                "nico-lash-froglet-footman-enter-banish",
+                "nico-lash-krustallan-archer-on-attack-banish",
+                "nico-lash-rainweaver-mage-enter-banish",
+                "nico-lash-refresh-chamber-banish",
+                "nico-lash-sudden-snow-banish",
                 "nico-whiplash-allure-banishing-a-floating-memory-card-from-your-graveyard-adds-a-lash-counter",
                 "nico-whiplash-allure-on-champion-hit-mills-the-opponent-x-cards"
             ],
@@ -42954,10 +42970,22 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard"
+                "ardus-does-not-lower-the-deluge-threshold",
+                "ardus-doubles-a-deluge-stat-bonus",
+                "ardus-doubles-the-deluge-cost-reduction",
+                "ardus-doubles-the-deluge-half-of-conniving-plans",
+                "ardus-doubles-treasure-of-the-depths-end-phase-trigger",
+                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard",
+                "ardus-liquidation-deals-seven-damage-twice"
             ],
             "semanticFixtures": [
-                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard"
+                "ardus-does-not-lower-the-deluge-threshold",
+                "ardus-doubles-a-deluge-stat-bonus",
+                "ardus-doubles-the-deluge-cost-reduction",
+                "ardus-doubles-the-deluge-half-of-conniving-plans",
+                "ardus-doubles-treasure-of-the-depths-end-phase-trigger",
+                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard",
+                "ardus-liquidation-deals-seven-damage-twice"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

@@ -3473,6 +3473,74 @@ $playCardAbilities["B9RzxSut57:0"] = function($player) {
     if($suppressed > 0) Draw($player, $suppressed);
 };
 
+// Nico, Whiplash Allure / Wield-Not-Wrath style lash triggers: these generated handlers banish a floating-memory card from the graveyard without
+// telling Nico (NicoOnFloatingMemoryBanished). Wrap each so a net gain in the banish zone notifies him once the original has run.
+foreach(["cfpwakb1k0:0:Enter-1", "fbvt9rdhkj:0:Enter-1", "qb6zhphtw6:0:Enter-1", "2ha4dk88zq:0:CardActivated-1",
+         "dxAEI20h8F:0:CardActivated-1", "3p6i0iqmyn:0:OnAttack-1", "d5og6z31q9:0:OnAttack-1"] as $nicoHandlerKey) {
+  if(!isset($customDQHandlers[$nicoHandlerKey])) continue;
+  $customDQHandlers[$nicoHandlerKey] = (function($original) {
+    return function($player, $parts, $lastDecision) use ($original) {
+      $before = count(GetZone("myBanish"));
+      $original($player, $parts, $lastDecision);
+      if(count(GetZone("myBanish")) > $before) NicoOnFloatingMemoryBanished($player);
+    };
+  })($customDQHandlers[$nicoHandlerKey]);
+}
+
+// Ardus, Floodborne Deacon (EKiMJfgvSI): "...have an additional instance of each deluge ability and effect they have." DelugeInstances($player) is 2 with him active; the threshold
+// (DelugeAmount) stays the real count. Static stat bonuses and Treasure of the Depths multiply in GameLogic.php; the generated one-shot and cost handlers are wrapped here.
+// Do1blsupu0 Dynasty Chancellor, qe1pkerbi3 Drowned Exorcist and rqjnvhf26m Mistsworn Magister are On Death deluge abilities: run once per instance.
+foreach(["do1blsupu0:0", "qe1pkerbi3:0", "rqjnvhf26m:0"] as $delugeKey) {
+  if(!isset($allyDestroyedAbilities[$delugeKey])) continue;
+  $allyDestroyedAbilities[$delugeKey] = (function($original) {
+    return function($player) use ($original) {
+      for($inst = DelugeInstances($player); $inst > 0; --$inst) $original($player);
+    };
+  })($allyDestroyedAbilities[$delugeKey]);
+}
+// Disciple of the Waves / Sleety Retreat: the cost reduction applies once per instance.
+foreach(["m9sfzj5d1i:0", "j9fkuzgg9i:0"] as $delugeKey) {
+  if(!isset($activationCostModifierAbilities[$delugeKey])) continue;
+  $activationCostModifierAbilities[$delugeKey] = (function($original) {
+    return function($player, $subjectObj, $currentValue, $sourceObj) use ($original) {
+      $reduction = $original($player, $subjectObj, $currentValue, $sourceObj);
+      return $reduction < 0 ? $reduction * DelugeInstances($player) : $reduction;
+    };
+  })($activationCostModifierAbilities[$delugeKey]);
+}
+// Conniving Plans: the deluge half (preparation counter + draw into memory) happens once per instance.
+$cardActivatedAbilities["2b2w1ydw5z:0"] = function($player) {
+  MillCards($player, "myDeck", "myGraveyard", 2);
+  if(DelugeAmount($player) < 4) return;
+  for($inst = DelugeInstances($player); $inst > 0; --$inst) {
+    $champions = ZoneSearch("myField", ["CHAMPION"]);
+    if(!empty($champions)) AddCounters($player, $champions[0], "preparation", 1);
+    DrawIntoMemory($player, 1);
+  }
+};
+// Brookside Scout (load an Aethercharge) and Liquidation (7 damage to a unit) ask for a choice, so an extra instance is re-offered after the first one resolved
+// (DQ variable "delugeExtra:<handler>") instead of being queued up front with stale indexes.
+foreach([["9asvHr4bsz:0", "9asvHr4bsz:0:Enter-1", "enterAbilities"], ["b6BFtEqtQM:0", "b6BFtEqtQM:0:CardActivated-1", "cardActivatedAbilities"]] as [$delugeAbilityKey, $delugeHandlerKey, $delugeAbilityTable]) {
+  if(!isset($customDQHandlers[$delugeHandlerKey]) || !isset($$delugeAbilityTable[$delugeAbilityKey])) continue;
+  $delugeStart = $$delugeAbilityTable[$delugeAbilityKey];
+  $$delugeAbilityTable[$delugeAbilityKey] = (function($original, $handlerKey) {
+    return function($player) use ($original, $handlerKey) {
+      DecisionQueueController::StoreVariable("delugeExtra:" . $handlerKey, strval(DelugeInstances($player) - 1));
+      $original($player);
+    };
+  })($delugeStart, $delugeHandlerKey);
+  $customDQHandlers[$delugeHandlerKey] = (function($original, $start, $handlerKey) {
+    return function($player, $parts, $lastDecision) use ($original, $start, $handlerKey) {
+      $original($player, $parts, $lastDecision);
+      $extra = intval(DecisionQueueController::GetVariable("delugeExtra:" . $handlerKey));
+      if($extra > 0) {
+        DecisionQueueController::StoreVariable("delugeExtra:" . $handlerKey, strval($extra - 1));
+        $start($player);
+      }
+    };
+  })($customDQHandlers[$delugeHandlerKey], $delugeStart, $delugeHandlerKey);
+}
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

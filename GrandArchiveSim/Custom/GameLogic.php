@@ -13163,9 +13163,10 @@ function EndPhase() {
     // Treasure of the Depths (4Kxe6pSt6C): Deluge 3 -- at the beginning of your end phase, if there are three or more water element cards in your graveyard and there are less than three refinement
     // counters on CARDNAME, put a refinement counter on CARDNAME.
     $field = &GetField($turnPlayer);
+    // Ardus, Floodborne Deacon gives it an additional instance: each instance checks the cap on its own.
     for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "4Kxe6pSt6C" && !HasNoAbilities($field[$i])
-            && DelugeAmount($turnPlayer) >= 3 && GetCounterCount($field[$i], "refinement") < 3) {
+        if($field[$i]->removed || $field[$i]->CardID !== "4Kxe6pSt6C" || HasNoAbilities($field[$i]) || DelugeAmount($turnPlayer) < 3) continue;
+        for($inst = DelugeInstances($turnPlayer); $inst > 0 && GetCounterCount($field[$i], "refinement") < 3; --$inst) {
             AddCounters($turnPlayer, "myField-" . $i, "refinement", 1);
         }
     }
@@ -13918,10 +13919,10 @@ function ObjectCurrentPower($obj) {
     switch($obj->CardID) { //Self power modifiers
         case "3lMV08BClz": // Current Groover: Deluge 3 — +1 POWER
         case "3pG1rks3rv": // Fountain Bladehand: Deluge 3 — +1 POWER/+1 LIFE
-            if(DelugeAmount($obj->Controller) >= 3) $power += 1;
+            if(DelugeAmount($obj->Controller) >= 3) $power += DelugeInstances($obj->Controller);
             break;
         case "6XDoCxQuoH": // Soaked Slash: Deluge 2 — +2 POWER
-            if(DelugeAmount($obj->Controller) >= 2) $power += 2;
+            if(DelugeAmount($obj->Controller) >= 2) $power += 2 * DelugeInstances($obj->Controller);
             break;
         case "k5RG5TNLAp": // Updraft Slice: Class Bonus +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
@@ -13967,7 +13968,7 @@ function ObjectCurrentPower($obj) {
             }
             break;
         case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 POWER
-            if(DelugeAmount($obj->Controller) >= 2) $power += 1;
+            if(DelugeAmount($obj->Controller) >= 2) $power += DelugeInstances($obj->Controller);
             break;
         case "XFWU8KTVW9": // Ghastly Slime: +2 POWER while ephemeral
             if(IsEphemeral($obj)) $power += 2;
@@ -14911,7 +14912,7 @@ function ObjectCurrentPower($obj) {
             if(IsCielBonusActive($obj->Controller) && GetOmenCountByType($obj->Controller, "ALLY") >= 2) $power += 1;
             break;
         case "67CIhG8hmG": // Avatar of Genbu: [Guo Jia Bonus][Deluge 12] +2 POWER
-            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $power += 2;
+            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $power += 2 * DelugeInstances($obj->Controller);
             break;
         case "8677jq0hfm": // Sundering Moon: [Jin Bonus] On Enter can grant +1 POWER until EOT
             if(in_array("8677jq0hfm-POWER", $obj->TurnEffects ?? [])) $power += 1;
@@ -15126,7 +15127,7 @@ function ObjectCurrentPower($obj) {
                    && $obj->CardID !== "h42l1w67ry"
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])
                    && DelugeAmount($obj->Controller) >= 6) {
-                    $power += 1;
+                    $power += DelugeInstances($obj->Controller);
                     break;
                 }
             }
@@ -15871,7 +15872,7 @@ function ObjectCurrentPower($obj) {
     // Floodborne Swing: [CB] Deluge 3 gives +4 POWER.
     if($obj->CardID === "5wLtoxd4Wc" && $obj->Controller != -1
         && IsClassBonusActive($obj->Controller, ["WARRIOR"]) && DelugeAmount($obj->Controller) >= 3) {
-        $power += 4;
+        $power += 4 * DelugeInstances($obj->Controller);
     }
     // Conduit of the Mad Mage (6SXL09rEzS): +1 POWER per Mage Spell activation this turn
     foreach($obj->TurnEffects as $te) {
@@ -16452,10 +16453,10 @@ function ObjectCurrentHP($obj) {
     }
     switch($obj->CardID) { //Self hp modifiers
         case "3pG1rks3rv": // Fountain Bladehand: Deluge 3 — +1 POWER/+1 LIFE
-            if(DelugeAmount($obj->Controller) >= 3) $cardLife += 1;
+            if(DelugeAmount($obj->Controller) >= 3) $cardLife += DelugeInstances($obj->Controller);
             break;
         case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 LIFE
-            if(DelugeAmount($obj->Controller) >= 2) $cardLife += 1;
+            if(DelugeAmount($obj->Controller) >= 2) $cardLife += DelugeInstances($obj->Controller);
             break;
         case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
             $cardLife += min(5, GetCounterCount($obj, "sheen"));
@@ -16590,7 +16591,7 @@ function ObjectCurrentHP($obj) {
             if(IsCielBonusActive($obj->Controller)) $cardLife += GetOmenCountByType($obj->Controller, "ALLY");
             break;
         case "67CIhG8hmG": // Avatar of Genbu: [Guo Jia Bonus][Deluge 12] +2 LIFE
-            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $cardLife += 2;
+            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $cardLife += 2 * DelugeInstances($obj->Controller);
             break;
         case "9ggfiy38t2": // Baby Blue Slime: [Class Bonus] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
@@ -16673,7 +16674,7 @@ function ObjectCurrentHP($obj) {
             foreach($field as $fieldObj) {
                 if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "s25QNTvfem" && !HasNoAbilities($fieldObj)
                    && DelugeAmount($fieldObj->Controller) >= 4) {
-                    $cardLife += 1;
+                    $cardLife += DelugeInstances($fieldObj->Controller);
                     break;
                 }
             }

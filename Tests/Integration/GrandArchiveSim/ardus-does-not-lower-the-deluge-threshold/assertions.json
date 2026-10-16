@@ -1,0 +1,18 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 1,
+        "semantic": true,
+        "label": "One water card is below Deluge 2: no bonus even with Ardus"
+    },
+    {
+        "step": 1,
+        "type": "computed_life_equals",
+        "mzId": "p1Field-2",
+        "value": 3,
+        "semantic": true,
+        "label": "One water card is below Deluge 2: no bonus even with Ardus"
+    }
+]

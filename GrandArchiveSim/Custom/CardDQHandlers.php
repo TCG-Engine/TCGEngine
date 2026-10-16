@@ -1545,24 +1545,24 @@ $customDQHandlers["RightOfRealmChoice"] = function($player, $parts, $lastDecisio
 
 /**
  * Count the number of water element cards in a player's graveyard.
- * Centralized for future modifier support (e.g. "your deluge counts as having one more").
  */
 function DelugeAmount($player) {
     global $playerID;
     $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
-    $amount = count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+    return count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+}
 
-    // Ardus, Floodborne Deacon (EKiMJfgvSI): your deluge abilities/effects have an
-    // additional instance. Approximate this as +1 effective deluge amount while active.
+/**
+ * How many instances of each deluge ability/effect the player's cards have: 1, or 2 with Ardus, Floodborne Deacon (EKiMJfgvSI) on their field
+ * ("Cards you activate, objects you control, and intents you control have an additional instance of each deluge ability and effect they have").
+ * The threshold (DelugeAmount) is untouched; every deluge effect applies once per instance.
+ */
+function DelugeInstances($player) {
     $field = GetField($player);
     foreach($field as $obj) {
-        if(!$obj->removed && $obj->CardID === "EKiMJfgvSI" && !HasNoAbilities($obj)) {
-            $amount += 1;
-            break;
-        }
+        if(!$obj->removed && $obj->CardID === "EKiMJfgvSI" && !HasNoAbilities($obj)) return 2;
     }
-
-    return $amount;
+    return 1;
 }
 
 function SleeyRetreatCheckDefending($player, $target) {
@@ -3406,6 +3406,7 @@ $customDQHandlers["RefreshChamberBanish"] = function($player, $parts, $lastDecis
     if($lastDecision === "-" || $lastDecision === "") return;
     // Banish the floating memory card from graveyard
     MZMove($player, $lastDecision, "myBanish");
+    NicoOnFloatingMemoryBanished($player);
     // Find Refresh Chamber on the effect stack or graveyard (it just resolved to GY)
     // and move it to memory
     $gy = GetZone("myGraveyard");

@@ -1,0 +1,22 @@
+{
+    "name": "nico-lash-cao-cao-on-attack-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:18:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5bbae3z4py"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5bbae3z4py"
+        ],
+        "mechanics": [
+            "trigger",
+            "floating-memory",
+            "lash"
+        ],
+        "rulesClauses": [
+            "Whenever a card with **floating memory** is banished from your graveyard, put a **lash** counter on Nico."
+        ]
+    }
+}
