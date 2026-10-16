@@ -1,0 +1,20 @@
+[
+    {
+        "step": 21,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "KbE9R1mi3n_WIN_NEXT_RECOLLECTION",
+        "value": 1,
+        "semantic": true,
+        "label": "On Hit: the delayed win is set up"
+    },
+    {
+        "step": 33,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "KbE9R1mi3n_WIN_NEXT_RECOLLECTION",
+        "value": 0,
+        "semantic": true,
+        "label": "The delayed win resolved at the beginning of the next recollection phase (the engine ends the game through TriggerGameOver)"
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"sheen\":10}",
+        "semantic": true,
+        "label": "Ten sheen counters moved onto the unit"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "{\"sheen\":26}",
+        "semantic": true,
+        "label": "Left 26 on Fractured Memories"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "The Opus rested"
+    }
+]

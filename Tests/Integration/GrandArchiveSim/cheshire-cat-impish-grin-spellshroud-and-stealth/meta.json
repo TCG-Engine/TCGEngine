@@ -1,0 +1,21 @@
+{
+    "name": "cheshire-cat-impish-grin-spellshroud-and-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:31:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cUltOcPo26"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cUltOcPo26"
+        ],
+        "mechanics": [
+            "keyword",
+            "spellshroud"
+        ],
+        "rulesClauses": [
+            "**Spellshroud**, **Stealth**"
+        ]
+    }
+}

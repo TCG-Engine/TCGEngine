@@ -1,0 +1,21 @@
+{
+    "name": "aenean-repudiation-an-elysian-object-makes-each-opponent-discard-an-additional-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:14:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t91W06HOqY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t91W06HOqY"
+        ],
+        "mechanics": [
+            "discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Elysian object, each opponent discards an additional card."
+        ]
+    }
+}

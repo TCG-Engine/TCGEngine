@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-16T01:00:47+00:00",
+    "generatedAt": "2026-10-16T01:33:36+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2342,
+        "cardsWithExistingFixtures": 2379,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 135,
+        "cardsNeedingSemanticCoverage": 98,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -66,25 +66,6 @@
             "priority": 25
         },
         {
-            "cardId": "A58xZJJMz6",
-            "name": "Labyrinth, Jeweled Opus",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "vZH2xr4yq2",
             "name": "Auspicious Manifestation",
             "type": "ACTION",
@@ -112,24 +93,6 @@
                 "targeting",
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "SpENiP3jbN",
-            "name": "Focusing Gem",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
                 "condition"
             ],
             "existingFixtures": [],
@@ -175,23 +138,6 @@
             "priority": 24
         },
         {
-            "cardId": "eCxOH7BgsS",
-            "name": "Aenean Cyclone",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "4f3bi5lohu",
             "name": "Ceasing Edict",
             "type": "ACTION",
@@ -217,57 +163,6 @@
             "mechanics": [
                 "zone-movement",
                 "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "KbE9R1mi3n",
-            "name": "Golden Checkmate",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "MRiM1fnOWC",
-            "name": "Heirloom of Libra",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "DNbIpzVgde",
-            "name": "Lost Providence",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
                 "condition"
             ],
             "existingFixtures": [],
@@ -311,38 +206,6 @@
             "priority": 23
         },
         {
-            "cardId": "t91W06HOqY",
-            "name": "Aenean Repudiation",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
-            "cardId": "mt1I9kfowQ",
-            "name": "Anointed Purifier",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 22
-        },
-        {
             "cardId": "qv0vn6tuow",
             "name": "Jianyu, Fate's Premonition",
             "type": "UNIQUE,PHANTASIA",
@@ -372,44 +235,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 21
-        },
-        {
-            "cardId": "YDjxpBd8Fm",
-            "name": "Aenean Crystallization",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "CjL1WPvWHw",
-            "name": "Buffeting Hurricane",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
         },
         {
             "cardId": "TYlWgIYsq3",
@@ -488,26 +313,6 @@
             "priority": 15
         },
         {
-            "cardId": "CfU2EmuKwY",
-            "name": "Sighing Crownwing",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
             "cardId": "6emPe9OEUn",
             "name": "Treacle, Drowned Mouse",
             "type": "UNIQUE,ALLY",
@@ -563,43 +368,6 @@
             "starterDecks": [],
             "needsSemanticCoverage": true,
             "priority": 15
-        },
-        {
-            "cardId": "12XYNDPi49",
-            "name": "Vestal Priestess",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "tzV8YfYdHg",
-            "name": "Alice, Trifle's Royalty",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
         },
         {
             "cardId": "s9ICPMYPNx",
@@ -666,42 +434,6 @@
                 "recover",
                 "zone-movement",
                 "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "qFwqqT0XWo",
-            "name": "Ducal Seal",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "GGRtLQgaYU",
-            "name": "Eminent Lethargy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -926,42 +658,6 @@
             "priority": 14
         },
         {
-            "cardId": "w6OqqsfEso",
-            "name": "Sovereign Sanctuary",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
-            "cardId": "6Rb25k7OjY",
-            "name": "Tempestuous Conviction",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 14
-        },
-        {
             "cardId": "MKiuesDVdW",
             "name": "Thanatotic Hemosynth",
             "type": "ALLY",
@@ -1084,23 +780,6 @@
             "priority": 13
         },
         {
-            "cardId": "cthZxfkdsY",
-            "name": "Glacial Binding",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "MzGWQK0E2o",
             "name": "Greater Boon of Detachment",
             "type": "GREATER BOON",
@@ -1178,23 +857,6 @@
                 "cost",
                 "damage",
                 "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "2goaqn7ImP",
-            "name": "Imperious Galebind",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1288,40 +950,6 @@
             "priority": 13
         },
         {
-            "cardId": "iullthfLXc",
-            "name": "Noble Dissolution",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "HLcmZLe7Xr",
-            "name": "Pearled Prayer",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "ryvfq3huqj",
             "name": "Polkhawk, Bombastic Shot",
             "type": "CHAMPION",
@@ -1348,23 +976,6 @@
                 "targeting",
                 "draw-discard",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "UnOkglGVMN",
-            "name": "Royal Ordinance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "draw-discard",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1424,54 +1035,6 @@
             "priority": 13
         },
         {
-            "cardId": "G8pN8Hackq",
-            "name": "Aella, Zephyr's Hand",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "kJoyEo9Ls1",
-            "name": "Apothecary's Harvest",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "EKiMJfgvSI",
-            "name": "Ardus, Floodborne Deacon",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "41WnFOT5YS",
             "name": "Avalon, Cursed Isle",
             "type": "UNIQUE,DOMAIN",
@@ -1520,22 +1083,6 @@
             "priority": 12
         },
         {
-            "cardId": "Q9b0d7fkGv",
-            "name": "Dissipation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "cDp9Ap6ASE",
             "name": "Drifting Abysshell",
             "type": "ALLY",
@@ -1544,22 +1091,6 @@
             "mechanics": [
                 "counter",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "A9c8tb7LKD",
-            "name": "Exhilarating Plume",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1648,22 +1179,6 @@
             "priority": 12
         },
         {
-            "cardId": "LnVEY7nVXn",
-            "name": "Illusory Armsmaster",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WLPf8QTdsP",
             "name": "Lesser Boon of Knox",
             "type": "LESSER BOON",
@@ -1671,54 +1186,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "PKnOTdQJJ1",
-            "name": "Mirrorbound Covenant",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "LHFUG6stdS",
-            "name": "Psychopomp's Gale",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "g3DQoQvyjI",
-            "name": "Royal Oathguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
                 "condition"
             ],
             "existingFixtures": [],
@@ -1900,51 +1367,6 @@
             "priority": 11
         },
         {
-            "cardId": "6yW2zOwWmU",
-            "name": "Accelerate",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "vgu1C2Lw6e",
-            "name": "Chamberlain Toad",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "cUltOcPo26",
-            "name": "Cheshire Cat, Impish Grin",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
             "cardId": "cl8s8yxarq",
             "name": "cl8s8yxarq",
             "type": "",
@@ -1952,21 +1374,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "Erpyb3AGgp",
-            "name": "Conjuring Fluorescence",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -1997,21 +1404,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "8ydxeQcp50",
-            "name": "Dynastic Whirlpool",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -2218,21 +1610,6 @@
             "cardId": "vb9xebivoe",
             "name": "vb9xebivoe",
             "type": "",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "wqpsErSeFn",
-            "name": "Void's Cloak",
-            "type": "REGALIA,ITEM",
             "abilityCount": 1,
             "listenerCount": 0,
             "mechanics": [
@@ -18217,6 +17594,37 @@
             "priority": 45
         },
         {
+            "cardId": "A58xZJJMz6",
+            "name": "Labyrinth, Jeweled Opus",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "labyrinth-jeweled-opus-class-bonus-costs-three-less-to-activate",
+                "labyrinth-jeweled-opus-sheen-eighteen-draws-a-card-at-the-end-phase",
+                "labyrinth-jeweled-opus-sheen-ten-gives-your-champion-spellshroud",
+                "labyrinth-jeweled-opus-sheen-ten-needs-the-opponent-with-the-most-memory-to-have-six-or-less",
+                "labyrinth-jeweled-opus-sheen-thirty-six-rest-moves-sheen-counters-onto-a-unit"
+            ],
+            "semanticFixtures": [
+                "labyrinth-jeweled-opus-class-bonus-costs-three-less-to-activate",
+                "labyrinth-jeweled-opus-sheen-eighteen-draws-a-card-at-the-end-phase",
+                "labyrinth-jeweled-opus-sheen-ten-gives-your-champion-spellshroud",
+                "labyrinth-jeweled-opus-sheen-ten-needs-the-opponent-with-the-most-memory-to-have-six-or-less",
+                "labyrinth-jeweled-opus-sheen-thirty-six-rest-moves-sheen-counters-onto-a-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
             "cardId": "0yetaebjlw",
             "name": "Lunar Conduit",
             "type": "REGALIA,ITEM",
@@ -19037,6 +18445,30 @@
             ],
             "semanticFixtures": [
                 "flowing-oubli-banishes-one-of-the-top-two-with-an-omen-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "SpENiP3jbN",
+            "name": "Focusing Gem",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "focusing-gem-hindered-enters-the-field-rested",
+                "focusing-gem-rest-and-banish-makes-the-next-card-cost-three-less"
+            ],
+            "semanticFixtures": [
+                "focusing-gem-hindered-enters-the-field-rested",
+                "focusing-gem-rest-and-banish-makes-the-next-card-cost-three-less"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -20132,6 +19564,27 @@
             "priority": 43
         },
         {
+            "cardId": "eCxOH7BgsS",
+            "name": "Aenean Cyclone",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "aenean-cyclone-class-bonus-efficiency-suppresses-any-amount-of-objects-then-banishes-itself"
+            ],
+            "semanticFixtures": [
+                "aenean-cyclone-class-bonus-efficiency-suppresses-any-amount-of-objects-then-banishes-itself"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "BTapvu1Zvd",
             "name": "Aenean Pointed Flare",
             "type": "ACTION",
@@ -20789,6 +20242,27 @@
             "priority": 43
         },
         {
+            "cardId": "KbE9R1mi3n",
+            "name": "Golden Checkmate",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "golden-checkmate-alice-bonus-costs-two-less-per-chessman-type-and-on-hit-wins-next-recollection"
+            ],
+            "semanticFixtures": [
+                "golden-checkmate-alice-bonus-costs-two-less-per-chessman-type-and-on-hit-wins-next-recollection"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "FQigf17dCr",
             "name": "Grave Gateau",
             "type": "ITEM",
@@ -20825,6 +20299,31 @@
             ],
             "semanticFixtures": [
                 "grim-pastiche-copies-an-action-omen-and-activates-the-copy-free"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "MRiM1fnOWC",
+            "name": "Heirloom of Libra",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "heirloom-of-libra-banish-gives-each-opposing-champion-minus-five-level",
+                "heirloom-of-libra-banish-stops-opponents-from-glimpsing",
+                "heirloom-of-libra-pay-three-and-banish-draws-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "heirloom-of-libra-banish-gives-each-opposing-champion-minus-five-level",
+                "heirloom-of-libra-banish-stops-opponents-from-glimpsing",
+                "heirloom-of-libra-pay-three-and-banish-draws-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -20953,6 +20452,29 @@
             ],
             "semanticFixtures": [
                 "lesser-boon-of-zerusa-costs-one-more-each-time-it-is-activated"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "DNbIpzVgde",
+            "name": "Lost Providence",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lost-providence-activated-from-the-material-deck-enters-rested-and-ephemeral",
+                "lost-providence-rest-and-banish-draws-a-card"
+            ],
+            "semanticFixtures": [
+                "lost-providence-activated-from-the-material-deck-enters-rested-and-ephemeral",
+                "lost-providence-rest-and-banish-draws-a-card"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -21707,6 +21229,50 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 43
+        },
+        {
+            "cardId": "t91W06HOqY",
+            "name": "Aenean Repudiation",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aenean-repudiation-an-elysian-object-makes-each-opponent-discard-an-additional-card",
+                "aenean-repudiation-each-player-discards-down-to-seven"
+            ],
+            "semanticFixtures": [
+                "aenean-repudiation-an-elysian-object-makes-each-opponent-discard-an-additional-card",
+                "aenean-repudiation-each-player-discards-down-to-seven"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
+        },
+        {
+            "cardId": "mt1I9kfowQ",
+            "name": "Anointed Purifier",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "anointed-purifier-enters-with-two-additional-buff-counters",
+                "anointed-purifier-removes-two-buff-counters-to-destroy-a-target-phantasia"
+            ],
+            "semanticFixtures": [
+                "anointed-purifier-enters-with-two-additional-buff-counters",
+                "anointed-purifier-removes-two-buff-counters-to-destroy-a-target-phantasia"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 42
         },
         {
             "cardId": "oye74ibwo8",
@@ -22933,6 +22499,33 @@
             "priority": 40
         },
         {
+            "cardId": "YDjxpBd8Fm",
+            "name": "Aenean Crystallization",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aenean-crystallization-below-level-six-only-destroys-the-ally",
+                "aenean-crystallization-cannot-target-an-awake-ally",
+                "aenean-crystallization-class-bonus-level-six-destroys-a-rested-ally-and-summons-a-core-fractal"
+            ],
+            "semanticFixtures": [
+                "aenean-crystallization-below-level-six-only-destroys-the-ally",
+                "aenean-crystallization-cannot-target-an-awake-ally",
+                "aenean-crystallization-class-bonus-level-six-destroys-a-rested-ally-and-summons-a-core-fractal"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "d53zc9p4lp",
             "name": "Airship Cannoneer",
             "type": "ALLY",
@@ -23238,6 +22831,31 @@
                 "blightheart-penitent-cascade-one-prevents-the-next-two-damage-to-a-unit",
                 "blightheart-penitent-cascade-two-puts-a-buff-counter-on-an-ally",
                 "blightheart-penitent-without-an-elysian-object-cannot-use-its-ability"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "CjL1WPvWHw",
+            "name": "Buffeting Hurricane",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "buffeting-hurricane-class-bonus-enter-draws-a-card-into-memory",
+                "buffeting-hurricane-class-bonus-suppressing-an-object-deals-two-damage-to-target-champion"
+            ],
+            "semanticFixtures": [
+                "buffeting-hurricane-class-bonus-enter-draws-a-card-into-memory",
+                "buffeting-hurricane-class-bonus-suppressing-an-object-deals-two-damage-to-target-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26064,6 +25682,30 @@
             "priority": 35
         },
         {
+            "cardId": "CfU2EmuKwY",
+            "name": "Sighing Crownwing",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sighing-crownwing-class-bonus-on-attack-puts-a-buff-counter-on-another-animal-and-has-stealth"
+            ],
+            "semanticFixtures": [
+                "sighing-crownwing-class-bonus-on-attack-puts-a-buff-counter-on-another-animal-and-has-stealth"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "j43qiwqjt0",
             "name": "Siphoning Fractal",
             "type": "PHANTASIA",
@@ -26715,6 +26357,31 @@
             "priority": 35
         },
         {
+            "cardId": "12XYNDPi49",
+            "name": "Vestal Priestess",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "vestal-priestess-enter-recovers-four",
+                "vestal-priestess-intercept-redirects-an-attack-on-the-champion"
+            ],
+            "semanticFixtures": [
+                "vestal-priestess-enter-recovers-four",
+                "vestal-priestess-intercept-redirects-an-attack-on-the-champion"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
             "cardId": "pc0y3xneg7",
             "name": "Viridescent Aetherstreak",
             "type": "ACTION",
@@ -27225,6 +26892,32 @@
             "semanticFixtures": [
                 "alice-golden-queen-inherited-effect-chessman-command-attacks-get-plus-one-power",
                 "alice-golden-queen-lineage-release-prevents-damage-to-each-awake-chessman-ally"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "tzV8YfYdHg",
+            "name": "Alice, Trifle's Royalty",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alice-trifles-royalty-costs-one-less-to-materialize-for-each-chessman-ally",
+                "alice-trifles-royalty-recollection-summons-a-pawn-piece-token",
+                "alice-trifles-royalty-three-chessman-allies-draw-a-card-into-memory"
+            ],
+            "semanticFixtures": [
+                "alice-trifles-royalty-costs-one-less-to-materialize-for-each-chessman-ally",
+                "alice-trifles-royalty-recollection-summons-a-pawn-piece-token",
+                "alice-trifles-royalty-three-chessman-allies-draw-a-card-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28721,6 +28414,28 @@
             "priority": 34
         },
         {
+            "cardId": "qFwqqT0XWo",
+            "name": "Ducal Seal",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ducal-seal-banish-during-the-opponents-recollection-makes-attack-declarations-cost-three"
+            ],
+            "semanticFixtures": [
+                "ducal-seal-banish-during-the-opponents-recollection-makes-attack-declarations-cost-three"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "AxHzxEHBHZ",
             "name": "Edelstein, Queen of Diamonds",
             "type": "UNIQUE,ALLY",
@@ -28781,6 +28496,30 @@
             ],
             "semanticFixtures": [
                 "embryonic-hemosynth-class-bonus-enters-with-a-bulwark-counter"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "GGRtLQgaYU",
+            "name": "Eminent Lethargy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eminent-lethargy-attack-declarations-cost-two-more-until-end-of-turn",
+                "eminent-lethargy-ends-the-combat-phase-of-an-attacking-unit"
+            ],
+            "semanticFixtures": [
+                "eminent-lethargy-attack-declarations-cost-two-more-until-end-of-turn",
+                "eminent-lethargy-ends-the-combat-phase-of-an-attacking-unit"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32916,6 +32655,30 @@
             "priority": 34
         },
         {
+            "cardId": "w6OqqsfEso",
+            "name": "Sovereign Sanctuary",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sovereign-sanctuary-prevents-two-damage-to-a-unit-you-control",
+                "sovereign-sanctuary-sacrifices-itself-at-the-recollection-phase-and-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "sovereign-sanctuary-prevents-two-damage-to-a-unit-you-control",
+                "sovereign-sanctuary-sacrifices-itself-at-the-recollection-phase-and-draws-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
             "cardId": "yunjm0of8e",
             "name": "Spellshield: Tera",
             "type": "ACTION",
@@ -33409,6 +33172,30 @@
             ],
             "semanticFixtures": [
                 "teardrop-diadem-banish-draws-three-into-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 34
+        },
+        {
+            "cardId": "6Rb25k7OjY",
+            "name": "Tempestuous Conviction",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tempestuous-conviction-class-bonus-costs-two-less-and-gives-spellshroud",
+                "tempestuous-conviction-influence-of-five-or-less-draws-into-memory"
+            ],
+            "semanticFixtures": [
+                "tempestuous-conviction-class-bonus-costs-two-less-and-gives-spellshroud",
+                "tempestuous-conviction-influence-of-five-or-less-draws-into-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37551,6 +37338,31 @@
             "priority": 33
         },
         {
+            "cardId": "cthZxfkdsY",
+            "name": "Glacial Binding",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "glacial-binding-banishes-a-floating-memory-card-from-the-graveyard-instead-of-its-reserve-cost",
+                "glacial-binding-negates-a-card-activation-unless-its-controller-pays-three-and-banishes-it",
+                "glacial-binding-the-controller-pays-three-and-the-card-resolves"
+            ],
+            "semanticFixtures": [
+                "glacial-binding-banishes-a-floating-memory-card-from-the-graveyard-instead-of-its-reserve-cost",
+                "glacial-binding-negates-a-card-activation-unless-its-controller-pays-three-and-banishes-it",
+                "glacial-binding-the-controller-pays-three-and-the-card-resolves"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "THjSE7caau",
             "name": "Gleaming Smolder",
             "type": "ACTION",
@@ -37765,6 +37577,27 @@
                 "imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token",
                 "imperial-alchemist-gets-a-buff-counter-whenever-you-brew-a-potion",
                 "imperial-alchemist-without-the-class-bonus-gathers-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "2goaqn7ImP",
+            "name": "Imperious Galebind",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperious-galebind-suppresses-up-to-three-targets"
+            ],
+            "semanticFixtures": [
+                "imperious-galebind-suppresses-up-to-three-targets"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -39028,6 +38861,27 @@
             "priority": 33
         },
         {
+            "cardId": "iullthfLXc",
+            "name": "Noble Dissolution",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "noble-dissolution-destroys-up-to-three-target-phantasias"
+            ],
+            "semanticFixtures": [
+                "noble-dissolution-destroys-up-to-three-target-phantasias"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
             "cardId": "39srnovht1",
             "name": "Nocturnal Blossom",
             "type": "ALLY",
@@ -39321,6 +39175,29 @@
             ],
             "semanticFixtures": [
                 "pantheon-barrier-printed-omnishroud-spell-cannot-target-it"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "HLcmZLe7Xr",
+            "name": "Pearled Prayer",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pearled-prayer-main-phase-recovers-seven",
+                "pearled-prayer-outside-the-main-phase-recovers-four"
+            ],
+            "semanticFixtures": [
+                "pearled-prayer-main-phase-recovers-seven",
+                "pearled-prayer-outside-the-main-phase-recovers-four"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -40318,6 +40195,27 @@
             "semanticFixtures": [
                 "ritai-stablemaster-equestrian-enter-discards-fire-cards-to-draw-into-memory",
                 "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "UnOkglGVMN",
+            "name": "Royal Ordinance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "royal-ordinance-recovers-three-and-draws"
+            ],
+            "semanticFixtures": [
+                "royal-ordinance-recovers-three-and-draws"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42795,6 +42693,28 @@
             "priority": 32
         },
         {
+            "cardId": "G8pN8Hackq",
+            "name": "Aella, Zephyr's Hand",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "aella-zephyrs-hand-fast-activation",
+                "aella-zephyrs-hand-first-activation-costs-three-less-then-full-price"
+            ],
+            "semanticFixtures": [
+                "aella-zephyrs-hand-fast-activation",
+                "aella-zephyrs-hand-first-activation-costs-three-less-then-full-price"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "6Sv5qIpglQ",
             "name": "Aenean Flurry of Fire",
             "type": "ACTION",
@@ -43047,6 +42967,28 @@
             "priority": 32
         },
         {
+            "cardId": "kJoyEo9Ls1",
+            "name": "Apothecary's Harvest",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "apothecarys-harvest-arisanna-bonus-can-be-activated-at-fast-speed",
+                "apothecarys-harvest-summons-six-herb-tokens"
+            ],
+            "semanticFixtures": [
+                "apothecarys-harvest-arisanna-bonus-can-be-activated-at-fast-speed",
+                "apothecarys-harvest-summons-six-herb-tokens"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "df594Qoszn",
             "name": "Apotheosis Rite",
             "type": "REGALIA,ITEM",
@@ -43149,6 +43091,26 @@
             "semanticFixtures": [
                 "aqueous-enchanting-can-give-plus-one-life-instead",
                 "aqueous-enchanting-gives-allies-plus-one-power"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "EKiMJfgvSI",
+            "name": "Ardus, Floodborne Deacon",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard"
+            ],
+            "semanticFixtures": [
+                "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44595,6 +44557,26 @@
             "priority": 32
         },
         {
+            "cardId": "Q9b0d7fkGv",
+            "name": "Dissipation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dissipation-destroys-all-phantasias"
+            ],
+            "semanticFixtures": [
+                "dissipation-destroys-all-phantasias"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "OQVvVANhJh",
             "name": "Doubled Pawns",
             "type": "ACTION",
@@ -44925,6 +44907,26 @@
             "semanticFixtures": [
                 "eventide-spear-activates-from-the-material-deck-in-the-main-phase-against-two-rested-units",
                 "eventide-spear-is-not-activated-from-the-material-deck-against-only-one-rested-unit"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "A9c8tb7LKD",
+            "name": "Exhilarating Plume",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter"
+            ],
+            "existingFixtures": [
+                "exhilarating-plume-class-bonus-costs-two-less-and-human-allies-enter-with-a-buff-counter"
+            ],
+            "semanticFixtures": [
+                "exhilarating-plume-class-bonus-costs-two-less-and-human-allies-enter-with-a-buff-counter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -46063,6 +46065,28 @@
             "priority": 32
         },
         {
+            "cardId": "LnVEY7nVXn",
+            "name": "Illusory Armsmaster",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "illusory-armsmaster-class-bonus-enter-gives-a-warrior-weapon-spellshroud-and-two-durability",
+                "illusory-armsmaster-class-bonus-fast-activation"
+            ],
+            "semanticFixtures": [
+                "illusory-armsmaster-class-bonus-enter-gives-a-warrior-weapon-spellshroud-and-two-durability",
+                "illusory-armsmaster-class-bonus-fast-activation"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "mwd3n9u8ej",
             "name": "Imperial Assassin",
             "type": "ALLY",
@@ -46927,6 +46951,28 @@
             ],
             "semanticFixtures": [
                 "minthe-spirit-of-water-enter-draws-seven-cards"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "PKnOTdQJJ1",
+            "name": "Mirrorbound Covenant",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "mirrorbound-covenant-enter-draws-into-memory",
+                "mirrorbound-covenant-maximum-influence-of-seven-discards-down-at-the-end-phase"
+            ],
+            "semanticFixtures": [
+                "mirrorbound-covenant-enter-draws-into-memory",
+                "mirrorbound-covenant-maximum-influence-of-seven-discards-down-at-the-end-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47947,6 +47993,28 @@
             "priority": 32
         },
         {
+            "cardId": "LHFUG6stdS",
+            "name": "Psychopomp's Gale",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "psychopomps-gale-can-target-yourself",
+                "psychopomps-gale-target-player-banishes-their-graveyard"
+            ],
+            "semanticFixtures": [
+                "psychopomps-gale-can-target-yourself",
+                "psychopomps-gale-target-player-banishes-their-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "9fZMLbyRWd",
             "name": "Queen's Cinderhog",
             "type": "ALLY",
@@ -48355,6 +48423,28 @@
             "semanticFixtures": [
                 "rowland-alice-bonus-on-ally-kill-of-a-plain-unit-leaves-him-rested",
                 "rowland-alice-bonus-on-ally-kill-of-a-taunt-unit-wakes-him-up"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "g3DQoQvyjI",
+            "name": "Royal Oathguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "royal-oathguard-intercept-redirects-an-attack-on-the-champion",
+                "royal-oathguard-vigor-wakes-it-at-the-end-phase"
+            ],
+            "semanticFixtures": [
+                "royal-oathguard-intercept-redirects-an-attack-on-the-champion",
+                "royal-oathguard-vigor-wakes-it-at-the-end-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -50673,6 +50763,27 @@
             "priority": 32
         },
         {
+            "cardId": "6yW2zOwWmU",
+            "name": "Accelerate",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "accelerate-draws-into-memory-and-grants-fast-activation",
+                "accelerate-lets-the-next-card-be-activated-at-fast-speed"
+            ],
+            "semanticFixtures": [
+                "accelerate-draws-into-memory-and-grants-fast-activation",
+                "accelerate-lets-the-next-card-be-activated-at-fast-speed"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "7ax4ywyv19",
             "name": "Acerbica",
             "type": "TOKEN,PHANTASIA",
@@ -51469,6 +51580,29 @@
             "priority": 31
         },
         {
+            "cardId": "vgu1C2Lw6e",
+            "name": "Chamberlain Toad",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "chamberlain-toad-class-bonus-floating-memory-pays-a-memory-cost",
+                "chamberlain-toad-class-bonus-wakes-up-with-taunt-during-an-opponents-recollection-phase",
+                "chamberlain-toad-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "semanticFixtures": [
+                "chamberlain-toad-class-bonus-floating-memory-pays-a-memory-cost",
+                "chamberlain-toad-class-bonus-wakes-up-with-taunt-during-an-opponents-recollection-phase",
+                "chamberlain-toad-without-the-class-bonus-cannot-pay-a-memory-cost"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "lOlMDYL2hc",
             "name": "Charge Static",
             "type": "ACTION",
@@ -51562,6 +51696,31 @@
             ],
             "semanticFixtures": [
                 "guarded-dissipation-prevents-damage-equal-to-greatest-sword-power-and-draws"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "cUltOcPo26",
+            "name": "Cheshire Cat, Impish Grin",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "cheshire-cat-impish-grin-gets-power-equal-to-the-base-power-of-your-distortion-weapons",
+                "cheshire-cat-impish-grin-has-the-activated-abilities-of-your-distortion-regalia",
+                "cheshire-cat-impish-grin-spellshroud-and-stealth",
+                "cheshire-cat-impish-grin-stealth-attacks-cannot-be-retaliated-against"
+            ],
+            "semanticFixtures": [
+                "cheshire-cat-impish-grin-gets-power-equal-to-the-base-power-of-your-distortion-weapons",
+                "cheshire-cat-impish-grin-has-the-activated-abilities-of-your-distortion-regalia",
+                "cheshire-cat-impish-grin-spellshroud-and-stealth",
+                "cheshire-cat-impish-grin-stealth-attacks-cannot-be-retaliated-against"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51663,6 +51822,29 @@
                 "conduit-of-the-mad-mage-activating-a-mage-spell-wakes-it-and-gives-plus-one-power",
                 "conduit-of-the-mad-mage-floating-memory-pays-a-memory-cost",
                 "conduit-of-the-mad-mage-is-sacrificed-at-the-beginning-of-your-end-phase"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "Erpyb3AGgp",
+            "name": "Conjuring Fluorescence",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "conjuring-fluorescence-below-sheen-eight-is-not-fast",
+                "conjuring-fluorescence-merlin-bonus-sheen-eight-can-be-activated-at-fast-speed",
+                "conjuring-fluorescence-merlin-bonus-sheen-eight-materializes-a-regalia"
+            ],
+            "semanticFixtures": [
+                "conjuring-fluorescence-below-sheen-eight-is-not-fast",
+                "conjuring-fluorescence-merlin-bonus-sheen-eight-can-be-activated-at-fast-speed",
+                "conjuring-fluorescence-merlin-bonus-sheen-eight-materializes-a-regalia"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51983,6 +52165,25 @@
                 "divining-streams-look-three-first-to-graveyard-last-on-top",
                 "divining-streams-look-three-graveyard-top-bottom",
                 "divining-streams-player-two-look-three-graveyard-top-bottom"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "8ydxeQcp50",
+            "name": "Dynastic Whirlpool",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "dynastic-whirlpool-opponent-mills-fifteen"
+            ],
+            "semanticFixtures": [
+                "dynastic-whirlpool-opponent-mills-fifteen"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -55243,6 +55444,25 @@
                 "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
                 "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
                 "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
+            "cardId": "wqpsErSeFn",
+            "name": "Void's Cloak",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "void-s-cloak-spellshroud-protects-your-champion-from-spells"
+            ],
+            "semanticFixtures": [
+                "void-s-cloak-spellshroud-protects-your-champion-from-spells"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

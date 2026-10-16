@@ -1,0 +1,29 @@
+[
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Conduit of the Mad Mage was banished as the alternate cost"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "No reserve cards were paid"
+    },
+    {
+        "step": 8,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "UnOkglGVMN",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The negated card was banished"
+    }
+]

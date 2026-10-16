@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Recover 3 reduces Damage 5 -> 2"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Eight in hand, minus the spell and two reserved, plus one drawn"
+    }
+]

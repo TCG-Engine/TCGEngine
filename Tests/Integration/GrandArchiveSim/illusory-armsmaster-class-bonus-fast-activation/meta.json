@@ -1,0 +1,21 @@
+{
+    "name": "illusory-armsmaster-class-bonus-fast-activation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:22:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LnVEY7nVXn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LnVEY7nVXn"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Fast Activation** *(You may activate this card at fast speed.)*"
+        ]
+    }
+}

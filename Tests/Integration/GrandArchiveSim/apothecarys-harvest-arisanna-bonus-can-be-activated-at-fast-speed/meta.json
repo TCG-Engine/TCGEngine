@@ -1,0 +1,21 @@
+{
+    "name": "apothecarys-harvest-arisanna-bonus-can-be-activated-at-fast-speed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:15:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kJoyEo9Ls1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kJoyEo9Ls1"
+        ],
+        "mechanics": [
+            "arisanna-bonus",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "[Arisanna Bonus] **Fast Activation**"
+        ]
+    }
+}

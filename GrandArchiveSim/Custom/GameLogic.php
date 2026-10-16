@@ -2363,6 +2363,7 @@ function ActivationHasAlternativeReserveCost($cardID) {
         'AxHzxEHBHZ' => true, // Edelstein: banish Suited spells from graveyard instead of paying reserve
         'irt72g89zc' => true, // Brusque Neige: sacrifice an ally instead of paying reserve
         't1cn1tzgcx' => true, // Song of Frost: [Class Bonus] banish a floating memory card from the graveyard instead of paying reserve
+        'cthZxfkdsY' => true, // Glacial Binding: banish a floating memory card from the graveyard instead of paying reserve
         'cri23mf3vs' => true, // Refabrication: sacrifice two tokens instead of paying reserve
         '9rbziyasag' => true, // Clash of Fates: remove a quest counter instead of paying reserve
         'wPKxvzTmqq' => true, // Ensnaring Fumes: remove three preparation counters instead of paying reserve
@@ -3260,7 +3261,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //1.3 Declaring Costs -- Song of Frost (t1cn1tzgcx): "[Class Bonus] You may banish a card with floating memory from your graveyard rather than pay this card's reserve cost."
     // The SongOfFrostAltCost / SongOfFrostBanish handlers existed and the flag was declared, but nothing ever queued the offer, so the alternate cost could not be used.
-    if($obj->CardID === "t1cn1tzgcx" && !$ignoreCost && $reserveCost > 0 && IsClassBonusActive($player, ["TAMER"])) {
+    // Glacial Binding (cthZxfkdsY) prints the same alternate cost without the Class Bonus requirement.
+    if((($obj->CardID === "t1cn1tzgcx" && IsClassBonusActive($player, ["TAMER"])) || $obj->CardID === "cthZxfkdsY") && !$ignoreCost && $reserveCost > 0) {
         $songFloating = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
         if(!empty($songFloating)) {
             $hasSongOfFrostAltCost = true;
@@ -12283,8 +12285,8 @@ function RecollectionPhase() {
 
     // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
     if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
-        global $winner;
-        $winner = $turnPlayer;
+        // The win has to go through the game-over signal: a bare $winner global was never read, so the game just went on.
+        TriggerGameOver($turnPlayer == 1 ? 2 : 1);
         RemoveGlobalEffect($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION");
         return;
     }
@@ -22204,10 +22206,18 @@ function RollingChorusBanishAndDraw($player, $selection) {
 }
 
 function SuppressSelectedObjects($player, $selection) {
+    $targets = [];
     foreach(explode("&", strval($selection)) as $targetMZ) {
         if($targetMZ === "" || $targetMZ === "-" || $targetMZ === "PASS") continue;
-        SuppressAlly($player, $targetMZ);
+        $targets[] = $targetMZ;
     }
+    // Suppressing banishes the object and shifts the field indices behind it, so work from the back of each zone.
+    usort($targets, function($a, $b) {
+        $pa = explode("-", $a); $pb = explode("-", $b);
+        $zoneCmp = strcmp($pa[0], $pb[0]);
+        return $zoneCmp !== 0 ? $zoneCmp : intval($pb[1] ?? 0) <=> intval($pa[1] ?? 0);
+    });
+    foreach($targets as $targetMZ) SuppressAlly($player, $targetMZ);
 }
 
 function CryosalvoDealFromFractals($player, $targetMZ) {

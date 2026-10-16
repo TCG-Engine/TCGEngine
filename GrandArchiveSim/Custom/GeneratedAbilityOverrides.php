@@ -3151,6 +3151,88 @@ $customDQHandlers["MaledictumVitaeLineage"] = function($player, $parts, $lastDec
     RecoverChampion($owner, 4);
 };
 
+// Dissipation (Q9b0d7fkGv): "Destroy all phantasias" -- every phantasia on either field, not only the caster's own.
+$cardActivatedAbilities["Q9b0d7fkGv:0"] = function($player) {
+    $phantasias = array_merge(ZoneSearch("myField", ["PHANTASIA"]), ZoneSearch("theirField", ["PHANTASIA"]));
+    foreach($phantasias as $pMZ) {
+        $obj = GetZoneObject($pMZ);
+        if($obj === null || $obj->removed) continue;
+        $gravZone = ($player == $obj->Owner) ? "myGraveyard" : "theirGraveyard";
+        DoAllyDestroyed($player, $pMZ);
+        MZMove($player, $pMZ, $gravZone);
+    }
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// Aenean Cyclone (eCxOH7BgsS): "[Class Bonus] Efficiency" is already applied by $Efficiency_Cards (CalculateActivationReserveCost);
+// the generated -PlayerLevel cost modifier discounted it a second time (13 - 2 x level).
+$activationCostModifierAbilities["eCxOH7BgsS:0"] = function($player, $subjectObj, $currentValue, $sourceObj) { return 0; };
+
+// Aenean Cyclone: the generated "Banish CARDNAME" step moved the stale activation index, so the card stayed in the graveyard. Same shape as Shattering Discharge: banish it out of the graveyard.
+function AeneanCycloneBanishSelf($player) {
+    $gy = GetZone("myGraveyard");
+    for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+        if(!$gy[$gi]->removed && $gy[$gi]->CardID === "eCxOH7BgsS") {
+            MZMove($player, "myGraveyard-" . $gi, "myBanish");
+            break;
+        }
+    }
+}
+$cardActivatedAbilities["eCxOH7BgsS:0"] = function($player) {
+    $targets = FilterSpellshroudTargets(AllNonChampionObjectTargets());
+    if(empty($targets)) { AeneanCycloneBanishSelf($player); return; }
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($targets) . "|" . implode("&", $targets), 1, "Suppress_any_amount_of_non-champion_objects");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AeneanCycloneSuppress", 1);
+};
+$customDQHandlers["AeneanCycloneSuppress"] = function($player, $parts, $lastDecision) {
+    SuppressSelectedObjects($player, $lastDecision);
+    AeneanCycloneBanishSelf($player);
+};
+
+// Pearled Prayer (HLcmZLe7Xr): "If you activated this card during your main phase, recover 7. Otherwise, recover 4." The generated check only
+// looked at the phase, so a copy cast in the opponent's main phase (it is fast) still recovered 7.
+$cardActivatedAbilities["HLcmZLe7Xr:0"] = function($player) {
+    DrawIntoMemory($player, 1);
+    if(GetCurrentPhase() === "MAIN" && GetTurnPlayer() == $player) RecoverChampion($player, 7);
+    else RecoverChampion($player, 4);
+};
+
+// Psychopomp's Gale (LHFUG6stdS): the resolving spell is not "in the graveyard" yet, so it must not be banished along with the rest (ZoneSearch skips that slot).
+$customDQHandlers["PsychopompsGaleBanish"] = function($player, $parts, $lastDecision) {
+    $self = $lastDecision === "YES";
+    $banish = $self ? "myBanish" : "theirBanish";
+    $targets = ZoneSearch($self ? "myGraveyard" : "theirGraveyard");
+    rsort($targets, SORT_NATURAL);
+    foreach($targets as $mz) MZMove($player, $mz, $banish);
+};
+
+// Anointed Purifier (mt1I9kfowQ): "[REST], Remove two buff counters from CARDNAME: Destroy target phantasia." The counters were never removed, so it could be used every turn.
+$activateAbilityAbilities["mt1I9kfowQ:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $targets = array_merge(ZoneSearch("myField", ["PHANTASIA"]), ZoneSearch("theirField", ["PHANTASIA"]));
+    if(empty($targets)) return;
+    RemoveCounters($player, $mzID, "buff", 2);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Destroy_target_phantasia");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "mt1I9kfowQ:0:ActivateAbility-1", 1);
+};
+
+// Chamberlain Toad (vgu1C2Lw6e): "Activate this ability only during an opponent's recollection phase." The generated prereq only refused windows where the player already
+// had an opportunity pending and any turn but their own, so it was offered at every other step of the opponent's turn and not in the REC_START window (phase "BREC").
+$activateAbilityPrereqs["vgu1C2Lw6e:0"] = function($player, $mzID, $abilityIndex) {
+    if(!IsClassBonusActive($player, ["TAMER"])) return false;
+    if(GetCurrentPhase() !== "BREC" || GetTurnPlayer() == $player) return false;
+    $hand = GetHand($player);
+    return count(array_filter($hand, fn($c) => !isset($c->removed) || !$c->removed)) >= 2;
+};
+
+// Labyrinth, Jeweled Opus (A58xZJJMz6): "[Class Bonus] This card costs 3 less to activate." The generated modifier returned early whenever a source object was passed, and the subject is always
+// offered to its own modifiers as that source (ApplyGeneratedReserveLikeCostModifiers), so the discount was never applied.
+$activationCostModifierAbilities["A58xZJJMz6:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+  if($subjectObj->CardID !== "A58xZJJMz6") return 0;
+  if($sourceObj !== null && $sourceObj !== $subjectObj && ($sourceObj->CardID ?? "") === "A58xZJJMz6") return 0; // another copy on the field is not the subject
+  return IsClassBonusActive($player, ["ASSASSIN"]) ? -3 : 0;
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

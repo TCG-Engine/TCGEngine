@@ -1,0 +1,20 @@
+{
+    "name": "aenean-repudiation-each-player-discards-down-to-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:13:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t91W06HOqY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t91W06HOqY"
+        ],
+        "mechanics": [
+            "discard"
+        ],
+        "rulesClauses": [
+            "Each player discards all but seven cards from their hand and/or memory. If you control an Elysian object, each opponent discards an additional card."
+        ]
+    }
+}

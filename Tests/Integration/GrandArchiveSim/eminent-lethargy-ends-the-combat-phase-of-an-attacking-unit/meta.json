@@ -1,0 +1,21 @@
+{
+    "name": "eminent-lethargy-ends-the-combat-phase-of-an-attacking-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:15:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GGRtLQgaYU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GGRtLQgaYU"
+        ],
+        "mechanics": [
+            "combat",
+            "end-phase"
+        ],
+        "rulesClauses": [
+            "If a unit is attacking, end the combat phase. *(As a phase ends, banish all triggers, activations, and materializations on the effects stack.)*"
+        ]
+    }
+}

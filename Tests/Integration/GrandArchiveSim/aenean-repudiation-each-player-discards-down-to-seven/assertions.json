@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 7,
+        "semantic": true,
+        "label": "The opponent discarded down to seven"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "Two discarded cards"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Already at seven cards between hand (5) and memory (2): nothing to discard"
+    }
+]

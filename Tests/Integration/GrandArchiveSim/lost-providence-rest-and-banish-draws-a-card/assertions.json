@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "DNbIpzVgde",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The relic banished itself"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "One card drawn"
+    }
+]

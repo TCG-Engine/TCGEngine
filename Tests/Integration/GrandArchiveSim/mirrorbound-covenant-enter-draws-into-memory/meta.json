@@ -1,0 +1,22 @@
+{
+    "name": "mirrorbound-covenant-enter-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:33:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PKnOTdQJJ1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PKnOTdQJJ1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "**On Enter: **Draw a card into your memory."
+        ]
+    }
+}

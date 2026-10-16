@@ -1,0 +1,22 @@
+{
+    "name": "alice-trifles-royalty-recollection-summons-a-pawn-piece-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:26:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tzV8YfYdHg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tzV8YfYdHg"
+        ],
+        "mechanics": [
+            "recollection",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, **summon** a Pawn Piece token."
+        ]
+    }
+}

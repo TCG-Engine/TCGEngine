@@ -1,0 +1,21 @@
+{
+    "name": "apothecarys-harvest-summons-six-herb-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:11:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kJoyEo9Ls1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kJoyEo9Ls1"
+        ],
+        "mechanics": [
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**Summon** a Blightroot, Manaroot, Silvershine, Fraysia, Razorvine, and a Springleaf token."
+        ]
+    }
+}

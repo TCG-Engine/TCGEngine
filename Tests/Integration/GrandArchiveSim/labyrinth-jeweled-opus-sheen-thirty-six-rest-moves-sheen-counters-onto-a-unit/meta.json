@@ -1,0 +1,22 @@
+{
+    "name": "labyrinth-jeweled-opus-sheen-thirty-six-rest-moves-sheen-counters-onto-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:33:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A58xZJJMz6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A58xZJJMz6"
+        ],
+        "mechanics": [
+            "sheen",
+            "activated-ability",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[Sheen 36+] [REST]: Move any amount of **sheen** counters from your Fractured Memories to target unit."
+        ]
+    }
+}

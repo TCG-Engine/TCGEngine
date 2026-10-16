@@ -1,0 +1,22 @@
+{
+    "name": "golden-checkmate-alice-bonus-costs-two-less-per-chessman-type-and-on-hit-wins-next-recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:25:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KbE9R1mi3n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KbE9R1mi3n"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "on-hit",
+            "win-condition"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **On Hit:** At the beginning of your next recollection phase, you win the game."
+        ]
+    }
+}

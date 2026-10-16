@@ -1,0 +1,22 @@
+{
+    "name": "labyrinth-jeweled-opus-sheen-eighteen-draws-a-card-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:32:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A58xZJJMz6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A58xZJJMz6"
+        ],
+        "mechanics": [
+            "sheen",
+            "end-phase",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Sheen 18+] At the beginning of your end phase, draw a card."
+        ]
+    }
+}

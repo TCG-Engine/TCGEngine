@@ -1,0 +1,23 @@
+{
+    "name": "focusing-gem-rest-and-banish-makes-the-next-card-cost-three-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SpENiP3jbN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SpENiP3jbN"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "banish-self",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[REST], **Banish CARDNAME:** The next card you activate this turn costs (3) less to activate."
+        ]
+    }
+}

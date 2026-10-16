@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "MRiM1fnOWC",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Heirloom banished itself"
+    },
+    {
+        "step": 2,
+        "type": "global_effect_present",
+        "player": 2,
+        "effect": "MRiM1fnOWC-no-glimpse",
+        "value": 1,
+        "semantic": true,
+        "label": "Opponents can't glimpse until end of turn"
+    }
+]

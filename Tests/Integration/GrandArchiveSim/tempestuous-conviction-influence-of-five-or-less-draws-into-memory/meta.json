@@ -1,0 +1,22 @@
+{
+    "name": "tempestuous-conviction-influence-of-five-or-less-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:18:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6Rb25k7OjY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6Rb25k7OjY"
+        ],
+        "mechanics": [
+            "influence",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "Target unit gains **spellshroud** until end of turn. Then if your **influence** is five or less, draw a card into your memory."
+        ]
+    }
+}

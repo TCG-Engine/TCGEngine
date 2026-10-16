@@ -1,0 +1,21 @@
+{
+    "name": "dissipation-destroys-all-phantasias",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:06:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Q9b0d7fkGv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Q9b0d7fkGv"
+        ],
+        "mechanics": [
+            "destroy",
+            "phantasia"
+        ],
+        "rulesClauses": [
+            "Destroy all phantasias."
+        ]
+    }
+}

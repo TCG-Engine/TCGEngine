@@ -1,0 +1,21 @@
+{
+    "name": "aenean-crystallization-cannot-target-an-awake-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:09:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YDjxpBd8Fm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YDjxpBd8Fm"
+        ],
+        "mechanics": [
+            "targeting",
+            "status"
+        ],
+        "rulesClauses": [
+            "Destroy target rested ally."
+        ]
+    }
+}

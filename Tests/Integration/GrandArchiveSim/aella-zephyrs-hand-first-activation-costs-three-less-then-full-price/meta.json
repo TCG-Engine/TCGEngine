@@ -1,0 +1,24 @@
+{
+    "name": "aella-zephyrs-hand-first-activation-costs-three-less-then-full-price",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:31:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "G8pN8Hackq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "G8pN8Hackq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "suppress",
+            "targeting",
+            "cost-reduction",
+            "first-time"
+        ],
+        "rulesClauses": [
+            "(3): As a Spell, **suppress** another target ally, item, or weapon. This ability costs (3) less to activate the first time you activate it."
+        ]
+    }
+}

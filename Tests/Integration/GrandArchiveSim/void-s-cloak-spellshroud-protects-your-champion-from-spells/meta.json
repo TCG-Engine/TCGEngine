@@ -1,0 +1,21 @@
+{
+    "name": "void-s-cloak-spellshroud-protects-your-champion-from-spells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:30:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wqpsErSeFn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wqpsErSeFn"
+        ],
+        "mechanics": [
+            "static",
+            "spellshroud"
+        ],
+        "rulesClauses": [
+            "You have **spellshroud**. *(A player with **spellshroud** can't be targeted by Spells.)*"
+        ]
+    }
+}

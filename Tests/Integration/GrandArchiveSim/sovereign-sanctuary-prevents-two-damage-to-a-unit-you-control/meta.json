@@ -1,0 +1,21 @@
+{
+    "name": "sovereign-sanctuary-prevents-two-damage-to-a-unit-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w6OqqsfEso"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w6OqqsfEso"
+        ],
+        "mechanics": [
+            "prevention",
+            "static"
+        ],
+        "rulesClauses": [
+            "If a unit you control would be dealt damage, prevent 2 of that damage."
+        ]
+    }
+}

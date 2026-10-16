@@ -1,0 +1,23 @@
+{
+    "name": "heirloom-of-libra-banish-stops-opponents-from-glimpsing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MRiM1fnOWC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MRiM1fnOWC"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish-self",
+            "modal",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "\u2022 Until end of turn, your opponents can\u2019t **glimpse**."
+        ]
+    }
+}

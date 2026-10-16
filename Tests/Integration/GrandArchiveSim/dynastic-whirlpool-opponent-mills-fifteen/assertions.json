@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 9,
+        "semantic": true,
+        "label": "The whole 9-card deck was milled (fewer than fifteen)"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirDeck",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Deck emptied"
+    }
+]

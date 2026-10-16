@@ -1,0 +1,21 @@
+{
+    "name": "imperious-galebind-suppresses-up-to-three-targets",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:10:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2goaqn7ImP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2goaqn7ImP"
+        ],
+        "mechanics": [
+            "suppress",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Suppress** up to three target allies, items, or weapons. *(To **suppress** an object, banish it and return it to the field under its owner\u2019s control at the beginning of the next end phase.)*"
+        ]
+    }
+}

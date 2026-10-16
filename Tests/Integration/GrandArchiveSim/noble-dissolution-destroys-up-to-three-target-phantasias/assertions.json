@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Own phantasia destroyed (champion remains)"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Two opposing phantasias destroyed: champion, one phantasia and the Dungeon Guide remain"
+    }
+]

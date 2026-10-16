@@ -1134,6 +1134,16 @@ function GetPlayableFastCards($player) {
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
+        } elseif($obj->CardID === "Erpyb3AGgp" && IsMerlinBonusActive($player) && GetSheenCount($player) >= 8) {
+            // Conjuring Fluorescence: [Merlin Bonus] [Sheen 8+] Fast Activation
+            if(CanAffordCardActivation($player, $obj)) {
+                $fastCards[] = $mzID;
+            }
+        } elseif($obj->CardID === "kJoyEo9Ls1" && IsArisannaBonusActive($player)) {
+            // Apothecary's Harvest: [Arisanna Bonus] Fast Activation
+            if(CanAffordCardActivation($player, $obj)) {
+                $fastCards[] = $mzID;
+            }
         } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
             // Annihilation: [Damage 35+] Fast Activation
             if(CanAffordCardActivation($player, $obj)) {

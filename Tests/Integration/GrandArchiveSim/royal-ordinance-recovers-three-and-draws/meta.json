@@ -1,0 +1,21 @@
+{
+    "name": "royal-ordinance-recovers-three-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:06:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UnOkglGVMN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UnOkglGVMN"
+        ],
+        "mechanics": [
+            "recover",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**Recover 3**. Draw a card."
+        ]
+    }
+}

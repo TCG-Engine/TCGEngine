@@ -115,7 +115,8 @@ class GaScenario {
             if (isset(self::ELEMENT_LINEAGE[$element])) { $lineage[] = self::ELEMENT_LINEAGE[$element]; break; }
         }
         // Exalted cards need another ADVANCED element enabled (water, wind and fire are basic).
-        if (empty($lineage) && in_array('EXALTED', $elements, true)) $lineage[] = self::ELEMENT_LINEAGE['TERA'];
+        // A dual-element card (Exalted + water/wind) needs the basic element's lineage as well as an advanced one.
+        if (in_array('EXALTED', $elements, true) && !in_array(self::ELEMENT_LINEAGE['TERA'], $lineage, true)) $lineage[] = self::ELEMENT_LINEAGE['TERA'];
         $classes = $classBonus ? CardClasses($id) : null;
         if (empty($lineage) && $level === null && $damage === null && $classes === null) return $this;
         return $this->champion(lineage: $lineage, level: $level, damage: $damage, classes: $classes, player: $player);

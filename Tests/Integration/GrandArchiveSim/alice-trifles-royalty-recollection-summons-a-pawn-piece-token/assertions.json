@@ -1,0 +1,20 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "Rpr6yCQKU6",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "A Pawn Piece token at the beginning of the recollection phase"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Only one Chessman ally: no extra card"
+    }
+]

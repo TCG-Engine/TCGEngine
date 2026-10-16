@@ -1,0 +1,29 @@
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The copied ability dealt 1 damage"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "cUltOcPo26",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The copy's \"Banish CARDNAME\" cost banished the Cat itself"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "idpdon8f0h",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Dagger stays on the field"
+    }
+]
