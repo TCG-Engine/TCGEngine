@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "YGz8gN8M69",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Seven combined resources cannot pay eight"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Unaffordable activation sacrifices nothing"
+    }
+]

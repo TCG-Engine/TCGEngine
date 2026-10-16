@@ -1,0 +1,22 @@
+{
+    "name": "phase-b-cost-refuses-cook-without-food",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:40:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HtxzN0sQCJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HtxzN0sQCJ"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "All printed costs must be payable before activating."
+        ]
+    }
+}

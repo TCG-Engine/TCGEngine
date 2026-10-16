@@ -1,0 +1,11 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Two Wind omens enable suppression; one does not"
+    }
+]

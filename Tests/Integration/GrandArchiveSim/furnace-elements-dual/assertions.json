@@ -1,0 +1,56 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "All three cards are banished before reserve payment"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Reserve payment follows the mandatory banishes"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Printed reserve is still paid"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Exactly three eligible cards were paid"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Ineligible cards remain in the graveyard"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "cbNF64gCsS",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The paid activation resolves"
+    }
+]

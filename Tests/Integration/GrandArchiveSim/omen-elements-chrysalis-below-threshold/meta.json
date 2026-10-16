@@ -1,0 +1,23 @@
+{
+    "name": "omen-elements-chrysalis-below-threshold",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:44:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wsqvfsyid4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wsqvfsyid4"
+        ],
+        "mechanics": [
+            "omen",
+            "element",
+            "condition",
+            "suppress"
+        ],
+        "rulesClauses": [
+            "Ciel Bonus On Enter: two or more wind omens enable suppression."
+        ]
+    }
+}

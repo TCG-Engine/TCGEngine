@@ -1,0 +1,22 @@
+{
+    "name": "lesser-boon-of-distance-targets-boon-granted-ranger",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:39:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l8PytM9CpG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l8PytM9CpG"
+        ],
+        "mechanics": [
+            "targeting",
+            "effective-class",
+            "distant"
+        ],
+        "rulesClauses": [
+            "(2): Target Ranger unit becomes distant."
+        ]
+    }
+}

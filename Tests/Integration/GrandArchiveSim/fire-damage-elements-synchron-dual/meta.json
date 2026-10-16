@@ -1,0 +1,22 @@
+{
+    "name": "fire-damage-elements-synchron-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:15:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tx8noEw78s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Tx8noEw78s"
+        ],
+        "mechanics": [
+            "damage",
+            "element",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Whenever your champion is dealt non-combat damage by a fire element source, put a refinement counter on this object."
+        ]
+    }
+}

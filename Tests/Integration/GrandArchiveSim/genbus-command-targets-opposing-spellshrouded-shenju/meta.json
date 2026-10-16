@@ -1,0 +1,22 @@
+{
+    "name": "genbus-command-targets-opposing-spellshrouded-shenju",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:27:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jjwp945rlb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jjwp945rlb"
+        ],
+        "mechanics": [
+            "targeting",
+            "life",
+            "recover"
+        ],
+        "rulesClauses": [
+            "Target Beast ally gets +3 [LIFE] until end of turn. If that ally is a Shenju, recover 6."
+        ]
+    }
+}

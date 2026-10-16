@@ -1,0 +1,52 @@
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "Paying three preserves the pending trigger"
+    },
+    {
+        "step": 11,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "bdhjszsj2z",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "Etui is banished to pay its activation"
+    },
+    {
+        "step": 11,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hHVf5xyjob",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The ally survives its trigger being negated"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "Four activation reserve plus three to prevent negation"
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "EffectStack",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "All pending entries have settled"
+    }
+]

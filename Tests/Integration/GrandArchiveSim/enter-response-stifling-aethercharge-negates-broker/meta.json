@@ -1,0 +1,22 @@
+{
+    "name": "enter-response-stifling-aethercharge-negates-broker",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:19:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bYrLVjKSCL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bYrLVjKSCL"
+        ],
+        "mechanics": [
+            "negate",
+            "enter",
+            "response"
+        ],
+        "rulesClauses": [
+            "Negate all On Enter triggers from target ally."
+        ]
+    }
+}

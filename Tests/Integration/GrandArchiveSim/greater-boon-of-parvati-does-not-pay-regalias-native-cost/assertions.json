@@ -1,0 +1,38 @@
+[
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "4864k12no2",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The granted ability does not banish its source"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Only the granted REST cost is paid"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"PREVENT_ALL_1\"]",
+        "semantic": true,
+        "label": "The granted prevention resolves"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The native banish cost is not paid"
+    }
+]

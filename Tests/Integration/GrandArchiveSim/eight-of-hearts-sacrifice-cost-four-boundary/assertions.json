@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "YGz8gN8M69",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Reserve cost four is eligible"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "xgax8bbjqj",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The cost-four ally is sacrificed"
+    }
+]

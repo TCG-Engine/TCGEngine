@@ -1,0 +1,22 @@
+{
+    "name": "viridian-elements-suppressed-first",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:08:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3572j3oda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3572j3oda"
+        ],
+        "mechanics": [
+            "cost",
+            "element",
+            "suppression"
+        ],
+        "rulesClauses": [
+            "During your turn, Water element cards opponents activate cost two more."
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Recover eight after the controlled activation was negated"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Ephemeral Abnegation leaves the game"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Ephemerate pays two reserve"
+    }
+]

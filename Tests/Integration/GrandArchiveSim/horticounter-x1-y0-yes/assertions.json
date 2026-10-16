@@ -1,0 +1,43 @@
+[
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Herbs are sacrificed before reserve payment or response"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "X is paid into memory before resolving the negate"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Paying X plus Y preserves the activation"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "The controller pays the full X plus Y"
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

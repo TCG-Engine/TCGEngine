@@ -1,0 +1,23 @@
+{
+    "name": "steady-sharpshooter-spends-aim-near",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:38:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yakyp6odw3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yakyp6odw3"
+        ],
+        "mechanics": [
+            "on-attack",
+            "counter",
+            "ranged",
+            "expiration"
+        ],
+        "rulesClauses": [
+            "For each aim counter removed this way, gains ranged 2 for this attack."
+        ]
+    }
+}

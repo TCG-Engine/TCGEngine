@@ -388,7 +388,7 @@ function QueueNegateActivation($player, $filters = [], $destinationMode = "defau
     DecisionQueueController::AddDecision($player, "CUSTOM", $handler . "|" . $destinationMode . "|" . intval($payAmount), 1);
 }
 
-function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destinationMode = "default", $payAmount = -1) {
+function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destinationMode = "default", $payAmount = -1, $enterSourceUniqueID = null) {
     $matches = [];
     $effectStack = GetEffectStack();
     for($i = 0; $i < count($effectStack); ++$i) {
@@ -397,6 +397,8 @@ function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destina
         if(is_array($obj->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $obj->TurnEffects)) continue;
         if($obj->CardID !== $cardID) continue;
         if(intval($obj->Controller) !== intval($controller)) continue;
+        if($enterSourceUniqueID !== null && (($obj->TriggerType ?? "") !== "ENTER"
+            || intval($obj->TriggerSourceUniqueID ?? 0) !== intval($enterSourceUniqueID))) continue;
         $matches[] = "EffectStack-" . $i;
     }
     if(empty($matches)) return;
@@ -442,6 +444,7 @@ $customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecis
         DecisionQueueController::ClearVariable("NegateByCardPlayer");
         DecisionQueueController::ClearVariable("NegateByCardCurrentIndex");
         DecisionQueueController::ClearVariable("NegateByCardCurrentTarget");
+        ResumeEffectStackPostResolutionCheck($player);
         return;
     }
 
@@ -485,7 +488,7 @@ $customDQHandlers["NegateByCardPayChoice"] = function($payingPlayer, $parts, $la
     } else {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
     }
-    DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
+    DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
 };
 
 $customDQHandlers["NegateByCardReserveSelected"] = function($payingPlayer, $parts, $lastDecision) {
@@ -498,7 +501,7 @@ $customDQHandlers["NegateByCardReserveSelected"] = function($payingPlayer, $part
     if(!ProcessReservePaymentSelections($payingPlayer, $lastDecision, $payAmount)) {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
     }
-    DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
+    DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
 };
 
 $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
@@ -1396,6 +1399,9 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  * to pick this back up once the target's fate is actually settled.
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    // A cross-controller pay-or-negate choice must settle before stack priority resumes.
+    $pendingByCardTarget = DecisionQueueController::GetVariable("NegateByCardCurrentTarget");
+    if($pendingByCardTarget !== null && $pendingByCardTarget !== "") return;
     $pendingNegateTarget = DecisionQueueController::GetVariable("pendingNegateTarget");
     if($pendingNegateTarget !== null && $pendingNegateTarget !== "") {
         return;
@@ -2104,6 +2110,9 @@ $customDQHandlers["NoOp"] = function($player, $parts, $lastDecision) {
  * After both pass, game simply continues (NoOp).
  */
 $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecision) {
+    // A cross-controller pay-or-negate choice must settle before stack priority resumes.
+    $pendingByCardTarget = DecisionQueueController::GetVariable("NegateByCardCurrentTarget");
+    if($pendingByCardTarget !== null && $pendingByCardTarget !== "") return;
     ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = GetLiveEffectStackEntries();
@@ -2152,4 +2161,47 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
     GrantOpportunityWindow($player, "NoOp", $player, "ABILITY_RESPONSE");
 };
 
-?>
+// Horticounter's payment is optional even at zero; glimpse only on a successful negate.
+$customDQHandlers["HorticounterTarget"] = function($player, $parts, $lastDecision) {
+    if(!in_array($lastDecision, GetEffectStackActivationTargets($player), true)) return;
+    $target = GetZoneObject($lastDecision);
+    $amount = max(0, intval($parts[1] ?? 0));
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("horticounterPayment", strval($amount));
+    if(CountAvailableReservePayments(intval($target->Controller)) < $amount) {
+        HorticounterFinish($player, false);
+        return;
+    }
+    $controller = intval($target->Controller);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 100, "Pay_" . $amount . "_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "HorticounterPayChoice|" . $player, 100);
+};
+
+function HorticounterFinish($player, $paid) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    try {
+        $target = DecisionQueueController::GetVariable("pendingNegateTarget");
+        $negated = !$paid && in_array($target, GetEffectStackActivationTargets($player), true)
+            && NegateCardActivation($player, $target, "banish");
+        DecisionQueueController::ClearVariable("pendingNegateTarget");
+        DecisionQueueController::ClearVariable("horticounterPayment");
+        if($negated) Glimpse($player, 3);
+        ResumeEffectStackPostResolutionCheck($player);
+    } finally {
+        $playerID = $savedPlayerID;
+    }
+}
+
+$customDQHandlers["HorticounterPayChoice"] = function($player, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $player);
+    $amount = max(0, intval(DecisionQueueController::GetVariable("horticounterPayment")));
+    if($lastDecision === "YES" && $amount > 0 && QueuePreventNegateReserveSelection($player, $amount, "HorticounterReserveSelected|" . $negatingPlayer)) return;
+    HorticounterFinish($negatingPlayer, $lastDecision === "YES" && $amount === 0);
+};
+
+$customDQHandlers["HorticounterReserveSelected"] = function($player, $parts, $lastDecision) {
+    $amount = max(0, intval(DecisionQueueController::GetVariable("horticounterPayment")));
+    HorticounterFinish(intval($parts[0] ?? $player), ProcessReservePaymentSelections($player, $lastDecision, $amount));
+};

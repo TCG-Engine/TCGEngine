@@ -1,0 +1,22 @@
+{
+    "name": "pregame-fortuitous-fire-opening",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:28:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8mrjtrzx5t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8mrjtrzx5t"
+        ],
+        "mechanics": [
+            "pregame",
+            "on-enter",
+            "opening-hand"
+        ],
+        "rulesClauses": [
+            "The starting champion resolves its own printed On Enter once."
+        ]
+    }
+}

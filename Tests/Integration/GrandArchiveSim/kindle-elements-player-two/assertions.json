@@ -1,0 +1,29 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 3,
+        "semantic": true,
+        "label": "Only the reserve remainder is paid"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 2,
+        "value": 1,
+        "semantic": true,
+        "label": "Only accepted fire payments are banished"
+    },
+    {
+        "step": 6,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "vwktc1c3kn",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The paid activation resolves"
+    }
+]

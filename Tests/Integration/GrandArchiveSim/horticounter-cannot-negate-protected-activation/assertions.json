@@ -1,0 +1,25 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The protected activation resolves"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "vve1szpv86",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "No legal negate target: Horticounter stays in hand"
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

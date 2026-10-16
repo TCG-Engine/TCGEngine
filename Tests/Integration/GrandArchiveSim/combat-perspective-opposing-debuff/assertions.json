@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p2Field-1",
+        "value": -1,
+        "semantic": true,
+        "label": "The opposing attacker retains the minus-three attack debuff"
+    }
+]

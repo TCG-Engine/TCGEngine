@@ -1,0 +1,22 @@
+{
+    "name": "pregame-fragmented-fire-opening",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:28:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yvn1uoy5tt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yvn1uoy5tt"
+        ],
+        "mechanics": [
+            "pregame",
+            "on-enter",
+            "opening-hand"
+        ],
+        "rulesClauses": [
+            "The starting champion resolves its own printed On Enter once."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Accepting zero lets the activation resolve"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

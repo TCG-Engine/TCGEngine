@@ -3574,6 +3574,196 @@ $customDQHandlers["7Pc1aiu3Bq:0:CardActivated-2"] = function($player, $parts, $l
     DealDamage($player, $source, $lastDecision, 2 + $durability);
 };
 
+// Genbu's Command and Suzaku's Command are Skills. Spellshroud only
+// restricts Spells, and "target Beast ally" permits either player's ally.
+foreach (["jjwp945rlb", "5v598k3m1w"] as $commandID) {
+    $cardActivatedAbilities[$commandID . ":0"] = function($player) use ($commandID) {
+        $targets = array_merge(
+            ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]),
+            ZoneSearch("theirField", ["ALLY"], cardSubtypes: ["BEAST"])
+        );
+        if(empty($targets)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Choose_a_Beast_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", $commandID . ":0:CardActivated-1", 1);
+    };
+}
+
+// Powerforged Burst is a Skill; its additional cost has already been paid.
+$cardActivatedPrereqs["OWnWJNstCO:0"] = function($player, $mzID) {
+    return !empty(array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"])));
+};
+$cardActivatedAbilities["OWnWJNstCO:0"] = function($player) {
+    $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Choose_target_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PowerforgedBurstTarget", 1);
+};
+$customDQHandlers["PowerforgedBurstTarget"] = function($player, $parts, $lastDecision) {
+    if(!AllowGeneratedTargetResolution($player, $lastDecision, "PowerforgedBurstTarget")) return;
+    PowerforgedBurstResolve($player, DecisionQueueController::GetVariable("mzID"), "", $lastDecision);
+};
+
+// Preparation has already been paid and X restored from this stack entry.
+$cardActivatedAbilities["nt1lyk1dvd:0"] = function($player) {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PenumbralWaltzEffect", 1);
+};
+
+$cardActivatedPrereqs["okZKM5DGRu:0"] = function($player, $mzID) {
+    return !empty(SparklingAdornmentSources());
+};
+
+$cardActivatedPrereqs["vve1szpv86:0"] = function($player, $mzID) {
+    return !empty(GetEffectStackActivationTargets($player));
+};
+$cardActivatedAbilities["vve1szpv86:0"] = function($player) {
+    $amount = intval(DecisionQueueController::GetVariable("horticounterX")) + intval(DecisionQueueController::GetVariable("horticounterY"));
+    QueueNegateActivation($player, [], "banish", $amount, "HorticounterTarget");
+};
+
+// Phase B: pay printed costs through the standard cost table, before effects resolve.
+$activateAbilityAbilities["sdbzr5zs29:0"] = function($player) {
+    $units = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "sdbzr5zs29:0:ActivateAbility-1", 1);
+};
+$activateAbilityAbilities["wuir99sx6q:0"] = function($player) {
+    $paid = DecisionQueueController::GetVariable("GeniPaidCard") ?? "";
+    DecisionQueueController::ClearVariable("GeniPaidCard");
+    $floating = DecisionQueueController::GetVariable("GeniPaidFloating") === "YES";
+    DecisionQueueController::ClearVariable("GeniPaidFloating");
+    if($paid === "") return;
+    if(PropertyContains(CardType($paid), "ALLY") && PropertyContains(CardSubtypes($paid), "AUTOMATON")) MZAddZone($player, "myField", "mu6gvnta6q");
+    if($floating) {
+        $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        if(!empty($allies)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "GeniMechanistBuff", 1);
+        }
+    }
+};
+
+// A champion can acquire Ranger from a boon or another effective-property override.
+
+$activateAbilityAbilities["l8PytM9CpG:0"] = function($player) {
+    for($i = 0; $i < 2; ++$i) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", GADistanceTargets()), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "l8PytM9CpG:0:ActivateAbility-1", 1);
+};
+$activateAbilityPrereqs["l8PytM9CpG:0"] = function($player, $mzID, $abilityIndex) {
+    $obj = GetZoneObject($mzID);
+    return $obj !== null && !$obj->removed && GetCounterCount($obj, "l8PytM9CpG_used") < 3 && !empty(GADistanceTargets());
+};
+// Sharpshooter's Ranged lasts for this attack and does not itself grant distant.
+$customDQHandlers["yakyp6odw3:0:OnAttack-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mz = DecisionQueueController::GetVariable("mzID");
+    $obj = GetZoneObject($mz);
+    if($obj === null || $obj->removed) return;
+    $aim = GetCounterCount($obj, "aim");
+    RemoveCounters($player, $mz, "aim", $aim);
+    AddTurnEffect($mz, "yakyp6odw3-RANGED_" . ($aim * 2));
+};
+
+// Powercell is sacrificed before its target is chosen. Read the event's known card identity,
+// rather than the former field index, which can now refer to a different object.
+$gaPowercellTarget = $customDQHandlers["qzzadf9q1v:0:ActivateAbility-1"];
+$customDQHandlers["qzzadf9q1v:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) use ($gaPowercellTarget) {
+    $gaPowercellTarget($player, $parts, $lastDecision);
+    $target = is_string($lastDecision) && preg_match('/^(my|their|p[12])Field-[0-9]+$/', $lastDecision) ? GetZoneObject($lastDecision) : null;
+    if($target === null || $target->removed || $target->Controller != $player || !PropertyContains(EffectiveCardType($target), "ALLY")) return;
+    if(!IsClassBonusActive($player, ["TAMER"])) return;
+    foreach(ZoneSearch("myField", ["ALLY"]) as $mz) {
+        $bird = GetZoneObject($mz);
+        if($bird->CardID === "84lj40Kyhv" && !HasNoAbilities($bird)) AddTurnEffect($mz, "TRAINED_BIRDROID_POWER");
+    }
+};
+
+// Furnace Drone: dual-element Fire cards qualify for its mandatory graveyard cost.
+$activateCardPrereqs["cbNF64gCsS:0"] = function($player, $mzID, $ignoreCost) {
+    $eligible = 0;
+    foreach(GetZone("myGraveyard") as $obj) {
+        if($obj === null || $obj->removed) continue;
+        if(PropertyContains(CardElement($obj->CardID), "FIRE") || PropertyContains(CardSubtypes($obj->CardID), "AUTOMATON")) ++$eligible;
+    }
+    if($eligible >= 3) return true;
+    SetFlashMessage("Furnace Drone requires 3 fire and/or Automaton cards in your graveyard.");
+    return false;
+};
+
+// On Enter negation belongs to the selected ally's identity, not every copy of its card.
+foreach(["bdhjszsj2z:0:ActivateAbility-1" => 3, "bYrLVjKSCL:0:CardActivated-1" => -1] as $gaEnterNegateKey => $gaEnterNegatePay) {
+    $customDQHandlers[$gaEnterNegateKey] = function($player, $parts, $lastDecision) use ($gaEnterNegateKey, $gaEnterNegatePay) {
+        if(!AllowGeneratedTargetResolution($player, $lastDecision, $gaEnterNegateKey)) return;
+        $targetObj = GetZoneObject($lastDecision);
+        if($targetObj !== null && !$targetObj->removed && intval($targetObj->UniqueID ?? 0) > 0) {
+            QueueNegateAllActivationsByCard($player, $targetObj->CardID, intval($targetObj->Controller), "default", $gaEnterNegatePay, intval($targetObj->UniqueID));
+        }
+        if($gaEnterNegatePay < 0) MayLoadIntoAetherwing($player, "bYrLVjKSCL");
+    };
+}
+unset($gaEnterNegateKey, $gaEnterNegatePay);
+
+// Slipstream resolves only the ally declared before payment, even after field compaction.
+$cardActivatedAbilities["6ilt42sehq:0"] = function($player) {
+    $uid = intval(DecisionQueueController::GetVariable("resolvedSlipstreamTargetUID") ?? 0);
+    DecisionQueueController::ClearVariable("resolvedSlipstreamTargetUID");
+    $targetMZ = FindFieldMzByUniqueID($uid);
+    if(!in_array($targetMZ, GASlipstreamVaultTargets($player), true)) return;
+    if(!AllowGeneratedTargetResolution($player, $targetMZ, "6ilt42sehq:0:CardActivated-1")) return;
+    BecomeDistant($player, $targetMZ);
+};
+
+// The Alice discount commits the activation to a Specter before payment.
+$activationCostModifierAbilities["Dtr3jPRAFJ:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+    if($subjectObj->CardID !== "Dtr3jPRAFJ" || !IsAliceBonusActive($player)) return 0;
+    if(($subjectObj->Counters["spectralSpecterOnly"] ?? null) === "NO") return 0;
+    return empty(GASpectralHauntingTargets($player, true)) ? 0 : -4;
+};
+$cardActivatedAbilities["Dtr3jPRAFJ:0"] = function($player) {
+    $specterOnly = DecisionQueueController::GetVariable("resolvedSpectralSpecterOnly") === "YES";
+    DecisionQueueController::ClearVariable("resolvedSpectralSpecterOnly");
+    $targets = $specterOnly
+        ? GASpectralHauntingTargets($player, true)
+        : GASpectralHauntingTargets($player);
+    if(empty($targets)) return;
+    DecisionQueueController::StoreVariable("spectralResolutionSpecterOnly", $specterOnly ? "YES" : "NO");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SpectralResolveTarget", 1);
+};
+$customDQHandlers["SpectralResolveTarget"] = function($player, $parts, $lastDecision) {
+    $specterOnly = DecisionQueueController::GetVariable("spectralResolutionSpecterOnly") === "YES";
+    DecisionQueueController::ClearVariable("spectralResolutionSpecterOnly");
+    $targets = $specterOnly
+        ? GASpectralHauntingTargets($player, true)
+        : GASpectralHauntingTargets($player);
+    if(!in_array($lastDecision, $targets, true)) return;
+    if(!AllowGeneratedTargetResolution($player, $lastDecision, "Dtr3jPRAFJ:0:CardActivated-1")) return;
+    $newObj = MZMove($player, $lastDecision, "myField");
+    if($newObj !== null) MakeEphemeral($newObj->GetMzID());
+};
+
+// Astral Seal's free activation is restricted to the declared banished-name category.
+$activationCostModifierAbilities["e3aebjvwbc:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+    if($subjectObj->CardID !== "e3aebjvwbc" || !IsClassBonusActive($player, ["CLERIC"])) return 0;
+    if(($subjectObj->Counters["astralBanishOnly"] ?? null) === "NO") return 0;
+    return empty(GAAstralSealTargets($player, true)) ? 0 : -3;
+};
+$playCardAbilities["e3aebjvwbc:0"] = function($player) {
+    $banishOnly = DecisionQueueController::GetVariable("astralBanishOnly") === "YES";
+    DecisionQueueController::ClearVariable("astralBanishOnly");
+    $names = strval(DecisionQueueController::GetVariable("astralBanishedNames") ?? "");
+    DecisionQueueController::ClearVariable("astralBanishedNames");
+    $targets = GAAstralSealTargets($player, $banishOnly, $names === "" ? [] : explode(",", $names));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Choose_activation_to_negate");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AstralResolveTarget|" . ($banishOnly ? "YES" : "NO") . "|" . $names, 1);
+};
+$customDQHandlers["AstralResolveTarget"] = function($player, $parts, $lastDecision) {
+    if(count($parts) !== 2 || !in_array($parts[0], ["YES", "NO"], true)) return;
+    if(!in_array($lastDecision, GAAstralSealTargets($player, $parts[0] === "YES", $parts[1] === "" ? [] : explode(",", $parts[1])), true)) return;
+    NegateCardActivation($player, $lastDecision, "banish");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

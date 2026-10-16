@@ -1,0 +1,29 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "ic1ahsmwd0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Horse entered using granted Kindle"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Three fire cards paid three of its four reserve"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The remaining one reserve was paid"
+    }
+]

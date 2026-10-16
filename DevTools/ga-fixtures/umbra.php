@@ -533,7 +533,7 @@ gaScenario('penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-t
     ->champion(cardName: 'Tristan, Shadowreaver')
     ->patch('myField-0', ['Counters' => ['preparation' => 3]])
     ->seed('myHand', 'Penumbral Waltz')
-    ->play('Penumbral Waltz')->answer(1, 'YES')->answer(1, 'YES')->answer(1, 'YES')
+    ->play('Penumbral Waltz')->answer(1, '3')
     ->expectProperty('p1Field-0', 'Counters', '[]', 'X = 3: all three preparation counters removed')
     ->expectZoneCount('myField', 3, 1, 'Tristan Bonus with X 3 or greater: two Ominous Shadow tokens')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","PREVENT_CHAMP_6"]', 'The next 3 + 3 = 6 damage to the champion is prevented')

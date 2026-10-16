@@ -79,7 +79,7 @@ gaScenario('sparkling-adornment-removes-sheen-counters-as-a-cost-and-puts-that-m
     ->readyFor('Sparkling Adornment')
     ->seed('myField', 'Dungeon Guide', properties: ['Counters' => ['sheen' => 2]])
     ->seed('myHand', 'Sparkling Adornment')
-    ->play('Sparkling Adornment')->pay(2)->answer(1, 'myField-1')->answer(1, '2')->target('theirField-0')
+    ->play('Sparkling Adornment')->answer(1, 'myField-1')->answer(1, '2')->pay(2)->target('theirField-0')
     ->expectProperty('p2Field-0', 'Counters', '{"sheen":2}', 'Two sheen counters moved from the ally onto the target unit')
     ->expectProperty('p1Field-1', 'Counters', '[]', 'The ally lost its sheen counters as the cost')
     ->tested('Sparkling Adornment')

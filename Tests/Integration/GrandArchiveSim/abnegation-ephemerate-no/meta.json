@@ -1,0 +1,22 @@
+{
+    "name": "abnegation-ephemerate-no",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:27:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7JjxD8xRVq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7JjxD8xRVq"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "ephemerate",
+            "negate"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] If a card activation you controlled was negated this turn, this card in your graveyard has ephemerate (2)."
+        ]
+    }
+}

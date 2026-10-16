@@ -1,0 +1,28 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "5",
+        "semantic": true,
+        "label": "Only an already distant attacker benefits from the two aim counters"
+    },
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p2Field-1",
+        "value": 1,
+        "semantic": true,
+        "label": "Attack-only ranged expires with combat"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "[]",
+        "semantic": true,
+        "label": "All aim counters were paid"
+    }
+]

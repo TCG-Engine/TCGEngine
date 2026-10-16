@@ -1,6 +1,15 @@
 [
     {
         "step": 2,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "bjx6yo7mm5",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Food was sacrificed before the effect target"
+    },
+    {
+        "step": 3,
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Damage",
@@ -9,7 +18,7 @@
         "label": "[REST], Sacrifice a Food item: 3 damage to the target champion"
     },
     {
-        "step": 2,
+        "step": 3,
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Status",

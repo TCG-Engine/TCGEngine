@@ -1,0 +1,22 @@
+{
+    "name": "graveyard-reaction-twingale-during-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:18:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "V8XBfRpDRJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "V8XBfRpDRJ"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "reaction",
+            "combat"
+        ],
+        "rulesClauses": [
+            "Ephemerate (2) while controlling a Sword weapon."
+        ]
+    }
+}

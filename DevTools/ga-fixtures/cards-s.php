@@ -1559,7 +1559,8 @@ gaScenario('set-ablaze-damage-ally')
 // passing. The Crowd's Favor sub-clause ("if that ally is attacking a unit you don't
 // control") never triggers here since player 1 is both caster and defender of their own
 // champion (they DO control what's being attacked) -- that half needs a 3+ player pod and is
-// out of scope; only the "deal 3 damage to the attacking ally" half is covered.
+// out of scope. The separate combat-perspective regression verifies that defending
+// your own champion does not accidentally grant the status.
 // Notes carried over from the original definition:
 //   - Giant Tortoise (vanilla ALLY, power 1 / life 6), the attacker
 //   - end player 1's turn 1 (first-player attack lock)

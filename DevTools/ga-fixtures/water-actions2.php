@@ -272,7 +272,7 @@ gaScenario('slipstream-vault-makes-an-ally-distant-and-negates-activations-targe
     ->readyFor('Slipstream Vault', classBonus: true)
     ->seed('myField', 'Tweedledee, Contrarian Poet')
     ->seed('myHand', 'Slipstream Vault')
-    ->castSpell('Slipstream Vault', pay: 1, window: 'both', target: 'myField-1')
+    ->play('Slipstream Vault')->target('myField-1')->pay(1)->pass(2)->pass(1)
     ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The unique ally became distant')
     ->expectZoneCount('myMemory', 1, 1, 'Class Bonus with a unique ally target: cost 2 - 1 = 1')
     ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT"]', 'The ally became distant')

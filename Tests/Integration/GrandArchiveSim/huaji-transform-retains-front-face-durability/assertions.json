@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "ntnm81369o",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The weapon transformed into the back face"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"durability\":2}",
+        "semantic": true,
+        "label": "The real transformation retains two durability"
+    }
+]

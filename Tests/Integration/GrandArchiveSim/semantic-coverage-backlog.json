@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-16T15:13:27+00:00",
+    "generatedAt": "2026-10-16T18:17:56+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2474,
+        "cardsWithExistingFixtures": 2475,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 3,
+        "cardsNeedingSemanticCoverage": 2,
         "mechanics": {
             "condition": 1332,
             "zone-movement": 860,
@@ -26,23 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "bdhjszsj2z",
-            "name": "Frostbitten Etui",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
         {
             "cardId": "81gvGHkuVb",
             "name": "Lorraine, Ascendant Wings",
@@ -1324,9 +1307,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "combat-perspective-samaritan-no-favor",
                 "samaritan-reach-attacking-ally-damage"
             ],
             "semanticFixtures": [
+                "combat-perspective-samaritan-no-favor",
                 "samaritan-reach-attacking-ally-damage"
             ],
             "starterDecks": [
@@ -13982,9 +13967,11 @@
                 "targeting"
             ],
             "existingFixtures": [
+                "combat-perspective-opposing-debuff",
                 "dissuading-halt-attack-power-reduction"
             ],
             "semanticFixtures": [
+                "combat-perspective-opposing-debuff",
                 "dissuading-halt-attack-power-reduction"
             ],
             "starterDecks": [
@@ -15543,10 +15530,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "trained-birdroid-automaton-allies-have-true-sight"
+                "trained-birdroid-automaton-allies-have-true-sight",
+                "trained-birdroid-powercell-with-bonus",
+                "trained-birdroid-powercell-without-bonus"
             ],
             "semanticFixtures": [
-                "trained-birdroid-automaton-allies-have-true-sight"
+                "trained-birdroid-automaton-allies-have-true-sight",
+                "trained-birdroid-powercell-with-bonus",
+                "trained-birdroid-powercell-without-bonus"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -15952,10 +15943,18 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots"
+                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots",
+                "furnace-elements-dual",
+                "furnace-elements-insufficient",
+                "furnace-elements-mixed",
+                "furnace-elements-player-two"
             ],
             "semanticFixtures": [
-                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots"
+                "furnace-drone-cost-banish-offers-reindexed-graveyard-slots",
+                "furnace-elements-dual",
+                "furnace-elements-insufficient",
+                "furnace-elements-mixed",
+                "furnace-elements-player-two"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -16499,10 +16498,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "astral-seal-negate-activation-banish"
+                "astral-seal-negate-activation-banish",
+                "astral-target-cost-discount",
+                "astral-target-cost-full",
+                "astral-target-cost-no-class",
+                "astral-target-cost-opposing-banish"
             ],
             "semanticFixtures": [
-                "astral-seal-negate-activation-banish"
+                "astral-seal-negate-activation-banish",
+                "astral-target-cost-discount",
+                "astral-target-cost-full",
+                "astral-target-cost-no-class",
+                "astral-target-cost-opposing-banish"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -17157,10 +17164,16 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "inverted-pyroslash-ciel-discount"
+                "inverted-pyroslash-ciel-discount",
+                "omen-elements-pyroslash-dual",
+                "omen-elements-pyroslash-non-fire",
+                "omen-elements-pyroslash-ordinary"
             ],
             "semanticFixtures": [
-                "inverted-pyroslash-ciel-discount"
+                "inverted-pyroslash-ciel-discount",
+                "omen-elements-pyroslash-dual",
+                "omen-elements-pyroslash-non-fire",
+                "omen-elements-pyroslash-ordinary"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -17666,10 +17679,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral"
+                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral",
+                "spectral-target-cost-ordinary",
+                "spectral-target-cost-specter"
             ],
             "semanticFixtures": [
-                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral"
+                "spectral-haunting-returns-an-ally-card-from-the-graveyard-to-the-field-ephemeral",
+                "spectral-target-cost-ordinary",
+                "spectral-target-cost-specter"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -18472,10 +18489,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "corhazi-trapper-enter-puts-a-preparation-counter-on-your-champion"
+                "corhazi-trapper-enter-puts-a-preparation-counter-on-your-champion",
+                "corhazi-trapper-pays-preparation-before-its-target",
+                "phase-b-cost-refuses-trapper-without-preparation"
             ],
             "semanticFixtures": [
-                "corhazi-trapper-enter-puts-a-preparation-counter-on-your-champion"
+                "corhazi-trapper-enter-puts-a-preparation-counter-on-your-champion",
+                "corhazi-trapper-pays-preparation-before-its-target",
+                "phase-b-cost-refuses-trapper-without-preparation"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -22875,10 +22896,16 @@
                 "condition"
             ],
             "existingFixtures": [
-                "greater-boon-of-parvati-gaining-it-draws-a-card"
+                "greater-boon-of-parvati-does-not-pay-regalias-native-cost",
+                "greater-boon-of-parvati-gaining-it-draws-a-card",
+                "greater-boon-of-parvati-regalia-rest-prevents-one",
+                "greater-boon-of-parvati-rested-regalia-cannot-pay-native-cost"
             ],
             "semanticFixtures": [
-                "greater-boon-of-parvati-gaining-it-draws-a-card"
+                "greater-boon-of-parvati-does-not-pay-regalias-native-cost",
+                "greater-boon-of-parvati-gaining-it-draws-a-card",
+                "greater-boon-of-parvati-regalia-rest-prevents-one",
+                "greater-boon-of-parvati-rested-regalia-cannot-pay-native-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -23065,9 +23092,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "combat-perspective-hymn-declines-redirect",
+                "combat-perspective-hymn-defending-redirect",
                 "hymn-of-gaias-grace-puts-an-animal-ally-from-hand-onto-the-field"
             ],
             "semanticFixtures": [
+                "combat-perspective-hymn-declines-redirect",
+                "combat-perspective-hymn-defending-redirect",
                 "hymn-of-gaias-grace-puts-an-animal-ally-from-hand-onto-the-field"
             ],
             "starterDecks": [],
@@ -23705,9 +23736,15 @@
                 "condition"
             ],
             "existingFixtures": [
+                "penumbral-waltz-pays-0-before-response",
+                "penumbral-waltz-pays-1-before-response",
+                "penumbral-waltz-pays-3-before-response",
                 "penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-three-damage"
             ],
             "semanticFixtures": [
+                "penumbral-waltz-pays-0-before-response",
+                "penumbral-waltz-pays-1-before-response",
+                "penumbral-waltz-pays-3-before-response",
                 "penumbral-waltz-removes-x-preparation-counters-and-prevents-x-plus-three-damage"
             ],
             "starterDecks": [],
@@ -23846,10 +23883,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory"
+                "powerforged-burst-pays-0-before-response",
+                "powerforged-burst-pays-1-before-response",
+                "powerforged-burst-pays-3-before-response",
+                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory",
+                "powerforged-burst-with-no-powercells-uses-zero"
             ],
             "semanticFixtures": [
-                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory"
+                "powerforged-burst-pays-0-before-response",
+                "powerforged-burst-pays-1-before-response",
+                "powerforged-burst-pays-3-before-response",
+                "powerforged-burst-sacrifices-three-powercells-to-deal-two-damage-three-times-and-draw-into-memory",
+                "powerforged-burst-with-no-powercells-uses-zero"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27764,10 +27809,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "extinguishing-synchron-ability-1-pays-its-printed-cost"
+                "extinguishing-synchron-ability-1-pays-its-printed-cost",
+                "fire-damage-elements-synchron-dual"
             ],
             "semanticFixtures": [
-                "extinguishing-synchron-ability-1-pays-its-printed-cost"
+                "extinguishing-synchron-ability-1-pays-its-printed-cost",
+                "fire-damage-elements-synchron-dual"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27787,11 +27834,13 @@
             ],
             "existingFixtures": [
                 "fabled-ruby-fatestone-ability-1-pays-its-printed-cost",
-                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
+                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it",
+                "fire-damage-elements-ruby-dual"
             ],
             "semanticFixtures": [
                 "fabled-ruby-fatestone-ability-1-pays-its-printed-cost",
-                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it"
+                "fabled-ruby-fatestone-printed-spellshroud-spell-cannot-target-it",
+                "fire-damage-elements-ruby-dual"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -28648,10 +28697,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "genbus-command-gives-a-beast-ally-plus-three-life"
+                "genbus-command-gives-a-beast-ally-plus-three-life",
+                "genbus-command-targets-friendly-spellshrouded-shenju",
+                "genbus-command-targets-opposing-spellshrouded-shenju"
             ],
             "semanticFixtures": [
-                "genbus-command-gives-a-beast-ally-plus-three-life"
+                "genbus-command-gives-a-beast-ally-plus-three-life",
+                "genbus-command-targets-friendly-spellshrouded-shenju",
+                "genbus-command-targets-opposing-spellshrouded-shenju"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29140,10 +29193,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power",
+                "huaji-transform-retains-front-face-durability"
             ],
             "semanticFixtures": [
-                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power",
+                "huaji-transform-retains-front-face-durability"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29162,10 +29217,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power",
+                "huaji-transform-retains-front-face-durability"
             ],
             "semanticFixtures": [
-                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power"
+                "huaji-of-abyssal-fall-on-attack-deals-ten-unpreventable-damage-to-the-attacker-for-plus-three-power",
+                "huaji-transform-retains-front-face-durability"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -29718,10 +29775,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "lesser-boon-of-distance-targets-boon-granted-ranger",
                 "lesser-boon-of-distance-the-third-resolution-draws-a-card-into-memory",
                 "lesser-boon-of-distance-two-makes-a-ranger-unit-distant"
             ],
             "semanticFixtures": [
+                "lesser-boon-of-distance-targets-boon-granted-ranger",
                 "lesser-boon-of-distance-the-third-resolution-draws-a-card-into-memory",
                 "lesser-boon-of-distance-two-makes-a-ranger-unit-distant"
             ],
@@ -31877,9 +31936,17 @@
                 "condition"
             ],
             "existingFixtures": [
+                "slipstream-target-cost-insufficient",
+                "slipstream-target-cost-no-class",
+                "slipstream-target-cost-ordinary",
+                "slipstream-target-cost-unique",
                 "slipstream-vault-makes-an-ally-distant-and-negates-activations-targeting-it"
             ],
             "semanticFixtures": [
+                "slipstream-target-cost-insufficient",
+                "slipstream-target-cost-no-class",
+                "slipstream-target-cost-ordinary",
+                "slipstream-target-cost-unique",
                 "slipstream-vault-makes-an-ally-distant-and-negates-activations-targeting-it"
             ],
             "starterDecks": [],
@@ -32443,10 +32510,24 @@
                 "condition"
             ],
             "existingFixtures": [
-                "suzakus-command-gives-a-beast-ally-plus-two-power-for-its-next-attack"
+                "suzakus-command-gives-a-beast-ally-plus-two-power-for-its-next-attack",
+                "suzakus-command-ordinary-beast-bonus-ends-with-combat",
+                "suzakus-command-ordinary-beast-respects-prevention",
+                "suzakus-command-shenju-bonus-ends-with-combat",
+                "suzakus-command-shenju-bypasses-prevention",
+                "suzakus-command-targets-friendly-spellshrouded-shenju",
+                "suzakus-command-targets-opposing-spellshrouded-shenju",
+                "suzakus-command-unused-bonus-expires"
             ],
             "semanticFixtures": [
-                "suzakus-command-gives-a-beast-ally-plus-two-power-for-its-next-attack"
+                "suzakus-command-gives-a-beast-ally-plus-two-power-for-its-next-attack",
+                "suzakus-command-ordinary-beast-bonus-ends-with-combat",
+                "suzakus-command-ordinary-beast-respects-prevention",
+                "suzakus-command-shenju-bonus-ends-with-combat",
+                "suzakus-command-shenju-bypasses-prevention",
+                "suzakus-command-targets-friendly-spellshrouded-shenju",
+                "suzakus-command-targets-opposing-spellshrouded-shenju",
+                "suzakus-command-unused-bonus-expires"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32772,12 +32853,14 @@
                 "condition"
             ],
             "existingFixtures": [
+                "graveyard-reaction-twingale-during-attack",
                 "twingale-parry-class-bonus-ephemerate-from-the-graveyard-with-a-sword-banishes-it-after",
                 "twingale-parry-ephemerate-is-refused-without-a-sword-weapon",
                 "twingale-parry-prevents-two-of-the-four-combat-damage-to-the-champion",
                 "twingale-parry-protects-an-ally-that-is-being-attacked"
             ],
             "semanticFixtures": [
+                "graveyard-reaction-twingale-during-attack",
                 "twingale-parry-class-bonus-ephemerate-from-the-graveyard-with-a-sword-banishes-it-after",
                 "twingale-parry-ephemerate-is-refused-without-a-sword-weapon",
                 "twingale-parry-prevents-two-of-the-four-combat-damage-to-the-champion",
@@ -34875,10 +34958,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window"
+                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window",
+                "omen-elements-chrysalis-below-threshold",
+                "omen-elements-chrysalis-dual"
             ],
             "semanticFixtures": [
-                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window"
+                "chrysalis-hazy-caterpillar-fast-activation-can-be-played-from-a-response-window",
+                "omen-elements-chrysalis-below-threshold",
+                "omen-elements-chrysalis-dual"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36635,10 +36722,12 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard",
+                "pregame-fragmented-fire-opening"
             ],
             "semanticFixtures": [
-                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard"
+                "fragmented-spirit-of-fire-enter-glimpses-draws-six-and-summons-a-spirit-shard",
+                "pregame-fragmented-fire-opening"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36729,6 +36818,29 @@
                 "frigid-bash-class-bonus-hit-keeps-the-target-asleep-when-its-controller-declines-to-pay",
                 "frigid-bash-class-bonus-hit-wakes-normally-when-its-controller-pays-two",
                 "frigid-bash-costs-two-less-while-you-control-a-shield-item"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "bdhjszsj2z",
+            "name": "Frostbitten Etui",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "enter-response-etui-declined-payment",
+                "enter-response-etui-paid"
+            ],
+            "semanticFixtures": [
+                "enter-response-etui-declined-payment",
+                "enter-response-etui-paid"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -36840,10 +36952,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "geni-banishing-an-automaton-ally-card-summons-a-drone"
+                "geni-banishing-an-automaton-ally-card-summons-a-drone",
+                "geni-floating-memory-cost-keeps-its-buff-effect",
+                "phase-b-cost-refuses-geni-without-graveyard"
             ],
             "semanticFixtures": [
-                "geni-banishing-an-automaton-ally-card-summons-a-drone"
+                "geni-banishing-an-automaton-ally-card-summons-a-drone",
+                "geni-floating-memory-cost-keeps-its-buff-effect",
+                "phase-b-cost-refuses-geni-without-graveyard"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37441,11 +37557,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "fire-damage-elements-jianye-dual",
                 "jianye-dawns-keep-class-bonus-fire-allies-draw-a-card-on-death-with-low-influence",
                 "jianye-dawns-keep-kindle-six-pays-the-whole-cost-from-the-graveyard",
                 "jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on-death"
             ],
             "semanticFixtures": [
+                "fire-damage-elements-jianye-dual",
                 "jianye-dawns-keep-class-bonus-fire-allies-draw-a-card-on-death-with-low-influence",
                 "jianye-dawns-keep-kindle-six-pays-the-whole-cost-from-the-graveyard",
                 "jianye-dawns-keep-without-the-class-bonus-fire-allies-do-not-draw-on-death"
@@ -39997,11 +40115,19 @@
                 "condition"
             ],
             "existingFixtures": [
+                "kindle-elements-stablemaster",
+                "ritai-stablemaster-does-not-grant-kindle-non-horse",
+                "ritai-stablemaster-does-not-grant-kindle-suppressed",
                 "ritai-stablemaster-equestrian-enter-discards-fire-cards-to-draw-into-memory",
+                "ritai-stablemaster-grants-horse-kindle-three",
                 "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing"
             ],
             "semanticFixtures": [
+                "kindle-elements-stablemaster",
+                "ritai-stablemaster-does-not-grant-kindle-non-horse",
+                "ritai-stablemaster-does-not-grant-kindle-suppressed",
                 "ritai-stablemaster-equestrian-enter-discards-fire-cards-to-draw-into-memory",
+                "ritai-stablemaster-grants-horse-kindle-three",
                 "ritai-stablemaster-without-a-horse-ally-its-enter-does-nothing"
             ],
             "starterDecks": [],
@@ -40814,9 +40940,11 @@
                 "status"
             ],
             "existingFixtures": [
+                "phase-b-cost-refuses-cook-without-food",
                 "smoldering-cook-sacrifices-a-food-to-deal-three-damage-to-a-champion"
             ],
             "semanticFixtures": [
+                "phase-b-cost-refuses-cook-without-food",
                 "smoldering-cook-sacrifices-a-food-to-deal-three-damage-to-a-champion"
             ],
             "starterDecks": [],
@@ -40952,9 +41080,15 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "sparkling-adornment-pays-1-before-response",
+                "sparkling-adornment-pays-3-before-response",
+                "sparkling-adornment-refused-without-sheen",
                 "sparkling-adornment-removes-sheen-counters-as-a-cost-and-puts-that-many-on-a-unit"
             ],
             "semanticFixtures": [
+                "sparkling-adornment-pays-1-before-response",
+                "sparkling-adornment-pays-3-before-response",
+                "sparkling-adornment-refused-without-sheen",
                 "sparkling-adornment-removes-sheen-counters-as-a-cost-and-puts-that-many-on-a-unit"
             ],
             "starterDecks": [],
@@ -40973,10 +41107,12 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "pregame-serene-fire-opening",
                 "spirit-of-serene-fire-enter-glimpses-and-draws-six",
                 "spirit-of-serene-fire-lineage-release-recovers-six"
             ],
             "semanticFixtures": [
+                "pregame-serene-fire-opening",
                 "spirit-of-serene-fire-enter-glimpses-and-draws-six",
                 "spirit-of-serene-fire-lineage-release-recovers-six"
             ],
@@ -41168,10 +41304,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it"
+                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it",
+                "steady-sharpshooter-spends-aim-distant",
+                "steady-sharpshooter-spends-aim-near"
             ],
             "semanticFixtures": [
-                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it"
+                "steady-sharpshooter-on-attack-puts-an-aim-counter-on-it",
+                "steady-sharpshooter-spends-aim-distant",
+                "steady-sharpshooter-spends-aim-near"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42512,9 +42652,21 @@
                 "condition"
             ],
             "existingFixtures": [
+                "abnegation-ephemerate-next-turn",
+                "abnegation-ephemerate-no",
+                "abnegation-ephemerate-no-alice",
+                "abnegation-ephemerate-no-negation",
+                "abnegation-ephemerate-protected-activation",
+                "abnegation-ephemerate-yes",
                 "abnegation-recovers-eight-plus-twice-the-curse-cards-in-the-champions-lineage"
             ],
             "semanticFixtures": [
+                "abnegation-ephemerate-next-turn",
+                "abnegation-ephemerate-no",
+                "abnegation-ephemerate-no-alice",
+                "abnegation-ephemerate-no-negation",
+                "abnegation-ephemerate-protected-activation",
+                "abnegation-ephemerate-yes",
                 "abnegation-recovers-eight-plus-twice-the-curse-cards-in-the-champions-lineage"
             ],
             "starterDecks": [],
@@ -44675,11 +44827,31 @@
             ],
             "existingFixtures": [
                 "eight-of-hearts-cardistry-draws-two-cards",
-                "eight-of-hearts-casting-it-does-not-draw-cards-for-free"
+                "eight-of-hearts-casting-it-does-not-draw-cards-for-free",
+                "eight-of-hearts-combined-affordability-1",
+                "eight-of-hearts-combined-affordability-2",
+                "eight-of-hearts-excludes-cost-five",
+                "eight-of-hearts-excludes-non-ally",
+                "eight-of-hearts-excludes-non-suited",
+                "eight-of-hearts-excludes-opponent",
+                "eight-of-hearts-sacrifice-cost-four-boundary",
+                "eight-of-hearts-sacrifice-payment-0",
+                "eight-of-hearts-sacrifice-payment-1",
+                "eight-of-hearts-sacrifice-payment-2"
             ],
             "semanticFixtures": [
                 "eight-of-hearts-cardistry-draws-two-cards",
-                "eight-of-hearts-casting-it-does-not-draw-cards-for-free"
+                "eight-of-hearts-casting-it-does-not-draw-cards-for-free",
+                "eight-of-hearts-combined-affordability-1",
+                "eight-of-hearts-combined-affordability-2",
+                "eight-of-hearts-excludes-cost-five",
+                "eight-of-hearts-excludes-non-ally",
+                "eight-of-hearts-excludes-non-suited",
+                "eight-of-hearts-excludes-opponent",
+                "eight-of-hearts-sacrifice-cost-four-boundary",
+                "eight-of-hearts-sacrifice-payment-0",
+                "eight-of-hearts-sacrifice-payment-1",
+                "eight-of-hearts-sacrifice-payment-2"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49040,10 +49212,20 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "kindle-elements-decline",
+                "kindle-elements-dual",
+                "kindle-elements-mixed",
+                "kindle-elements-player-two",
+                "kindle-elements-water",
                 "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards",
                 "silent-firebrand-without-the-class-bonus-has-no-kindle"
             ],
             "semanticFixtures": [
+                "kindle-elements-decline",
+                "kindle-elements-dual",
+                "kindle-elements-mixed",
+                "kindle-elements-player-two",
+                "kindle-elements-water",
                 "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards",
                 "silent-firebrand-without-the-class-bonus-has-no-kindle"
             ],
@@ -49333,9 +49515,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "pregame-fortuitous-fire-opening",
                 "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory"
             ],
             "semanticFixtures": [
+                "pregame-fortuitous-fire-opening",
                 "spirit-of-fortuitous-fire-enter-glimpses-and-draws-seven-into-memory"
             ],
             "starterDecks": [],
@@ -49561,9 +49745,11 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "enter-response-stifling-aethercharge-negates-broker",
                 "stifling-aethercharge-targets-an-ally-and-may-load-itself-into-an-aetherwing"
             ],
             "semanticFixtures": [
+                "enter-response-stifling-aethercharge-negates-broker",
                 "stifling-aethercharge-targets-an-ally-and-may-load-itself-into-an-aetherwing"
             ],
             "starterDecks": [],
@@ -50541,9 +50727,15 @@
                 "trigger"
             ],
             "existingFixtures": [
+                "fire-damage-elements-varuck-dual",
+                "fire-damage-elements-varuck-suppressed",
+                "fire-damage-elements-without-varuck",
                 "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card"
             ],
             "semanticFixtures": [
+                "fire-damage-elements-varuck-dual",
+                "fire-damage-elements-varuck-suppressed",
+                "fire-damage-elements-without-varuck",
                 "varuck-smoldering-spire-is-sacrificed-when-you-materialize-a-card"
             ],
             "starterDecks": [],
@@ -52907,11 +53099,17 @@
             ],
             "existingFixtures": [
                 "favorable-omens-gives-allies-plus-one-life-per-wind-omen",
-                "favorable-omens-ignores-an-omen-that-is-not-wind"
+                "favorable-omens-ignores-an-omen-that-is-not-wind",
+                "omen-elements-wind-dual",
+                "omen-elements-wind-mixed",
+                "omen-elements-wind-not-omen"
             ],
             "semanticFixtures": [
                 "favorable-omens-gives-allies-plus-one-life-per-wind-omen",
-                "favorable-omens-ignores-an-omen-that-is-not-wind"
+                "favorable-omens-ignores-an-omen-that-is-not-wind",
+                "omen-elements-wind-dual",
+                "omen-elements-wind-mixed",
+                "omen-elements-wind-not-omen"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -53584,10 +53782,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "combat-perspective-opposing-golden-rook",
                 "golden-rook-attacking-a-unit-with-even-life-gets-plus-one-power",
                 "golden-rook-attacking-a-unit-with-odd-life-has-its-printed-power"
             ],
             "semanticFixtures": [
+                "combat-perspective-opposing-golden-rook",
                 "golden-rook-attacking-a-unit-with-even-life-gets-plus-one-power",
                 "golden-rook-attacking-a-unit-with-odd-life-has-its-printed-power"
             ],
@@ -53744,10 +53944,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "combat-perspective-opposing-horned-knight",
                 "horned-knight-attacking-a-champion-has-its-printed-power",
                 "horned-knight-attacking-an-ally-gets-plus-one-power"
             ],
             "semanticFixtures": [
+                "combat-perspective-opposing-horned-knight",
                 "horned-knight-attacking-a-champion-has-its-printed-power",
                 "horned-knight-attacking-an-ally-gets-plus-one-power"
             ],
@@ -56023,11 +56225,29 @@
                 "cost"
             ],
             "existingFixtures": [
+                "viridian-elements-dual",
+                "viridian-elements-insufficient-reserve",
+                "viridian-elements-non-water",
+                "viridian-elements-ordinary",
+                "viridian-elements-own-activation",
+                "viridian-elements-player-two-controller",
+                "viridian-elements-removed",
+                "viridian-elements-suppressed",
+                "viridian-elements-suppressed-first",
                 "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
                 "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
                 "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"
             ],
             "semanticFixtures": [
+                "viridian-elements-dual",
+                "viridian-elements-insufficient-reserve",
+                "viridian-elements-non-water",
+                "viridian-elements-ordinary",
+                "viridian-elements-own-activation",
+                "viridian-elements-player-two-controller",
+                "viridian-elements-removed",
+                "viridian-elements-suppressed",
+                "viridian-elements-suppressed-first",
                 "viridian-protective-trinket-opposing-water-cards-cost-two-more-during-your-turn",
                 "viridian-protective-trinket-paying-only-the-printed-cost-is-not-enough",
                 "without-viridian-protective-trinket-the-water-spell-costs-its-printed-two"

@@ -1,0 +1,20 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "7JjxD8xRVq",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The conditional Ephemerate is unavailable"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "myField-0",
+        "property": "Damage",
+        "value": "8",
+        "semantic": true,
+        "label": "No recovery without the condition"
+    }
+]

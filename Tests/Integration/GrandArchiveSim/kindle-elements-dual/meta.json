@@ -1,0 +1,22 @@
+{
+    "name": "kindle-elements-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:55:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vwktc1c3kn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vwktc1c3kn"
+        ],
+        "mechanics": [
+            "kindle",
+            "cost",
+            "element"
+        ],
+        "rulesClauses": [
+            "Kindle accepts fire element graveyard cards, including Exalted Fire; payment is optional."
+        ]
+    }
+}

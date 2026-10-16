@@ -1,0 +1,22 @@
+{
+    "name": "astral-target-cost-no-class",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:04:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e3aebjvwbc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e3aebjvwbc"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "The discount is bound to banished-name targets before payment."
+        ]
+    }
+}

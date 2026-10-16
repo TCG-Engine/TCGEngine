@@ -1,0 +1,21 @@
+{
+    "name": "sparkling-adornment-refused-without-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:50:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "okZKM5DGRu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "okZKM5DGRu"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, remove one or more **sheen** counters from an object on the field."
+        ]
+    }
+}

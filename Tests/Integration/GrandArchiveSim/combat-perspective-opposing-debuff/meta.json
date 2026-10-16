@@ -1,0 +1,22 @@
+{
+    "name": "combat-perspective-opposing-debuff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:26:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y7wbtbasch"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y7wbtbasch"
+        ],
+        "mechanics": [
+            "combat",
+            "power",
+            "perspective"
+        ],
+        "rulesClauses": [
+            "The target unit attacks with three less power."
+        ]
+    }
+}

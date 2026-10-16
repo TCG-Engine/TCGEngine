@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2474**
+Cards linked to an existing fixture: **2475**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **3**
+Implemented cards still needing semantic coverage: **2**
 
 ## Mechanic groups
 
@@ -26,7 +26,6 @@ Implemented cards still needing semantic coverage: **3**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Frostbitten Etui (`bdhjszsj2z`) | REGALIA,ITEM | 1 | targeting, zone-movement, trigger | — | — |
 | Lorraine, Ascendant Wings (`81gvGHkuVb`) | CHAMPION | 1 | zone-movement, combat, condition | — | — |
 | Duplicitous Replication (`owq8s5fefw`) | ACTION | 1 | token | — | — |
 | Band of Burning Verdict (`7mmve2l328`) | REGALIA,ITEM | 3 | targeting, draw-discard, status, combat, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | band-of-burning-verdict-ability-1-pays-its-printed-cost, band-of-burning-verdict-enter-draw, band-of-burning-verdict-play-without-tamer-bonus, band-of-burning-verdict-rest-buff-requires-activation |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **3**
 | Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | potion-infusion-animate-turn-ally |
 | Prismspire Scepter (`mgesApvmwS`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, trigger | Merlin Re:Collection, Brilliant Vestige | prismspire-scepter-merlin-bonus-enter-sheen-opponent |
 | Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | protect-her-at-all-costs-merlin-bonus-summon-token |
+| Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | ranger-boots-banish-makes-your-champion-distant |

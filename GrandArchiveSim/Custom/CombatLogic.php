@@ -604,7 +604,13 @@ function AttackBypassesInterceptAndTaunt($attackerMZ, $player) {
     }
     if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) return true;
     if($attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) return true;
-    if($attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) return true;
+    if($attacker !== null) {
+        if(array_intersect(["5v598k3m1w_ATTACK", "5v598k3m1w-SHENJU_ATTACK"], $attacker->TurnEffects)) return true;
+        // Before target selection, preview the next attack's unblockable. A Command
+        // granted during combat must wait for the following attack.
+        if(DecisionQueueController::GetVariable("CombatTarget") === null
+            && array_intersect(["5v598k3m1w", "5v598k3m1w-SHENJU"], $attacker->TurnEffects)) return true;
+    }
     if($attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) return true;
     if($attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) return true;
 
@@ -686,6 +692,15 @@ function GetFieldObjectUniqueID($mzID, $perspectivePlayer = null) {
 }
 
 function ClearCombatAttackerState() {
+    // Remove the consumed Command bonus on every combat exit, including a missing attacker.
+    foreach([1, 2] as $owner) {
+        foreach(GetField($owner) as $obj) {
+            if($obj === null) continue;
+            $obj->TurnEffects = array_values(array_filter($obj->TurnEffects ?? [], fn($effect) => !str_starts_with($effect, "yakyp6odw3-RANGED_")));
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects ?? [],
+                ["5v598k3m1w_ATTACK", "5v598k3m1w-SHENJU_ATTACK"]));
+        }
+    }
     DecisionQueueController::ClearVariable("CombatAttacker");
     DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
 }
@@ -1903,6 +1918,15 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && in_array("yevpmu6gvn", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "yevpmu6gvn_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["yevpmu6gvn"]));
+    }
+
+    // Suzaku's Command applies to this attack only; pending effects expire unused at end of turn.
+    if($obj !== null) {
+        foreach(["5v598k3m1w", "5v598k3m1w-SHENJU"] as $commandEffect) {
+            if(!in_array($commandEffect, $obj->TurnEffects)) continue;
+            AddTurnEffect($mzID, $commandEffect . "_ATTACK");
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, [$commandEffect]));
+        }
     }
 
     // Take Aim (vnta6qsesw): next attack this turn gets +2 POWER — consume and apply
@@ -4125,7 +4149,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
     if($sourceInfo["cardID"] !== null) {
         $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : CardElement($sourceInfo["cardID"]);
-        if($sourceElement === "FIRE") {
+        if(PropertyContains($sourceElement, "FIRE")) {
             $sourceController = $sourceInfo["controller"] ?? $player;
             if(GlobalEffectCount($sourceController, "ecZsQQAYJJ") > 0) {
                 DealUnpreventableDamage($player, $source, $target, $amount);
@@ -4133,7 +4157,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             }
             $scField = &GetField($sourceController);
             foreach($scField as $scObj) {
-                if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb") {
+                if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb" && !HasNoAbilities($scObj)) {
                     // Fire source + Varuck present → unpreventable
                     DealUnpreventableDamage($player, $source, $target, $amount);
                     return;
@@ -4190,7 +4214,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Suzaku's Command Shenju (5v598k3m1w-SHENJU): combat damage is unpreventable
     if($isCombatContext) {
         $sourceObj = GetZoneObject($source);
-        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects ?? [])) {
+        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU_ATTACK", $sourceObj->TurnEffects ?? [])) {
             DealUnpreventableDamage($player, $source, $target, $amount);
             return;
         }

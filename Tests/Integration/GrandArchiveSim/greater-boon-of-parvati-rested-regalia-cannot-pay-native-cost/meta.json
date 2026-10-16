@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-parvati-rested-regalia-cannot-pay-native-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:48:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WOTtcgwVc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WOTtcgwVc9"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "The granted REST must be payable."
+        ]
+    }
+}

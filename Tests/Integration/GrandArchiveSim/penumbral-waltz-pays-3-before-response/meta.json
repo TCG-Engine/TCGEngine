@@ -1,0 +1,23 @@
+{
+    "name": "penumbral-waltz-pays-3-before-response",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:47:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nt1lyk1dvd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nt1lyk1dvd"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "prevention",
+            "tristan-bonus",
+            "summon"
+        ],
+        "rulesClauses": [
+            "Prevent the next **X+3** damage that would be dealt to your champion this turn. [Tristan Bonus] If **X** is 3 or greater, **summon** two Ominous Shadow tokens."
+        ]
+    }
+}

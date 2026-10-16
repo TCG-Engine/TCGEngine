@@ -1,0 +1,22 @@
+{
+    "name": "enter-response-etui-declined-payment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:22:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bdhjszsj2z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bdhjszsj2z"
+        ],
+        "mechanics": [
+            "negate",
+            "enter",
+            "payment"
+        ],
+        "rulesClauses": [
+            "Negate all On Enter triggers from target opposing ally unless its controller pays three."
+        ]
+    }
+}

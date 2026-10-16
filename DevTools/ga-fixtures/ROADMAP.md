@@ -5,20 +5,155 @@ Current status: 2026-10-16, branch `codex/ga-fixture-scenario-builder`. Push and
 ## Current status
 
 - Phases 0 and 1 are complete: scenarios are the authoring source, inline definitions are rejected, and the useful family helpers are in place.
-- Phase 2's main exit is met: zero incomplete semantic contracts. The latest full run after the Fire cost batch has 3,955 passing fixtures, 3,771 complete contracts and 184 legacy snapshots. GABot passes 10/10 and all local guards pass. Legacy assertion migration remains opportunistic quality work.
-- Phase 3's exit is met: 2,474 of 2,477 implemented cards have semantic coverage; the three exceptions are documented in `UNFIXABLE.md`. This is card coverage, not a claim that every rules clause is implemented.
+- Phase 2's main exit is met: zero incomplete semantic contracts. The latest full run after the Phase C boundary and handoff batch has 4,071 passing fixtures, 3,887 complete contracts and 184 legacy snapshots. GABot passes 10/10 and all local guards pass. Legacy assertion migration remains opportunistic quality work.
+- Phase 3's exit is met: 2,475 of 2,477 implemented cards have semantic coverage; the two exceptions are documented in `UNFIXABLE.md`. This is card coverage, not a claim that every rules clause is implemented.
 - Phase 4: scaffold and fixture runner exist. Promoting the owner's untracked smoke probe remains open; automatic printed-cost/vanilla families remain a proposal.
-- Phase 5: `ga-verify-all.sh` runs suite, GABot, strict contracts, action/inline guards and the three-card baseline. `--full` adds scenario regeneration. No CI service or quarterly execution schedule is configured.
+- Phase 5: `ga-verify-all.sh` runs suite, GABot, strict contracts, action/inline guards, retained Phase C boundaries and the two-card baseline. `--full` adds scenario regeneration. No CI service or quarterly execution schedule is configured.
 - Nico and Ardus are closed, including Brookside Scout's weapon-choice sequencing and all three Ardus On Death effects. Ardus follow-up committed as `5d9516770`.
 - Next engine work is tracked in the current-status section of `ENGINE-FINDINGS.md`. The dated sections below are history; their old counts and "open" notes are not the current backlog.
 
-## Remaining closeout work
+## Follow-up roadmap (2026-10-16)
 
-1. Fire cost batch complete: Molten Impact and Cremation Ritual now sacrifice during activation; Combustible Potion can Brew with two Herbs. Next: Powerforged Burst, Penumbral Waltz and Sparkling Adornment cost timing; investigate Horticounter.
-2. Continue the separate engine backlog only in explicit batches; card coverage alone does not close those limitations.
-3. Decide whether to promote the local probe and configure CI/scheduled drift checks. The local verification entry point already exists.
-4. Keep upgrading legacy snapshots and moving assertions into scenario definitions when touched.
-5. Final branch review and verification, then push/PR when authorized. Neither has happened.
+This is the active plan after the coverage phases below. Phases A–G distinguish confirmed defects, investigations, test depth and tooling decisions. Historical "open" notes are not automatically confirmed defects. Planning these phases does not authorize deployment, scheduling, or behaviour-wide engine changes.
+
+Completed baseline: Nico and Ardus (`a4fd23e48`, Ardus follow-up `5d9516770`); Fire activation costs and Brew (`952d4d07a`). Latest full verification: 3,955/3,955 fixtures and GABot 10/10. No new verification is implied by this documentation update.
+
+### Phase A — Fix the confirmed card-local defects
+
+Targeting batch validation (2026-10-16): 3,959/3,959 integration fixtures, GABot 10/10, strict semantic audit, action/inline guard, three-card baseline, PHP lint and diff formatting all pass. Each of the four new fixtures fails with the overrides disabled. Full scenario regeneration was not run.
+
+Suzaku combat batch validation (2026-10-16): 3,964/3,964 integration fixtures, GABot 10/10, strict semantic audit (3,780 complete, zero incomplete, 184 legacy), action/inline guard, three-card baseline, PHP lint and diff formatting pass. Full scenario regeneration was not run. Changes remain uncommitted.
+
+Powerforged Burst validation (2026-10-16): full suite 3,968/3,968 and GABot 10/10. The strict audit initially flagged missing semantic assertion labels on the zero-cell fixture; after adding them and regenerating that fixture, it passes with 3,784 complete, zero incomplete and 184 legacy contracts. Action/inline guard, three-card baseline, PHP lint and diff formatting pass. Full scenario regeneration was not run. Changes remain uncommitted.
+
+- [x] **Genbu's Command and Suzaku's Command targeting:** both are Skills, not Spells. Custom overrides now offer Beast allies on either side without the spellshroud filter. The existing resolution protection hook handles Nightframe, not spellshroud, and remains intact. Four new friendly/opposing Shenju targeting fixtures fail against the old bodies and pass with the overrides. Actual Spells retain their spellshroud restriction.
+- [x] Genbu fixtures: a spellshrouded Shenju on either side is selectable, gains +3 LIFE and lets the activating champion recover 6; the existing non-Shenju Beast fixture verifies LIFE without recovery.
+- [x] Suzaku effect follow-up: pending bonuses now activate on the next attack and clear on combat exit. Five new fixtures verify no POWER bonus before/after combat, +4 Shenju/+2 ordinary Beast damage, bypassing Genbu taunt, Shenju-only prevention bypass, and unused-effect expiration. Two scope fixtures fail against the old implementation; disabling prevention bypass changes the Shenju damage from 8 to 7 and fails its assertion. The older combat snapshot now expects the consumed marker to be absent.
+- [x] **Powerforged Burst:** Powercells are sacrificed before responses, and X is stored with the stack entry for resolution. The Skill can target spellshroud. Four new fixtures cover X = 0/1/3 before priority and activation without Powercells; the existing three-cell damage/draw fixture also passes. Skipping sacrifice fails the timing assertion.
+- [x] **Penumbral Waltz:** preparation counters are paid before priority, with X stored on the stack entry. Three timing fixtures cover X = 0, 1, and 3; the existing Tristan fixture also passes. Omitting payment makes the timing assertion fail. Validation: full suite 3971/3971, GABot 10/10, strict semantic audit and baseline guards pass.
+- [x] **Sparkling Adornment:** sheen is removed before reserve payment and responses; the paid amount travels with the stack entry. Three new fixtures cover partial/full payment and refusal without sheen; the existing transfer fixture also passes. Omitting payment fails the timing assertion. Validation: full suite 3974/3974, GABot 10/10, strict semantic audit and baseline guards pass. Changes remain uncommitted.
+- [x] Add timing, legal-boundary and missing-payment fixtures for the cost changes, including zero where the printed cost permits it.
+
+Exit: focused fixtures fail against the old implementation and pass with the fixes; the full suite, GABot and local guards pass. Keep Skills targeting and cost timing as separate reviewable batches.
+
+### Phase B — Reconcile older findings against current code
+
+For each item, record one of: already fixed (with evidence), confirmed defect (with reproduction), missing test, or explicit design limitation. Do not count historical notes as current bugs without checking.
+
+- [x] Horticounter investigation: identified `vve1szpv86` (ALC Alter), with no runtime handler, alias or fixture/inventory entry. Recorded the missing implementation and the shared negate helper’s zero-payment limitation in ENGINE-FINDINGS.md. The audit led to the implementation below.
+- [x] Horticounter implementation batch: X declaration and Herb sacrifice before responses, optional zero-payment response, and successful-negation banish/glimpse. Eight fixtures cover the payment matrix, protected activation, and discount-preserved X; four mutation checks detect missing/broken behavior. Full suite 3982/3982, GABot 10/10 and all local guards pass. Runtime-only implementation; no generated file edited, no full scenario regeneration. Changes remain uncommitted.
+- [x] Eight of Hearts / Abnegation reconciliation (2026-10-16): both defects reproduced with loaded fixture states. Eight of Hearts refuses an affordable two-Suited-ally payment; Abnegation lacks its Ephemerate registration despite an existing controller-specific negation tracker. See ENGINE-FINDINGS.md for evidence and regression matrix.
+- [x] Eight of Hearts implementation: 0–2 eligible Suited ally sacrifices pay 3 each before responses; affordability includes the sacrifice credit without double-counting reservable allies. Ten fixtures cover 0/1/2 sacrifices, cost-4 boundary, ineligible objects, insufficient combined payment and payment timing. Runtime probes also cover opposing-view eligibility and ignored costs.
+- [x] Abnegation implementation: Ephemerate (2) uses Alice Bonus and the existing `ControlledActivationNegated` tracker. Six fixtures cover actual own negation, no Alice, no negation, accepted/protected negate attempts, turn reset, reserve payment and ephemeral resolution. Runtime probes check opponent-only negation and turn expiry independently of activation timing.
+Validation (2026-10-16): 16 new fixtures; full suite 3998/3998, GABot 10/10, strict contracts (3814 complete, zero incomplete, 184 legacy), action/inline and three-card baseline guards pass. Mutating the sacrifice credit or using the negator tracker makes the respective positive fixture fail. PHP lint passes; semantic backlog regenerated. Full scenario regeneration was not run. Changes remain uncommitted.
+
+- [x] Keyword reconciliation: Calculated Foresight's generated RANGED_3 grant and Reconnaissance Field's REST/Ranged/true-sight ability already work and have fixtures. Fixed Steady Sharpshooter's unintended distant grant and attack-only Ranged expiration; implemented Ritai Stablemaster's field-granted Horse Kindle in both payment and affordability. Positive/negative fixtures cover aim spending, near/distant attacks, Horse eligibility and suppressed grants. Updated the keyword audit's stale diagnoses.
+- [x] Trained Birdroid: its generated ActivateAbility listener was not dispatched. The current Powercell's target continuation now applies the trigger using the known event identity, after the source token has left the field. Class-bonus positive/negative fixtures verify the buff. No generic listener timing change was made; Mercurial Heart, the other Powercell item, has no activated ability.
+- [x] Ability costs: Corhazi Trapper pays preparation through the cost table before its effect target, Smoldering Cook sacrifices Food, and Geni, Gifted Mechanist pays (2), REST and graveyard banish before its effect. Geni/Gifted Mechanist is one card, not two. Missing-cost refusals, Food timing, reserve payment, Drone creation and floating-memory buff fixtures cover the changes.
+- [x] Boons: Lesser Boon of Distance now uses effective Ranger classes in both prerequisite and target selection. Greater Boon of Parvati grants ready owned regalia the REST prevention ability; a fixture consumes the granted prevention against actual damage. Boundary probes cover suppression, REST and opposing controllers.
+- [x] Huaji durability: not a card-data defect. Abyssal Fall is the back face of Heaven's Rise, whose printed durability is 2. The cached ruling says counters persist through transformation; a real end-phase transformation fixture verifies this without seeding counters on the back face.
+- [x] Invalid Ephemerate clicks now give refusal feedback while preserving the graveyard card and payments. Embedded custom-parameter separators are a documented transport limitation: Exorcism already uses controller:index entries separated by commas; its three fixtures pass. The reviewed CUSTOM encoders expose no additional concrete instance of that old defect. Arbitrary text containing pipes still requires encoding; no shared parser change is included.
+- [x] Forged Scalemail: confirmed automatic banish/prevention/draw remains. Phase B's requested choice plan is recorded in ENGINE-FINDINGS.md; implementation is transferred to Phase C because the current synchronous damage path must suspend and resume safely. This is an explicit retained limitation, not a completed optional choice.
+
+Phase B disposition: all historical items are reconciled. Card-local fixes and the existing-correct paths have regression evidence; Forged Scalemail's damage-choice work is explicitly carried into Phase C. Follow-up validation: 4,015/4,015 fixtures, GABot 10/10, strict contracts (3,831 complete, zero incomplete, 184 legacy), action/inline guard and three-card baseline all pass. Seventeen new fixtures and two updated cost fixtures; ten mutations produce eleven expected fixture failures, and eleven boundary probes pass. PHP lint and diff formatting pass; semantic backlog regenerated. Full scenario regeneration was not run. Changes remain uncommitted.
+
+Exit: every item has a current disposition and evidence in ENGINE-FINDINGS.md; confirmed fixes are grouped into bounded implementation batches with regression fixtures.
+
+### Phase C — Audit and design the wider engine changes
+
+**Audit/design exit met (2026-10-16).** This uses the phase's original exit below:
+implemented fixes are distinct from documented deferred designs. It does **not**
+mean all engine work is implemented. See [PHASE-C-HANDOFF.md](PHASE-C-HANDOFF.md)
+for source inventories, affected paths, design decisions, unresolved rules
+questions, regression plans and explicit Phase D implementation tasks.
+
+Owner authorization: “Continue through phase c” and “Finish phase c”. No push or
+PR is authorized. The dated checkpoints later in this document are history.
+
+- [x] Exalted checks audited and remaining predicate families inventoried. Kindle, Furnace Drone, Viridian, Fire-source and Omen fixes have tested implementations. Remaining clause-specific changes, non-Norm decisions and distinct-element cases are documented deferred designs in D0; not a blanket correctness claim.
+- [x] Combat-reader audit: ObjectCurrentPower and defender redirect fixes implemented. Remaining raw reads inventoried and separated into presence checks, attacker-context paths, temporary trigger context and identity follow-ups. Remaining per-card changes are deferred to D0.
+- [x] Starting-champion On Enter/opening setup: sequential Enter calls and three real startup fixtures; mutation fails all three.
+- [x] Graveyard Reaction availability: actual defending Twingale Ephemerate fixture; scan-gate mutation fails.
+- [x] Multistrike audit/design: selected-defender model, legal declaration, retaliation, identity, damage and trigger contracts recorded. **Implementation deferred to D0.** Existing keyword/granted marker is not functional support.
+- [x] Target-dependent discount audit: Slipstream, Spectral and Astral payment/category binding implemented. Forty-nine retained boundary checks now cover previews, one-shot consumption, interruption, removed targets, affordability and controller queries. Two newly found removed-entry defects fixed; both mutations fail. Slipstream's separate missing negation clause is in D0.
+- [x] Eternal Magistrate audit/design: pre-removal veto plus pre-payment legality and cross-root generator checks specified. **Implementation deferred to D0.** Imbue alone does not implement the restriction.
+- [x] On Enter response timing: Etui payment/decline and source identity fixed; real fixtures and mutations pass.
+- [x] Forged Scalemail audit/design: resumable damage **and caller continuation** specified, with exactly-once state and tests. Unpreventable damage is an explicit rules question correcting the earlier skip-offer assumption. **Implementation deferred to D0; current prevention remains automatic.**
+
+Exit: each audit has either a verified no-change disposition, a tested implementation, or a documented deferred design decision. Generated files remain untouched by hand.
+
+Validation: 4,071/4,071 integration fixtures, GABot 10/10, 49 loaded-state boundary
+checks, strict contracts and all local guards pass. Full scenario regeneration
+remains Phase G. Changes remain uncommitted and unpushed.
+
+### Phase D — Resolve partial clauses and coverage exceptions
+
+Implement the deferred Phase C contracts before adding card-local approximations.
+The audit/design phase is closed; all implementation tasks here remain open until
+the corresponding gameplay fixtures and mutation checks exist.
+
+#### D0 — Deferred engine implementations from Phase C
+
+- [ ] Remaining basic-element membership/effective-property batches in the element inventory: costs and continuations, damage/discard sources, field entry/passives, domains and generated handlers. Separate Norm membership, Norm-only, advanced classification and distinct-element semantics; see handoff C1.
+- [ ] Remaining combat event/reader fixes: delayed choice identities, defensive generated handlers and Possessed Reaping's exact killed-card destination. Preserve correct attacker-context reads; see handoff C2.
+- [ ] Eternal Magistrate: schema/generator departure veto, pre-payment gates and all material movement routes, with cross-root checks; see handoff C3.
+- [ ] Forged Scalemail: resolve exact unpreventable replacement behavior, implement resumable damage and caller continuations, then accept/decline/save-reload/exactly-once fixtures; see handoff C5.
+- [ ] Multistrike: declared distinct defenders, per-defender retaliation, damage and trigger context; implement on the resumable damage model, not as repeated Cleave; see handoff C4.
+- [ ] Slipstream Vault: implement and test the separate “negate all activations targeting it” clause, including responses and both controllers. The completed discount work covers Become Distant and payment binding only.
+
+#### D1 — Partial clauses and coverage exceptions
+
+- [ ] Greater Boon of Luxera: enforce the chosen-name generation prohibition.
+- [ ] Veiled Dash: choose any amount of wind cards to reveal.
+- [ ] Heavenly Guide: track whether the relevant lineage card was played.
+- [ ] Greater Boon of Enki: handle simultaneous token creation correctly.
+- [x] Frostbitten Etui and Stifling Aethercharge: real On Enter negation fixtures now exist, including Etui payment/decline. Removed obsolete semantic exceptions and reduced the baseline to two cards.
+- [ ] Duplicitous Replication: resolve the activation-window limitation and detect qualifying regalia entries beyond materialization.
+- [ ] Lorraine, Ascendant Wings: decide scope for the 2024-cost/open-ended Sword-generation ability before implementation.
+
+Exit: update UNFIXABLE.md and the baseline only when the relevant fixtures exist; any retained exception has an explicit reason. The baseline now contains two cards after the Etui fixtures; keep it until the remaining exceptions have fixtures.
+
+### Phase E — Expand rules-clause coverage
+
+These are recorded unexercised paths, not confirmed bugs. Recheck existing fixtures before adding duplicates. Implement fixes discovered through the normal regression workflow.
+
+| Batch | Paths to verify |
+| --- | --- |
+| Wind | Sleety Retreat/Tinderflare Pivot Ranger-champion targets; Tempestuous Seraphim imbued On Enter; Diablerie relic theft; Stifling Gyre pay-or-negate. |
+| Norm | Crystallized Destiny prevention; Suited Trickery/Plea for Peace restrictions; Allowance Race second Horse; Equivalent Exchange banish-two; Dodge Roll non-combat prevention; Reliable Blade spellshroud; Trivariate Dream. |
+| Arcane | Staves X Ultra banishment end-phase effect; Harbinger of Lightning/Seiryuu's Command element waivers. |
+| Luxem | Lumen Borealis Animal-death trigger; Uther/Shenju element waivers. |
+| Crux | Vorpal Sword Merlin abilities; Merlin, Kingslayer attack bonus; Majestic Spirit half-damage rounding. |
+| Exia | Annihilation damage-35+ Fast Activation. |
+| Neos | Hector imbued On Enter; Tonoris token-weapon sacrifice buff; Iron Halo/Tor/Obelisk with several domains. |
+| Tera | Hymn of Gaia's Grace retarget; Bloom: Autumn's Fall discard; Lu Bu Diao Chan death replacement; Flourishing Restoration element waiver. |
+| Astra | Moonveil Android negate buff; Stellaria Shower starcalled branch; Stargazer's Portent copy; Scry the Stars starcalling; Cometary Vantage Aethercharge; Vanishing Eclipse aethercalling; Stellarion Shift graveyard ability; Prima Materia Brew; Astarte Fast Activation; Cataleptic Constellation wake-up lock; Constellatory Spire negate trigger; Reflect the Skies random order. |
+| Umbra | Tristan level-up draw; Gloamspire Mantle ambush; Gloamspire Wraith distant On Hit recovery; Nightmare Coil positive path; Death Essence Amulet hand/memory choice; Steel Slug memory payment; Alice-bonus graveyard Ephemerate; Spirelle negate; Soutirer Vortex omen trigger; Mary Ann keyword sharing. |
+| Exalted | Labyrinth stealth; Mirrorbound opposing influence cap; Aenean Repudiation Progression cost. |
+| Water | Frozen Divinity opposing level-2 champion clause; Treacle/Weiss Bishop stealth with ephemeral. |
+
+Exit per batch: each clause has observable, non-vacuous evidence or a documented engine blocker; regenerate the backlog after changes.
+
+### Phase F — Fixture quality and automation
+
+- [ ] Upgrade the 184 legacy snapshots opportunistically; resolve the 11 remaining legacy lint flags as their fixtures are understood.
+- [ ] Move assertions from fixture files into scenario definitions when touched; prove regeneration equivalence.
+- [ ] Decide whether to promote the owner's untracked smoke probe into a maintained tool. Do not modify the owner's scripts as part of unrelated work.
+- [ ] Decide whether to generate the limited printed-cost and vanilla/keyword fixture families automatically.
+- [ ] Choose and configure CI for the suite, GABot, scenario regeneration, strict semantic audit and existing guards.
+- [ ] Decide where quarterly drift checks run and configure an authorized schedule.
+
+Exit: adopted automation is runnable and verified; declined/deferred proposals are explicit. Legacy migration remains opportunistic unless its scope is changed.
+
+### Phase G — Review and branch closeout
+
+- [ ] Reconcile this roadmap, ENGINE-FINDINGS.md, UNFIXABLE.md and the generated backlog; no stale claims about Skills being blocked by spellshroud.
+- [ ] Review the branch diff and any shared-engine/generator impact.
+- [ ] Run full verification including scenario regeneration (`ga-verify-all.sh --full`), GABot and all guards; investigate drift rather than blindly accepting snapshots.
+- [ ] Record remaining deliberate exceptions and decisions; agree that roadmap closeout is reached.
+- [ ] Push and open a PR only when authorized. Neither has happened.
+
+Recommended order: A targeting fixes, A cost timing, B reconciliation, then explicit C/D implementation batches (including the transferred Scalemail choice) and E coverage batches. F quality work runs alongside touched files; tooling choices are separate. G follows completion or explicit deferral of the preceding work.
 
 ## Principles
 
@@ -231,7 +366,7 @@ verified by regenerating and comparing by meaning.
   - Generated macro listeners for `AllyDestroyed` (Turbulent Bounty Hunter), `ActivateAbility` (Trained Birdroid) and `CardBanish`
     (Evaporation Synchron) are still never dispatched.
   - Eight of Hearts' alternative payment (sacrifice up to two Suited allies, 3 each) is not implemented.
-  - Abnegation's conditional Ephemerate has no "activation negated this turn" tracker.
+  - Abnegation's conditional Ephemerate is missing. Phase B audit corrected the original diagnosis: the controller-specific negation tracker already exists; the conditional registry entry is absent.
   - `[Class Bonus] Kindle` is not gated on the class bonus (Silent Firebrand, Burning Aethercharge, Glowering Conflagration).
   - Molten Impact sacrifices at resolution rather than as a cost.
   - Weapon On Attack closures receive the ATTACKER's mz as `$mzID`, so a "CARDNAME" in a weapon's On Attack body points at the wrong
@@ -301,3 +436,69 @@ verified by regenerating and comparing by meaning.
 - Phase 5 guard rails are in: `DevTools/ga-verify-all.sh` (suite, GABot, strict semantic audit, truncation + inline-definition audit, uncovered-card baseline; `--full` adds `verify-ga-scenarios.php`), the generator refusing inline definitions and unmet `rejects()` steps, and `uncovered-baseline.txt`. There is no CI service configured in this repository; the script is the entry point for one. The quarterly drift check is the suite itself (`audit-fixture-drift.php --test=<slug>` explains a single drifting fixture).
 - Phase 4: `ga-scaffold.php` exists; the probe integration is not done: `DevTools/_smoke_probe.php` is an untracked, never-committed local tool, so promoting it into `DevTools/probes/` is left to the owner.
 - Closing the strict audit found five dead scenarios (steps that silently did nothing: Burnished Obelith, Seafletched Serpent, Total Whiteout, Conjuring Fluorescence, Nia) and Field of Ranks and Files tested with a card that could not be played; all are repaired. 
+
+Phase C defender follow-up: corrected Samaritan’s Reach’s false Crowd’s Favor and
+Hymn of Gaia’s Grace’s target lookup, stored perspective and target markers.
+Added three real-attack fixtures, including declining the optional redirect.
+The broader combat-reader audit and remaining Phase C mechanics stay open.
+
+Phase C omen follow-up: GetOmenCountByElement now accepts each printed element
+of dual-element omens. Eight fixtures cover Favorable Omens, Chrysalis and
+Inverted Pyroslash, with three failing controlled mutations. Full verification:
+4,061/4,061 integration, GABot 10/10, 3,877 complete semantic contracts, zero
+incomplete, 184 legacy, 8,870 semantic assertions; all local guards pass.
+Target-dependent discounts are the next implementation batch. Wider element and
+combat audits, Eternal Magistrate, Multistrike and Forged Scalemail remain open.
+
+Phase C Slipstream follow-up: declared target identity now determines the class
+reduction before reserve payment and is preserved through resolution. Four new
+fixtures plus the updated existing fixture pass. Restoring the unconditional
+discount fails the ordinary-target cost assertion. Full verification passes
+4,065/4,065 integration, GABot 10/10, 3,881 complete semantic contracts,
+zero incomplete, 184 legacy, 8,881 assertions; all local guards pass.
+Astral Seal and Spectral Haunting remain in the target-dependent cost batch.
+
+
+### Spectral Haunting payment/category checkpoint
+
+Alice Bonus now requires a pre-payment commitment to Specter targets to receive
+its four-reserve discount. The stack entry retains that category and resolution
+only offers live Specter allies. Declining pays six and can return any ally.
+Two mixed-graveyard fixtures assert both costs and the offered target lists;
+both cost and chooser mutations fail. The older recorded Spectral Haunting test
+now answers the declaration before payment, retaining its previous expectations.
+Verification: **4,067/4,067**, GABot **10/10**, **3,883 complete / 0 incomplete / 184
+legacy**, all local guards, PHP lint and diff formatting pass. Full scenario
+regeneration remains Phase G. Astral Seal, wider reader/element audits, Eternal
+Magistrate, Multistrike and Forged Scalemail remain Phase C work; interruption and
+insufficient-reserve depth for this category flow also remains to be added.
+
+
+### Astral Seal payment/category checkpoint
+
+Claiming the Cleric discount now commits to activations whose names occur in live
+banishment before payment. Declining pays three and retains the unrestricted
+chooser. The activation preserves the qualifying names; its on-play trigger
+serializes the declaration in its own context. Resolution offers and revalidates
+legal activations in that paid category. Removed banishment entries cannot grant
+a new discount; a later banishment change does not undo the paid category.
+
+Four fixtures cover the discounted and full-cost branches, opposing banishment,
+and no Class Bonus. Cost and target-filter mutations both fail. An isolated
+runtime probe also checks opposing activation controllers, removed banishment,
+preserved declared names, unnegatable targets and removed targets. These probe
+checks are not additional retained gameplay fixtures.
+
+Validation: 4,071/4,071 integration, GABot 10/10, 3,887 complete / zero incomplete /
+184 legacy, 8,901 semantic assertions; all local guards, PHP lint and diff check
+pass. Phase C remains open: wider element/combat reader audits, Eternal
+Magistrate, Multistrike, Forged Scalemail and further target-cost interruption,
+affordability and dry-run fixtures. Full scenario regeneration remains Phase G.
+Changes remain uncommitted and unpushed.
+
+Phase C audit/design closeout: see PHASE-C-HANDOFF.md. Forty-nine retained
+boundary checks found and now prevent removed-target discounts in Slipstream
+Vault and Spectral Haunting. Both mutations fail. Full suite 4071/4071, GABot
+10/10 and all guards pass. Five remaining engine design families and Slipstream's
+separate negation clause are explicit unchecked D0 implementation work; no
+claim that Multistrike, Magistrate or optional Scalemail is implemented.

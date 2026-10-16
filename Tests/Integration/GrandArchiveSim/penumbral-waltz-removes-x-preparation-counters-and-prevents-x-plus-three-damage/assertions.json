@@ -1,6 +1,6 @@
 [
     {
-        "step": 4,
+        "step": 2,
         "type": "card_property_equals",
         "mzId": "p1Field-0",
         "property": "Counters",
@@ -9,7 +9,7 @@
         "label": "X = 3: all three preparation counters removed"
     },
     {
-        "step": 4,
+        "step": 2,
         "type": "zone_count",
         "zone": "myField",
         "viewerPlayerID": 1,
@@ -18,7 +18,7 @@
         "label": "Tristan Bonus with X 3 or greater: two Ominous Shadow tokens"
     },
     {
-        "step": 4,
+        "step": 2,
         "type": "card_property_equals",
         "mzId": "p1Field-0",
         "property": "TurnEffects",

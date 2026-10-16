@@ -12,6 +12,7 @@ stage() {
   "$@" || { echo "!! FAILED: $label"; fail=1; }
 }
 stage "Integration suite" php DevTools/RunIntegrationTests.php --root=GrandArchiveSim
+stage "Phase C payment and identity boundaries" php DevTools/test-ga-phase-c-boundaries.php
 stage "GABot self-play" php -d xdebug.mode=off DevTools/GABotSelfPlayTest.php
 stage "Semantic contracts are complete (strict)" php DevTools/audit-ga-semantic-coverage.php --strict
 stage "No truncated fixtures, no inline fixture definitions" php DevTools/create-prd-ability-fixtures.php --audit-actions

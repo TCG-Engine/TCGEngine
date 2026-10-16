@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-parvati-regalia-rest-prevents-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:42:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WOTtcgwVc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WOTtcgwVc9"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "rest",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Regalia you control have REST: Prevent the next 1 damage to target unit this turn."
+        ]
+    }
+}

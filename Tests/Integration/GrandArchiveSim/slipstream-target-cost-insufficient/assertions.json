@@ -1,0 +1,20 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "A non-unique target cannot borrow the other ally discount"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "6ilt42sehq",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The unaffordable card remains in hand"
+    }
+]

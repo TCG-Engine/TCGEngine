@@ -1,6 +1,24 @@
 [
     {
         "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Both reserve payments are costs"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "No Drone before the graveyard cost choice"
+    },
+    {
+        "step": 4,
         "type": "card_exists",
         "zone": "myField",
         "cardID": "mu6gvnta6q",

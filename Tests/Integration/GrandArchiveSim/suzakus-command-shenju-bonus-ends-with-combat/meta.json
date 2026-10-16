@@ -1,0 +1,23 @@
+{
+    "name": "suzakus-command-shenju-bonus-ends-with-combat",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:33:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5v598k3m1w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5v598k3m1w"
+        ],
+        "mechanics": [
+            "next-attack",
+            "power",
+            "unblockable",
+            "expiration"
+        ],
+        "rulesClauses": [
+            "Target Beast ally's next attack this turn gains **unblockable** and gets +2 [POWER]."
+        ]
+    }
+}

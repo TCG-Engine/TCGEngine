@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The card enters by normal reserve payment"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "mttsvbgl6f",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "No Kindle offer consumes the fire card"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "The invalid grant never applies"
+    }
+]

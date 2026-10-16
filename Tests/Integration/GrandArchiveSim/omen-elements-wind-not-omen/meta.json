@@ -1,0 +1,22 @@
+{
+    "name": "omen-elements-wind-not-omen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:44:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tqy0rwvxgs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tqy0rwvxgs"
+        ],
+        "mechanics": [
+            "omen",
+            "element",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "For each wind element omen, allies get +1 LIFE."
+        ]
+    }
+}

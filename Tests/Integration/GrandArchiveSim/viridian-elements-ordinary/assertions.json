@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "The printed cost is paid but the surcharge remains"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 4,
+        "semantic": true,
+        "label": "The exact reserve cost was paid"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "y7wbtbasch",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The paid activation resolves"
+    }
+]

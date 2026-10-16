@@ -1,0 +1,21 @@
+{
+    "name": "furnace-elements-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:00:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cbNF64gCsS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cbNF64gCsS"
+        ],
+        "mechanics": [
+            "cost",
+            "element"
+        ],
+        "rulesClauses": [
+            "Banish three Fire element and/or Automaton cards as an additional activation cost."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "omen-elements-pyroslash-non-fire",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:44:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "X5XONoPY6Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "X5XONoPY6Z"
+        ],
+        "mechanics": [
+            "omen",
+            "element",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Ciel Bonus: costs two less for each of up to two fire omens."
+        ]
+    }
+}

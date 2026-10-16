@@ -1,0 +1,24 @@
+[
+    {
+        "step": 6,
+        "type": "computed_life_equals",
+        "mzId": "p2Field-1",
+        "value": 12,
+        "semantic": true,
+        "label": "Spellshroud does not prevent this Skill granting +3 LIFE"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "The activating champion recovers 6 for a Shenju target"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

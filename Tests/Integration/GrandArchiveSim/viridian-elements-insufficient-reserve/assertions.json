@@ -1,0 +1,29 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Unaffordable activation never begins payment"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 4,
+        "semantic": true,
+        "label": "The card and reserve cards remain in hand"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "GGRtLQgaYU",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "Three reserve cards cannot afford the taxed card"
+    }
+]

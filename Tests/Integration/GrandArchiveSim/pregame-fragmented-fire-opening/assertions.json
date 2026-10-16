@@ -1,0 +1,61 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Player 1 receives only the printed opening hand"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Player 1 receives the printed opening memory"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "3p5iqigcom",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Player 1 summons the opening Spirit Shard"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 6,
+        "semantic": true,
+        "label": "Player 2 receives only the printed opening hand"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Player 2 receives the printed opening memory"
+    },
+    {
+        "step": 2,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "3p5iqigcom",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "Player 2 summons the opening Spirit Shard"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

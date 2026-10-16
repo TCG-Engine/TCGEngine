@@ -1,0 +1,22 @@
+{
+    "name": "fire-damage-elements-without-varuck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:15:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IyM7IBCQeb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IyM7IBCQeb"
+        ],
+        "mechanics": [
+            "damage",
+            "element",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Damage dealt by fire element sources you control cannot be prevented."
+        ]
+    }
+}

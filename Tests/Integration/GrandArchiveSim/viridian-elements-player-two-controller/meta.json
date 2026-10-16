@@ -1,0 +1,21 @@
+{
+    "name": "viridian-elements-player-two-controller",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:09:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3572j3oda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3572j3oda"
+        ],
+        "mechanics": [
+            "cost",
+            "controller"
+        ],
+        "rulesClauses": [
+            "Opponents pay two more during your turn."
+        ]
+    }
+}

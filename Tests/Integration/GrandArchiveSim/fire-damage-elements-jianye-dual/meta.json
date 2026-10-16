@@ -1,0 +1,22 @@
+{
+    "name": "fire-damage-elements-jianye-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:16:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ms1r3hjxp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ms1r3hjxp"
+        ],
+        "mechanics": [
+            "death",
+            "element",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Fire element allies have On Death: if influence is six or less, draw a card."
+        ]
+    }
+}

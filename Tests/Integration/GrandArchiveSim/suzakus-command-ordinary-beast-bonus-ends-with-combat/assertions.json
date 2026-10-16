@@ -1,0 +1,32 @@
+[
+    {
+        "step": 7,
+        "type": "computed_power_equals",
+        "mzId": "p2Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Pending next-attack bonus does not change the Beast POWER"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "The attack bypasses Genbu taunt and deals the enhanced POWER"
+    },
+    {
+        "step": 11,
+        "type": "computed_power_equals",
+        "mzId": "p2Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "The consumed bonus is gone after combat"
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

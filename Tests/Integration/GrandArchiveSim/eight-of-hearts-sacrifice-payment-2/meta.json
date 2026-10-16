@@ -1,0 +1,21 @@
+{
+    "name": "eight-of-hearts-sacrifice-payment-2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:29:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YGz8gN8M69"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YGz8gN8M69"
+        ],
+        "mechanics": [
+            "cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "While paying for this card's reserve cost, you may sacrifice up to two Suited allies with reserve cost 4 or less. Each ally sacrificed this way pays for 3 of that cost."
+        ]
+    }
+}
