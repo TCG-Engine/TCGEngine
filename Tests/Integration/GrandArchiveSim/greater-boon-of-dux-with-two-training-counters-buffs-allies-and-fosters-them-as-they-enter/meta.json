@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-dux-with-two-training-counters-buffs-allies-and-fosters-them-as-they-enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:40:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VOgZPEyKt1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VOgZPEyKt1"
+        ],
+        "mechanics": [
+            "static",
+            "stat-change",
+            "foster"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME has two or more **training** counters on it, allies you control get +1[POWER] and have \u201c**On Enter: **This ally becomes **fostered**.\u201d"
+        ]
+    }
+}

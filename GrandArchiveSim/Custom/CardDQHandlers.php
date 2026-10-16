@@ -5141,6 +5141,10 @@ function AddPrepCounter($player, $amount = 1) {
  */
 function GainAgility($player, $amount) {
     AddGlobalEffects($player, "AGILITY_" . $amount);
+    // Greater Boon of Inari (ozltjoTDQe): whenever you gain agility, your champion's next attack this turn against a champion gets +2 POWER (consumed in OnAttackTrigger()).
+    foreach(GetField($player) as $inariObj) {
+        if($inariObj !== null && !$inariObj->removed && $inariObj->CardID === "ozltjoTDQe" && !HasNoAbilities($inariObj)) { AddGlobalEffects($player, "INARI_NEXT_ATTACK"); break; }
+    }
 
     if(!IsTristanBonus($player)) return;
     global $playerID;

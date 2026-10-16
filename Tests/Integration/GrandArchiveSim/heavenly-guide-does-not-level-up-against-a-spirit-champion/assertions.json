@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "DpHDGaX2Pn",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The opponent's champion is a Spirit: no level up"
+    }
+]

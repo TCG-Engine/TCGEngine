@@ -1,0 +1,6 @@
+[
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"The Sword weapon on the field discounts Deflecting Edge's 1-reserve activation cost to 0, so no reserve card is spent"},
+    {"step":3,"type":"decision_queue_empty","player":"all"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"PREVENT_COMBAT_3\"]","semantic":true,"label":"Deflecting Edge prevents the next 3 combat damage to the chosen unit this turn"},
+    {"step":3,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"g7uDOmUf2u","semantic":true,"label":"Deflecting Edge resolves to the graveyard after activation"}
+]

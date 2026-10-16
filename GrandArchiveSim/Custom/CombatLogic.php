@@ -71,7 +71,7 @@ function GetAvailableWeapons($player) {
             $isFunctionalWeapon = PropertyContains($weaponSubtypes, "GUN")
                 || PropertyContains($weaponSubtypes, "BOW")
                 || PropertyContains($weaponSubtypes, "AETHERWING");
-            if($isFunctionalWeapon && !FunctionalWeaponIsLoaded($obj)) continue;
+            if($isFunctionalWeapon && !FunctionalWeaponIsLoaded($obj) && !GreaterBoonOfDetachmentLoadsWeapon($player, $obj)) continue;
             if($isFunctionalWeapon && $hasAttackCardsInIntent) continue;
             // Mechanized Smasher (qsm3n9yvn1): can't be used with attack cards
             if($obj->CardID === "qsm3n9yvn1" && !empty($intentCards)) continue;
@@ -105,6 +105,15 @@ function GetAvailableWeapons($player) {
         }
     }
     return $available;
+}
+
+// Greater Boon of Detachment (MzGWQK0E2o): "You may declare attacks with unloaded Ranger weapons you control as though they were loaded."
+function GreaterBoonOfDetachmentLoadsWeapon($player, $weaponObj) {
+    if(!PropertyContains(CardClasses($weaponObj->CardID), "RANGER")) return false;
+    foreach(GetField($player) as $boonObj) {
+        if($boonObj !== null && !$boonObj->removed && $boonObj->CardID === "MzGWQK0E2o" && !HasNoAbilities($boonObj)) return true;
+    }
+    return false;
 }
 
 function GetAttackWeaponChoices($player, $attackerObj) {
@@ -2010,6 +2019,18 @@ function OnAttackTrigger($player, $mzID) {
     if(GlobalEffectCount($player, "f0jbv5n196_NEXT_ATTACK") > 0) {
         RemoveGlobalEffect($player, "f0jbv5n196_NEXT_ATTACK");
         AddTurnEffect($mzID, "f0jbv5n196_POWER");
+    }
+
+    // Greater Boon of Inari (ozltjoTDQe): each agility gained this turn gave "your champion's next attack this turn against a champion gets +2 POWER".
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION") && GlobalEffectCount($player, "INARI_NEXT_ATTACK") > 0) {
+        $inariTarget = DecisionQueueController::GetVariable("CombatTarget");
+        $inariTargetObj = ($inariTarget !== null && $inariTarget !== "" && $inariTarget !== "-") ? GetZoneObject($inariTarget) : null;
+        if($inariTargetObj !== null && PropertyContains(EffectiveCardType($inariTargetObj), "CHAMPION")) {
+            while(GlobalEffectCount($player, "INARI_NEXT_ATTACK") > 0) {
+                RemoveGlobalEffect($player, "INARI_NEXT_ATTACK");
+                AddTurnEffect($mzID, "ozltjoTDQe_POWER");
+            }
+        }
     }
 
     // Ingress of Sanguine Ire (dfchplzf6m): first attack this turn gets +3 POWER — consume active marker
@@ -5131,6 +5152,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
+            $amount += GreaterBoonOfIsisBonus($sourceController);
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
@@ -5472,6 +5494,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
+            $amount += GreaterBoonOfIsisBonus($sourceController);
 
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;

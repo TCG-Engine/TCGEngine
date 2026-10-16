@@ -1,0 +1,19 @@
+[
+    {
+        "step": 9,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Training Sword: 1 POWER plus 1 from the boon"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":4}",
+        "semantic": true,
+        "label": "Refurbish also put its two durability counters on the Sword (2 + 2)"
+    }
+]

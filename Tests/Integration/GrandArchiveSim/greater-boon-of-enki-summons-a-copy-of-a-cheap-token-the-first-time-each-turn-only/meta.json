@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-enki-summons-a-copy-of-a-cheap-token-the-first-time-each-turn-only",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:42:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fZZqzAXNAc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fZZqzAXNAc"
+        ],
+        "mechanics": [
+            "trigger",
+            "token",
+            "once-per-turn"
+        ],
+        "rulesClauses": [
+            "Whenever you **summon** one or more tokens with reserve cost 1 or less for the first time each turn, **summon** a copy of one of those tokens."
+        ]
+    }
+}

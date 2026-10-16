@@ -1,0 +1,23 @@
+{
+    "name": "lesser-boon-of-knox-banishes-a-random-memory-card-face-down-draws-and-the-opponent-can-activate-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:45:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WLPf8QTdsP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WLPf8QTdsP"
+        ],
+        "mechanics": [
+            "random",
+            "banish",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, each opponent banishes a card at random from your memory face down.",
+            "You draw a card for each card banished from your memory this way."
+        ]
+    }
+}

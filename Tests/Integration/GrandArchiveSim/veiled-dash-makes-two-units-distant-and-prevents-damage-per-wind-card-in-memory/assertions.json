@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"DISTANT\",\"PREVENT_ALL_2\"]",
+        "semantic": true,
+        "label": "The champion became distant and has two damage prevented"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"DISTANT\",\"PREVENT_ALL_2\"]",
+        "semantic": true,
+        "label": "So did the second target"
+    }
+]

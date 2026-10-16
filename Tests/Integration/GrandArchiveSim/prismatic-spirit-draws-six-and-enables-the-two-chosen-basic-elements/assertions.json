@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 14,
+        "semantic": true,
+        "label": "Seven in hand plus the seeded Young Peacekeeper plus six drawn"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "z4pyx8bd7o",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Wind was chosen: the wind ally could be activated"
+    }
+]

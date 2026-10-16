@@ -1,0 +1,29 @@
+[
+    {
+        "step": 8,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "AGILITY_3",
+        "value": 1,
+        "semantic": true,
+        "label": "The champion gained agility 3 for this turn"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_overrides\":{\"classes\":\"ASSASSIN\"},\"level\":2,\"preparation\":1}",
+        "semantic": true,
+        "label": "One preparation counter was removed"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Training Sword's 1 POWER plus 2 from the boon"
+    }
+]

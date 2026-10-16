@@ -3280,6 +3280,199 @@ $customDQHandlers["AuspiciousManifestationBanish"] = function($player, $parts, $
     SuppressAllyTransformedNextEnd($player, $lastDecision);
 };
 
+// Lesser Boon of Nuwa (CW73nq8jCR): "As you gain this boon, generate a Refurbish card and put it into your memory." (The Craft-activation trigger is in OnCardActivated().)
+$playCardAbilities["CW73nq8jCR:0"] = function($player) {
+    MZAddZone($player, "myMemory", "b43adsk77Y");
+};
+$customDQHandlers["NuwaWeaponPower"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "CW73nq8jCR_POWER");
+};
+
+// Greater Boon of Horses (asZfaFnTXs): "As you gain this boon, put any amount of Horse ally cards with total reserve cost 10 or less from your memory onto the field. They each enter the field with an additional
+// buff counter on them. Then draw a card into your memory for each ally put onto the field this way."
+$playCardAbilities["asZfaFnTXs:0"] = function($player) {
+    DecisionQueueController::StoreVariable("HorsesBudget", "10");
+    DecisionQueueController::StoreVariable("HorsesCount", "0");
+    GreaterBoonOfHorsesOffer($player);
+};
+function GreaterBoonOfHorsesOffer($player) {
+    $budget = intval(DecisionQueueController::GetVariable("HorsesBudget"));
+    $choices = [];
+    foreach(ZoneSearch("myMemory", ["ALLY"], cardSubtypes: ["HORSE"]) as $memoryMZ) {
+        $horseObj = GetZoneObject($memoryMZ);
+        if($horseObj !== null && intval(CardCost_reserve($horseObj->CardID)) <= $budget) $choices[] = $memoryMZ;
+    }
+    if(empty($choices)) {
+        $count = intval(DecisionQueueController::GetVariable("HorsesCount"));
+        if($count > 0) DrawIntoMemory($player, $count);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Put_a_Horse_ally_from_memory_onto_the_field");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GreaterBoonOfHorsesPut", 1);
+}
+$customDQHandlers["GreaterBoonOfHorsesPut"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        $count = intval(DecisionQueueController::GetVariable("HorsesCount"));
+        if($count > 0) DrawIntoMemory($player, $count);
+        return;
+    }
+    $horseObj = GetZoneObject($lastDecision);
+    if($horseObj === null) return;
+    $cost = intval(CardCost_reserve($horseObj->CardID));
+    DecisionQueueController::StoreVariable("HorsesBudget", strval(intval(DecisionQueueController::GetVariable("HorsesBudget")) - $cost));
+    DecisionQueueController::StoreVariable("HorsesCount", strval(intval(DecisionQueueController::GetVariable("HorsesCount")) + 1));
+    $newObj = MZMove($player, $lastDecision, "myField");
+    DecisionQueueController::CleanupRemovedCards();
+    if($newObj !== null) AddCounters($player, $newObj->GetMzID(), "buff", 1);
+    GreaterBoonOfHorsesOffer($player);
+};
+
+// Greater Boon of Enki (fZZqzAXNAc): "As you gain this boon, draw a card." (The token-copy trigger is in FieldAfterAdd().)
+$playCardAbilities["fZZqzAXNAc:0"] = function($player) {
+    Draw($player, 1);
+};
+
+// Greater Boon of Inari (ozltjoTDQe): "Remove a preparation counter from your champion: You gain agility 3 for this turn. Activate this ability only at slow speed and only once per turn." The cost is paid by the
+// GAFieldAbilityCostTable() spec; the "whenever you gain agility" +2 POWER is in GainAgility() / OnAttackTrigger().
+$activateAbilityAbilities["ozltjoTDQe:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    AddTurnEffect($mzID, "INARI_USED");
+    GainAgility($player, 3);
+};
+$activateAbilityPrereqs["ozltjoTDQe:0"] = function($player, $mzID, $abilityIndex) {
+    $obj = GetZoneObject($mzID);
+    return $obj !== null && GAIsSlowSpeed($player) && !in_array("INARI_USED", $obj->TurnEffects ?? [], true);
+};
+
+// Greater Boon of Luxera (Klb4tguLek): "As you gain this boon, choose a non-champion non-regalia card name. The next time you activate a card with the same name this game, draw two cards and recover 3.
+// You can't generate cards with the chosen name." The name is kept on the boon (the activation trigger is in OnCardActivated()). Not implemented: the generate restriction.
+$playCardAbilities["Klb4tguLek:0"] = function($player) {
+    DecisionQueueController::AddDecision($player, "NAMECARD", "Non-champion_non-regalia_cards", 1, tooltip:"Choose_a_non-champion_non-regalia_card_name");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GreaterBoonOfLuxeraName", 1);
+};
+$customDQHandlers["GreaterBoonOfLuxeraName"] = function($player, $parts, $lastDecision) {
+    $cardID = ResolveNamedCardInputToRepresentativeID(trim(strval($lastDecision)));
+    if($cardID === null || PropertyContains(CardType($cardID), "CHAMPION") || PropertyContains(CardType($cardID), "REGALIA")) return;
+    $field = &GetField($player);
+    for($fi = count($field) - 1; $fi >= 0; --$fi) {
+        if($field[$fi]->removed || $field[$fi]->CardID !== "Klb4tguLek") continue;
+        if(!is_array($field[$fi]->Counters)) $field[$fi]->Counters = [];
+        $field[$fi]->Counters['luxeraName'] = CardName($cardID);
+        return;
+    }
+};
+
+// Lesser Boon of Knox (WLPf8QTdsP): "As you gain this boon, each opponent banishes a card at random from your memory face down. As long as that card is banished, that opponent may look at it and activate it, ignoring
+// its elemental requirements. You draw a card for each card banished from your memory this way." The card goes to its owner's banishment tagged like a Tristan, Shadowreaver card (playable by the opponent, element ignored).
+$playCardAbilities["WLPf8QTdsP:0"] = function($player) {
+    global $playerID;
+    $opponent = ($player == 1) ? 2 : 1;
+    $memoryZone = ($player == $playerID) ? "myMemory" : "theirMemory";
+    $memoryCards = ZoneSearch($memoryZone);
+    if(empty($memoryCards)) return;
+    $chosenMZ = $memoryCards[array_rand($memoryCards)];
+    $banished = MZMove($player, NormalizeMZForPlayerPerspective($player, $chosenMZ), "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($banished === null) return;
+    if(!isset($banished->Counters) || !is_array($banished->Counters)) $banished->Counters = [];
+    $banished->Counters["_shadowreaverPlayableBy"] = $opponent;
+    $banished->Counters["_shadowreaverFaceDown"] = 1;
+    Draw($player, 1);
+};
+
+// Greater Boon of Detachment (MzGWQK0E2o): "(3): Target Ranger weapon gets +3 POWER until end of turn. Activate this ability only once during each of your turns, and only if your champion is distant."
+// (Declaring attacks with unloaded Ranger weapons is in GetAvailableWeapons().)
+function GreaterBoonOfDetachmentTargets() {
+    $targets = [];
+    foreach(["myField", "theirField"] as $zone) {
+        foreach(ZoneSearch($zone, ["WEAPON"]) as $weaponMZ) {
+            $weaponObj = GetZoneObject($weaponMZ);
+            if($weaponObj !== null && PropertyContains(EffectiveCardClasses($weaponObj), "RANGER")) $targets[] = $weaponMZ;
+        }
+    }
+    return FilterSpellshroudTargets($targets);
+}
+$activateAbilityAbilities["MzGWQK0E2o:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    AddTurnEffect($mzID, "DETACHMENT_USED");
+    $targets = GreaterBoonOfDetachmentTargets();
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Target_Ranger_weapon_gets_+3_POWER");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GreaterBoonOfDetachmentPower", 1);
+};
+$customDQHandlers["GreaterBoonOfDetachmentPower"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "MzGWQK0E2o_POWER");
+};
+$activateAbilityPrereqs["MzGWQK0E2o:0"] = function($player, $mzID, $abilityIndex) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || GetTurnPlayer() != $player || in_array("DETACHMENT_USED", $obj->TurnEffects ?? [], true)) return false;
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+    if($champObj === null || !IsDistant($champObj)) return false;
+    return !empty(GreaterBoonOfDetachmentTargets());
+};
+
+// Gate of Alterity (j9s7xQdpf1): "[REST]: Put CARDNAME on the bottom of your champion's lineage then choose a class. CARDNAME gains 'Inherited Effect: This object is the chosen class in addition to its other classes.'"
+// A lineage card keeps no state of its own, so the chosen classes are recorded on the champion (EffectiveCardClasses() reads them).
+$activateAbilityAbilities["j9s7xQdpf1:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $gateObj = &GetZoneObject($mzID);
+    if($gateObj === null) return;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    OnLeaveField($player, $mzID);
+    $gateObj->Remove();
+    DecisionQueueController::CleanupRemovedCards();
+    $champMZ = FindChampionMZ($player);
+    $champObj = &GetZoneObject($champMZ);
+    if(!is_array($champObj->Subcards)) $champObj->Subcards = [];
+    array_unshift($champObj->Subcards, "j9s7xQdpf1");
+    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|" . implode("&", array_map(fn($i, $class) => chr(65 + $i) . ":_" . ucfirst(strtolower($class)), array_keys(GAGateClasses()), GAGateClasses())), 1, "Choose_a_class_(Gate_of_Alterity)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GateOfAlterityClass", 1);
+};
+function GAGateClasses() { return ["ASSASSIN", "CLERIC", "GUARDIAN", "MAGE", "RANGER", "TAMER", "WARRIOR"]; }
+$customDQHandlers["GateOfAlterityClass"] = function($player, $parts, $lastDecision) {
+    $classes = GAGateClasses();
+    $chosen = $classes[intval($lastDecision)] ?? null;
+    if($chosen === null) return;
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    $champObj = &GetZoneObject($champMZ);
+    if(!is_array($champObj->Counters)) $champObj->Counters = [];
+    $champObj->Counters['gateClasses'] = ($champObj->Counters['gateClasses'] ?? "") === "" ? $chosen : $champObj->Counters['gateClasses'] . "," . $chosen;
+};
+
+// Prismatic Spirit (W3m0tnw4sr): "On Enter: Draw six cards then choose two basic elements. CARDNAME gains 'Inherited Effect: This object is each of the chosen elements in addition to its other elements.'"
+// The chosen elements are recorded on the entering champion; GetPlayerEnabledElements() reads them.
+$enterAbilities["W3m0tnw4sr:0"] = function($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DecisionQueueController::StoreVariable("PrismaticSpiritMZ", strval($mzID));
+    Draw($player, 6);
+    DecisionQueueController::AddDecision($player, "MZMODAL", "2|2|A:_Fire&B:_Water&C:_Wind", 1, "Choose_two_basic_elements_(Prismatic_Spirit)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PrismaticSpiritElements", 1);
+};
+$customDQHandlers["PrismaticSpiritElements"] = function($player, $parts, $lastDecision) {
+    $elements = ["FIRE", "WATER", "WIND"];
+    $chosen = [];
+    foreach(explode(",", strval($lastDecision)) as $choiceIndex) if(isset($elements[intval($choiceIndex)]) && $choiceIndex !== "") $chosen[] = $elements[intval($choiceIndex)];
+    if(empty($chosen)) return;
+    $mzID = strval(DecisionQueueController::GetVariable("PrismaticSpiritMZ"));
+    $obj = $mzID !== "" ? GetZoneObject($mzID) : null;
+    if($obj === null || $obj->removed || $obj->CardID !== "W3m0tnw4sr") { $champMZ = FindChampionMZ($player); $obj = $champMZ === null ? null : GetZoneObject($champMZ); }
+    if($obj === null) return;
+    if(!is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters['prismaticElements'] = implode(",", array_unique($chosen));
+};
+
+// Greater Boon of Astraeus (B9RzxSut57): "As you gain this boon, draw a card for each of up to two times you've suppressed an object this turn." (The X+Y cost reduction is in CalculateActivationReserveCost().)
+$playCardAbilities["B9RzxSut57:0"] = function($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    $suppressed = min(2, intval($_ti["SuppressCount"][$player] ?? 0));
+    if($suppressed > 0) Draw($player, $suppressed);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Damage",
+        "value": "2",
+        "semantic": true,
+        "label": "Level 2: 2 / 3 rounds down to 0, so the Comet deals its printed 2"
+    }
+]

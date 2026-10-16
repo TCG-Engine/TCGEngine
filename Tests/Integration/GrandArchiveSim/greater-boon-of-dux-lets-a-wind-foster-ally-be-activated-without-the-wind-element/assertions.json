@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "z4pyx8bd7o",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The wind ally was activated with no wind element enabled"
+    }
+]

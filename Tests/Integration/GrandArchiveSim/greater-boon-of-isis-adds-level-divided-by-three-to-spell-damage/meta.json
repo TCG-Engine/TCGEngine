@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-isis-adds-level-divided-by-three-to-spell-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:39:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZUXCYJVafM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZUXCYJVafM"
+        ],
+        "mechanics": [
+            "damage",
+            "scaling",
+            "static"
+        ],
+        "rulesClauses": [
+            "Spell cards you own on the effects stack have \u201cIf this source would deal damage, it deals that much damage plus **X** instead, where **X** is **LV** divided by three, rounded down.\u201d"
+        ]
+    }
+}

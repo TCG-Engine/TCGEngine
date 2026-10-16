@@ -1,0 +1,21 @@
+{
+    "name": "dusklight-communion-cannot-be-activated-without-an-astra-or-umbra-card-in-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:51:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5upufyoz23"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5upufyoz23"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish an astra or umbra element card from your material deck."
+        ]
+    }
+}

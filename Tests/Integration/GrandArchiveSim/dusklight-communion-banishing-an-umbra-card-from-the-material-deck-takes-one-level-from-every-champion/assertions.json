@@ -1,0 +1,19 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "iq4d5vettc",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The umbra card was banished from the material deck as the additional cost"
+    },
+    {
+        "step": 5,
+        "type": "computed_level_equals",
+        "mzId": "p1Field-0",
+        "value": 1,
+        "semantic": true,
+        "label": "Champions get -1 level: 2 down to 1"
+    }
+]

@@ -303,3 +303,8 @@ verified by regenerating and comparing by meaning.
   alternate costs never offered, Aenean Cryosalvo's Fractal bonus, level-up recovery healing the removed champion, Martial Flowstate sacrificing the new champion, hidden-card choice perspective, enterPrereqs, repeated deck-0 MZMove loops, Frigid Bash On Hit.
 - Harness: scenario fixtures can no longer be silently truncated (`strictActions`, `--audit-actions`); `expectGlobalEffect`; remember that an `expect*` without a step is evaluated after the LAST action.
 - Server note: run `php zzGameCodeGenerator.php rootName=GrandArchiveSim` after deploying (the `SkipRemovedMZMoves` generator module changes generated code).
+
+### Phase 3 -- complete (2026-10-16)
+- Every one of the 2,477 implemented cards now has a fixture; 3 cards have no *semantic* fixture and are listed in `UNFIXABLE.md` with the reason (Frostbitten Etui, Duplicitous Replication, Lorraine, Ascendant Wings), together with the clauses of other cards that no fixture can reach. The 21 nameless backlog rows were uuid aliases of fixtured cards; `build-ga-semantic-backlog.php` now resolves them.
+- The last batches implemented cards that had no engine support at all (the Norm boons Nuwa, Isis, Dux, Horses, Enki, Inari, Knox, Detachment and Luxera, Greater Boon of Astraeus, Gate of Alterity, Prismatic Spirit) and fixed the generated Auspicious Manifestation, Fervent Lancer, Hemorrhaged Intimidation and Dusklight Communion; see the last entries of `ENGINE-FINDINGS.md`.
+- Remaining roadmap items: the Phase 4 probe integration (`_smoke_probe.php` into `DevTools/probes/`) and the Phase 5 guard rails (generator rejecting inline definitions, CI, quarterly drift check).

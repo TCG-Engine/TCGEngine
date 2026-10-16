@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "The unloaded Revolver attacked: 1 POWER plus 2 for its Class Bonus against a champion"
+    }
+]

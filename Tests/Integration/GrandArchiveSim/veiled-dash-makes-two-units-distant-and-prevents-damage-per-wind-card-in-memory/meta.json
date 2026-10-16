@@ -1,0 +1,24 @@
+{
+    "name": "veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:56:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "08kuz07nk4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "08kuz07nk4"
+        ],
+        "mechanics": [
+            "distant",
+            "damage-prevention",
+            "reveal",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Up to two target units become **distant**, then reveal any amount of wind element cards from your memory. Prevent the next **X** damage that would be dealt to each of those units this turn where **X** is the amount of wind element cards revealed this way.",
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    }
+}

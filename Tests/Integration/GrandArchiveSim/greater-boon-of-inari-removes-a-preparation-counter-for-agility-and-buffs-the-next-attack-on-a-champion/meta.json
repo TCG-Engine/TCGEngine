@@ -1,0 +1,24 @@
+{
+    "name": "greater-boon-of-inari-removes-a-preparation-counter-for-agility-and-buffs-the-next-attack-on-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:44:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ozltjoTDQe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ozltjoTDQe"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "agility",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**Remove a preparation counter from your champion: **You gain **agility 3** for this turn.",
+            "Whenever you gain **agility**, your champion's next attack this turn against a champion gets +2[POWER]."
+        ]
+    }
+}

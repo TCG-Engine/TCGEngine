@@ -1,0 +1,21 @@
+{
+    "name": "greater-boon-of-isis-rounds-down-below-level-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:39:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZUXCYJVafM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZUXCYJVafM"
+        ],
+        "mechanics": [
+            "damage",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "where **X** is **LV** divided by three, rounded down."
+        ]
+    }
+}

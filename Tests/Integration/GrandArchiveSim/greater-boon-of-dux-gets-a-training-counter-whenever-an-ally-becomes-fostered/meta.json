@@ -1,0 +1,21 @@
+{
+    "name": "greater-boon-of-dux-gets-a-training-counter-whenever-an-ally-becomes-fostered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:40:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VOgZPEyKt1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VOgZPEyKt1"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever an ally you control becomes **fostered**, put a **training** counter on CARDNAME."
+        ]
+    }
+}

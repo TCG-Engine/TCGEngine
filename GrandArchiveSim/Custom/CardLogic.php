@@ -229,7 +229,10 @@ function IsFostered($obj) {
  * @param string $mzID   The mzID of the ally.
  */
 function BecomeFostered($player, $mzID) {
+    $fosterObj = GetZoneObject($mzID);
+    $wasFostered = $fosterObj !== null && IsFostered($fosterObj);
     AddTurnEffect($mzID, "FOSTERED");
+    if(!$wasFostered && function_exists("GreaterBoonOfDuxOnFostered")) GreaterBoonOfDuxOnFostered($fosterObj->Controller ?? $player);
 }
 
 /**

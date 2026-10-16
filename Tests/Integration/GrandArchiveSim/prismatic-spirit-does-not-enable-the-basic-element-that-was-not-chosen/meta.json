@@ -1,0 +1,21 @@
+{
+    "name": "prismatic-spirit-does-not-enable-the-basic-element-that-was-not-chosen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:49:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "W3m0tnw4sr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "W3m0tnw4sr"
+        ],
+        "mechanics": [
+            "element-grant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "choose two basic elements"
+        ]
+    }
+}

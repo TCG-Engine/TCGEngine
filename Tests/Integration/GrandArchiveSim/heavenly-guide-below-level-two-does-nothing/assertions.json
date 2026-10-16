@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "DpHDGaX2Pn",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Level 1 is below [Level 2+]: no level up"
+    }
+]

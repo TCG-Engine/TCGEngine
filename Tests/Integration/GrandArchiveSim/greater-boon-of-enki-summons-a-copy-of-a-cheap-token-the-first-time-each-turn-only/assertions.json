@@ -1,0 +1,20 @@
+[
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Champion, Enki and three Powercells: the two summoned plus one copy"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 7,
+        "semantic": true,
+        "label": "The second time this turn there is no copy: two more Powercells"
+    }
+]

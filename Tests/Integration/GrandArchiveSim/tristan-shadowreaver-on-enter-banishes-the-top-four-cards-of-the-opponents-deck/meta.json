@@ -1,0 +1,22 @@
+{
+    "name": "tristan-shadowreaver-on-enter-banishes-the-top-four-cards-of-the-opponents-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:53:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4upufooz13"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4upufooz13"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "face-down"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Banish the top four cards of target opponent\u2019s deck face down."
+        ]
+    }
+}

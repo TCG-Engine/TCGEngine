@@ -1,0 +1,21 @@
+{
+    "name": "tristan-shadowreaver-may-play-a-card-it-banished-from-the-opponents-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:53:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4upufooz13"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4upufooz13"
+        ],
+        "mechanics": [
+            "play-from-banish",
+            "ignore-element"
+        ],
+        "rulesClauses": [
+            "As long as they\u2019re banished, you may play those cards, ignoring their elemental requirements."
+        ]
+    }
+}

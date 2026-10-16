@@ -1,0 +1,20 @@
+[
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "theirBanish",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Four of the opponent's cards are banished"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "theirBanish",
+        "cardID": "aWjXOw4mVK",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The top card of the opponent's deck is among them"
+    }
+]

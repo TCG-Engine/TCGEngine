@@ -1,0 +1,11 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "TJTeWcZnsQ",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The champion levelled up into Lorraine, Blademaster"
+    }
+]

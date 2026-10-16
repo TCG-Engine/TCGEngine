@@ -1,0 +1,20 @@
+[
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "Six minus one for the Spirit of Wind in the lineage"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Eight in hand - the boon - five paid, nothing drawn"
+    }
+]

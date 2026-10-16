@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-nuwa-activating-a-craft-card-gives-a-weapon-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:38:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CW73nq8jCR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CW73nq8jCR"
+        ],
+        "mechanics": [
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Craft card, target weapon gets +1[POWER] until end of turn."
+        ]
+    }
+}

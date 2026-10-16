@@ -1,0 +1,20 @@
+{
+    "name": "auspicious-feast-each-player-recovers-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k0sln8vnuo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k0sln8vnuo"
+        ],
+        "mechanics": [
+            "recover"
+        ],
+        "rulesClauses": [
+            "Each player **recovers 4**."
+        ]
+    }
+}

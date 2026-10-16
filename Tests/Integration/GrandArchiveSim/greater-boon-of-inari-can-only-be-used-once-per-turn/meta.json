@@ -1,0 +1,21 @@
+{
+    "name": "greater-boon-of-inari-can-only-be-used-once-per-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:44:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ozltjoTDQe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ozltjoTDQe"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "once-per-turn"
+        ],
+        "rulesClauses": [
+            "Activate this ability only at slow speed and only once per turn."
+        ]
+    }
+}

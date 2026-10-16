@@ -3480,13 +3480,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(!$ignoreCost && function_exists('GenericGraveyardBanishCostSpec') && GenericGraveyardBanishCostSpec($obj->CardID) !== null) {
         $banishSpec = GenericGraveyardBanishCostSpec($obj->CardID);
         $banishCandidates = GenericGraveyardBanishCandidates($banishSpec);
+        $banishZoneLabel = ($banishSpec["zone"] ?? "myGraveyard") === "myMaterial" ? "material deck" : "graveyard";
         if(count($banishCandidates) < $banishSpec["count"]) {
-            SetFlashMessage(CardName($obj->CardID) . " requires " . $banishSpec["count"] . " " . (!empty($banishSpec["floating"]) ? "floating memory" : strtolower(implode("/", $banishSpec["elements"])) . " element") . " cards in your graveyard to banish.");
+            SetFlashMessage(CardName($obj->CardID) . " requires " . $banishSpec["count"] . " " . (!empty($banishSpec["floating"]) ? "floating memory" : strtolower(implode("/", $banishSpec["elements"])) . " element") . " cards in your " . $banishZoneLabel . " to banish.");
             return;
         }
         $hasGenericGraveyardBanishCost = true;
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $banishCandidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $banishCandidates), 100, tooltip:"Banish_a_card_from_your_" . str_replace(" ", "_", $banishZoneLabel));
         DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $reserveCost . "|" . $obj->CardID . "|" . $banishSpec["count"], 100);
     }
 
@@ -3986,13 +3987,15 @@ $customDQHandlers["GenericGraveyardBanishCost"] = function($player, $parts, $las
     if(!in_array($lastDecision, $candidates, true)) return;
 
     $banishedFloating = !empty($spec["floating"]);
+    $banishedObjBefore = GetZoneObject($lastDecision);
+    if(!empty($spec["storeElementAs"]) && $banishedObjBefore !== null) DecisionQueueController::StoreVariable($spec["storeElementAs"], CardElement($banishedObjBefore->CardID));
     MZMove($player, $lastDecision, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
     if($banishedFloating) NicoOnFloatingMemoryBanished($player);
     --$remaining;
     if($remaining > 0) {
         $candidates = GenericGraveyardBanishCandidates($spec);
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_" . (($spec["zone"] ?? "myGraveyard") === "myMaterial" ? "material_deck" : "graveyard"));
         DecisionQueueController::AddDecision($player, "CUSTOM", "GenericGraveyardBanishCost|" . $baseReserve . "|" . $cardID . "|" . $remaining, 100);
         return;
     }
@@ -4040,13 +4043,15 @@ function GenericGraveyardBanishCostSpec($cardID) {
     switch($cardID) {
         case "bmoqk2c7wk": return ["count" => 3, "elements" => ["FIRE"]];
         case "jlgx72rfgv": return ["count" => 2, "elements" => [], "floating" => true];
+        // Dusklight Communion: an astra or umbra element card from the MATERIAL DECK (its element decides the On Enter).
+        case "5upufyoz23": return ["count" => 1, "elements" => ["ASTRA", "UMBRA"], "zone" => "myMaterial", "storeElementAs" => "dusklightBanishedElement"];
     }
     return null;
 }
 
 function GenericGraveyardBanishCandidates($spec) {
     if(!empty($spec["floating"])) return ZoneSearch("myGraveyard", floatingMemoryOnly: true);
-    return ZoneSearch("myGraveyard", cardElements: $spec["elements"]);
+    return ZoneSearch($spec["zone"] ?? "myGraveyard", cardElements: $spec["elements"]);
 }
 
 $customDQHandlers["ConvergeReflectionsCost"] = function($player, $parts, $lastDecision) {
@@ -6358,6 +6363,9 @@ function GAFieldAbilityCostTable() {
         "wAq6lxxwBA:0" => ['banish' => true], // Discharger
         "AXE6sCzjZU:0" => ['banish' => true], // Legendary Saddle
         "cxyky280mt:0" => ['banish' => true], // Quicksilver Grail ("Banish CARDNAME:" is the cost)
+        "ozltjoTDQe:0" => ['removeChampionCounter' => 'preparation', 'noAutoRest' => true], // Greater Boon of Inari: "Remove a preparation counter from your champion:"
+        "MzGWQK0E2o:0" => ['reserve' => 3, 'noAutoRest' => true], // Greater Boon of Detachment
+        "j9s7xQdpf1:0" => ['rest' => true], // Gate of Alterity
         "AOFRjoIHVe:0" => ['reserve' => 3], // Lesser Boon of Revelry
         "V8aPGgLyh5:0" => ['reserve' => 3], // Lesser Boon of Rakko (twice; its prereq counts the uses)
         "fJJBJ9M4c4:0" => ['reserve' => 3], // Lesser Boon of Rosen (once; the override in GeneratedAbilityOverrides.php counts the use)
@@ -6473,6 +6481,10 @@ function GAPayFieldAbilityCost($player, $mzCard, $cardID, $abilityIndex, $spec) 
         DecisionQueueController::CleanupRemovedCards();
     }
     foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) RemoveCounters($player, $mzCard, $counterName, $counterAmount);
+    if(!empty($spec['removeChampionCounter'])) {
+        $costChampMZ = FindChampionMZ($player);
+        if($costChampMZ !== null) RemoveCounters($player, $costChampMZ, $spec['removeChampionCounter'], 1);
+    }
     $reserve = GAFieldAbilityReserveAmount($player, $mzCard, $spec);
     for($ri = 0; $ri < $reserve; ++$ri) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     if(!empty($spec['banishGraveyard'])) {
@@ -6513,6 +6525,11 @@ function GAInstallFieldAbilityCostPrereqs(array &$prereqTable) {
             if(!empty($spec['bonus']) && !GAFieldAbilityBonusActive($player, $spec['bonus'], $cardID)) return false;
             foreach(($spec['removeSelfCounters'] ?? []) as $counterName => $counterAmount) {
                 if(GetCounterCount($obj, $counterName) < $counterAmount) return false;
+            }
+            if(!empty($spec['removeChampionCounter'])) {
+                $costChampMZ = FindChampionMZ($player);
+                $costChamp = $costChampMZ === null ? null : GetZoneObject($costChampMZ);
+                if($costChamp === null || GetCounterCount($costChamp, $spec['removeChampionCounter']) < 1) return false;
             }
             $reserve = GAFieldAbilityReserveAmount($player, $mzID, $spec);
             if($reserve > 0 && CountAvailableReservePayments($player) < $reserve) return false;
@@ -6574,6 +6591,9 @@ function GAActivateAbilityCountOverrides() {
         "iqcknwa2vl" => ["Load"], // Frozen Quill
         "5LoOprBJay" => ["Level swap"], // Discordia, Harp of Malice
         "FQigf17dCr" => ["Buff"], // Grave Gateau
+        "ozltjoTDQe" => ["Agility"], // Greater Boon of Inari
+        "MzGWQK0E2o" => ["Power"], // Greater Boon of Detachment
+        "j9s7xQdpf1" => ["Lineage"], // Gate of Alterity
     ];
 }
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
@@ -7638,6 +7658,23 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                         tooltip:"Banish_this_card_via_Fervent_Lancer?");
                     DecisionQueueController::AddDecision($player, "CUSTOM", "FerventLancerBanish", 1);
+                }
+                break;
+            case "Klb4tguLek": // Greater Boon of Luxera: the next time you activate a card with the chosen name this game, draw two cards and recover 3
+                if(!HasNoAbilities($field[$fi]) && is_array($field[$fi]->Counters) && !empty($field[$fi]->Counters['luxeraName']) && empty($field[$fi]->Counters['luxeraUsed'])
+                    && NormalizeNamedCardString($field[$fi]->Counters['luxeraName']) === NormalizeNamedCardString(CardName($obj->CardID))) {
+                    $field[$fi]->Counters['luxeraUsed'] = 1;
+                    Draw($player, 2);
+                    RecoverChampion($player, 3);
+                }
+                break;
+            case "CW73nq8jCR": // Lesser Boon of Nuwa: whenever you activate a Craft card, target weapon gets +1 POWER until end of turn
+                if(PropertyContains($subtypes, "CRAFT") && !HasNoAbilities($field[$fi])) {
+                    $weapons = array_merge(ZoneSearch("myField", ["WEAPON"]), ZoneSearch("theirField", ["WEAPON"]));
+                    if(!empty($weapons)) {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $weapons), 1, tooltip:"Lesser_Boon_of_Nuwa:_target_weapon_gets_+1_POWER");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "NuwaWeaponPower", 1);
+                    }
                 }
                 break;
             case "r44lyrzo6o": // Sword Saint's Vow: [CB] whenever you activate a Craft action, add 2 durability
@@ -10637,6 +10674,10 @@ function OnEnter($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null || $obj->removed) return;
     $copiedCardID = $obj->CardID === "MyUTeqUJ0H" ? GetTomeCopiedCardID($obj) : "";
+    // Greater Boon of Dux: with two or more training counters, allies you control have "On Enter: This ally becomes fostered."
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && !HasNoAbilities($obj) && GreaterBoonOfDuxEmpowered($obj->Controller ?? $player)) {
+        BecomeFostered($obj->Controller ?? $player, $mzID);
+    }
     if(QueueEnterTriggeredAbility($player, $mzID, $copiedCardID)) {
         DispatchMacroListeners("Enter", $player, ["mzID" => $mzID], ["Field"]);
     }
@@ -10670,6 +10711,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         DecisionQueueController::AddDecision($tonorisChoicePlayer, "YESNO", "-", 1,
             tooltip:"Replace_this_token_with_Aurousteel_Greatsword?");
         DecisionQueueController::AddDecision($tonorisChoicePlayer, "CUSTOM", "TonorisCreationsWillReplace|" . $added->GetMzID(), 1);
+    }
+
+    // Greater Boon of Enki (fZZqzAXNAc): "Whenever you summon one or more tokens with reserve cost 1 or less for the first time each turn, summon a copy of one of those tokens."
+    // (Tokens arrive one at a time here, so the first qualifying token of the turn is the one copied.)
+    if(IsToken($added->CardID) && intval(CardCost_reserve($added->CardID)) <= 1 && GlobalEffectCount($player, "ENKI_TRIGGERED") <= 0) {
+        foreach($field as $enkiObj) {
+            if(!$enkiObj->removed && $enkiObj->CardID === "fZZqzAXNAc" && !HasNoAbilities($enkiObj)) {
+                AddGlobalEffects($player, "ENKI_TRIGGERED");
+                MZAddZone($player, "myField", $added->CardID);
+                break;
+            }
+        }
     }
 
     // Full Bloom: whenever an opponent summons a Flowerbud token, deal 2 to each champion
@@ -12824,6 +12877,8 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
         $banishObj->AddTurnEffects("SUPPRESSED");
         $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
         $_ti["ObjectSuppressedThisTurn"] = true;
+        if(!isset($_ti["SuppressCount"]) || !is_array($_ti["SuppressCount"])) $_ti["SuppressCount"] = [];
+        $_ti["SuppressCount"][$player] = intval($_ti["SuppressCount"][$player] ?? 0) + 1; // Greater Boon of Astraeus counts the times each player suppressed an object this turn
         SetMacroTurnIndex(json_encode($_ti));
     }
     // Fleetfoot Filly (1hrgshgthu): whenever a player suppresses an object, put a buff counter on Fleetfoot Filly
@@ -13778,6 +13833,7 @@ function ObjectCurrentPower($obj) {
         }
     }
     if(GAKanaloaBuffsAlly($obj)) ++$power;
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && GreaterBoonOfDuxEmpowered($obj->Controller ?? 0)) ++$power; // Greater Boon of Dux
     foreach($obj->TurnEffects ?? [] as $effect) if($effect === "TRAINED_BIRDROID_POWER") ++$power;
     if($obj->CardID === "xdgpdcD33h" && PlayerLevel($obj->Controller) >= 1) {
         $powercells = ZoneSearch("myField", cardSubtypes:["POWERCELL"], forPlayer:$obj->Controller);
@@ -15313,6 +15369,15 @@ function ObjectCurrentPower($obj) {
                 break;
             case "XPl2UAO9se:POWER": // Mordred, Aurelian Regent: next attack this turn gets +3 POWER
                 $power += 3;
+                break;
+            case "MzGWQK0E2o_POWER": // Greater Boon of Detachment: target Ranger weapon +3 POWER
+                $power += 3;
+                break;
+            case "ozltjoTDQe_POWER": // Greater Boon of Inari: champion's next attack against a champion
+                $power += 2;
+                break;
+            case "CW73nq8jCR_POWER": // Lesser Boon of Nuwa: target weapon +1 POWER until end of turn
+                $power += 1;
                 break;
             case "dfchplzf6m_POWER": // Ingress of Sanguine Ire: +3 POWER on first attack
                 $power += 3;
@@ -22268,6 +22333,34 @@ function CryosalvoDealFromFractals($player, $targetMZ) {
     }
 }
 
+// Greater Boon of Isis (ZUXCYJVafM): "Spell cards you own on the effects stack have 'If this source would deal damage, it deals that much damage plus X instead, where X is LV divided by three, rounded down.'"
+function GreaterBoonOfIsisBonus($player) {
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "ZUXCYJVafM" || HasNoAbilities($fieldObj)) continue;
+        return intdiv(PlayerLevel($player), 3);
+    }
+    return 0;
+}
+
+// Greater Boon of Dux (VOgZPEyKt1): whenever an ally you control becomes fostered, put a training counter on it; at two or more, allies you control get +1 POWER and have "On Enter: This ally becomes fostered."
+function GreaterBoonOfDuxOnField($player) {
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "VOgZPEyKt1" && !HasNoAbilities($fieldObj)) return $fieldObj;
+    }
+    return null;
+}
+
+function GreaterBoonOfDuxEmpowered($player) {
+    $dux = GreaterBoonOfDuxOnField($player);
+    return $dux !== null && GetCounterCount($dux, "training") >= 2;
+}
+
+function GreaterBoonOfDuxOnFostered($player) {
+    $dux = GreaterBoonOfDuxOnField($player);
+    if($dux === null) return;
+    AddCounters($player, $dux->GetMzID(), "training", 1);
+}
+
 function CryosalvoFractalDamageBonus($player, $sourceCardID) {
     if(GlobalEffectCount($player, "NHTouMzz3o") <= 0 || $sourceCardID === null) return 0;
     return PropertyContains(CardSubtypes($sourceCardID), "FRACTAL") ? 1 : 0;
@@ -22749,6 +22842,13 @@ function GetPlayerEnabledElements($player) {
         if($boonObj->CardID === "9w0ejcyuvu") { $enabled["FIRE"] = true; $enabled["WATER"] = true; $enabled["WIND"] = true; }
     }
 
+    // Prismatic Spirit (W3m0tnw4sr): its chosen basic elements are an inherited effect of the champion (recorded on the champion by the On Enter).
+    foreach(GetField($player) as $prismaticObj) {
+        if($prismaticObj === null || $prismaticObj->removed || !is_array($prismaticObj->Counters) || empty($prismaticObj->Counters['prismaticElements'])) continue;
+        if(!PropertyContains(EffectiveCardType($prismaticObj), "CHAMPION")) continue;
+        foreach(explode(",", $prismaticObj->Counters['prismaticElements']) as $prismaticElement) if($prismaticElement !== "") $enabled[$prismaticElement] = true;
+    }
+
     // Imperial Seal (by8145w2u2): banish ability enables all basic elements until end of turn
     if(GlobalEffectCount($player, "by8145w2u2_FIRE") > 0) $enabled["FIRE"] = true;
     if(GlobalEffectCount($player, "by8145w2u2_WATER") > 0) $enabled["WATER"] = true;
@@ -22917,6 +23017,14 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
        && PropertyContains(CardSubtypes($cardID), "SLIME")
        && PropertyContains(CardType($cardID), "ALLY")
        && ChampionHasInLineage($player, "mdwbkuhtjm")) {
+        return true;
+    }
+
+    // Greater Boon of Dux (VOgZPEyKt1): ignore the elemental requirements of non-advanced element ally cards with foster you activate
+    if(PropertyContains(CardType($cardID), "ALLY")
+       && !IsAdvancedElementCard($cardID)
+       && preg_match('/\*\*Foster\*\*/i', strval(CardEffect($cardID)))
+       && GreaterBoonOfDuxOnField($player) !== null) {
         return true;
     }
 
@@ -24520,6 +24628,13 @@ function EffectiveCardClasses($obj) {
             if(!PropertyContains($classes, $grantedClass)) {
                 $classes = $classes === null || $classes === "" ? $grantedClass : $classes . "," . $grantedClass;
             }
+        }
+    }
+
+    // Gate of Alterity (j9s7xQdpf1): the chosen class is an inherited effect of the champion whose lineage the Gate sits in.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && is_array($obj->Counters) && !empty($obj->Counters['gateClasses'])) {
+        foreach(explode(",", $obj->Counters['gateClasses']) as $gateClass) {
+            if($gateClass !== "" && !PropertyContains($classes, $gateClass)) $classes = $classes === null || $classes === "" ? $gateClass : $classes . "," . $gateClass;
         }
     }
 
@@ -29242,6 +29357,17 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         foreach([1, 2] as $kanaloaSeat) {
             if(count(array_filter(GetGraveyard($kanaloaSeat), fn($g) => !$g->removed)) >= 8) $reserveCost = max(0, $reserveCost - 4);
         }
+    }
+
+    // Greater Boon of Astraeus (B9RzxSut57): "This boon costs X+Y less to bestow, where X is the amount of wind element boons in your pantheon, and Y is the amount of wind element cards in your champion's lineage."
+    if($cardID === "B9RzxSut57") {
+        $astraeusLess = 0;
+        foreach(GetField($player) as $pantheonObj) {
+            if($pantheonObj !== null && !$pantheonObj->removed && (PropertyContains(CardType($pantheonObj->CardID), "LESSER BOON") || PropertyContains(CardType($pantheonObj->CardID), "GREATER BOON"))
+                && PropertyContains(CardElement($pantheonObj->CardID), "WIND")) ++$astraeusLess;
+        }
+        foreach(GetChampionLineage($player) as $lineageCardID) if(PropertyContains(CardElement($lineageCardID), "WIND")) ++$astraeusLess;
+        $reserveCost = max(0, $reserveCost - $astraeusLess);
     }
 
     // Polkhawk, Bombastic Shot (ryvfq3huqj): "Ranger Reaction cards you activate cost 1 less to activate." Not in the generated modifiers; applied here for a Polkhawk champion on the field.

@@ -1,0 +1,21 @@
+{
+    "name": "without-greater-boon-of-dux-a-wind-foster-ally-cannot-be-activated-without-wind",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:40:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VOgZPEyKt1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VOgZPEyKt1"
+        ],
+        "mechanics": [
+            "element-requirement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Ignore the elemental requirements of non-advanced element ally cards with **foster** you activate."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "greater-boon-of-detachment-power-ability-is-refused-while-the-champion-is-not-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:46:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MzGWQK0E2o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MzGWQK0E2o"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only once during each of your turns, and only if your champion is **distant**."
+        ]
+    }
+}

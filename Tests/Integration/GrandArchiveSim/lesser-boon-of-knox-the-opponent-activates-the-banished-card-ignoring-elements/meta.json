@@ -1,0 +1,21 @@
+{
+    "name": "lesser-boon-of-knox-the-opponent-activates-the-banished-card-ignoring-elements",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:46:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WLPf8QTdsP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WLPf8QTdsP"
+        ],
+        "mechanics": [
+            "activate-from-banish",
+            "element-requirement"
+        ],
+        "rulesClauses": [
+            "As long as that card is banished, that opponent may look at it and activate it, ignoring its elemental requirements."
+        ]
+    }
+}

@@ -1,0 +1,15 @@
+[
+    {
+        "step": 6,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 4,
+        "semantic": true,
+        "label": "Contraband Revolver: 1 POWER plus 3"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

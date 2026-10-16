@@ -1,0 +1,21 @@
+{
+    "name": "greater-boon-of-astraeus-draws-nothing-when-no-object-was-suppressed-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:56:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "B9RzxSut57"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "B9RzxSut57"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, draw a card for each of up to two times you've **suppressed** an object this turn."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "greater-boon-of-astraeus-costs-one-less-per-wind-lineage-card-and-draws-for-suppresses-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:56:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "B9RzxSut57"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "B9RzxSut57"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "draw-discard",
+            "on-gain"
+        ],
+        "rulesClauses": [
+            "This boon costs **X**+**Y** less to bestow, where **X** is the amount of wind element boons in your pantheon, and **Y** is the amount of wind element cards in your champion\u2019s lineage.",
+            "As you gain this boon, draw a card for each of up to two times you've **suppressed** an object this turn."
+        ]
+    }
+}

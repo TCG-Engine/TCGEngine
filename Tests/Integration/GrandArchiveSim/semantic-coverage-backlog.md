@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **2454**
+Cards linked to an existing fixture: **2474**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **23**
+Implemented cards still needing semantic coverage: **3**
 
 ## Mechanic groups
 
@@ -26,29 +26,9 @@ Implemented cards still needing semantic coverage: **23**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Deflecting Edge (`g7uDOmUf2u`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter, Mordred Re:Collection, Aurelian Regent | — |
-| Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
-| Greater Boon of Enki (`fZZqzAXNAc`) | GREATER BOON | 1 | cost, draw-discard, token, trigger, condition | — | — |
-| Tristan, Shadowreaver (`4upufooz13`) | CHAMPION | 1 | targeting, draw-discard, zone-movement, trigger, condition | — | — |
-| Veiled Dash (`08kuz07nk4`) | ACTION | 1 | cost, targeting, damage, prevention, status | — | — |
-| Greater Boon of Horses (`asZfaFnTXs`) | GREATER BOON | 1 | cost, draw-discard, zone-movement, counter | — | — |
-| Greater Boon of Inari (`ozltjoTDQe`) | GREATER BOON | 1 | counter, combat, trigger, condition | — | — |
-| Lesser Boon of Nuwa (`CW73nq8jCR`) | LESSER BOON | 1 | targeting, zone-movement, trigger, condition | — | — |
 | Frostbitten Etui (`bdhjszsj2z`) | REGALIA,ITEM | 1 | targeting, zone-movement, trigger | — | — |
-| Greater Boon of Detachment (`MzGWQK0E2o`) | GREATER BOON | 1 | targeting, status, condition | — | — |
-| Greater Boon of Dux (`VOgZPEyKt1`) | GREATER BOON | 1 | counter, trigger, condition | — | — |
-| Greater Boon of Luxera (`Klb4tguLek`) | GREATER BOON | 1 | targeting, recover, draw-discard | — | — |
-| Legion's Wingspan (`iuixf9rdmu`) | REGALIA,WEAPON | 1 | targeting, combat, trigger | — | — |
 | Lorraine, Ascendant Wings (`81gvGHkuVb`) | CHAMPION | 1 | zone-movement, combat, condition | — | — |
-| Prismatic Spirit (`W3m0tnw4sr`) | CHAMPION | 1 | targeting, draw-discard, trigger | — | — |
-| Greater Boon of Astraeus (`B9RzxSut57`) | GREATER BOON | 1 | cost, draw-discard | — | — |
-| Greater Boon of Isis (`ZUXCYJVafM`) | GREATER BOON | 1 | damage, condition | — | — |
-| Heavenly Guide (`tkdky3sxao`) | ALLY | 1 | trigger, condition | — | — |
-| Lesser Boon of Knox (`WLPf8QTdsP`) | LESSER BOON | 1 | draw-discard, condition | — | — |
-| Stifling Aethercharge (`bYrLVjKSCL`) | ACTION | 1 | targeting, trigger | — | — |
-| Auspicious Feast (`k0sln8vnuo`) | ACTION | 1 | unclassified | — | — |
 | Duplicitous Replication (`owq8s5fefw`) | ACTION | 1 | token | — | — |
-| Gate of Alterity (`j9s7xQdpf1`) | REGALIA,ITEM | 1 | targeting | — | — |
 | Band of Burning Verdict (`7mmve2l328`) | REGALIA,ITEM | 3 | targeting, draw-discard, status, combat, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | band-of-burning-verdict-ability-1-pays-its-printed-cost, band-of-burning-verdict-enter-draw, band-of-burning-verdict-play-without-tamer-bonus, band-of-burning-verdict-rest-buff-requires-activation |
 | Fatestone of Heaven (`al6pqkmgmz`) | ITEM | 3 | cost, targeting, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | fatestone-of-heaven-enter-destroy-cheap-object, fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger |
 | Hemoflux Drain (`zHhOcG9MfK`) | ACTION | 3 | cost, targeting, damage, recover, condition | Dante, Hemomancer Starter Deck | hemoflux-drain-damage20-control, hemoflux-drain-damage20-discount |
@@ -58,6 +38,7 @@ Implemented cards still needing semantic coverage: **23**
 | Arrest Lightning (`9e3B8EHQak`) | ACTION | 2 | targeting, damage, prevention, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | arrest-lightning-graveyard-ability-refused-without-matching-element, arrest-lightning-graveyard-static-counter |
 | Cleric Robes (`pv4n1n3gyg`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter, Diao Chan Re:Collection, Idyll Corsage | cleric-robes-class-bonus-draw, cleric-robes-no-class-bonus |
 | Converge Reflections (`TBVLLRPiwP`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, token, condition | Merlin Re:Collection, Brilliant Vestige | converge-reflections-destroy-distortion-draw, converge-reflections-refuses-memory-only-item-destroys-low-reserve-item |
+| Deflecting Edge (`g7uDOmUf2u`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter, Mordred Re:Collection, Aurelian Regent | deflecting-edge-sword-discount |
 | Expel the Departed (`9wxcgpy069`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, condition | Guo Jia Re:Collection, Heaven's Favored | expel-the-departed-destroy-phantasia-draw |
 | Fatestone of Unrelenting (`o37qtuvlxa`) | ITEM | 2 | targeting, damage, zone-movement, status, trigger | Guo Jia Re:Collection, Heaven's Favored | fatestone-of-unrelenting-enter-damage-1 |
 | Flash Grenade (`isxy5lh23q`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, zone-movement, status, trigger, condition | Diana Starter Deck | flash-grenade-class-bonus-draw, flash-grenade-no-class-bonus |
@@ -76,3 +57,22 @@ Implemented cards still needing semantic coverage: **23**
 | Vernal Talisman (`dW5uyngvJW`) | REGALIA,ITEM | 2 | cost, recover, draw-discard, zone-movement, trigger | Kongming Pantheon Starter | vernal-talisman-preserve-draw |
 | Blossoming Denial (`1nnpbddblx`) | ACTION | 2 | cost, targeting, recover, condition | Diao Chan Re:Collection, Idyll Corsage | blossoming-denial-cost-reduction-token-negate |
 | Corhazi Arsonist (`0ejcyuvuxn`) | ALLY | 2 | zone-movement, counter, status, condition | Zander Pantheon Starter | corhazi-arsonist-hit-unit-that-dies-is-banished-instead, corhazi-arsonist-prepare-stealth |
+| Eminence in Fury (`suk5c6SJls`) | ACTION | 2 | cost, damage, zone-movement, condition | Dante, Hemomancer Starter Deck | eminence-in-fury-dante-bonus, eminence-in-fury-no-elysian-death |
+| Enrage (`wcfvrfw35s`) | ACTION | 2 | cost, damage, combat, condition | Jin Starter Deck | enrage |
+| Entrancing Filigree (`vrf9n24b5a`) | REGALIA,ITEM | 2 | targeting, zone-movement, status, trigger | Kongming Starter Deck | entrancing-filigree-enter-banish |
+| Fatestone of Revelations (`xd4kv0akqr`) | ITEM | 2 | cost, draw-discard, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | fatestone-of-revelations-enter-reveal-two-draw |
+| Flamewreath Call (`c8wwslgbvr`) | ACTION | 2 | cost, targeting, damage, condition | Guo Jia Re:Collection, Heaven's Favored | flamewreath-call, flamewreath-call-reject-champion-target |
+| Frostlorn Caress (`4tqbok1g9w`) | ACTION | 2 | cost, targeting, counter, condition | Diao Chan Re:Collection, Idyll Corsage | frostlorn-caress-four-wither-counters |
+| Frostnip Pirouette (`x79cuuw5vo`) | ACTION | 2 | cost, targeting, counter, condition | Diao Chan Re:Collection, Idyll Corsage | frostnip-pirouette-selective-wither-counters |
+| Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | gearstride-gloves-banish-requires-level-two, gearstride-gloves-materialize-prep-banish-reaction-discount |
+| Guo Jia, Heaven's Favored (`enxi6tshtu`) | CHAMPION | 2 | cost, recover, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | guo-jia-heavens-favored-enter-recover-3 |
+| Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | leporine-masque-costs-one-less-per-omen |
+| Light the Hunt (`edjgscy50x`) | ACTION | 2 | targeting, zone-movement, counter, trigger | Guo Jia Re:Collection, Heaven's Favored | light-the-hunt-buff-two-counters |
+| Luminous Surge (`KOqdA7G6by`) | ACTION | 2 | targeting, recover, combat, trigger | Zander Pantheon Starter | luminous-surge-buff-recover |
+| Meltdown (`ht2tsn0ye3`) | ACTION | 2 | cost, targeting, zone-movement, condition | Zander Pantheon Starter | meltdown-level2-destroy-item |
+| Mend Flesh (`ju2d98w3j0`) | ACTION | 2 | cost, damage, recover, condition | Jin Starter Deck | mend-flesh-damage25-recover |
+| Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | nocturnes-oblivion-destroys-a-non-champion-object-and-banishes-itself |
+| Penetrator Round (`97n2jnltv5`) | REGALIA,ITEM | 2 | targeting, damage, combat, trigger | Diana Starter Deck | penetrator-round-load-gun |
+| Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | potion-infusion-animate-turn-ally |
+| Prismspire Scepter (`mgesApvmwS`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, trigger | Merlin Re:Collection, Brilliant Vestige | prismspire-scepter-merlin-bonus-enter-sheen-opponent |
+| Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | protect-her-at-all-costs-merlin-bonus-summon-token |

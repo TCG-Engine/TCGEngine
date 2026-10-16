@@ -1,0 +1,15 @@
+[
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 1,
+        "semantic": true,
+        "label": "Dungeon Guide is not a Craft card: no bonus"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
