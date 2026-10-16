@@ -80,3 +80,43 @@ gaScenario('ardus-liquidation-deals-seven-damage-twice')
     ->tested('Ardus, Floodborne Deacon')
     ->covers(['static', 'deluge', 'damage'], GA_ARDUS_TEXT)
     ->register();
+
+// Kill each ally through normal spell resolution; its own water card counts toward deluge.
+foreach ([
+    ['dynasty-chancellor', 'Dynasty Chancellor', 2, 0, 7],
+    ['drowned-exorcist', 'Drowned Exorcist', 7, 3, 9],
+    ['mistsworn-magister', 'Mistsworn Magister', 2, 2, null],
+] as [$slug, $ally, $water, $damage, $hand]) {
+    $s = gaScenario('ardus-doubles-' . $slug . '-on-death')
+        ->standardDeck('Aenean Spark Alight')->readyFor('Aenean Spark Alight')
+        ->seed('myField', 'Ardus, Floodborne Deacon');
+    for ($i = 0; $i < $water; ++$i) $s->seed('myGraveyard', 'Giant Tortoise');
+    $s->seed('myField', $ally, properties: ['Damage' => $damage])
+      ->seed('myHand', 'Aenean Spark Alight')
+      ->castSpell('Aenean Spark Alight', pay: 2, window: 'both', target: 'myField-2')
+      ->expectCardExists('myGraveyard', $ally, 'The ally died through spell damage');
+    if ($hand !== null) $s->expectZoneCount('myHand', $hand, 1, 'Both deluge On Death draws resolved');
+    else $s->expectProperty('p1Field-0', 'Counters', '{"enlighten":4}', 'Two instances put four enlighten counters on the champion');
+    $s->expectDqEmpty()->tested('Ardus, Floodborne Deacon')->covers(['deluge', 'on-death'], GA_ARDUS_TEXT)->register();
+}
+
+foreach ([1, 2] as $weapons) {
+    $s = gaScenario('ardus-brookside-scout-loads-twice-with-' . $weapons . '-weapons')
+        ->deckTemplate('quiet', 'Dungeon Guide')->readyFor('Brookside Scout')
+        ->seed('myField', 'Ardus, Floodborne Deacon')
+        ->seed('myField', "Seeker's Aetherwing");
+    if ($weapons === 2) $s->seed('myField', "Legion's Wingspan");
+    $s->seed('myGraveyard', 'Giant Tortoise')->seed('myGraveyard', 'Giant Tortoise')->seed('myGraveyard', 'Giant Tortoise')
+      ->seed('myGraveyard', 'Stifling Aethercharge')->seed('myGraveyard', 'Recurring Aethercharge')
+      ->seed('myField', 'Brookside Scout')
+      ->answer(1, 'myGraveyard-6');
+    if ($weapons === 2) $s->answer(1, 'myField-2')
+        ->expectProperty('p1DecisionQueue-0', 'Param', 'myGraveyard-6', 'Only the remaining charge is offered after the weapon choice', step: 2)
+        ->expectProperty('p1DecisionQueue-2', 'Type', 'CUSTOM', 'The next instance waits for the weapon choice instead of offering another charge early', step: 1);
+    $s->answer(1, 'myGraveyard-6'); // the first load compacted the graveyard
+    if ($weapons === 2) $s->answer(1, 'myField-3');
+    $s->expectProperty('p1Field-2', 'Subcards', $weapons === 1 ? '["bYrLVjKSCL","MG8QoeZBXY"]' : '["bYrLVjKSCL"]', 'The first weapon received the selected charge(s)');
+    if ($weapons === 2) $s->expectProperty('p1Field-3', 'Subcards', '["MG8QoeZBXY"]', 'The second charge was selected after the first load completed');
+    $s->expectZoneCount('myGraveyard', 6)->expectDqEmpty()
+      ->tested('Ardus, Floodborne Deacon')->covers(['deluge', 'on-enter', 'load'], GA_ARDUS_TEXT)->register();
+}

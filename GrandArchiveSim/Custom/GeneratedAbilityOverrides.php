@@ -3535,10 +3535,21 @@ foreach([["9asvHr4bsz:0", "9asvHr4bsz:0:Enter-1", "enterAbilities"], ["b6BFtEqtQ
       $extra = intval(DecisionQueueController::GetVariable("delugeExtra:" . $handlerKey));
       if($extra > 0) {
         DecisionQueueController::StoreVariable("delugeExtra:" . $handlerKey, strval($extra - 1));
-        $start($player);
+        if($handlerKey === "9asvHr4bsz:0:Enter-1") {
+          // The generated handler may have queued a weapon choice and LoadAetherwingSelect.
+          // Finish that load before rebuilding the next instance's graveyard choices.
+          DecisionQueueController::AddDecision($player, "CUSTOM", "GABrooksideNextDeluge", 1, dontSkipOnPass: 1);
+        } else {
+          $start($player);
+        }
       }
     };
   })($customDQHandlers[$delugeHandlerKey], $delugeStart, $delugeHandlerKey);
+  if($delugeHandlerKey === "9asvHr4bsz:0:Enter-1") {
+    $customDQHandlers["GABrooksideNextDeluge"] = function($player, $parts, $lastDecision) use ($delugeStart) {
+      $delugeStart($player);
+    };
+  }
 }
 
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
