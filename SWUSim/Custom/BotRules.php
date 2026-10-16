@@ -578,7 +578,8 @@ function SWUBotRuleNeelCombo(array $ctx): ?array {
 const SWU_BOT_WALL_FIRST_ROUNDS = 4;
 function SWUBotRuleWallFirst(array $ctx): ?array {
     if (!SWUBotFeatureOn('wallfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
-    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || intval(GetTurnNumber()) > SWU_BOT_WALL_FIRST_ROUNDS) return null;
+    // PROPOSAL 'rewall' (2026-10-14): through round 6 — Ahsoka's base damage spiked in R4-R5, 81% of it with no Krennic Sentinel up.
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || intval(GetTurnNumber()) > (SWUBotProposalOn('rewall') ? 6 : SWU_BOT_WALL_FIRST_ROUNDS)) return null;
     $seat = intval($ctx['seat']);
     if (!SWUBotOpponentIsAggroLeader($seat)) return null;
     $guarded = [];
@@ -679,6 +680,49 @@ function SWUBotRuleKrennicRamp(array $ctx): ?array {
     // nothing to sacrifice, so readiness is read from the leader itself rather than from the action list.
     $ready = !isset($leader->Ready) || (strval($leader->Ready) !== 'false' && $leader->Ready !== false && strval($leader->Ready) !== '0');
     return $ready ? $best : null;
+}
+
+// PROPOSALS 'mercramp' + 'krennicmerc' (2026-10-14, helpers in BotCreditEngine.php) — the owner's two Expendable Mercenary lines, while the
+// Credit leader is on its front side, ready, and resources are few (SWU_BOT_FODDER_KEEP_UNTIL_RES):
+//   1. a Mercenary in play is cashed in now — the Action takes it (its sacrifice price is the lowest: it comes back as a resource);
+//   2. a castable Mercenary is played (Credits pay the shortfall — rule 'bank-credits');
+//   3. round 1 with a Mercenary in hand sets up round 2: 'krennicmerc' plays the discount engine (JTL_032, Mercenary then costs 3 from 3
+//      resources); 'mercramp' plays a weenie and sacrifices it (round 2 then has 3 resources + 1 Credit).
+function SWUBotRuleMercLine(array $ctx): ?array {
+    $ramp = SWUBotProposalOn('mercramp'); $kmerc = SWUBotProposalOn('krennicmerc');
+    if (!($ramp || $kmerc) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']);
+    $l = SWUBotCreditSacLeaderFront($seat);
+    if ($l === null || !_SWUBotLeaderReady($l) || SWUResourceCount($seat) >= SWU_BOT_FODDER_KEEP_UNTIL_RES) return null;
+    $name = $kmerc ? 'krennicmerc' : 'mercramp';
+    $ability = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability');
+    $units = array_filter(SWUBotUnits($seat), fn($v) => empty($v['isLeader']));
+    if ($ability !== null && array_filter($units, fn($v) => SWUBotIsResourceLoopUnit($v['cardID']))) { _SWUBotFired("$name-sac", $seat); return $ability; }
+    $playOf = function (callable $want) use ($ctx, $seat): ?array {
+        $best = null; $bestCost = PHP_INT_MAX;
+        foreach ($ctx['actions'] as $a) {
+            if (SWUBotActionKind($a) !== 'play') continue;
+            $o = _SWUBotHandObject($seat, $a);
+            $cid = $o === null ? '' : strval($o->CardID ?? '');
+            if ($cid === '' || !$want($cid)) continue;
+            $c = intval(CardCost($cid)) - (SWUBotIsCreditFodder($cid) ? 1 : 0);   // fodder first among equals
+            if ($c < $bestCost) { $bestCost = $c; $best = $a; }
+        }
+        return $best;
+    };
+    if (($p = $playOf('SWUBotIsResourceLoopUnit')) !== null) { _SWUBotFired("$name-play", $seat); return $p; }
+    if (intval(GetTurnNumber()) !== 1) return null;
+    $mercInHand = false;
+    foreach (GetHand($seat) as $o) if ($o !== null && empty($o->removed) && SWUBotIsResourceLoopUnit(strval($o->CardID ?? ''))) { $mercInHand = true; break; }
+    if (!$mercInHand) return null;
+    if ($kmerc) {
+        if (array_filter($units, fn($v) => SWUBotIsDiscountEngine($v['cardID']))) return null;
+        if (($p = $playOf('SWUBotIsDiscountEngine')) !== null) { _SWUBotFired('krennicmerc-engine', $seat); return $p; }
+        return null;
+    }
+    if ($ability !== null && array_filter($units, fn($v) => SWUBotIsWeenie($v['cardID']))) { _SWUBotFired('mercramp-r1sac', $seat); return $ability; }
+    if (($p = $playOf('SWUBotIsWeenie')) !== null) { _SWUBotFired('mercramp-weenie', $seat); return $p; }
+    return null;
 }
 
 // PROPOSAL 'krennicplan' (default OFF) — owner rulings K1-K3, 2026-09-22 (bot-sweeps/2026-09-22_krennic_rulings.md),
@@ -1297,6 +1341,7 @@ function SWUBotRulesAfterFilter(): array {
         'initiative-for-wipe'      => 'SWUBotRuleInitiativeForWipe',     // features 'wipeinit' + 'wipedraw' (p36)
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
+        'merc-line'                => 'SWUBotRuleMercLine',              // proposals 'mercramp' + 'krennicmerc'
         'wall-first'               => 'SWUBotRuleWallFirst',             // feature 'wallfirst' (p39)
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
         'mg-sentinel'              => 'SWUBotRuleMgSentinel',            // proposal 'mgsentinel' — blockerfirst, corrected

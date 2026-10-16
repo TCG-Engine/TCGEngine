@@ -202,6 +202,11 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
         }
         return null;
     };
+    // FEATURE 'selfburnguard' (p50, 2026-10-15, BotFallback.php): a play whose own-base damage defeats my base is never on the list.
+    if (function_exists('SWUBotSelfBurnFilter')) {
+        $sb = SWUBotSelfBurnFilter($ctx);
+        if (count($sb) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:self-burn'); $ctx['actions'] = $sb; }
+    }
     $all = $ctx['actions'];
     if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);

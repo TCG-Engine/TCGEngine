@@ -71,6 +71,19 @@ def make_jobs(batch, n, decks, rng):
     return jobs
 
 
+def make_learner_jobs(batch, n, learner, learner_style, opponents, styles, rng):
+    """One fixed LEARNER deck vs a WEIGHTED opponent pool (--learner / --opponents, 2026-10-14: Krennic Blue 30HP vs the
+    archetypes it under-performs against, weighted by how often it met them in the real ASH tournaments). The learner's
+    seat alternates game by game; the opponents play their own style's plain heuristic."""
+    names = list(opponents); weights = [opponents[d] for d in names]
+    jobs = []
+    for i in range(n):
+        od = rng.choices(names, weights=weights)[0]
+        jobs.append({'id': f'b{batch}-{i}', 'seed': f'b{batch}-{i}', 'learnerSeat': 1 if i % 2 == 0 else 2,
+                     'learnerStyle': learner_style, 'learnerDeck': learner, 'opponentDeck': od, 'opponentStyle': styles[od]})
+    return jobs
+
+
 def run_job(job, policy, epdir, eps, timeout):
     seat = job['learnerSeat']
     decks = (job['learnerDeck'], job['opponentDeck']) if seat == 1 else (job['opponentDeck'], job['learnerDeck'])
@@ -125,6 +138,10 @@ def main():
     ap.add_argument('--snapshot-every', type=int, default=20)
     ap.add_argument('--decks', default='', help='space-separated fixture names to train on (default: every fixture) — '
                                                 'leave some out to keep a held-out set for evaluation')
+    ap.add_argument('--learner', default='', help='ONE fixture that always plays the @rl chooser (needs --opponents); '
+                                                  'without it every deck takes turns as the learner')
+    ap.add_argument('--opponents', default='', help='with --learner: space-separated "fixture:weight" entries — the '
+                                                    'opponent pool, drawn by weight (leave decks out for a held-out set)')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     epdir = os.path.join(a.out, 'ep'); os.makedirs(epdir, exist_ok=True)
@@ -147,6 +164,24 @@ def main():
     unlabelled = sorted(d for d, s in decks.items() if s not in BUCKET)
     if unlabelled:
         sys.exit(f'[rl] fixture(s) with an unknown "# Style:": {" ".join(unlabelled)}')
+    opponents = {}
+    if a.learner or a.opponents:
+        if not (a.learner and a.opponents):
+            sys.exit('[rl] --learner and --opponents go together')
+        if a.decks.split():
+            sys.exit('[rl] --decks does not combine with --learner/--opponents')
+        for ent in a.opponents.split():
+            name, _, w = ent.partition(':')
+            try: opponents[name] = float(w) if w else 1.0
+            except ValueError: sys.exit(f'[rl] bad opponent weight: {ent}')
+        unknown = sorted(({a.learner} | set(opponents)) - set(decks))
+        if unknown:
+            sys.exit(f'[rl] unknown fixture(s): {" ".join(unknown)}')
+        if a.learner in opponents:
+            sys.exit('[rl] the learner cannot also be an opponent')
+        if any(w <= 0 for w in opponents.values()):
+            sys.exit('[rl] opponent weights must be positive')
+        print(f'[rl] learner {a.learner} ({decks[a.learner]}) vs {len(opponents)} weighted opponents', flush=True)
     deadline = time.time() + a.hours * 3600
     log = open(os.path.join(a.out, 'train.log'), 'a')
     print(f'[rl] {len(decks)} decks, resume at batch {state["batches"]}, {a.workers} workers, {a.batch} games/batch', flush=True)
@@ -162,7 +197,9 @@ def main():
                 continue
             frozen[s] = os.path.join(a.out, f'policy_frozen_{s}.json')
             write_json_atomic(frozen[s], {'version': 'swu-v2', 'ab': {s: state['ab'].get(s, {})}})
-        jobs = make_jobs(b, a.batch, decks, random.Random(f'rl-{b}'))
+        rng = random.Random(f'rl-{b}')
+        jobs = (make_learner_jobs(b, a.batch, a.learner, decks[a.learner], opponents, decks, rng) if a.learner
+                else make_jobs(b, a.batch, decks, rng))
         with ThreadPoolExecutor(max_workers=a.workers) as pool:
             results = list(pool.map(lambda j: run_job(j, frozen[j['learnerStyle']], epdir, a.epsilon, a.timeout), jobs))
         stats = merge_batch(state['table'], results)

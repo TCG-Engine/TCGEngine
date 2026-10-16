@@ -1,15 +1,14 @@
 {
- "frozen": "2026-10-14T09:43:37Z",
- "gitHead": "a75c498a",
+ "frozen": "2026-10-16T00:48:18Z",
+ "gitHead": "bcedf9a4",
  "treeDirty": true,
  "arm": "superset+seeds:tb+pairs:pairs.txt",
  "games": 19656,
  "failed": 0,
  "matches": 9865,
- "run": ".claude/tmp/ash-meta-runs/plain-a75c498a-20261014",
- "note": "ASH meta baseline v2.2 (owner 2026-10-14: 'clean up v2.1 and run a new ash meta baseline for v2.2'). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD a75c498a exactly (the amended 'bot lookahead bug' commit: the lookahead gWinner fix + the Kelleran Beq ASH_206 power-recursion guard); run 08:17-09:42 UTC. First baseline with NO failed games: 9,865/9,865 matches, 19,656 games. vs v2.1: 0 of 19,517 paired winners changed; the 7 games that crashed in v1/v2/v2.1 (PHP out of memory from two Kelleran Beqs recursing) now play. Fidelity: archetype Pearson +0.08, MAE 0.095; cells Pearson +0.29, MAE 0.143, favourite right 58%. treeDirty = only this baseline/ directory (v2.1's uncommitted note, then freeze.py's own writes).",
- "startedUtc": "2026-10-14T08:17:22Z",
- "finishedUtc": "2026-10-14T09:42:40Z",
- "version": "2.2",
- "gitHeadNote": "a75c498a was then AMENDED (2026-10-14) only to add this baseline/ directory; the amended commit's game code is identical, so if a75c498a is missing from history, the commit 'fix(SWUSim): bot lookahead bug' that holds this file is the run's code."
+ "run": ".claude/tmp/ash-meta-runs/plain-p50-20261015",
+ "note": "ASH meta baseline v2.3 (owner 2026-10-15: 'go' on shipping step 1 of the ASH lever hunt and freezing). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD bcedf9a4 PLUS the uncommitted bot tree: feature group p50 'bugfix1' (discloseanswer, selfburnguard, plotpick, hostileexhaust, nohostiletarget, downgradehost \u2014 ON) and default-OFF proposals (growkill, popfirst, rewall, mercramp, krennicmerc; group creditpop) that do not change play. Reproduces the @try-bugfix1 run 19,656/19,656 games. vs v2.2: winner changed in 752 games; softcontrol +66 (p .002), hardcontrol +52 (p .0005), softaggro -75 (p .0001), midrange -39 (p .02); archetype Pearson +0.08 -> +0.11, MAE 0.095 -> 0.094; style bias hyper +7.5, soft aggro +5.4, midrange -0.7, soft control -5.5, hard control -9.4. Report: .claude/tmp/ash-meta-runs/try-bugfix1-20261015/REPORT.md; lever hunt: .claude/tmp/ash-levers-20261015/LEVERS.md.",
+ "version": "2.3",
+ "matrixArtifact": "https://claude.ai/artifact/MrQcLgewzYmV57W7MiQxnk",
+ "gitHeadNote": "bcedf9a4 is the committed base; the run used the UNCOMMITTED bot tree on top of it (feature group p50 + default-off proposals, see note). Once the owner commits, the commit holding this baseline/ directory is the run code."
 }

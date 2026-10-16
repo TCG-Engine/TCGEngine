@@ -722,6 +722,17 @@ const SWU_BOT_PART48_FEATURES = ['sentinelclear'];
 //   strikeleader  — a deploy/Strike True strike takes a killable enemy leader unit (missed 3 of 14).
 //   foddermull    — a Credit-sac hand with no unit costing 2 or less is mulliganed (owner's keep: Krennic unit + a 1-drop; bot 0/120).
 const SWU_BOT_PART49_FEATURES = ['powerdamage', 'fodderkeep', 'mercres', 'mercplay', 'sachealwait', 'healfodder', 'condetbvalue', 'krennicengine', 'strikeleader', 'foddermull'];
+// Part 50 'bugfix1' (2026-10-15, owner: "go" on shipping step 1 of the ASH lever hunt, .claude/tmp/ash-levers-20261015/LEVERS.md). The bug class:
+// prompts the bot answered by the index tiebreak, and self-harm it never guarded. Measured as '@try-bugfix1' on the full ASH set vs baseline v2.2:
+// soft control +66 (p .002), hard control +52 (p .0005), soft aggro −75 (p .0001); archetype Pearson +0.08 → +0.11; every style but midrange
+// moved toward real. Helpers at the end of BotFallback.php; the self-burn filter is in BotHeuristic.php. '@no-p50' / '@no-bugfix1'.
+//   discloseanswer  — a free disclose is answered with the smallest covering set (Condemn's -6/-0 defence was declined 2,228/2,228).
+//   selfburnguard   — a card whose own-base damage defeats my base is never played (79 games lost to Operation Cinder / Rancor, 54 Dedra).
+//   plotpick        — the Plot pick by play value (the first candidate in 99% of 10,750 picks).
+//   hostileexhaust  — Shin Hati never exhausts my own unit; the front trigger waits for a ready enemy to exhaust.
+//   nohostiletarget — an unqualified hostile Action ("Give a unit -1/-1") waits while no enemy unit is on the board (Talzin self-hits 115).
+//   downgradehost   — the Armorer never plays a downgrade from its resources onto my own unit (Grav Charge 13/13 on its own).
+const SWU_BOT_PART50_FEATURES = ['discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -731,7 +742,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES);   // part 2, then 3-49
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -746,7 +757,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1161,6 +1172,17 @@ const SWU_BOT_PROPOSALS = [
     //                     Maul v3 single-rule screen 2026-10-13: −16 (24:40, p .06) — DROPPED by the owner.
     //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
     //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
+    // 2026-10-14 Krennic Blue vs Ahsoka Blue canary (10k games, Krennic 32.6%): LAW_037 Han Solo ("On Attack: Give an Experience token to
+    // this unit") survived the game in 50% of Krennic's losses vs 28% of its wins, and dealt 5.1 base damage a game in losses vs 2.9. A kill
+    // of a unit that GROWS on attack earns the base damage its next rounds would deal. _SWUBotGrowKillPremium (BotFallback.php).
+    'growkill',
+    // Same canary, owner 2026-10-14 ("let's test those 2 and then also test this line … build those 4 features and run 10k games each"):
+    'popfirst',      // the Credit Action's pick pops an enemy Shield first when it survives (BotCreditEngine.php)
+    'rewall',        // vs aggro: never sacrifice the last Sentinel in a contested arena; 'wall-first' through round 6
+    'mercramp',      // R1 weenie + sacrifice → R2 Expendable Mercenary on 3 resources + the Credit, sacrificed the same round (rule 'merc-line')
+    'krennicmerc',   // R1 Krennic unit (JTL_032) → R2 Mercenary at the discount, sacrificed the same round (rule 'merc-line')
+    // ('discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost' — the 2026-10-15 lever hunt's bug
+    // class — SHIPPED 2026-10-15 as feature group 'p50' / 'bugfix1'.)
 ];
 
 
@@ -1241,6 +1263,8 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
                                  // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
                                  // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+                                 // 2026-10-15 Krennic vs Ahsoka canary: the two winners together (popfirst +63, krennicmerc +94 alone).
+                                 'creditpop'   => ['popfirst', 'krennicmerc'],
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
