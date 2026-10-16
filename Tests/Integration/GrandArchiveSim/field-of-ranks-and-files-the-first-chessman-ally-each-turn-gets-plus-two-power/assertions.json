@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-2",
+        "value": 2,
+        "semantic": true,
+        "label": "Golden Pawn: 0 POWER plus 2 from the Field as the first Chessman to enter this turn"
+    }
+]

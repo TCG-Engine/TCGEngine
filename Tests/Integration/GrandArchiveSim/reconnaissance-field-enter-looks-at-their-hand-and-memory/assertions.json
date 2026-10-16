@@ -3,5 +3,14 @@
         "step": 4,
         "type": "decision_queue_empty",
         "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "2rz308kuz0",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The phantasia entered and its look at the opponent's hand and memory resolved with nothing left pending"
     }
 ]

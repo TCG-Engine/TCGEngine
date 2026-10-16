@@ -37,7 +37,9 @@ gaScenario('allen-beast-beckoner-enter-glimpses-three-and-takes-a-revealed-harmo
     ->deckTemplate('quiet', 'Dungeon Guide')
     ->deckTop(['Steady Verse', 'Dungeon Guide', 'Dungeon Guide'])
     ->seed('myField', 'Allen, Beast Beckoner')
+    ->rejects(1, 'Top=sbierp5k1v,em6eEh9q8y;Bottom=', 'Glimpse 3: arranging two cards is refused', 100)
     ->answer(1, 'Top=sbierp5k1v,em6eEh9q8y,em6eEh9q8y;Bottom=')
+    ->expectCardExists('myHand', 'Steady Verse', 'The revealed Melody (Steady Verse) was put into the hand')
     ->tested('Allen, Beast Beckoner')
     ->covers(['on-enter', 'glimpse', 'reveal'], '**On Enter: Glimpse 3**, then reveal the top card of your deck. If that card is a Harmony or Melody card, put it into your hand.')
     ->register();

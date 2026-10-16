@@ -1,7 +1,7 @@
 {
-    "name": "stellaria-shower-starcalled-enter-deals-damage-equal-to-the-phantasias-you-control",
+    "name": "stellaria-shower-entering-without-starcalling-deals-no-damage",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-10-14T08:29:07+00:00",
+    "createdAt": "2026-10-16T14:08:02+00:00",
     "createdBy": "batch-script",
     "testedCards": [
         "xmtjrvfpuc"

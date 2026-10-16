@@ -22,6 +22,7 @@ gaScenario('map-of-hidden-passage-enters-the-field-rested')
     ->readyFor('Map of Hidden Passage')
     ->seed('myField', 'Map of Hidden Passage')
     ->observe()
+    ->expectProperty('p1Field-1', 'Status', '1', 'The Map entered the field rested')
     ->tested('Map of Hidden Passage')
     ->covers(['status'], 'CARDNAME enters the field rested.')
     ->register();

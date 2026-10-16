@@ -6,5 +6,32 @@
         "cardID": "myHealth-0!CustomInput!Pass",
         "chkInput": [],
         "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myField-1@Activate-0@Choose_Libra_mode",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "The rested Heirloom lost its activated abilities: the window does not offer it"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myField-2@Activate-0@Choose_Libra_mode",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "2",
+        "chkInput": [],
+        "inputText": ""
     }
 ]

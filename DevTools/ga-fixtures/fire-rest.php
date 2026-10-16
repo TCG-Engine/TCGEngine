@@ -27,6 +27,8 @@ gaScenario('feu-awakening-interdiction-the-opponent-gets-no-opportunity-to-respo
     ->seed('myHand', 'Feu Awakening')
     ->play('Feu Awakening')
     ->expectDqEmpty()
+    ->expectCardExists('myHand', 'Flashfire Horse', 'The opponent still holds the card they could have responded with', 2)
+    ->expectCardExists('myGraveyard', 'Feu Awakening', 'Feu Awakening resolved without a response window')
     ->tested('Feu Awakening')
     ->covers(['keyword', 'interdiction'], '**Interdiction** *(As long as this card\'s activation is on the effects stack, players can\'t gain opportunity.)*')
     ->register();

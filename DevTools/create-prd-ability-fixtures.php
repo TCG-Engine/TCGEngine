@@ -1128,6 +1128,17 @@ $gaCapacitanceSetup = function(int $arcane) {
 // ---------------------------------------------------------------------------
 // Scenario-builder definitions (DevTools/ga-fixtures/): fluent descriptions in card names that expand to the same
 // array shape as the inline definitions above. They register into $fixtures; see Scenario.php.
+// Scenario-first rule: a fixture is described with the scenario builder (DevTools/ga-fixtures/*.php), not as an array in this file. The fixtures defined inline up to this point must all be
+// listed in ga-fixtures/inline-allowlist.txt (the pre-builder legacy); a new inline definition is refused. GA_PRINT_INLINE=1 prints the current inline slugs (to refresh the list when one is converted).
+$inlineSlugs = array_keys($fixtures);
+if (getenv('GA_PRINT_INLINE')) { echo implode("\n", $inlineSlugs) . "\n"; exit(0); }
+$inlineAllowFile = __DIR__ . '/ga-fixtures/inline-allowlist.txt';
+$inlineAllowed = is_file($inlineAllowFile) ? array_values(array_filter(array_map('trim', file($inlineAllowFile)), fn($line) => $line !== '' && $line[0] !== '#')) : [];
+$inlineViolations = array_values(array_diff($inlineSlugs, $inlineAllowed));
+if (!empty($inlineViolations)) {
+    fwrite(STDERR, "create-prd-ability-fixtures: inline fixture definitions are not allowed any more -- write these with the scenario builder (see DevTools/ga-fixtures/Scenario.php):\n  " . implode("\n  ", $inlineViolations) . "\n");
+    exit(1);
+}
 require_once __DIR__ . '/ga-fixtures/Scenario.php';
 foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $scenarioFile) {
     if (!in_array(basename($scenarioFile), ['Scenario.php', 'decks.php'], true)) require_once $scenarioFile;
@@ -1412,6 +1423,10 @@ foreach ($fixtures as $slug => $def) {
                 if ($result['success']) {
                     echo "  [WARN] Action $i was expected to be rejected but succeeded\n";
                     echo "  Action: " . json_encode($action) . "\n";
+                    // A scenario (strictActions) that expects a refusal the engine does not give has either a wrong step order or found an engine bug: the remaining actions used to be dropped silently.
+                    if (!empty($def['strictActions'])) {
+                        throw new \RuntimeException("Scenario action $i (" . json_encode($action['cardID'] ?? '') . ") was expected to be rejected but the engine accepted it -- " . ($action['label'] ?? 'no label'));
+                    }
                     break;
                 }
                 $replayedActions[] = $action;

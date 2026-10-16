@@ -86,8 +86,9 @@ gaScenario('field-of-ranks-and-files-the-first-chessman-ally-each-turn-gets-plus
     ->deckTemplate('quiet', 'Dungeon Guide')
     ->readyFor('Field of Ranks and Files')
     ->seed('myField', 'Field of Ranks and Files')
-    ->seed('myHand', 'Weiss Bishop')
-    ->play('Weiss Bishop')->pay(2)
+    ->seed('myHand', 'Golden Pawn')
+    ->play('Golden Pawn')->pay(2)
+    ->expectPower('p1Field-2', 2, 'Golden Pawn: 0 POWER plus 2 from the Field as the first Chessman to enter this turn')
     ->tested('Field of Ranks and Files')
     ->covers(['trigger', 'stat-change', 'chessman'], 'The first time a Chessman ally enters the field under your control during each of your turns, that ally gets +2 [POWER] until end of turn.')
     ->register();

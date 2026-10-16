@@ -252,6 +252,8 @@ gaScenario('merlin-surreal-figment-without-the-merlin-bonus-the-attack-puts-no-s
     ->reachTurnThree()
     ->attack('myField-1', 'theirField-0')
     ->expectDqEmpty()
+    ->expectDamage('p2Field-0', 2, 'The attack hit for 2')
+    ->expectProperty('p2Field-0', 'Counters', '{"_champDamageThisTurn":2}', 'No Merlin Bonus: no sheen counter was put on the target (only the damage marker)')
     ->tested('Merlin, Surreal Figment')
     ->covers(['merlin-bonus', 'condition'], '[Merlin Bonus] **On Attack: **Put a **sheen** counter on target unit.')
     ->register();

@@ -294,6 +294,7 @@ gaScenario('without-greater-boon-of-detachment-an-unloaded-gun-cannot-attack')
     ->reachTurnThree()
     ->action(1, 10002, 'myField-0!FSM!')
     ->expectDqEmpty()
+    ->expectDamage('theirField-0', 0, 'No attack could be declared: the opposing champion took no damage')
     ->tested('Contraband Revolver')
     ->covers(['weapon', 'condition'], '*(Gun — Must be loaded to use for an attack and can’t be used with an attack card.)*')
     ->register();
@@ -410,6 +411,7 @@ DECK
     )
     ->action(1, 10002, 'myHand-7!FSM!')
     ->expectDqEmpty()
+    ->expectCardExists('myHand', 'Dusklight Communion', 'The card stayed in hand: there is nothing to banish from the material deck')
     ->tested('Dusklight Communion')
     ->covers(['additional-cost', 'condition'], 'As an additional cost to activate this card, banish an astra or umbra element card from your material deck.')
     ->register();

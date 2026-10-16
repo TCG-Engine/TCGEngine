@@ -1,11 +1,20 @@
 [
     {
-        "step": 3,
+        "step": 4,
         "type": "card_exists",
         "zone": "myBanish",
         "cardID": "MRiM1fnOWC",
-        "viewerPlayerID": 1,
+        "viewerPlayerID": 2,
         "semantic": true,
         "label": "The awake Heirloom could still be used"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 2,
+        "value": 2,
+        "semantic": true,
+        "label": "The rested Heirloom was never used and is still there (champion and the rested Heirloom)"
     }
 ]

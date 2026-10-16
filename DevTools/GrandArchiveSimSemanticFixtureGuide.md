@@ -245,6 +245,27 @@ exemplars, whether `--list` groups by it). A printed clause that matches no row 
 
 `DevTools/ga-fixture-run.sh [--play] slug...` regenerates and runs scenarios (add `--play` for the autoplay prompt order and final state).
 
+## Guard rails: `DevTools/ga-verify-all.sh`
+
+`DevTools/ga-verify-all.sh` (add `--full` to also regenerate every scenario and compare it with HEAD) runs, and reports on, every stage:
+the integration suite, GABot self-play, `audit-ga-semantic-coverage.php --strict` (every semantic contract needs an observable, labelled
+assertion), `create-prd-ability-fixtures.php --audit-actions` (a saved fixture with fewer actions than its definition was silently
+truncated) and `check-ga-coverage-baseline.php` (the cards without a semantic fixture must be exactly those in
+`ga-fixtures/uncovered-baseline.txt`, explained in `UNFIXABLE.md`). The generator also refuses inline fixture definitions
+(`ga-fixtures/inline-allowlist.txt` is empty) and fails a scenario whose `rejects()` step the engine accepted.
+
+More pitfalls found while closing the last gaps:
+
+- A card seeded onto the field runs its On Enter at once, so its prompt is pending before the first step; an `endTurn()` or a click
+  before answering it is swallowed (Burnished Obelith, Nia and Merlin, Surreal Figment were dead tests for that reason).
+- `rejects()` expects the engine to refuse an *answer*. A click on a card (`!FSM!`, `!CustomInput!Activate:N`) that is not allowed is
+  refused with a flash message and counts as accepted: assert the unchanged state instead (a zone count, a status, a damage total).
+- Seeded hand cards sit at the *front* of the hand, ahead of the opening seven, and `pay()` takes `myHand-0` each time: a seeded card that
+  is not meant to pay gets used up unless junk is seeded in front of it. A fast or reaction card left in hand makes the engine open a
+  priority window after paying a spell, so pass it (`castSpell(..., window: 'both')`).
+- Delete exactly one slug directory before a re-run (`rm -rf Tests/Integration/GrandArchiveSim/<slug>`); a prefix glob also removes the
+  tracked fixtures of other cards with the same prefix.
+
 ## Finding the real prompt order
 
 Do not guess it. Write the scenario as just `->seed('myHand', 'Card')->play('Card')`, generate it with

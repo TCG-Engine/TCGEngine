@@ -43,6 +43,17 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
+        "cardID": "Top=em6eEh9q8y,px60u5n1do;Bottom=",
+        "chkInput": [],
+        "inputText": "",
+        "expectFailure": true,
+        "semantic": true,
+        "label": "Orbiting Cosmos: Reflect the Skies glimpses 2 + 1, so arranging only two cards is refused"
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
         "cardID": "Top=em6eEh9q8y,px60u5n1do,em6eEh9q8y;Bottom=",
         "chkInput": [],
         "inputText": ""

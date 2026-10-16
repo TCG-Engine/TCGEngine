@@ -3,5 +3,14 @@
         "step": 1,
         "type": "decision_queue_empty",
         "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "5upufyoz23",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The card stayed in hand: there is nothing to banish from the material deck"
     }
 ]

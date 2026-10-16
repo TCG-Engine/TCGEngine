@@ -252,7 +252,8 @@ gaScenario('conjuring-fluorescence-below-sheen-eight-is-not-fast')
     ->seed('myField', 'Dungeon Guide', player: 2)
     ->endTurn()->pass(1)->pass(1)
     ->attack('myField-1', 'theirField-0', player: 2)
-    ->rejects(1, 'myHand-7', 'Seven sheen counters: the spell is not offered at fast speed')
+    ->expectDamage('p1Field-0', 1, 'Seven sheen counters: no window offered the spell, so the attack landed for its 1 damage')
+    ->expectCardExists('myHand', 'Conjuring Fluorescence', 'The spell is still in hand')
     ->tested('Conjuring Fluorescence')
     ->covers(['merlin-bonus', 'sheen', 'fast-activation'], '[Merlin Bonus] [Sheen 8+] **Fast Activation** *(You may activate this card at fast speed.)*')
     ->register();
@@ -823,6 +824,7 @@ gaScenario('cheshire-cat-impish-grin-stealth-attacks-cannot-be-retaliated-agains
     ->reachTurnThree()
     ->attack('myField-1', 'theirField-0')
     ->expectDqEmpty()
+    ->expectDamage('p2Field-0', 1, 'The stealth attack hit the champion for 1 and no Retaliate was offered')
     ->tested('Cheshire Cat, Impish Grin')
     ->covers(['keyword', 'stealth'], '**Spellshroud**, **Stealth**')
     ->register();
