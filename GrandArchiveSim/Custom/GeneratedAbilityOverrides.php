@@ -3552,6 +3552,28 @@ foreach([["9asvHr4bsz:0", "9asvHr4bsz:0:Enter-1", "enterAbilities"], ["b6BFtEqtQ
   }
 }
 
+// These sacrifices are additional activation costs, paid by GenericSacrificeCost.
+// The generated bodies incorrectly paid them at resolution.
+$cardActivatedPrereqs["Pr48kXnasw:0"] = function($player, $mzID) {
+    return !empty(ZoneSearch("myField", ["ALLY"]));
+};
+$cardActivatedAbilities["Pr48kXnasw:0"] = function($player) {
+    Draw($player, 2);
+};
+$cardActivatedAbilities["7Pc1aiu3Bq:0"] = function($player) {
+    $targets = FilterSpellshroudTargets(array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"])));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Deal_damage_to_target_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "7Pc1aiu3Bq:0:CardActivated-2", 1);
+};
+$customDQHandlers["7Pc1aiu3Bq:0:CardActivated-2"] = function($player, $parts, $lastDecision) {
+    if(!AllowGeneratedTargetResolution($player, $lastDecision, "7Pc1aiu3Bq:0:CardActivated-2")) return;
+    ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+    $source = DecisionQueueController::GetVariable("mzID");
+    $durability = intval(DecisionQueueController::GetVariable("moltenImpactDurability"));
+    DealDamage($player, $source, $lastDecision, 2 + $durability);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

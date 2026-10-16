@@ -1,0 +1,21 @@
+{
+    "name": "cremation-ritual-refused-without-sacrifice-fodder",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:09:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Pr48kXnasw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Pr48kXnasw"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally."
+        ]
+    }
+}

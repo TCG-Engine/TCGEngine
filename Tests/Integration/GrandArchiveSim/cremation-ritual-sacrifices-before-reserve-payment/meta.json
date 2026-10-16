@@ -1,0 +1,21 @@
+{
+    "name": "cremation-ritual-sacrifices-before-reserve-payment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:10:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Pr48kXnasw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Pr48kXnasw"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally."
+        ]
+    }
+}

@@ -1,34 +1,24 @@
 # GrandArchiveSim fixture roadmap
 
-Status as of 2026-10-11, branch `codex/ga-fixture-scenario-builder` (rebased on `origin/main`, not pushed).
+Current status: 2026-10-16, branch `codex/ga-fixture-scenario-builder`. Push and PR remain held until roadmap closeout.
 
-## Where we are
+## Current status
 
-| Measure | Count |
-| --- | ---: |
-| Fixtures | 1,493 |
-| Written as scenarios (builder layer 1) | 1,261 |
-| Still inline in the generator | 4 families (3 loops + `fractal-of-insight-decline-no-glimpse`) |
-| Complete semantic contracts | 1,127 |
-| Incomplete semantic contracts | 162 |
-| Legacy (no semantic contract) | 204 |
-| Fixtures flagged by `lint-fixture-coverage.php` | 478 |
-| Implemented cards | 2,477 |
-| Cards with at least one fixture | 935 |
-| **Cards with no fixture** | **1,542** (all outside the 619 starter-deck cards) |
-| Cards with only a legacy fixture | 28 |
-| Known generator drift (pre-existing) | 24 fixtures drift, 3 fail generator verification |
+- Phases 0 and 1 are complete: scenarios are the authoring source, inline definitions are rejected, and the useful family helpers are in place.
+- Phase 2's main exit is met: zero incomplete semantic contracts. The latest full run after the Fire cost batch has 3,955 passing fixtures, 3,771 complete contracts and 184 legacy snapshots. GABot passes 10/10 and all local guards pass. Legacy assertion migration remains opportunistic quality work.
+- Phase 3's exit is met: 2,474 of 2,477 implemented cards have semantic coverage; the three exceptions are documented in `UNFIXABLE.md`. This is card coverage, not a claim that every rules clause is implemented.
+- Phase 4: scaffold and fixture runner exist. Promoting the owner's untracked smoke probe remains open; automatic printed-cost/vanilla families remain a proposal.
+- Phase 5: `ga-verify-all.sh` runs suite, GABot, strict contracts, action/inline guards and the three-card baseline. `--full` adds scenario regeneration. No CI service or quarterly execution schedule is configured.
+- Nico and Ardus are closed, including Brookside Scout's weapon-choice sequencing and all three Ardus On Death effects. Ardus follow-up committed as `5d9516770`.
+- Next engine work is tracked in the current-status section of `ENGINE-FINDINGS.md`. The dated sections below are history; their old counts and "open" notes are not the current backlog.
 
-Uncovered cards by type: ACTION 449, ALLY 420, ITEM 175, UNIQUE ALLY 101, ATTACK 69, CHAMPION 61,
-PHANTASIA 68, WEAPON 48, DOMAIN 39, LESSER BOON 26, other 21.
-Uncovered by number of abilities: 1 ability 1,372; 2 abilities 164; 3 abilities 6.
-Uncovered by mechanic tag (a card can have several): condition 836, trigger 511, targeting 478, cost 471,
-zone-movement 464, draw-discard 323, damage 306, status 300, combat 263, counter 232, token 94, recover 88.
+## Remaining closeout work
 
-What exists is **layer 1**: a fixture is described in card names and verbs (`Scenario.php`), the generator,
-runner and fixture files are unchanged, and `register()` plus `verify-ga-scenarios.php` prove equivalence.
-What does not exist is **layer 2**: shape-level helpers that make a whole family one or two lines.
-The damage fixtures use layer 1 only; each is still 8 to 12 lines.
+1. Fire cost batch complete: Molten Impact and Cremation Ritual now sacrifice during activation; Combustible Potion can Brew with two Herbs. Next: Powerforged Burst, Penumbral Waltz and Sparkling Adornment cost timing; investigate Horticounter.
+2. Continue the separate engine backlog only in explicit batches; card coverage alone does not close those limitations.
+3. Decide whether to promote the local probe and configure CI/scheduled drift checks. The local verification entry point already exists.
+4. Keep upgrading legacy snapshots and moving assertions into scenario definitions when touched.
+5. Final branch review and verification, then push/PR when authorized. Neither has happened.
 
 ## Principles
 
@@ -108,7 +98,7 @@ Exit (met 2026-10-11 for the shapes that proved regular): `castSpell` (407 scena
   fixtures with negative twins (`legacy-only-cards.php`).
 - **Mutation spot-check**. DONE 2026-10-11: `php DevTools/mutation-spot-check.php --sample=N --seed=S` changes one expected
   value in a sampled fixture's semantic assertions and requires the replay to fail. 72 sampled mutants, 72 killed.
-- **182 legacy fixtures (no semantic contract)**. OPEN. 178 are hand-maintained snapshot fixtures (generated from the
+- **Legacy fixtures (184 at the Ardus verification; originally 182)**. OPEN. 178 are hand-maintained snapshot fixtures (generated from the
   rich-board template or by the original author) with no notes and large boards, so each one needs its card read and its
   state interpreted by hand. The 11 still flagged by lint are among them. Their cards already have semantic coverage from
   other fixtures except where noted, so this is quality work rather than coverage. Recommendation: do it opportunistically

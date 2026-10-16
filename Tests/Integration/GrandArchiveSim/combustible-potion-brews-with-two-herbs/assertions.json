@@ -1,0 +1,43 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "GPsEkAfDjy",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The brewed potion enters"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Both Herbs were sacrificed"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Brew replaces the four reserve cost"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Brew draws two and discards one"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

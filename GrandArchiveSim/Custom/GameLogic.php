@@ -3956,6 +3956,10 @@ $customDQHandlers["GenericSacrificeCost"] = function($player, $parts, $lastDecis
     $candidates = GenericSacrificeCostCandidates($cardID);
     if($candidates === null || !in_array($lastDecision, $candidates, true)) return;
 
+    if($cardID === "7Pc1aiu3Bq") {
+        $weapon = GetZoneObject($lastDecision);
+        DecisionQueueController::StoreVariable("moltenImpactDurability", strval(GetCounterCount($weapon, "durability")));
+    }
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
     for($i = 0; $i < $baseReserve; ++$i) {
@@ -3971,6 +3975,8 @@ function GenericSacrificeCostCandidates($cardID) {
     switch($cardID) {
         case "pVHGi99Svy": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["FOOD"]);
         case "CHU96qWwaS": return ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+        case "7Pc1aiu3Bq": return ZoneSearch("myField", ["WEAPON"]); // Molten Impact
+        case "Pr48kXnasw": return ZoneSearch("myField", ["ALLY"]); // Cremation Ritual
         case "fan41iqm8b": return ZoneSearch("myField", ["ALLY"]); // Primeval Ritual: sacrifice an ally (its generated body never paid the cost)
     }
     return null;

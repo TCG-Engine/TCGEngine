@@ -1,0 +1,21 @@
+{
+    "name": "molten-impact-sacrifices-before-reserve-payment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:10:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7Pc1aiu3Bq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7Pc1aiu3Bq"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a weapon."
+        ]
+    }
+}

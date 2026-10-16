@@ -367,29 +367,21 @@ gaScenario('careful-study-enlighten-counters')
     ->register();
 
 // --- Cremation Ritual: additional cost sacrifice an ally, draw 2 ---
-// Cremation Ritual is NORM, no lineage patch needed. A Dungeon Guide is seeded onto the field
-// as sacrifice fodder for the ability's own MZCHOOSE (GeneratedMacroCode.php ~20677-20684:
-// choose an ally, CUSTOM handler DoSacrificeFighter then Draw 2).
-// Notes carried over from the original definition:
-//   - Dungeon Guide (ALLY) - sacrifice fodder
-//   - sacrifice Dungeon Guide
+// Sacrifice is paid before reserve, so the ally precedes the resolving spell in the graveyard.
 gaScenario('cremation-ritual-sacrifice-draw')
     ->deckTemplate('rai-windslice', 'Dungeon Guide')
     ->seed('myField', 'Dungeon Guide')
     ->seed('myHand', 'Cremation Ritual')
-    ->castSpell('Cremation Ritual', pay: 3, target: 'myField-1')
+    ->play('Cremation Ritual')->answer(1, 'myField-1')->pay(3)
     ->expectDqEmpty()
-    ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'Pr48kXnasw')
-    ->expectProperty('p1Graveyard-1', 'CardID', 'em6eEh9q8y', 'The Dungeon Guide was sacrificed to the graveyard as the additional cost')
-    ->expectProperty('p1Graveyard-1', 'Status', '2')
-    ->expectDamage('p1Graveyard-1', 0)
-    ->expectProperty('p1Graveyard-1', 'Counters', '[]')
-    ->expectProperty('p1Graveyard-1', 'TurnEffects', '["ENTERED_THIS_TURN"]')
-    ->expectZoneCount('myHand', 6, 1)
-    ->expectZoneCount('myField', 1, 1)
-    ->expectZoneCount('myGraveyard', 2, 1)
-    ->expectZoneCount('myMemory', 3, 1)
+    ->expectCardExists('myGraveyard', 'Dungeon Guide', 'The additional cost sacrificed the ally')
+    ->expectCardExists('myGraveyard', 'Cremation Ritual', 'The spell resolved')
+    ->expectZoneCount('myHand', 6, 1, 'Draw two after paying three reserve')
+    ->expectZoneCount('myField', 1, 1, 'Only the champion remains')
+    ->expectZoneCount('myGraveyard', 2, 1, 'Both the sacrifice and spell are in the graveyard')
+    ->expectZoneCount('myMemory', 3, 1, 'Three reserve paid')
+    ->tested('Cremation Ritual')
+    ->covers(['additional-cost', 'sacrifice', 'draw'], 'As an additional cost to activate this card, sacrifice an ally.', 'Draw two cards.')
     ->register();
 
 // --- Crystal of Empowerment: Banish -- champion gets +2 level until end of turn ---

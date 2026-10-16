@@ -6,81 +6,56 @@
     },
     {
         "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Field-0",
-        "property": "TurnEffects",
-        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
-    },
-    {
-        "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-0",
-        "property": "CardID",
-        "value": "Pr48kXnasw"
-    },
-    {
-        "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-1",
-        "property": "CardID",
-        "value": "em6eEh9q8y",
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
         "semantic": true,
-        "label": "The Dungeon Guide was sacrificed to the graveyard as the additional cost"
+        "label": "The additional cost sacrificed the ally"
     },
     {
         "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-1",
-        "property": "Status",
-        "value": "2"
-    },
-    {
-        "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-1",
-        "property": "Damage",
-        "value": "0"
-    },
-    {
-        "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-1",
-        "property": "Counters",
-        "value": "[]"
-    },
-    {
-        "step": 5,
-        "type": "card_property_equals",
-        "mzId": "p1Graveyard-1",
-        "property": "TurnEffects",
-        "value": "[\"ENTERED_THIS_TURN\"]"
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "Pr48kXnasw",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The spell resolved"
     },
     {
         "step": 5,
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
-        "value": 6
+        "value": 6,
+        "semantic": true,
+        "label": "Draw two after paying three reserve"
     },
     {
         "step": 5,
         "type": "zone_count",
         "zone": "myField",
         "viewerPlayerID": 1,
-        "value": 1
+        "value": 1,
+        "semantic": true,
+        "label": "Only the champion remains"
     },
     {
         "step": 5,
         "type": "zone_count",
         "zone": "myGraveyard",
         "viewerPlayerID": 1,
-        "value": 2
+        "value": 2,
+        "semantic": true,
+        "label": "Both the sacrifice and spell are in the graveyard"
     },
     {
         "step": 5,
         "type": "zone_count",
         "zone": "myMemory",
         "viewerPlayerID": 1,
-        "value": 3
+        "value": 3,
+        "semantic": true,
+        "label": "Three reserve paid"
     }
 ]

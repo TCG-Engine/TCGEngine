@@ -7,6 +7,7 @@
 //            ["type"=>"HERB"] for any herb.
 // "count" defaults to 1 when omitted.
 $brewCosts = [];
+$brewCosts["GPsEkAfDjy"] = [["type"=>"HERB","count"=>2]]; // Combustible Potion: 2 Herbs
 $brewCosts["bae3z4pyx8"] = [["type"=>"HERB","count"=>3]]; // Serum of Wisdom: 3 Herbs
 $brewCosts["qtb31x97n2"] = [["type"=>"HERB","count"=>2]]; // Potion of Healing: 2 Herbs
 $brewCosts["g616r0zadf"] = [["type"=>"CARD","cardID"=>"jnltv5klry"], ["type"=>"HERB"]]; // Bottled Forgelight: Razorvine + Herb

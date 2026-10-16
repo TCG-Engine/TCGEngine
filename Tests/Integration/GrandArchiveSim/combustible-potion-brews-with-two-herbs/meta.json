@@ -1,0 +1,23 @@
+{
+    "name": "combustible-potion-brews-with-two-herbs",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:10:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GPsEkAfDjy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GPsEkAfDjy"
+        ],
+        "mechanics": [
+            "brew",
+            "additional-cost",
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Brew \u2014 Two Herbs",
+            "On Enter: If CARDNAME was brewed, draw two cards and discard a card."
+        ]
+    }
+}
