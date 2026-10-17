@@ -9833,10 +9833,8 @@ function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copie
     if(!$gyrePaid && $sourceObj !== null
         && PropertyContains(EffectiveCardType($sourceObj), "ALLY")
         && $hasBaseEnter) {
-        $gyreOpponent = ($player == 1) ? 2 : 1;
-        global $playerID;
-        $gyreZone = $gyreOpponent == $playerID ? "myField" : "theirField";
-        $gyreField = GetZone($gyreZone);
+        // The Gyre taxes every ally with the chosen name, whoever controls the Gyre.
+        $gyreField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($gyreField as $gyreObj) {
             if($gyreObj->removed || $gyreObj->CardID !== "OADTyAUBZt" || HasNoAbilities($gyreObj)) continue;
             $namedName = is_array($gyreObj->Counters) ? strval($gyreObj->Counters['namedCardName'] ?? "") : "";

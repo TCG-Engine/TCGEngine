@@ -1,0 +1,16 @@
+[
+    {
+        "step": 16,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Own Gyre taxed the own copy; (4) was paid and the On Enter resolved"
+    },
+    {
+        "step": 16,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

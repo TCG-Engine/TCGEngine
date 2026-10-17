@@ -1,0 +1,23 @@
+{
+    "name": "stifling-gyre-also-taxes-its-own-controllers-named-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:40:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OADTyAUBZt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OADTyAUBZt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "negate",
+            "pay-or-negate",
+            "own-controller"
+        ],
+        "rulesClauses": [
+            "Whenever an **on enter** ability of an ally with the chosen name triggers, **negate** that trigger unless its controller pays (4)."
+        ]
+    }
+}

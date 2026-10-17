@@ -139,3 +139,18 @@ gaScenario('sleety-retreat-defending-ranger-opponent-pays-two-and-combat-continu
     ->tested('Sleety Retreat')
     ->covers(['distant', 'combat', 'pay-or-end'], GA_SLEETY_TEXT)
     ->register();
+
+// Printed text names no controller: the Gyre's own controller is taxed on their copy of the named ally too.
+gaScenario('stifling-gyre-also-taxes-its-own-controllers-named-ally')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Stifling Gyre')
+    ->seed('myHand', 'Stifling Gyre')->seed('myHand', 'Dungeon Guide')
+    ->seed('myHand', 'Ghastly Slime')->seed('myHand', 'Ghastly Slime')->seed('myHand', 'Ghastly Slime')->seed('myHand', 'Ghastly Slime')
+    ->play('Stifling Gyre')->pay(3)->answer(1, 'Dungeon Guide')
+    ->play('Dungeon Guide')->pay(3)->answer(1, 'YES')->answer(1, 'myHand-0')->answer(1, 'myHand-0')->answer(1, 'myHand-0')->answer(1, 'myHand-0')
+    ->answer(1, 'YES')->answer(1, 'myMaterial-0')
+    ->expectZoneCount('myBanish', 2, 1, 'Own Gyre taxed the own copy; (4) was paid and the On Enter resolved')
+    ->expectDqEmpty()
+    ->tested('Stifling Gyre')
+    ->covers(['on-enter', 'negate', 'pay-or-negate', 'own-controller'], GA_GYRE_TEXT)
+    ->register();
