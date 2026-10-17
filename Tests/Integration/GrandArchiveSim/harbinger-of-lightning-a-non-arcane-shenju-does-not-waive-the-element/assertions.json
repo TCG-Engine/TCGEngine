@@ -1,0 +1,16 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8,
+        "semantic": true,
+        "label": "Genbu is a water Shenju: no waiver"
+    }
+]

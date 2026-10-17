@@ -1,0 +1,21 @@
+{
+    "name": "seiryuus-command-with-an-arcane-shenju-ally-ignores-the-element-requirement",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:09:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v9d2242357"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v9d2242357"
+        ],
+        "mechanics": [
+            "element-waiver",
+            "ally"
+        ],
+        "rulesClauses": [
+            "As long as you control an arcane element Shenju ally, ignore this card's elemental requirements as you activate it."
+        ]
+    }
+}

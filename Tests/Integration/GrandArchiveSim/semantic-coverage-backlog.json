@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-17T21:06:29+00:00",
+    "generatedAt": "2026-10-17T21:12:05+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -22981,10 +22981,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage"
+                "harbinger-of-lightning-a-non-arcane-shenju-does-not-waive-the-element",
+                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage",
+                "harbinger-of-lightning-the-waiver-ignores-an-opponents-arcane-shenju",
+                "harbinger-of-lightning-with-an-arcane-shenju-ally-ignores-the-element-requirement",
+                "harbinger-of-lightning-without-an-arcane-shenju-ally-needs-the-arcane-element"
             ],
             "semanticFixtures": [
-                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage"
+                "harbinger-of-lightning-a-non-arcane-shenju-does-not-waive-the-element",
+                "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage",
+                "harbinger-of-lightning-the-waiver-ignores-an-opponents-arcane-shenju",
+                "harbinger-of-lightning-with-an-arcane-shenju-ally-ignores-the-element-requirement",
+                "harbinger-of-lightning-without-an-arcane-shenju-ally-needs-the-arcane-element"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -31580,10 +31588,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice"
+                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice",
+                "seiryuus-command-with-an-arcane-shenju-ally-ignores-the-element-requirement",
+                "seiryuus-command-without-an-arcane-shenju-ally-needs-the-arcane-element"
             ],
             "semanticFixtures": [
-                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice"
+                "seiryuus-command-the-beast-triggers-its-on-attack-abilities-twice",
+                "seiryuus-command-with-an-arcane-shenju-ally-ignores-the-element-requirement",
+                "seiryuus-command-without-an-arcane-shenju-ally-needs-the-arcane-element"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49792,11 +49804,19 @@
                 "condition"
             ],
             "existingFixtures": [
+                "staves-x-ultra-in-banishment-also-puts-a-static-counter-on-the-object-linked-to-the-sword",
+                "staves-x-ultra-in-banishment-puts-a-static-counter-on-the-sword-at-end-phase",
+                "staves-x-ultra-in-banishment-without-the-element-bonus-puts-no-counter",
                 "staves-x-ultra-lorraine-bonus-linked-sword-gets-plus-one-power-per-static-counter",
+                "staves-x-ultra-on-the-field-puts-no-counter-at-end-phase",
                 "staves-x-ultra-without-the-link-a-sword-with-static-counters-keeps-its-power"
             ],
             "semanticFixtures": [
+                "staves-x-ultra-in-banishment-also-puts-a-static-counter-on-the-object-linked-to-the-sword",
+                "staves-x-ultra-in-banishment-puts-a-static-counter-on-the-sword-at-end-phase",
+                "staves-x-ultra-in-banishment-without-the-element-bonus-puts-no-counter",
                 "staves-x-ultra-lorraine-bonus-linked-sword-gets-plus-one-power-per-static-counter",
+                "staves-x-ultra-on-the-field-puts-no-counter-at-end-phase",
                 "staves-x-ultra-without-the-link-a-sword-with-static-counters-keeps-its-power"
             ],
             "starterDecks": [],

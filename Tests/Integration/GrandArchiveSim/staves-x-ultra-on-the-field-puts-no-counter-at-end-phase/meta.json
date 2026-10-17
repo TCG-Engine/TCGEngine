@@ -1,0 +1,23 @@
+{
+    "name": "staves-x-ultra-on-the-field-puts-no-counter-at-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:09:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "33mWk4HYLF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "33mWk4HYLF"
+        ],
+        "mechanics": [
+            "end-phase",
+            "counter",
+            "condition",
+            "banishment"
+        ],
+        "rulesClauses": [
+            "[Lorraine Bonus] [Element Bonus] At the beginning of your end phase, if this card is in your banishment, put a **static** counter on a Sword weapon you control and each object linked to it."
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "harbinger-of-lightning-the-waiver-ignores-an-opponents-arcane-shenju",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:09:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1i5z6r7s9k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1i5z6r7s9k"
+        ],
+        "mechanics": [
+            "element-waiver",
+            "condition",
+            "controller"
+        ],
+        "rulesClauses": [
+            "As long as you control an arcane element Shenju ally, ignore this card's elemental requirements as you activate it."
+        ]
+    }
+}
