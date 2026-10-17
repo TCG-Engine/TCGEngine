@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Subcards",
+        "value": "[\"mvfcd0ukk6\"]",
+        "semantic": true,
+        "label": "The paid arrow loads after all three Fire cards are banished"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Exalted Fire pays the Fire cost through each continuation"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Payments and arrow leave the graveyard"
+    }
+]

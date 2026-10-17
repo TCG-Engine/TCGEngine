@@ -1,0 +1,22 @@
+{
+    "name": "dilu-exalted-wind-unique-human-removes-pride",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:40:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "du4eaktghh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "du4eaktghh"
+        ],
+        "mechanics": [
+            "pride",
+            "element",
+            "effective-property"
+        ],
+        "rulesClauses": [
+            "A Wind unique Human ally removes pride, including effective dual elements."
+        ]
+    }
+}

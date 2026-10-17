@@ -722,7 +722,7 @@ function MoltenArrowFireGraveyardChoices($player) {
     $fireGY = [];
     $gy = GetZone("myGraveyard");
     for($gi = 0; $gi < count($gy); ++$gi) {
-        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE" && "myGraveyard-" . $gi !== $arrowMZ) {
+        if(!$gy[$gi]->removed && PropertyContains(CardElement($gy[$gi]->CardID), "FIRE") && "myGraveyard-" . $gi !== $arrowMZ) {
             $fireGY[] = "myGraveyard-" . $gi;
         }
     }
@@ -951,7 +951,7 @@ $customDQHandlers["VeiledDashContinue"] = function($player, $param, $lastResult)
 
 $customDQHandlers["VeiledDashFinish"] = function($player, $param, $lastResult) {
     $target1 = DecisionQueueController::GetVariable("target1");
-    $target2 = ($lastResult !== "-" && $lastResult !== null) ? $lastResult : null;
+    $target2 = ($lastResult !== "-" && $lastResult !== "PASS" && $lastResult !== "" && $lastResult !== null) ? $lastResult : null;
     if($target2 !== null) {
         BecomeDistant($player, $target2);
     }
@@ -960,22 +960,43 @@ $customDQHandlers["VeiledDashFinish"] = function($player, $param, $lastResult) {
 
 
 function VeiledDashApplyPrevention($player, $target1, $target2) {
-    $windCards = ZoneSearch("myMemory", cardElements: ["WIND"]);
-    $windCount = count($windCards);
-    if($windCount <= 0) return;
-    $revealIDs = [];
-    foreach($windCards as $wMZ) {
-        $wObj = GetZoneObject($wMZ);
-        if($wObj !== null) $revealIDs[] = $wObj->CardID;
+    $targets = [];
+    foreach([$target1, $target2] as $mz) {
+        if($mz === null || $mz === "" || $mz === "PASS" || $mz === "-") continue;
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed) $targets[] = intval($obj->UniqueID);
     }
-    if(!empty($revealIDs)) {
-        SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+    DecisionQueueController::StoreVariable("VeiledDashTargetUIDs", json_encode(array_values(array_unique($targets))));
+    $windCards = array_values(array_filter(ZoneSearch("myMemory", cardElements: ["WIND"]), function($mz) {
+        $obj = GetZoneObject($mz);
+        return $obj !== null && !$obj->removed;
+    }));
+    if(empty($windCards)) {
+        DecisionQueueController::ClearVariable("VeiledDashTargetUIDs");
+        return;
     }
-    AddTurnEffect($target1, "PREVENT_ALL_" . $windCount);
-    if($target2 !== null) {
-        AddTurnEffect($target2, "PREVENT_ALL_" . $windCount);
-    }
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($windCards) . "|" . implode("&", $windCards), 1,
+        tooltip:"Reveal_any_number_of_Wind_cards_from_memory");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VeiledDashReveal", 1);
 }
+
+$customDQHandlers["VeiledDashReveal"] = function($player, $parts, $lastDecision) {
+    $targets = json_decode(DecisionQueueController::GetVariable("VeiledDashTargetUIDs") ?? "[]", true);
+    DecisionQueueController::ClearVariable("VeiledDashTargetUIDs");
+    $revealed = [];
+    foreach(array_unique(explode("&", strval($lastDecision))) as $mz) {
+        if(!preg_match('/^myMemory-[0-9]+$/', $mz)) continue;
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed || !PropertyContains(CardElement($obj->CardID), "WIND")) continue;
+        $revealed[] = $mz;
+    }
+    foreach($revealed as $mz) DoRevealCard($player, $mz);
+    if(empty($revealed) || !is_array($targets)) return;
+    foreach($targets as $uid) {
+        $mz = FindFieldMzByUniqueID(intval($uid));
+        if($mz !== "") AddTurnEffect($mz, "PREVENT_ALL_" . count($revealed));
+    }
+};
 
 // --- Foster: Awakened Frostguard (mnu1xhs5jw) On Foster helper ---
 // "On Foster: You may banish up to two cards with floating memory from your graveyard.
@@ -1217,7 +1238,7 @@ $customDQHandlers["ParcenetReveal"] = function($player, $parts, $lastDecision) {
     if(empty($deck)) return;
     $topCard = $deck[0];
     DoRevealCard($player, "myDeck-0");
-    if(CardElement($topCard->CardID) === "WIND") {
+    if(PropertyContains(EffectiveCardElement($topCard), "WIND")) {
         // Find Parcenet's mzID so we can exclude it from choices
         $parcenetMZ = null;
         $field = &GetField($player);
@@ -4100,8 +4121,8 @@ $customDQHandlers["StandBeforeTheQueenPay"] = function($player, $parts, $lastDec
 
 $customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $damage = intval(DecisionQueueController::GetVariable("BlastshotPumpDamage") ?? "0");
-    $source = DecisionQueueController::GetVariable("BlastshotPumpSource");
+    $damage = intval($parts[0] ?? DecisionQueueController::GetVariable("BlastshotPumpDamage") ?? "0");
+    $source = strval($parts[1] ?? DecisionQueueController::GetVariable("BlastshotPumpSource") ?? "");
     if($damage > 0) DealDamage($player, $source, $lastDecision, $damage);
 };
 
@@ -4223,11 +4244,12 @@ function TriggerPowercellSacrifice($player) {
         $field = GetZone($fieldZone);
         for($ai = 0; $ai < count($field); ++$ai) {
             if(!$field[$ai]->removed && $field[$ai]->CardID === "svdv3zb9p4" && !HasNoAbilities($field[$ai])) {
+                $gunslingerUID = intval($field[$ai]->UniqueID);
                 Draw($player, 1);
                 $hand = ZoneSearch("myHand");
                 if(!empty($hand)) {
                     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip:"Discard_a_card_(Charged_Gunslinger)");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "ChargedGunslingerDiscard|$fieldZone-$ai", 1);
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ChargedGunslingerDiscard|" . $gunslingerUID, 1);
                 }
                 break;
             }
@@ -4260,13 +4282,15 @@ function QueuePowercellSacrificeChoice($player, $tooltip, $customParam, $block =
 
 // Charged Gunslinger (svdv3zb9p4): discard handler — if fire element, become distant
 $customDQHandlers["ChargedGunslingerDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    $gunslingerMZ = $parts[0];
+    if(!is_string($lastDecision) || !preg_match('/^myHand-[0-9]+$/', $lastDecision)) return;
+    $gunslingerUID = intval($parts[0] ?? 0);
     $cardObj = GetZoneObject($lastDecision);
-    $cardID = $cardObj !== null ? $cardObj->CardID : null;
+    if($cardObj === null || $cardObj->removed) return;
+    $cardID = $cardObj->CardID;
     DoDiscardCard($player, $lastDecision);
-    if($cardID !== null && CardElement($cardID) === "FIRE") {
-        BecomeDistant($player, $gunslingerMZ);
+    if($cardID !== null && PropertyContains(CardElement($cardID), "FIRE")) {
+        $gunslingerMZ = FindFieldMzByUniqueID($gunslingerUID);
+        if($gunslingerMZ !== "") BecomeDistant($player, $gunslingerMZ);
     }
 };
 
@@ -4759,7 +4783,7 @@ $customDQHandlers["CreativeShockDiscard"] = function($player, $parts, $lastDecis
     if($lastDecision === "-" || $lastDecision === "") return;
     // Check element before discarding
     $obj = GetZoneObject($lastDecision);
-    $isFire = ($obj !== null && CardElement($obj->CardID) === "FIRE");
+    $isFire = ($obj !== null && PropertyContains(CardElement($obj->CardID), "FIRE"));
     DoDiscardCard($player, $lastDecision);
     if(!IsClassBonusActive($player, ["MAGE"])) return;
     if(!$isFire) return;
@@ -6381,9 +6405,8 @@ $customDQHandlers["BlazeContinueFireLoads"] = function($player, $parts, $lastDec
     $fireAC = [];
     foreach($gy as $i => $obj) {
         if($obj->removed) continue;
-        if(CardElement($obj->CardID) !== "FIRE") continue;
-        $subtypes = CardSubtypes($obj->CardID);
-        if(!in_array("AETHERCHARGE", $subtypes)) continue;
+        if(!PropertyContains(EffectiveCardElement($obj), "FIRE")) continue;
+        if(!PropertyContains(EffectiveCardSubtypes($obj), "AETHERCHARGE")) continue;
         $fireAC[] = "myGraveyard-" . $i;
     }
     if(empty($fireAC)) return;
@@ -6938,6 +6961,8 @@ $customDQHandlers["BandersnatchSacrifice"] = function($player, $parts, $lastDeci
 // Mantle of the Abyss (1ubrwubSQN): sacrifice a Specter ally to activate from material deck
 // ============================================================================
 $customDQHandlers["MantleAbyssSacrifice"] = function($player, $parts, $lastDecision) {
+    $materialSource = GAFindMaterialCard($player, "1ubrwubSQN");
+    if($materialSource === null || !GAMaterialCanLeave($materialSource)) return;
     if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
@@ -6971,6 +6996,8 @@ $customDQHandlers["SablemereWardensGripFromMaterial"] = function($player, $parts
     DoMaterialize($player, $gripMZ);
 };
 $customDQHandlers["TomeSacredLightningFromMaterial"] = function($player, $parts, $lastDecision) {
+    $materialSource = GAFindMaterialCard($player, "MyUTeqUJ0H");
+    if($materialSource === null || !GAMaterialCanLeave($materialSource)) return;
     if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
     $obj = GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
@@ -7243,7 +7270,7 @@ $customDQHandlers["SablemereWardensGripPay"] = function($player, $parts, $lastDe
 
 $customDQHandlers["SablemereWardensGripEffect"] = function($player, $parts, $lastDecision) {
     $x = max(0, intval($parts[0] ?? 0));
-    MZAddZone($player, "myMemory", "6fxxgmuesd");
+    GAGenerateCard($player, "myMemory", "6fxxgmuesd");
     $champMZ = FindChampionMZ($player);
     if($champMZ !== null && $x > 0) {
         AddCounters($player, $champMZ, "lash", $x);
@@ -8601,7 +8628,8 @@ function NicoRapturesEmbraceEnter($player) {
         if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
             $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
             foreach($subcards as $scID) {
-                if(CardElement($scID) === "WATER") {
+                // Lineage subcards retain card IDs, rather than live field objects.
+                if(PropertyContains(CardElement($scID), "WATER")) {
                     $hasWater = true;
                     break 2;
                 }

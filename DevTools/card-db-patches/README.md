@@ -30,6 +30,12 @@ Every op is **idempotent** and reports `APPLIED` (already done), `PENDING` (will
 
 ## The patches
 
+### Phase D pending source migration
+
+[Grand Archive Phase D database handoff](ga-phase-d-required.md) records the authored
+rows to reconcile, the runtime-only changes and the unfinished engine migrations.
+It is a checklist, not an executable patch; no live database changes are confirmed.
+
 ### `ga-card-ability-fixes-verified.json`
 
 | Op | Card | Change | Why |

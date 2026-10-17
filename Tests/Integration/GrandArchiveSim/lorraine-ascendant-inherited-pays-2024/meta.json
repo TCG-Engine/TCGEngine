@@ -1,0 +1,23 @@
+{
+    "name": "lorraine-ascendant-inherited-pays-2024",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:47:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "81gvGHkuVb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "81gvGHkuVb"
+        ],
+        "mechanics": [
+            "lineage",
+            "activated-ability",
+            "cost",
+            "generate"
+        ],
+        "rulesClauses": [
+            "Pay 2024 reserve, then generate any amount of Sword regalia."
+        ]
+    }
+}

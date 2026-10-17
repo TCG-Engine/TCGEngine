@@ -5,10 +5,10 @@ Current status: 2026-10-16, branch `codex/ga-fixture-scenario-builder`. Push and
 ## Current status
 
 - Phases 0 and 1 are complete: scenarios are the authoring source, inline definitions are rejected, and the useful family helpers are in place.
-- Phase 2's main exit is met: zero incomplete semantic contracts. The latest full run after the Phase C boundary and handoff batch has 4,071 passing fixtures, 3,887 complete contracts and 184 legacy snapshots. GABot passes 10/10 and all local guards pass. Legacy assertion migration remains opportunistic quality work.
-- Phase 3's exit is met: 2,475 of 2,477 implemented cards have semantic coverage; the two exceptions are documented in `UNFIXABLE.md`. This is card coverage, not a claim that every rules clause is implemented.
+- Phase 2's main exit is met: zero incomplete semantic contracts. The latest Phase D run has 4,104 passing fixtures, 3,920 complete contracts and 184 legacy snapshots. GABot passes 10/10 and all local guards pass. Legacy assertion migration remains opportunistic quality work.
+- Phase 3's exit is met: zero implemented cards lack semantic coverage and the exception baseline is empty. This is card coverage, not a claim that every rules clause is implemented.
 - Phase 4: scaffold and fixture runner exist. Promoting the owner's untracked smoke probe remains open; automatic printed-cost/vanilla families remain a proposal.
-- Phase 5: `ga-verify-all.sh` runs suite, GABot, strict contracts, action/inline guards, retained Phase C boundaries and the two-card baseline. `--full` adds scenario regeneration. No CI service or quarterly execution schedule is configured.
+- Phase 5: `ga-verify-all.sh` runs suite, GABot, strict contracts, action/inline guards, retained Phase C/D boundaries and the zero-card baseline. `--full` adds scenario regeneration. No CI service or quarterly execution schedule is configured.
 - Nico and Ardus are closed, including Brookside Scout's weapon-choice sequencing and all three Ardus On Death effects. Ardus follow-up committed as `5d9516770`.
 - Next engine work is tracked in the current-status section of `ENGINE-FINDINGS.md`. The dated sections below are history; their old counts and "open" notes are not the current backlog.
 
@@ -92,26 +92,44 @@ Implement the deferred Phase C contracts before adding card-local approximations
 The audit/design phase is closed; all implementation tasks here remain open until
 the corresponding gameplay fixtures and mutation checks exist.
 
+Element continuation follow-up (2026-10-16): Coiled Fatestone now counts Fire membership on the discarded object and chooses only live hand slots for each random discard. Parcenet's reveal checks effective Wind membership. Six retained positive/negative boundary checks bring the Phase D total to 150; both element regressions are mutation-detected. The existing Coiled gameplay fixture passes with its corrected second-discard snapshot. Full verification passes: 4,103/4,103 integration fixtures, GABot 10/10, 49 Phase C and 150 Phase D boundaries, strict contracts (3,919 complete, zero incomplete, 184 legacy), action/inline guards and zero-card coverage baseline. Full scenario regeneration was not run. Wildgrowth Fatestone, Blazing Cindercharge, Slime Eruption and lineage-specific Nico checks remain to reconcile.
+
+Element continuation follow-up (2026-10-16): Blazing Cindercharge now selects effective Fire Aethercharges using membership checks (also removing a string-to-`in_array` error). Slime Eruption uses effective Ally/Slime identity and Fire membership both when offering banishment and counting its two non-Fire allowance. Eight retained boundary checks cover ordinary Fire, Exalted Fire, non-Fire exclusion at the cap, and unchanged non-Fire accounting after Fire banishment; both selection regressions are mutation-detected. Full verification passes: 4,103/4,103 integration fixtures, GABot 10/10, 49 Phase C and 158 Phase D boundaries, and all guard rails. Full scenario regeneration was not run. Wildgrowth Fatestone and lineage-specific Nico reconciliation remain open.
+
+Element continuation follow-up (2026-10-16): Wildgrowth Fatestone uses effective Wind membership for the entering object. Nico, Rapture's Embrace uses printed Water membership for lineage subcard IDs, excluding the current champion as before; lineage has no live object on which to query field overrides. Thirty-six retained checks cover both owners and viewing perspectives, Wildgrowth suppression, Exalted/ordinary Wind, non-Wind entry, Exalted Water lineage, non-Water lineage and empty lineage. Both membership regressions are mutation-detected. Full verification passes: 4,103/4,103 integration fixtures, GABot 10/10, 49 Phase C and 194 Phase D boundaries, and all guard rails. Full scenario regeneration was not run. These boundary checks supplement existing gameplay coverage; the wider element inventory remains open.
+
+Wind reader follow-up (2026-10-16): Enhance Hearing now accepts effective Wind membership (including Exalted Wind) and uses effective Reaction subtype membership. Gearstride Academy checks the entering object’s effective Ally type and Wind membership. Fifteen retained boundary checks cover ordinary/Exalted Wind, non-Wind rejection, imbue and suppression; restoring either exact-equality check makes the suite fail. Full verification passes: 4,104/4,104 integration fixtures, GABot 10/10, 49 Phase C and 409 Phase D boundaries, strict semantic contracts and all coverage/action guards. PHP lint and diff whitespace checks pass. The wider D0 inventories and authored-source-dependent mechanics remain open. Changes remain uncommitted and unpushed.
+
+Combat prerequisite follow-up (2026-10-16): Meteoric Volley and Overpowering Defense now resolve the combat attacker in the current viewer’s frame and use its recorded UID when available. The shared maintained helper rejects departed participants and checks the actual controller and effective unit properties; older queues without a positive UID retain coordinate support. The generated Overpowering Defense prerequisite is superseded by a maintained override. One hundred eighty retained checks cover both players/viewers, champion/ally/non-unit identity, effective Guardian class, compaction, departure and controller changes. Both perspective and identity mutations fail. Full verification passes: 4,104/4,104 fixtures, GABot 10/10, 49 Phase C and 589 Phase D boundaries, and all guards. The remaining generated-reader audit and authored-source-dependent mechanics stay open. Changes remain uncommitted and unpushed.
+
+Generated element-equality batch (2026-10-17): eighteen generated bodies that compared `CardElement()` with `===`/`!==` now use `GAIsElement()` membership via maintained overrides (the generated bodies with only those comparisons changed): Banish (96659ytyj2), Windstream Mutt, Polkhawk lineage, Equestrian, wc8tuhuy4x, Vanitas, Drowned Exorcist (an Exalted Water card is no longer banished), Force Load, KEhmWGivJp, 7xgwve1d47, Windpiercer, Diana's wind count, Polkhawk Bonus, Link VelTech, qmyn2rz308, Wind Cutter, THjSE7caau and r7oifozaog. `test-ga-phase-d-element-batch.php` (31 checks, in `ga-verify-all.sh`) proves every override is the active handler and gameplay-checks wc8tuhuy4x, Drowned Exorcist and KEhmWGivJp with Exalted Fire/Wind/Water; reverting `GAIsElement` to equality fails it. The other fifteen overrides are mechanical and covered by the active-handler check only, not by behaviour tests. Left for separate rules review: the distinct-element graveyard counts (f0ymeslfpw, GameLogic `$distinctElements`), the element-requirement cost check (alnjt7DyZL) and the 49 "value/local" inventory rows. Full suite 4,104/4,104, GABot 10/10, all guards pass. Uncommitted.
+
 #### D0 — Deferred engine implementations from Phase C
 
 - [ ] Remaining basic-element membership/effective-property batches in the element inventory: costs and continuations, damage/discard sources, field entry/passives, domains and generated handlers. Separate Norm membership, Norm-only, advanced classification and distinct-element semantics; see handoff C1.
 - [ ] Remaining combat event/reader fixes: delayed choice identities, defensive generated handlers and Possessed Reaping's exact killed-card destination. Preserve correct attacker-context reads; see handoff C2.
-- [ ] Eternal Magistrate: schema/generator departure veto, pre-payment gates and all material movement routes, with cross-root checks; see handoff C3.
+- [x] Eternal Magistrate: schema/generator departure veto and pre-payment gates cover normal/ignored-cost materialization, effect-driven level-up, preserved return, material activations and banishment costs. The route audit found no direct material-array removal bypass in maintained/generated card bodies. Generic `Remove` and `MZMove` gates, stale selections, ownership/viewer combinations, suppression and the unchanged unconfigured-root generator output are tested; see handoff C3.
 - [ ] Forged Scalemail: resolve exact unpreventable replacement behavior, implement resumable damage and caller continuations, then accept/decline/save-reload/exactly-once fixtures; see handoff C5.
 - [ ] Multistrike: declared distinct defenders, per-defender retaliation, damage and trigger context; implement on the resumable damage model, not as repeated Cleave; see handoff C4.
 - [ ] Slipstream Vault: implement and test the separate “negate all activations targeting it” clause, including responses and both controllers. The completed discount work covers Become Distant and payment binding only.
 
+Phase D started after checkpoint commit `1d7a792f0`. First element batch: Molten Arrow’s sequential graveyard cost now uses Fire membership, accepting Exalted Fire at each continuation. Three gameplay fixtures cover all-dual, mixed and insufficient eligible payments; the all-dual fixture failed before the fix. The wider element task remains open.
+
+Runtime identity/element follow-up (2026-10-16): Possessed Reaping captures the actual killed card's graveyard arrival in its queued On Kill context. A live-ordinal registry and Graveyard `BeforeRemove` hook preserve the reference through cleanup/save/load and invalidate it on departure, without a CardID fallback. Stolen dying objects go to their owner's destination; the On Death context still belongs to the last controller. A new duplicate-graveyard gameplay fixture and mirrored owner/viewer boundaries exercise the path. Malignant Athame binds its delayed damage to the hit champion's UID and source CardID; Blastshot Pump carries its damage/source in the continuation. Inner Court Schemer and Scorchfire Assassin bind the preparation payer and attacking recipient before their first choice, refusing payment if either leaves. Existing gameplay fixtures pass. Misteye Archer, Captain Archer, Fractal of Refreshment, Intrepid Spearman and Relic of Dancing Embers now use effective basic-element membership; all five changes are mutation-detected. Full verification: 4,104/4,104 integration fixtures, GABot 10/10, 49 Phase C and 394 Phase D boundaries, strict contracts (3,920 complete, zero incomplete, 184 legacy), all guards and zero uncovered cards. Full scenario regeneration was not run. Changes remain uncommitted.
+
+**Authored-source dependency (user requested this be noted):** The local Grand Archive card database/card-editor connection is unavailable. Schema regeneration works, but its log explicitly reports that macro code could not be generated; the cached macro file is preserved. No current authored-row export is available. Do not reconstruct canonical await source from lowered PHP or call database reconciliation complete. The full damage-caller migration for Forged Scalemail/Multistrike and the target-declaration migration for Slipstream Vault require the current authored rows and regenerated-path verification. These mechanics are still unimplemented; noting the source dependency does not close D0. Remaining generated element/defensive-reader audits and distinct-element semantics also stay open. See the [DB handoff](../card-db-patches/ga-phase-d-required.md).
+
 #### D1 — Partial clauses and coverage exceptions
 
-- [ ] Greater Boon of Luxera: enforce the chosen-name generation prohibition.
-- [ ] Veiled Dash: choose any amount of wind cards to reveal.
-- [ ] Heavenly Guide: track whether the relevant lineage card was played.
-- [ ] Greater Boon of Enki: handle simultaneous token creation correctly.
+- [x] Greater Boon of Luxera: enforce the chosen-name generation prohibition.
+- [x] Veiled Dash: choose any amount of wind cards to reveal.
+- [x] Heavenly Guide: track whether the relevant lineage card was played.
+- [x] Greater Boon of Enki: handle simultaneous token creation correctly.
 - [x] Frostbitten Etui and Stifling Aethercharge: real On Enter negation fixtures now exist, including Etui payment/decline. Removed obsolete semantic exceptions and reduced the baseline to two cards.
-- [ ] Duplicitous Replication: resolve the activation-window limitation and detect qualifying regalia entries beyond materialization.
-- [ ] Lorraine, Ascendant Wings: decide scope for the 2024-cost/open-ended Sword-generation ability before implementation.
+- [x] Duplicitous Replication: resolve the activation-window limitation and detect qualifying regalia entries beyond materialization.
+- [x] Lorraine, Ascendant Wings: decide scope for the 2024-cost/open-ended Sword-generation ability before implementation.
 
-Exit: update UNFIXABLE.md and the baseline only when the relevant fixtures exist; any retained exception has an explicit reason. The baseline now contains two cards after the Etui fixtures; keep it until the remaining exceptions have fixtures.
+Exit: update UNFIXABLE.md and the baseline only when the relevant fixtures exist; any retained exception has an explicit reason. The Phase D fixtures remove the last two exceptions; the baseline is now empty.
 
 ### Phase E — Expand rules-clause coverage
 
@@ -502,3 +520,15 @@ Vault and Spectral Haunting. Both mutations fail. Full suite 4071/4071, GABot
 10/10 and all guards pass. Five remaining engine design families and Slipstream's
 separate negation clause are explicit unchecked D0 implementation work; no
 claim that Multistrike, Magistrate or optional Scalemail is implemented.
+
+Phase D first-batch verification: 4,074/4,074 integration fixtures, 49 retained boundary checks, GABot 10/10, strict semantic audit and the two-card baseline guard pass. PHP lint and diff checks pass. This batch remains uncommitted after the Phase C checkpoint.
+
+### Phase D implementation progress
+
+Database follow-up: [Phase D database handoff](../card-db-patches/ga-phase-d-required.md)
+lists the required authored-row reconciliation and regeneration checks. Current
+behavior uses maintained overrides; no live database migration is confirmed.
+
+D1 clauses are implemented and fixtured: Luxera generation, Veiled Dash choices, Heavenly Guide played provenance, Enki simultaneous token choices, Duplicitous Replication field-entry events and Lorraine's full printed ability (explicitly authorized by the user). The 2024-reserve cost is paid in real gameplay fixtures; it is not discounted for testing. Lorraine remains inherited in lineage and Sword generation has no chosen-count ceiling. Both previous semantic coverage exceptions are now covered.
+
+D0 progress includes Molten Arrow/Creative Shock/Firetuned Fire membership, Dilu/Jueying effective element checks, activation element filters and Eternal Magistrate's schema departure veto plus pre-payment gates. The remaining D0 items are still open. No Phase D completion is claimed until its engine work is finished.

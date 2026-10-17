@@ -1,0 +1,20 @@
+[
+    {
+        "step": 13,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "HPDawzCDdr",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The granted On Attack discard was paid"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Effective Fire removes pride at level one"
+    }
+]

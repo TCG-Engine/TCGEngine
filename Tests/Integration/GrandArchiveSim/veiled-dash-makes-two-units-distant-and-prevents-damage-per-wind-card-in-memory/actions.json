@@ -27,7 +27,7 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myField-0",
+        "cardID": "myField-0&myField-1",
         "chkInput": [],
         "inputText": ""
     },
@@ -35,7 +35,7 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myField-1",
+        "cardID": "myMemory-0&myMemory-1",
         "chkInput": [],
         "inputText": ""
     }

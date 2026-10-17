@@ -1,0 +1,23 @@
+{
+    "name": "red-hare-effective-exalted-fire-enables-pride-and-discard-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T19:14:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5du8f077ua"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5du8f077ua"
+        ],
+        "mechanics": [
+            "pride",
+            "on-attack",
+            "element",
+            "effective-property"
+        ],
+        "rulesClauses": [
+            "The same Fire or Tera unique Human condition controls both clauses."
+        ]
+    }
+}

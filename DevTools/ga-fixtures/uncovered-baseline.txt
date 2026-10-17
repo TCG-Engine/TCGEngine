@@ -1,3 +1,1 @@
 # Cards that may have no semantic fixture (see UNFIXABLE.md for why). Format: Name (cardId), one per line; checked by DevTools/check-ga-coverage-baseline.php.
-Duplicitous Replication (owq8s5fefw)
-Lorraine, Ascendant Wings (81gvGHkuVb)

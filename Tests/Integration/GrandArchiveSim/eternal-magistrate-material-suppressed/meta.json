@@ -1,0 +1,22 @@
+{
+    "name": "eternal-magistrate-material-suppressed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:28:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "taug52u81v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "taug52u81v"
+        ],
+        "mechanics": [
+            "imbue",
+            "restriction",
+            "material"
+        ],
+        "rulesClauses": [
+            "Opposing material cards cannot leave outside their owner materialize phase."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "heavenly-guide-detects-a-real-dungeon-guide-level-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:35:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tkdky3sxao"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tkdky3sxao"
+        ],
+        "mechanics": [
+            "on-enter",
+            "condition",
+            "lineage",
+            "level-up"
+        ],
+        "rulesClauses": [
+            "Dungeon Guide puts an unplayed champion on top of the opposing lineage."
+        ]
+    }
+}

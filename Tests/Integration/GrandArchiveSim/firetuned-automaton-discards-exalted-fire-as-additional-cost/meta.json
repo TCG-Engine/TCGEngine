@@ -1,0 +1,22 @@
+{
+    "name": "firetuned-automaton-discards-exalted-fire-as-additional-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:39:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzjmwuir99"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzjmwuir99"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "discard",
+            "element"
+        ],
+        "rulesClauses": [
+            "Preview and payment both accept Exalted Fire."
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "Effective Exalted Wind satisfies the unique Human condition at level one"
+    }
+]

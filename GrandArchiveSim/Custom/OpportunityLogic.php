@@ -197,7 +197,7 @@ function GetEffectStackActivationTargets($player, $filters = []) {
             }
             if(!$matched) continue;
         }
-        if(isset($filters['elements']) && !in_array(CardElement($cardID), $filters['elements'])) continue;
+        if(isset($filters['elements']) && !GAElementMatchesAny(CardElement($cardID), $filters['elements'])) continue;
         if(isset($filters['reserveCost']) && intval(CardCost_reserve($cardID)) !== intval($filters['reserveCost'])) continue;
         if(isset($filters['sourceZone']) && GetEffectStackSourceZone("EffectStack-" . $i) !== $filters['sourceZone']) continue;
         $targets[] = "EffectStack-" . $i;

@@ -1,0 +1,23 @@
+{
+    "name": "creative-shock-fire-elements-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:25:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BqDw4Mei4C"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BqDw4Mei4C"
+        ],
+        "mechanics": [
+            "discard",
+            "class-bonus",
+            "element",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Fire membership includes Exalted Fire."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "charged-gunslinger-exalted-fire-discard-after-powercell-compaction",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T19:03:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "svdv3zb9p4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "svdv3zb9p4"
+        ],
+        "mechanics": [
+            "trigger",
+            "discard",
+            "element",
+            "identity"
+        ],
+        "rulesClauses": [
+            "Fire membership and source identity survive Powercell departure."
+        ]
+    }
+}

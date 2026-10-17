@@ -1,0 +1,21 @@
+{
+    "name": "lorraine-ascendant-permanent-sword-attack-permission",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:46:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "81gvGHkuVb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "81gvGHkuVb"
+        ],
+        "mechanics": [
+            "combat",
+            "permanent-effect"
+        ],
+        "rulesClauses": [
+            "Sword weapons can attack as though they were allies for the rest of the game."
+        ]
+    }
+}

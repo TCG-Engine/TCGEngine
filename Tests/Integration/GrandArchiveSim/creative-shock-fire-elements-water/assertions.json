@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "Only a Fire discard enables the class-bonus damage"
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "GGRtLQgaYU",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The chosen card is actually discarded"
+    }
+]

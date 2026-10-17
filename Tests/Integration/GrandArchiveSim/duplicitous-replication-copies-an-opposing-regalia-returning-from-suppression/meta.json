@@ -1,0 +1,23 @@
+{
+    "name": "duplicitous-replication-copies-an-opposing-regalia-returning-from-suppression",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:54:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "owq8s5fefw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "owq8s5fefw"
+        ],
+        "mechanics": [
+            "delayed-trigger",
+            "regalia",
+            "token-copy",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "The next regalia entry is covered even when it is not materialization."
+        ]
+    }
+}

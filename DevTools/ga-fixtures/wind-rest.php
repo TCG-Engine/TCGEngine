@@ -32,7 +32,7 @@ gaScenario('greater-boon-of-astraeus-draws-nothing-when-no-object-was-suppressed
     ->register();
 
 // ---- Veiled Dash ----
-// The engine reveals every wind card in memory ("any amount" is not asked) and applies the prevention as a PREVENT_ALL_X marker.
+// Reveal selections are explicit; prevention equals the selected Wind cards.
 
 gaScenario('veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory')
     ->deckTemplate('quiet', 'Dungeon Guide')
@@ -41,7 +41,7 @@ gaScenario('veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-car
     ->seed('myMemory', 'Young Peacekeeper')
     ->seed('myMemory', 'Young Peacekeeper')
     ->seed('myHand', 'Veiled Dash')
-    ->play('Veiled Dash')->pay(2)->answer(1, 'myField-0')->answer(1, 'myField-1')
+    ->play('Veiled Dash')->pay(2)->answer(1, 'myField-0&myField-1')->answer(1, 'myMemory-0&myMemory-1')
     ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED","DISTANT","PREVENT_ALL_2"]', 'The champion became distant and has two damage prevented')
     ->expectProperty('p1Field-1', 'TurnEffects', '["ENTERED_THIS_TURN","DISTANT","PREVENT_ALL_2"]', 'So did the second target')
     ->tested('Veiled Dash')

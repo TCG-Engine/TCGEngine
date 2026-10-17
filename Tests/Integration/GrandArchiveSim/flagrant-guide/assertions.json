@@ -51,7 +51,7 @@
         "type": "card_property_equals",
         "mzId": "p2Field-1",
         "property": "Counters",
-        "value": "{\"_champDamageThisTurn\":18}"
+        "value": "{\"gaTopUnplayed\":1,\"_champDamageThisTurn\":18}"
     },
     {
         "step": 6,

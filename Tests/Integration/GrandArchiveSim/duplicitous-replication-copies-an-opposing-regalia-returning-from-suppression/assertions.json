@@ -1,0 +1,29 @@
+[
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "b0qlk9j6le",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "An opposing end-phase return triggers the delayed copy"
+    },
+    {
+        "step": 9,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "b0qlk9j6le",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The original returns under its owner control"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Exactly one token copy was summoned"
+    }
+]

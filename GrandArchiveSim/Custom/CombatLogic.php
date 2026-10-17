@@ -117,7 +117,7 @@ function GreaterBoonOfDetachmentLoadsWeapon($player, $weaponObj) {
 }
 
 function GetAttackWeaponChoices($player, $attackerObj) {
-    if($attackerObj === null || $attackerObj->removed) return [];
+    if($attackerObj === null || $attackerObj->removed || GASwordMayAttackAsAlly($attackerObj)) return [];
     $cardType = EffectiveCardType($attackerObj);
     if(PropertyContains($cardType, "CHAMPION")) {
         return GetAvailableWeapons($player);
@@ -1478,9 +1478,8 @@ function BeginCombatPhase($actionCard) {
 
     // Only allies and champions can declare attacks as the attacking unit.
     // Exception: Spirit Blade: Ensoul (CQ1bxUyi0Q) allows Sword weapons to attack as allies.
-    $ensoulSwordAttacking = PropertyContains($cardType, "WEAPON")
-        && PropertyContains(CardSubtypes($obj->CardID), "SWORD")
-        && GlobalEffectCount($turnPlayer, "CQ1bxUyi0Q_SWORDS_AS_ALLY") > 0;
+    $ensoulSwordAttacking = GASwordMayAttackAsAlly($obj);
+    $countsAsAllyAttacker = $countsAsAllyAttacker || $ensoulSwordAttacking;
     if(!$ensoulSwordAttacking
        && !$countsAsAllyAttacker && !PropertyContains($cardType, "CHAMPION")) {
         SetFlashMessage("Only allies and champions can declare attacks.");
@@ -2527,7 +2526,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // deals combat damage to a champion while CARDNAME is awake, may sacrifice to deal 3.
     $attackerObj = GetZoneObject($attackerMZ);
     if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")
-       && EffectiveCardElement($attackerObj) === "FIRE") {
+       && PropertyContains(EffectiveCardElement($attackerObj), "FIRE")) {
         $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
         if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
             $hitObj = GetZoneObject($hitTarget);
@@ -2698,7 +2697,7 @@ $_combatKillEvents = [];
  * Mark that a combat kill just occurred. Called from OnDealDamage when
  * damage >= HP and a CombatAttacker variable is set (indicating combat context).
  */
-function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = null, $hp = null) {
+function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = null, $hp = null, $destinationToken = "") {
     global $_combatKillEvents;
     $killedCardID = $killedCardID ?? "";
     $sheenCount = max(0, intval($sheenCount));
@@ -2709,6 +2708,7 @@ function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = n
         $eventParts[] = strval($power ?? 0);
         $eventParts[] = strval($hp ?? 0);
     }
+    if($destinationToken !== "") $eventParts[] = $destinationToken;
     $event = implode("~", $eventParts);
     $stored = DecisionQueueController::GetVariable("CombatKillEvents");
     $kills = ($stored === null || $stored === "") ? [] : explode("|", $stored);
@@ -2718,7 +2718,8 @@ function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = n
         "cardID" => $killedCardID,
         "sheenCount" => $sheenCount,
         "power" => $power,
-        "hp" => $hp
+        "hp" => $hp,
+        "destinationToken" => $destinationToken
     ];
 }
 
@@ -2742,7 +2743,8 @@ function ConsumeCombatKill() {
                 "cardID" => $cardID,
                 "sheenCount" => intval($parts[1] ?? "0"),
                 "power" => array_key_exists(2, $parts) ? max(0, intval($parts[2])) : null,
-                "hp" => array_key_exists(3, $parts) ? max(0, intval($parts[3])) : null
+                "hp" => array_key_exists(3, $parts) ? max(0, intval($parts[3])) : null,
+                "destinationToken" => strval($parts[4] ?? "")
             ];
         }
     }
@@ -2779,7 +2781,9 @@ function DispatchCombatKillTriggers($player, $attackerMZ, $killEvents) {
         DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($sheenCount));
         if($power !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval(max(0, intval($power))));
         if($hp !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval(max(0, intval($hp))));
+        DecisionQueueController::StoreVariable("CombatKilledDestinationToken", strval($killEvent["destinationToken"] ?? ""));
         OnKillTrigger($player, $attackerMZ);
+        DecisionQueueController::ClearVariable("CombatKilledDestinationToken");
         DecisionQueueController::ClearVariable("CombatKilledPower");
         DecisionQueueController::ClearVariable("CombatKilledHP");
     }
@@ -3531,7 +3535,9 @@ $customDQHandlers["CleaveCombatKillTrigger"] = function($player, $parts, $lastDe
     DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($killedSheenCount));
     if($killedPower !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval($killedPower));
     if($killedHP !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval($killedHP));
+    DecisionQueueController::StoreVariable("CombatKilledDestinationToken", strval($parts[6] ?? ""));
     OnKillTrigger($attackerPlayer, $attackerMZ);
+    DecisionQueueController::ClearVariable("CombatKilledDestinationToken");
     DecisionQueueController::ClearVariable("CombatKilledPower");
     DecisionQueueController::ClearVariable("CombatKilledHP");
     DecisionQueueController::ClearVariable("CombatKilledCardID");
@@ -4089,8 +4095,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // Potion Infusion: Frostbite — next water damage to this unit +4
-    $sourceObj = ($source === null || $source === "") ? null : GetZoneObject($source); // (damage with no source object, e.g. Storm Tyrant's Eye, is not an element-tagged hit)
-    if($sourceObj !== null && CardElement($sourceObj->CardID) === "WATER") {
+    $frostbiteInfo = ResolveDamageSourceCardInfo($source, $player);
+    $frostbiteSource = $frostbiteInfo['obj'];
+    $frostbiteElement = $frostbiteSource !== null && ($frostbiteSource->Location ?? '') === 'Field'
+        ? EffectiveCardElement($frostbiteSource) : CardElement($frostbiteInfo['cardID']);
+    if(PropertyContains($frostbiteElement, "WATER")) {
         if(in_array("FROSTBITE_WATER_VULN", $targetObj->TurnEffects ?? [])) {
             $amount += 4;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FROSTBITE_WATER_VULN"));
@@ -4343,8 +4352,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Shangxiang, Fierce Princess (s2tzwv1uw3): if imbued, prevent 2 damage from non-norm sources
     if($amount > 0 && $targetObj->CardID === "s2tzwv1uw3" && !HasNoAbilities($targetObj)
        && in_array("IMBUED", $targetObj->TurnEffects)) {
-        $sourceObj = GetZoneObject($source);
-        if($sourceObj !== null && EffectiveCardElement($sourceObj) !== "NORM") {
+        $shangxiangInfo = ResolveDamageSourceCardInfo($source, $player);
+        $sourceObj = $shangxiangInfo['obj'];
+        $sourceElement = $sourceObj !== null && ($sourceObj->Location ?? '') === 'Field'
+            ? EffectiveCardElement($sourceObj) : CardElement($shangxiangInfo['cardID']);
+        if($sourceElement !== null && !PropertyContains($sourceElement, "NORM")) {
             $amount -= 2;
             if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
@@ -5108,7 +5120,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 } else {
                     SetFlashMessage('REVEAL:' . $revealedCard->CardID);
                 }
-                if(CardElement($revealedCard->CardID) === "WIND") {
+                if(PropertyContains(EffectiveCardElement($revealedCard), "WIND")) {
                     $amount = max(0, $amount - 3);
                 }
                 $targetObj->TurnEffects[] = "pal7cpvn96";
@@ -5339,7 +5351,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     $everflameSourceCardID = null;
     $everflameSourceController = intval($sourceInfo2["controller"] ?? $player);
     $everflameSourceCardID = $sourceInfo2["cardID"];
-    if($everflameSourceCardID !== null && CardElement($everflameSourceCardID) === "FIRE"
+    $everflameElement = $sourceObj2 !== null && ($sourceObj2->Location ?? "") === "Field"
+        ? EffectiveCardElement($sourceObj2) : CardElement($everflameSourceCardID);
+    if($everflameSourceCardID !== null && PropertyContains($everflameElement, "FIRE")
         && PropertyContains(CardSubtypes($everflameSourceCardID), "SPELL")) {
         $sourceController = $everflameSourceController;
         global $playerID;
@@ -5389,22 +5403,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
     }
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
-            if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
-                $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
-                DecisionQueueController::AddDecision(
-                    $player,
-                    "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
-                    100
-                );
-            }
-        }
-        AllyDestroyed($player, $target);
+        GAResolveLethalDamage($player, $target);
     }
 }
 
@@ -5626,21 +5625,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
     }
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
-            if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
-                $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
-                DecisionQueueController::AddDecision(
-                    $player,
-                    "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
-                    100
-                );
-            }
-        }
-        AllyDestroyed($player, $target);
+        GAResolveLethalDamage($player, $target);
     }
 }
 

@@ -1,0 +1,22 @@
+{
+    "name": "luxera-generation-different-name",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:33:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Klb4tguLek"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Klb4tguLek"
+        ],
+        "mechanics": [
+            "name-choice",
+            "generate",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "You cannot generate cards with the chosen name."
+        ]
+    }
+}

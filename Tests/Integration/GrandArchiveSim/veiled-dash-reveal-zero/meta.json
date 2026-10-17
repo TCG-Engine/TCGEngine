@@ -1,0 +1,22 @@
+{
+    "name": "veiled-dash-reveal-zero",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:26:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "08kuz07nk4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "08kuz07nk4"
+        ],
+        "mechanics": [
+            "reveal",
+            "choice",
+            "damage-prevention"
+        ],
+        "rulesClauses": [
+            "Choose zero, one or all eligible Wind cards."
+        ]
+    }
+}

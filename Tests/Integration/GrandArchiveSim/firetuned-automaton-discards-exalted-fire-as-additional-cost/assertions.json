@@ -1,0 +1,29 @@
+[
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "HPDawzCDdr",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Exalted Fire pays the Fire discard cost"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "lzjmwuir99",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The paid ally resolves"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "Reserve cost remains separate from the discard"
+    }
+]

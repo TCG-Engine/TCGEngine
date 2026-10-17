@@ -1,0 +1,16 @@
+[
+    {
+        "step": 1,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "vm4kj3q2sv",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "An inactive restriction permits material departure"
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

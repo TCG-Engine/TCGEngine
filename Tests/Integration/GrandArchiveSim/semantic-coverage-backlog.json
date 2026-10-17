@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-16T18:17:56+00:00",
+    "generatedAt": "2026-10-17T20:15:54+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 2475,
+        "cardsWithExistingFixtures": 2477,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 2,
+        "cardsNeedingSemanticCoverage": 0,
         "mechanics": {
             "condition": 1332,
             "zone-movement": 860,
@@ -26,38 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "81gvGHkuVb",
-            "name": "Lorraine, Ascendant Wings",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "owq8s5fefw",
-            "name": "Duplicitous Replication",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
         {
             "cardId": "7mmve2l328",
             "name": "Band of Burning Verdict",
@@ -4724,10 +4692,16 @@
                 "condition"
             ],
             "existingFixtures": [
-                "creative-shock-draw-discard"
+                "creative-shock-draw-discard",
+                "creative-shock-fire-elements-dual",
+                "creative-shock-fire-elements-ordinary",
+                "creative-shock-fire-elements-water"
             ],
             "semanticFixtures": [
-                "creative-shock-draw-discard"
+                "creative-shock-draw-discard",
+                "creative-shock-fire-elements-dual",
+                "creative-shock-fire-elements-ordinary",
+                "creative-shock-fire-elements-water"
             ],
             "starterDecks": [
                 "Rai Starter Deck",
@@ -12137,10 +12111,12 @@
                 "status"
             ],
             "existingFixtures": [
-                "possessed-reaping-onallykill-return-as-spirit"
+                "possessed-reaping-onallykill-return-as-spirit",
+                "possessed-reaping-returns-killed-ally-among-duplicate-graveyard-cards"
             ],
             "semanticFixtures": [
-                "possessed-reaping-onallykill-return-as-spirit"
+                "possessed-reaping-onallykill-return-as-spirit",
+                "possessed-reaping-returns-killed-ally-among-duplicate-graveyard-cards"
             ],
             "starterDecks": [
                 "Merlin Re:Collection, Brilliant Vestige"
@@ -18692,10 +18668,12 @@
             ],
             "existingFixtures": [
                 "firetuned-automaton-discards-a-fire-card-as-an-additional-cost",
+                "firetuned-automaton-discards-exalted-fire-as-additional-cost",
                 "firetuned-automaton-needs-a-fire-card-in-hand-to-discard"
             ],
             "semanticFixtures": [
                 "firetuned-automaton-discards-a-fire-card-as-an-additional-cost",
+                "firetuned-automaton-discards-exalted-fire-as-additional-cost",
                 "firetuned-automaton-needs-a-fire-card-in-hand-to-discard"
             ],
             "starterDecks": [],
@@ -22349,10 +22327,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion"
+                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion",
+                "everflame-staff-sees-exalted-fire-spell-damage"
             ],
             "semanticFixtures": [
-                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion"
+                "everflame-staff-banish-with-three-refinement-counters-deals-four-damage-to-a-champion",
+                "everflame-staff-sees-exalted-fire-spell-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -22871,10 +22851,16 @@
                 "condition"
             ],
             "existingFixtures": [
+                "enki-simultaneous-fraysia",
+                "enki-simultaneous-silvershine",
+                "enki-simultaneous-tonoris-replaces-the-whole-summon",
                 "greater-boon-of-enki-bestowed-draws-a-card",
                 "greater-boon-of-enki-summons-a-copy-of-a-cheap-token-the-first-time-each-turn-only"
             ],
             "semanticFixtures": [
+                "enki-simultaneous-fraysia",
+                "enki-simultaneous-silvershine",
+                "enki-simultaneous-tonoris-replaces-the-whole-summon",
                 "greater-boon-of-enki-bestowed-draws-a-card",
                 "greater-boon-of-enki-summons-a-copy-of-a-cheap-token-the-first-time-each-turn-only"
             ],
@@ -25247,10 +25233,16 @@
                 "status"
             ],
             "existingFixtures": [
-                "veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory"
+                "veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory",
+                "veiled-dash-reveal-one",
+                "veiled-dash-reveal-two",
+                "veiled-dash-reveal-zero"
             ],
             "semanticFixtures": [
-                "veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory"
+                "veiled-dash-makes-two-units-distant-and-prevents-damage-per-wind-card-in-memory",
+                "veiled-dash-reveal-one",
+                "veiled-dash-reveal-two",
+                "veiled-dash-reveal-zero"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -26885,9 +26877,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "charged-gunslinger-exalted-fire-discard-after-powercell-compaction",
                 "charged-gunslinger-ranged-two-while-distant"
             ],
             "semanticFixtures": [
+                "charged-gunslinger-exalted-fire-discard-after-powercell-compaction",
                 "charged-gunslinger-ranged-two-while-distant"
             ],
             "starterDecks": [],
@@ -30960,10 +30954,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "red-hare-effective-exalted-fire-enables-pride-and-discard-draw",
                 "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
                 "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack"
             ],
             "semanticFixtures": [
+                "red-hare-effective-exalted-fire-enables-pride-and-discard-draw",
                 "red-hare-with-a-fire-unique-human-ally-loses-pride-and-attacks-to-rummage",
                 "red-hare-without-a-fire-unique-human-ally-keeps-pride-three-and-cannot-attack"
             ],
@@ -36173,10 +36169,16 @@
                 "condition"
             ],
             "existingFixtures": [
-                "eternal-magistrate-imbued-is-marked-imbued"
+                "eternal-magistrate-imbued-is-marked-imbued",
+                "eternal-magistrate-material-imbued",
+                "eternal-magistrate-material-plain",
+                "eternal-magistrate-material-suppressed"
             ],
             "semanticFixtures": [
-                "eternal-magistrate-imbued-is-marked-imbued"
+                "eternal-magistrate-imbued-is-marked-imbued",
+                "eternal-magistrate-material-imbued",
+                "eternal-magistrate-material-plain",
+                "eternal-magistrate-material-suppressed"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37121,10 +37123,14 @@
                 "draw-discard"
             ],
             "existingFixtures": [
-                "greater-boon-of-luxera-the-next-activation-of-the-chosen-name-draws-two-and-recovers-three-once"
+                "greater-boon-of-luxera-the-next-activation-of-the-chosen-name-draws-two-and-recovers-three-once",
+                "luxera-generation-blocked",
+                "luxera-generation-different-name"
             ],
             "semanticFixtures": [
-                "greater-boon-of-luxera-the-next-activation-of-the-chosen-name-draws-two-and-recovers-three-once"
+                "greater-boon-of-luxera-the-next-activation-of-the-chosen-name-draws-two-and-recovers-three-once",
+                "luxera-generation-blocked",
+                "luxera-generation-different-name"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -37965,6 +37971,35 @@
             ],
             "semanticFixtures": [
                 "loaded-thoughts-class-bonus-becoming-loaded-may-put-the-top-card-into-your-graveyard"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "81gvGHkuVb",
+            "name": "Lorraine, Ascendant Wings",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lorraine-ascendant-inherited-pays-2024",
+                "lorraine-ascendant-not-ascendant",
+                "lorraine-ascendant-pays-2024-and-generates-two-swords",
+                "lorraine-ascendant-permanent-sword-attack-permission",
+                "lorraine-ascendant-unaffordable"
+            ],
+            "semanticFixtures": [
+                "lorraine-ascendant-inherited-pays-2024",
+                "lorraine-ascendant-not-ascendant",
+                "lorraine-ascendant-pays-2024-and-generates-two-swords",
+                "lorraine-ascendant-permanent-sword-attack-permission",
+                "lorraine-ascendant-unaffordable"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44492,10 +44527,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "dawn-of-ashes-non-norm-element-cards-cost-one-more"
+                "dawn-of-ashes-non-norm-element-cards-cost-one-more",
+                "domain-upkeep-dawn-dual-norm"
             ],
             "semanticFixtures": [
-                "dawn-of-ashes-non-norm-element-cards-cost-one-more"
+                "dawn-of-ashes-non-norm-element-cards-cost-one-more",
+                "domain-upkeep-dawn-dual-norm"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44619,11 +44656,13 @@
             ],
             "existingFixtures": [
                 "dilu-does-not-obey-a-level-one-champion",
+                "dilu-exalted-wind-unique-human-removes-pride",
                 "dilu-with-a-wind-unique-human-ally-loses-pride",
                 "dilu-with-a-wind-unique-human-ally-wakes-up-at-the-end-of-the-turn-with-vigor"
             ],
             "semanticFixtures": [
                 "dilu-does-not-obey-a-level-one-champion",
+                "dilu-exalted-wind-unique-human-removes-pride",
                 "dilu-with-a-wind-unique-human-ally-loses-pride",
                 "dilu-with-a-wind-unique-human-ally-wakes-up-at-the-end-of-the-turn-with-vigor"
             ],
@@ -46191,13 +46230,17 @@
             ],
             "existingFixtures": [
                 "heavenly-guide-below-level-two-does-nothing",
+                "heavenly-guide-detects-a-real-dungeon-guide-level-up",
                 "heavenly-guide-does-not-level-up-against-a-spirit-champion",
-                "heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage"
+                "heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage",
+                "heavenly-guide-played-champion-with-lineage-does-not-qualify"
             ],
             "semanticFixtures": [
                 "heavenly-guide-below-level-two-does-nothing",
+                "heavenly-guide-detects-a-real-dungeon-guide-level-up",
                 "heavenly-guide-does-not-level-up-against-a-spirit-champion",
-                "heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage"
+                "heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage",
+                "heavenly-guide-played-champion-with-lineage-does-not-qualify"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47318,9 +47361,15 @@
                 "zone-movement"
             ],
             "existingFixtures": [
+                "molten-arrow-elements-dual",
+                "molten-arrow-elements-insufficient",
+                "molten-arrow-elements-mixed",
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
             ],
             "semanticFixtures": [
+                "molten-arrow-elements-dual",
+                "molten-arrow-elements-insufficient",
+                "molten-arrow-elements-mixed",
                 "molten-arrow-graveyard-ability-banishes-three-fire-cards-and-loads-into-the-bow"
             ],
             "starterDecks": [],
@@ -52790,6 +52839,25 @@
             "priority": 31
         },
         {
+            "cardId": "owq8s5fefw",
+            "name": "Duplicitous Replication",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "duplicitous-replication-copies-an-opposing-regalia-returning-from-suppression"
+            ],
+            "semanticFixtures": [
+                "duplicitous-replication-copies-an-opposing-regalia-returning-from-suppression"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
+        },
+        {
             "cardId": "8ydxeQcp50",
             "name": "Dynastic Whirlpool",
             "type": "ACTION",
@@ -55235,10 +55303,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "domain-upkeep-sanctuary-dual-water",
                 "prismatic-sanctuary-enables-fire-water-and-wind-for-the-champion",
                 "without-prismatic-sanctuary-a-water-card-cannot-be-played-by-a-fire-champion"
             ],
             "semanticFixtures": [
+                "domain-upkeep-sanctuary-dual-water",
                 "prismatic-sanctuary-enables-fire-water-and-wind-for-the-champion",
                 "without-prismatic-sanctuary-a-water-card-cannot-be-played-by-a-fire-champion"
             ],

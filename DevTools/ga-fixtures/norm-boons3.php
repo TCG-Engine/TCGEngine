@@ -417,7 +417,7 @@ DECK
     ->register();
 
 // ---- Heavenly Guide ----
-// The engine approximates "a card on top of its lineage that wasn't played" as "the champion has any lineage card" (nothing tracks whether a lineage card was played).
+// Effect-driven level-up records unplayed top-card provenance; ordinary materialization clears it.
 
 if (!function_exists('gaHeavenlyGuide')) {
     function gaHeavenlyGuide(string $slug): GaScenario {
@@ -437,6 +437,7 @@ DECK
 
 gaHeavenlyGuide('heavenly-guide-level-two-levels-up-your-champion-against-a-non-spirit-champion-with-lineage')
     ->champion(cardName: 'Lorraine, Wandering Warrior', lineage: ['Spirit of Fire'], player: 2)
+    ->patch('myField-0', ['Counters' => ['gaTopUnplayed' => 1]], player: 2)
     ->play('Heavenly Guide')->pay(3)
     ->expectCardExists('myField', 'Lorraine, Blademaster', 'The champion levelled up into Lorraine, Blademaster')
     ->tested('Heavenly Guide')
@@ -458,3 +459,19 @@ gaHeavenlyGuide('heavenly-guide-below-level-two-does-nothing')
     ->tested('Heavenly Guide')
     ->covers(['level-threshold', 'condition'], '[Level 2+] **On Enter:**')
     ->register();
+
+gaHeavenlyGuide('heavenly-guide-played-champion-with-lineage-does-not-qualify')
+    ->champion(cardName: 'Lorraine, Wandering Warrior', lineage: ['Spirit of Fire'], player: 2)
+    ->play('Heavenly Guide')->pay(3)
+    ->expectCardExists('myField', 'Lorraine, Wandering Warrior', 'An ordinary played champion does not enable the level up')
+    ->expectZoneCount('myField', 2, 1, 'Guide enters but does not replace the champion')
+    ->tested('Heavenly Guide')->covers(['on-enter', 'condition', 'lineage', 'played'], 'A card on top of the opposing lineage must not have been played.')->register();
+
+gaHeavenlyGuide('heavenly-guide-detects-a-real-dungeon-guide-level-up')
+    ->seed('myHand', 'Dungeon Guide', player: 2)
+    ->endTurn()
+    ->play('Dungeon Guide', player: 2)->pay(3, player: 2)->answer(2, 'YES')->answer(2, 'myMaterial-0')
+    ->endTurn(player: 2)->answer(1, 'PASS')
+    ->play('Heavenly Guide')->pay(3)
+    ->expectCardExists('myField', 'Lorraine, Blademaster', 'The opposing effect-driven level-up enables Heavenly Guide')
+    ->tested('Heavenly Guide')->covers(['on-enter', 'condition', 'lineage', 'level-up'], 'Dungeon Guide puts an unplayed champion on top of the opposing lineage.')->register();

@@ -57,6 +57,7 @@ Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Click: FSM()
 Counters: OmenCounterCount=Image(Path=Assets/Icons/omen-counter.webp,Position=Center,ShowZero=false,Size=30,TextColor=White)
 Graveyard - CardID:string
+BeforeRemove: GAGraveyardIdentityLeaving
 AddReplacement: GraveyardAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
 Virtual: EphemerateMeta=EphemerateMeta()
@@ -177,6 +178,7 @@ AddReplacement: MemoryAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=Single, BindTo=MemorySlot
 Material - CardID:string
+BeforeRemove: GAMaterialCanLeave
 BeforeAdd: TokenCeaseBeforeAdd
 Virtual: MaterialSelectionMetadata=MaterialSelectionMetadata()
 Highlight: MaterialSelectionMetadata

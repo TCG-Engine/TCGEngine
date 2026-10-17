@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "Sword attacks as an ally without a champion wielding it"
+    },
+    {
+        "step": 5,
+        "type": "global_effect_present",
+        "player": 1,
+        "effect": "LORRAINE_ASCENDANT_SWORDS_AS_ALLY",
+        "value": 1,
+        "semantic": true,
+        "label": "The permission survives turn boundaries and does not require Lorraine to remain"
+    }
+]

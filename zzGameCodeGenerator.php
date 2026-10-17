@@ -461,6 +461,9 @@ while(!feof($handler)) {
       case "BeforeAdd":
         $zoneObj->BeforeAdd = trim($lineValue);
         break;
+      case "BeforeRemove":
+        $zoneObj->BeforeRemove = trim($lineValue);
+        break;
       case "AfterAdd":
         $zoneObj->AfterAdd = trim($lineValue);
         break;
@@ -563,6 +566,7 @@ while(!feof($handler)) {
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
         $zoneObj->BeforeAdd = null;
+        $zoneObj->BeforeRemove = null;
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
@@ -931,8 +935,15 @@ if($skipRemovedModule !== null && trim($skipRemovedModule->Parameters ?? "") !==
 }
 fwrite($handler, "  if(\$removed === null) return null;\r\n");
 fwrite($handler, "  if(property_exists(\$removed, 'removed') && \$removed->removed === true) return null;\r\n");
-fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
-fwrite($handler, "  \$removed->Remove();\r\n");
+$hasDepartureVeto = false;
+foreach($zones as $departureZone) if(($departureZone->BeforeRemove ?? null) !== null) $hasDepartureVeto = true;
+if($hasDepartureVeto) {
+  fwrite($handler, "  if(\$removed->Remove() === false) return null;\r\n");
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+} else {
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+  fwrite($handler, "  \$removed->Remove();\r\n");
+}
 fwrite($handler, "  // The zone names above are normalized to the request viewer's perspective.\r\n");
 fwrite($handler, "  // Use that same player for the destination so cross-player moves keep their owner.\r\n");
 fwrite($handler, "  \$destinationPlayer = intval(\$playerID) > 0 ? intval(\$playerID) : intval(\$player);\r\n");
@@ -1633,6 +1644,9 @@ for($i=0; $i<count($zones); ++$i) {
 
   //Remove function
   fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
+  if(($zone->BeforeRemove ?? null) !== null) {
+    fwrite($handler, "    if(!" . $zone->BeforeRemove . "(\$this, \$trigger)) return false;\r\n");
+  }
   fwrite($handler, "    \$this->removed = true;\r\n");
   if($hasIndexedProperties) {
     fwrite($handler, "    \$this->ClearIndex();\r\n");

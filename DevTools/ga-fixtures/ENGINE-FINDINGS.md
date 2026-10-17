@@ -1,6 +1,15 @@
 # GrandArchiveSim engine findings
 
+Combat prerequisite follow-up (2026-10-16): Meteoric Volley and Overpowering Defense now resolve the combat attacker in the current viewer’s frame and use its recorded UID when available. The shared maintained helper rejects departed participants and checks the actual controller and effective unit properties; older queues without a positive UID retain coordinate support. The generated Overpowering Defense prerequisite is superseded by a maintained override. One hundred eighty retained checks cover both players/viewers, champion/ally/non-unit identity, effective Guardian class, compaction, departure and controller changes. Both perspective and identity mutations fail. Full verification passes: 4,104/4,104 fixtures, GABot 10/10, 49 Phase C and 589 Phase D boundaries, and all guards. The remaining generated-reader audit and authored-source-dependent mechanics stay open. Changes remain uncommitted and unpushed.
+
+
+Wind reader follow-up (2026-10-16): Enhance Hearing now accepts effective Wind membership (including Exalted Wind) and uses effective Reaction subtype membership. Gearstride Academy checks the entering object’s effective Ally type and Wind membership. Fifteen retained boundary checks cover ordinary/Exalted Wind, non-Wind rejection, imbue and suppression; restoring either exact-equality check makes the suite fail. Full verification passes: 4,104/4,104 integration fixtures, GABot 10/10, 49 Phase C and 409 Phase D boundaries, strict semantic contracts and all coverage/action guards. PHP lint and diff whitespace checks pass. The wider D0 inventories and authored-source-dependent mechanics remain open. Changes remain uncommitted and unpushed.
+
+
 ## Current follow-up status (2026-10-16)
+
+Latest Phase D runtime follow-up: **4,104/4,104** fixtures, **GABot 10/10**, 49 Phase C / 394 Phase D boundaries, and all guards pass. Possessed Reaping now tracks exact killed-card destinations (including stolen objects, duplicates, departure and compaction); Malignant Athame, Blastshot Pump and the preparation-choice continuations bind their event context. Five further maintained basic-element readers are fixed. The current authored card database/export is unavailable; the user requested this dependency be noted. Damage/caller resumption, Multistrike, Slipstream's separate negation clause, and the remaining generated-reader migrations are still open in [the roadmap](ROADMAP.md). This is not Phase D completion.
+
 
 Latest Phase C checkpoint: **4,071/4,071** integration fixtures, GABot **10/10**,
 all local guards pass. Samaritan’s Reach and Hymn of Gaia’s Grace now use the
@@ -322,3 +331,7 @@ Required fixtures: YES and NO for combat and non-combat damage; both controller 
 ### Follow-up validation
 
 **Full suite 4015/4015; GABot 10/10.** Strict semantic contracts pass (3831 complete, zero incomplete, 184 legacy; 8741 assertions), action/inline guard passes (3796 scenario fixtures, zero truncated), and the three-card baseline passes. Seventeen new scenario fixtures are in `phase-b-followup.php`; two existing cost fixtures were updated. Ten mutations produce eleven expected fixture failures, including missing Geni floating-memory behavior and Parvati charging native costs. Eleven loaded-state boundary checks pass. PHP lint, keyword-registry audit and diff formatting pass; semantic backlog regenerated. Full scenario regeneration was not run. Changes remain uncommitted; nothing pushed and no PR opened. No generated file was edited.
+
+### Phase D: Molten Arrow Fire payment
+
+Molten Arrow’s graveyard payment helper compared the complete element property to `FIRE`, rejecting Exalted Fire. It now tests membership for every sequential choice. Three fixtures cover all-Exalted Fire, mixed Fire and insufficient eligible payment cards; the all-Exalted Fire fixture fails with the original comparison. The arrow itself remains excluded.

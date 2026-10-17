@@ -3,21 +3,18 @@
 The roadmap's exit condition is "every implemented card has at least one semantic fixture or is listed here with the reason". `php DevTools/build-ga-semantic-backlog.php` lists the cards that still have none.
 Cards that are fixtured except for one clause are listed too, so the gap is written down.
 
-## No fixture at all
+## Current semantic coverage exceptions
 
-| Card | Why |
-| --- | --- |
-| Duplicitous Replication | "The next time one or more regalia enter the field under an opponent's control this turn" lasts one turn. A regalia enters under the opponent's control in their materialize phase, which no response window precedes, and only the materialize path checks the effect (regalia put onto the field by other effects are not checked). |
-| Lorraine, Ascendant Wings | Its (2024) lineage ability costs 2024 reserve and its text is open-ended ("generate any amount of Sword regalia"); the ability is not implemented. |
+None. The baseline is empty after the Phase D Duplicitous Replication and Lorraine fixtures. This means every card in the coverage audit has a semantic fixture; it does not prove every printed clause or wider engine mechanic is complete. Remaining implementation work stays unchecked in ROADMAP.md.
 
-## Fixtured except for one clause
+## Phase D resolved clauses
 
-| Card | Clause that is not covered | Why |
-| --- | --- | --- |
-| Greater Boon of Luxera | "You can't generate cards with the chosen name." | The restriction is not implemented. |
-| Veiled Dash | "Reveal **any amount** of wind element cards" | The engine reveals every wind card in memory instead of asking. |
-| Heavenly Guide | "A card on top of its lineage that wasn't played" | Nothing tracks whether a lineage card was played; the engine treats any lineage card as unplayed. |
-| Greater Boon of Enki | "One or more tokens ... for the first time each turn" | Tokens are seen one at a time, so the first qualifying token is the one copied. |
+- Greater Boon of Luxera: generation restrictions now gate the implemented memory, deck, banishment and lineage generation routes. Mixed-effect instructions retain their other effects.
+- Veiled Dash: explicit zero-to-two target and zero-to-all Wind reveal choices.
+- Heavenly Guide: played versus effect-driven top-champion provenance, including inherited history through level-up and delevel.
+- Greater Boon of Enki: explicit simultaneous field-entry groups, including the different tokens in Floral Arrangement, with a copy choice.
+- Duplicitous Replication: field entries outside materialization now trigger; simultaneous groups copy every regalia. A real activation followed by Zephyr's opposing end-phase return is fixtured.
+- Lorraine, Ascendant Wings: the user selected full printed implementation. Actual 2024-reserve payment is fixtured on the card and inherited from lineage; generation permits zero or repeated Sword selections and installs permanent independent Sword-attack permission.
 
 ## Resolved exceptions (2026-10-16)
 
