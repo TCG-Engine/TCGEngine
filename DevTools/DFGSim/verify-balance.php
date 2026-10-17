@@ -19,12 +19,17 @@ function verifyReplay(array $match): void {
             verifyBalance(array_column($state['players'], 'color') === $round['colors'], 'replayed active hands');
             verifyBalance(array_column($state['players'], 'advantages') === $round['advantagesBefore'], 'tokens carry between rounds');
             foreach ([0,1] as $seat) $state = DFGApply($state, $seat, ['type'=>'commit'] + $round['plans'][$seat]);
+            foreach($round['cancels']??[] as $choice) $state=DFGApply($state,$choice['seat'],['type'=>'cancel','main'=>$choice['main']]);
+            verifyBalance($state['commitments']===($round['combatPlans']??$round['plans']),'replayed replacements preserve all committed costs and carried effects');
             foreach ($round['reactions'] as $reaction) {
                 if ($state['reactionTurn'] !== $reaction['seat']) $state = DFGApply($state, $state['reactionTurn'], ['type'=>'pass']);
                 $state = DFGApply($state, $reaction['seat'], ['type'=>'react','card'=>$reaction['card']]);
             }
             while ($state['phase'] === 'reactions') $state = DFGApply($state, $state['reactionTurn'], ['type'=>'pass']);
+            foreach ($round['strips']??[] as $choice) $state=DFGApply($state,$choice['seat'],['type'=>'strip','color'=>$choice['color']]);
             verifyBalance(array_column($state['players'], 'life') === $round['lifeAfter'] && array_column($state['players'], 'advantages') === $round['advantagesAfter'], 'engine replay reproduces damage and objective awards');
+            foreach ($round['routeCuts'] ?? [] as $cut) $state = DFGApply($state,$cut['seat'],['type'=>'cut','color'=>$cut['color']]);
+            foreach ($round['forcedDestinations'] ?? [] as $choice) $state = DFGApply($state,$choice['seat'],['type'=>'direct','color'=>$choice['color']]);
             foreach ($round['switches'] as $seat=>$color) $state = DFGApply($state, $seat, ['type'=>'switch','color'=>$color]);
         }
         verifyBalance(array_column($state['players'], 'life') === $match['finalLife'] && array_map(fn($p)=>count($p['discarded']), $state['players']) === $match['burns'], 'replayed final life and card resources');
@@ -39,11 +44,13 @@ while (($line = fgets($raw)) !== false) {
     foreach ($match['rounds'] as $round) {
         verifyBalance($round['lifeBefore'] === $life, 'consecutive life accounting');
         $reactions = array_map(fn($r) => ['seat' => $r['seat'], 'card' => $r['card']], $round['reactions']);
-        verifyBalance(DFGComputeRound($round['plans'], $reactions) === $round['stats'], 'recorded damage reproduces current card rules');
+        $combatPlans=$round['combatPlans']??$round['plans'];
+        verifyBalance(DFGComputeRound($combatPlans, $reactions) === $round['stats'], 'recorded damage reproduces current card rules');
         foreach ([0,1] as $seat) {
             $plan = $round['plans'][$seat];
             foreach ($plan['advantages'] ?? [] as $color) ++$activity[$color]['spent'];
             $remaining = array_diff($round['advantagesBefore'][$seat], $plan['advantages'] ?? []);
+            foreach ($round['strips']??[] as $choice) if ($choice['seat']!==$seat) $remaining=array_diff($remaining,[$choice['color']]);
             foreach (array_diff($round['advantagesAfter'][$seat], $remaining) as $color) ++$activity[$color]['earned'];
             if (count($plan['advantages'] ?? []) === 2) ++$combos;
             verifyBalance(count($plan['bonuses']) <= 1 && !in_array($plan['main'], $discarded[$seat], true), 'legal main and bonus limit');
@@ -54,12 +61,21 @@ while (($line = fgets($raw)) !== false) {
                 $discarded[$seat][] = $id; $seen[$seat]['bonus'][$id] = true;
             }
         }
+        foreach($combatPlans as $seat=>$plan) if(isset($plan['cancelledFrom'])) {
+            verifyBalance(!in_array($plan['cancelledFrom'],$discarded[$seat],true),'cancel burns original main once');
+            $discarded[$seat][]=$plan['cancelledFrom'];
+        }
         foreach ($round['reactions'] as $r) {
-            verifyBalance($r['card'] !== $round['plans'][$r['seat']]['main'] && !in_array($r['card'],$discarded[$r['seat']],true) && DFGCatalog()[$r['card']]['color'] === $round['colors'][$r['seat']], 'legal permanent reaction burn');
+            verifyBalance($r['card'] !== $combatPlans[$r['seat']]['main'] && !in_array($r['card'],$discarded[$r['seat']],true) && DFGCatalog()[$r['card']]['color'] === $round['colors'][$r['seat']], 'legal permanent reaction burn');
             $discarded[$r['seat']][] = $r['card']; $seen[$r['seat']]['reaction'][$r['card']] = true;
         }
         foreach ([0,1] as $seat) $life[$seat] = max(0,$life[$seat]-$round['stats'][1-$seat]['damage']);
-        verifyBalance($round['lifeAfter'] === $life, 'simultaneous damage life accounting');
+        foreach ([0,1] as $seat) {
+            $effects = DFGTriggeredSpecials($combatPlans,$round['stats'],$seat);
+            if (in_array('hit_heal',$effects,true) && $life[$seat]>0) $life[$seat]=min(40,$life[$seat]+1);
+            if (in_array('hit_burn_enemy_main',$effects,true)) $discarded[1-$seat][]=$combatPlans[1-$seat]['main'];
+        }
+        verifyBalance($round['lifeAfter'] === $life, 'simultaneous damage and recovery life accounting');
     }
     verifyBalance($match['finalLife'] === $life && $match['burns'] === array_map('count',$discarded), 'final life and permanent resource totals');
     foreach ([0,1] as $seat) foreach ($seen[$seat] as $role=>$ids) foreach (array_keys($ids) as $id) $expected[$id][$role] = ($expected[$id][$role] ?? 0)+1;

@@ -16,6 +16,45 @@ function DFGCombatValue(array $stats, array $players, int $seat): float {
     return 1.2 * $dealt - ($players[$seat]['life'] <= 12 ? 1.35 : 0.9) * $taken;
 }
 
+// Value non-damage payoffs using only the sampled/revealed plans and public resources.
+function DFGStrategicValue(array $plans, array $reactions, array $stats, array $players, int $seat): float {
+    $specials = [DFGTriggeredSpecials($plans, $stats, 0), DFGTriggeredSpecials($plans, $stats, 1)];
+    $value = 0.0;
+    foreach ([0, 1] as $actor) {
+        $score = 0.0; $effects = $specials[$actor];
+        $objective = DFGCatalog()[$plans[$actor]['main']]['advantage']['earn'];
+        $held = array_diff($players[$actor]['advantages'] ?? [], $plans[$actor]['advantages'] ?? []);
+        $pending = $players[$actor]['pendingObjective'] ?? null;
+        if ($pending && $stats[$actor]['damage'] >= ($pending['minimumDamage'] ?? 4) && !in_array($pending['color'], $held, true)
+            && !in_array('hit_deny_earn', $specials[1-$actor], true)) $score += 1.1;
+        if ($objective && $objective['condition'] === 'damage_next_round' && !in_array($objective['color'], $held, true)) $score += 0.4;
+        if ($objective && !in_array('hit_deny_earn', $specials[1-$actor], true) && !in_array($objective['color'], $held, true)
+            && DFGObjectiveAchieved($plans[$actor], $plans[1-$actor], $stats, $actor, $reactions)) $score += 1.1;
+        if (!in_array('brace_reset',array_merge(...$specials),true)) $score += 0.65 * DFGNextAttackFromSpecials($effects);
+        if (in_array('miss_recovery',$effects,true)) $score -= 0.8;
+        if (in_array('hit_burn_lock',$effects,true)) $score += 1.2;
+        $enemyHeld=array_diff($players[1-$actor]['advantages']??[], $plans[1-$actor]['advantages']??[]);
+        $score += 1.1 * min(count($enemyHeld),count(array_intersect(['hit_strip','guard_strip'],$effects)));
+        if (in_array('hit_force_color',$effects,true)) {
+            $routes=array_filter(DFGCatalog()[$plans[1-$actor]['main']]['switches'],fn($color)=>DFGAvailable($players[1-$actor],$color));
+            if(count($routes)>1)$score+=0.9;
+        }
+        if (in_array('hit_heal', $effects, true) && $players[$actor]['life'] > $stats[1-$actor]['damage']
+            && $players[$actor]['life'] - $stats[1-$actor]['damage'] < 40) $score += 0.9;
+        if (in_array('hit_burn_enemy_main', $effects, true)) $score += DFGBurnCost($plans[1-$actor]['main'], $players[1-$actor]['life']);
+        // Route value is intentionally modest; future matchups remain uncertain.
+        if (array_intersect(['safe_switch', 'hit_switch', 'free_switch'], $effects)) $score += 0.4;
+        if (in_array('stay_green', $effects, true) && DFGAvailable($players[$actor], 'Green')) $score += 0.3;
+        if (array_intersect(['hit_cut_routes', 'clean_force_move'], $effects)) {
+            $enemyRoutes = array_values(array_filter(DFGCatalog()[$plans[1-$actor]['main']]['switches'], fn($color) => DFGAvailable($players[1-$actor], $color)));
+            $blocked = [$players[1-$actor]['color']];
+            if (in_array('hit_cut_routes', $effects, true) ? count($enemyRoutes)>1 : (array_intersect($enemyRoutes, $blocked) && array_diff($enemyRoutes, $blocked))) $score += 0.5;
+        }
+        $value += $actor === $seat ? $score : -$score;
+    }
+    return $value;
+}
+
 function DFGOpponentSamples(array $view, int $seat): array {
     $other = 1 - $seat;
     $available = DFGAvailable($view['players'][$other], $view['players'][$other]['color']);
@@ -28,7 +67,7 @@ function DFGOpponentSamples(array $view, int $seat): array {
         $variants = DFGSpendVariants($view['players'][$other], $main);
         foreach ($variants as $variant) $samples[] = ['plan' => ['main' => $main, 'bonuses' => []] + $variant, 'weight' => $weight / count($variants)];
         // Anticipate an occasional single bonus; do not read the opponent's actual committed burns.
-        foreach ($available as $bonus) if ($bonus !== $main && $cards[$bonus]['bonus'] !== '') foreach ($variants as $variant) $samples[] = ['plan' => ['main' => $main, 'bonuses' => [$bonus]] + $variant, 'weight' => 0.12 * $weight / count($variants)];
+        if (!DFGBurnLocked($view,$other)) foreach ($available as $bonus) if ($bonus !== $main && $cards[$bonus]['bonus'] !== '') foreach ($variants as $variant) $samples[] = ['plan' => ['main' => $main, 'bonuses' => [$bonus]] + $variant, 'weight' => 0.12 * $weight / count($variants)];
     }
     return $samples;
 }
@@ -38,13 +77,34 @@ function DFGEnumeratePlans(array $view, int $seat): array {
     $available = DFGAvailable($view['players'][$seat], $view['players'][$seat]['color']);
     $plans = [];
     foreach ($available as $main) {
-        $bonuses = array_values(array_filter($available, fn($id) => $id !== $main && $cards[$id]['bonus'] !== ''));
+        $bonuses = DFGBurnLocked($view,$seat) ? [] : array_values(array_filter($available, fn($id) => $id !== $main && $cards[$id]['bonus'] !== ''));
         foreach (DFGSpendVariants($view['players'][$seat], $main) as $variant) {
             $plans[] = ['main' => $main, 'bonuses' => []] + $variant;
             foreach ($bonuses as $id) $plans[] = ['main' => $main, 'bonuses' => [$id]] + $variant;
         }
     }
     return $plans;
+}
+
+// Compare keeping the revealed main with each legal replacement, charging the permanent burn.
+function DFGBotCancelRanking(array $plans,array $players,int $seat,array $candidates): array {
+    $ranking=[];
+    foreach ($candidates as $main) {
+        $trial=$plans;$trial[$seat]=DFGCancelledPlan($plans[$seat],$main);
+        $stats=DFGComputeRound($trial);
+        $score=DFGCombatValue($stats,$players,$seat)+DFGStrategicValue($trial,[],$stats,$players,$seat);
+        if ($main!==$plans[$seat]['main']) $score-=DFGBurnCost($plans[$seat]['main'],$players[$seat]['life']);
+        $ranking[]=['action'=>['type'=>'cancel','main'=>$main],'score'=>$score];
+    }
+    usort($ranking,fn($a,$b)=>$b['score']<=>$a['score']);
+    return $ranking;
+}
+function DFGBotForecastValue(array $view,array $plans,int $seat): float {
+    if (!DFGBurnLocked($view,$seat) && in_array('cancel_main',DFGPlanSpecials($plans[$seat]),true)) {
+        return DFGBotCancelRanking($plans,$view['players'],$seat,DFGCancelCandidates($view['players'][$seat],$plans[$seat]))[0]['score'];
+    }
+    $stats=DFGComputeRound($plans);
+    return DFGCombatValue($stats,$view['players'],$seat)+DFGStrategicValue($plans,[],$stats,$view['players'],$seat);
 }
 
 function DFGBotPlanRanking(array $view, int $seat): array {
@@ -55,11 +115,7 @@ function DFGBotPlanRanking(array $view, int $seat): array {
         $total = 0.0; $weights = 0.0; $worst = INF;
         foreach ($samples as $sample) {
             $plans = []; $plans[$seat] = $plan; $plans[$other] = $sample['plan'];
-            $stats = DFGComputeRound($plans);
-            $value = DFGCombatValue($stats, $view['players'], $seat);
-            $objective = $cards[$plan['main']]['advantage']['earn'];
-            $held = array_diff($view['players'][$seat]['advantages'] ?? [], $plan['advantages'] ?? []);
-            if ($objective && !in_array($objective['color'], $held, true) && DFGObjectiveAchieved($plan, $sample['plan'], $stats, $seat)) $value += 1.1;
+            $value = DFGBotForecastValue($view,$plans,$seat);
             $total += $value * $sample['weight']; $weights += $sample['weight']; $worst = min($worst, $value);
         }
         $burnCost = array_sum(array_map(fn($id) => DFGBurnCost($id, $view['players'][$seat]['life']), $plan['bonuses']));
@@ -75,11 +131,12 @@ function DFGBotPlanRanking(array $view, int $seat): array {
 
 function DFGBotReaction(array $view, int $seat): array {
     $current = DFGComputeRound($view['commitments'], $view['reactions']);
-    $best = DFGCombatValue($current, $view['players'], $seat) + 0.15;
+    $best = DFGCombatValue($current, $view['players'], $seat) + DFGStrategicValue($view['commitments'], $view['reactions'], $current, $view['players'], $seat) + 0.15;
     $action = ['type' => 'pass'];
     foreach ($view['reactionOptions'] as $id) {
         $reactions = $view['reactions']; $reactions[] = ['seat' => $seat, 'card' => $id];
-        $value = DFGCombatValue(DFGComputeRound($view['commitments'], $reactions), $view['players'], $seat) - DFGBurnCost($id, $view['players'][$seat]['life']);
+        $stats = DFGComputeRound($view['commitments'], $reactions);
+        $value = DFGCombatValue($stats, $view['players'], $seat) + DFGStrategicValue($view['commitments'], $reactions, $stats, $view['players'], $seat) - DFGBurnCost($id, $view['players'][$seat]['life']);
         if ($value > $best) { $best = $value; $action = ['type' => 'react', 'card' => $id]; }
     }
     return $action;
@@ -87,6 +144,7 @@ function DFGBotReaction(array $view, int $seat): array {
 
 function DFGBotSwitchRanking(array $view, int $seat): array {
     $other = 1 - $seat;
+    $futureView=$view; ++$futureView['round'];
     // Both choices are still hidden. Consider every legal opposing next color, not its selected color.
     $opponentColors = DFGSwitchOptions($view, $other);
     $opponentCards = [];
@@ -98,8 +156,8 @@ function DFGBotSwitchRanking(array $view, int $seat): array {
             foreach (DFGSpendVariants($view['players'][$seat], $main) as $variant) {
                 $score = 0.0;
                 foreach ($opponentCards as $opponent) {
-                    $plans = []; $plans[$seat] = ['main' => $main, 'bonuses' => []] + $variant; $plans[$other] = ['main' => $opponent, 'bonuses' => []];
-                    $score += DFGCombatValue(DFGComputeRound($plans), $view['players'], $seat);
+                    $plans = []; $plans[$seat] = ['main' => $main, 'bonuses' => []] + $variant; $plans[$other] = ['main' => $opponent, 'bonuses' => [], 'momentum' => $view['players'][$other]['nextAttack'] ?? 0, 'blockPenalty'=>$view['players'][$other]['nextBlockPenalty']??0];
+                    $score += DFGBotForecastValue($futureView,$plans,$seat);
                 }
                 $best = max($best, $score / max(1, count($opponentCards)) - 0.65 * count($variant['advantages'] ?? []));
             }
@@ -110,7 +168,50 @@ function DFGBotSwitchRanking(array $view, int $seat): array {
     return $ranking;
 }
 
+function DFGBotCut(array $view, int $seat): array {
+    $best = INF; $action = null;
+    foreach ($view['cutOptions'] as $color) {
+        $trial = DFGApply($view, $seat, ['type'=>'cut','color'=>$color]);
+        $trial['phase'] = 'switching';
+        $ranking = DFGBotSwitchRanking(DFGObserve($trial, 1-$seat), 1-$seat);
+        $score = $ranking[0]['score'] ?? 0;
+        if ($score < $best) { $best = $score; $action = ['type'=>'cut','color'=>$color]; }
+    }
+    if ($action === null) throw new LogicException('Bot has no legal route cut');
+    return $action;
+}
+
+function DFGBotForce(array $view,int $seat): array {
+    $best=INF;$action=null;
+    foreach($view['forceOptions'] as $color){
+        $trial=DFGApply($view,$seat,['type'=>'direct','color'=>$color]);$trial['phase']='switching';
+        $ranking=DFGBotSwitchRanking(DFGObserve($trial,1-$seat),1-$seat);
+        $score=$ranking[0]['score']??0;
+        if($score<$best){$best=$score;$action=['type'=>'direct','color'=>$color];}
+    }
+    if($action===null)throw new LogicException('Bot has no legal forced destination');
+    return $action;
+}
+
 function DFGBotChoose(array $view, int $seat, int &$rng): array {
+    if ($view['phase']==='cancelling') return DFGBotCancelRanking($view['commitments'],$view['players'],$seat,$view['cancelOptions'])[0]['action'];
+    if ($view['phase'] === 'stripping') {
+        // Prefer denying spends available in the opposing legal next hands.
+        $colors=DFGSwitchOptions($view,1-$seat);
+        $ranking=[];
+        foreach ($view['stripOptions'] as $color) {
+            $value=0;
+            foreach ($colors as $hand) foreach (DFGAvailable($view['players'][1-$seat],$hand) as $id) {
+                $rule=DFGCatalog()[$id]['advantage']['spend'];
+                if ($rule && in_array($color,$rule['colors'],true)) $value += $rule['flexible'] ? 1 : 2;
+            }
+            $ranking[$color]=$value;
+        }
+        arsort($ranking);
+        return ['type'=>'strip','color'=>array_key_first($ranking)];
+    }
+    if ($view['phase'] === 'directing') return DFGBotForce($view,$seat);
+    if ($view['phase'] === 'routing') return DFGBotCut($view, $seat);
     if ($view['phase'] === 'reactions') return DFGBotReaction($view, $seat);
     $ranking = $view['phase'] === 'planning' ? DFGBotPlanRanking($view, $seat) : DFGBotSwitchRanking($view, $seat);
     if (!$ranking) throw new LogicException('Bot has no legal actions');
@@ -125,6 +226,10 @@ function DFGRunBot(array $state): array {
     for ($steps = 0; $steps < 20; ++$steps) {
         $active = ($state['phase'] === 'planning' && $state['commitments'][1] === null)
             || ($state['phase'] === 'reactions' && $state['reactionTurn'] === 1)
+            || ($state['phase'] === 'cancelling' && DFGCancelOptions($state,1))
+            || ($state['phase'] === 'stripping' && DFGStripOptions($state,1))
+            || ($state['phase'] === 'routing' && DFGCutOptions($state, 1))
+            || ($state['phase'] === 'directing' && DFGForceOptions($state, 1))
             || ($state['phase'] === 'switching' && $state['switches'][1] === null);
         if (!$active) return $state;
         $view = DFGObserve($state, 1);

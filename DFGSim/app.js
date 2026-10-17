@@ -43,9 +43,10 @@ function accept(data) {
   if(state && data.state && state.matchId===data.state.matchId) {
     for(const seat of [0,1]) for(const id of data.state.players[seat].discarded.filter(id=>!state.players[seat].discarded.includes(id))) {
       if(seat===0&&state.phase==='planning'&&selectedBonuses.has(id)) continue;
-      moves.push({type:'ZONE_MOVE',source:seat===0?`hand-${id}`:`orb-${card(id).color}`,previewCardID:seat===1?id:null,destination:`burn-${seat}-${id}`,durationMs:340});
+      const burnedMain=state.commitments[seat]?.main===id;
+      moves.push({type:'ZONE_MOVE',source:burnedMain?`played-main-${seat}`:seat===0?`hand-${id}`:`orb-${card(id).color}`,previewCardID:seat===1&&!burnedMain?id:null,destination:`burn-${seat}-${id}`,durationMs:340});
     }
-    if(state.phase==='reactions'&&data.state.phase==='switching') moves.push({type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${state.commitments[0].main}`,durationMs:340});
+    if(state.phase==='reactions'&&['routing','directing','switching'].includes(data.state.phase)&&!data.state.players[0].discarded.includes(state.commitments[0].main)) moves.push({type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${state.commitments[0].main}`,durationMs:340});
   }
   const prepared=prepareMotion(moves);
   if(!state || state.matchId !== data.state?.matchId) { opponentColor=null; ClosePopup(); HideCardDetail(true); }
@@ -89,7 +90,7 @@ function clickHandCard(id,button) {
     if(selectedMain===id) changeSelection(()=>{selectedMain=null;selectedAdvantages.clear();extraSwitch=null;},[{type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${id}`}]);
     else if(selectedBonuses.has(id)) changeSelection(()=>selectedBonuses.delete(id),[{type:'ZONE_MOVE',source:`burn-0-${id}`,destination:`hand-${id}`}]);
     else if(!selectedMain) changeSelection(()=>{selectedMain=id;selectedAdvantages.clear();extraSwitch=null;},[{type:'ZONE_MOVE',source:`hand-${id}`,destination:'played-main-0'}]);
-    else if(!selectedBonuses.size&&c.bonus) changeSelection(()=>selectedBonuses.add(id),[{type:'ZONE_MOVE',source:`hand-${id}`,destination:`burn-0-${id}`}]);
+    else if(!selectedBonuses.size&&c.bonus&&p.burnLockedRound!==state.round) changeSelection(()=>selectedBonuses.add(id),[{type:'ZONE_MOVE',source:`hand-${id}`,destination:`burn-0-${id}`}]);
     return;
   }
   if(previewPinned&&previewId===id) closePreview();else showPreview(id,button,true);
@@ -109,11 +110,12 @@ function fighter(seat) {
 function reveal(seat) {
   const staged=seat===0&&state.phase==='planning'&&!state.commitments[0];
   const plan = staged&&selectedMain?{main:selectedMain,bonuses:[...selectedBonuses]}:state.commitments[seat], owner = seat===0?'Your played card':'Opponent played card';
-  const burns=staged?[...selectedBonuses]:(plan&&!plan.hidden?[...plan.bonuses,...state.reactions.filter(r=>r.seat===seat).map(r=>r.card)]:[]);
-  const burnMarkup=`<div class="played-burns" id="burns-${seat}">${burns.map(id=>`<button id="burn-${seat}-${id}" class="played-burn tile-face ${classColor(card(id).color)}" ${staged?`data-hand-action="${id}"`:''} data-inspect="${id}" aria-label="${staged?'Undo bonus':'Inspect burned'} ${esc(card(id).name)}"><span class="tile-badge">${staged?'BONUS · UNDO':'BURNED'}</span><strong class="tile-name">${esc(card(id).name)}</strong><span class="tile-stats"><span>${card(id).attack}</span><span>${card(id).block}</span></span></button>`).join('')}</div>`;
+  const burns=staged?[...selectedBonuses].map(id=>({id,type:'BONUS'})):(plan&&!plan.hidden?[...plan.bonuses.map(id=>({id,type:'BONUS'})),...state.reactions.filter(r=>r.seat===seat).map(r=>({id:r.card,type:'REACTION'})),...(plan.cancelledFrom?[{id:plan.cancelledFrom,type:'CANCEL BURN'}]:[]),...(state.players[seat].discarded.includes(plan.main)?[{id:plan.main,type:'MAIN BURN'}]:[])]:[]);
+  const burnMarkup=`<div class="played-burns" id="burns-${seat}">${burns.map(({id,type})=>`<button id="burn-${seat}-${id}" class="played-burn tile-face ${classColor(card(id).color)}" ${staged?`data-hand-action="${id}"`:''} data-inspect="${id}" aria-label="${staged?'Undo bonus':`Inspect ${type.toLowerCase()} burn`} ${esc(card(id).name)}"><span class="tile-badge">${staged?'BONUS · UNDO':type}</span><strong class="tile-name">${esc(card(id).name)}</strong><span class="tile-stats"><span>${card(id).attack}</span><span>${card(id).block}</span></span></button>`).join('')}</div>`;
   if (!plan || plan.hidden) return `<div class="reveal hidden-card empty-play"><span class="owner">${owner}</span><div class="played-content"><div id="played-main-${seat}" class="played-back" aria-hidden="true"></div><div><h3>${plan?'Face down':'Select a main card'}</h3></div></div>${burnMarkup}</div>`;
   const main = card(plan.main), stats = state.stats?.[seat];
-  return `<div class="reveal ${classColor(main.color)}"><span class="owner">${owner}${staged?' · not locked in':''}</span><div class="played-content"><button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection':'Inspect '+esc(main.name)}"><span class="tile-badge">${staged?'MAIN · UNDO':'MAIN'}</span><strong class="tile-name">${esc(main.name)}</strong><span class="tile-stats"><span><small>ATK</small>${main.attack}</span><span><small>BLK</small>${main.block}</span></span></button><div class="played-details"><h3>${esc(main.name)}</h3><div class="stat-row"><span>Attack <strong>${stats?.attack??main.attack}</strong></span><span>Block <strong>${stats?.block??main.block}</strong></span>${stats?`<span>${state.phase==='reactions'?'Projected damage':'Damage dealt'} <strong>${stats.damage}</strong></span>`:''}</div><p>${main.ability?esc(main.ability).replace(/\n/g,'<br>'):'No additional main ability.'}</p><div class="played-switches">Switch to ${main.switches.map(color=>`<span class="color-chip ${classColor(color)}">${color}</span>`).join(' ')}</div>${plan.advantages?.length?`<p>Spent: ${plan.advantages.map(esc).join(' + ')}</p>`:''}${stats?.pierce?`<p>${stats.pierce} opposing block ignored</p>`:''}</div></div>${burnMarkup}</div>`;
+  const directNote=stats?.directDamage?`<p class="muted direct-damage">Damage includes ${stats.directDamage} direct damage after combat, bypassing block.</p>`:'';
+  return `<div class="reveal ${classColor(main.color)}"><span class="owner">${owner}${staged?' · not locked in':''}</span><div class="played-content"><button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection':'Inspect '+esc(main.name)}"><span class="tile-badge">${staged?'MAIN · UNDO':'MAIN'}</span><strong class="tile-name">${esc(main.name)}</strong><span class="tile-stats"><span><small>ATK</small>${main.attack}</span><span><small>BLK</small>${main.block}</span></span></button><div class="played-details"><h3>${esc(main.name)}</h3><div class="stat-row"><span>Attack <strong>${stats?.attack??main.attack}</strong></span><span>Block <strong>${stats?.block??main.block}</strong></span>${stats?`<span>${['cancelling','reactions'].includes(state.phase)?'Projected damage':'Damage dealt'} <strong>${stats.damage}</strong></span>`:''}</div>${directNote}<p>${main.ability?esc(main.ability).replace(/\n/g,'<br>'):'No additional main ability.'}</p><div class="played-switches">Switch to ${main.switches.map(color=>`<span class="color-chip ${classColor(color)}">${color}</span>`).join(' ')}</div>${plan.advantages?.length?`<p>Spent${plan.cancelledFrom?' on Darting Strike (replacement cannot spend)':''}: ${plan.advantages.map(esc).join(' + ')}</p>`:''}${stats?.pierce?`<p>${stats.pierce} opposing block ignored</p>`:''}</div></div>${burnMarkup}</div>`;
 }
 function opponentStatus() {
   const p = state.players[1];
@@ -156,6 +158,7 @@ function advantageControls() {
     return `<div class="token-spending"><span class="muted">Spend advantage · ${esc(c.name)}</span><div class="token-choices">${rule.colors.map(color=>`<button class="advantage-token ${classColor(color)}" disabled>${color} · not held</button>`).join('')}</div><p class="muted token-hint">You need an earned ${rule.colors.map(esc).join(' / ')} advantage token. ${earners.map(candidate=>`${esc(candidate.name)}: ${esc(candidate.ability.split('\n').find(line=>line.startsWith('Objective:'))?.replace('Objective: ',''))}`).join(' ')}</p><p class="muted token-hint">Spend through your main card before committing; bonus and reaction burns cannot spend advantage.</p></div>`;
   }
   const limit=rule.flexible?2:1;
+  if(rule.byCount) return `<div class="token-spending"><span class="muted">Optional advantage (${selectedAdvantages.size}/${limit})${selectedAdvantages.size===2?' · Ultimate: +4 attack, +2 block, ignore 2 block':selectedAdvantages.size===1?' · +1 attack':''}</span><div class="token-choices">${held.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}</button>`).join('')}</div><small>Any one color: +1 attack. Any two different colors instead: +4 attack, +2 block, ignore 2 opposing block.</small></div>`;
   const extraColors=Object.keys(styles).filter(color=>color!==state.players[0].color&&!c.switches.includes(color)&&state.players[0].available.some(id=>card(id).color===color));
   return `<div class="token-spending"><span class="muted">Optional advantage (${selectedAdvantages.size}/${limit})${rule.flexible&&selectedAdvantages.size===2?' · +1 combo attack':''}</span><div class="token-choices">${held.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)||(color==='Yellow'&&rule.flexible&&!extraColors.length)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}</button>`).join('')}</div>${rule.flexible?'<small>Red/Purple +1 attack · Green/Blue +1 block · Orange ignore 1 block · Yellow extra switch</small>':''}${rule.flexible&&selectedAdvantages.has('Yellow')?`<label>Yellow: extra switch<select id="extraSwitch" ${busy?'disabled':''}>${extraColors.map(color=>`<option value="${color}" ${extraSwitch===color?'selected':''}>${color}</option>`).join('')}</select></label>`:''}</div>`;
 }
@@ -163,7 +166,7 @@ function cardMarkup(c) {
   const p = state.players[0], active = c.color === p.color, discarded = p.discarded.includes(c.id), committed = state.commitments[0]?.main === c.id;
   const canPlan = !state.needsNewMatch && active && !discarded && state.phase==='planning' && !state.commitments[0];
   const canReact = !state.needsNewMatch && state.phase==='reactions' && state.reactionTurn===0 && state.reactionOptions.includes(c.id);
-  const status=discarded?'Permanently burned':canPlan?(selectedMain===c.id||selectedBonuses.has(c.id)?'Click to undo':!selectedMain?'Click for main':!selectedBonuses.size?(c.bonus?'Click for bonus burn':'No bonus effect'):'Main and bonus staged'):canReact?'Click to burn reaction':committed&&state.phase==='reactions'?'Main · reserved':active?'Inspect only':'Inactive · inspect';
+  const status=discarded?'Permanently burned':canPlan?(selectedMain===c.id||selectedBonuses.has(c.id)?'Click to undo':!selectedMain?'Click for main':p.burnLockedRound===state.round?'Burns locked this round':!selectedBonuses.size?(c.bonus?'Click for bonus burn':'No bonus effect'):'Main and bonus staged'):canReact?'Click to burn reaction':committed&&state.phase==='reactions'?'Main · reserved':active?'Inspect only':'Inactive · inspect';
   const actions=`<div class="card-status">${status}</div>`;
   const badge = discarded?'BURNED':selectedMain===c.id?'MAIN':selectedBonuses.has(c.id)?'BONUS BURN':committed&&state.phase==='reactions'?'RESERVED':c.color.toUpperCase();
   return `<article class="card-tile ${classColor(c.color)} ${selectedMain===c.id?'main-selected':''} ${selectedBonuses.has(c.id)?'bonus-selected':''} ${discarded?'discarded':''}" data-card-id="${c.id}"><button id="hand-${c.id}" class="tile-face" data-hand-action="${c.id}" data-inspect="${c.id}" aria-pressed="${selectedMain===c.id||selectedBonuses.has(c.id)}" aria-label="${esc(c.name)}: ${status}" ${busy?'disabled':''}><span class="tile-badge">${badge}</span><strong class="tile-name">${esc(c.name)}</strong><span class="tile-stats"><span><small>ATK</small>${c.attack}</span><span><small>BLK</small>${c.block}</span></span><span class="tile-switches" aria-label="Switch colors: ${esc(c.switches.join(', '))}">${c.switches.map(color=>`<i class="${classColor(color)}"></i>`).join('')}</span></button>${actions}</article>`;
@@ -175,21 +178,37 @@ function controls() {
     $('phaseHint').textContent='Rules or card balance changed. Start a new match to use the updated cards.';
     $('controls').innerHTML='<button id="playAgain" class="primary">Start new match</button>'; return;
   }
-  $('phaseTag').textContent = `ROUND ${state.round} · ${phase==='planning'?'COMMIT':phase==='reactions'?'REACT':phase==='switching'?'SWITCH':'COMPLETE'}`;
+  $('phaseTag').textContent = `ROUND ${state.round} · ${phase==='planning'?'COMMIT':phase==='cancelling'?'CANCEL':phase==='reactions'?'REACT':phase==='stripping'?'REMOVE ADVANTAGE':phase==='routing'?'CUT ROUTE':phase==='directing'?'DIRECT HAND':phase==='switching'?'SWITCH':'COMPLETE'}`;
   if(phase==='planning') {
     $('phaseTitle').textContent = 'Commit your move.';
-    $('phaseHint').textContent = 'Click main, then optional bonus. Click again to undo.';
+    $('phaseHint').textContent = p.burnLockedRound===state.round?'Clinch Throw prevents bonus and reaction burns this round. Choose your main card.':'Click main, then optional bonus. Click again to undo.';
     $('controls').innerHTML = `${advantageControls()}<button id="commit" class="primary" ${busy||!selectedMain?'disabled':''}>Commit face down</button><button id="clear" ${busy?'disabled':''}>Clear selection</button>`;
+  } else if(phase==='cancelling') {
+    $('phaseTitle').textContent=state.cancelOptions.length?'Keep Darting Strike or cancel.':'Waiting for the opposing cancel choice.';
+    $('phaseHint').textContent='Yellow advantage is already spent. Replacing permanently burns Darting Strike; your committed bonus stays. Both choices reveal together before reactions. The replacement cannot spend advantage.';
+    $('controls').innerHTML=state.cancelOptions.map(id=>`<button data-cancel="${id}" ${busy?'disabled':''}>${id===state.commitments[0].main?'Keep':'Cancel into'} ${esc(card(id).name)} · ${card(id).attack}/${card(id).block}</button>`).join('')||'<p class="muted">Your choice stays hidden until the opponent decides.</p>';
   } else if(phase==='reactions') {
     $('phaseTitle').textContent = state.reactionTurn===0?'React or pass.':'Bot is reacting.';
     $('phaseHint').textContent = 'Burn one remaining active-hand card for its reaction, or pass. Two consecutive passes resolve damage.';
     $('controls').innerHTML = `<div class="selection-summary">Consecutive passes: <strong>${state.passes} / 2</strong><br>${state.reactionOptions.length} reaction cards available.</div><button id="pass" class="primary" ${busy||state.reactionTurn!==0?'disabled':''}>Pass reaction</button><p class="muted">Attack/block above include current effects. Damage can still change.</p>`;
+  } else if(phase==='stripping') {
+    $('phaseTitle').textContent=state.stripOptions.length?'Remove an opposing advantage.':'Opponent is removing advantage.';
+    $('phaseHint').textContent='Mirror Step: dealing damage and taking no damage each remove one held opposing token. New objective rewards are awarded afterward.';
+    $('controls').innerHTML=state.stripOptions.map(color=>`<button class="advantage-token ${classColor(color)}" data-strip="${esc(color)}" ${busy?'disabled':''}>Remove ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing token choice.</p>';
+  } else if(phase==='routing') {
+    $('phaseTitle').textContent=state.cutOptions.length?'Cut off a destination.':'Opponent is cutting a route.';
+    $('phaseHint').textContent='Driving Tackle hit. Choose one opposing next color to prohibit. Both route cuts resolve before either player chooses a next hand.';
+    $('controls').innerHTML=state.cutOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-cut="${esc(color)}" ${busy?'disabled':''}>Cut off ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing route choice.</p>';
+  } else if(phase==='directing') {
+    $('phaseTitle').textContent=state.forceOptions.length?'Choose their next hand.':'Opponent is choosing your next hand.';
+    $('phaseHint').textContent='Driving Kick connected with Yellow advantage. Choose from the opponent’s remaining legal destinations.';
+    $('controls').innerHTML=state.forceOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-direct="${esc(color)}" ${busy?'disabled':''}>Send opponent to ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing destination choice.</p>';
   } else if(phase==='switching') {
     $('phaseTitle').textContent='Choose your next hand.';
-    $('phaseHint').textContent='You must choose one of your main card’s bottom colors. The bot’s next hand stays hidden until you choose.';
+    $('phaseHint').textContent=state.forcedColors?.[0]?`Driving Kick forces you into ${state.forcedColors[0]}. Confirm that destination below.`:'Choose a legal destination below. Card effects can add or restrict routes. The bot’s next hand stays hidden until you choose.';
     $('controls').innerHTML=state.switchOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-switch="${esc(color)}" ${busy?'disabled':''}>${esc(color)} · ${esc(styles[color])}<small>${p.available.filter(id=>card(id).color===color).length} cards remaining${color===p.color?' · stay in this hand':''}</small></button>`).join('');
   } else {
-    $('phaseTitle').textContent=state.winner==='draw'?'Double knockout.':state.winner===0?'You win.':'Bot wins.';
+    $('phaseTitle').textContent=state.winner==='draw'?'Draw.':state.winner===0?'You win.':'Bot wins.';
     $('phaseHint').textContent='Review the fight log, inspect your remaining cards, or try another opening.';
     $('controls').innerHTML='<button id="playAgain" class="primary">Play again</button>';
   }
@@ -200,9 +219,23 @@ function render() {
   $('resign').disabled=busy;
   if(!state) { $('fighters').innerHTML='<p class="muted">Choose your opening hand to start a local match against the bot.</p>'; $('phaseHint').textContent='36 reusable moves. Permanent burns. Every round changes your next options.'; $('controls').innerHTML='<button id="playAgain" class="primary">Start a match</button>'; return; }
   $('fighters').innerHTML=fighter(1)+'<div class="versus">VS</div>'+fighter(0);
-  $('timeline').innerHTML=[['planning','COMMIT FACE DOWN'],['reactions','REVEAL & REACT'],['switching','DAMAGE & SWITCH']].map(([phase,label])=>`<span class="${state.phase===phase?'current':''}">${label}</span>`).join('');
+  [...$('fighters').querySelectorAll('.fighter')].forEach((element,index)=>{
+    const p=state.players[index===0?1:0];
+    const afterDamage=['stripping','routing','directing','switching'].includes(state.phase);
+    if(p.nextAttack&&state.phase!=='finished') element.insertAdjacentHTML('beforeend',`<p class="muted">Pressure: +${p.nextAttack} attack ${afterDamage?'next round':'this round'}.</p>`);
+    if(p.nextBlockPenalty&&state.phase!=='finished') element.insertAdjacentHTML('beforeend',`<p class="muted recovery-status">Haymaker recovery: -${p.nextBlockPenalty} block ${afterDamage?'next round':'this round'} (minimum 0).</p>`);
+    if(p.burnLockedRound>=state.round&&state.phase!=='finished') element.insertAdjacentHTML('beforeend',`<p class="muted burn-lock-status">Clinch Throw: no bonus or reaction burns ${p.burnLockedRound>state.round?'next round':'this round'}. Cancels are also disabled.</p>`);
+    if(state.commitments.some(plan=>plan&&!plan.hidden&&plan.advantages?.length&&card(plan.main)?.advantage?.spend?.special?.includes('brace_reset'))&&state.phase==='reactions') element.insertAdjacentHTML('beforeend','<p class="muted brace-status">Brace: no new attack bonuses for next round; opposing carried attack bonus suppressed this round.</p>');
+    const objective=p.pendingObjective;
+    if(objective&&state.phase!=='finished'&&objective.round>=state.round) {
+      const source=card(objective.source)?.name??'Pending';
+      const requirement=objective.requirement??`deal ${objective.minimumDamage??4}+ damage`;
+      element.insertAdjacentHTML('beforeend',`<p class="muted pending-objective">${esc(source)} objective: ${esc(requirement)} ${objective.round>state.round?'next round':'this round'} to earn ${esc(objective.color)} advantage.</p>`);
+    }
+  });
+  $('timeline').innerHTML=[['planning','COMMIT FACE DOWN'],...(state.phase==='cancelling'?[['cancelling','CHOOSE CANCEL']]:[]),['reactions','REVEAL & REACT'],...(state.phase==='stripping'?[['stripping','REMOVE ADVANTAGE']]:[]),...(state.phase==='routing'?[['routing','CUT ROUTE']]:[]),...(state.phase==='directing'?[['directing','DIRECT HAND']]:[]),['switching','DAMAGE & SWITCH']].map(([phase,label])=>`<span class="${state.phase===phase?'current':''}">${label}</span>`).join('');
   $('reveals').innerHTML=reveal(1)+reveal(0);
-  $('result').hidden=state.phase!=='finished'; $('result').textContent=state.winner==='draw'?'Double knockout · draw':state.winner===0?'Victory. Well played.':'Defeat. Try a different line.';
+  $('result').hidden=state.phase!=='finished'; $('result').textContent=state.winner==='draw'?'Draw · both fighters defeated':state.winner===0?'Victory. Well played.':'Defeat. Try a different line.';
   const p=state.players[0];browseColor=browseColor??p.color;
   $('hands').innerHTML=Object.keys(styles).map(color=>`<button class="hand-tab ${classColor(color)}" data-browse="${color}" aria-pressed="${browseColor===color}">${color}${color===p.color?' · Active':''}<small>${p.available.filter(id=>card(id).color===color).length}/6 · ${p.discarded.filter(id=>card(id).color===color).length} burned</small></button>`).join('');
   $('cards').innerHTML=[...catalog.values()].filter(c=>c.color===browseColor).map(cardMarkup).join('');
@@ -222,7 +255,11 @@ document.addEventListener('click',event=>{
   if(button.dataset.opponentCard){HideCardDetail(true);showOpponentDetail(event,button,true);return;}
   if(button.dataset.closeShared){HideCardDetail(true);return;}
   if(button.closest('#opponentHandPopup') && button.getAttribute('onclick')==='ClosePopup()'){closeOpponentPopup();return;}
-  if(button.dataset.advantage){const color=button.dataset.advantage;if(selectedAdvantages.has(color))selectedAdvantages.delete(color);else selectedAdvantages.add(color);if(card(selectedMain).advantage.spend.flexible&&selectedAdvantages.has('Yellow'))extraSwitch=extraSwitch??Object.keys(styles).find(c=>c!==state.players[0].color&&!card(selectedMain).switches.includes(c)&&state.players[0].available.some(id=>card(id).color===c));else extraSwitch=null;render();return;}
+  if(button.dataset.cut){act({type:'cut',color:button.dataset.cut});return;}
+  if(button.dataset.direct){act({type:'direct',color:button.dataset.direct});return;}
+  if(button.dataset.strip){act({type:'strip',color:button.dataset.strip});return;}
+  if(button.dataset.cancel){act({type:'cancel',main:Number(button.dataset.cancel)});return;}
+  if(button.dataset.advantage){const color=button.dataset.advantage;if(selectedAdvantages.has(color))selectedAdvantages.delete(color);else selectedAdvantages.add(color);if(card(selectedMain).advantage.spend.flexible&&!card(selectedMain).advantage.spend.byCount&&selectedAdvantages.has('Yellow'))extraSwitch=extraSwitch??Object.keys(styles).find(c=>c!==state.players[0].color&&!card(selectedMain).switches.includes(c)&&state.players[0].available.some(id=>card(id).color===c));else extraSwitch=null;render();return;}
   if(button.dataset.switch){act({type:'switch',color:button.dataset.switch});return;}
   if(button.id==='commit')act({type:'commit',main:selectedMain,bonuses:[...selectedBonuses],advantages:[...selectedAdvantages],...(extraSwitch?{extraSwitch}: {})});
   if(button.id==='pass')act({type:'pass'});

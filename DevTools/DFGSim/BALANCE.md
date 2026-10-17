@@ -1,5 +1,78 @@
 # Reproducible balance simulations
 
+## Current v37 play-to-win batch
+
+```sh
+php DevTools/DFGSim/balance.php --repeats=10 --ablation-cards=0 --seed-offset=17000000 --out=DevTools/DFGSim/results/play-win-v37
+php DevTools/DFGSim/verify-balance.php DevTools/DFGSim/results/play-win-v37
+php DevTools/DFGSim/play-win-report.php DevTools/DFGSim/results/play-win-v37 100
+php DevTools/DFGSim/pair-play-win-report.php DevTools/DFGSim/results/play-win-v37 100
+```
+
+This runs 2,160 games: all 36 ordered opening pairs, both initial reaction priorities, ten seeds,
+and tactical/casual/explore profiles. Read `play-win-report.md` for actual wins divided by completed
+player-games when a card was used, with draws in the denominator and repeated uses deduplicated.
+The headline tables require 100 completed player-games per card/role. `play-win-rates.csv` includes
+all cards, roles, and profile strata, including smaller samples. `balance-report.md` retains its
+separate draw-adjusted score metric. These are associations under the bots' policies, not causal
+estimates. This batch does not run card-removal experiments.
+`pair-play-win-report.md` ranks exact main-plus-bonus combinations from these same games;
+it counts each pair once per player-game, pools token choices, and reports profile-specific
+exposure. Its win rates are full-game associations and differ from the one-round pair matrix.
+V37 uses the same scenarios after restoring Haymaker from 8/0 to 7/0. Its next-round
+-2 block penalty on zero combat damage remains. No other card or bot behavior changes.
+V36 used the same scenarios with Darting Strike 6/0 and its optional Yellow cancel before
+reactions. Both players choose replacements without seeing the other pending choice. Trace
+`plans` retain initial commitments, `cancels` records decisions, and `combatPlans` holds the
+resolved replacements; damage uses combatPlans. Main/pair attribution remains on the initial
+commitment, so Darting gets credit for its escape. Replacement mains cannot spend tokens.
+`cancel-tests.php` and `cancel-analysis.php` cover legality and exhaustive replacement outcomes.
+V35 used the same scenarios after adding Brace pressure suppression, Mirror Step exact printed-3
+reads and held-token removal, Clinch Throw next-round burn lock, and Haymaker 8/0 with a
+next-round recovery penalty on a miss. Darting Strike remains unchanged. Its 81-statline study is
+`results/pairs-v35/darting-analysis.md`; candidate results do not implement or price a cancel.
+The v17/v18/v19/v20/v22/v28/v29/v30/v31/v32/v33/v34/v35/v36 batches remain historical. V34 used the same
+starting scenarios after the three-card Red identity revision: Quick Jab 3/2 with +2 attack
+without a bonus; Feint 2/3 with +2 attack and 3 penetration against printed block 4+; Combination
+Strike 3/1 with any one token granting +1 attack, or any two instead granting +4 attack,
++2 block, and 2 penetration. Its old color-specific payoffs and extra destination are removed.
+`combination-analysis.php` additionally resolves every legal bonus/opponent/token-color
+combination through the authoritative engine (22,110 resolutions), reporting each spend mode
+separately. The normal pair matrix still starts without tokens.
+V33 used the same starting
+scenarios after raising Outside Step from 1/3 to 1/4. Its +6 attack read and independent on-hit
+pressure remain unchanged. Printed block 4 also activates opposing strong-guard reads.
+V32 used the same starting
+scenarios after lowering Guarded Strike from 0/5 to 0/4, keeping retaliation and its Green
+objective. V31 used the same starting scenarios
+after making Guarded Strike 0/5 with 2 direct damage after taking no combat damage. The clean-counter
+Green objective remains. Combat damage and direct damage are recorded separately, with their sum
+used for damage-based objectives, other triggers, and defeat. Both retaliations check combat
+damage before resolving simultaneously, so the mirror deals two each and awards neither Green.
+V30 used the same seeds and starting
+scenarios after lowering Rooted Guard from 0/7 to 0/6; its +3 attack read and delayed Green
+objective remain unchanged. V29 used the same seeds and starting scenarios
+after raising Driving Tackle's printed block from 0 to 1. V28 included the preceding revisions,
+including these edits since v22: Outside Step 1/3 with +6 attack on its read and independent
+on-hit +1 attack next round; Rooted Guard 0/7 with a +3 attack read and delayed Green objective;
+Driving Kick +4 conditional block; Counterpunch 4/2 with +3 conditional block; Find the Gap 4/2.
+The live engine and bot evaluate next-round pressure and public delayed objectives. The
+one-round pair matrix measures immediate outcomes only and cannot price those future rewards.
+Changes since v22 are bundled, so comparisons do not isolate any single card edit.
+V22 used the same seeds and starting scenarios after
+raising Catch the Opening's block to 2 and changing Outside Step to 3/2 with +4 attack against
+printed block 4+. Both edits are included, so comparisons with v20 cannot isolate either change.
+V20 changed Darting Strike to 4/2 with +3 block against printed attack 6+. V19 introduced the Yellow update,
+replacing three Yellow cards with Outside Step, Glancing Step, and Driving Kick. The bot now
+values exact-one-damage pressure/objectives and chooses forced opposing destinations. Bot-choice
+cohorts and later game paths can change, so cross-version rate changes remain descriptive.
+
+Current traces record Mirror Step token-removal choices before objective awards, then route cuts
+and forced opposing destinations before hand switches. The replay verifier checks those
+actions, recovery after damage, and main-card burns as well as damage/token accounting,
+including a removed color being earned again from a simultaneous objective.
+Explore chooses token removals, route cuts, and forced destinations uniformly; tactical/casual bots use their public-information heuristic.
+
 Run bot-vs-bot matches with the current local card snapshot and rules. The live simulator, bot,
 hosted editor, and card balance are not modified. Matches are in-memory; no browser sessions or
 application database are used.

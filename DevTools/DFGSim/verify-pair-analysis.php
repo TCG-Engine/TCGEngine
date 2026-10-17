@@ -15,7 +15,10 @@ foreach($data['pairs'] as $i=>$a)foreach($data['pairs'] as $j=>$b){
  $s=DFGNewGame($a['color'],$b['color']);
  foreach([$a,$b] as $seat=>$p)$s=DFGApply($s,$seat,['type'=>'commit','main'=>$p['main'],'bonuses'=>$p['bonus']===null?[]:[$p['bonus']]]);
  while($s['phase']==='reactions')$s=DFGApply($s,$s['reactionTurn'],['type'=>'pass']);
- $resolved=[40-$s['players'][1]['life'],40-$s['players'][0]['life'],(int)(count($s['players'][0]['advantages'])>0),(int)(count($s['players'][1]['advantages'])>0)];
- if($resolved!==$data['cells'][$i*$n+$j])throw new RuntimeException("Engine replay mismatch $i/$j");
+ $stats=$s['history'][0]['stats'];
+ $recovery=[$s['players'][0]['life']-max(0,40-$stats[1]['damage']),$s['players'][1]['life']-max(0,40-$stats[0]['damage'])];
+ $mask=fn($seat)=>array_sum(array_map(fn($color)=>1<<array_search($color,DFG_COLORS,true),DFGSwitchOptions($s,$seat)));
+ $resolved=[$stats[0]['damage'],$stats[1]['damage'],(int)(count($s['players'][0]['advantages'])>0),(int)(count($s['players'][1]['advantages'])>0),$recovery[0],$recovery[1],$mask(0),$mask(1)];
+ if(array_slice($resolved,0,count($data['cells'][$i*$n+$j]))!==$data['cells'][$i*$n+$j])throw new RuntimeException("Engine replay mismatch $i/$j");
 }
 echo "PASS: all $n legal plans covered exactly once; all ".($n*$n)." outcomes independently verified by full commit/pass/damage resolution.\n";

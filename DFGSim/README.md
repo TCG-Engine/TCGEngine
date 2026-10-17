@@ -63,17 +63,19 @@ Hidden main/bonus commitments and next-hand choices stay hidden until their norm
 
 ## Advantage prototype
 
-Start a fresh match for rules version 14. Each player starts with no advantage. Tokens are public,
+Start a fresh match for rules version 37. Each player starts with no advantage. Tokens are public,
 persistent across hand changes, and capped at one of each color. They cannot be spent on their own,
 on a bonus burn, or on a reaction. Select a spending card as your main, then choose its optional tokens
-in the action panel. Spending and Combination Strike's Yellow destination remain hidden with the
+in the action panel. Spending choices remain hidden with the
 main commitment; tokens leave your inventory only when both commitments reveal. Earned tokens arrive
 after final simultaneous damage, so a current-round objective cannot fund a current-round spend.
 
-Sixteen main cards have objectives (stat-based objectives use the opponent's printed stats):
+Eighteen main cards have objectives (stat-based objectives use the opponent's printed stats):
 
 | Main card | Objective after damage | Earn |
 |---|---|---|
+| Rooted Guard | Deal 4+ damage in the following round; independent of its printed-attack read | Green |
+| Glancing Step | Take exactly 1 final damage; outgoing damage is not required | Yellow |
 | Feint | Deal damage against printed block 4+ | Yellow |
 | Body Lock | Deal damage against printed block 4+ | Orange |
 | Sidestep | Take no damage against printed attack 5+ | Green |
@@ -137,14 +139,49 @@ is evaluated using its resolved branch; hybrid bonuses count, but reactions and 
 that gift block to the other player do not. Grip Break retains no bonus ability, its
 +2 block reaction, and Yellow/Green/Blue switches.
 
+Rules v15 replaces **Punish the Setup (ID 28)** with **Find the Gap**: Blue, attack 3 / block 2.
+Against an opposing main with printed block 4+, its main gains +3 attack. Its bonus burn grants
++3 attack against printed block 4+, otherwise +1 attack; its reaction grants +1 attack unconditionally.
+It retains Green/Orange/Purple switches. Watchful Guard remains Blue's bonus-commitment counter,
+while Find the Gap complements Catch the Opening by targeting strong printed guards.
+The pair-analysis outputs below remain historical v14 results and do not include this replacement.
+
 | Specialized main | Spend | Additional payoff |
 |---|---|---|
-| Rushdown | Red | +2 attack |
-| Driving Tackle | Orange | Ignore 2 opposing block |
-| Exit Strike | Yellow | +2 attack |
-| Shield Bash | Green | +2 block |
-| Counterpunch | Blue | +1 attack and +1 block |
-| Charged Fist | Purple | +2 block |
+| Rushdown | Red | On hit, +2 attack next round only |
+| Driving Tackle | Orange | Ignore 2 block; on hit, choose one opposing legal next color to prohibit if more than one remains |
+| Driving Kick | Yellow | On hit, choose the opponent's next hand from their legal destinations |
+| Shield Bash | Green | +2 block and permission to remain Green |
+| Counterpunch | Blue | +1 attack and +1 block; on hit, prevent the opponent earning advantage this round |
+| Charged Fist | Purple | No stat bonus; on hit, permanently burn the opposing main after damage |
+
+Rules v17 revises these four specialized payoffs. Driving Tackle's route cut is chosen after
+damage and automatic effects, from the opponent's actual available destinations, including expanded
+routes. It removes exactly one color, never the last one. Both players finish any route cuts before
+either chooses a next hand; choices cannot exploit a hidden or already-selected destination.
+Charged Fist no longer burns itself or receives attack from Purple spending. On a miss neither
+main burns, but the token is still spent. On a hit the opposing main completes its simultaneous
+damage, main effects, and objective before returning would occur; it is permanently discarded.
+Simultaneous Purple hits can burn both mains, and burning a player's final card defeats them.
+
+Rules v16 gives **Driving Palm** an on-hit recovery of 1 life, capped at 40; recovery cannot
+prevent a knockout. **Pivot** opens every other available color after taking no damage.
+**Exit Strike** opens those routes on a hit; its Yellow spend guarantees the routes and adds block.
+**Cross-Step** forces an opponent out of their current color on a clean hit, if another legal
+destination remains. **Heavy Feint** ignores only block granted to the opponent by their committed
+bonus's resolved branch; printed block, main abilities, and reaction block remain effective.
+Stats, bonus/reaction burns, printed destinations, objectives, and Combination Strike are retained.
+Rooted Guard's later v24 revision rewards reading high printed attack (see below).
+
+All hit/no-damage triggers inspect final simultaneous damage. Counterpunch's denial applies to
+simultaneous objectives before either side earns tokens; it never removes existing tokens.
+Advantage is still committed face down and consumed on reveal, even when its hit condition fails.
+Rushdown pressure follows the player across hand changes, applies to their next main for one
+round, and does not stack. A fresh hit with another Red spend can renew it for the following round.
+Route additions are applied before opposing restrictions. Restrictions never remove the final
+available destination. If every legal destination is exhausted, the player may choose any remaining
+hand. Burning the last available card loses the fight; simultaneous losses are a draw.
+These exceptions supersede the original printed-destination-only and main-always-returns rules.
 
 Follow Through (ID 5) is now **Combination Strike**, with printed attack 3 / block 2. Its existing
 bonus and reaction burn effects remain; its printed switches are now Blue/Purple. As a main, spend up to two
@@ -214,10 +251,24 @@ a schema and use the generator, not hand-edit generated files.
 ## Exhaustive card-pair analysis
 
 `php DevTools/DFGSim/pair-analysis.php` evaluates every legal main plus optional same-hand bonus
-against every other plan. Rules v14 has 201 plans and 40,401 ordered matchups. Outputs are in
-`DevTools/DFGSim/results/pairs-v14/`: `explorer.html`, `data.json`, `matchups.csv`, and `report.md`.
-With XAMPP, open `http://localhost/TCGEngine/DevTools/DFGSim/results/pairs-v14/explorer.html`.
-The v7 matrix and balance trials are preserved as historical reports.
+against every other plan. Rules v37 has 201 plans and 40,401 ordered matchups. Outputs are in
+`DevTools/DFGSim/results/pairs-v37/`: `explorer.html`, `data.json`, `matchups.csv`, and `report.md`.
+With XAMPP, open `http://localhost/TCGEngine/DevTools/DFGSim/results/pairs-v37/explorer.html`.
+The v7/v14/v17/v18 matrices and balance trials are preserved as historical reports.
+The current matrix records capped recovery and actual legal next colors in addition to damage and
+objective rewards. Select Life edge after recovery to include Driving Palm's life recovery;
+the default damage rankings and row labels still describe outgoing minus incoming damage.
+The one-round matrix does not price next-round pressure or delayed objectives; Rooted Guard's
+delayed Green objective therefore has no immediate objective award in that matrix. Full-game
+simulations resolve these mechanics across rounds with the live engine and bot.
+
+`php DevTools/DFGSim/spender-analysis.php` separately compares spending versus saving the matching
+token on each of the six specialized mains, keeping both players' committed cards identical.
+Its 6,633 paired comparisons use 13,266 authoritative engine resolutions. Read `spender-report.md`
+or inspect `spender-matchups.csv` and `spender-summary.json` in the same versioned folder. It reports
+immediate life-edge changes separately from pressure, route cuts, objective denial, and permanent
+main burns; future resource value is not converted to damage. Opponents hold no tokens and do
+not react. Combination Strike's flexible combinations remain covered by the functional tests.
 
 The explorer provides an averaged main-card matrix, the full plan matrix, hand and burn filters,
 exact-match damage/token results, bonus gains relative to the same main without a burn, and rankings.
@@ -247,6 +298,8 @@ are clearly labeled and remain separate from the original report.
 ```sh
 php DevTools/DFGSim/tests.php
 php DevTools/DFGSim/advantage-tests.php
+php DevTools/DFGSim/mechanics-tests.php
+node DevTools/DFGSim/mechanics-browser-test.mjs
 # Start the local server first. Uses existing DevTools/ui-harness Playwright dependencies.
 node DevTools/DFGSim/browser-test.mjs
 ```
@@ -259,6 +312,236 @@ discarding, alternating priority, simultaneous knockout, mandatory hand choices,
 non-cheating bot decisions, defensive reactions, and three complete seeded self-play matches.
 Browser checks exercise Chromium, Firefox, and WebKit, including mobile layout and action guards.
 
+Rules v18 rebalances **Firm Counter (ID 21)** to 2 attack / 2 block. Against an opposing
+committed bonus burn, it gains +3 attack and +3 block, reaching 5/5 before other effects.
+Reaction burns do not activate this condition. Its +2 block bonus, +1 block reaction, and
+Red/Blue switches remain. The v17 pair analysis and play-to-win reports are historical
+results from before this change. The full-game simulation has now been rerun for v18:
+`DevTools/DFGSim/results/play-win-v18/play-win-report.md` contains the 2,160-game rankings,
+and `comparison-v17.md` compares Firm Counter using identical seeds/openings/profiles.
+All 472,575 recorded-data checks pass. The v18 pair-analysis matrix has also been regenerated and
+all 40,401 outcomes replay-verified. For actual full-game main-plus-bonus win associations, read
+`DevTools/DFGSim/results/play-win-v18/pair-play-win-report.md`; these deduplicate repeated pair
+uses per player-game and keep draws in the denominator, unlike the isolated round damage matrix.
+
+Rules v19 replaces **Pivot (ID 16)**, **Cross-Step (ID 17)**, and **Exit Strike (ID 18)**:
+
+| Card | Attack / block | Main | Bonus | Reaction | Printed switches |
+|---|---|---|---|---|---|
+| Outside Step | 3 / 3 | +2 attack against opposing printed block 4+ | +2 attack | +1 block | Red / Blue / Purple |
+| Glancing Step | 3 / 4 | Take exactly 1 damage: +2 attack next round and Yellow advantage | +1 attack / +1 block | +1 block | Red / Orange / Purple |
+| Driving Kick | 5 / 0 | +1 block against opposing printed block 2 or less; spend Yellow on hit to choose their legal next hand | +2 attack | None | Orange / Green / Purple |
+
+Glancing Step checks final incoming damage after reactions, independently of outgoing damage.
+Its pressure lasts the next round only and does not stack. Counterpunch can deny the objective
+award but cannot deny pressure. Driving Kick consumes its token on reveal, even on a miss.
+All Orange cuts finish first, then both Yellow destination choices, then normal hidden hand
+selections. Forced players confirm their sole permitted destination. A target with only one
+available destination needs no redundant choice; all choices exclude exhausted and cut routes.
+The new `directing` phase, bot choices, and simulation traces preserve this order.
+V19 verification: all domain/advantage/mechanic checks pass; 5,625 spending matchups resolve.
+Chromium and WebKit pass desktop/mobile control and matrix checks; Firefox cannot launch here.
+The 2,160-game batch has 1,746 decisive games, 413 draws, and one 60-round cap, with all 467,474
+recorded-data checks passing. Main and exact main/bonus win reports are in
+`DevTools/DFGSim/results/play-win-v19/`; matrix and specialized spending reports are in `pairs-v19/`.
+
+## Darting Strike revision (v20)
+
+Darting Strike is now 4 attack / 2 block and gains +3 block against printed attack 6 or more,
+reaching 4/5 in that matchup. Its bonus burn and destinations are unchanged.
+V20 analysis reran all 40,401 ordered matchups (independently replayed) and 6,633 specialized
+spending comparisons. The 2,160-game batch finished with 1,729 decisive games, 430 draws,
+and one 60-round cap; all 477,043 recorded-data checks passed. Historical game reports are in
+`DevTools/DFGSim/results/play-win-v20/`; historical matrix/spending reports are in `pairs-v20/`.
+Darting Strike's pooled main-play win rate rose from 36.9% (N=1,429) to 39.7% (N=1,754),
+against an overall v20 win baseline of 40.0% with draws included. Its no-bonus mean damage
+edge improved from -2.1940 to -1.2189; with Sidestep it improved from +0.0846 to +0.6915.
+Both batches used identical starting scenarios, but card-use cohorts and game paths diverge;
+the differences describe these bot policies rather than establish a causal strength estimate.
+Historical v19 reports remain in their original folders.
+
+## Catch the Opening revision (v21)
+
+Catch the Opening's printed block increases from 1 to 2. It is 3/2 normally and 6/2 against
+printed block 2 or less; its abilities, burns, and destinations are unchanged.
+The v20 pair and game simulation reports predate this edit.
+
+## Outside Step revision (v22)
+
+Outside Step is now 3 attack / 2 block and gains +4 attack against printed block 4 or more,
+reaching 7/2 in that matchup. Its burns and destinations are unchanged.
+The v20 pair and game simulation reports predate this edit.
+
+V22 analysis includes both the Catch the Opening and Outside Step revisions. All 40,401
+ordered matchups passed independent engine replay; 6,633 spending comparisons also completed.
+The 2,160-game batch produced 1,777 decisive games, 383 draws, and no 60-round caps.
+All 473,072 recorded-data checks passed. Current reports are in
+`DevTools/DFGSim/results/play-win-v22/`; the matrix/spending reports are in `pairs-v22/`.
+Main-play win rates versus v20: Catch the Opening 39.0% (N=1,183) to 42.8% (N=1,668);
+Outside Step 40.5% (N=1,389) to 42.1% (N=1,287). The overall win baseline rose from
+40.0% to 41.1%, with draws included. Starting scenarios match, but both edits and changing
+card-use cohorts mean these are descriptive comparisons, not isolated causal estimates.
+Outside Step's no-bonus mean damage edge against printed block 4+ improved from -0.4118
+to +0.2745; across all opposing plans it fell from -1.2189 to -1.8955. Its stronger guard
+matchup comes with a weaker fallback. Catch the Opening's no-bonus edge improved from
+-1.5970 to -0.6418. Exact-pair full-game rankings are in `pair-play-win-report.md`.
+
+## Outside Step revision (v23)
+
+Outside Step is now 1 attack / 3 block, with +6 attack against printed block 4+ (7/3).
+Independently, dealing any final damage grants +1 attack next round. The hit does not require
+the printed-block read. Pressure follows hand changes, lasts one round, and does not stack.
+Burns and destinations are unchanged. V22 analysis predates this revision.
+
+## Rooted Guard revision (v24)
+
+Rooted Guard is now 0 attack / 7 block. Against an opposing main with printed attack 5 or more,
+it gains +3 attack this round, reaching 3/7. Modified attack does not satisfy the condition.
+Its burns and destinations are unchanged. Existing balance reports predate this revision.
+
+## Rooted Guard delayed objective (v25)
+
+Playing Rooted Guard sets up an independent objective: deal 4+ final damage in the following
+round to earn Green advantage. The printed-attack read and a hit during setup are not required.
+The objective follows hand changes and expires after that single round. Current-round damage
+does not count. Counterpunch can deny the award when it is earned, but does not prevent setup.
+Held tokens still cap at one per color. Pending objectives are public in the fighter display.
+Both fighters show the source card, requirement, reward color, and whether the objective is
+active this round or next round. The display reads objective metadata rather than card-specific
+wording. Future damage-threshold objectives share the same parser, public state, resolution,
+and bot evaluation with their own threshold and reward color. Existing v25 sessions remain valid.
+Existing balance reports predate this revision.
+
+## Driving Kick revision (v26)
+
+Driving Kick remains 5 attack / 0 block and now gains +4 block against opposing printed
+block 2 or less, reaching 5/4 on a correct read. Its Yellow spend, burns, and destinations
+are unchanged. Existing balance reports predate this revision.
+
+## Counterpunch revision (v27)
+
+Counterpunch is now 4 attack / 2 block and gains +3 block against opposing printed attack
+6 or more, reaching 4/5. Spending Blue still adds +1 attack / +1 block and denies opposing
+advantage awards on hit; with the read and spend it reaches 5/6. Burns and destinations
+are unchanged. Existing balance reports predate this revision.
+
+## Find the Gap revision (v28)
+
+Find the Gap is now 4 attack / 2 block, reaching 7/2 against opposing printed block 4+.
+Its conditional +3 attack, burns, and destinations are unchanged.
+All 67,770 gameplay checks pass. The v28 analysis reran 40,401 ordered pair matchups and
+6,633 spending comparisons, with independent engine verification. The full-game batch ran
+2,160 games: 1,803 decisive, 357 draws, no 60-round caps, mean 18.51 rounds. All 482,409
+recorded-data checks passed. Reports are in `DevTools/DFGSim/results/play-win-v28/` and
+`pairs-v28/`; `revision-comparison-v22.md` compares the five recently revised cards.
+Find the Gap now leads main-play win rates at 45.5% (778/1,709 completed player-games).
+Driving Kick is 44.0%, Rooted Guard 44.1%, Counterpunch 42.5%, and Outside Step 42.0%.
+The overall win baseline with draws included is 41.7%. All changes since v22 are bundled;
+these are policy-specific associations, not isolated estimates of each edit's strength.
+Full-game simulations include next-round pressure and delayed objectives; the one-round
+matrix measures only immediate results.
+
+## Driving Tackle revision (v29)
+
+Driving Tackle's printed block increases from 0 to 1, making it 6 attack / 1 block.
+Its Orange spend, burns, and destinations are unchanged. V28 balance reports predate this edit.
+V29 reran and independently verified all 40,401 ordered pair matchups, plus 6,633 spending
+comparisons. The 2,160-game batch completed with 1,792 decisive games, 368 draws, and no
+60-round caps (mean 18.66 rounds). All 486,101 recorded-data checks passed. Current reports
+are in `DevTools/DFGSim/results/play-win-v29/` and `pairs-v29/`; `comparison-v28.md` compares
+Driving Tackle using identical starting scenarios. Its pooled main-play win rate rose from
+37.4% (523/1,400) to 39.2% (707/1,803); tactical exposure increased from 215 to 529 player-games,
+while the tactical win rate fell from 44.2% to 39.9%. Card-use cohorts and later paths diverge,
+so the rates are descriptive associations. Its no-bonus mean damage edge improved from
+-2.3383 to -1.4677; with Body Lock it improved from -0.7363 to +0.1343. The overall v29
+win baseline with draws included is 41.5%.
+
+## Rooted Guard revision (v30)
+
+Rooted Guard is now 0 attack / 6 block, reaching 3/6 against opposing printed attack 5+.
+Its independent delayed Green objective, burns, and destinations are unchanged.
+V29 balance reports predate this edit.
+V30 reran and independently verified all 40,401 ordered pair matchups and 6,633 spending
+comparisons. The full-game batch completed 2,160 games: 1,798 decisive, 362 draws, and no
+60-round caps (mean 18.55 rounds). All 484,625 recorded-data checks passed. Current reports
+are in `DevTools/DFGSim/results/play-win-v30/` and `pairs-v30/`; `comparison-v29.md` compares
+Rooted Guard using identical starting scenarios. Its pooled main-play win rate changed from
+42.7% (N=1,866) to 42.2% (N=1,222), and tactical rate from 42.2% to 40.2%. Total main plays
+fell from 2,747 to 1,605. Its no-bonus mean damage edge fell from +0.1592 to -0.1592, and
+with Shield Bash or Driving Palm from +0.6269 to +0.2935. These are descriptive bot-policy
+associations with changing card-use cohorts; the overall v30 win baseline is 41.6% with draws.
+
+## Guarded Strike revision (v31)
+
+Guarded Strike is now 0 attack / 5 block. If it takes no combat damage after reactions,
+it deals 2 direct damage after combat. Direct damage bypasses block; both retaliations
+check the same combat exchange and resolve simultaneously without recursion. Total damage
+includes combat and direct damage and determines damage-based triggers, objectives, and
+knockouts before recovery. The existing clean-counter Green objective remains; mirrored
+retaliations both deal damage, so neither player earns it. Burns and destinations are unchanged.
+V31 verification: all 67,789 gameplay checks pass, along with 104 Chromium/WebKit UI checks;
+Firefox cannot launch here. All 40,401 ordered pair matchups passed independent engine replay,
+and 6,633 spending comparisons completed. The 2,160-game batch produced 1,755 decisive games,
+405 draws, no 60-round caps, and all 477,365 recorded-data checks passed. Current outputs are
+`DevTools/DFGSim/results/play-win-v31/` and `pairs-v31/`. `guarded-strike-analysis.md` details
+the comparison: Guarded Strike's no-bonus win rate rose from 41.6% to 45.4%; overall main rate
+rose from 43.3% to 45.4%, leading the batch. No-bonus vs no-bonus matchups changed from
+18 favorable / 15 even / 3 unfavorable to 23 / 1 / 12; Green objective successes increased
+from 11/36 to 23/36. It is more polarized but stronger by these measures, not a demonstrated
+nerf. Both batches share starting scenarios; differing card-use cohorts and paths mean
+the win rates remain descriptive bot-policy associations.
+
+## Guarded Strike revision (v32)
+
+Guarded Strike is now 0 attack / 4 block. Its 2 direct damage after taking no combat damage,
+clean-counter Green objective, burns, and destinations are unchanged.
+V32 verification: 67,787 gameplay checks and 104 Chromium/WebKit UI checks pass; Firefox
+cannot launch here. All 40,401 ordered pair outcomes passed independent engine replay, plus
+6,633 spending comparisons. The 2,160-game batch had 1,766 decisive games, 394 draws, and no
+60-round caps (mean 17.81 rounds); all 465,757 recorded-data checks passed. Current outputs
+are in `DevTools/DFGSim/results/play-win-v32/` and `pairs-v32/`; `guarded-strike-analysis.md`
+compares 0/5 to 0/4. Overall main-play win rate fell from 45.4% to 41.0%, and no-bonus plan
+win rate from 45.4% to 43.5%. Main plays fell from 2,740 to 1,305. No-bonus matchups became
+18 favorable / 1 even / 17 unfavorable, versus 23 / 1 / 12. The overall v32 win baseline
+is 40.9% with draws. These remain descriptive bot-policy associations with changing cohorts.
+
+## Outside Step revision (v33)
+
+Outside Step is now 1 attack / 4 block, reaching 7/4 against opposing printed block 4+.
+Its independent on-hit +1 attack next round, burns, and destinations are unchanged.
+V33 verification: all 67,787 gameplay checks pass. All 40,401 ordered pair matchups passed
+independent engine replay, plus 6,633 spending comparisons. The 2,160-game batch produced
+1,743 decisive games, 417 draws, no 60-round caps (mean 17.80 rounds), with all 465,196
+recorded-data checks passing. Current reports are in `DevTools/DFGSim/results/play-win-v33/`
+and `pairs-v33/`; `outside-step-analysis.md` compares the change. Outside Step's main-play
+win rate changed from 41.4% to 40.9%, while the overall baseline changed from 40.9% to 40.3%.
+Tactical rate rose from 37.6% to 40.5%, and total main plays from 1,622 to 2,129. No-bonus
+matchups changed from 9 favorable / 7 even / 20 unfavorable to 9 / 13 / 14; mean damage
+edge across all plans improved from -1.4527 to -1.0348. Printed block 4 also activates opposing
+strong-guard reads. Card-use cohorts change, so win rates remain descriptive associations.
+
+## Red identity revision (v34)
+
+Quick Jab is 3/2 and gains +2 attack without a bonus, preserving 5/2 when conserving cards.
+Feint is 2/3; against opposing printed block 4+ it gains +2 attack and ignores 3 block,
+reaching 4/3 with 3 penetration. Its Yellow objective remains.
+Combination Strike is 3/1. Spending any one advantage grants +1 attack (4/1); spending any
+two different colors instead grants +4 attack, +2 block, and 2 penetration (7/3). The two-token
+payoff replaces the one-token payoff. Color-specific spending and Yellow's extra destination
+are removed from this card. Spending is optional, hidden until reveal, and capped at two held
+distinct colors. Burns, objectives, and destinations are otherwise unchanged for all three.
+All 46,481 gameplay checks pass, including 3,969 full spending matchups and all token-color
+pairs. 132 Chromium/WebKit UI checks pass; Firefox cannot launch here. The lower exhaustive
+matchup count reflects removal of the old Yellow destination variants. All 40,401 ordered
+no-token pair outcomes passed independent replay, plus 6,633 specialized spending comparisons
+and 22,110 Combination Strike spend-mode resolutions. The 2,160-game batch produced 1,784
+decisive games, 376 draws, no 60-round caps (mean 17.71 rounds); all 462,159 recorded-data
+checks passed. Current reports are in `DevTools/DFGSim/results/play-win-v34/` and `pairs-v34/`.
+`red-revision-analysis.md` summarizes the comparison: Quick Jab 39.3% to 37.0%, Feint 36.6%
+to 37.8%, Combination Strike 41.2% to 48.0%. Its two-token mode is associated with 67.3%
+wins in 594 player-games, versus 56.7% in 328 before; the charged payoff is a balance watchpoint.
+These are selected-use bot-policy associations, not causal estimates of strength.
+
 ## Card gallery
 
 Open `http://localhost/TCGEngine/DFGSim/gallery.php` or use **Card gallery** in the game header.
@@ -267,3 +550,102 @@ renderer used by game previews and opponent card details. Card data and detail m
 shared; no separate card snapshots or gallery generation step is needed. Search covers names,
 abilities, burns, hand styles, and switch colors. Hand filters and full details work on mobile.
 The gallery does not create or modify a match. Reload it after a card edit to see updated data.
+
+## Counterplay mechanics revision (v35)
+
+- Brace stays 2/5 with its Blue objective. Its no-bonus +1 block becomes a Green spend:
+  suppress opposing carried attack this round, and prevent either fighter gaining attack bonuses
+  for next round. Own carried attack and delayed objectives remain.
+- Mirror Step stays 3/3. Opposing printed attack exactly 3 gives +2 block; independently,
+  printed block exactly 3 gives +2 attack. Spending Blue removes one opposing held token for
+  dealing damage and another for taking no damage. Each removal is a public choice after damage,
+  before new objective rewards; tokens spent on reveal cannot be removed. Empty inventories
+  automatically finish the removal phase, and both players can have pending removals.
+- Clinch Throw keeps 4/1 and ignore 2 block. Spending Orange adds an on-hit lock on opposing
+  bonus and reaction burns next round. Main play and advantage spending stay legal. The public
+  lock follows hand changes and expires after that round.
+- Haymaker becomes 8/0 with its existing Purple objective. Dealing no combat damage creates
+  -2 final block next round, clamped at 0 after all block bonuses. The public penalty follows
+  hand changes and expires after one round. Successful hits do not create it.
+
+The engine, public observations, action UI, bot legal choices and evaluation, and hosted editor
+are synchronized. Start a fresh match. The rules popup explains timing; both fighters show burn
+locks, Haymaker recovery, and Brace suppression. Mirror Step adds a token-removal chooser.
+Darting Strike remains unchanged: its proposed cancel and replacement stats are under discussion.
+`darting-analysis.php` exhausts 81 candidate statlines, distinguishing printed-stat reads from
+actual damage vulnerability. Results and assumptions: `results/pairs-v35/darting-analysis.md`.
+
+Gameplay checks: 50,960 passing, including 4,356 exhaustive main/spend matchups. UI checks:
+180 Chromium/WebKit desktop/mobile mechanics checks and 32 pair-explorer checks. Firefox still
+cannot launch on this host. All 40,401 no-token pair outcomes pass independent engine replay;
+10,050 specialized-spend comparisons and 22,110 Combination Strike resolutions also pass.
+The specialized-spend matrix has no opposing held tokens or incoming pressure, so its zero
+immediate gains for Mirror Step and Brace do not measure their resource/pressure utility.
+The full-game v35 batch produced 1,737 decisive games, 423 draws, and no 60-round caps
+(mean 16.91 rounds). All 443,317 recorded-data checks passed. Reports are in
+`results/play-win-v35/`; `counterplay-revision-analysis.md` compares the same 2,160 scenarios
+with v34 and records how often the new effects occurred. The main-play win associations are
+Clinch Throw 41.4% (N=1,861), Brace 40.0% (N=1,380), Mirror Step 43.1% (N=1,232), and
+Haymaker 40.5% (N=2,609). These rates pool token choices and are not causal balance estimates.
+
+## Darting Strike cancel prototype (v36)
+
+Darting Strike is 6/0. Its old conditional +3 block is removed. Its bonus (+2 attack),
+no reaction, and Red/Orange/Yellow destinations remain. Declare its optional Yellow spend
+with the face-down commitment; consume that token on reveal even when keeping Darting.
+Before reactions, either keep it or permanently burn it and choose another available Yellow
+main. A committed bonus is already burned and cannot be the replacement. Carried attack and
+block penalties stay. The replacement's normal abilities, objective, and destinations apply;
+opposing printed-stat reads recalculate. The replacement cannot spend advantage, including
+Driving Kick's Yellow payoff. Both replacement decisions remain hidden until both players
+choose; then reveal both and start ordinary reaction priority. A Clinch burn lock prevents
+cancelling. No available alternatives automatically keeps Darting, without refunding Yellow.
+
+The UI offers Keep and replacement buttons before reactions, shows the cancel burn, and marks
+the paid Yellow token as a Darting spend rather than a replacement spend. The bot forecasts
+its own cancel against sampled opposing commitments and charges permanent card loss when
+choosing a replacement. All choices use public information; it cannot inspect an opponent's
+pending replacement.
+
+All 66,953 gameplay checks pass, including 4,489 full main/spend matchups and 4,464 resolved
+cancel matchups. An additional 6,231 cancel-analysis outcomes cover every legal own bonus,
+all 201 opposing main/bonus plans, and every replacement. All 40,401 no-token pair outcomes,
+10,050 specialized-spend comparisons, and 22,110 Combination Strike outcomes pass.
+240 Chromium/WebKit mechanics UI checks and 32 pair-explorer checks pass on desktop/mobile;
+Firefox cannot launch on this host. Reports: `results/pairs-v36/cancel-report.md` and the
+v36 pair explorer. The one-round baseline matrix has no tokens, so it does not exercise cancels.
+
+Full-game traces retain the original face-down commitments in `plans`, each keep/replacement
+choice in `cancels`, and the resulting commitments in `combatPlans`. Win-rate and pair reports
+attribute a cancelled play to Darting Strike, including damage from the replacement; replacements
+are not counted as a second main commitment. Replay checks validate choices, carried effects,
+paid tokens, original-main burns, replacement reservation, reactions, and final outcomes.
+
+The v36 batch completes 2,160 games: 1,745 decisive, 415 draws, no 60-round caps, mean
+16.15 rounds. All 460,036 recorded-data checks pass. Darting's original-main win association
+is 40.5% (699/1,726 player-games), versus 39.3% in v35. Yellow is declared 275 times;
+165 actually replace Darting and 110 keep it (19 automatic keeps). Replacement uses associate
+with 47.9% wins (79/165), with small profile-specific samples and substantial selection effects.
+`results/play-win-v36/darting-cancel-analysis.md` reports these modes separately, alongside
+the full main/pair rankings and the same-scenario v35 comparison.
+
+## Haymaker attack correction (v37)
+
+Haymaker is restored to 7/0, retaining the no-combat-damage recovery penalty of -2 final block
+next round (minimum 0). Its Purple objective, bonus, no reaction, and destinations stay the same.
+The previous 8-attack version missed on only 95 of 4,547 main plays (2.1%), including 61 of
+3,124 plays with a bonus burn (2.0%), in the v36 simulated games. The miss penalty is intended
+as occasional counterplay rather than compensation for increasing its base attack.
+
+Start a fresh match for v37. Hosted card fields, game metadata, local catalog, and rules popup
+are synchronized. All 66,953 gameplay checks pass. The 201-plan matrix has 40,401 ordered
+outcomes, independently replayed; 10,050 specialized-spend comparisons, 22,110 Combination
+Strike outcomes, and 6,231 cancel-analysis outcomes also pass. Current pair outputs are in
+`results/pairs-v37/`; the matching full-game batch is in `results/play-win-v37/`.
+
+The 2,160-game v37 batch finishes with 1,766 decisive games, 394 draws, no caps, and mean
+16.90 rounds; all 479,619 recorded-data checks pass. Haymaker's main-play win association
+is 38.2% (597/1,564 player-games), versus 41.2% at 8 attack in v36. Its miss rate is 4.4%
+without a bonus and 2.2% with one. The same-scenario comparison, hit frequencies, and pair
+changes are in `results/play-win-v37/haymaker-correction-analysis.md`. These are bot-policy
+associations with changing selected-use cohorts, not causal estimates of strength.

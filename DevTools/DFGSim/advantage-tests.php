@@ -13,29 +13,29 @@ function revealAdv(int $main, int $enemy, array $owned = [], array $spend = [], 
 function resolveAdv(array $s): array { while ($s['phase'] === 'reactions') $s = DFGApply($s,$s['reactionTurn'],['type'=>'pass']); return $s; }
 checkAdv(DFGNewGame()['players'][0]['advantages'] === [], 'matches begin without tokens');
 $s = DFGNewGame(); $s['players'][0]['advantages'] = ['Red','Yellow','Blue']; $original = $s;
-foreach ([['main'=>1,'advantages'=>['Red']], ['main'=>2,'advantages'=>['Purple']], ['main'=>2,'advantages'=>['Red','Red']], ['main'=>5,'advantages'=>['Red','Yellow','Blue']], ['main'=>5,'advantages'=>['Yellow']], ['main'=>5,'advantages'=>['Red'],'extraSwitch'=>'Green'], ['main'=>5,'advantages'=>['Yellow'],'extraSwitch'=>'Red'], ['main'=>5,'advantages'=>'Red'], ['main'=>5,'advantages'=>[[]]]] as $action) {
+foreach ([['main'=>1,'advantages'=>['Red']], ['main'=>2,'advantages'=>['Purple']], ['main'=>2,'advantages'=>['Red','Red']], ['main'=>5,'advantages'=>['Red','Yellow','Blue']], ['main'=>5,'advantages'=>['Purple']], ['main'=>5,'advantages'=>['Red'],'extraSwitch'=>'Green'], ['main'=>5,'advantages'=>['Yellow'],'extraSwitch'=>'Red'], ['main'=>5,'advantages'=>'Red'], ['main'=>5,'advantages'=>[[]]]] as $action) {
     checkAdv(rejectsAdv(fn()=>DFGApply($s,0,['type'=>'commit']+$action)), 'reject unavailable, malformed, duplicate, wrong-card, excessive, and invalid Yellow spending');
 }
 checkAdv($s === $original, 'rejected spends do not change tokens or commitments');
 $allBurned = $s; $allBurned['players'][0]['discarded'] = DFGAvailable($s['players'][0],'Green');
 checkAdv(rejectsAdv(fn()=>DFGApply($allBurned,0,['type'=>'commit','main'=>5,'advantages'=>['Yellow'],'extraSwitch'=>'Green'])), 'Yellow cannot unlock an exhausted hand');
-$s = DFGApply($s,0,['type'=>'commit','main'=>5,'advantages'=>['Yellow','Red'],'extraSwitch'=>'Green']);
+$s = DFGApply($s,0,['type'=>'commit','main'=>5,'advantages'=>['Yellow','Red']]);
 checkAdv($s['players'][0]['advantages'] === ['Red','Yellow','Blue'], 'tokens remain public and unchanged before reveal');
 $view = DFGObserve($s,1);
 checkAdv($view['commitments'][0] === ['hidden'=>true] && !str_contains(json_encode($view['log']),'spend'), 'token choices and Yellow destination stay hidden before reveal');
 checkAdv($view['players'][0]['advantages'] === ['Red','Yellow','Blue'], 'opponent can see held tokens');
 $s = DFGApply($s,1,['type'=>'commit','main'=>31]);
 checkAdv($s['players'][0]['advantages'] === ['Blue'], 'only committed tokens are consumed at reveal');
-checkAdv(DFGObserve($s,1)['commitments'][0]['extraSwitch'] === 'Green', 'token choices become public on reveal');
+checkAdv(DFGObserve($s,1)['commitments'][0]['advantages'] === ['Yellow','Red'], 'token choices become public on reveal');
 $stats = DFGComputeRound($s['commitments']);
-checkAdv($stats[0]['attack'] === 6 && $stats[0]['block'] === 2, 'Red plus Yellow grants Red attack and the two-color efficiency bonus');
+checkAdv($stats[0]['attack'] === 7 && $stats[0]['block'] === 3 && $stats[0]['pierce'] === 2, 'two different tokens grant the 7/3 ultimate with two penetration');
 $s = resolveAdv($s);
-checkAdv(DFGSwitchOptions($s,0) === ['Blue','Purple','Green'], 'Yellow adds exactly one chosen switch option');
-$s = DFGApply($s,0,['type'=>'switch','color'=>'Green']); $s = DFGApply($s,1,['type'=>'switch','color'=>'Red']);
-checkAdv($s['players'][0]['color'] === 'Green' && $s['players'][0]['advantages'] === ['Blue'], 'remaining tokens persist when changing hands');
+checkAdv(DFGSwitchOptions($s,0) === ['Blue','Purple'], 'Yellow spending no longer adds a switch option');
+$s = DFGApply($s,0,['type'=>'switch','color'=>'Blue']); $s = DFGApply($s,1,['type'=>'switch','color'=>'Red']);
+checkAdv($s['players'][0]['color'] === 'Blue' && $s['players'][0]['advantages'] === ['Blue'], 'remaining tokens persist when changing hands');
 
-checkAdv(count(DFGCatalog()) === 36 && count(array_filter(DFGCatalog(),fn($c)=>$c['advantage']['earn'] !== null)) === 16, '36-card set now has sixteen objective cards');
-foreach ([[4,3,[], 'Yellow'],[8,3,[], 'Orange'],[13,32,[], 'Green'],[22,32,[], 'Blue'],[27,1,[2], 'Red'],[31,1,[], 'Purple'],[3,14,[], 'Green'],[11,16,[], 'Yellow'],[15,3,[6], 'Blue'],[24,18,[], 'Orange'],[25,32,[], 'Purple'],[33,34,[], 'Red'],[12,32,[], 'Orange'],[34,14,[], 'Green'],[6,23,[], 'Red']] as [$main,$enemy,$bonus,$color]) {
+checkAdv(count(DFGCatalog()) === 36 && count(array_filter(DFGCatalog(),fn($c)=>$c['advantage']['earn'] !== null)) === 18, '36-card set now has eighteen objective cards');
+foreach ([[4,3,[], 'Yellow'],[8,3,[], 'Orange'],[13,32,[], 'Green'],[22,23,[], 'Blue'],[27,1,[2], 'Red'],[31,1,[], 'Purple'],[3,15,[], 'Green'],[11,16,[], 'Yellow'],[15,1,[6], 'Blue'],[24,18,[], 'Orange'],[25,32,[], 'Purple'],[33,34,[], 'Red'],[12,32,[], 'Orange'],[34,18,[], 'Green'],[6,23,[], 'Red']] as [$main,$enemy,$bonus,$color]) {
     $s = revealAdv($main,$enemy,[],[],null,$bonus);
     checkAdv(!$s['players'][0]['advantages'], 'objectives cannot award tokens before damage');
     $s = resolveAdv($s);
@@ -48,7 +48,7 @@ foreach ([[4,3,[], 'Yellow'],[8,3,[], 'Orange'],[13,32,[], 'Green'],[22,32,[], '
     checkAdv(resolveAdv($other)['players'][1]['advantages'] === [$color], 'objective is symmetric for player two');
 }
 foreach ([[4,2],[8,19],[13,31],[22,31],[27,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], 'failed objectives give no token');
-foreach ([[3,2],[11,1],[15,19],[24,19],[25,1],[33,1],[12,14],[34,19],[34,31],[6,31],[6,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], DFGCatalog()[$main]['name'].' does not earn on failed counterplay');
+foreach ([[3,2],[11,23],[15,19],[24,19],[25,1],[33,1],[12,28],[34,19],[34,31],[6,31],[6,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], DFGCatalog()[$main]['name'].' does not earn on failed counterplay');
 $s=DFGNewGame('Green','Yellow');
 $s=DFGApply($s,0,['type'=>'commit','main'=>24,'bonuses'=>[23]]);$s=DFGApply($s,1,['type'=>'commit','main'=>18]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Measured Advance rejects bonus-assisted damage');
@@ -56,25 +56,26 @@ $s=revealAdv(24,18);$s=DFGApply($s,0,['type'=>'react','card'=>23]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Measured Advance rejects own reaction burns');
 $s=revealAdv(24,18);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>17]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === ['Orange'], 'opponent reactions do not invalidate an efficient hit');
-$s=revealAdv(3,18);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>17]);
+$s=revealAdv(3,1);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>4]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'clean counter checks final incoming damage after reactions');
 $s=revealAdv(15,3);$s=DFGApply($s,0,['type'=>'react','card'=>16]);$s=DFGApply($s,1,['type'=>'react','card'=>6]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'a reaction burn cannot substitute for the opponent bonus commitment');
-checkAdv(resolveAdv(revealAdv(11,3))['players'][0]['advantages'] === ['Yellow'], 'low-attack objective includes the printed attack 3 boundary');
-checkAdv(resolveAdv(revealAdv(33,3))['players'][0]['advantages'] === ['Red'], 'heavy-guard objective includes the printed block 5 boundary');
+checkAdv(resolveAdv(revealAdv(11,6))['players'][0]['advantages'] === ['Yellow'], 'low-attack objective includes the printed attack 3 boundary');
+checkAdv(resolveAdv(revealAdv(33,22))['players'][0]['advantages'] === ['Red'], 'heavy-guard objective includes the printed block 5 boundary');
 $s=revealAdv(25,1,[],[],null,[2]);$s=DFGApply($s,0,['type'=>'react','card'=>26]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'high-attack objective uses printed attack, not bonus-modified attack');
 checkAdv(resolveAdv(revealAdv(33,15,[],[],null,[13]))['players'][0]['advantages'] === [], 'heavy-guard objective uses printed block, not bonus-modified block');
-$s=revealAdv(34,14);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>16]);
+$s=revealAdv(34,18);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>13]);
+$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>16]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Iron Guard must still deal damage after an opposing block reaction');
-$s=revealAdv(6,18);$s=DFGApply($s,0,['type'=>'pass']);$s=DFGApply($s,1,['type'=>'react','card'=>17]);
+$s=revealAdv(6,31);$s=DFGApply($s,0,['type'=>'react','card'=>3]);$s=DFGApply($s,1,['type'=>'react','card'=>35]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Covering Step loses its objective when a reaction causes final incoming damage');
 $s = DFGNewGame('Purple','Red');
 $s = DFGApply($s,0,['type'=>'commit','main'=>31,'bonuses'=>[32]]);
 $s = DFGApply($s,1,['type'=>'commit','main'=>3]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Haymaker objective requires no bonus burn even when it deals enough damage');
-$s = revealAdv(4,3);
-$s = DFGApply($s,0,['type'=>'pass']); $s = DFGApply($s,1,['type'=>'react','card'=>6]);
+$s = revealAdv(4,22);
+$s = DFGApply($s,0,['type'=>'pass']); $s = DFGApply($s,1,['type'=>'react','card'=>19]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'objectives use final damage after reactions, not reveal estimates');
 checkAdv(rejectsAdv(fn()=>DFGApply(DFGNewGame(),0,['type'=>'commit','main'=>2,'advantages'=>['Red']])), 'an objective cannot fund a spend in the same round');
 foreach ([2=>'Red',9=>'Orange',18=>'Yellow',20=>'Green',30=>'Blue',32=>'Purple'] as $main=>$color) {
@@ -85,17 +86,23 @@ foreach ([2=>'Red',9=>'Orange',18=>'Yellow',20=>'Green',30=>'Blue',32=>'Purple']
     foreach($expected as $change) checkAdv($b[0][$change['stat']]-$a[0][$change['stat']] === $change['amount'], 'specialized spenders apply their printed payoff');
     checkAdv(!$s['players'][0]['advantages'], 'specialized spending consumes the token');
 }
-$s=revealAdv(5,1,['Red','Purple'],['Red','Purple']);
-checkAdv(DFGComputeRound($s['commitments'])[0]['attack'] === 7, 'two attack colors plus combo bonus add three attack');
-$s=revealAdv(5,1,['Green','Blue'],['Green','Blue']);$stats=DFGComputeRound($s['commitments']);
-checkAdv($stats[0]['attack'] === 5 && $stats[0]['block'] === 4, 'two defensive colors also earn the combo attack bonus');
-$s=revealAdv(5,1,['Orange','Yellow'],['Orange','Yellow'],'Orange');$stats=DFGComputeRound($s['commitments']);
-checkAdv($stats[0]['pierce'] === 1 && $stats[0]['attack'] === 5, 'Orange pierces and Yellow counts toward the two-color bonus');
+foreach(DFG_COLORS as $color){
+    $s=revealAdv(5,1,[$color],[$color]);$stats=DFGComputeRound($s['commitments']);
+    checkAdv($stats[0]['attack']===4 && $stats[0]['block']===1 && $stats[0]['pierce']===0, 'any one token grants exactly one attack');
+    checkAdv($s['players'][0]['advantages']===[], 'one-token mode consumes its chosen token');
+}
+$duplicate=DFGNewGame();$duplicate['players'][0]['advantages']=['Red'];
+checkAdv(rejectsAdv(fn()=>DFGApply($duplicate,0,['type'=>'commit','main'=>5,'advantages'=>['Red','Red']])), 'duplicating one token cannot activate the ultimate');
+foreach(DFG_COLORS as $i=>$first)foreach(array_slice(DFG_COLORS,$i+1) as $second){
+    $s=revealAdv(5,1,[$first,$second],[$first,$second]);$stats=DFGComputeRound($s['commitments']);
+    checkAdv($stats[0]['attack']===7 && $stats[0]['block']===3 && $stats[0]['pierce']===2, 'every distinct pair grants the same ultimate instead of stacking the one-token reward');
+    checkAdv($s['players'][0]['advantages']===[], 'ultimate consumes exactly its two chosen tokens');
+}
 $plain=resolveAdv(revealAdv(5,1)); checkAdv(DFGSwitchOptions($plain,0) === ['Blue','Purple'], 'extra Yellow switch is not available without spending');
 $s=DFGNewGame(); $s['players'][0]['advantages']=DFG_COLORS;
 foreach(DFGSpendVariants(['color'=>'Green','discarded'=>[],'advantages'=>['Yellow']],5) as $variant) checkAdv(($variant['extraSwitch']??null)!=='Red', 'future-hand bot planning cannot use Yellow to stay in the main card’s color');
 foreach(DFGEnumeratePlans(DFGObserve($s,0),0) as $plan) checkAdv(!rejectsAdv(fn()=>DFGApply($s,0,['type'=>'commit']+$plan)), 'all enumerated bot spends are legal');
-$left=DFGApply($s,0,['type'=>'commit','main'=>5,'advantages'=>['Red','Yellow'],'extraSwitch'=>'Green']);
+$left=DFGApply($s,0,['type'=>'commit','main'=>5,'advantages'=>['Red','Yellow']]);
 $right=DFGApply($s,0,['type'=>'commit','main'=>2,'advantages'=>['Red']]); $ra=123;$rb=123;
 checkAdv(DFGBotChoose(DFGObserve($left,1),1,$ra) === DFGBotChoose(DFGObserve($right,1),1,$rb), 'bot cannot infer hidden spending from token balances or commitments');
 $earned=resolveAdv(revealAdv(4,3)); $earned['players'][0]['color']='Yellow';

@@ -1,0 +1,3 @@
+# ES modules (including module workers) require a JavaScript MIME type.
+# Older XAMPP Apache mime.types files do not include .mjs.
+AddType application/javascript .mjs

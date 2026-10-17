@@ -16,7 +16,7 @@ foreach ($cards as $main) {
 }
 $n = count($pairs); $cells = []; $summaries = []; $mainGrid = array_fill(0, 36, array_fill(0, 36, ['sum'=>0,'count'=>0]));
 $csv = fopen($folder . '/matchups.csv', 'wb');
-fputcsv($csv, ['rowPlan','columnPlan','rowMain','rowBonus','columnMain','columnBonus','rowAttack','rowBlock','rowPierce','columnAttack','columnBlock','columnPierce','rowDamage','columnDamage','netDamage','rowEarnedToken','columnEarnedToken','bonusNetGain']);
+fputcsv($csv, ['rowPlan','columnPlan','rowMain','rowBonus','columnMain','columnBonus','rowAttack','rowBlock','rowPierce','columnAttack','columnBlock','columnPierce','rowDamage','columnDamage','netDamage','rowEarnedToken','columnEarnedToken','bonusNetGain','rowRecovery','columnRecovery','netLifeEdge','rowNextColors','columnNextColors']);
 foreach ($pairs as $i => $a) {
     $wins = $ties = $losses = $earned = $sum = $dealt = $taken = $gain = 0; $worst = PHP_INT_MAX; $best = PHP_INT_MIN;
     $planA = ['main'=>$a['main'], 'bonuses'=>$a['bonus'] === null ? [] : [$a['bonus']]];
@@ -25,14 +25,21 @@ foreach ($pairs as $i => $a) {
         $stats = DFGComputeRound([$planA,$planB]);
         $ea = DFGObjectiveAchieved($planA,$planB,$stats,0); $eb = DFGObjectiveAchieved($planB,$planA,$stats,1);
         $net = $stats[0]['damage']-$stats[1]['damage'];
-        $cells[] = [$stats[0]['damage'],$stats[1]['damage'],(int)$ea,(int)$eb];
+        $recovery = [];
+        foreach ([0,1] as $seat) $recovery[$seat] = function_exists('DFGTriggeredSpecials') && in_array('hit_heal',DFGTriggeredSpecials([$planA,$planB],$stats,$seat),true) && $stats[1-$seat]['damage']<40 ? min(1,$stats[1-$seat]['damage']) : 0;
+        $routing = DFGNewGame($a['color'],$b['color']);
+        $routing['phase']='switching'; $routing['commitments']=[$planA,$planB];
+        $routing['players'][0]['discarded']=$planA['bonuses']; $routing['players'][1]['discarded']=$planB['bonuses'];
+        $routes = [DFGSwitchOptions($routing,0),DFGSwitchOptions($routing,1)];
+        $mask = fn($colors)=>array_sum(array_map(fn($color)=>1<<array_search($color,DFG_COLORS,true),$colors));
+        $cells[] = [$stats[0]['damage'],$stats[1]['damage'],(int)$ea,(int)$eb,$recovery[0],$recovery[1],$mask($routes[0]),$mask($routes[1])];
         $baseline = DFGComputeRound([['main'=>$a['main'],'bonuses'=>[]],$planB]);
         $delta = $net-($baseline[0]['damage']-$baseline[1]['damage']);
         $sum += $net; $dealt += $stats[0]['damage']; $taken += $stats[1]['damage']; $gain += $delta; $earned += (int)$ea;
         if ($net > 0) ++$wins; elseif ($net < 0) ++$losses; else ++$ties;
         $worst = min($worst,$net); $best = max($best,$net);
         $mainGrid[$a['main']-1][$b['main']-1]['sum'] += $net; ++$mainGrid[$a['main']-1][$b['main']-1]['count'];
-        fputcsv($csv,[$i+1,$j+1,$a['main'],$a['bonus'],$b['main'],$b['bonus'],$stats[0]['attack'],$stats[0]['block'],$stats[0]['pierce'],$stats[1]['attack'],$stats[1]['block'],$stats[1]['pierce'],$stats[0]['damage'],$stats[1]['damage'],$net,$ea?$cards[$a['main']]['advantage']['earn']['color']:'',$eb?$cards[$b['main']]['advantage']['earn']['color']:'',$delta]);
+        fputcsv($csv,[$i+1,$j+1,$a['main'],$a['bonus'],$b['main'],$b['bonus'],$stats[0]['attack'],$stats[0]['block'],$stats[0]['pierce'],$stats[1]['attack'],$stats[1]['block'],$stats[1]['pierce'],$stats[0]['damage'],$stats[1]['damage'],$net,$ea?$cards[$a['main']]['advantage']['earn']['color']:'',$eb?$cards[$b['main']]['advantage']['earn']['color']:'',$delta,$recovery[0],$recovery[1],$net+$recovery[0]-$recovery[1],implode('|',$routes[0]),implode('|',$routes[1])]);
     }
     $summaries[] = ['pair'=>$i,'meanNet'=>round($sum/$n,4),'meanDealt'=>round($dealt/$n,4),'meanTaken'=>round($taken/$n,4),'positive'=>$wins,'equal'=>$ties,'negative'=>$losses,'objectiveRate'=>round($earned/$n,4),'meanBonusGain'=>round($gain/$n,4),'worst'=>$worst,'best'=>$best];
 }
@@ -40,9 +47,9 @@ fclose($csv);
 // Verify all mirror outcomes, not a statistical sample. Identity matches must be net zero.
 foreach ($cells as $index => $cell) {
     $i = intdiv($index,$n); $j = $index % $n; $mirror = $cells[$j*$n+$i];
-    if ($cell !== [$mirror[1],$mirror[0],$mirror[3],$mirror[2]]) throw new RuntimeException("Asymmetric result $i/$j");
+    if ($cell !== [$mirror[1],$mirror[0],$mirror[3],$mirror[2],$mirror[5],$mirror[4],$mirror[7],$mirror[6]]) throw new RuntimeException("Asymmetric result $i/$j");
 }
-$data = ['rulesVersion'=>DFG_RULES_VERSION,'catalogHash'=>hash_file('sha256',$runtimeRoot.'/data/cards.json'),'generatedAt'=>gmdate('c'),'pairCount'=>$n,'matchupCount'=>$n*$n,'assumptions'=>['Single round, all cards initially available','Optional one same-hand bonus burn; main cannot be its own burn','No reactions; no held advantage tokens or token spending','Objectives checked after damage, with empty inventories','Opponent plans weighted equally; damage edges are not match win rates'], 'cards'=>array_values(array_map('DFGCardPublic',$cards)),'pairs'=>$pairs,'plain'=>$plain,'cells'=>$cells,'summaries'=>$summaries,'mainGrid'=>array_map(fn($row)=>array_map(fn($cell)=>round($cell['sum']/$cell['count'],4),$row),$mainGrid)];
+$data = ['rulesVersion'=>DFG_RULES_VERSION,'catalogHash'=>hash_file('sha256',$runtimeRoot.'/data/cards.json'),'generatedAt'=>gmdate('c'),'pairCount'=>$n,'matchupCount'=>$n*$n,'cellFields'=>['rowDamage','columnDamage','rowEarned','columnEarned','rowRecovery','columnRecovery','rowRouteMask','columnRouteMask'],'assumptions'=>['Single round, all cards initially available; both fighters start at 40 life','Optional one same-hand bonus burn; main cannot be its own burn','No reactions; no held advantage tokens or token spending','Objectives checked after damage, with empty inventories','Recovery and legal next colors recorded separately; life edge includes capped recovery','Route flexibility and tokens are not converted to damage-equivalent value','Specialized advantage spending is analyzed separately in spender-report.md','Opponent plans weighted equally; damage edges are not match win rates'], 'cards'=>array_values(array_map('DFGCardPublic',$cards)),'pairs'=>$pairs,'plain'=>$plain,'cells'=>$cells,'summaries'=>$summaries,'mainGrid'=>array_map(fn($row)=>array_map(fn($cell)=>round($cell['sum']/$cell['count'],4),$row),$mainGrid)];
 if(realpath($runtimeRoot)!==realpath(__DIR__.'/../../DFGSim')) {
     $data['trial']=basename($folder);
     array_unshift($data['assumptions'],'Isolated trial catalog; live game unchanged');

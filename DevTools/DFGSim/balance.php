@@ -13,9 +13,13 @@ function balanceAction(array $view, int $seat, int &$rng, string $profile): arra
         return DFGBotChoose($view, $seat, $rng);
     }
     if ($view['phase'] === 'switching') return ['type' => 'switch', 'color' => $view['switchOptions'][balanceRandom($rng, count($view['switchOptions']))]];
+    if ($view['phase'] === 'routing') return ['type' => 'cut', 'color' => $view['cutOptions'][balanceRandom($rng, count($view['cutOptions']))]];
+    if ($view['phase'] === 'directing') return ['type'=>'direct','color'=>$view['forceOptions'][balanceRandom($rng,count($view['forceOptions']))]];
+    if ($view['phase'] === 'stripping') return ['type'=>'strip','color'=>$view['stripOptions'][balanceRandom($rng,count($view['stripOptions']))]];
+    if ($view['phase'] === 'cancelling') return ['type'=>'cancel','main'=>$view['cancelOptions'][balanceRandom($rng,count($view['cancelOptions']))]];
     $available = DFGAvailable($view['players'][$seat], $view['players'][$seat]['color']);
     $main = $available[balanceRandom($rng, count($available))];
-    $bonusOptions = array_values(array_filter($available, fn($id) => $id !== $main && DFGCatalog()[$id]['bonus'] !== ''));
+    $bonusOptions = DFGBurnLocked($view,$seat) ? [] : array_values(array_filter($available, fn($id) => $id !== $main && DFGCatalog()[$id]['bonus'] !== ''));
     $bonuses = $bonusOptions && balanceRandom($rng, 4) === 0 ? [$bonusOptions[balanceRandom($rng, count($bonusOptions))]] : [];
     $variants = DFGSpendVariants($view['players'][$seat], $main);
     $variant = $variants[balanceRandom($rng, count($variants))];
@@ -30,6 +34,13 @@ function balanceMatch(string $a, string $b, int $seed, int $first, string $profi
         $record = ['round' => $state['round'], 'colors' => array_column($state['players'], 'color'), 'lifeBefore' => array_column($state['players'], 'life'), 'advantagesBefore' => array_column($state['players'], 'advantages')];
         foreach ([0, 1] as $seat) $state = DFGApply($state, $seat, balanceAction(DFGObserve($state, $seat), $seat, $rng[$seat], $profile));
         $record['plans'] = $state['commitments']; $record['reactions'] = [];
+        $record['cancels']=[];
+        while ($state['phase']==='cancelling') foreach ([0,1] as $seat) if (DFGCancelOptions($state,$seat)) {
+            $action=balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
+            $record['cancels'][]=['seat'=>$seat,'main'=>$action['main']];
+            $state=DFGApply($state,$seat,$action);
+        }
+        $record['combatPlans']=$state['commitments'];
         $steps = 0;
         while ($state['phase'] === 'reactions') {
             if (++$steps > 30) throw new RuntimeException('Reaction loop exceeded legal hand resources');
@@ -43,10 +54,28 @@ function balanceMatch(string $a, string $b, int $seed, int $first, string $profi
             }
             $state = DFGApply($state, $seat, $action);
         }
-        $record['stats'] = DFGComputeRound($record['plans'], $state['reactions']);
+        $record['strips']=[];
+        while ($state['phase']==='stripping') foreach ([0,1] as $seat) if (DFGStripOptions($state,$seat)) {
+            $action=balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
+            $record['strips'][]=['seat'=>$seat,'color'=>$action['color']];
+            $state=DFGApply($state,$seat,$action);
+        }
+        $record['stats'] = DFGComputeRound($record['combatPlans'], $state['reactions']);
         $record['lifeAfter'] = array_column($state['players'], 'life');
         $record['advantagesAfter'] = array_column($state['players'], 'advantages');
+        $record['routeCuts'] = [];
+        while ($state['phase'] === 'routing') foreach ([0,1] as $seat) if (DFGCutOptions($state,$seat)) {
+            $action = balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
+            $record['routeCuts'][] = ['seat'=>$seat,'color'=>$action['color']];
+            $state = DFGApply($state,$seat,$action);
+        }
         $record['switches'] = [];
+        $record['forcedDestinations'] = [];
+        while ($state['phase'] === 'directing') foreach ([0,1] as $seat) if (DFGForceOptions($state,$seat)) {
+            $action=balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
+            $record['forcedDestinations'][]=['seat'=>$seat,'color'=>$action['color']];
+            $state=DFGApply($state,$seat,$action);
+        }
         if ($state['phase'] === 'switching') foreach ([0, 1] as $seat) {
             $action = balanceAction(DFGObserve($state, $seat), $seat, $rng[$seat], $profile);
             $record['switches'][$seat] = $action['color'];
@@ -84,6 +113,7 @@ function balanceAccumulate(array &$summary, array $match): void {
         foreach ($match['rounds'] as $round) {
             $plan = $round['plans'][$seat]; $id = $plan['main'];
             $remainingTokens = array_diff($round['advantagesBefore'][$seat], $plan['advantages'] ?? []);
+            foreach ($round['strips']??[] as $choice) if ($choice['seat']!==$seat) $remainingTokens=array_diff($remainingTokens,[$choice['color']]);
             foreach ($plan['advantages'] ?? [] as $color) ++$summary['advantages'][$color]['spent'];
             foreach (array_diff($round['advantagesAfter'][$seat], $remainingTokens) as $color) ++$summary['advantages'][$color]['earned'];
             if (count($plan['advantages'] ?? []) === 2) ++$summary['combinationSpends'];
@@ -92,7 +122,7 @@ function balanceAccumulate(array &$summary, array $match): void {
             $seen['main'][$id] = true; unset($metric);
             foreach ($plan['bonuses'] as $id) {
                 $metric = &$summary['cards'][$id]['bonus']; ++$metric['events'];
-                $without = $round['plans']; $without[$seat]['bonuses'] = [];
+                $without = $round['combatPlans']??$round['plans']; $without[$seat]['bonuses'] = [];
                 $reactions = array_map(fn($r) => ['seat' => $r['seat'], 'card' => $r['card']], $round['reactions']);
                 $counterfactual = DFGComputeRound($without, $reactions);
                 $metric['netDamageGain'] += ($round['stats'][$seat]['damage'] - $round['stats'][1-$seat]['damage']) - ($counterfactual[$seat]['damage'] - $counterfactual[1-$seat]['damage']);
@@ -111,6 +141,7 @@ function balanceDerived(array $metric): array {
     $completed = $metric['wins'] + $metric['losses'] + $metric['draws'];
     $metric['completed'] = $completed;
     $metric['scoreRate'] = $completed ? ($metric['wins'] + 0.5 * $metric['draws']) / $completed : null;
+    $metric['playWinRate'] = $completed ? $metric['wins'] / $completed : null;
     $decisive = $metric['wins'] + $metric['losses'];
     $metric['decisiveWinRate'] = $decisive ? $metric['wins'] / $decisive : null;
     $metric['averageDamageDealt'] = $metric['events'] ? $metric['damageDealt'] / $metric['events'] : null;
