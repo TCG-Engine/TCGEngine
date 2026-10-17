@@ -39,6 +39,7 @@ async function request(body = null) {
   return data;
 }
 function accept(data) {
+  const previousState=state;
   const moves=[];
   if(state && data.state && state.matchId===data.state.matchId) {
     for(const seat of [0,1]) for(const id of data.state.players[seat].discarded.filter(id=>!state.players[seat].discarded.includes(id))) {
@@ -49,13 +50,70 @@ function accept(data) {
     if(state.phase==='reactions'&&['routing','directing','switching'].includes(data.state.phase)&&!data.state.players[0].discarded.includes(state.commitments[0].main)) moves.push({type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${state.commitments[0].main}`,durationMs:340});
   }
   const prepared=prepareMotion(moves);
-  if(!state || state.matchId !== data.state?.matchId) { opponentColor=null; ClosePopup(); HideCardDetail(true); }
+  if(!state || state.matchId !== data.state?.matchId) { opponentColor=null; ClosePopup(); HideCardDetail(true); $('damageEffects').replaceChildren(); }
   const changed = !state || !data.state || state.matchId !== data.state.matchId || state.round !== data.state.round || state.phase !== data.state.phase;
   token = data.token; state = data.state; styles = data.colors; catalog = new Map(data.cards.map(c => [c.id,c]));
   if (changed) { selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); extraSwitch=null; browseColor = state?.players[0].color ?? 'Red'; }
   if (changed) closePreview();
   render();
+  animateMeterChanges(previousState,state);
   TCGCardMotion.playPreparedZoneMoves(prepared,1);
+}
+function animateMeterChanges(previous,next) {
+  if(!previous||!next||previous.matchId!==next.matchId) return;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const resolved=previous.phase==='reactions'&&['stripping','routing','directing','switching','finished'].includes(next.phase);
+  const damage=next.players.map((player,seat)=>Math.max(0,Number(resolved?next.stats?.[1-seat]?.damage??previous.players[seat].life-player.life:previous.players[seat].life-player.life)));
+  damage.forEach((amount,seat)=>{if(amount>0) showDamageImpact(seat,amount,reduced);});
+  if(reduced) return;
+  const shake=(element,amount,className)=>{
+    if(!element||!amount) return;
+    const hand=className==='hand-impact', heavy=amount>=5;
+    element.style.setProperty('--impact-x',`${hand?Math.min(28,heavy?11+(amount-5)*1.8:2+amount*.9):Math.min(6.25,1+amount*.35)}px`);
+    element.style.setProperty('--impact-y',`${hand?Math.min(12,heavy?5+(amount-5)*.7:1+amount*.4):Math.min(2.5,.5+amount*.13)}px`);
+    element.style.setProperty('--impact-duration',`${hand?Math.min(1000,heavy?680+(amount-5)*32:320+amount*40):Math.min(560,280+amount*18)}ms`);
+    if(hand) element.style.setProperty('--impact-tilt',`${Math.min(.75,.15+amount*.05)}deg`);
+    element.classList.add(className);
+    element.addEventListener('animationend',()=>element.classList.remove(className),{once:true});
+  };
+  shake(document.querySelector('.arena-art'),Math.max(...damage),'art-impact');
+  shake($('cards'),damage[0],'hand-impact');
+  const pulse=selector=>{
+    const fill=document.querySelector(selector);
+    if(!fill) return;
+    fill.classList.add('meter-change');
+    fill.addEventListener('animationend',event=>{if(event.animationName==='arcade-response') fill.classList.remove('meter-change');},{once:true});
+  };
+  for(const seat of [0,1]) {
+    const before=previous.players[seat],after=next.players[seat];
+    if(before.life>after.life) {
+      const track=document.querySelector(`#fighters .fighter:nth-child(${seat+1}) .health-track`);
+      if(track) {
+        const trail=document.createElement('span');
+        trail.className='health-trail';trail.setAttribute('aria-hidden','true');
+        trail.style.width=`${Math.min(100,Math.max(0,before.life)/40*100)}%`;
+        track.append(trail);trail.addEventListener('animationend',()=>trail.remove(),{once:true});
+      }
+    }
+    if(before.life!==after.life||before.color!==after.color) pulse(`#fighters .fighter:nth-child(${seat+1}) .health-fill`);
+    for(const color of Object.keys(styles)) {
+      const count=player=>player.available.filter(id=>card(id)?.color===color).length;
+      if(count(before)!==count(after)||(before.color!==after.color&&after.color===color)) pulse(`#${seat===0?'your-orb':'orb'}-${color} .orb-fill`);
+    }
+  }
+}
+function showDamageImpact(seat,amount,reduced) {
+  const number=document.createElement('span');
+  number.className=`damage-number damage-seat-${seat}${reduced?' reduced-impact':''}`;
+  number.textContent=`−${amount}`;
+  number.style.setProperty('--damage-scale',String(1+Math.min(amount/24,.5)));
+  $('damageEffects').append(number);
+  if(reduced) setTimeout(()=>number.remove(),1500);
+  else {
+    number.addEventListener('animationend',()=>number.remove(),{once:true});
+    const track=document.querySelector(`#fighters .fighter:nth-child(${seat+1}) .health-track`);
+    if(track) {track.classList.add('damage-hit');setTimeout(()=>track.classList.remove('damage-hit'),1150);}
+  }
 }
 function prepareMotion(moves) {
   TCGCardMotion.discardPrepared(activeMotion); activeMotion=[];
@@ -105,23 +163,32 @@ async function act(action) {
 }
 function fighter(seat) {
   const p = state.players[seat];
-  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div><h2>${seat===0?'YOU':'SPARRING BOT'}</h2><small>${esc(p.color)} · ${esc(styles[p.color])}</small></div><div class="life">${p.life}<small> / 40</small></div></div>${seat===1?opponentStatus():''}<div class="health-track"><div class="health-fill" style="width:${Math.max(0,p.life)/40*100}%"></div></div><small>${p.available.length} cards remaining · ${p.discarded.length} permanently burned <a class="hand-status-link" href="${seat===0?'#yourHands':'#opponentOrbs'}">View hands &amp; burns ↓</a></small><div class="advantage-tray" aria-label="${seat===0?'Your':'Bot'} advantage tokens"><span>ADVANTAGE</span>${(p.advantages??[]).length?(p.advantages??[]).map(color=>`<span class="advantage-token ${classColor(color)}" title="${esc(color)} advantage">${esc(color)}</span>`).join(''):'<span class="muted">None</span>'}</div></div>`;
+  const advantage=`<div class="advantage-tray" aria-label="${seat===0?'Your':'Bot'} advantage tokens"><span>ADV</span>${(p.advantages??[]).length?p.advantages.map(color=>`<span class="advantage-token ${classColor(color)}" title="${esc(color)} advantage" aria-label="${esc(color)} advantage"></span>`).join(''):'<span class="muted" aria-label="No advantage">—</span>'}</div>`;
+  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div class="fighter-identity"><h2>${seat===0?'YOU':'SPARRING BOT'}</h2></div><div class="fighter-vitals">${advantage}<div class="life">${p.life}<small> / 40</small></div></div></div><div class="health-track"><div class="health-fill" data-full="${p.life>=40}" style="width:${Math.max(0,p.life)/40*100}%"></div></div>${handStatus(seat)}</div>`;
 }
 function reveal(seat) {
   const staged=seat===0&&state.phase==='planning'&&!state.commitments[0];
   const plan = staged&&selectedMain?{main:selectedMain,bonuses:[...selectedBonuses]}:state.commitments[seat], owner = seat===0?'Your played card':'Opponent played card';
   const burns=staged?[...selectedBonuses].map(id=>({id,type:'BONUS'})):(plan&&!plan.hidden?[...plan.bonuses.map(id=>({id,type:'BONUS'})),...state.reactions.filter(r=>r.seat===seat).map(r=>({id:r.card,type:'REACTION'})),...(plan.cancelledFrom?[{id:plan.cancelledFrom,type:'CANCEL BURN'}]:[]),...(state.players[seat].discarded.includes(plan.main)?[{id:plan.main,type:'MAIN BURN'}]:[])]:[]);
-  const burnMarkup=`<div class="played-burns" id="burns-${seat}">${burns.map(({id,type})=>`<button id="burn-${seat}-${id}" class="played-burn tile-face ${classColor(card(id).color)}" ${staged?`data-hand-action="${id}"`:''} data-inspect="${id}" aria-label="${staged?'Undo bonus':`Inspect ${type.toLowerCase()} burn`} ${esc(card(id).name)}"><span class="tile-badge">${staged?'BONUS · UNDO':type}</span><strong class="tile-name">${esc(card(id).name)}</strong><span class="tile-stats"><span>${card(id).attack}</span><span>${card(id).block}</span></span></button>`).join('')}</div>`;
-  if (!plan || plan.hidden) return `<div class="reveal hidden-card empty-play"><span class="owner">${owner}</span><div class="played-content"><div id="played-main-${seat}" class="played-back" aria-hidden="true"></div><div><h3>${plan?'Face down':'Select a main card'}</h3></div></div>${burnMarkup}</div>`;
-  const main = card(plan.main), stats = state.stats?.[seat];
-  const directNote=stats?.directDamage?`<p class="muted direct-damage">Damage includes ${stats.directDamage} direct damage after combat, bypassing block.</p>`:'';
-  return `<div class="reveal ${classColor(main.color)}"><span class="owner">${owner}${staged?' · not locked in':''}</span><div class="played-content"><button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection':'Inspect '+esc(main.name)}"><span class="tile-badge">${staged?'MAIN · UNDO':'MAIN'}</span><strong class="tile-name">${esc(main.name)}</strong><span class="tile-stats"><span><small>ATK</small>${main.attack}</span><span><small>BLK</small>${main.block}</span></span></button><div class="played-details"><h3>${esc(main.name)}</h3><div class="stat-row"><span>Attack <strong>${stats?.attack??main.attack}</strong></span><span>Block <strong>${stats?.block??main.block}</strong></span>${stats?`<span>${['cancelling','reactions'].includes(state.phase)?'Projected damage':'Damage dealt'} <strong>${stats.damage}</strong></span>`:''}</div>${directNote}<p>${main.ability?esc(main.ability).replace(/\n/g,'<br>'):'No additional main ability.'}</p><div class="played-switches">Switch to ${main.switches.map(color=>`<span class="color-chip ${classColor(color)}">${color}</span>`).join(' ')}</div>${plan.advantages?.length?`<p>Spent${plan.cancelledFrom?' on Darting Strike (replacement cannot spend)':''}: ${plan.advantages.map(esc).join(' + ')}</p>`:''}${stats?.pierce?`<p>${stats.pierce} opposing block ignored</p>`:''}</div></div>${burnMarkup}</div>`;
+  const burnTile=({id,type})=>`<button id="burn-${seat}-${id}" class="played-burn tile-face ${classColor(card(id).color)}" ${staged?`data-hand-action="${id}"`:''} data-inspect="${id}" aria-label="${staged?'Undo bonus':`Inspect ${type.toLowerCase()} burn`} ${esc(card(id).name)}"><span class="tile-badge">${staged?'UNDO':type}</span><strong class="tile-name">${esc(card(id).name)}</strong><span class="tile-stats"><span>${card(id).attack}</span><span>${card(id).block}</span></span></button>`;
+  const bonuses=burns.filter(burn=>burn.type==='BONUS'), reactions=burns.filter(burn=>burn.type!=='BONUS');
+  const emptyReaction='<div class="burn-placeholder"><span class="slot-label">Reactions</span></div>';
+  const reactionMarkup=`<div class="reaction-slots slot-group" aria-label="Reactions"><div class="reaction-cards">${reactions.map(burnTile).join('')}${emptyReaction}</div></div>`;
+  const bonusMarkup=`<div class="bonus-slot slot-group" aria-label="Bonus burn">${bonuses.map(burnTile).join('')||'<div class="burn-placeholder"><span class="slot-label">Bonus burn</span></div>'}</div>`;
+  let mainMarkup;
+  if (!plan || plan.hidden) mainMarkup=`<div id="played-main-${seat}" class="played-back" aria-label="${owner}: ${plan?'face down':'no main selected'}"><span class="slot-label">${seat===0?'Your main':'Opponent main'}</span></div>`;
+  else {
+    const main=card(plan.main), stats=state.stats?.[seat];
+    mainMarkup=`<button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection: ':'Inspect '}${esc(main.name)}"><span class="tile-badge">${seat===0?'YOUR MAIN':'OPPONENT MAIN'}${staged?' · UNDO':''}</span><strong class="tile-name">${esc(main.name)}</strong><span class="tile-stats"><span><small>ATK</small>${stats?.attack??main.attack}</span><span><small>BLK</small>${stats?.block??main.block}</span></span><span class="tile-switches" aria-label="Printed switch colors: ${esc(main.switches.join(', '))}">${main.switches.map(color=>`<i class="${classColor(color)}"></i>`).join('')}</span></button>${stats?`<span class="main-status">${['cancelling','reactions'].includes(state.phase)?'Projected':'Dealt'}: <strong>${stats.damage}</strong>${stats.directDamage?` · ${stats.directDamage} direct`:''}${stats.pierce?` · pierce ${stats.pierce}`:''}</span>`:''}${plan.advantages?.length?`<span class="main-status">Spent${plan.cancelledFrom?' on Darting':''}: ${plan.advantages.map(esc).join(' + ')}</span>`:''}`;
+  }
+  const mainSlot=`<div class="main-slot slot-group" aria-label="${seat===0?'Your main':'Opponent main'}">${mainMarkup}</div>`;
+  return `<div class="reveal combat-slots" aria-label="${owner}"><div class="played-burns" id="burns-${seat}">${reactionMarkup}${bonusMarkup}</div>${mainSlot}</div>`;
 }
-function opponentStatus() {
-  const p = state.players[1];
-  return `<div id="opponentOrbs" class="hand-orbs" aria-label="Opponent hand inventory">${Object.keys(styles).map(color=>{
+function handStatus(seat) {
+  const p = state.players[seat], own=seat===0;
+  return `<div id="${own?'yourOrbs':'opponentOrbs'}" class="hand-orbs" aria-label="${own?'Browse your hands':'Opponent hand inventory'}">${Object.keys(styles).map(color=>{
     const remaining = p.available.filter(id=>card(id).color===color), burned = p.discarded.filter(id=>card(id).color===color);
-    return `<button id="orb-${color}" class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" data-opponent="${color}" aria-haspopup="dialog" aria-expanded="${opponentColor===color}" aria-label="Opponent ${color} hand: ${remaining.length} of 6 remaining, ${burned.length} burned${color===p.color?', active':''}${!remaining.length?', exhausted':''}" title="${color}: ${remaining.length}/6 remaining · ${burned.length} burned${color===p.color?' · Active':''}"><span class="orb-sphere"><span class="orb-fill" style="height:${remaining.length/6*100}%"></span><span class="orb-count">${remaining.length}</span></span><span class="orb-label">${color}</span></button>`;
+    return `<button id="${own?'your-orb':'orb'}-${color}" class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" ${own?`data-browse="${color}" aria-pressed="${(browseColor??p.color)===color}" aria-controls="cards"`:`data-opponent="${color}" aria-haspopup="dialog" aria-expanded="${opponentColor===color}"`} aria-label="${own?'Browse your':'Opponent'} ${color} hand: ${remaining.length} of 6 remaining, ${burned.length} burned${color===p.color?', active':''}${!remaining.length?', exhausted':''}" title="${color}: ${remaining.length}/6 remaining · ${burned.length} burned${color===p.color?' · Active':''}"><span class="orb-sphere"><span class="orb-fill" style="height:${remaining.length/6*100}%"></span><span class="orb-count">${remaining.length}</span></span><span class="orb-label">${color}</span></button>`;
   }).join('')}</div>`;
 }
 function renderOpponentPopup() {
@@ -147,32 +214,33 @@ function showRulesPopup() {
   popup.querySelector('button').setAttribute('aria-label','Close rules');popup.querySelector('button').focus();
 }
 function closeRulesPopup() {
-  ClosePopup();$('showRules').setAttribute('aria-expanded','false');$('showRules').focus();
+  ClosePopup();$('showRules').setAttribute('aria-expanded','false');$('matchMenu').querySelector('summary').focus();
 }
 function advantageControls() {
   const c=card(selectedMain), rule=c?.advantage?.spend;
   if(!rule) return '';
   const held=(state.players[0].advantages??[]).filter(color=>rule.colors.includes(color));
-  if(!held.length) {
-    const earners=[...catalog.values()].filter(candidate=>rule.colors.includes(candidate.advantage?.earn?.color));
-    return `<div class="token-spending"><span class="muted">Spend advantage · ${esc(c.name)}</span><div class="token-choices">${rule.colors.map(color=>`<button class="advantage-token ${classColor(color)}" disabled>${color} · not held</button>`).join('')}</div><p class="muted token-hint">You need an earned ${rule.colors.map(esc).join(' / ')} advantage token. ${earners.map(candidate=>`${esc(candidate.name)}: ${esc(candidate.ability.split('\n').find(line=>line.startsWith('Objective:'))?.replace('Objective: ',''))}`).join(' ')}</p><p class="muted token-hint">Spend through your main card before committing; bonus and reaction burns cannot spend advantage.</p></div>`;
-  }
   const limit=rule.flexible?2:1;
-  if(rule.byCount) return `<div class="token-spending"><span class="muted">Optional advantage (${selectedAdvantages.size}/${limit})${selectedAdvantages.size===2?' · Ultimate: +4 attack, +2 block, ignore 2 block':selectedAdvantages.size===1?' · +1 attack':''}</span><div class="token-choices">${held.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}</button>`).join('')}</div><small>Any one color: +1 attack. Any two different colors instead: +4 attack, +2 block, ignore 2 opposing block.</small></div>`;
   const extraColors=Object.keys(styles).filter(color=>color!==state.players[0].color&&!c.switches.includes(color)&&state.players[0].available.some(id=>card(id).color===color));
-  return `<div class="token-spending"><span class="muted">Optional advantage (${selectedAdvantages.size}/${limit})${rule.flexible&&selectedAdvantages.size===2?' · +1 combo attack':''}</span><div class="token-choices">${held.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)||(color==='Yellow'&&rule.flexible&&!extraColors.length)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}</button>`).join('')}</div>${rule.flexible?'<small>Red/Purple +1 attack · Green/Blue +1 block · Orange ignore 1 block · Yellow extra switch</small>':''}${rule.flexible&&selectedAdvantages.has('Yellow')?`<label>Yellow: extra switch<select id="extraSwitch" ${busy?'disabled':''}>${extraColors.map(color=>`<option value="${color}" ${extraSwitch===color?'selected':''}>${color}</option>`).join('')}</select></label>`:''}</div>`;
+  const choices=held.length?held:rule.colors;
+  const payoff=rule.byCount?'Any one color: +1 attack. Any two different colors instead: +4 attack, +2 block, ignore 2 opposing block.':rule.flexible?'Red/Purple +1 attack · Green/Blue +1 block · Orange ignore 1 block · Yellow extra switch':c.ability.split('\n').filter(line=>/spend/i.test(line)).join(' ');
+  const earners=!held.length?[...catalog.values()].filter(candidate=>rule.colors.includes(candidate.advantage?.earn?.color)):[];
+  const selected=[...selectedAdvantages];
+  return `<details id="advantagePicker" class="advantage-picker ${held.length?'':'unavailable'}" ${$('advantagePicker')?.open?'open':''}><summary>Spend advantage ${selected.length?`<span class="spend-selection">${selected.map(color=>`<i class="${classColor(color)}" title="${esc(color)}"></i>`).join('')}<span>${selected.length}/${limit}</span></span>`:`<span class="spend-count">${held.length?'Optional':'None held'}</span>`}</summary><div class="advantage-popover"><strong>${esc(c.name)} · optional spend</strong><div class="token-choices">${choices.map(color=>`<button class="advantage-token ${classColor(color)}" data-advantage="${color}" aria-pressed="${selectedAdvantages.has(color)}" ${!held.includes(color)||busy||(!selectedAdvantages.has(color)&&selectedAdvantages.size===limit)||(color==='Yellow'&&rule.flexible&&!rule.byCount&&!extraColors.length)?'disabled':''}>${selectedAdvantages.has(color)?'✓ ':''}${color}${!held.includes(color)?' · not held':''}</button>`).join('')}</div><p>${esc(payoff)}</p>${!held.length?`<p>Earn ${rule.colors.map(esc).join(' / ')} advantage through a main card’s objective.</p><details class="advantage-earning"><summary>How to earn it</summary><p>${earners.map(candidate=>`${esc(candidate.name)}: ${esc(candidate.ability.split('\n').find(line=>line.startsWith('Objective:'))?.replace('Objective: ',''))}`).join(' ')}</p></details>`:''}${rule.flexible&&!rule.byCount&&selectedAdvantages.has('Yellow')?`<label>Yellow: extra switch<select id="extraSwitch" ${busy?'disabled':''}>${extraColors.map(color=>`<option value="${color}" ${extraSwitch===color?'selected':''}>${color}</option>`).join('')}</select></label>`:''}<small>Choose before committing. Bonus and reaction burns cannot spend advantage.</small></div></details>`;
 }
 function cardMarkup(c) {
   const p = state.players[0], active = c.color === p.color, discarded = p.discarded.includes(c.id), committed = state.commitments[0]?.main === c.id;
   const canPlan = !state.needsNewMatch && active && !discarded && state.phase==='planning' && !state.commitments[0];
   const canReact = !state.needsNewMatch && state.phase==='reactions' && state.reactionTurn===0 && state.reactionOptions.includes(c.id);
   const status=discarded?'Permanently burned':canPlan?(selectedMain===c.id||selectedBonuses.has(c.id)?'Click to undo':!selectedMain?'Click for main':p.burnLockedRound===state.round?'Burns locked this round':!selectedBonuses.size?(c.bonus?'Click for bonus burn':'No bonus effect'):'Main and bonus staged'):canReact?'Click to burn reaction':committed&&state.phase==='reactions'?'Main · reserved':active?'Inspect only':'Inactive · inspect';
-  const actions=`<div class="card-status">${status}</div>`;
+  const selected=selectedMain===c.id||selectedBonuses.has(c.id);
+  const playable=!busy&&!selected&&(canReact||(canPlan&&(!selectedMain||(!selectedBonuses.size&&c.bonus&&p.burnLockedRound!==state.round))));
   const badge = discarded?'BURNED':selectedMain===c.id?'MAIN':selectedBonuses.has(c.id)?'BONUS BURN':committed&&state.phase==='reactions'?'RESERVED':c.color.toUpperCase();
-  return `<article class="card-tile ${classColor(c.color)} ${selectedMain===c.id?'main-selected':''} ${selectedBonuses.has(c.id)?'bonus-selected':''} ${discarded?'discarded':''}" data-card-id="${c.id}"><button id="hand-${c.id}" class="tile-face" data-hand-action="${c.id}" data-inspect="${c.id}" aria-pressed="${selectedMain===c.id||selectedBonuses.has(c.id)}" aria-label="${esc(c.name)}: ${status}" ${busy?'disabled':''}><span class="tile-badge">${badge}</span><strong class="tile-name">${esc(c.name)}</strong><span class="tile-stats"><span><small>ATK</small>${c.attack}</span><span><small>BLK</small>${c.block}</span></span><span class="tile-switches" aria-label="Switch colors: ${esc(c.switches.join(', '))}">${c.switches.map(color=>`<i class="${classColor(color)}"></i>`).join('')}</span></button>${actions}</article>`;
+  return `<article class="card-tile ${classColor(c.color)} ${playable?'playable':''} ${selectedMain===c.id?'main-selected':''} ${selectedBonuses.has(c.id)?'bonus-selected':''} ${discarded?'discarded':''}" data-card-id="${c.id}"><button id="hand-${c.id}" class="tile-face" data-hand-action="${c.id}" data-inspect="${c.id}" aria-pressed="${selectedMain===c.id||selectedBonuses.has(c.id)}" aria-label="${esc(c.name)}: ${status}" ${busy?'disabled':''}><span class="tile-badge">${badge}</span><strong class="tile-name">${esc(c.name)}</strong><span class="tile-stats"><span><small>ATK</small>${c.attack}</span><span><small>BLK</small>${c.block}</span></span><span class="tile-switches" aria-label="Switch colors: ${esc(c.switches.join(', '))}">${c.switches.map(color=>`<i class="${classColor(color)}"></i>`).join('')}</span></button></article>`;
 }
 function controls() {
   const phase = state.phase, p = state.players[0];
+  $('matchControls').dataset.phase=phase;
   if(state.needsNewMatch) {
     $('phaseTag').textContent='RULES UPDATED'; $('phaseTitle').textContent='Start a fresh match.';
     $('phaseHint').textContent='Rules or card balance changed. Start a new match to use the updated cards.';
@@ -181,32 +249,42 @@ function controls() {
   $('phaseTag').textContent = `ROUND ${state.round} · ${phase==='planning'?'COMMIT':phase==='cancelling'?'CANCEL':phase==='reactions'?'REACT':phase==='stripping'?'REMOVE ADVANTAGE':phase==='routing'?'CUT ROUTE':phase==='directing'?'DIRECT HAND':phase==='switching'?'SWITCH':'COMPLETE'}`;
   if(phase==='planning') {
     $('phaseTitle').textContent = 'Commit your move.';
-    $('phaseHint').textContent = p.burnLockedRound===state.round?'Clinch Throw prevents bonus and reaction burns this round. Choose your main card.':'Click main, then optional bonus. Click again to undo.';
-    $('controls').innerHTML = `${advantageControls()}<button id="commit" class="primary" ${busy||!selectedMain?'disabled':''}>Commit face down</button><button id="clear" ${busy?'disabled':''}>Clear selection</button>`;
+    const burnsLocked=p.burnLockedRound===state.round;
+    $('phaseHint').textContent = '';
+    const help=burnsLocked?'Select a main card from your active hand. Bonus burns are locked this round.':'Select a main card from your active hand, then optionally select a second card as a bonus burn. Commit when ready.';
+    $('controls').innerHTML = `<div class="commit-row"><div class="commit-prompt ${!selectedMain?'needs-main':''}" ${!selectedMain?'tabindex="0" role="group" aria-label="Commit unavailable: select a main card" aria-describedby="commitHelp"':''}><button id="commit" class="primary" ${busy||!selectedMain?'disabled':''}>${busy?'Committing…':'Commit'}</button>${!selectedMain?`<div id="commitHelp" class="commit-help" role="tooltip"><span class="eyebrow">CHOOSE YOUR MOVE</span><strong>Select your main</strong><p>${help}</p></div>`:''}</div><span class="commit-reminder">${burnsLocked?'Main only · burns locked':'Main + optional bonus burn'}</span>${advantageControls()}${selectedMain?`<button id="clear" class="text-button" ${busy?'disabled':''}>Clear</button>`:''}</div>`;
   } else if(phase==='cancelling') {
     $('phaseTitle').textContent=state.cancelOptions.length?'Keep Darting Strike or cancel.':'Waiting for the opposing cancel choice.';
     $('phaseHint').textContent='Yellow advantage is already spent. Replacing permanently burns Darting Strike; your committed bonus stays. Both choices reveal together before reactions. The replacement cannot spend advantage.';
     $('controls').innerHTML=state.cancelOptions.map(id=>`<button data-cancel="${id}" ${busy?'disabled':''}>${id===state.commitments[0].main?'Keep':'Cancel into'} ${esc(card(id).name)} · ${card(id).attack}/${card(id).block}</button>`).join('')||'<p class="muted">Your choice stays hidden until the opponent decides.</p>';
   } else if(phase==='reactions') {
-    $('phaseTitle').textContent = state.reactionTurn===0?'React or pass.':'Bot is reacting.';
-    $('phaseHint').textContent = 'Burn one remaining active-hand card for its reaction, or pass. Two consecutive passes resolve damage.';
-    $('controls').innerHTML = `<div class="selection-summary">Consecutive passes: <strong>${state.passes} / 2</strong><br>${state.reactionOptions.length} reaction cards available.</div><button id="pass" class="primary" ${busy||state.reactionTurn!==0?'disabled':''}>Pass reaction</button><p class="muted">Attack/block above include current effects. Damage can still change.</p>`;
+    $('phaseTitle').textContent = '';
+    $('phaseHint').textContent = '';
+    $('controls').innerHTML = `<span class="reaction-summary" aria-live="polite"><strong>${state.passes}/2</strong> passes · ${state.reactionOptions.length} reactions</span><button id="pass" class="primary" title="Pass without burning a reaction. Two consecutive passes resolve damage." ${busy||state.reactionTurn!==0?'disabled':''}>${state.reactionTurn===0?'Pass reaction':'Bot reacting…'}</button>`;
   } else if(phase==='stripping') {
     $('phaseTitle').textContent=state.stripOptions.length?'Remove an opposing advantage.':'Opponent is removing advantage.';
     $('phaseHint').textContent='Mirror Step: dealing damage and taking no damage each remove one held opposing token. New objective rewards are awarded afterward.';
     $('controls').innerHTML=state.stripOptions.map(color=>`<button class="advantage-token ${classColor(color)}" data-strip="${esc(color)}" ${busy?'disabled':''}>Remove ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing token choice.</p>';
   } else if(phase==='routing') {
-    $('phaseTitle').textContent=state.cutOptions.length?'Cut off a destination.':'Opponent is cutting a route.';
-    $('phaseHint').textContent='Driving Tackle hit. Choose one opposing next color to prohibit. Both route cuts resolve before either player chooses a next hand.';
-    $('controls').innerHTML=state.cutOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-cut="${esc(color)}" ${busy?'disabled':''}>Cut off ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing route choice.</p>';
+    $('phaseTitle').textContent=state.cutOptions.length?'Cut off a destination':'Opponent is cutting a route';
+    $('phaseHint').textContent='';
+    $('controls').innerHTML=state.cutOptions.length?`<div class="hand-orbs switch-orbs" role="group" aria-label="Cut off an opposing destination">${state.cutOptions.map(color=>{
+      const remaining=state.players[1].available.filter(id=>card(id).color===color).length;
+      const label=`Cut off ${color}: ${remaining} cards remaining`;
+      return `<button class="hand-orb ${classColor(color)}" data-cut="${esc(color)}" aria-label="${esc(label)}" title="${esc(label)}" ${busy?'disabled':''}><span class="orb-sphere"><span class="orb-fill" style="height:${remaining/6*100}%"></span><span class="orb-count">${remaining}</span></span><span class="orb-label">${esc(color)}</span></button>`;
+    }).join('')}</div>`:'';
   } else if(phase==='directing') {
     $('phaseTitle').textContent=state.forceOptions.length?'Choose their next hand.':'Opponent is choosing your next hand.';
     $('phaseHint').textContent='Driving Kick connected with Yellow advantage. Choose from the opponent’s remaining legal destinations.';
     $('controls').innerHTML=state.forceOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-direct="${esc(color)}" ${busy?'disabled':''}>Send opponent to ${esc(color)}</button>`).join('')||'<p class="muted">Waiting for the opposing destination choice.</p>';
   } else if(phase==='switching') {
-    $('phaseTitle').textContent='Choose your next hand.';
-    $('phaseHint').textContent=state.forcedColors?.[0]?`Driving Kick forces you into ${state.forcedColors[0]}. Confirm that destination below.`:'Choose a legal destination below. Card effects can add or restrict routes. The bot’s next hand stays hidden until you choose.';
-    $('controls').innerHTML=state.switchOptions.map(color=>`<button class="switch-button ${classColor(color)}" data-switch="${esc(color)}" ${busy?'disabled':''}>${esc(color)} · ${esc(styles[color])}<small>${p.available.filter(id=>card(id).color===color).length} cards remaining${color===p.color?' · stay in this hand':''}</small></button>`).join('');
+    $('phaseTitle').textContent=state.forcedColors?.[0]?'Confirm next hand':'Choose next hand';
+    $('phaseHint').textContent='';
+    $('controls').innerHTML=`<div class="hand-orbs switch-orbs" role="group" aria-label="Legal next hands">${state.switchOptions.map(color=>{
+      const remaining=p.available.filter(id=>card(id).color===color).length;
+      const label=`${color} · ${styles[color]}: ${remaining} cards remaining${color===p.color?' · stay in this hand':''}${state.forcedColors?.[0]?' · forced by Driving Kick':''}`;
+      return `<button class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" data-switch="${esc(color)}" aria-label="Choose ${esc(label)}" title="${esc(label)}" ${busy?'disabled':''}><span class="orb-sphere"><span class="orb-fill" style="height:${remaining/6*100}%"></span><span class="orb-count">${remaining}</span></span><span class="orb-label">${esc(color)}</span></button>`;
+    }).join('')}</div>`;
   } else {
     $('phaseTitle').textContent=state.winner==='draw'?'Draw.':state.winner===0?'You win.':'Bot wins.';
     $('phaseHint').textContent='Review the fight log, inspect your remaining cards, or try another opening.';
@@ -218,9 +296,10 @@ function render() {
   $('resign').hidden=!state||state.phase==='finished'||state.needsNewMatch;
   $('resign').disabled=busy;
   if(!state) { $('fighters').innerHTML='<p class="muted">Choose your opening hand to start a local match against the bot.</p>'; $('phaseHint').textContent='36 reusable moves. Permanent burns. Every round changes your next options.'; $('controls').innerHTML='<button id="playAgain" class="primary">Start a match</button>'; return; }
-  $('fighters').innerHTML=fighter(1)+'<div class="versus">VS</div>'+fighter(0);
+  $('roundNumber').textContent=state.round;
+  $('fighters').innerHTML=fighter(0)+fighter(1);
   [...$('fighters').querySelectorAll('.fighter')].forEach((element,index)=>{
-    const p=state.players[index===0?1:0];
+    const p=state.players[index];
     const afterDamage=['stripping','routing','directing','switching'].includes(state.phase);
     if(p.nextAttack&&state.phase!=='finished') element.insertAdjacentHTML('beforeend',`<p class="muted">Pressure: +${p.nextAttack} attack ${afterDamage?'next round':'this round'}.</p>`);
     if(p.nextBlockPenalty&&state.phase!=='finished') element.insertAdjacentHTML('beforeend',`<p class="muted recovery-status">Haymaker recovery: -${p.nextBlockPenalty} block ${afterDamage?'next round':'this round'} (minimum 0).</p>`);
@@ -232,25 +311,37 @@ function render() {
       const requirement=objective.requirement??`deal ${objective.minimumDamage??4}+ damage`;
       element.insertAdjacentHTML('beforeend',`<p class="muted pending-objective">${esc(source)} objective: ${esc(requirement)} ${objective.round>state.round?'next round':'this round'} to earn ${esc(objective.color)} advantage.</p>`);
     }
+    const details=document.createElement('div');
+    details.className='fighter-details';
+    const statuses=document.createElement('div');
+    statuses.className='fighter-statuses';
+    element.querySelectorAll(':scope > p').forEach(status=>statuses.append(status));
+    details.append(element.querySelector('.hand-orbs'),statuses);
+    element.append(details);
   });
   $('timeline').innerHTML=[['planning','COMMIT FACE DOWN'],...(state.phase==='cancelling'?[['cancelling','CHOOSE CANCEL']]:[]),['reactions','REVEAL & REACT'],...(state.phase==='stripping'?[['stripping','REMOVE ADVANTAGE']]:[]),...(state.phase==='routing'?[['routing','CUT ROUTE']]:[]),...(state.phase==='directing'?[['directing','DIRECT HAND']]:[]),['switching','DAMAGE & SWITCH']].map(([phase,label])=>`<span class="${state.phase===phase?'current':''}">${label}</span>`).join('');
-  $('reveals').innerHTML=reveal(1)+reveal(0);
+  $('reveals').innerHTML=reveal(0)+reveal(1);
   $('result').hidden=state.phase!=='finished'; $('result').textContent=state.winner==='draw'?'Draw · both fighters defeated':state.winner===0?'Victory. Well played.':'Defeat. Try a different line.';
   const p=state.players[0];browseColor=browseColor??p.color;
-  $('hands').innerHTML=Object.keys(styles).map(color=>`<button class="hand-tab ${classColor(color)}" data-browse="${color}" aria-pressed="${browseColor===color}">${color}${color===p.color?' · Active':''}<small>${p.available.filter(id=>card(id).color===color).length}/6 · ${p.discarded.filter(id=>card(id).color===color).length} burned</small></button>`).join('');
   $('cards').innerHTML=[...catalog.values()].filter(c=>c.color===browseColor).map(cardMarkup).join('');
   if(opponentColor && _openPopup==='opponentHand') renderOpponentPopup();
   controls();
   $('log').innerHTML=state.log.slice().reverse().map(entry=>`<div class="log-entry"><small>R${entry.round}</small>${esc(entry.text)}</div>`).join('');
 }
 document.addEventListener('click',event=>{
+  const menu=$('matchMenu');
+  if(!event.target.closest('#matchMenu') || event.target.closest('.match-actions')) menu.open=false;
+  if(!event.target.closest('#advantagePicker') && $('advantagePicker')) $('advantagePicker').open=false;
+  event.target.closest('.commit-prompt.needs-main')?.focus({preventScroll:true});
   const button=event.target.closest('button');if(!button||button.disabled)return;
   if(button.id==='closePreview'){closePreview();return;}
   if(button.id==='showRules'){showRulesPopup();return;}
+  if(button.id==='showLog'){$('fightLog').showModal();button.setAttribute('aria-expanded','true');return;}
+  if(button.id==='closeLog'){$('fightLog').close();return;}
   if(button.closest('#rulesPopup')&&button.getAttribute('onclick')==='ClosePopup()'){closeRulesPopup();return;}
   if(button.dataset.handAction){clickHandCard(Number(button.dataset.handAction),button);return;}
   if(button.dataset.inspect){const id=Number(button.dataset.inspect);if(previewPinned&&previewId===id)closePreview();else showPreview(id,button,true);return;}
-  if(button.dataset.browse){closePreview();browseColor=button.dataset.browse;render();return;}
+  if(button.dataset.browse){closePreview();browseColor=button.dataset.browse;render();$(`your-orb-${browseColor}`).focus({preventScroll:true});return;}
   if(button.dataset.opponent){closePreview();HideCardDetail(true);opponentColor=button.dataset.opponent;render();renderOpponentPopup();$('opponentHandPopup').querySelector('button').focus();return;}
   if(button.dataset.opponentCard){HideCardDetail(true);showOpponentDetail(event,button,true);return;}
   if(button.dataset.closeShared){HideCardDetail(true);return;}
@@ -259,7 +350,7 @@ document.addEventListener('click',event=>{
   if(button.dataset.direct){act({type:'direct',color:button.dataset.direct});return;}
   if(button.dataset.strip){act({type:'strip',color:button.dataset.strip});return;}
   if(button.dataset.cancel){act({type:'cancel',main:Number(button.dataset.cancel)});return;}
-  if(button.dataset.advantage){const color=button.dataset.advantage;if(selectedAdvantages.has(color))selectedAdvantages.delete(color);else selectedAdvantages.add(color);if(card(selectedMain).advantage.spend.flexible&&!card(selectedMain).advantage.spend.byCount&&selectedAdvantages.has('Yellow'))extraSwitch=extraSwitch??Object.keys(styles).find(c=>c!==state.players[0].color&&!card(selectedMain).switches.includes(c)&&state.players[0].available.some(id=>card(id).color===c));else extraSwitch=null;render();return;}
+  if(button.dataset.advantage){const color=button.dataset.advantage;if(selectedAdvantages.has(color))selectedAdvantages.delete(color);else selectedAdvantages.add(color);if(card(selectedMain).advantage.spend.flexible&&!card(selectedMain).advantage.spend.byCount&&selectedAdvantages.has('Yellow'))extraSwitch=extraSwitch??Object.keys(styles).find(c=>c!==state.players[0].color&&!card(selectedMain).switches.includes(c)&&state.players[0].available.some(id=>card(id).color===c));else extraSwitch=null;render();document.querySelector(`[data-advantage="${color}"]`)?.focus({preventScroll:true});return;}
   if(button.dataset.switch){act({type:'switch',color:button.dataset.switch});return;}
   if(button.id==='commit')act({type:'commit',main:selectedMain,bonuses:[...selectedBonuses],advantages:[...selectedAdvantages],...(extraSwitch?{extraSwitch}: {})});
   if(button.id==='pass')act({type:'pass'});
@@ -295,9 +386,10 @@ document.addEventListener('focusin', event => {
   if(event.target.closest('#cardPreview')) clearTimeout(previewTimer);
 });
 document.addEventListener('focusout', event => { if(event.target.closest('[data-inspect]')) delayClosePreview(); });
-document.addEventListener('keydown', event => { if(event.key==='Escape') closePreview(); });
+document.addEventListener('keydown', event => { if(event.key==='Escape') { closePreview(); if($('advantagePicker')?.open) { $('advantagePicker').open=false; $('advantagePicker').querySelector('summary').focus(); } if($('matchMenu').open) { $('matchMenu').open=false; $('matchMenu').querySelector('summary').focus(); } } });
 document.addEventListener('click', event => { if(previewPinned && !event.target.closest('#cardPreview, [data-inspect]')) closePreview(); });
 window.addEventListener('resize', positionPreview);
+$('fightLog').addEventListener('close',()=>{$('showLog').setAttribute('aria-expanded','false');$('matchMenu').querySelector('summary').focus();});
 window.addEventListener('scroll', () => { if(!previewPinned) closePreview(); }, {passive:true});
 $('setupForm').addEventListener('submit',async event=>{
   event.preventDefault();if(busy)return;busy=true;
