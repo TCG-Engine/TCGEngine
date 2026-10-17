@@ -10626,7 +10626,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $field = GetZone($controllerField);
         foreach($field as $lbObj) {
             if(!$lbObj->removed && $lbObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($lbObj)) {
-                $memCards = ZoneSearch($controller == $playerID ? "myMemory" : "theirMemory");
+                $memCards = ZoneSearch("myMemory", forPlayer: $controller);
                 if(!empty($memCards)) {
                     $memStr = implode("&", $memCards);
                     DecisionQueueController::AddDecision($controller, "MZMAYCHOOSE", $memStr, 1, "Reveal_a_card_from_memory?");

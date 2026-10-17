@@ -1,0 +1,22 @@
+{
+    "name": "lumen-borealis-the-memory-reveal-after-an-animal-death-is-optional",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:28:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3ejd9yj9rl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3ejd9yj9rl"
+        ],
+        "mechanics": [
+            "trigger",
+            "death",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "Whenever an Animal ally you control dies, you may reveal a card from your memory."
+        ]
+    }
+}

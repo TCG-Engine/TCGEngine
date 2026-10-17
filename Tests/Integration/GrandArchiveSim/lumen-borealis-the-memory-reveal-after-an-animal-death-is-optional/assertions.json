@@ -1,0 +1,16 @@
+[
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "The Squirrels died"
+    }
+]
