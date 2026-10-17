@@ -1,0 +1,21 @@
+{
+    "name": "annihilation-activates-at-fast-speed-with-35-damage-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T22:11:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pvzvqx16w4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pvzvqx16w4"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "[Damage 35+] Fast Activation"
+        ]
+    }
+}

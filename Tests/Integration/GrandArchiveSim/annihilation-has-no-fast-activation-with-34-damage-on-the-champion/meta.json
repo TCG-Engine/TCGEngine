@@ -1,0 +1,21 @@
+{
+    "name": "annihilation-has-no-fast-activation-with-34-damage-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T22:10:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pvzvqx16w4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pvzvqx16w4"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Damage 35+] Fast Activation"
+        ]
+    }
+}

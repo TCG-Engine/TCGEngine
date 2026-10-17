@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-17T21:42:26+00:00",
+    "generatedAt": "2026-10-17T22:12:03+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -33856,10 +33856,14 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost"
+                "annihilation-activates-at-fast-speed-with-35-damage-on-the-champion",
+                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost",
+                "annihilation-has-no-fast-activation-with-34-damage-on-the-champion"
             ],
             "semanticFixtures": [
-                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost"
+                "annihilation-activates-at-fast-speed-with-35-damage-on-the-champion",
+                "annihilation-class-bonus-damages-your-champion-and-destroys-non-champion-objects-with-that-reserve-cost",
+                "annihilation-has-no-fast-activation-with-34-damage-on-the-champion"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

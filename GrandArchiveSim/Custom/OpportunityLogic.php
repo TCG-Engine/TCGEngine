@@ -792,6 +792,12 @@ function PrintedFastActivationConditions($cardID) {
     return $result;
 }
 
+// "[Damage N+]": the champion has N or more damage on it (not damage taken this turn).
+function ChampionDamageAtLeast($player, $amount) {
+    $champion = GetPlayerChampion($player);
+    return $champion !== null && intval($champion->Damage ?? 0) >= $amount;
+}
+
 function PrintedFastActivationActive($player, $cardID) {
     $conditions = PrintedFastActivationConditions($cardID);
     if($conditions === null) return false;
@@ -1152,7 +1158,7 @@ function GetPlayableFastCards($player) {
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
-        } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
+        } elseif($obj->CardID === "pvzvqx16w4" && ChampionDamageAtLeast($player, 35)) {
             // Annihilation: [Damage 35+] Fast Activation
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
