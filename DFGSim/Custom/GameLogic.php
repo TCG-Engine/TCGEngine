@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/CardCatalog.php';
-const DFG_RULES_VERSION = 37;
+const DFG_RULES_VERSION = 43;
 
 function DFGNewGame(string $humanColor = 'Red', string $botColor = 'Purple', int $seed = 1, int $first = 0, string $difficulty = 'tactical'): array {
     if (!in_array($humanColor, DFG_COLORS, true) || !in_array($botColor, DFG_COLORS, true) || !in_array($first, [0, 1], true)
-        || !in_array($difficulty, ['casual', 'tactical'], true) || $seed < 1 || $seed > 2147483647) throw new InvalidArgumentException('Invalid match settings');
+        || !in_array($difficulty, ['casual', 'tactical', 'pro'], true) || $seed < 1 || $seed > 2147483647) throw new InvalidArgumentException('Invalid match settings');
     DFGCatalog();
     return ['rulesVersion' => DFG_RULES_VERSION, 'revision' => 0, 'round' => 1, 'phase' => 'planning', 'seed' => $seed, 'initialSeed' => $seed, 'first' => $first, 'difficulty' => $difficulty,
         'players' => [['life' => 40, 'color' => $humanColor, 'discarded' => [], 'advantages' => []], ['life' => 40, 'color' => $botColor, 'discarded' => [], 'advantages' => []]],
@@ -13,8 +13,12 @@ function DFGNewGame(string $humanColor = 'Red', string $botColor = 'Purple', int
         'winner' => null, 'history' => [], 'log' => [['round' => 1, 'text' => 'Fight! Choose a main card and optional bonus burns.']]];
 }
 
+function DFGCardHand(array $player, int $id): string {
+    return $player['cardHands'][$id] ?? DFGCatalog()[$id]['color'];
+}
+
 function DFGAvailable(array $player, ?string $color = null): array {
-    return array_values(array_filter(array_keys(DFGCatalog()), fn($id) => !in_array($id, $player['discarded'], true) && ($color === null || DFGCatalog()[$id]['color'] === $color)));
+    return array_values(array_filter(array_keys(DFGCatalog()), fn($id) => !in_array($id, $player['discarded'], true) && ($color === null || DFGCardHand($player, $id) === $color)));
 }
 
 // Inspect only the committed bonus's resolved changes for its owner's block.
@@ -31,6 +35,8 @@ function DFGConditionMatches(?array $condition, int $seat, array $plans, array $
     if ($condition === null) return true;
     $other = 1 - $seat;
     if ($condition['type'] === 'block_bonus') return DFGCommittedBlockBonus($other,$plans,$cards);
+    if ($condition['type'] === 'opposing_momentum') return ($plans[$other]['momentum'] ?? 0) > 0;
+    if ($condition['type'] === 'opposing_advantage_spend') return !empty($plans[$other]['advantages']);
     if ($condition['type'] === 'burns') {
         $count = count($plans[$condition['opponent'] ? $other : $seat]['bonuses']);
         return $condition['exact'] ? $count === $condition['minimum'] : $count >= $condition['minimum'];
@@ -62,9 +68,10 @@ function DFGPlanSpecials(array $plan): array {
 function DFGTriggeredSpecials(array $plans, array $stats, int $seat): array {
     return array_values(array_filter(DFGPlanSpecials($plans[$seat]), fn($effect) => match ($effect) {
         'hit_switch', 'hit_heal', 'hit_momentum', 'hit_momentum_one', 'hit_cut_routes', 'hit_deny_earn', 'hit_burn_enemy_main', 'hit_force_color', 'hit_strip', 'hit_burn_lock' => $stats[$seat]['damage'] > 0,
-        'guard_strip' => $stats[1-$seat]['damage'] === 0,
+        'guard_strip', 'guard_momentum_one' => $stats[1-$seat]['damage'] === 0,
         'miss_recovery' => $stats[$seat]['combatDamage'] === 0,
         'glancing_momentum' => $stats[1-$seat]['damage'] === 1,
+        'bonus_relocate' => count($plans[1-$seat]['bonuses']) > 0,
         'guard_retaliation' => $stats[1-$seat]['combatDamage'] === 0,
         'safe_switch' => $stats[1-$seat]['damage'] === 0,
         'clean_force_move' => $stats[$seat]['damage'] > 0 && $stats[1-$seat]['damage'] === 0,
@@ -75,7 +82,7 @@ function DFGTriggeredSpecials(array $plans, array $stats, int $seat): array {
 // Pressure lasts one round; multiple qualifying sources use the largest amount.
 function DFGNextAttackFromSpecials(array $specials): int {
     if (array_intersect(['hit_momentum','glancing_momentum'], $specials)) return 2;
-    return in_array('hit_momentum_one', $specials, true) ? 1 : 0;
+    return array_intersect(['hit_momentum_one', 'guard_momentum_one'], $specials) ? 1 : 0;
 }
 
 // Printed conditions never inspect modified stats or future reactions.
@@ -99,6 +106,17 @@ function DFGComputeRound(array $plans, array $reactions = []): array {
     }
     foreach ([0, 1] as $seat) {
         foreach (DFGAdvantageChanges($plans[$seat]) as $change) $stats[$seat][$change['stat']] += $change['amount'];
+        if (!$plans[$seat]['bonuses'] && in_array('conserve_reaction_pierce', DFGPlanSpecials($plans[$seat]), true)) {
+            $reactionBlock = 0;
+            foreach ($reactions as $reaction) {
+                $changes = DFGEffectChanges($cards[$reaction['card']]['effects']['reaction'], $reaction['seat'], $plans, $cards);
+                foreach ($changes as $change) {
+                    $recipient = $change['opponent'] ? 1 - $reaction['seat'] : $reaction['seat'];
+                    if ($recipient === 1 - $seat && $change['stat'] === 'block') $reactionBlock += $change['amount'];
+                }
+            }
+            $stats[$seat]['pierce'] += max(0, $reactionBlock);
+        }
         if (in_array('bonus_pierce', DFGPlanSpecials($plans[$seat]), true)) {
             foreach ($plans[1-$seat]['bonuses'] as $id) {
                 $effect = $cards[$id]['effects']['bonus'];
@@ -150,11 +168,14 @@ function DFGObjectiveAchieved(array $plan, array $opponent, array $stats, int $s
         'damage_next_round' => false,
         'take_one' => $stats[1-$seat]['damage'] === 1,
         'punish_block_bonus' => $stats[$seat]['damage'] > 0 && DFGCommittedBlockBonus(1-$seat,$seat===0?[$plan,$opponent]:[$opponent,$plan],DFGCatalog()),
+        'break_guard_or_momentum' => ($stats[$seat]['damage'] > 0 && DFGCommittedBlockBonus(1-$seat,$seat===0?[$plan,$opponent]:[$opponent,$plan],DFGCatalog()))
+            || ($stats[1-$seat]['damage'] === 0 && ($opponent['momentum'] ?? 0) > 0),
         'damage_vs_block' => $stats[$seat]['damage'] > 0 && $enemy['block'] >= 4,
         'guard_high' => $stats[1-$seat]['damage'] === 0 && $enemy['attack'] >= 5,
         'punish_bonus' => $stats[$seat]['damage'] > 0 && count($opponent['bonuses']) > 0,
         'heavy_unassisted' => $stats[$seat]['damage'] >= 4 && !$plan['bonuses'],
         'clean_counter' => $stats[$seat]['damage'] > 0 && $stats[1-$seat]['damage'] === 0,
+        'deal_damage' => $stats[$seat]['damage'] > 0,
         'punish_low_attack' => $stats[$seat]['damage'] > 0 && $enemy['attack'] <= 3,
         'guard_bonus' => $stats[1-$seat]['damage'] === 0 && count($opponent['bonuses']) > 0,
         'efficient_hit' => $stats[$seat]['damage'] > 0 && !$plan['bonuses'] && !array_filter($reactions, fn($reaction) => $reaction['seat'] === $seat),
@@ -188,7 +209,7 @@ function DFGSpendVariants(array $player, int $main): array {
     if ($rule['flexible']) for ($a = 0; $a < count($colors); ++$a) for ($b = $a + 1; $b < count($colors); ++$b) $sets[] = [$colors[$a], $colors[$b]];
     foreach ($sets as $set) {
         if ($rule['flexible'] && !isset($rule['byCount']) && in_array('Yellow', $set, true)) {
-            foreach (array_diff(DFG_COLORS, DFGCatalog()[$main]['switches'], [DFGCatalog()[$main]['color']]) as $color) if (DFGAvailable($player, $color)) $variants[] = ['advantages' => $set, 'extraSwitch' => $color] + $carry;
+            foreach (array_diff(DFG_COLORS, DFGCatalog()[$main]['switches'], [DFGCardHand($player, $main)]) as $color) if (DFGAvailable($player, $color)) $variants[] = ['advantages' => $set, 'extraSwitch' => $color] + $carry;
         } else $variants[] = ['advantages' => $set] + $carry;
     }
     return $variants;
@@ -223,7 +244,7 @@ function DFGCanCancel(array $state,int $seat): bool {
         && in_array('cancel_main',DFGPlanSpecials($state['commitments'][$seat]),true);
 }
 function DFGCancelCandidates(array $player,array $plan): array {
-    return array_values(array_diff(DFGAvailable($player,DFGCatalog()[$plan['main']]['color']),$plan['bonuses']));
+    return array_values(array_unique(array_merge([$plan['main']], array_diff(DFGAvailable($player,DFGCatalog()[$plan['main']]['color']),$plan['bonuses']))));
 }
 function DFGCancelOptions(array $state,int $seat): array {
     return $state['phase']==='cancelling' && ($state['cancelChoices'][$seat]??null)===null && DFGCanCancel($state,$seat)
@@ -300,18 +321,52 @@ function DFGFinishResolution(array &$state): void {
     }
     $state['history'][] = ['round' => $state['round'], 'main' => array_column($state['commitments'], 'main'), 'stats' => $stats];
     $state['history'] = array_slice($state['history'], -100);
-    $dead = array_map(fn($player) => $player['life'] <= 0 || !DFGAvailable($player), $state['players']);
-    if ($dead[0] || $dead[1]) {
-        $state['phase'] = 'finished';
-        $state['winner'] = $dead[0] && $dead[1] ? 'draw' : ($dead[0] ? 1 : 0);
-        DFGLog($state, $state['winner'] === 'draw' ? 'Both fighters are defeated — draw.' : ($state['winner'] === 0 ? 'You win!' : 'Bot wins.'));
-    } else {
+    if (!DFGCheckDefeat($state)) {
         $state['phase'] = 'switching';
         $state['switches'] = [null, null];
         $state['routeCuts'] = [null, null];
         $state['forcedColors'] = [null, null];
-        DFGUpdateDestinationPhase($state);
+        $state['relocations'] = [null, null];
+        $state['phase'] = 'relocating';
+        foreach ([0, 1] as $seat) if (!DFGRelocateOptions($state, $seat)) $state['relocations'][$seat] = 'keep';
+        DFGFinishRelocations($state);
     }
+}
+
+// Move surviving opposing mains before route cuts and destination choices.
+function DFGRelocateOptions(array $state, int $seat): array {
+    if ($state['phase'] !== 'relocating' || ($state['relocations'][$seat] ?? null) !== null) return [];
+    $victim = 1 - $seat;
+    $id = $state['commitments'][$victim]['main'];
+    if (in_array($id, $state['players'][$victim]['discarded'], true)
+        || !in_array('bonus_relocate', DFGPlanSpecials($state['commitments'][$seat]), true)
+        || !$state['commitments'][$victim]['bonuses']) return [];
+    return array_values(array_diff(DFG_COLORS, [DFGCardHand($state['players'][$victim], $id)]));
+}
+
+function DFGFinishRelocations(array &$state): void {
+    if (in_array(null, $state['relocations'], true)) return;
+    foreach ([0, 1] as $seat) {
+        $color = $state['relocations'][$seat];
+        if ($color === 'keep') continue;
+        $victim = 1 - $seat;
+        $id = $state['commitments'][$victim]['main'];
+        $state['players'][$victim]['cardHands'][$id] = $color;
+        DFGLog($state, ($seat === 0 ? 'You move the opposing ' : 'Bot moves your ') . DFGCatalog()[$id]['name'] . ' into the ' . $color . ' hand with Bait and Slip.');
+    }
+    DFGUpdateDestinationPhase($state);
+}
+
+function DFGCheckDefeat(array &$state, bool $checkActiveHand = false): bool {
+    $dead = array_map(fn($player) => $player['life'] <= 0 || !DFGAvailable($player)
+        || ($checkActiveHand && !DFGAvailable($player, $player['color'])), $state['players']);
+    if (!$dead[0] && !$dead[1]) return false;
+    foreach ([0, 1] as $seat) if ($checkActiveHand && !DFGAvailable($state['players'][$seat], $state['players'][$seat]['color']))
+        DFGLog($state, ($seat === 0 ? 'You enter ' : 'Bot enters ') . $state['players'][$seat]['color'] . ' with no cards and lose.');
+    $state['phase'] = 'finished';
+    $state['winner'] = $dead[0] && $dead[1] ? 'draw' : ($dead[0] ? 1 : 0);
+    DFGLog($state, $state['winner'] === 'draw' ? 'Both fighters are defeated — draw.' : ($state['winner'] === 0 ? 'You win!' : 'Bot wins.'));
+    return true;
 }
 
 function DFGSwitchOptions(array $state, int $seat, bool $applyCut = true, bool $applyForce = true): array {
@@ -321,11 +376,10 @@ function DFGSwitchOptions(array $state, int $seat, bool $applyCut = true, bool $
     $stats = DFGComputeRound($state['commitments'], $state['reactions']);
     $own = DFGTriggeredSpecials($state['commitments'], $stats, $seat);
     $enemy = DFGTriggeredSpecials($state['commitments'], $stats, 1-$seat);
-    if (array_intersect(['safe_switch', 'hit_switch', 'free_switch'], $own)) $colors = array_merge($colors, array_diff(DFG_COLORS, [$state['players'][$seat]['color']]));
+    if (array_intersect(['safe_switch', 'hit_switch', 'free_switch'], $own)) $colors = array_merge($colors, array_filter(array_diff(DFG_COLORS, [$state['players'][$seat]['color']]), fn($color) => DFGAvailable($state['players'][$seat], $color)));
     if (in_array('stay_green', $own, true)) $colors[] = 'Green';
-    $colors = array_values(array_filter(array_unique($colors), fn($color) => count(DFGAvailable($state['players'][$seat], $color)) > 0));
-    // Exhausted printed routes cannot strand a surviving player after a main-card burn.
-    if (!$colors) $colors = array_values(array_filter(DFG_COLORS, fn($color) => count(DFGAvailable($state['players'][$seat], $color)) > 0));
+    // Printed destinations remain legal when empty; entering one loses the fight.
+    $colors = array_values(array_unique($colors));
     if (in_array('clean_force_move', $enemy, true)) {
         $restricted = array_values(array_diff($colors, [$state['players'][$seat]['color']]));
         if ($restricted) $colors = $restricted;
@@ -431,6 +485,12 @@ function DFGApply(array $state, int $seat, array $action): array {
         --$state['stripsRemaining'][$seat];
         DFGLog($state, ($seat===0?'You remove ':'Bot removes ').$color.' opposing advantage with Mirror Step.');
         DFGUpdateStripPhase($state);
+    } elseif ($type === 'relocate') {
+        $color = $action['color'] ?? null;
+        $options = DFGRelocateOptions($state, $seat);
+        if (!$options || !is_string($color) || ($color !== 'keep' && !in_array($color, $options, true))) throw new InvalidArgumentException('Choose a different hand for the opposing main, or keep its current hand');
+        $state['relocations'][$seat] = $color;
+        DFGFinishRelocations($state);
     } elseif ($type === 'cut') {
         $color = $action['color'] ?? null;
         if ($state['phase'] !== 'routing' || !is_string($color) || !in_array($color, DFGCutOptions($state, $seat), true)) throw new InvalidArgumentException('Choose one available opposing next color to prohibit');
@@ -450,6 +510,7 @@ function DFGApply(array $state, int $seat, array $action): array {
         $state['switches'][$seat] = $color;
         if ($state['switches'][0] !== null && $state['switches'][1] !== null) {
             foreach ([0, 1] as $player) $state['players'][$player]['color'] = $state['switches'][$player];
+            if (DFGCheckDefeat($state, true)) { ++$state['revision']; return $state; }
             ++$state['round'];
             $state['phase'] = 'planning'; $state['commitments'] = [null, null]; $state['switches'] = [null, null]; $state['routeCuts'] = [null, null]; $state['forcedColors'] = [null, null]; $state['reactions'] = []; $state['passes'] = 0;
             DFGLog($state, 'Next hands: ' . $state['players'][0]['color'] . ' / ' . $state['players'][1]['color'] . '. Normal cards are back in hand.');
@@ -469,7 +530,8 @@ function DFGObserve(array $state, int $seat): array {
         if ($state['phase'] === 'switching' && $player !== $seat && $state['switches'][$player] !== null) $view['switches'][$player] = 'hidden';
     }
     $view['seat'] = $seat;
-    $view['stats'] = in_array($state['phase'], ['cancelling', 'reactions', 'stripping', 'routing', 'directing', 'switching', 'finished'], true) && $state['commitments'][0] !== null && $state['commitments'][1] !== null ? DFGComputeRound($state['commitments'], $state['reactions']) : null;
+    $view['stats'] = in_array($state['phase'], ['cancelling', 'reactions', 'stripping', 'relocating', 'routing', 'directing', 'switching', 'finished'], true) && $state['commitments'][0] !== null && $state['commitments'][1] !== null ? DFGComputeRound($state['commitments'], $state['reactions']) : null;
+    $view['relocateOptions'] = DFGRelocateOptions($state, $seat);
     $view['cancelOptions'] = DFGCancelOptions($state,$seat);
     $view['stripOptions'] = DFGStripOptions($state,$seat);
     $view['reactionOptions'] = DFGReactionOptions($state, $seat);

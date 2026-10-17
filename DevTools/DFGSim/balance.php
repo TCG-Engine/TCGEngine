@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
-require_once __DIR__ . '/../../DFGSim/Bot/HeuristicBot.php';
+$options = getopt('', ['repeats::', 'profiles::', 'max-rounds::', 'ablation-cards::', 'ablation-repeats::', 'candidate-ids::', 'seed-offset::', 'out::', 'runtime-root::']);
+$runtimeRoot = $options['runtime-root'] ?? __DIR__ . '/../../DFGSim';
+require_once $runtimeRoot . '/Bot/HeuristicBot.php';
 
 function balanceRandom(int &$rng, int $count): int {
     $rng = (int)(($rng * 48271) % 2147483647);
@@ -9,12 +11,13 @@ function balanceRandom(int &$rng, int $count): int {
 }
 function balanceAction(array $view, int $seat, int &$rng, string $profile): array {
     if ($profile !== 'explore' || $view['phase'] === 'reactions') {
-        $view['difficulty'] = $profile === 'casual' ? 'casual' : 'tactical';
+        $view['difficulty'] = in_array($profile,['casual','pro'],true) ? $profile : 'tactical';
         return DFGBotChoose($view, $seat, $rng);
     }
     if ($view['phase'] === 'switching') return ['type' => 'switch', 'color' => $view['switchOptions'][balanceRandom($rng, count($view['switchOptions']))]];
     if ($view['phase'] === 'routing') return ['type' => 'cut', 'color' => $view['cutOptions'][balanceRandom($rng, count($view['cutOptions']))]];
     if ($view['phase'] === 'directing') return ['type'=>'direct','color'=>$view['forceOptions'][balanceRandom($rng,count($view['forceOptions']))]];
+    if ($view['phase'] === 'relocating') { $colors = array_merge(['keep'], $view['relocateOptions']); return ['type'=>'relocate','color'=>$colors[balanceRandom($rng,count($colors))]]; }
     if ($view['phase'] === 'stripping') return ['type'=>'strip','color'=>$view['stripOptions'][balanceRandom($rng,count($view['stripOptions']))]];
     if ($view['phase'] === 'cancelling') return ['type'=>'cancel','main'=>$view['cancelOptions'][balanceRandom($rng,count($view['cancelOptions']))]];
     $available = DFGAvailable($view['players'][$seat], $view['players'][$seat]['color']);
@@ -43,7 +46,7 @@ function balanceMatch(string $a, string $b, int $seed, int $first, string $profi
         $record['combatPlans']=$state['commitments'];
         $steps = 0;
         while ($state['phase'] === 'reactions') {
-            if (++$steps > 30) throw new RuntimeException('Reaction loop exceeded legal hand resources');
+            if (++$steps > 72) throw new RuntimeException('Reaction loop exceeded legal card resources');
             $seat = $state['reactionTurn'];
             $action = balanceAction(DFGObserve($state, $seat), $seat, $rng[$seat], $profile);
             if ($action['type'] === 'react') {
@@ -59,6 +62,12 @@ function balanceMatch(string $a, string $b, int $seed, int $first, string $profi
             $action=balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
             $record['strips'][]=['seat'=>$seat,'color'=>$action['color']];
             $state=DFGApply($state,$seat,$action);
+        }
+        $record['relocations'] = [];
+        while ($state['phase'] === 'relocating') foreach ([0,1] as $seat) if (DFGRelocateOptions($state,$seat)) {
+            $action = balanceAction(DFGObserve($state,$seat),$seat,$rng[$seat],$profile);
+            $record['relocations'][] = ['seat'=>$seat,'color'=>$action['color']];
+            $state = DFGApply($state,$seat,$action);
         }
         $record['stats'] = DFGComputeRound($record['combatPlans'], $state['reactions']);
         $record['lifeAfter'] = array_column($state['players'], 'life');
@@ -186,15 +195,15 @@ function balanceReport(array $summary): string {
     return $text;
 }
 
-$options = getopt('', ['repeats::', 'profiles::', 'max-rounds::', 'ablation-cards::', 'ablation-repeats::', 'candidate-ids::', 'seed-offset::', 'out::']);
 $repeats = (int)($options['repeats'] ?? 4); $cap = (int)($options['max-rounds'] ?? 60); $ablationCount = (int)($options['ablation-cards'] ?? 6); $ablationRepeats = (int)($options['ablation-repeats'] ?? 1);
 $profiles = explode(',', $options['profiles'] ?? 'tactical,casual,explore');
+if (in_array('pro',$profiles,true) && !function_exists('DFGProChoose')) throw new InvalidArgumentException('Selected runtime snapshot does not include the Pro bot');
 $seedOffset = (int)($options['seed-offset'] ?? 0);
 if ($seedOffset < 0 || $seedOffset > 2000000000) throw new InvalidArgumentException('Invalid seed offset');
-if ($repeats < 1 || $repeats > 100 || $cap < 1 || $cap > 100 || $ablationCount < 0 || $ablationCount > 36 || $ablationRepeats < 1 || $ablationRepeats > 100 || array_diff($profiles, ['tactical','casual','explore'])) throw new InvalidArgumentException('Invalid experiment settings');
+if ($repeats < 1 || $repeats > 100 || $cap < 1 || $cap > 100 || $ablationCount < 0 || $ablationCount > 36 || $ablationRepeats < 1 || $ablationRepeats > 100 || array_diff($profiles, ['tactical','casual','explore','pro'])) throw new InvalidArgumentException('Invalid experiment settings');
 $out = $options['out'] ?? __DIR__ . '/results/balance-v2';
 if (!is_dir($out) && !mkdir($out, 0775, true)) throw new RuntimeException('Cannot create results folder');
-$summary = ['rulesVersion' => DFG_RULES_VERSION, 'catalogHash' => hash_file('sha256', __DIR__ . '/../../DFGSim/data/cards.json'), 'maxRounds' => $cap, 'repeats' => $repeats, 'seedOffset' => $seedOffset, 'matches' => 0, 'rounds' => 0, 'decisive' => 0, 'draws' => 0, 'capped' => 0, 'cards' => [], 'openings' => [], 'matchups' => [], 'firstReaction' => balanceMetric(), 'profiles' => [], 'ablations' => []];
+$summary = ['rulesVersion' => DFG_RULES_VERSION, 'catalogHash' => hash_file('sha256', $runtimeRoot . '/data/cards.json'), 'maxRounds' => $cap, 'repeats' => $repeats, 'seedOffset' => $seedOffset, 'matches' => 0, 'rounds' => 0, 'decisive' => 0, 'draws' => 0, 'capped' => 0, 'cards' => [], 'openings' => [], 'matchups' => [], 'firstReaction' => balanceMetric(), 'profiles' => [], 'ablations' => []];
 $summary['advantages'] = array_fill_keys(DFG_COLORS, ['earned' => 0, 'spent' => 0]); $summary['combinationSpends'] = 0;
 foreach (DFGCatalog() as $id => $card) $summary['cards'][$id] = ['id' => $id, 'name' => $card['name'], 'color' => $card['color'], 'main' => balanceMetric(), 'bonus' => balanceMetric(), 'reaction' => balanceMetric(), 'byProfile' => []];
 foreach (DFG_COLORS as $color) { $summary['openings'][$color] = balanceMetric(); foreach (DFG_COLORS as $other) $summary['matchups'][$color][$other] = balanceMetric(); }

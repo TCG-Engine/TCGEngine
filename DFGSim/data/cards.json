@@ -4,7 +4,7 @@
     "gameUuid": "2dad9984-5c29-42d2-b858-b70674429253",
     "set": "Core Set",
     "exportedOn": "2026-10-13",
-    "note": "Provisional 36-card draft imported from the hosted Card Editor. Rules v17 adds chosen route cuts, buffs Green/Blue spending, and makes Purple spending burn an opposing main on hit, 2026-10-14. No runtime credentials required."
+    "note": "Provisional 36-card draft imported from the hosted Card Editor. Rules v17 adds chosen route cuts, buffs Green/Blue spending, and makes Purple spending burn an opposing main on hit, 2026-10-14. Local rules v38 strengthens Bait and Slip, adds persistent main-card hand relocation, orb overfill, and empty-hand defeat. Local rules v39 gives Grip Break independent defensive-bonus and carried-momentum reads, with either objective path earning Blue. No runtime credentials required."
   },
   "cards": [
     {
@@ -13,7 +13,7 @@
       "color": "Red",
       "attack": 3,
       "block": 2,
-      "ability": "If you committed no bonus burns this round, gain +2 attack this round.",
+      "ability": "If you committed no bonus burns this round, gain +2 attack this round.\nIf you committed no bonus burns this round, for your damage calculation ignore block gained from reaction burns this round.",
       "bonus": "Gain +1 attack this round.",
       "reaction": "",
       "switches": [
@@ -141,7 +141,7 @@
       "color": "Orange",
       "attack": 4,
       "block": 2,
-      "ability": "If your opponent committed a block-increasing bonus burn this round, gain +1 attack and +1 block this round.\nObjective: Deal damage against a block-increasing bonus burn: gain Blue advantage.",
+      "ability": "If your opponent committed a block-increasing bonus burn this round, gain +2 attack and +1 block this round.\nIf your opponent has an attack bonus carried into this round, gain +3 block this round.\nObjective: Deal damage against a block-increasing bonus burn, or take no damage against an opponent with an attack bonus carried into this round: gain Blue advantage.",
       "bonus": "",
       "reaction": "Gain +2 block this round.",
       "switches": [
@@ -215,7 +215,7 @@
       "color": "Yellow",
       "attack": 3,
       "block": 2,
-      "ability": "If your opponent committed at least one bonus burn this round, gain +2 block this round.\nObjective: Take no damage against a bonus burn: gain Blue advantage.",
+      "ability": "If your opponent committed at least one bonus burn this round, gain +4 block this round.\nIf your opponent committed at least one bonus burn this round, you may return their main card to a different hand of your choice after damage.\nObjective: Take no damage against a bonus burn: gain Blue advantage.",
       "bonus": "Gain +1 attack and +1 block this round.",
       "reaction": "If your opponent committed at least one bonus burn this round, gain +2 block this round. Otherwise, gain +1 block this round.",
       "switches": [
@@ -488,9 +488,9 @@
       "id": 34,
       "name": "Iron Guard",
       "color": "Purple",
-      "attack": 2,
+      "attack": 1,
       "block": 5,
-      "ability": "Objective: Deal damage and take no damage: gain Green advantage.",
+      "ability": "If you committed no bonus burns this round, gain +1 attack this round.\nIf you take no damage, gain +1 attack next round.\nObjective: Deal damage: gain Green advantage.",
       "bonus": "Gain +3 block this round.",
       "reaction": "Gain +1 block this round.",
       "switches": [
@@ -518,7 +518,7 @@
       "color": "Purple",
       "attack": 4,
       "block": 2,
-      "ability": "For your damage calculation this round, ignore block gained from your opponent's bonus burn.",
+      "ability": "For your damage calculation this round, ignore block gained from your opponent's bonus burn.\nIf your opponent spent advantage this round, gain +2 attack this round.",
       "bonus": "Gain +2 attack this round.",
       "reaction": "Gain +1 attack this round.",
       "switches": [

@@ -6,6 +6,20 @@ at runtime. This is an isolated PHP prototype in `DFGSim/`; it does not modify o
 
 ## Play
 
+The entry page is a main menu with Play vs bot, Resume match, Learn to play, the card
+gallery, and the rules reference. Returning to the menu or refreshing preserves the
+current session match. Starting another fight replaces it. The in-match menu also
+links back to the main menu and tutorial.
+
+`learn.php` offers four guided lessons (14 steps): the round loop, bonus/reaction burns,
+advantage and pressure, and defeat by entering an empty hand. Lessons use scripted
+practice states computed by the real rules engine in `Custom/Tutorial.php`. They open
+no session and never change the regular match. Previous step, restart, and direct
+lesson selection allow replay; completing practice links to match setup.
+
+Validate with `php DevTools/DFGSim/tutorial-tests.php` and the Playwright harness
+`DevTools/ui-harness/dfg-menu-tutorial.mjs` (desktop/mobile, Chromium/Firefox/WebKit).
+
 With the existing XAMPP Apache server running, open:
 
 ```text
@@ -63,7 +77,7 @@ Hidden main/bonus commitments and next-hand choices stay hidden until their norm
 
 ## Advantage prototype
 
-Start a fresh match for rules version 37. Each player starts with no advantage. Tokens are public,
+Start a fresh match for rules version 43. Each player starts with no advantage. Tokens are public,
 persistent across hand changes, and capped at one of each color. They cannot be spent on their own,
 on a bonus burn, or on a reaction. Select a spending card as your main, then choose its optional tokens
 in the action panel. Spending choices remain hidden with the
@@ -83,14 +97,14 @@ Eighteen main cards have objectives (stat-based objectives use the opponent's pr
 | Watchful Guard | Deal damage against an opponent who committed a bonus burn | Red |
 | Haymaker | Deal 4+ damage without committing a bonus burn | Purple |
 | Guarded Strike | Deal damage and take no damage | Green |
-| Iron Guard | Deal damage and take no damage | Green |
+| Iron Guard | Deal damage | Green |
 | Off-Balance Sweep | Deal damage against printed attack 3 or less | Yellow |
 | Bait and Slip | Take no damage against an opponent who committed a bonus burn | Blue |
 | Measured Advance | Deal damage without your own bonus or reaction burn | Orange |
 | Read the Strike | Deal damage against printed attack 5+ | Purple |
 | Crushing Blow | Deal damage against printed block 5+ | Red |
 | Counter Throw | Deal damage against printed attack 5+ | Orange |
-| Grip Break | Deal damage against a bonus that increases its owner's block | Blue |
+| Grip Break | Deal damage against a defensive bonus, or take no damage against carried attack pressure | Blue |
 | Covering Step | Take no damage against printed attack 5+ | Red |
 
 These create a cross-hand route: Feint → Yellow → Sidestep → Green → Brace → Blue → Watchful Guard → Red.
@@ -179,8 +193,8 @@ Advantage is still committed face down and consumed on reveal, even when its hit
 Rushdown pressure follows the player across hand changes, applies to their next main for one
 round, and does not stack. A fresh hit with another Red spend can renew it for the following round.
 Route additions are applied before opposing restrictions. Restrictions never remove the final
-available destination. If every legal destination is exhausted, the player may choose any remaining
-hand. Burning the last available card loses the fight; simultaneous losses are a draw.
+legal destination. Empty printed destinations stay legal; entering an empty hand loses the fight,
+with no fallback to an unrelated hand. Burning the last available card also loses; simultaneous losses are a draw.
 These exceptions supersede the original printed-destination-only and main-always-returns rules.
 
 Follow Through (ID 5) is now **Combination Strike**, with printed attack 3 / block 2. Its existing
@@ -217,6 +231,45 @@ its own data. It cannot inspect your face-down commitment or hidden next-hand ch
 possible opposing main cards and occasional bonus burns, conserves useful cards, reacts to lethal
 threats, and chooses its next hand from the revealed round's legal options. It is a heuristic bot,
 not an optimal solver. Casual difficulty considers a wider range of moves.
+
+**Pro** is an optional, slower search profile in the Bot style selector. It evaluates a
+simultaneous payoff matrix of main/bonus plans, rolls the current exchange through the real
+rules (including reactions, objectives, burns, relocation and forced routes), then evaluates
+legal next-hand combinations and the following round's main-card matchups. Regret matching
+produces seeded mixed strategies for hidden commitments and simultaneous hand choices.
+Its symmetric evaluation values life, remaining cards, held advantages, carry, and empty hands.
+Live reaction choices search three alternating decisions, retaining pass and the two most
+promising burns at each step. If that search predicts immediate defeat, a rescue check can
+start a defense requiring up to three burns. Pro receives only public observations.
+
+This is bounded lookahead, not a proof of optimal play. Current-round rollouts use Tactical
+reactions and follow-up choices. Main candidates retain each available main's best no-bonus
+plan and up to four bonus plans, with spend/bonus variants shortlisted by the existing heuristic.
+The next-round horizon considers mains and token spends. When either player has 12 or less
+life it also shortlists one bonus per main and checks emergency defensive reaction bundles
+of up to three burns (from at most eight candidate reactions). It does not solve a full future
+reaction game or subsequent routes. Uncertain next-round victories are bounded at 50 points;
+an actually resolved current win is worth 1000. Remaining cards are valued more strongly
+after loss analysis exposed over-burning. Equivalent immediate flexible-spend variants are
+collapsed. Matrix strategies, resource weights and forecasts remain approximate.
+
+Run `php DevTools/DFGSim/pro-bot-tests.php` for solver, information-boundary and tactical
+fixtures. `php DevTools/DFGSim/pro-evaluation.php` runs 24 Pro-versus-Tactical games across
+six mirror openings, both seats and both priorities; `--suite=all` covers all 36 ordered
+openings (144 games). `--suite=balanced` runs 72 games across all ordered openings, both
+seats and balanced priorities. `--seed-offset`, `--repeats` and `--runtime-root` support
+matched, reproducible experiments. `--opponent=pro-v1` tests against the preserved original
+Pro using unchanged v43 game rules. It saves actions, timings and availability-normalized
+main counts under `DevTools/DFGSim/results/pro-current/`. The regular balance runner also accepts
+`--profiles=pro`; existing default profiles remain unchanged.
+
+The [loss-analysis study](../DevTools/DFGSim/results/pro-improvement/report.md) preserves four
+development variants, original/revised validation, direct Pro-versus-Pro games and replay checks.
+The [follow-up crossplay study](../DevTools/DFGSim/results/pro-crossplay/report.md) audits the
+remaining loss and draws against original Pro, tests candidate-list/history/solver changes,
+and records fresh matched results including rejected variants. Experimental runtimes are
+isolated from the live profile; more accurate optimization of estimated payoffs need not
+translate into stronger real play.
 
 Combat has no random outcomes. Seeded variation is used only to choose between the bot's candidate
 moves. A fixed seed plus the same human actions reproduces the bot's choices. A match can stall if
@@ -337,7 +390,7 @@ Its pressure lasts the next round only and does not stack. Counterpunch can deny
 award but cannot deny pressure. Driving Kick consumes its token on reveal, even on a miss.
 All Orange cuts finish first, then both Yellow destination choices, then normal hidden hand
 selections. Forced players confirm their sole permitted destination. A target with only one
-available destination needs no redundant choice; all choices exclude exhausted and cut routes.
+available destination needs no redundant choice. In v38, empty printed routes remain legal and lethal; cut routes are excluded.
 The new `directing` phase, bot choices, and simulation traces preserve this order.
 V19 verification: all domain/advantage/mechanic checks pass; 5,625 spending matchups resolve.
 Chromium and WebKit pass desktop/mobile control and matrix checks; Firefox cannot launch here.
@@ -649,3 +702,109 @@ is 38.2% (597/1,564 player-games), versus 41.2% at 8 attack in v36. Its miss rat
 without a bonus and 2.2% with one. The same-scenario comparison, hit frequencies, and pair
 changes are in `results/play-win-v37/haymaker-correction-analysis.md`. These are bot-policy
 associations with changing selected-use cohorts, not causal estimates of strength.
+
+## Bait and Slip and hand relocation (v38)
+
+Bait and Slip (ID 15) remains 3 attack / 2 block, gaining **+4 block** against an opposing
+committed bonus burn (3/6 total). Against that commitment, after damage you may return the
+surviving opposing main to any different hand of your choice, or keep its current hand.
+This requires neither dealing damage nor taking zero damage. Its Blue objective still requires
+taking zero final damage. Bonus, reaction, and printed destinations are unchanged.
+
+Relocation resolves after damage, burns, and objective awards, before route cuts and Driving Kick's
+forced destinations. Both relocation choices complete before either move applies. A card stays in
+its new hand on later rounds, including when used as a main, bonus, or reaction. Printed color,
+stats, abilities, and switch destinations remain unchanged. Each player's copy moves independently;
+permanently burned cards cannot return. Hand browsing and inventory popups use these current locations.
+Orbs cap their normal fill at six and show a bright overfill ring and +N badge above six.
+
+Printed destinations are no longer filtered for empty hands. Driving Kick may force an empty
+printed destination, and entering any empty hand loses even with life and cards elsewhere.
+Both hidden next-hand choices resolve together, so simultaneous empty-hand losses draw.
+The previous exhausted-route fallback is removed. Optional additions specifying an available hand
+still require cards in that hand. Start a fresh match to use v38; v37 balance reports are historical.
+
+Verification: `php DevTools/DFGSim/relocation-tests.php` covers persistent inventory, both seats,
+optional/simultaneous moves, burn and knockout timing, moved-card play/burn legality, and empty-hand
+defeats. `node DevTools/ui-harness/dfg-relocation-xbrowser.mjs` checks desktop/mobile controls,
+inventory popups, overfill, and defeat presentation against local PHP fixtures without a server.
+
+
+## Grip Break: two independent reads (v39)
+
+Grip Break (ID 10) remains Orange, 4 attack / 2 block. Its defensive-bonus read now grants
++2 attack / +1 block. Independently, an opposing attack bonus carried into this round grants
++3 block. It is 6/3 against a block-increasing bonus, 4/5 against carried pressure, and 6/6
+when both apply, before other effects. Current-round attack bonuses and pressure earned for
+next round do not activate the carried-pressure read.
+
+Its Blue objective succeeds by either dealing final damage against a block-increasing bonus,
+or taking zero final damage against an opponent with carried pressure. Both paths together
+still award at most one Blue token; Counterpunch can deny the award. Direct damage and reactions
+count in final damage. No bonus ability, the +2 block reaction, and Yellow/Green/Blue destinations
+are unchanged. Start a fresh match for v39. Historical balance reports predate this revision.
+
+Run `php DevTools/DFGSim/grip-break-tests.php` for independent reads, stacking, both objective
+paths, denial, final-damage timing, and next-round pressure from all three existing sources.
+
+
+## Quick Jab: bypass late defense (v40)
+
+Quick Jab (ID 1) remains 3/2 and gains +2 attack when committing no bonus burn. Under that same
+condition, its damage calculation ignores block gained by the opponent from reaction burns.
+Printed block, main abilities, bonus block, and advantage block still apply. Reactions retain
+their attack effects and remain permanently burned. Quick Jab's own reactions do not disable
+conservation; committing a bonus disables both rewards. This is penetration for Jab's damage,
+not a reduction of the opponent's actual block. Burn modes and Orange/Yellow routes are unchanged.
+Start a fresh match for v40. Run `php DevTools/DFGSim/quick-jab-tests.php` for source-specific
+block handling, both seats, conservation, projections, damage resolution, and objective timing.
+
+
+## Iron Guard: carry the guard forward (v41)
+
+Iron Guard (ID 34) remains 2/5. Taking zero final damage grants +2 block for the following
+round only, independently of dealing damage. Its Green objective now requires dealing damage
+only, independently of taking damage. Either or both rewards can succeed. Counterpunch can deny
+the token; it cannot deny the defensive carry. Reactions and direct damage count toward final damage.
+
+The block bonus follows the fighter across hands, applies to the next main and any Darting Strike
+replacement, and stacks with other stat modifiers. Renewal grants +2 again rather than accumulating
+extra block. Brace affects attack pressure only; Quick Jab ignores reaction block only; Grip Break
+reads carried attack only. None of those treat this defensive carry as attack pressure or a reaction.
+The live UI shows whether the guard applies this round or next. Stats, burns, and routes are unchanged.
+Start a new match for v41. Run `php DevTools/DFGSim/iron-guard-tests.php` for independent rewards,
+carry duration, modifiers, replacements, and damage timing.
+
+
+## Iron Guard: conservative counterattack (v42)
+
+Iron Guard (ID 34) is now 1 attack / 5 block, gaining +1 attack when it commits no bonus burn.
+Its clean-defense payoff is +1 attack next round, replacing v41's carried block. Dealing damage
+still independently earns Green advantage. Own reaction burns do not disable conservation.
+The printed attack remains 1 for opposing printed-stat reads, even when conservation raises it to 2.
+
+This pressure uses the existing one-round attack system: it follows the fighter across hands,
+is preserved by Darting Strike replacements, activates Grip Break's opposing-momentum read,
+and can be suppressed or prevented by Brace. Multiple pressure sources use the highest amount
+rather than stacking. Base block, bonus/reaction effects, and Green/Blue routes remain unchanged.
+The v41 block-carry analysis is historical; start a fresh match for v42.
+
+The matched 2,160-game-per-version comparison and exhaustive pair results are saved in
+`DevTools/DFGSim/results/iron-guard-v42/report.md`; the carried-block study is historical in
+`DevTools/DFGSim/results/iron-guard-v41/report.md`. These reports distinguish selected-use
+win associations from preassigned opening scores.
+
+
+## Heavy Feint: punish a second resource (v43)
+
+Heavy Feint (ID 36) remains 4/2 and still ignores opposing bonus-burn block for its damage
+calculation. Independently, an opponent spending advantage this round grants it +2 attack.
+The reward applies once, regardless of how many tokens were spent. Holding, gaining, or losing
+a token without spending it does not qualify. Tokens already consumed on reveal still count;
+Darting Strike cancelling into another main retains its spent Yellow for this read.
+
+With no other modifiers, Heavy Feint is 6/2 against a spend, while independently retaining
+its defensive-bonus penetration if both resources were committed. Printed/main/advantage block
+and reaction block are not ignored by its existing bonus-bypass effect. Stats, burns, and routes
+are unchanged. Start a new match for v43. `php DevTools/DFGSim/heavy-feint-tests.php` verifies
+both seats, independent and overlapping reads, multi-token spends, cancellation, and live resolution.

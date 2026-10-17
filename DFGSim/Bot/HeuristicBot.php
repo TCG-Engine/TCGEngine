@@ -32,6 +32,7 @@ function DFGStrategicValue(array $plans, array $reactions, array $stats, array $
             && DFGObjectiveAchieved($plans[$actor], $plans[1-$actor], $stats, $actor, $reactions)) $score += 1.1;
         if (!in_array('brace_reset',array_merge(...$specials),true)) $score += 0.65 * DFGNextAttackFromSpecials($effects);
         if (in_array('miss_recovery',$effects,true)) $score -= 0.8;
+        if (in_array('bonus_relocate', $effects, true) && !in_array($plans[1-$actor]['main'], $players[1-$actor]['discarded'], true)) $score += 1.2;
         if (in_array('hit_burn_lock',$effects,true)) $score += 1.2;
         $enemyHeld=array_diff($players[1-$actor]['advantages']??[], $plans[1-$actor]['advantages']??[]);
         $score += 1.1 * min(count($enemyHeld),count(array_intersect(['hit_strip','guard_strip'],$effects)));
@@ -151,7 +152,7 @@ function DFGBotSwitchRanking(array $view, int $seat): array {
     foreach ($opponentColors as $color) $opponentCards = array_merge($opponentCards, DFGAvailable($view['players'][$other], $color));
     $ranking = [];
     foreach ($view['switchOptions'] as $color) {
-        $available = DFGAvailable($view['players'][$seat], $color); $best = -INF;
+        $available = DFGAvailable($view['players'][$seat], $color); $best = -5000.0;
         foreach ($available as $main) {
             foreach (DFGSpendVariants($view['players'][$seat], $main) as $variant) {
                 $score = 0.0;
@@ -193,7 +194,24 @@ function DFGBotForce(array $view,int $seat): array {
     return $action;
 }
 
+function DFGBotRelocate(array $view, int $seat): array {
+    $victim = 1 - $seat;
+    $main = $view['commitments'][$victim]['main'];
+    $current = DFGCardHand($view['players'][$victim], $main);
+    // Prefer depleting a hand while placing the main outside its own next routes.
+    $best = 0.0; $choice = 'keep';
+    $routes = DFGSwitchOptions($view, $victim, false, false);
+    foreach ($view['relocateOptions'] as $color) {
+        $score = (in_array($current, $routes, true) ? 2.0 : 0.5) / max(1, count(DFGAvailable($view['players'][$victim], $current)))
+            - (in_array($color, $routes, true) ? 1.5 : 0.0);
+        if ($score > $best) { $best = $score; $choice = $color; }
+    }
+    return ['type'=>'relocate', 'color'=>$choice];
+}
+
 function DFGBotChoose(array $view, int $seat, int &$rng): array {
+    if (($view['difficulty'] ?? 'tactical') === 'pro') return DFGProChoose($view,$seat,$rng);
+    if ($view['phase'] === 'relocating') return DFGBotRelocate($view, $seat);
     if ($view['phase']==='cancelling') return DFGBotCancelRanking($view['commitments'],$view['players'],$seat,$view['cancelOptions'])[0]['action'];
     if ($view['phase'] === 'stripping') {
         // Prefer denying spends available in the opposing legal next hands.
@@ -228,6 +246,7 @@ function DFGRunBot(array $state): array {
             || ($state['phase'] === 'reactions' && $state['reactionTurn'] === 1)
             || ($state['phase'] === 'cancelling' && DFGCancelOptions($state,1))
             || ($state['phase'] === 'stripping' && DFGStripOptions($state,1))
+            || ($state['phase'] === 'relocating' && DFGRelocateOptions($state,1))
             || ($state['phase'] === 'routing' && DFGCutOptions($state, 1))
             || ($state['phase'] === 'directing' && DFGForceOptions($state, 1))
             || ($state['phase'] === 'switching' && $state['switches'][1] === null);
@@ -238,3 +257,5 @@ function DFGRunBot(array $state): array {
     }
     throw new LogicException('Bot action limit exceeded');
 }
+
+require_once __DIR__ . '/ProBot.php';

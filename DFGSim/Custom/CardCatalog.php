@@ -14,6 +14,10 @@ function DFGCompileEffect(string $text): array {
         [$clause, $text] = explode(', ', $text, 2);
         if ($clause === 'If your opponent committed a block-increasing bonus burn this round') {
             $condition = ['type'=>'block_bonus'];
+        } elseif ($clause === 'If your opponent has an attack bonus carried into this round') {
+            $condition = ['type'=>'opposing_momentum'];
+        } elseif ($clause === 'If your opponent spent advantage this round') {
+            $condition = ['type'=>'opposing_advantage_spend'];
         } elseif (preg_match('/^If (you|your opponent) committed (no|at least one|at least two) bonus burns? this round$/D', $clause, $m)) {
             $condition = ['type' => 'burns', 'opponent' => $m[1] !== 'you', 'minimum' => ['no' => 0, 'at least one' => 1, 'at least two' => 2][$m[2]], 'exact' => $m[2] === 'no'];
         } elseif (preg_match("/^If your opponent's main card has a printed (attack|block) value of (\d+) or (more|less)$/D", $clause, $m)) {
@@ -47,9 +51,12 @@ function DFGCompileChanges(string $text): array {
 function DFGCompileAdvantage(string $text): array {
     $mechanic = ['earn' => null, 'spend' => null]; $combat = []; $special = [];
     $specialLines = [
+        "If you committed no bonus burns this round, for your damage calculation ignore block gained from reaction burns this round." => 'conserve_reaction_pierce',
+        "If your opponent committed at least one bonus burn this round, you may return their main card to a different hand of your choice after damage." => 'bonus_relocate',
         'If you deal no combat damage, you have -2 block next round, to a minimum of 0.' => 'miss_recovery',
         'If you take no combat damage, deal 2 damage to your opponent after combat damage.' => 'guard_retaliation',
         'If you deal damage, gain +1 attack next round.' => 'hit_momentum_one',
+        'If you take no damage, gain +1 attack next round.' => 'guard_momentum_one',
         'If you take exactly 1 damage, gain +2 attack next round.' => 'glancing_momentum',
         'If you take no damage, you may switch to any other available color this round.' => 'safe_switch',
         'If you deal damage, you may switch to any other available color this round.' => 'hit_switch',
@@ -73,11 +80,13 @@ function DFGCompileAdvantage(string $text): array {
     $objectives = [
         'Take exactly 1 damage' => 'take_one',
         'Deal damage against a block-increasing bonus burn' => 'punish_block_bonus',
+        'Deal damage against a block-increasing bonus burn, or take no damage against an opponent with an attack bonus carried into this round' => 'break_guard_or_momentum',
         'Deal damage against printed block 4+' => 'damage_vs_block',
         'Take no damage against printed attack 5+' => 'guard_high',
         'Deal damage against a bonus burn' => 'punish_bonus',
         'Deal 4+ damage without a bonus burn' => 'heavy_unassisted',
         'Deal damage and take no damage' => 'clean_counter',
+        'Deal damage' => 'deal_damage',
         'Deal damage against printed attack 3 or less' => 'punish_low_attack',
         'Take no damage against a bonus burn' => 'guard_bonus',
         'Deal damage without a bonus or reaction burn' => 'efficient_hit',

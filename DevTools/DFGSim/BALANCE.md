@@ -1,6 +1,91 @@
 # Reproducible balance simulations
 
-## Current v37 play-to-win batch
+## Pro bot evaluation
+
+```sh
+php DevTools/DFGSim/pro-bot-tests.php
+php DevTools/DFGSim/pro-evaluation.php --out=DevTools/DFGSim/results/pro-current
+php DevTools/DFGSim/verify-pro-evaluation.php DevTools/DFGSim/results/pro-current
+php DevTools/DFGSim/pro-report.php DevTools/DFGSim/results/pro-current
+php DevTools/DFGSim/pro-evaluation.php --suite=all --out=DevTools/DFGSim/results/pro-all
+php DevTools/DFGSim/balance.php --profiles=pro --repeats=1 --ablation-cards=0 --out=DevTools/DFGSim/results/pro-selfplay
+```
+
+The default head-to-head suite covers six identical-color openings, both Pro seats, and
+both initial reaction priorities (24 games). The full suite covers all ordered color pairs
+(144 games). Seeds are paired across seat assignments; initial openings are fixed before
+play. Capped games remain separate. Raw `matches.jsonl` records every authoritative action;
+`summary.json` records outcomes, timings, code/data hashes and main selections divided by
+opportunities where the card was available. Selection rates remain policy-dependent.
+See the live simulator README for the search horizon and pruning limitations.
+
+The [Pro loss-analysis report](results/pro-improvement/report.md) compares four development
+variants on the original scenarios, then the frozen selected candidate against the original
+on fresh seeds across all ordered openings. Direct crossplay uses `--opponent=pro-v1` and
+an additional seed offset. `--runtime-root` selects preserved runtime snapshots; `--repeats`
+and `--seed-offset` control reproducible scenario sets. `--suite=balanced` uses one initial
+priority per ordered opening, selected by index parity, and both Pro seats (72 games).
+Run `verify-pro-evaluation.php <folder>` on every cohort before
+`python DevTools/DFGSim/pro-improvement-report.py` to regenerate the report.
+
+The [follow-up crossplay study](results/pro-crossplay/report.md) preserves negative results
+as well as candidate improvements. `pro-reaction-audit.php` enumerates revealed endgame
+reaction sequences; `pro-plan-audit.php` inspects public-state payoff matrices and dominance.
+Both accept a cohort directory and matching runtime directory as positional arguments.
+`pro-solver-tests.php <runtime>` checks the experimental solver contract.
+
+For parallel experiments, use `pro-evaluation.php --shards=4 --shard=0` through `--shard=3`,
+each with a separate output directory. Merge all parts with
+`php DevTools/DFGSim/merge-pro-evaluations.php <out> <part0> <part1> <part2> <part3>` and
+replay-verify the merged output. Seeds and scenario coverage match the unsharded run.
+`--opponent=reference --reference-root=<snapshot>` selects another frozen Pro implementation;
+its engine, catalog compiler, and card data must match the selected runtime. The historical
+`tactical` keys in that analysis output denote the reference seat; opponentProfile/referenceHash
+record its identity. `python DevTools/DFGSim/pro-crossplay-report.py` regenerates the study.
+
+## Heavy Feint v43 study
+
+The [v43 report](results/heavy-feint-v43/report.md) compares Heavy Feint against the matched
+v42 baseline: 2,160 games per version, seed offset 19,000,000, ten repeats, three profiles,
+both priorities, and all ordered openings. Only Heavy Feint's advantage-spending read changes.
+The no-token matrix is unchanged; a separate 396-exchange matrix per version tests spending.
+
+```sh
+php DevTools/DFGSim/verify-balance.php DevTools/DFGSim/results/heavy-feint-v43/simulation DevTools/DFGSim/results/heavy-feint-v43/runtime
+php DevTools/DFGSim/verify-pair-analysis.php DevTools/DFGSim/results/heavy-feint-v43/pairs DevTools/DFGSim/results/heavy-feint-v43/runtime
+php DevTools/DFGSim/heavy-feint-spend-analysis.php DevTools/DFGSim/results/iron-guard-v42/runtime DevTools/DFGSim/results/heavy-feint-v43/prior-spend-pairs.json
+php DevTools/DFGSim/heavy-feint-spend-analysis.php DevTools/DFGSim/results/heavy-feint-v43/runtime DevTools/DFGSim/results/heavy-feint-v43/current-spend-pairs.json
+php DevTools/DFGSim/heavy-feint-metrics.php DevTools/DFGSim/results/iron-guard-v42/runtime DevTools/DFGSim/results/iron-guard-v42/simulation/baseline.jsonl DevTools/DFGSim/results/heavy-feint-v43/v42-metrics.json
+php DevTools/DFGSim/heavy-feint-metrics.php DevTools/DFGSim/results/heavy-feint-v43/runtime DevTools/DFGSim/results/heavy-feint-v43/simulation/baseline.jsonl DevTools/DFGSim/results/heavy-feint-v43/v43-metrics.json
+python DevTools/DFGSim/heavy-feint-report.py
+```
+
+The v43 generation command uses `balance.php --repeats=10 --max-rounds=60 --ablation-cards=0
+--seed-offset=19000000 --runtime-root=DevTools/DFGSim/results/heavy-feint-v43/runtime
+--out=DevTools/DFGSim/results/heavy-feint-v43/simulation` (one shell command).
+These are bot-policy associations and fixed-plan damage measurements, not causal human win rates.
+
+## Iron Guard v42 study
+
+The [v42 comparison](results/iron-guard-v42/report.md) compares the original Iron Guard,
+v41 carried block, and v42 conservative attack pressure. Each trial has 2,160 matched games
+and an independently replay-verified 40,401-exchange pair matrix. The
+[v41 study](results/iron-guard-v41/report.md) retains the isolated original-versus-block-carry analysis.
+Snapshots and raw traces are stored with each study; the live game now uses v42.
+
+```sh
+php DevTools/DFGSim/verify-balance.php DevTools/DFGSim/results/iron-guard-v42/simulation DevTools/DFGSim/results/iron-guard-v42/runtime
+php DevTools/DFGSim/verify-pair-analysis.php DevTools/DFGSim/results/iron-guard-v42/pairs DevTools/DFGSim/results/iron-guard-v42/runtime
+python DevTools/DFGSim/iron-guard-analysis.py
+python DevTools/DFGSim/iron-guard-revision-report.py
+```
+
+`balance.php --runtime-root=<snapshot>` selects an isolated runtime for reproducible trials.
+The v42 batch uses `--repeats=10 --max-rounds=60 --ablation-cards=0 --seed-offset=19000000`.
+Main-play win associations are selected-use statistics; compare profile exposure and preassigned
+opening outcomes before interpreting changes in pooled win rate.
+
+## Historical v37 play-to-win batch
 
 ```sh
 php DevTools/DFGSim/balance.php --repeats=10 --ablation-cards=0 --seed-offset=17000000 --out=DevTools/DFGSim/results/play-win-v37

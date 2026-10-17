@@ -48,7 +48,8 @@ foreach ([[4,3,[], 'Yellow'],[8,3,[], 'Orange'],[13,32,[], 'Green'],[22,23,[], '
     checkAdv(resolveAdv($other)['players'][1]['advantages'] === [$color], 'objective is symmetric for player two');
 }
 foreach ([[4,2],[8,19],[13,31],[22,31],[27,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], 'failed objectives give no token');
-foreach ([[3,2],[11,23],[15,19],[24,19],[25,1],[33,1],[12,28],[34,19],[34,31],[6,31],[6,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], DFGCatalog()[$main]['name'].' does not earn on failed counterplay');
+foreach ([[3,2],[11,23],[15,19],[24,19],[25,1],[33,1],[12,28],[34,19],[6,31],[6,1]] as [$main,$enemy]) checkAdv(resolveAdv(revealAdv($main,$enemy))['players'][0]['advantages'] === [], DFGCatalog()[$main]['name'].' does not earn on failed counterplay');
+checkAdv(resolveAdv(revealAdv(34,31))['players'][0]['advantages'] === ['Green'], 'Iron Guard earns Green for damage even when taking damage');
 $s=DFGNewGame('Green','Yellow');
 $s=DFGApply($s,0,['type'=>'commit','main'=>24,'bonuses'=>[23]]);$s=DFGApply($s,1,['type'=>'commit','main'=>18]);
 checkAdv(resolveAdv($s)['players'][0]['advantages'] === [], 'Measured Advance rejects bonus-assisted damage');

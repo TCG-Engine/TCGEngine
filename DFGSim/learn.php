@@ -1,0 +1,7 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/Custom/Tutorial.php';
+$practice=['lessons'=>DFGTutorialLessons(),'cards'=>array_values(array_map('DFGCardPublic',DFGCatalog()))];
+?><!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learn to play · DFGSim</title><link rel="stylesheet" href="app.css?v=<?=filemtime(__DIR__.'/app.css')?>"><link rel="stylesheet" href="arena.css?v=<?=filemtime(__DIR__.'/arena.css')?>"><link rel="stylesheet" href="menu.css?v=<?=filemtime(__DIR__.'/menu.css')?>"></head>
+<body class="fight-screen"><main class="lesson-shell"><nav class="lesson-nav" aria-label="Tutorial navigation"><a href="index.php">← Main menu</a><span class="eyebrow">GUIDED PRACTICE · ABOUT 5 MINUTES</span><a href="index.php?play">Play vs bot ↗</a></nav><h1>Learn the exchange.</h1><p>Four short lessons using the real combat rules. Your regular match stays saved.</p><nav id="lessonTabs" class="lesson-tabs" aria-label="Lessons"></nav><div id="practice"></div><div class="lesson-footer"><button id="previous">Previous step</button><button id="restart">Restart lesson</button></div><noscript><p>Enable JavaScript to use guided practice. The <a href="index.php">main menu</a> has the complete rules reference.</p></noscript></main><script id="practiceData" type="application/json"><?=json_encode($practice,JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_THROW_ON_ERROR)?></script><script src="learn.js?v=<?=filemtime(__DIR__.'/learn.js')?>" defer></script></body></html>
