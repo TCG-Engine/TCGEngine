@@ -1,0 +1,22 @@
+{
+    "name": "equivalent-exchange-declining-the-banish-leaves-the-token-rested-and-unbuffed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:03:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qvB66hupGQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qvB66hupGQ"
+        ],
+        "mechanics": [
+            "summon",
+            "banish",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "**Summon** a Lost Being token rested. Then you may banish two ally cards from a single graveyard. If you do, wake up that token and put a **buff** counter on it."
+        ]
+    }
+}

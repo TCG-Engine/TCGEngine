@@ -398,7 +398,7 @@ try {
         $card = AddMemory(2, CardID: 'HPDawzCDdr');
         $card->Counters['_overrides']['element'] = $element;
         $spearman = AddField(2, CardID: 'pal7cpvn96', Owner: 2, Controller: 2);
-        DecisionQueueController::StoreVariable('CombatAttacker', 'myField-0');
+        StoreCombatAttackerState('myField-0', 1); // damage is combat damage only when it comes from the stored attacker
         OnDealDamage(1, 'myField-0', 'theirField-' . $spearman->mzIndex, 3);
         phaseDCheck($spearman->Damage === ($qualifies ? 0 : 3), "Intrepid Spearman prevents for $element memory");
     }

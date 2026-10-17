@@ -21721,10 +21721,8 @@ function ApplyCrystallizedDestinyPrevention($championMZ, $amount) {
         return $amount;
     }
     $champion->TurnEffects = array_values(array_filter($champion->TurnEffects, fn($e) => $e !== "CRYSTALLIZED_DESTINY"));
-    if($amount >= 7) {
-        $opponent = ($champion->Controller == 1) ? 2 : 1;
-        AddGlobalEffects($opponent, "CRYSTALLIZED_DESTINY_COST");
-    }
+    // The flag lives on the Destiny's controller; CalculateActivationReserveCost reads it from the activating player's opponent.
+    if($amount >= 7) AddGlobalEffects($champion->Controller, "CRYSTALLIZED_DESTINY_COST");
     return 0;
 }
 
@@ -24509,17 +24507,16 @@ function SageProtectionChoose($player, $count) {
 }
 
 function AllowanceRaceChooseHorse($actingPlayer, $remaining) {
-    global $playerID;
     if($remaining <= 0) return;
-    $zone = $actingPlayer == $playerID ? "myField" : "theirField";
-    $field = GetZone($zone);
+    // The prompt belongs to $actingPlayer and is answered in their own frame, whoever's turn it is when it is queued.
+    $field = GetField($actingPlayer);
     $choices = [];
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed) continue;
         if(!PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
         if(!PropertyContains(EffectiveCardSubtypes($field[$i]), "HORSE")) continue;
         if(($field[$i]->Status ?? 0) != 2) continue;
-        $choices[] = $zone . "-" . $i;
+        $choices[] = "myField-" . $i;
     }
     if(empty($choices)) return;
     $pickNumber = 3 - $remaining;

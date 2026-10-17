@@ -4014,6 +4014,18 @@ function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
     DecisionQueueController::AddDecision($sourceController, "CUSTOM", "DanteHemomancerRecover", 1);
 }
 
+// Combat damage is dealt by the combat's attacker to its target, or back by the target; damage from any other source
+// while a combat is open (a Spell cast in response, for one) is not combat damage.
+function IsCombatDamageFrom($source) {
+    if(DecisionQueueController::GetVariable("CombatAttacker") === null) return false;
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj === null) return false;
+    $sourceUID = intval($sourceObj->UniqueID ?? 0);
+    if($sourceUID <= 0) return false;
+    return $sourceUID === intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0")
+        || $sourceUID === intval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? "0");
+}
+
 function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
     $originalAmount = intval($amount);
     $targetObj = &GetZoneObject($target);
@@ -4843,7 +4855,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
-    $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    $isCombat = IsCombatDamageFrom($source);
     if(!$isCombat && $amount > 0 && $targetObj->CardID === "ifmmvbm26h" && !HasNoAbilities($targetObj)) {
         if(IsClassBonusActive($targetObj->Controller ?? $player, ["CLERIC", "WARRIOR"])) {
             $amount = max(0, $amount - 2);

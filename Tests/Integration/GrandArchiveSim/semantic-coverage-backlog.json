@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-17T20:42:07+00:00",
+    "generatedAt": "2026-10-17T21:06:29+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -16714,9 +16714,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "crystallized-destiny-prevents-the-next-combat-damage-to-the-champion",
+                "crystallized-destiny-with-one-fatebound-object-has-no-discount",
                 "crystallized-destiny-with-two-fatestones-costs-two-less"
             ],
             "semanticFixtures": [
+                "crystallized-destiny-prevents-the-next-combat-damage-to-the-champion",
+                "crystallized-destiny-with-one-fatebound-object-has-no-discount",
                 "crystallized-destiny-with-two-fatestones-costs-two-less"
             ],
             "starterDecks": [],
@@ -22238,9 +22242,17 @@
                 "condition"
             ],
             "existingFixtures": [
+                "equivalent-exchange-banishes-two-allies-from-the-opponents-graveyard",
+                "equivalent-exchange-banishing-two-allies-wakes-the-token-and-buffs-it",
+                "equivalent-exchange-declining-the-banish-leaves-the-token-rested-and-unbuffed",
+                "equivalent-exchange-one-ally-in-each-graveyard-is-not-a-single-graveyard",
                 "equivalent-exchange-summons-a-lost-being-and-banishing-two-allies-wakes-and-buffs-it"
             ],
             "semanticFixtures": [
+                "equivalent-exchange-banishes-two-allies-from-the-opponents-graveyard",
+                "equivalent-exchange-banishing-two-allies-wakes-the-token-and-buffs-it",
+                "equivalent-exchange-declining-the-banish-leaves-the-token-rested-and-unbuffed",
+                "equivalent-exchange-one-ally-in-each-graveyard-is-not-a-single-graveyard",
                 "equivalent-exchange-summons-a-lost-being-and-banishing-two-allies-wakes-and-buffs-it"
             ],
             "starterDecks": [],
@@ -27361,9 +27373,11 @@
                 "status"
             ],
             "existingFixtures": [
+                "dodge-roll-does-not-prevent-combat-damage-to-the-unit",
                 "dodge-roll-makes-the-target-unit-distant"
             ],
             "semanticFixtures": [
+                "dodge-roll-does-not-prevent-combat-damage-to-the-unit",
                 "dodge-roll-makes-the-target-unit-distant"
             ],
             "starterDecks": [],
@@ -32360,10 +32374,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "suited-trickery-champion-attack-declarations-cost-two"
+                "suited-trickery-champion-attack-declarations-cost-two",
+                "suited-trickery-does-not-tax-an-ally-attack-declaration",
+                "suited-trickery-taxes-the-opposing-champion-attack-declaration",
+                "suited-trickery-with-a-suited-ally-draws-a-card-into-memory",
+                "suited-trickery-without-a-suited-ally-draws-nothing"
             ],
             "semanticFixtures": [
-                "suited-trickery-champion-attack-declarations-cost-two"
+                "suited-trickery-champion-attack-declarations-cost-two",
+                "suited-trickery-does-not-tax-an-ally-attack-declaration",
+                "suited-trickery-taxes-the-opposing-champion-attack-declaration",
+                "suited-trickery-with-a-suited-ally-draws-a-card-into-memory",
+                "suited-trickery-without-a-suited-ally-draws-nothing"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -51481,10 +51503,14 @@
                 "status"
             ],
             "existingFixtures": [
-                "allowance-race-resting-a-horse-ally-draws-a-card"
+                "allowance-race-declining-the-second-horse-draws-only-for-the-first",
+                "allowance-race-resting-a-horse-ally-draws-a-card",
+                "allowance-race-rests-two-horses-for-each-player-and-each-draws-per-horse"
             ],
             "semanticFixtures": [
-                "allowance-race-resting-a-horse-ally-draws-a-card"
+                "allowance-race-declining-the-second-horse-draws-only-for-the-first",
+                "allowance-race-resting-a-horse-ally-draws-a-card",
+                "allowance-race-rests-two-horses-for-each-player-and-each-draws-per-horse"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

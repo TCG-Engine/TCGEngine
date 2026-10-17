@@ -1,0 +1,22 @@
+{
+    "name": "suited-trickery-without-a-suited-ally-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:00:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uxhmucm8si"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uxhmucm8si"
+        ],
+        "mechanics": [
+            "restriction",
+            "draw-discard",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, players can't declare attacks with champions they control unless they pay (2) for each attack declaration. Then if you control a Suited ally, draw a card into your memory."
+        ]
+    }
+}

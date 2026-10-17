@@ -1,0 +1,22 @@
+{
+    "name": "allowance-race-declining-the-second-horse-draws-only-for-the-first",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:02:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ezIeRDL7jm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ezIeRDL7jm"
+        ],
+        "mechanics": [
+            "rest",
+            "draw",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "Each player may rest up to two Horse allies they control. For each Horse ally rested this way, its controller draws a card."
+        ]
+    }
+}

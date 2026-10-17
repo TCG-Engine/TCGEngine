@@ -1,0 +1,22 @@
+{
+    "name": "dodge-roll-does-not-prevent-combat-damage-to-the-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:03:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gcom2ry208"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gcom2ry208"
+        ],
+        "mechanics": [
+            "prevention",
+            "combat",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prevent the next 3 non-combat damage that would be dealt to target unit you control this turn. That unit becomes **distant**."
+        ]
+    }
+}

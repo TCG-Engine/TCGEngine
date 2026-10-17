@@ -1,0 +1,22 @@
+{
+    "name": "crystallized-destiny-prevents-the-next-combat-damage-to-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:00:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l36wwe3d5c"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l36wwe3d5c"
+        ],
+        "mechanics": [
+            "prevention",
+            "champion",
+            "damage"
+        ],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent that damage. When 7 or more damage is prevented this way, cards your opponents activate this turn cost (2) more to activate."
+        ]
+    }
+}
