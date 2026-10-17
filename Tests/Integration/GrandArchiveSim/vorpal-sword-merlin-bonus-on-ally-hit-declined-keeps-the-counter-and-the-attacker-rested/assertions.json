@@ -1,0 +1,20 @@
+[
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Status",
+        "value": "1",
+        "semantic": true,
+        "label": "Declined: the champion stays rested"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1,\"_champCombatDamageDealtThisTurn\":3}",
+        "semantic": true,
+        "label": "Declined: the preparation counter stays"
+    }
+]

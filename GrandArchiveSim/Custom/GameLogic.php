@@ -6585,6 +6585,7 @@ function GAFieldAbilityCostTable() {
         "jmaPje9XgG:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true], // Where Futures Stir
         "jjGLZKfRn5:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Suzaku
         "67CIhG8hmG:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Genbu
+        "PIcB5KuuMd:0" => ['rest' => true, 'banishMaterial' => true, 'bonus' => 'merlin'], // Vorpal Sword: "[Merlin Bonus] [REST], Banish a card from your material deck" (the REST was never paid and the first material card was banished unasked)
     ];
     return $table;
 }
@@ -6620,6 +6621,7 @@ function GAFieldAbilityBonusActive($player, $bonus, $cardID) {
         case 'ciel': return IsCielBonusActive($player);
         case 'guojia': return IsGuoJiaBonus($player);
         case 'jin': return IsJinBonus($player);
+        case 'merlin': return IsMerlinBonusActive($player);
     }
     return true;
 }
@@ -6649,6 +6651,13 @@ function GAPayFieldAbilityCost($player, $mzCard, $cardID, $abilityIndex, $spec) 
         if(!empty($candidates)) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $candidates), 100, tooltip:"Banish_a_card_from_your_graveyard");
             DecisionQueueController::AddDecision($player, "CUSTOM", ($cardID === "wuir99sx6q" ? "GeniMechanistPayBanish" : "PortsidePirateBanish"), 100);
+        }
+    }
+    if(!empty($spec['banishMaterial'])) {
+        $materialCards = ZoneSearch("myMaterial");
+        if(!empty($materialCards)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $materialCards), 100, tooltip:"Banish_a_card_from_your_material_deck");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PortsidePirateBanish", 100);
         }
     }
     if(!empty($spec['sacrificeFood'])) {
@@ -6699,6 +6708,7 @@ function GAInstallFieldAbilityCostPrereqs(array &$prereqTable) {
                 $candidates = !empty($filter['any']) ? ZoneSearch("myGraveyard") : (!empty($filter['floating']) ? ZoneSearch("myGraveyard", floatingMemoryOnly: true) : ZoneSearch("myGraveyard", cardElements: [$filter['element']]));
                 if(empty($candidates)) return false;
             }
+            if(!empty($spec['banishMaterial']) && empty(ZoneSearch("myMaterial"))) return false;
             if(!empty($spec['sacrificeFood']) && empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["FOOD"]))) return false;
             if(!empty($spec['sacrificePowercell']) && count(array_filter(GAPowercellTargets(), fn($pcMZ) => $pcMZ !== $mzID)) === 0) return false;
             return $original === null ? true : $original($player, $mzID, $abilityIndex);
@@ -15839,20 +15849,6 @@ function ObjectCurrentPower($obj) {
                     $power += intval(substr($effectID, strlen("8m69iq4d5v_SPELL_POWER_")));
                 }
                 break;
-        }
-    }
-    // Merlin, Kingslayer (rz1bqry41l): if champion has rz1bqry41l TurnEffect,
-    // all attack cards get +2 POWER until end of turn.
-    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
-        $controller = $obj->Controller ?? null;
-        if($controller !== null && $controller > 0) {
-            $field = GetField($controller);
-            foreach($field as $fieldObj) {
-                if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") && in_array("rz1bqry41l", $fieldObj->TurnEffects)) {
-                    $power += 2;
-                    break;
-                }
-            }
         }
     }
     // Wand of Frost (n0wpbhigka): if the attacking unit has n0wpbhigka TurnEffect,

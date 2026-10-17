@@ -1,0 +1,29 @@
+[
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Status",
+        "value": "2",
+        "semantic": true,
+        "label": "The champion woke up after attacking with the Sword"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"PIcB5KuuMd_USED\"]",
+        "semantic": true,
+        "label": "The once-per-turn marker is on the Sword"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "3",
+        "semantic": true,
+        "label": "The Sword hit the ally for 3"
+    }
+]

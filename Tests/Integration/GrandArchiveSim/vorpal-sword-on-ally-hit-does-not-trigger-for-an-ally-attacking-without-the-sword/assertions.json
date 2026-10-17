@@ -1,0 +1,25 @@
+[
+    {
+        "step": 12,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "The Tortoise hit the ally for 1"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":1}",
+        "semantic": true,
+        "label": "The Sword did not take part: the preparation counter is still there"
+    }
+]

@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-17T21:29:53+00:00",
+    "generatedAt": "2026-10-17T21:42:26+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -32707,13 +32707,23 @@
                 "condition"
             ],
             "existingFixtures": [
+                "the-majestic-spirit-does-not-halve-damage-dealt-to-a-non-crux-unit",
+                "the-majestic-spirit-does-not-halve-damage-dealt-to-itself",
                 "the-majestic-spirit-gives-your-champions-spellshroud",
+                "the-majestic-spirit-prevents-all-of-a-single-point-of-damage",
                 "the-majestic-spirit-prevents-half-of-the-damage-to-another-crux-unit",
+                "the-majestic-spirit-rounds-the-prevention-of-odd-combat-damage-up",
+                "without-the-majestic-spirit-odd-combat-damage-is-taken-in-full",
                 "without-the-majestic-spirit-the-crux-unit-takes-the-full-damage"
             ],
             "semanticFixtures": [
+                "the-majestic-spirit-does-not-halve-damage-dealt-to-a-non-crux-unit",
+                "the-majestic-spirit-does-not-halve-damage-dealt-to-itself",
                 "the-majestic-spirit-gives-your-champions-spellshroud",
+                "the-majestic-spirit-prevents-all-of-a-single-point-of-damage",
                 "the-majestic-spirit-prevents-half-of-the-damage-to-another-crux-unit",
+                "the-majestic-spirit-rounds-the-prevention-of-odd-combat-damage-up",
+                "without-the-majestic-spirit-odd-combat-damage-is-taken-in-full",
                 "without-the-majestic-spirit-the-crux-unit-takes-the-full-damage"
             ],
             "starterDecks": [],
@@ -33191,10 +33201,22 @@
                 "condition"
             ],
             "existingFixtures": [
+                "vorpal-sword-merlin-bonus-on-ally-hit-declined-keeps-the-counter-and-the-attacker-rested",
+                "vorpal-sword-merlin-bonus-on-ally-hit-yes-removes-a-preparation-counter-and-wakes-the-attacking-champion",
+                "vorpal-sword-merlin-bonus-rest-and-banish-a-chosen-material-card-grants-spellshroud",
+                "vorpal-sword-on-ally-hit-does-not-trigger-for-an-ally-attacking-without-the-sword",
+                "vorpal-sword-on-ally-hit-needs-a-preparation-counter-on-the-champion",
+                "vorpal-sword-on-ally-hit-needs-the-merlin-bonus",
                 "vorpal-sword-specter-allies-cannot-retaliate-against-its-attack",
                 "without-vorpal-sword-the-specter-ally-retaliates"
             ],
             "semanticFixtures": [
+                "vorpal-sword-merlin-bonus-on-ally-hit-declined-keeps-the-counter-and-the-attacker-rested",
+                "vorpal-sword-merlin-bonus-on-ally-hit-yes-removes-a-preparation-counter-and-wakes-the-attacking-champion",
+                "vorpal-sword-merlin-bonus-rest-and-banish-a-chosen-material-card-grants-spellshroud",
+                "vorpal-sword-on-ally-hit-does-not-trigger-for-an-ally-attacking-without-the-sword",
+                "vorpal-sword-on-ally-hit-needs-a-preparation-counter-on-the-champion",
+                "vorpal-sword-on-ally-hit-needs-the-merlin-bonus",
                 "vorpal-sword-specter-allies-cannot-retaliate-against-its-attack",
                 "without-vorpal-sword-the-specter-ally-retaliates"
             ],
@@ -38400,12 +38422,18 @@
                 "condition"
             ],
             "existingFixtures": [
+                "merlin-kingslayer-an-even-level-count-gives-the-champions-attack-plus-two-power",
+                "merlin-kingslayer-an-odd-level-count-gives-the-champions-attack-no-bonus",
                 "merlin-kingslayer-an-odd-level-counter-count-draws-nothing-extra",
-                "merlin-kingslayer-recollection-puts-a-level-counter-and-an-even-count-draws-and-boosts-attacks"
+                "merlin-kingslayer-recollection-puts-a-level-counter-and-an-even-count-draws-and-boosts-attacks",
+                "merlin-kingslayer-the-even-count-bonus-does-not-boost-an-allys-attack"
             ],
             "semanticFixtures": [
+                "merlin-kingslayer-an-even-level-count-gives-the-champions-attack-plus-two-power",
+                "merlin-kingslayer-an-odd-level-count-gives-the-champions-attack-no-bonus",
                 "merlin-kingslayer-an-odd-level-counter-count-draws-nothing-extra",
-                "merlin-kingslayer-recollection-puts-a-level-counter-and-an-even-count-draws-and-boosts-attacks"
+                "merlin-kingslayer-recollection-puts-a-level-counter-and-an-even-count-draws-and-boosts-attacks",
+                "merlin-kingslayer-the-even-count-bonus-does-not-boost-an-allys-attack"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

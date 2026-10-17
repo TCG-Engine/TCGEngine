@@ -1,0 +1,22 @@
+{
+    "name": "vorpal-sword-merlin-bonus-on-ally-hit-declined-keeps-the-counter-and-the-attacker-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:38:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-ally-hit",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Ally Hit:** You may remove a **preparation** counter from your champion. If you do, wake up the attacker. Trigger this ability only once per turn."
+        ]
+    }
+}

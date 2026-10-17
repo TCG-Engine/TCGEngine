@@ -18,6 +18,7 @@ stage "Phase D element membership batch" php DevTools/test-ga-phase-d-element-ba
 stage "Phase D combat reader batch" php DevTools/test-ga-phase-d-combat-batch.php
 stage "Phase E wind batch" php DevTools/test-ga-phase-e-wind.php
 stage "Phase E norm batch" php DevTools/test-ga-phase-e-norm.php
+stage "Phase E crux batch" php DevTools/test-ga-phase-e-crux.php
 stage "GABot self-play" php -d xdebug.mode=off DevTools/GABotSelfPlayTest.php
 stage "Semantic contracts are complete (strict)" php DevTools/audit-ga-semantic-coverage.php --strict
 stage "No truncated fixtures, no inline fixture definitions" php DevTools/create-prd-ability-fixtures.php --audit-actions

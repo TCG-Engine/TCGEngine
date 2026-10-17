@@ -4312,6 +4312,14 @@ $onAttackAbilities["o4h8cfo21a:0"] = function($player) {
     GABeginPrepAttackChoice($player, "o4h8cfo21a", 3);
 };
 
+// Vorpal Sword (PIcB5KuuMd): "[Merlin Bonus] [REST], Banish a card from your material deck: CARDNAME gains spellshroud until end of turn."
+// The generated body banished $mat[0] without asking and nothing paid the REST. Both costs now live in GAFieldAbilityCostTable() (rest + banishMaterial, Merlin gate);
+// the body only grants the effect.
+$activateAbilityAbilities["PIcB5KuuMd:0"] = function($player) { //Spellshroud
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  AddTurnEffect($mzID, "SPELLSHROUD");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

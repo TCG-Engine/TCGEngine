@@ -1,0 +1,22 @@
+{
+    "name": "the-majestic-spirit-prevents-all-of-a-single-point-of-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:34:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "prevention",
+            "crux",
+            "rounding"
+        ],
+        "rulesClauses": [
+            "If another crux element unit you control would take damage, prevent half of that damage, rounded up."
+        ]
+    }
+}

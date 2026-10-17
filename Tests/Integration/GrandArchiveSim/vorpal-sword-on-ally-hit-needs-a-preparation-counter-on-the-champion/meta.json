@@ -1,0 +1,23 @@
+{
+    "name": "vorpal-sword-on-ally-hit-needs-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:38:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-ally-hit",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Ally Hit:** You may remove a **preparation** counter from your champion. If you do, wake up the attacker. Trigger this ability only once per turn."
+        ]
+    }
+}

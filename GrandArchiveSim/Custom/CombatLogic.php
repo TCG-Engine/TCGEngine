@@ -292,6 +292,13 @@ function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
         }
     }
 
+    // Merlin, Kingslayer (rz1bqry41l): "CARDNAME's attacks get +2 [POWER] until end of turn" once the recollection trigger found an even level count.
+    // It is the champion's attack that gets the bonus (counted once, whatever mix of weapon and attack card it uses), not each attack card.
+    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "CHAMPION") && $attackerObj->CardID === "rz1bqry41l"
+       && !HasNoAbilities($attackerObj) && in_array("rz1bqry41l", $attackerObj->TurnEffects)) {
+        $totalPower += 2;
+    }
+
     // Beguiling Coup (q1b6htzcox): [Element Bonus] if this is one of your omens and
     // you have no other reserve cost 1 omens, your champion's attacks get +1 POWER.
     if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "CHAMPION")) {
@@ -2622,37 +2629,32 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         }
     }
 
-    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn
-    $attackerObj = GetZoneObject($attackerMZ);
-    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")) {
-        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
-            $hitObj = GetZoneObject($hitTarget);
-            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
-                $myField = GetZone("myField");
-                foreach($myField as $fi => $fObj) {
-                    if($fObj === null) continue;
-                    if(!$fObj->removed && $fObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($fObj)) {
-                        if(IsMerlinBonusActive($player) && !in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) {
-                            // Check champion has prep counter
-                            foreach($myField as $ci => $cObj) {
-                                if($cObj === null) continue;
-                                if(!$cObj->removed && PropertyContains(EffectiveCardType($cObj), "CHAMPION")) {
-                                    if(GetPrepCounterCount($cObj) >= 1) {
-                                        DecisionQueueController::StoreVariable("VorpalSwordMZ", "myField-" . $fi);
-                                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", "myField-" . $ci);
-                                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
-                                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                                            tooltip:"Remove_prep_counter_to_wake_attacker?");
-                                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        break;
+    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn.
+    // On a weapon, On Hit means "when an attack using this deals combat damage" (rule: On Hit, 3), so the trigger belongs to the attack made WITH the Sword
+    // (the champion's weapon attack, or the Sword itself attacking as though it were an ally), not to every ally attack while the Sword is in play.
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+        $hitObj = GetZoneObject($hitTarget);
+        if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
+            foreach([GetCombatWeapon(), $attackerMZ] as $vorpalMZ) {
+                if($vorpalMZ === null || $vorpalMZ === "-") continue;
+                $fObj = GetZoneObject($vorpalMZ);
+                if($fObj === null || $fObj->removed || $fObj->CardID !== "PIcB5KuuMd" || HasNoAbilities($fObj)) continue;
+                if(!IsMerlinBonusActive($player) || in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) break;
+                $vorpalZone = strpos($vorpalMZ, "their") === 0 ? "theirField" : "myField";
+                foreach(GetZone($vorpalZone) as $ci => $cObj) {
+                    if($cObj === null || $cObj->removed || !PropertyContains(EffectiveCardType($cObj), "CHAMPION")) continue;
+                    if(GetPrepCounterCount($cObj) >= 1) {
+                        DecisionQueueController::StoreVariable("VorpalSwordMZ", $vorpalMZ);
+                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", $vorpalZone . "-" . $ci);
+                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                            tooltip:"Remove_prep_counter_to_wake_attacker?");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
                     }
+                    break;
                 }
+                break;
             }
         }
     }
