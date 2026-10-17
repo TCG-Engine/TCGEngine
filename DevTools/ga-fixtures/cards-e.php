@@ -437,37 +437,20 @@ gaScenario('esteemed-knight-class-bonus-intercept')
     ->expectZoneCount('theirHand', 9, 1)
     ->register();
 
-// --- Enervating Decay: destroy target opposing ally, recover champion its HP (jh9s424gjr) ---
-// Notes carried over from the original definition:
-//   - TERA lineage/element unlock + pre-existing damage for the recover assertion
-//   - opponent's Dungeon Guide, target ally
-gaScenario('enervating-decay-target-destroy-recover')
+// --- Enervating Decay: "Destroy target attacking ally. If you do, recover X, where X is that ally's life stat." (jh9s424gjr) ---
+// The earlier fixture cast it with no attack in progress and destroyed a bystander ally: the card has no legal target outside combat (Phase D combat reader audit).
+// The attacking-ally cases (either seat casts it, a champion attacker, spellshroud) are in DevTools/test-ga-phase-d-combat-batch.php.
+gaScenario('enervating-decay-cannot-be-activated-without-an-attacking-ally')
     ->deck($fillerDeck)
     ->champion(lineage: ['Kongming, Fel Eidolon'], damage: 5)
     ->seed('theirField', 'Dungeon Guide')
     ->seed('myHand', 'Enervating Decay')
-    ->castSpell('Enervating Decay', pay: 4, target: 'theirField-1')
-    ->expectDqEmpty()
-    ->expectDamage('p1Field-0', 2, 'Playing Enervating Decay fires its on-play trigger (playCardAbilities["jh9s424gjr:0"]): the champion\'s pre-existing 5 damage drops to 2, i.e. RecoverChampion() healed exactly the destroyed ally\'s HP')
-    ->expectProperty('p1Field-0', 'TurnEffects', '["vz4kc558yx-ACTION_ACTIVATED"]')
-    ->expectProperty('p1Hand-0', 'CardID', 'n8wyfG9hbY')
-    ->expectProperty('p1Hand-1', 'CardID', 'px60u5n1do')
-    ->expectProperty('p1Hand-2', 'CardID', 'em6eEh9q8y')
-    ->expectProperty('p1Graveyard-0', 'CardID', 'jh9s424gjr')
-    ->expectProperty('p1Memory-0', 'CardID', 'px60u5n1do')
-    ->expectProperty('p1Memory-1', 'CardID', 'n8wyfG9hbY')
-    ->expectProperty('p1Memory-2', 'CardID', 'px60u5n1do')
-    ->expectProperty('p1Memory-3', 'CardID', 'n8wyfG9hbY')
-    ->expectProperty('p2Graveyard-0', 'CardID', 'em6eEh9q8y', 'The targeted opposing ally is destroyed into its controller\'s graveyard as part of the same trigger')
-    ->expectProperty('p2Graveyard-0', 'Status', '2')
-    ->expectDamage('p2Graveyard-0', 0)
-    ->expectProperty('p2Graveyard-0', 'Counters', '[]')
-    ->expectProperty('p2Graveyard-0', 'TurnEffects', '["ENTERED_THIS_TURN"]')
-    ->expectZoneCount('myHand', 3, 1)
-    ->expectZoneCount('myGraveyard', 1, 1)
-    ->expectZoneCount('myMemory', 4, 1)
-    ->expectZoneCount('theirField', 1, 1)
-    ->expectZoneCount('theirGraveyard', 1, 1)
+    ->castSpell('Enervating Decay', pay: 4, window: 'both')
+    ->expectCardExists('myHand', 'Enervating Decay', 'No attacking ally: the card stays in hand')
+    ->expectCardExists('theirField', 'Dungeon Guide', 'The bystander ally is untouched')
+    ->expectDamage('p1Field-0', 5, 'Nothing was recovered')
+    ->tested('Enervating Decay')
+    ->covers(['destroy', 'attacking', 'condition'], 'Destroy target attacking ally.')
     ->register();
 
 // --- Elyan, Lustre Loyalty: [Class Bonus] whenever you recover, +X POWER (X = amount recovered) ---

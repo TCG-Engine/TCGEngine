@@ -43,7 +43,15 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "theirField-1",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     }

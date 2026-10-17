@@ -3840,6 +3840,44 @@ $customDQHandlers["r7oifozaog:0:OnAttack-1"] = function($player, $parts, $lastDe
   if($isFire) AddTurnEffect($mzID, "r7oifozaog");
 };
 
+// Combat reader (Phase D): CombatAttacker / CombatTarget are stored in the ATTACKER's frame. Flamebreak Chorus (yky280mtts) compared the raw CombatTarget with the chosen ally (chosen in the caster's
+// frame), so a defending ally was never woken or given its level bonus when the defender cast it. Enervating Decay (jh9s424gjr) assumed the attacker is always the opponent (str_replace of
+// myField) and fell back to EVERY opposing ally when the attacker was not an ally or there was no combat; "target attacking ally" is the attacking ally, whoever casts it.
+$customDQHandlers["yky280mtts:0:CardActivated-1"] = function($player, $parts, $lastDecision) { //Flamebreak Chorus
+  $mzID = DecisionQueueController::GetVariable("mzID");
+  DecisionQueueController::StoreVariable("chosen", $lastDecision);
+  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "yky280mtts:0:CardActivated-1")) return;
+  $chosen = $lastDecision;
+  AddTurnEffect($chosen, "yky280mtts_POWER");
+  // Check if the chosen ally is the current combat target (defending)
+  $combatTarget = GetCombatTargetMZ();
+  if($combatTarget !== null) $combatTarget = NormalizeMzIDForController($combatTarget, $player);
+  if($combatTarget !== null && $combatTarget === $chosen) {
+      WakeupCard($player, $chosen);
+      $lv = PlayerLevel($player);
+      if($lv > 0) {
+          AddTurnEffect($chosen, "yky280mtts_LV_" . $lv);
+      }
+  }
+};
+function GAEnervatingDecayTargets($player) {
+  $attackerMZ = GAResolveAttackingUnitForController($player);
+  if($attackerMZ === null) return [];
+  $attackerObj = GetZoneObject($attackerMZ);
+  if($attackerObj === null || !PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return [];
+  return FilterSpellshroudTargets([$attackerMZ]);
+}
+$cardActivatedPrereqs["jh9s424gjr:0"] = function($player, $mzID) { //Enervating Decay needs an attacking ally
+  return !empty(GAEnervatingDecayTargets($player));
+};
+$playCardAbilities["jh9s424gjr:0"] = function($player) { //Enervating Decay
+  $targets = GAEnervatingDecayTargets($player);
+  if(empty($targets)) return;
+  DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "jh9s424gjr:0:PlayCard-1", 1);
+};
+
 // Nico, Whiplash Allure / Wield-Not-Wrath style lash triggers: these generated handlers banish a floating-memory card from the graveyard without
 // telling Nico (NicoOnFloatingMemoryBanished). Wrap each so a net gain in the banish zone notifies him once the original has run.
 foreach(["cfpwakb1k0:0:Enter-1", "fbvt9rdhkj:0:Enter-1", "qb6zhphtw6:0:Enter-1", "2ha4dk88zq:0:CardActivated-1",

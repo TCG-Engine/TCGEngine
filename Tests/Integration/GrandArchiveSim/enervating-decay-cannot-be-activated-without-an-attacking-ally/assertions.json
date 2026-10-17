@@ -1,0 +1,29 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myHand",
+        "cardID": "jh9s424gjr",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "No attacking ally: the card stays in hand"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "theirField",
+        "cardID": "em6eEh9q8y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The bystander ally is untouched"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "5",
+        "semantic": true,
+        "label": "Nothing was recovered"
+    }
+]
