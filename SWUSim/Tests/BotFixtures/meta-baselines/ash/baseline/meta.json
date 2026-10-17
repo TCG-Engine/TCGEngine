@@ -1,14 +1,14 @@
 {
- "frozen": "2026-10-16T00:48:18Z",
- "gitHead": "bcedf9a4",
+ "frozen": "2026-10-17T01:48:27Z",
+ "gitHead": "ec0f88ae",
  "treeDirty": true,
  "arm": "superset+seeds:tb+pairs:pairs.txt",
  "games": 19656,
  "failed": 0,
  "matches": 9865,
- "run": ".claude/tmp/ash-meta-runs/plain-p50-20261015",
- "note": "ASH meta baseline v2.3 (owner 2026-10-15: 'go' on shipping step 1 of the ASH lever hunt and freezing). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD bcedf9a4 PLUS the uncommitted bot tree: feature group p50 'bugfix1' (discloseanswer, selfburnguard, plotpick, hostileexhaust, nohostiletarget, downgradehost \u2014 ON) and default-OFF proposals (growkill, popfirst, rewall, mercramp, krennicmerc; group creditpop) that do not change play. Reproduces the @try-bugfix1 run 19,656/19,656 games. vs v2.2: winner changed in 752 games; softcontrol +66 (p .002), hardcontrol +52 (p .0005), softaggro -75 (p .0001), midrange -39 (p .02); archetype Pearson +0.08 -> +0.11, MAE 0.095 -> 0.094; style bias hyper +7.5, soft aggro +5.4, midrange -0.7, soft control -5.5, hard control -9.4. Report: .claude/tmp/ash-meta-runs/try-bugfix1-20261015/REPORT.md; lever hunt: .claude/tmp/ash-levers-20261015/LEVERS.md.",
- "version": "2.3",
+ "run": ".claude/tmp/ash-meta-runs/plain-p52-20261016",
+ "note": "ASH meta baseline v2.5 (owner 2026-10-16: 'ship and freeze plox' on step 3 of the ASH lever hunt). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD ec0f88ae PLUS the uncommitted bot tree: feature groups p51 'step2' and p52 'engines3' (kyloengine, leiadisclose, talzinforce, armorerengine, chewieline, koskaorder, asajjping \u2014 ON) and default-off proposals that do not change play. Reproduces the @try-engines3 run 19,656/19,656 games, 0 failed. vs v2.4: winner changed in 731 games; archetype Pearson +0.16 -> +0.36, Spearman +0.17 -> +0.30, MAE 0.087 -> 0.070 (spread SD 10.6 -> 8.7pp, real 5.8); Kylo 14% -> 52% (real 57), Leia SEC 18% -> 55% (53), Asajj 37% -> 48% (48), Talzin Green 36% -> 48% (56), Chewbacca Outpost 24% -> 33% (53); style bias hyper +5.0, soft aggro +3.7, midrange +0.4, soft control -2.8, hard control -9.1. Lever hunt: .claude/tmp/ash-levers-20261015/LEVERS.md.",
+ "version": "2.5",
  "matrixArtifact": "https://claude.ai/artifact/MrQcLgewzYmV57W7MiQxnk",
- "gitHeadNote": "bcedf9a4 is the committed base; the run used the UNCOMMITTED bot tree on top of it (feature group p50 + default-off proposals, see note). Once the owner commits, the commit holding this baseline/ directory is the run code."
+ "gitHeadNote": "The run used the UNCOMMITTED bot tree on top of the recorded gitHead (feature groups p51 + p52 + default-off proposals, see note). Once the owner commits, the commit holding this baseline/ directory is the run code."
 }

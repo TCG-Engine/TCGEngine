@@ -1,21 +1,21 @@
-RUN .claude/tmp/ash-meta-runs/plain-p50-20261015: 9865/9865 real matches replayed, 19656 games (0 failed), median 7.0 rounds, seat-1 win 50.0%
+RUN .claude/tmp/ash-meta-runs/plain-p52-20261016: 9865/9865 real matches replayed, 19656 games (0 failed), median 7.0 rounds, seat-1 win 50.1%
 68 matches on an Intro Battle: Hoth base ignored (20 HP in the sims, 30 HP in real play)
 
 ######## THIS RUN vs REAL
-ARCHETYPES (30+ matches): 68   Pearson +0.11   Spearman +0.08   MAE 0.094 (constant 50%: 0.045)   spread SD real 5.8pp / bot 11.0pp
-STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +7.5pp   softaggro +5.4pp   midrange -0.7pp   softcontrol -5.5pp   hardcontrol -9.4pp
+ARCHETYPES (30+ matches): 68   Pearson +0.36   Spearman +0.30   MAE 0.070 (constant 50%: 0.045)   spread SD real 5.8pp / bot 8.7pp
+STYLE BIAS (bot − real game WR, match-weighted): hyperaggro +5.0pp   softaggro +3.7pp   midrange +0.4pp   softcontrol -2.8pp   hardcontrol -9.1pp
 most under-performing:
-   Kylo Ren (LOF) · Data Vault                    softcontrol real 57%  bot 12%  gap -45.2  (n=33)
-   Leia Organa (SEC) · Data Vault                 midrange    real 53%  bot 18%  gap -34.6  (n=80)
-   Chewbacca (LAW) · Alliance Outpost             hyperaggro  real 53%  bot 24%  gap -28.5  (n=114)
-   Mother Talzin (LOF) · Green Force              softcontrol real 56%  bot 32%  gap -24.2  (n=33)
-   Vane (ASH) · Yellow 30HP                       midrange    real 55%  bot 35%  gap -19.8  (n=34)
-   Leia Organa (LAW) · Blue Splash                softaggro   real 50%  bot 33%  gap -17.1  (n=177)
+   Rio Durant (JTL) · Thermal Oscillator          hyperaggro  real 44%  bot 22%  gap -22.1  (n=79)
+   Leia Organa (LAW) · Blue Splash                softaggro   real 50%  bot 31%  gap -19.7  (n=177)
+   Lando Calrissian (LAW) · Colossus              softcontrol real 57%  bot 37%  gap -19.4  (n=114)
+   Chewbacca (LAW) · Alliance Outpost             hyperaggro  real 53%  bot 33%  gap -19.3  (n=114)
+   The Armorer (ASH) · Nabat Village              midrange    real 43%  bot 26%  gap -17.3  (n=100)
+   The Mandalorian (ASH) · Yellow 30HP            midrange    real 39%  bot 26%  gap -13.1  (n=33)
 most over-performing:
-   Grand Admiral Sloane (ASH) · Blue Splash       midrange    real 40%  bot 63%  gap +23.2  (n=53)
-   Darth Vader (JTL) · Yellow 30HP                hyperaggro  real 49%  bot 64%  gap +15.2  (n=1172)
-   Hera Syndulla (LAW) · Blue Splash              midrange    real 34%  bot 49%  gap +15.0  (n=38)
-   Greef Karga (ASH) · Green 30HP                 midrange    real 39%  bot 53%  gap +14.2  (n=36)
-   Ahsoka Tano (ASH) · Yellow 30HP                hyperaggro  real 49%  bot 62%  gap +12.7  (n=309)
+   Grand Admiral Sloane (ASH) · Blue Splash       midrange    real 40%  bot 61%  gap +21.3  (n=53)
    Wedge Antilles (JTL) · Yellow 30HP             hyperaggro  real 41%  bot 53%  gap +12.1  (n=31)
-MATCHUP CELLS (ordered, 10+ matches): 338   Pearson +0.27   MAE 0.138 (constant 50%: 0.086)   favourite right 60%
+   Darth Vader (JTL) · Yellow 30HP                hyperaggro  real 49%  bot 61%  gap +11.5  (n=1172)
+   Ahsoka Tano (ASH) · Yellow 30HP                hyperaggro  real 49%  bot 59%  gap  +9.5  (n=309)
+   Darth Vader (JTL) · Yellow Splash              hyperaggro  real 49%  bot 58%  gap  +9.0  (n=49)
+   Hera Syndulla (LAW) · Blue Splash              midrange    real 34%  bot 42%  gap  +8.4  (n=38)
+MATCHUP CELLS (ordered, 10+ matches): 338   Pearson +0.28   MAE 0.132 (constant 50%: 0.086)   favourite right 59%

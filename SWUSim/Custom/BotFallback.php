@@ -794,8 +794,13 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // flat +0.05 over pass made 239 of 279 traced Krennic claims. A claim-draw leader (Mando: owner-ruled claim plan) is exempt.
                 if (SWUBotProposalOn('claimspent') && _SWUBotClaimDrawCost($seat) === null
                     && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) >= 3 && !_SWUBotOpponentSpent($seat)) return -0.01;
-                return SWUBotFeatureOn('mandoclaim') ? _SWUBotClaimDrawInitiative($ctx, $seat, $W) : $W['initiative'];
+                $iv = SWUBotFeatureOn('mandoclaim') ? _SWUBotClaimDrawInitiative($ctx, $seat, $W) : $W['initiative'];
+                if (SWUBotFeatureOn('actionbeforeclaim') && ($cv = _SWUBotClaimWaitsForAction($ctx, $seat)) !== null) return min($iv, $cv);
+                return $iv;
             case 'deploy':     if (_SWUBotDeployStrikeWaits($seat)) return -0.4;   // 'deploystrike' (p39)
+                               if (_SWUBotEngineLeaderStaysHome($ctx, $seat)) return -0.4;   // proposal 'enginedeploy' (end of file)
+                               if (_SWUBotKyloReplayReady($seat)) { _SWUBotFired('kylodeploy', $seat); return 3.0; }      // feature 'kyloengine' (p52)
+                               if (_SWUBotChewieDeployNow($seat)) { _SWUBotFired('chewiedeploy', $seat); return 3.0; }    // feature 'chewieline' (p52)
                                $dv = $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
                                                   + (SWUBotFeatureOn('plotdeploy') ? _SWUBotPlotDeployValue($seat, $W) : 0.0);
@@ -829,6 +834,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                                    } finally { $GLOBALS['SWUBotSacWaitDepth'] = 0; }
                                    if ($other > 0.1) { _SWUBotFired('sachealwait', $seat); $av = min($av, $other - 0.01); }
                                }
+                               // FEATURE 'koskaorder' (p52, 2026-10-16, G3-15): the Credit Action goes before a castable Koska Reeves while nothing friendly died.
+                               if (SWUBotFeatureOn('koskaorder') && SWUTeamFlagCount($seat, 'SWU_FRIENDLY_DEFEATED') === 0 && SWUBotCreditSacLeaderFront($seat) !== null
+                                   && _SWUBotKoskaCastable($ctx, $seat)) { _SWUBotFired('koskasac', $seat); $av = max($av, 0.6); }
                                // PROPOSAL 'popfirst' (BotCreditEngine.php): the Action waits for its pick's Shield-pop attack.
                                if ($av > 0.0 && SWUBotProposalOn('popfirst') && ($pf = SWUBotCreditPopFirstLine($seat)) !== null) {
                                    $popScore = SWUBotTargetValue($pf[0], $pf[1], $W);
@@ -848,6 +856,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 }
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 $score = ($best ?? 0.0) + (in_array(strval($action['cardID'] ?? ''), $guides['attackFirst'], true) ? $W['attackFirst'] : 0.0);
+                // FEATURE 'armorerengine' (p52, 2026-10-16, G2-06): an Improvised Identity host's plain attack waits for its Action (which attacks too).
+                if (_SWUBotIdentityHost($seat, SWUBotActionMz($action)) !== null) {
+                    $hmz = SWUBotActionMz($action);
+                    if (_SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'unit-action' && SWUBotActionMz($a) === $hmz) !== null) return -0.4;
+                }
                 // Feature 'enablerfirst' (Bug Report game 1647080): an On Attack "next unit you play this phase" grant is worth what it adds
                 // to the payoff in hand — and the go-wide guide may start its line with this swing (SWUBotAggroMaxUnitsPick).
                 if (SWUBotFeatureOn('enablerfirst')) $score += _SWUBotAttackEnablerBonus($seat, strval($att['cardID'] ?? ''), $W);
@@ -1011,6 +1024,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (_SWUBotPitchWaitsForAction($ctx, $seat, $cid)) { _SWUBotFired('maulpitch', $seat); return min($v, -0.4); }
                 // FEATURE 'condetb' (p44): a gated When Played (Disposable B1, Lifetree Caravan) waits for the unit that switches it on.
                 if (_SWUBotCondEtbWaits($seat, $i, $cid)) return min($v, -0.4);
+                // Step 3 features (p52, end of file): plays that wait for the engine move that should go first.
+                if (SWUBotFeatureOn('talzinforce') && str_contains(strval(CardType($cid)), 'Unit') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat)
+                    && _SWUBotNeedsTheForce($cid) && _SWUBotForceRefillReady($seat)) { _SWUBotFired('talzinwait', $seat); return min($v, -0.4); }
+                if ((_SWUBotKyloReplayReady($seat) || _SWUBotChewieDeployNow($seat)) && _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'deploy') !== null) return min($v, -0.4);
+                if (_SWUBotKoskaWaitsForSac($seat, $cid)) { _SWUBotFired('koskawait', $seat); return min($v, -0.4); }
                 return $v + _SWUBotWdBaitValue($seat, $cid, $W);   // feature 'wdbait' (p46)
         }
         return -$index * 1e-6;
@@ -2297,7 +2315,11 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
     foreach (SWUBotCardTags($cid) as $t) {
         if ($condOff) break;
         if ($t === 'debuff-all-enemy-units' || $t === 'heal-on-enemy-defeat') continue;   // board-scaled below, never flat
-        $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
+        // PROPOSAL 'indirectprice' (2026-10-15 ASH lever hunt G1-05/G2-18): tags v3 split 'indirect-damage' out of 'burn' and it never got a
+        // weight row, so it priced 0 — Planetary Bombardment sat in hand with 6+ resources in 88/95 Boba DV and 219/233 Piett games. It takes
+        // the base-damage weight 'burn' carried before the split.
+        $w = ($t === 'indirect-damage' && SWUBotProposalOn('indirectprice')) ? floatval($W['damage-enemy-base'] ?? 0.0) : ($W[$t] ?? 0.0);
+        $v += $w * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
         if ($t === 'search-top-deck' && SWUBotFeatureOn('searchvalue')) $v += _SWUBotSearchValue($seat, $cid, $W);
     }
     $v += _SWUBotHandHateValue($seat, $cid, $W);   // proposal 'handhate'
@@ -3335,6 +3357,9 @@ function _SWUBotBoardSignature(int $seat): array {
     return ['mine' => $mine, 'theirs' => $theirs, 'bases' => $per(fn($p) => SWUBaseRemainingHp($p)),
             'hands' => $per(fn($p) => $live(GetHand($p))), 'resources' => $per(fn($p) => $live(GetResources($p))),
             'credits' => $per($credits),
+            // FEATURE 'actionbeforeclaim' (p51, 2026-10-15): the Force token too — Avar Kriss's "The Force is with you" changed nothing the signature
+            // saw, scored -0.5, and the seat claimed the initiative instead (Avar used her Action in 11% of pre-deploy rounds).
+            'force' => SWUBotFeatureOn('actionbeforeclaim') ? $per(fn($p) => function_exists('PlayerHasTheForce') && PlayerHasTheForce($p) ? 1 : 0) : [],
             'decks' => $per(fn($p) => $live(GetDeck($p))), 'discards' => $per(fn($p) => $live(GetDiscard($p)))];
 }
 
@@ -4735,6 +4760,7 @@ function _SWUBotFreeKillValue(array $ctx, int $seat, string $text, array $W): ?f
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
     if (_SWUBotHostileActionNoTarget($seat, $action)) return -0.5;   // feature 'nohostiletarget' (p50, end of file)
+    if (($ev = _SWUBotEngineActionValue($ctx, $seat, $action, $W)) !== null) return $ev;   // step 3 features (p52, end of file)
     // Feature 'landoflip' (p42): a Credit is already banked and the flip is available now — the Action is not needed (owner: "the ability
     // may not be necessary if you already had one banked from the 5R turn. this way you can play a 9-drop").
     if (SWUBotFeatureOn('landoflip') && ($fl = _SWUBotActionLeader($seat, $action)) !== null && _SWUBotCreditFlipLeader($fl)
@@ -4936,6 +4962,9 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         $n = preg_match('/-\d+\/-(\d+)/', $text, $m) ? intval($m[1]) : 0;
         $kills = count(array_filter($enemies, fn($v) => $v['remaining'] <= $n)) > 0;
         if (!$kills && _SWUBotHasOtherForceUse($seat)) $value = min($value, 0.02);   // below the initiative (0.05)
+        // FEATURE 'talzinforce' (p52, 2026-10-16, G4-04): …and it WAITS (below PASS) — 0.02 still beat passing, so the Force went and a later
+        // Assassin or Karis found none; a Force card still in the deck counts too.
+        if (!$kills && SWUBotFeatureOn('talzinforce') && (_SWUBotHasOtherForceUse($seat) || _SWUBotForceCardsInDeck($seat) >= 2)) { _SWUBotFired('talzinforce', $seat); return -0.5; }
     }
     return $value - max(0.0, $lost - 1.0) - $unused;
 }
@@ -5141,6 +5170,7 @@ function _SWUBotEnemyEnteredThisPhase(int $seat): bool {
 //   'hostileexhaust' (G1-23): Shin Hati exhausted MY unit 39 of 575 times. The front trigger is declined with no ready enemy to exhaust;
 //      the deployed "may exhaust" never takes my own unit.
 function _SWUBotPromptFixScore(array $ctx, int $seat, string $tip, string $type, string $head, string $c, array $W): ?float {
+    if (($es = _SWUBotEnginePromptScore($ctx, $seat, $tip, $type, $head, $c, $W)) !== null) return $es;   // step 3 features (p52)
     if (SWUBotFeatureOn('discloseanswer') && $type === 'MZMULTICHOOSE' && ($req = _SWUBotDiscloseRequired($tip)) !== null) {
         if ($c === '-' || $c === '' || $c === 'PASS') return 0.0;
         $have = []; $n = 0;
@@ -5204,4 +5234,239 @@ function SWUBotSelfBurnFilter(array $ctx): array {
         $out[] = $a;
     }
     return empty($out) ? $ctx['actions'] : $out;
+}
+
+// ════ 2026-10-15 ASH lever hunt — STEP 2 (gradient levers). PROPOSALS, default OFF, one ASH arm each. ════
+
+// FEATURE 'actionbeforeclaim' (p51, G3-03 + G3-04). Control leaders claimed the initiative without using their front Action in 42-79% of
+// pre-deploy rounds (Dedra 79%, Avar 55%, Aurra 48%, Krennic 42%; Lando 6%), and Dedra's first action of round 1 was a claim in 983 of 1,352
+// games. The claim's score, or null for no change:
+//   (a) a worthwhile Action still on offer (leader / unit / base, score > 0) goes first — the claim scores just below it;
+//   (b) a control seat (rank >= 3) whose ready front-side leader Action needs an ENEMY target that is not there yet PASSES while the opponent
+//       can still act: their next play gives the Action its target, and the claim would end my round with the Action unused.
+function _SWUBotClaimWaitsForAction(array $ctx, int $seat): ?float {
+    if (!empty($GLOBALS['SWUBotClaimWaitDepth'])) return null;
+    $GLOBALS['SWUBotClaimWaitDepth'] = 1;
+    try {
+        $best = null;
+        foreach ($ctx['actions'] as $k => $a) {
+            if (!in_array(SWUBotActionKind($a), ['leader-ability', 'unit-action', 'base-epic'], true)) continue;
+            $s = SWUBotScoreAction($ctx, $a, $k);
+            if ($s > 0.0 && ($best === null || $s > $best)) $best = $s;
+        }
+    } finally { $GLOBALS['SWUBotClaimWaitDepth'] = 0; }
+    if ($best !== null) { _SWUBotFired('actionbeforeclaim', $seat); return $best - 0.01; }
+    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) >= 3 && !_SWUBotOpponentSpent($seat)) {
+        foreach (GetLeader($seat) as $l) {
+            if ($l === null || !empty($l->removed) || in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true) || !in_array(strval($l->Ready ?? 'false'), ['true', '1'], true)) continue;
+            if (preg_match('/^\s*Action \[[^\]]*\]:\s*(?:Choose an enemy unit|Defeat a non-leader unit|If you created a token this phase, exhaust an enemy unit)/mi', strval(CardText(strval($l->CardID ?? ''))))
+                && !_SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability')) {
+                _SWUBotFired('reactivepass', $seat);
+                return -0.01;
+            }
+        }
+    }
+    return null;
+}
+
+// PROPOSAL 'enginedeploy' (G3-05 / G3-06). Every leader deployed in its first legal round (Dedra round 3 in 1,352/1,352 games, Lando R5
+// 1,145/1,400). An aggro leader's payoff IS its deployed side; a control leader's engine is its FRONT Action, given up for the rest of the game
+// (Dedra: "2 damage or a card" every round for a 2/5). A control seat (rank >= 3) whose undeployed leader has a repeatable front Action keeps it
+// home until round SWU_BOT_ENGINE_DEPLOY_ROUND while the opponent's board needs 3+ rounds to kill my base.
+const SWU_BOT_ENGINE_DEPLOY_ROUND = 7;
+function _SWUBotEngineLeaderStaysHome(array $ctx, int $seat): bool {
+    if (!SWUBotProposalOn('enginedeploy') || SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3 || intval(GetTurnNumber()) >= SWU_BOT_ENGINE_DEPLOY_ROUND) return false;
+    $l = GetLeader($seat)[0] ?? null;
+    if ($l === null || !preg_match('/^\s*Action \[(?![^\]]*Epic)[^\]]*\]:/mi', strval(CardText(strval($l->CardID ?? ''))))) return false;
+    foreach (SWUBotOpponents($seat) as $o) if (SWUBotClock($o, $seat) < 3) return false;
+    _SWUBotFired('enginedeploy', $seat);
+    return true;
+}
+
+// ════ 2026-10-16 ASH lever hunt — STEP 3: deck engines. SHIPPED as feature group 'p52' / 'engines3' (BotFeatures.php). ════
+// Each touches only its own leader/card, so they share one run. Evidence per lever: .claude/tmp/ash-levers-20261015/levers-group*.md.
+
+function _SWUBotLeaderFront(int $seat, string $cid): ?object {
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed) || strval($l->CardID ?? '') !== $cid) continue;
+        if (in_array(strval($l->Deployed ?? 'false'), ['true', '1'], true)) return null;
+        return $l;
+    }
+    return null;
+}
+function _SWUBotHandCards(int $seat): array {
+    $out = [];
+    foreach (GetHand($seat) as $i => $o) if ($o !== null && empty($o->removed)) $out[$i] = strval($o->CardID ?? '');
+    return $out;
+}
+
+// ── 'leiadisclose' (G2-01..03) — SEC_004 Leia Organa: the disclosed card decides who may take the Experience ("a unit that doesn't share
+// an aspect with the disclosed card"). The pick was the first card in hand: of 652 front Actions 225 gave the token to an ENEMY unit and 257
+// to nobody. A card is worth the best FRIENDLY unit it leaves legal (a ready one first); a card that leaves only enemies is below PASS, and
+// the Action waits when no hand card feeds a friendly unit.
+function _SWUBotLeiaDiscloseValue(int $seat, string $cid): float {
+    $icons = SWUCardAspectIcons($cid);
+    $best = -1.0;
+    foreach (SWUBotUnits($seat) as $u) {
+        if (!empty(array_intersect(SWUCardAspectIcons(strval($u['cardID'])), $icons))) continue;
+        $best = max($best, 1.0 + 0.1 * intval($u['power']) + (!empty($u['ready']) ? 0.5 : 0.0));
+    }
+    return $best;
+}
+function _SWUBotLeiaHasFriendlyRecipient(int $seat): bool {
+    foreach (_SWUBotHandCards($seat) as $cid) {
+        $icons = SWUCardAspectIcons($cid);
+        if (empty(array_intersect($icons, ['Vigilance', 'Command', 'Aggression', 'Cunning', 'Heroism']))) continue;   // not discloseable
+        if (_SWUBotLeiaDiscloseValue($seat, $cid) > 0.0) return true;
+    }
+    return false;
+}
+
+// ── 'kyloengine' (G1-16..18) — LOF_001 Kylo Ren: "Discard a card from your hand. If you discarded an upgrade this way, draw a card" and,
+// deployed, "Play any number of upgrades from your discard pile on this unit". 298 of 456 discards were NOT upgrades (no draw), and a
+// deploy after another play replayed nothing 33 of 36 times. The Action waits with no upgrade in hand; the discard is an upgrade, one Kylo
+// can wear first (a downgrade like Condemn is kept to play from hand); the replay never puts a downgrade on Kylo; and the deploy goes first
+// while an affordable upgrade waits in the discard.
+function _SWUBotKyloHasUpgradeInHand(int $seat): bool {
+    foreach (_SWUBotHandCards($seat) as $cid) if (str_contains(strval(CardType($cid)), 'Upgrade')) return true;
+    return false;
+}
+function _SWUBotKyloReplayReady(int $seat): bool {
+    if (!SWUBotFeatureOn('kyloengine') || _SWUBotLeaderFront($seat, 'LOF_001') === null) return false;
+    $cap = SWUTotalPaymentCapacity($seat);
+    foreach (GetDiscard($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        if (str_contains(strval(CardType($cid)), 'Upgrade') && !SWUBotIsDowngrade($cid) && intval(CardCost($cid)) <= $cap) return true;
+    }
+    return false;
+}
+
+// ── 'talzinforce' (G4-04/05) — Mother Talzin LOF_002 "Action [Exhaust, use the Force]: Give a unit -1/-1". 63-64% of uses killed nothing;
+// Talzin's Assassin was cast without the Force 16-36% of the time. A non-killing -1/-1 waits whenever another Force card is in hand OR 2+ wait
+// in the deck (Karis's When Defeated fires on the opponent's turn); a "When Played: use the Force" unit without the Force waits while a
+// ready Force-unit attack can refill it this phase.
+function _SWUBotForceCardsInDeck(int $seat): int {
+    $n = 0;
+    foreach (GetDeck($seat) as $o) if ($o !== null && empty($o->removed) && _SWUBotNeedsTheForce(strval($o->CardID ?? ''))) $n++;
+    return $n;
+}
+function _SWUBotForceRefillReady(int $seat): bool {
+    foreach (SWUBotUnits($seat) as $u) if (!empty($u['ready']) && _SWUBotAttackRefillsForce($seat, $u)) return true;
+    return false;
+}
+
+// ── 'armorerengine' (G2-05/06) — ASH_230 Improvised Identity ("Action: Search the top 3 … discard it. Then, you may attack with this unit"):
+// 382 uses, only 46 followed by an attack — the host had already swung, so Maul, Bendu and Pong Krell were discarded for nothing. The
+// Action IS the host's attack: worth W['ability'] + that attack while the host is ready, nothing once it is exhausted, and a plain attack by
+// that host waits for it. JTL_028 Nabat Village's opening bottom-3 was the first three cards 100/100: now the three worth least to keep.
+function _SWUBotIdentityHost(int $seat, string $mz): ?array {
+    if (!SWUBotFeatureOn('armorerengine')) return null;
+    $v = SWUBotViewForMz($seat, $mz);
+    if ($v === null || !isset($v['obj']) || !function_exists('_SWUUnitHasUpgrade') || !_SWUUnitHasUpgrade($v['obj'], 'ASH_230')) return null;
+    return $v;
+}
+function _SWUBotIdentityAttackValue(array $ctx, array $host, array $W): float {
+    $best = 0.0;
+    foreach (SWUBotAllowedTargets($ctx, $host) as [$k, $u]) $best = max($best, SWUBotTargetValue($host, $k === 'base' ? null : $u, $W));
+    return $W['ability'] + $best;
+}
+
+// ── 'chewieline' (G4-27/G3-12/G3-13) — LAW_013 Chewbacca: "Action [1 resource, Exhaust, defeat a friendly resource]: Deal 2 damage to a unit
+// and create a Credit token" / "Epic Action [4 resources]: Deploy". Using the Action in rounds 1-2 cut the round-3 deploy from 30% of games to
+// 9%. Before the deploy it is used only to kill a unit costing 3+ (2 damage, no Shield); the round the deploy is affordable it goes first.
+function _SWUBotChewieActionKills(int $seat): bool {
+    foreach (SWUBotEnemyUnits($seat) as $e) {
+        if (empty($e['isLeader']) && intval($e['shields']) === 0 && intval($e['remaining']) <= 2 && intval(CardCost($e['cardID'])) >= 3) return true;
+    }
+    return false;
+}
+function _SWUBotChewieDeployNow(int $seat): bool {
+    return SWUBotFeatureOn('chewieline') && _SWUBotLeaderFront($seat, 'LAW_013') !== null && SWUResourceCount($seat, true) >= 4;
+}
+
+// ── 'koskaorder' (G3-15) — ASH_079 Koska Reeves "When Played: If a friendly unit was defeated this phase, create a Mandalorian token" (and with
+// a token she is a Sentinel): Krennic played her BEFORE the round's sacrifice 465 times, after it 38. While the Credit Action can still take a
+// unit this phase and nothing friendly has died, Koska waits and the Action goes first.
+function _SWUBotKoskaWaitsForSac(int $seat, string $cid): bool {
+    if (!SWUBotFeatureOn('koskaorder') || $cid !== 'ASH_079' || SWUTeamFlagCount($seat, 'SWU_FRIENDLY_DEFEATED') > 0) return false;
+    $l = SWUBotCreditSacLeaderFront($seat);
+    return $l !== null && _SWUBotLeaderReady($l) && SWUBotCreditSacPick($seat) !== null;
+}
+function _SWUBotKoskaCastable(array $ctx, int $seat): bool {
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = _SWUBotHandObject($seat, $a);
+        if ($o !== null && strval($o->CardID ?? '') === 'ASH_079') return true;
+    }
+    return false;
+}
+
+// ── 'asajjping' (G2-12/13) — JTL_001 Asajj Ventress: "Deal 1 damage to a friendly unit. If you do, deal 1 damage to an enemy unit in the same
+// arena." 47% of her Actions (319/678) hit her own unit with no enemy unit in that arena, 34 killed it. The Action waits without a contested
+// arena; the friendly pick is a unit in a contested arena that survives the 1.
+function _SWUBotContestedArenas(int $seat): array {
+    $mine = []; $theirs = [];
+    foreach (SWUBotUnits($seat) as $u) $mine[$u['arena']] = true;
+    foreach (SWUBotEnemyUnits($seat) as $e) $theirs[$e['arena']] = true;
+    return array_keys(array_intersect_key($mine, $theirs));
+}
+
+// Step 3 prompt picks, ahead of the generic branches (called from _SWUBotPromptFixScore). Null = not one of these prompts.
+function _SWUBotEnginePromptScore(array $ctx, int $seat, string $tip, string $type, string $head, string $c, array $W): ?float {
+    if (SWUBotFeatureOn('leiadisclose') && $head === 'SEC_004#0') {
+        if (!preg_match('/^myHand-(\d+)$/', $c, $m)) return ($c === 'PASS' || $c === '-') ? 0.0 : null;
+        $o = GetHand($seat)[intval($m[1])] ?? null;
+        if ($o === null) return null;
+        _SWUBotFired('leiadisclose', $seat);
+        return _SWUBotLeiaDiscloseValue($seat, strval($o->CardID ?? ''));
+    }
+    if (SWUBotFeatureOn('kyloengine') && $head === 'LOF_001#0' && preg_match('/^myHand-(\d+)$/', $c, $m)) {
+        $o = GetHand($seat)[intval($m[1])] ?? null;
+        if ($o === null) return null;
+        $cid = strval($o->CardID ?? ''); $keep = 0.01 * SWUBotHandKeepValue($seat, $o, $W);
+        _SWUBotFired('kyloengine', $seat);
+        if (!str_contains(strval(CardType($cid)), 'Upgrade')) return 0.5 - $keep;
+        return (SWUBotIsDowngrade($cid) ? 2.0 : 3.0) - $keep;
+    }
+    if (SWUBotFeatureOn('kyloengine') && str_starts_with($head, 'LOF_001#1') && preg_match('/^myDiscard-(\d+)$/', $c, $m)) {
+        $cid = strval((GetDiscard($seat)[intval($m[1])] ?? null)->CardID ?? '');
+        if ($cid === '') return null;
+        return SWUBotIsDowngrade($cid) ? -1.0 : 1.0 + 0.1 * intval(CardCost($cid));
+    }
+    if (SWUBotFeatureOn('armorerengine') && $type === 'MZMULTICHOOSE' && str_starts_with($tip, 'Put_3_cards_from_your_hand_on_the_bottom')) {
+        $sum = 0.0;
+        foreach (explode('&', $c) as $mz) {
+            if (!preg_match('/^myHand-(\d+)$/', $mz, $m) || ($o = GetHand($seat)[intval($m[1])] ?? null) === null) return null;
+            $sum += SWUBotHandKeepValue($seat, $o, $W);
+        }
+        _SWUBotFired('nabatbottom', $seat);
+        return 1.0 - 0.001 * $sum;
+    }
+    if (SWUBotFeatureOn('asajjping') && in_array($head, ['JTL_001#0', 'JTL_001#1'], true) && preg_match('/^(my|team)/', $c)) {
+        $v = SWUBotViewForMz($seat, $c);
+        if ($v === null) return null;
+        $contested = in_array($v['arena'], _SWUBotContestedArenas($seat), true);
+        _SWUBotFired('asajjping', $seat);
+        return ($contested ? 1.0 : -1.0) + (intval($v['remaining']) > 1 ? 0.5 : -1.0);
+    }
+    return null;
+}
+
+// Step 3 Action gates (called first in _SWUBotAbilityValue). Null = no opinion.
+function _SWUBotEngineActionValue(array $ctx, int $seat, array $action, array $W): ?float {
+    $text = _SWUBotActionSourceText($seat, $action);
+    $kind = SWUBotActionKind($action);
+    if ($kind === 'leader-ability') {
+        if (SWUBotFeatureOn('leiadisclose') && _SWUBotLeaderFront($seat, 'SEC_004') !== null && !_SWUBotLeiaHasFriendlyRecipient($seat)) { _SWUBotFired('leiawait', $seat); return -0.5; }
+        if (SWUBotFeatureOn('kyloengine') && _SWUBotLeaderFront($seat, 'LOF_001') !== null && !_SWUBotKyloHasUpgradeInHand($seat)) { _SWUBotFired('kylowait', $seat); return -0.5; }
+        if (SWUBotFeatureOn('asajjping') && _SWUBotLeaderFront($seat, 'JTL_001') !== null && empty(_SWUBotContestedArenas($seat))) { _SWUBotFired('asajjwait', $seat); return -0.5; }
+        if (SWUBotFeatureOn('chewieline') && _SWUBotLeaderFront($seat, 'LAW_013') !== null && !_SWUBotChewieActionKills($seat)) { _SWUBotFired('chewiewait', $seat); return -0.5; }
+    }
+    // The Action source text is the HOST's own text, not the gained one: the host carries Improvised Identity and has no Action of its own.
+    if ($kind === 'unit-action' && ($host = _SWUBotIdentityHost($seat, SWUBotActionMz($action))) !== null && !preg_match('/(^|\n)\s*Action( \[|:)/', $text)) {
+        _SWUBotFired('identityattack', $seat);
+        return empty($host['ready']) ? -0.5 : _SWUBotIdentityAttackValue($ctx, $host, $W);
+    }
+    return null;
 }
