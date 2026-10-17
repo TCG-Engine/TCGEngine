@@ -1,0 +1,22 @@
+{
+    "name": "sleety-retreat-defending-ranger-opponent-pays-two-and-combat-continues",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:39:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j9fkuzgg9i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j9fkuzgg9i"
+        ],
+        "mechanics": [
+            "distant",
+            "combat",
+            "pay-or-end"
+        ],
+        "rulesClauses": [
+            "Target Ranger unit becomes **distant**. If that unit is defending, end the combat phase unless an opponent pays (2)."
+        ]
+    }
+}

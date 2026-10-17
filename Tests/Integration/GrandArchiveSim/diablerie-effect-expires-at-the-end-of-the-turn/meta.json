@@ -1,0 +1,22 @@
+{
+    "name": "diablerie-effect-expires-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:36:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0plqbtjuxz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0plqbtjuxz"
+        ],
+        "mechanics": [
+            "divine-relic",
+            "replacement-effect",
+            "duration"
+        ],
+        "rulesClauses": [
+            "The next time a regalia with **divine relic** would enter the field this turn"
+        ]
+    }
+}

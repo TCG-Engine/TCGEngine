@@ -1,0 +1,16 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"DISTANT\",\"RANGED_1\"]",
+        "semantic": true,
+        "label": "The Ranger champion became distant and gained ranged 1"
+    },
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

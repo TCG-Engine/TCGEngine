@@ -1,0 +1,22 @@
+{
+    "name": "stifling-gyre-paid-four-lets-the-named-allys-on-enter-resolve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:34:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OADTyAUBZt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OADTyAUBZt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "negate",
+            "pay-or-negate"
+        ],
+        "rulesClauses": [
+            "Whenever an **on enter** ability of an ally with the chosen name triggers, **negate** that trigger unless its controller pays (4)."
+        ]
+    }
+}

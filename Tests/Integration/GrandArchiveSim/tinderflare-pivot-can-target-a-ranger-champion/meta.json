@@ -1,0 +1,22 @@
+{
+    "name": "tinderflare-pivot-can-target-a-ranger-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:37:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3bqtjayfn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3bqtjayfn"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting",
+            "champion"
+        ],
+        "rulesClauses": [
+            "Target Ranger unit becomes **distant** and gains **ranged 1** until end of turn."
+        ]
+    }
+}

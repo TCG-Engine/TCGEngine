@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-17T20:24:31+00:00",
+    "generatedAt": "2026-10-17T20:40:06+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -17611,9 +17611,17 @@
                 "condition"
             ],
             "existingFixtures": [
+                "sleety-retreat-can-target-a-ranger-champion",
+                "sleety-retreat-cannot-target-a-non-ranger-champion",
+                "sleety-retreat-defending-ranger-opponent-declines-to-pay-and-combat-ends",
+                "sleety-retreat-defending-ranger-opponent-pays-two-and-combat-continues",
                 "sleety-retreat-target-distant"
             ],
             "semanticFixtures": [
+                "sleety-retreat-can-target-a-ranger-champion",
+                "sleety-retreat-cannot-target-a-non-ranger-champion",
+                "sleety-retreat-defending-ranger-opponent-declines-to-pay-and-combat-ends",
+                "sleety-retreat-defending-ranger-opponent-pays-two-and-combat-continues",
                 "sleety-retreat-target-distant"
             ],
             "starterDecks": [],
@@ -24897,10 +24905,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack"
+                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack",
+                "tempestuous-seraphim-imbued-enter-deals-four-damage-to-the-attacking-ally",
+                "tempestuous-seraphim-not-imbued-enter-deals-no-damage"
             ],
             "semanticFixtures": [
-                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack"
+                "tempestuous-seraphim-fast-activation-can-be-played-in-response-to-an-attack",
+                "tempestuous-seraphim-imbued-enter-deals-four-damage-to-the-attacking-ally",
+                "tempestuous-seraphim-not-imbued-enter-deals-no-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32737,9 +32749,11 @@
                 "status"
             ],
             "existingFixtures": [
+                "tinderflare-pivot-can-target-a-ranger-champion",
                 "tinderflare-pivot-makes-a-ranger-distant"
             ],
             "semanticFixtures": [
+                "tinderflare-pivot-can-target-a-ranger-champion",
                 "tinderflare-pivot-makes-a-ranger-distant"
             ],
             "starterDecks": [],
@@ -41364,10 +41378,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name"
+                "stifling-gyre-declined-payment-negates-the-named-allys-on-enter",
+                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name",
+                "stifling-gyre-paid-four-lets-the-named-allys-on-enter-resolve"
             ],
             "semanticFixtures": [
-                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name"
+                "stifling-gyre-declined-payment-negates-the-named-allys-on-enter",
+                "stifling-gyre-on-enter-draws-into-memory-and-chooses-an-ally-name",
+                "stifling-gyre-paid-four-lets-the-named-allys-on-enter-resolve"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -52768,9 +52786,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "diablerie-effect-expires-at-the-end-of-the-turn",
                 "diablerie-registers-the-steal-the-next-divine-relic-effect"
             ],
             "semanticFixtures": [
+                "diablerie-effect-expires-at-the-end-of-the-turn",
                 "diablerie-registers-the-steal-the-next-divine-relic-effect"
             ],
             "starterDecks": [],

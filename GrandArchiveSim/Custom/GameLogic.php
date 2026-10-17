@@ -9810,7 +9810,7 @@ function FindFieldMzByUniqueID($uniqueID) {
     return "";
 }
 
-function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copiedCardID = "") {
+function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copiedCardID = "", $gyrePaid = false) {
     global $enterAbilities;
 
     $sourceMzID = FindFieldMzByUniqueID($sourceUniqueID);
@@ -9830,7 +9830,7 @@ function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copie
     $hasCopiedEnter = ($copiedCardID !== "" && isset($enterAbilities[$copiedCardID . ":0"]));
     if(!$hasBaseEnter && !$hasCopiedEnter) return;
 
-    if($sourceObj !== null
+    if(!$gyrePaid && $sourceObj !== null
         && PropertyContains(EffectiveCardType($sourceObj), "ALLY")
         && $hasBaseEnter) {
         $gyreOpponent = ($player == 1) ? 2 : 1;
@@ -17580,10 +17580,12 @@ $customDQHandlers["StiflingGyrePayOrNegate"] = function($player, $parts, $lastDe
     $sourceUniqueID = intval(DecisionQueueController::GetVariable("OADTyAUBZt_sourceUniqueID") ?? "0");
     $copiedCardID = DecisionQueueController::GetVariable("OADTyAUBZt_copiedCardID") ?? "";
     if($lastDecision !== "YES") return;
+    if(CountAvailableReservePayments($player) < 4) return; // cannot pay (4): the trigger stays negated
     for($i = 0; $i < 4; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer . "|" . $sourceUniqueID . "|" . $copiedCardID, 1);
+    // Same block as the payments so it runs after them (a lower block ran first, before anything was paid).
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer . "|" . $sourceUniqueID . "|" . $copiedCardID, 100);
 };
 
 $customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDecision) {
@@ -17591,7 +17593,7 @@ $customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDeci
     $enteringPlayer = intval($parts[1] ?? $player);
     $sourceUniqueID = intval($parts[2] ?? "0");
     $copiedCardID = $parts[3] ?? "";
-    FireEnterTriggeredAbility($enteringPlayer, $cardID, $sourceUniqueID, $copiedCardID);
+    FireEnterTriggeredAbility($enteringPlayer, $cardID, $sourceUniqueID, $copiedCardID, true);
 };
 
 $customDQHandlers["TonorisCreationsWillReplace"] = function($player, $parts, $lastDecision) {

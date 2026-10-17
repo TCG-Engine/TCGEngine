@@ -152,6 +152,8 @@ These are recorded unexercised paths, not confirmed bugs. Recheck existing fixtu
 | Exalted | Labyrinth stealth; Mirrorbound opposing influence cap; Aenean Repudiation Progression cost. |
 | Water | Frozen Divinity opposing level-2 champion clause; Treacle/Weiss Bishop stealth with ephemeral. |
 
+**Wind batch (done).** `phase-e-wind.php` (10 scenarios) and `DevTools/test-ga-phase-e-wind.php` (10 checks). Bug fixed: Stifling Gyre's pay-or-negate queued the On Enter continuation ahead of the four reserve payments and then re-ran the Gyre check, so paying (4) re-prompted forever and the On Enter never resolved; the continuation now runs after the payments, skips the re-check, and an unaffordable (4) leaves the trigger negated. Diablerie's relic theft cannot be reached in play (a relic cannot enter under the opponent's control during the caster's turn), so the theft is a harness check and the fixture proves the effect expires with the turn. Open rules question: Gyre only taxes allies entering under the *opponent's* control; its printed text does not restrict whose allies.
+
 Exit per batch: each clause has observable, non-vacuous evidence or a documented engine blocker; regenerate the backlog after changes.
 
 ### Phase F — Fixture quality and automation
