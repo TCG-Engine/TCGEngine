@@ -36,31 +36,23 @@ gaScenario('uncanny-realization-a-unique-ally-attacking-with-it-gets-plus-two-po
 
 // ---- Clean Cut ----
 
-gaScenario('clean-cut-level-two-on-kill-draws-a-card')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Clean Cut', level: 2, player: 2)
-    ->seed('myField', 'Young Wyrmling', properties: ['Status' => 1])
-    ->seed('myHand', 'Clean Cut', player: 2)
-    ->endTurn()
-    ->play('Clean Cut', 2)->pay(2, 2)->target('theirField-1', 2)
-    ->expectCardExists('myGraveyard', 'Young Wyrmling', 'Clean Cut\'s 2 power destroyed the 2-life Wyrmling')
-    ->expectZoneCount('myHand', 7, 2, '[Level 2+] On Kill: a card was drawn (the level 1 twin ends with 6)')
-    ->tested('Clean Cut')
-    ->covers(['level-gate', 'on-kill', 'draw'], '[Level 2+] **On Kill:** Draw a card.')
-    ->register();
-
-gaScenario('clean-cut-below-level-two-draws-nothing-on-kill')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Clean Cut', level: 1, player: 2)
-    ->seed('myField', 'Young Wyrmling', properties: ['Status' => 1])
-    ->seed('myHand', 'Clean Cut', player: 2)
-    ->endTurn()
-    ->play('Clean Cut', 2)->pay(2, 2)->target('theirField-1', 2)
-    ->expectCardExists('myGraveyard', 'Young Wyrmling', 'The Wyrmling died')
-    ->expectZoneCount('myHand', 6, 2, 'Level 1: no draw')
-    ->tested('Clean Cut')
-    ->covers(['level-gate', 'on-kill', 'condition'], '[Level 2+] **On Kill:** Draw a card.')
-    ->register();
+foreach ([
+    ['clean-cut-level-two-on-kill-draws-a-card', 2, 'Clean Cut\'s 2 power destroyed the 2-life Wyrmling', 7, '[Level 2+] On Kill: a card was drawn (the level 1 twin ends with 6)', ['level-gate', 'on-kill', 'draw']],
+    ['clean-cut-below-level-two-draws-nothing-on-kill', 1, 'The Wyrmling died', 6, 'Level 1: no draw', ['level-gate', 'on-kill', 'condition']],
+] as [$slug, $level, $deathLabel, $handCount, $drawLabel, $mechanics]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', 'Dungeon Guide')
+        ->readyFor('Clean Cut', level: $level, player: 2)
+        ->seed('myField', 'Young Wyrmling', properties: ['Status' => 1])
+        ->seed('myHand', 'Clean Cut', player: 2)
+        ->endTurn()
+        ->play('Clean Cut', 2)->pay(2, 2)->target('theirField-1', 2)
+        ->expectCardExists('myGraveyard', 'Young Wyrmling', $deathLabel)
+        ->expectZoneCount('myHand', $handCount, 2, $drawLabel)
+        ->tested('Clean Cut')
+        ->covers($mechanics, '[Level 2+] **On Kill:** Draw a card.')
+        ->register();
+}
 
 // ---- Raised Slash ----
 

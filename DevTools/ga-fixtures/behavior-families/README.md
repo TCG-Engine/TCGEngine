@@ -209,3 +209,36 @@ fixture files. Neither that path nor `--update-snapshots` implicitly accepts new
 expected results for them; expected snapshots must be reviewed and updated
 explicitly. Missing definitions or missing expected snapshots fail. Coverage
 audits and the scenario verifier read the source-backed definitions too.
+
+### Adding future cards
+
+Reuse a reviewed behavior family when it expresses the card's rules. For unique
+behavior, add a builder scenario in `DevTools/ga-fixtures/*.php`, including explicit
+assertions for its positive, negative, and boundary behavior as appropriate. Then:
+
+```sh
+php DevTools/create-prd-ability-fixtures.php --fixture=<slug>
+php DevTools/RunIntegrationTests.php --root=GrandArchiveSim --test=<slug>
+php DevTools/create-prd-ability-fixtures.php --check-source-format
+```
+
+For a new builder scenario with no fixture directory, generation now writes only
+`meta.json` and `expected_final_gamestate.txt`, after every action and assertion
+passes. It records the seed (default 42; override with `--seed=N`). Review the new
+snapshot against the card rules before committing: recording the engine's output
+alone does not prove that the rules are implemented correctly. Later generation
+runs verify that baseline and never overwrite it. `--dry-run` writes nothing.
+Failed actions/assertions publish no fixture directory.
+
+The normal Grand Archive integration runner also checks storage format. Source
+scenarios may not contain expanded initial state, actions, or assertions files.
+Existing serialized builder cases are listed in `../serialized-allowlist.txt`,
+including incomplete legacy fixtures; the list exempts storage format only, not
+test failures. Remove exceptions as cases migrate. New exceptions require a
+specific documented legacy dependency, such as a saved-state variant; do not add
+entries merely to bypass the compact default. Behavior families remain exempt
+because they already execute from their definitions.
+
+To migrate a pre-existing serialized case, use `--migrate-source`; it still
+requires input equivalence and an unchanged full final snapshot. This explicit
+migration path can repair a format violation without disabling validation.

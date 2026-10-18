@@ -119,6 +119,15 @@ gaScenario('thunderclap-level-three-costs-two-less')
   directly (opening-hand cards); `action(player, mode, card)` is any other input row. `tested(...)` overrides the
   tested cards when they are not just the cards played.
 
+New builder scenarios use compact storage by default: write the PHP scenario with explicit
+assertions, run `php DevTools/create-prd-ability-fixtures.php --fixture=<slug>`, review the
+new final snapshot against the card rules, and run the normal integration test. Only
+`meta.json` and `expected_final_gamestate.txt` are created, after actions and assertions pass.
+The integration runner enforces this format; `--check-source-format` on the generator is
+also a standalone check. Existing serialized exceptions are recorded in
+`ga-fixtures/serialized-allowlist.txt`. Generation of an existing compact case verifies
+its baseline without overwriting it.
+
 Builder fixtures marked `sourceScenario` in `meta.json` execute directly from PHP in a fresh
 process, checking both their step assertions and the retained full expected final snapshot.
 They do not store `initial_gamestate.txt`, `actions.json`, or `assertions.json`; normal generation

@@ -2,7 +2,7 @@
 /**
  * Batch-create PRD regression fixtures programmatically.
  *
- * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG] [--families] [--migrate-source | --run-source]
+ * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG] [--families] [--migrate-source | --run-source | --check-source-format]
  *
  * Creates selfplay games from curated decks, replays actions to exercise
  * specific card abilities, and saves regression fixtures.
@@ -1176,6 +1176,12 @@ foreach ($fixtures as $sharedSlug => $sharedDef) {
         throw new RuntimeException("Shared behavior missing from reviewed families.json: $sharedSlug");
     }
 }
+if (in_array('--check-source-format', $argv, true)) {
+    gaSourceCheckFormat(array_diff_key($onlyFixture ? array_intersect_key($fixtures, [$onlyFixture => true]) : $fixtures, $behaviorCases), $repoRoot . '/Tests/Integration/GrandArchiveSim', __DIR__ . '/ga-fixtures/serialized-allowlist.txt');
+    echo "PASS: Grand Archive source format\n";
+    exit(0);
+}
+
 if ($familiesOnly) $fixtures = array_intersect_key($fixtures, $behaviorCases);
 
 // --audit-actions: list saved fixtures whose actions.json has fewer actions than their definition (an older generator silently dropped every action after the first refused one).
@@ -1229,14 +1235,16 @@ foreach ($fixtures as $slug => $def) {
 
     $savedMeta = is_file($fixtureDir . '/meta.json') ? json_decode(file_get_contents($fixtureDir . '/meta.json'), true, 512, JSON_THROW_ON_ERROR) : [];
     if ($runSource && !isset($savedMeta['sourceScenario']) && !$onlyFixture) continue;
-    $sourceOnly = $runSource || isset($savedMeta['sourceScenario']);
+    $createSource = !$runSource && !$migrateSource && !isset($behaviorCases[$slug]) && !empty($def['strictActions']) && !file_exists($fixtureDir);
+    if (!$migrateSource && !isset($behaviorCases[$slug])) gaSourceCheckFormat([$slug => $def], dirname($fixtureDir), __DIR__ . '/ga-fixtures/serialized-allowlist.txt');
+    $sourceOnly = $createSource || $runSource || isset($savedMeta['sourceScenario']);
     if ($migrateSource && (isset($sourceBaseFixtures[$slug]) || isset($savedMeta['baseFixture']) || isset($savedMeta['initialGamestateReplacements']))) continue;
     if ($migrateSource && (isset($behaviorCases[$slug]) || $sourceOnly || empty($def['strictActions']) || !is_file($fixtureDir . '/initial_gamestate.txt') || !is_file($fixtureDir . '/expected_final_gamestate.txt'))) continue;
     $sourceOnly = $sourceOnly || $migrateSource;
     // A fresh engine process per case prevents static/runtime state leaking between games.
     if ($sourceOnly && !$onlyFixture && !$dryRun) {
         $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__FILE__)
-            . ($migrateSource ? ' --migrate-source' : ' --run-source')
+            . ($migrateSource ? ' --migrate-source' : ($createSource ? '' : ' --run-source'))
             . ' ' . escapeshellarg('--fixture=' . $slug) . ' ' . escapeshellarg('--seed=' . $sourceSeed) . ' 2>&1';
         passthru($command, $status);
         if ($status === 0) ++$created; else ++$failed;
@@ -1247,7 +1255,7 @@ foreach ($fixtures as $slug => $def) {
     $seed = $savedMeta['sourceScenario']['seed'] ?? $sourceSeed;
 
     if ($dryRun) {
-        echo $sourceOnly ? "[DRY-RUN] Would verify source scenario $slug\n" : (isset($behaviorCases[$slug]) ? "[DRY-RUN] Would run behavior family $slug\n" : "[DRY-RUN] Would create $fixtureDir\n");
+        echo $createSource ? "[DRY-RUN] Would create compact source scenario $slug\n" : ($sourceOnly ? "[DRY-RUN] Would verify source scenario $slug\n" : (isset($behaviorCases[$slug]) ? "[DRY-RUN] Would run behavior family $slug\n" : "[DRY-RUN] Would create $fixtureDir\n"));
         echo "  Deck: " . substr_count($def['deck'], "\n") . " lines\n";
         echo "  Actions: " . count($def['actions']) . "\n";
         echo "  Tested cards: " . implode(', ', $def['testedCards']) . "\n";
@@ -1530,6 +1538,14 @@ foreach ($fixtures as $slug => $def) {
 
         if ($sourceOnly) {
             RegressionFlushCurrentGamestate($rootName);
+            if ($createSource) {
+                gaSourceCreate($fixtureDir, array_merge($def['meta'] ?? [], [
+                    'name' => $slug, 'rootName' => $rootName, 'createdAt' => date('c'),
+                    'createdBy' => 'batch-script', 'testedCards' => $def['testedCards'],
+                    'sourceScenario' => ['seed' => $seed],
+                ]), RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName)));
+                echo "  Created compact baseline; review expected_final_gamestate.txt against the card rules before committing.\n";
+            }
             gaSourceAssertFinal($fixtureDir, RegressionCurrentGamestateText($rootName, $gameName), $rootName);
             if ($migrateSource) {
                 $savedMeta['sourceScenario'] = ['seed' => $seed];

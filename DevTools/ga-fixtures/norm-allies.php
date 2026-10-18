@@ -241,40 +241,20 @@ gaHinderedCase('rotund-squirrel-hindered-enters-the-field-rested', 'Rotund Squir
 
 // ---- Woodland Squirrels / Young Wyrmling (vanilla) ----
 
-gaScenario('woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats')
-    ->deckTemplate('quiet', 'Woodland Squirrels')
-    ->readyFor('Woodland Squirrels')
-    ->seed('myHand', 'Woodland Squirrels')
-    ->play('Woodland Squirrels')
-    ->expectCardExists('myField', 'Woodland Squirrels', 'Reserve cost 0: it entered without any payment')
-    ->expectPower('p1Field-1', 1, 'Printed 1 power')
-    ->expectLife('p1Field-1', 1, 'Printed 1 life')
-    ->tested('Woodland Squirrels')
-    ->covers(['vanilla'], 'Woodland Squirrels (no rules text)')
-    ->register();
-
-gaScenario('young-wyrmling-enters-with-its-printed-stats')
-    ->deckTemplate('quiet', 'Young Wyrmling')
-    ->readyFor('Young Wyrmling')
-    ->seed('myHand', 'Young Wyrmling')
-    ->play('Young Wyrmling')->pay(2)
-    ->expectCardExists('myField', 'Young Wyrmling', 'Paying the printed reserve 2 played it')
-    ->expectPower('p1Field-1', 2, 'Printed 2 power')
-    ->expectLife('p1Field-1', 2, 'Printed 2 life')
-    ->tested('Young Wyrmling')
-    ->covers(['vanilla'], 'Young Wyrmling (no rules text)')
-    ->register();
-
-// ---- Young Wyrmling (second printing) ----
-
-gaScenario('young-wyrmling-second-printing-enters-with-its-printed-stats')
-    ->deckTemplate('quiet', '#LjFUUKe83H')
-    ->readyFor('#LjFUUKe83H')
-    ->seed('myHand', '#LjFUUKe83H')
-    ->play('#LjFUUKe83H')->pay(2)
-    ->expectCardExists('myField', '#LjFUUKe83H', 'Paying the printed reserve 2 played it')
-    ->expectPower('p1Field-1', 2, 'Printed 2 power')
-    ->expectLife('p1Field-1', 2, 'Printed 2 life')
-    ->tested('#LjFUUKe83H')
-    ->covers(['vanilla'], 'Young Wyrmling (no rules text)')
-    ->register();
+foreach ([
+    ['woodland-squirrels-costs-nothing-and-enters-with-its-printed-stats', 'Woodland Squirrels', 0, 'Reserve cost 0: it entered without any payment', 1, 1, 'Woodland Squirrels (no rules text)'],
+    ['young-wyrmling-enters-with-its-printed-stats', 'Young Wyrmling', 2, 'Paying the printed reserve 2 played it', 2, 2, 'Young Wyrmling (no rules text)'],
+    ['young-wyrmling-second-printing-enters-with-its-printed-stats', '#LjFUUKe83H', 2, 'Paying the printed reserve 2 played it', 2, 2, 'Young Wyrmling (no rules text)'],
+] as [$slug, $card, $payment, $entryLabel, $power, $life, $clause]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', $card)
+        ->readyFor($card)
+        ->seed('myHand', $card)
+        ->play($card)->pay($payment)
+        ->expectCardExists('myField', $card, $entryLabel)
+        ->expectPower('p1Field-1', $power, "Printed $power power")
+        ->expectLife('p1Field-1', $life, "Printed $life life")
+        ->tested($card)
+        ->covers(['vanilla'], $clause)
+        ->register();
+}

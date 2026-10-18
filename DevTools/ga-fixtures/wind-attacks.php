@@ -86,61 +86,44 @@ gaScenario('poised-strike-unprepared-on-hit-leaves-the-champion-rested')
     ->register();
 
 // ---- Command attacks (an ally performs the attack) ----
-gaScenario('bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card')
-    ->deckTemplate('quiet', 'Bishop\'s Cross')
-    ->readyFor('Bishop\'s Cross')
-    ->seed('myField', 'Pawn Piece')
-    ->seed('myField', 'Owl Familiar', player: 2)
-    ->seed('myHand', 'Bishop\'s Cross')
-    ->reachTurnThree()
-    ->play('Bishop\'s Cross')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
-    ->expectZoneCount('theirField', 1, 1, 'The 1-life Owl Familiar was killed by the commanded Pawn Piece (2 POWER)')
-    ->expectZoneCount('myHand', 7, 1, 'Odd life stat (1): a card was drawn (8 - Bishop\'s Cross - 2 paid + 1)')
-    ->tested('Bishop\'s Cross')
-    ->covers(['command-chessman', 'on-kill', 'draw-discard', 'combat', 'targeting'], '**Command Chessman**', '**On Kill:** If the killed unit had an odd life stat, draw a card.')
-    ->register();
-
-gaScenario('bishops-cross-on-kill-of-an-even-life-unit-draws-nothing')
-    ->deckTemplate('quiet', 'Bishop\'s Cross')
-    ->readyFor('Bishop\'s Cross')
-    ->seed('myField', 'Pawn Piece')
-    ->seed('myField', 'Gray Wolf', player: 2)
-    ->seed('myHand', 'Bishop\'s Cross')
-    ->reachTurnThree()
-    ->play('Bishop\'s Cross')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
-    ->expectZoneCount('theirField', 1, 1, 'The 2-life Gray Wolf was killed')
-    ->expectZoneCount('myHand', 6, 1, 'Even life stat (2): no card drawn (8 - Bishop\'s Cross - 2 paid)')
-    ->tested('Bishop\'s Cross')
-    ->covers(['on-kill', 'condition'], '**On Kill:** If the killed unit had an odd life stat, draw a card.')
-    ->register();
+foreach ([
+    ['bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card', 'Owl Familiar', 'The 1-life Owl Familiar was killed by the commanded Pawn Piece (2 POWER)', 7, 'Odd life stat (1): a card was drawn (8 - Bishop\'s Cross - 2 paid + 1)', ['command-chessman', 'on-kill', 'draw-discard', 'combat', 'targeting'], ['**Command Chessman**', '**On Kill:** If the killed unit had an odd life stat, draw a card.']],
+    ['bishops-cross-on-kill-of-an-even-life-unit-draws-nothing', 'Gray Wolf', 'The 2-life Gray Wolf was killed', 6, 'Even life stat (2): no card drawn (8 - Bishop\'s Cross - 2 paid)', ['on-kill', 'condition'], ['**On Kill:** If the killed unit had an odd life stat, draw a card.']],
+] as [$slug, $victim, $deathLabel, $handCount, $drawLabel, $mechanics, $clauses]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', 'Bishop\'s Cross')
+        ->readyFor('Bishop\'s Cross')
+        ->seed('myField', 'Pawn Piece')
+        ->seed('myField', $victim, player: 2)
+        ->seed('myHand', 'Bishop\'s Cross')
+        ->reachTurnThree()
+        ->play('Bishop\'s Cross')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+        ->expectZoneCount('theirField', 1, 1, $deathLabel)
+        ->expectZoneCount('myHand', $handCount, 1, $drawLabel)
+        ->tested('Bishop\'s Cross')
+        ->covers($mechanics, ...$clauses)
+        ->register();
+}
 
 // ---- En Passant ----
 
-gaScenario('en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters')
-    ->deckTemplate('quiet', 'En Passant')
-    ->readyFor('En Passant')
-    ->seed('myField', 'Pawn Piece')
-    ->seed('myField', 'Owl Familiar', player: 2)
-    ->seed('myHand', 'En Passant')
-    ->reachTurnThree()
-    ->play('En Passant')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
-    ->expectProperty('p1Field-1', 'Counters', '{"buff":2}', 'On Kill with no buff counters: two buff counters on the Pawn')
-    ->tested('En Passant')
-    ->covers(['command-chessman', 'on-kill', 'counter', 'combat'], 'As long as a Chessman Pawn ally is attacking with CARDNAME, it has "**On Kill: **If there are no **buff** counters on this ally, put two **buff** counters on it."')
-    ->register();
-
-gaScenario('en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more')
-    ->deckTemplate('quiet', 'En Passant')
-    ->readyFor('En Passant')
-    ->seed('myField', 'Pawn Piece', properties: ['Counters' => ['buff' => 1]])
-    ->seed('myField', 'Owl Familiar', player: 2)
-    ->seed('myHand', 'En Passant')
-    ->reachTurnThree()
-    ->play('En Passant')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
-    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Already has a buff counter: the On Kill adds nothing')
-    ->tested('En Passant')
-    ->covers(['on-kill', 'condition'], 'If there are no **buff** counters on this ally, put two **buff** counters on it.')
-    ->register();
+foreach ([
+    ['en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters', [], '{"buff":2}', 'On Kill with no buff counters: two buff counters on the Pawn', ['command-chessman', 'on-kill', 'counter', 'combat'], 'As long as a Chessman Pawn ally is attacking with CARDNAME, it has "**On Kill: **If there are no **buff** counters on this ally, put two **buff** counters on it."'],
+    ['en-passant-a-pawn-that-already-has-a-buff-counter-gets-no-more', ['Counters' => ['buff' => 1]], '{"buff":1}', 'Already has a buff counter: the On Kill adds nothing', ['on-kill', 'condition'], 'If there are no **buff** counters on this ally, put two **buff** counters on it.'],
+] as [$slug, $properties, $expectedCounters, $label, $mechanics, $clause]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', 'En Passant')
+        ->readyFor('En Passant')
+        ->seed('myField', 'Pawn Piece', properties: $properties)
+        ->seed('myField', 'Owl Familiar', player: 2)
+        ->seed('myHand', 'En Passant')
+        ->reachTurnThree()
+        ->play('En Passant')->pay(2)->target('myField-1')->target('theirField-1')->pass(2)
+        ->expectProperty('p1Field-1', 'Counters', $expectedCounters, $label)
+        ->tested('En Passant')
+        ->covers($mechanics, $clause)
+        ->register();
+}
 
 // ---- Eternal Directive ----
 

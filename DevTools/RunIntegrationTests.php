@@ -123,6 +123,13 @@ $gaBehaviorCases = [];
 if ($args['root'] === 'GrandArchiveSim') {
   require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
   $gaBehaviorCases = gaBehaviorCases();
+  $formatCommand = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+    . ' --check-source-format' . ($args['test'] !== null ? ' ' . escapeshellarg('--fixture=' . $args['test']) : '') . ' 2>&1';
+  exec($formatCommand, $formatOutput, $formatStatus);
+  if ($formatStatus !== 0) {
+    echo "[FAIL] Grand Archive source format\n" . implode("\n", $formatOutput) . "\n";
+    exit(1);
+  }
 }
 
 $fixtures = $args['test'] !== null ? [$args['test']] : RegressionListFixtures($args['root']);
