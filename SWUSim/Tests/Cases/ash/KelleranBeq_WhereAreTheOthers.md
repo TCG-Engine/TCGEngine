@@ -37,3 +37,24 @@ WithP1GroundArena: ASH_206:1:0
 P1GROUNDARENAUNIT:0:CARDID:ASH_206
 P1GROUNDARENAUNIT:0:POWER:0
 P1GROUNDARENAUNIT:0:HP:2
+
+---
+
+# TwoKelleranBeqs_OnePerSide_EachCountsOnlyTheZeroPowerUnit
+#// ASH_206 Kelleran Beq is unique, but each PLAYER may have one. To ask "has the other unit 0 power?" Kelleran computes that
+#// unit's power — and for the OTHER Kelleran that computation asks about the first one again. That cycle recursed forever and
+#// ran PHP out of memory: all 7 failed games of the ASH meta baseline v2.1 (2026-10-14) were Kelleran Beq decks (2-3 copies).
+#// Neither Kelleran is at 0 power (3 printed), so each counts only the 0-power ASH_072: 3 + 1 = 4 apiece.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: ASH_206:1:0
+WithP1GroundArena: ASH_072:1:0
+WithP2GroundArena: ASH_206:1:0
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_206
+P1GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:CARDID:ASH_206
+P2GROUNDARENAUNIT:0:POWER:4

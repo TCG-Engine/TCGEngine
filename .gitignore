@@ -170,3 +170,7 @@ HellbreakSim/_research/
 # means "normal service", so it must never ship in a deploy and freeze a healthy site.
 */maintenance.json
 SWUDeck/SimulationConfig.local.php
+
+# Python bytecode caches
+__pycache__/
+*.pyc

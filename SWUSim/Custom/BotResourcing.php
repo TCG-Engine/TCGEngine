@@ -85,8 +85,30 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
 // desync the bot from SWUDeployLeader().
 function _SWUBotSeatCost(int $seat, string $cid): int {
     $c = intval(CardCost($cid));
+    // PROPOSAL 'pilotcost' (2026-10-15 ASH lever hunt G2-24/G3-09): a Piloting card is castable at its Piloting cost when there is a Vehicle to
+    // fly (Han Solo JTL_203 resourced 65% / played 10% in Greef Red; Vonreg resourced its pilots 17/19; Boba LC resourced Vader 123x, played 24).
+    if (SWUBotProposalOn('pilotcost') && ($pc = _SWUBotPilotSeatCost($seat, $cid)) !== null) $c = min($c, $pc);
     if (!SWUBotFeatureOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
     return $c + intval(SWUAspectPenalty($seat, $cid));
+}
+
+// 'pilotcost': the Piloting cost while a Vehicle can carry the pilot — a friendly Vehicle unit in play, one in hand, or a deck with 6+ Vehicles
+// (the opening pick has no board yet). Null for a card without Piloting, or nothing to fly.
+function _SWUBotPilotSeatCost(int $seat, string $cid): ?int {
+    static $memoDeck = [];
+    if (!function_exists('CardPilotingCost')) return null;
+    $pc = CardPilotingCost($cid);
+    if ($pc === null || $pc === '' || intval($pc) <= 0) return null;
+    $isVehicle = fn(string $c) => str_contains(strval(CardType($c)), 'Unit') && stripos(strval(CardTrait($c) ?? ''), 'Vehicle') !== false;
+    $have = false;
+    foreach (SWUBotUnits($seat) as $u) if (empty($u['isLeader']) && $isVehicle(strval($u['cardID']))) { $have = true; break; }
+    if (!$have) foreach (GetHand($seat) as $o) if ($o !== null && empty($o->removed) && $isVehicle(strval($o->CardID ?? ''))) { $have = true; break; }
+    if (!$have) {
+        $key = $seat . '|' . count(GetDeck($seat));
+        if (!isset($memoDeck[$key])) { $n = 0; foreach (GetDeck($seat) as $o) if ($o !== null && empty($o->removed) && $isVehicle(strval($o->CardID ?? ''))) $n++; $memoDeck[$key] = $n; }
+        $have = $memoDeck[$key] >= 6;
+    }
+    return $have ? intval($pc) : null;
 }
 
 // Owner, 2026-09-23 (ruling 2): "a 2 power sentinel is almost pointless. but a 3+ power sentinel is good power to
@@ -258,6 +280,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('curveresource')) {   // feature p38
             $keep += SWU_BOT_CURVE_RESOURCE_KEEP * (SWUBotCurveSurplus($seat, $cid, SWUBotHorizon(strval($ctx['style']), $seat)) ?? 0.0);
         }
+        $keep = SWUBotLeverChain('keep', $keep, $ctx, $seat, $cid, intval($i));   // lever registry (BotLevers.php)
         $ranked[] = [$keep, $i];
     }
     // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,
@@ -502,7 +525,12 @@ function SWUBotOpponentIsAggroLeader(int $seat): bool {
         return false;
     }
     foreach (SWUBotOpponents($seat) as $o) {   // any live enemy (3-4 seats)
-        if (in_array(strval((GetLeader($o)[0] ?? null)->CardID ?? ''), SWU_BOT_AGGRO_LEADERS, true)) return true;
+        $lid = strval((GetLeader($o)[0] ?? null)->CardID ?? '');
+        if (in_array($lid, SWU_BOT_AGGRO_LEADERS, true)) return true;
+        // PROPOSAL 'lukeaggro' (2026-10-15 ASH lever hunt G4-01): JTL_012 Luke heads midrange/control lists too, so he is not in the list —
+        // but on JTL_024 Data Vault he is played soft aggro in 2,860/2,860 games (232 real lists) and over-performs +9.8: ~19 anti-aggro rules
+        // never fired against the most-played deck (Krennic Blue resourced Annihilator 278/280 vs him). Only that leader+base key.
+        if ($lid === 'JTL_012' && SWUBotProposalOn('lukeaggro') && strval((GetBase($o)[0] ?? null)->CardID ?? '') === 'JTL_024') return true;
     }
     return false;
 }

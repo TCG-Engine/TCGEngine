@@ -157,3 +157,59 @@ function SWUBotPowerDamageAmount(string $head, string $next): int {
     $o = $mz === null ? null : GetZoneObject($mz);
     return ($o === null || !empty($o->removed)) ? 0 : max(0, intval(ObjectCurrentPower($o)));
 }
+
+// ════ 2026-10-14 Krennic Blue vs Ahsoka Blue canary (10k games, Krennic 32.6%; .claude/tmp/canary-krennic-ahsoka-20261014/SHIELD_REPORT.md) ════
+// Four PROPOSALS (default OFF), each measured on its own 10k arm. 'popfirst' and 'mercramp'/'krennicmerc' live here; 'rewall' is in
+// SWUBotSacrificeCost (BotFallback.php) and rule 'wall-first' (BotRules.php).
+
+function _SWUBotLeaderReady(object $l): bool {
+    return in_array(strval($l->Ready ?? 'false'), ['true', '1'], true);
+}
+
+// ── PROPOSAL 'popfirst' ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Krennic popped 0.3 Ahsoka Shields a game while its cheap bodies went to the Credit Action (Ant Droid 5,930 sacrifices, 186 pops). The unit
+// the Action would take attacks an enemy Shielded unit FIRST when it survives the hit back (a 'bounce': the Shield takes the damage, it
+// lives), then it is sacrificed exhausted. The best such target for $att: the highest-power one it may legally attack (a Sentinel there
+// must be the target). Null when $att is not the Action's pick or nothing qualifies.
+function SWUBotCreditPopTarget(int $seat, array $att): ?array {
+    if (!SWUBotProposalOn('popfirst') || !empty($att['saboteur']) || intval($att['attackPower']) <= 0) return null;
+    $l = SWUBotCreditSacLeaderFront($seat);
+    if ($l === null || !_SWUBotLeaderReady($l)) return null;
+    return SWUBotMemo("popfirst|$seat|" . intval($att['uid']), function () use ($seat, $att) {
+        $pick = SWUBotCreditSacPick($seat);
+        if ($pick === null || intval($pick['uid']) !== intval($att['uid'])) return null;
+        $best = null;
+        foreach (SWUBotOpponents($seat) as $o) {
+            $walled = SWUBotArenaHasSentinel($o, $att['arena']);
+            foreach (SWUBotUnits($o) as $e) {
+                if ($e['arena'] !== $att['arena'] || intval($e['shields']) <= 0 || ($walled && empty($e['sentinel']))) continue;
+                if (SWUBotCombatOutcome($att, $e) !== 'bounce') continue;
+                if ($best === null || intval($e['power']) > intval($best['power'])) $best = $e;
+            }
+        }
+        return $best;
+    });
+}
+// The ready unit that should pop before the Action: [attacker view, target view], or null.
+function SWUBotCreditPopFirstLine(int $seat): ?array {
+    if (!SWUBotProposalOn('popfirst')) return null;
+    $pick = SWUBotCreditSacPick($seat);
+    if ($pick === null || empty($pick['ready'])) return null;
+    $t = SWUBotCreditPopTarget($seat, $pick);
+    return $t === null ? null : [$pick, $t];
+}
+
+// ── PROPOSALS 'mercramp' + 'krennicmerc' (rule 'merc-line', BotRules.php) ───────────────────────────────────────────────────────────
+// Owner 2026-10-14: "Turn 1, play sac a weenie unit. Turn 2, play Expendable Merc spending 1 credit. this way you can almost double ramp
+// with the Credit" ('mercramp') — "another possibly better line is also Krennic unit into Expendable Merc to play with discount"
+// ('krennicmerc'). Reference canary: Mercenary was in hand by round 2 in 4,761 of 10,000 games and played in round 2 in 544; it was paid
+// with a Credit 28 times in all. Both lines end the same way: the Mercenary is sacrificed the round it lands (a Credit back, and it
+// returns as a resource). A cheap body for the round-1 sacrifice: Credit fodder first, else any unit costing 2 or less but the discount
+// engine (JTL_032).
+function SWUBotIsWeenie(string $cid): bool {
+    return str_contains(strval(CardType($cid)), 'Unit') && intval(CardCost($cid)) <= 2
+        && !preg_match('/The first unit you play each round that has a "When Defeated" ability costs/i', strval(CardText($cid)));
+}
+function SWUBotIsDiscountEngine(string $cid): bool {
+    return (bool)preg_match('/The first unit you play each round that has a "When Defeated" ability costs \d+ resources? less/i', strval(CardText($cid)));
+}

@@ -920,7 +920,7 @@ function _SWUBotCurveMulligan(int $seat, string $style): bool {
         $size++;
         if (in_array($i, $aside, true)) continue;
         $cid = strval($o->CardID ?? '');
-        $c = intval(CardCost($cid));
+        $c = SWUBotProposalOn('pilotcost') ? _SWUBotSeatCost($seat, $cid) : intval(CardCost($cid));
         if ($c <= 2) $cheap = true;
         if (array_intersect(SWUBotCardTags($cid), ['removal', 'wipe'])) $answer = true;
         if ($c <= 4) {
@@ -936,6 +936,20 @@ function _SWUBotCurveMulligan(int $seat, string $style): bool {
     $keep = $castable >= $need && $surplus >= 0.0 && (SWUBotStyleRank($style) > 1 || $cheap);
     // '@try-mullanswer' (2026-10-07): control keeps an answer and something to cast (owner, 'mullstyle': an answer AND a curve).
     if (!$keep && SWUBotProposalOn('mullanswer') && SWUBotStyleRank($style) >= 3 && $answer && $castable >= 1) $keep = true;
+    // FEATURE 'mullfloor' (p51, 2026-10-15 ASH lever hunt G3-07/G1-15): the summed curve surplus goes negative on efficient cheap cards, so curve
+    // hands went back — Dedra mulliganed 64%, Lando Colossus 65%, Krennic 54-58%, Greef Red 54% of hands holding 3+ cards costing 3 or less.
+    // A hand with 3+ cards castable by round 3 (2+ in a 5-card hand) including a unit is kept, whatever the surplus.
+    if (!$keep && SWUBotFeatureOn('mullfloor')) {
+        $n3 = 0; $unit3 = false;
+        foreach (GetHand($seat) as $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = strval($o->CardID ?? '');
+            if (_SWUBotSeatCost($seat, $cid) > 3) continue;
+            $n3++;
+            if (str_contains(strval(CardType($cid)), 'Unit')) $unit3 = true;
+        }
+        if ($unit3 && $n3 >= ($size <= 5 ? 2 : 3)) { _SWUBotFired('mullfloor', $seat); $keep = true; }
+    }
     return !$keep;
 }
 

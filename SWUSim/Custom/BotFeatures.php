@@ -722,6 +722,53 @@ const SWU_BOT_PART48_FEATURES = ['sentinelclear'];
 //   strikeleader  — a deploy/Strike True strike takes a killable enemy leader unit (missed 3 of 14).
 //   foddermull    — a Credit-sac hand with no unit costing 2 or less is mulliganed (owner's keep: Krennic unit + a 1-drop; bot 0/120).
 const SWU_BOT_PART49_FEATURES = ['powerdamage', 'fodderkeep', 'mercres', 'mercplay', 'sachealwait', 'healfodder', 'condetbvalue', 'krennicengine', 'strikeleader', 'foddermull'];
+// Part 50 'bugfix1' (2026-10-15, owner: "go" on shipping step 1 of the ASH lever hunt, .claude/tmp/ash-levers-20261015/LEVERS.md). The bug class:
+// prompts the bot answered by the index tiebreak, and self-harm it never guarded. Measured as '@try-bugfix1' on the full ASH set vs baseline v2.2:
+// soft control +66 (p .002), hard control +52 (p .0005), soft aggro −75 (p .0001); archetype Pearson +0.08 → +0.11; every style but midrange
+// moved toward real. Helpers at the end of BotFallback.php; the self-burn filter is in BotHeuristic.php. '@no-p50' / '@no-bugfix1'.
+//   discloseanswer  — a free disclose is answered with the smallest covering set (Condemn's -6/-0 defence was declined 2,228/2,228).
+//   selfburnguard   — a card whose own-base damage defeats my base is never played (79 games lost to Operation Cinder / Rancor, 54 Dedra).
+//   plotpick        — the Plot pick by play value (the first candidate in 99% of 10,750 picks).
+//   hostileexhaust  — Shin Hati never exhausts my own unit; the front trigger waits for a ready enemy to exhaust.
+//   nohostiletarget — an unqualified hostile Action ("Give a unit -1/-1") waits while no enemy unit is on the board (Talzin self-hits 115).
+//   downgradehost   — the Armorer never plays a downgrade from its resources onto my own unit (Grav Charge 13/13 on its own).
+const SWU_BOT_PART50_FEATURES = ['discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost'];
+// Part 51 'step2' (2026-10-16, owner: "sounds good go" — including his OK on the mulligan rule). Step 2 of the ASH lever hunt: the two of six
+// gradient levers that moved toward real. Measured TOGETHER as '@try-step2' vs baseline v2.3: hyper aggro −109 (p .0002), soft aggro −128
+// (p .0004), soft control +206 (p <.0001); archetype Pearson +0.11 → +0.16, Spearman +0.08 → +0.17, MAE 0.094 → 0.087; style bias hyper +5.4,
+// soft aggro +4.0, midrange −0.3, soft control −3.2, hard control −8.6. '@no-p51' / '@no-step2'.
+//   mullfloor          — a hand with 3+ cards castable by round 3 including a unit (2+ in a 5-card hand) is kept, whatever the summed curve
+//                        surplus (Dedra mulliganed 64%, Lando Colossus 65%, Greef Red 54% of hands with 3+ cheap cards). _SWUBotCurveMulligan.
+//   actionbeforeclaim  — the Force token is in the ability signature (Avar's "The Force is with you" scored -0.5 as a no-op); a worthwhile
+//                        Action goes before the claim; control passes rather than claims while its front Action waits for an enemy target.
+const SWU_BOT_PART51_FEATURES = ['mullfloor', 'actionbeforeclaim'];
+// Part 52 'engines3' (2026-10-16, owner: "ship and freeze plox"). Step 3 of the ASH lever hunt: each deck's leader/engine played as built.
+// Measured TOGETHER as '@try-engines3' vs baseline v2.4: archetype Pearson +0.16 → +0.36, Spearman +0.17 → +0.30, MAE 0.087 → 0.070
+// (spread SD 10.6 → 8.7pp, real 5.8); Kylo 14% → 52% (real 57), Leia SEC 18% → 55% (53), Asajj 37% → 48% (48), Talzin Green 36% → 48% (56),
+// Chewbacca Outpost 24% → 33% (53); Armorer and Krennic (Koska) unchanged. Helpers at the end of BotFallback.php. '@no-p52' / '@no-engines3'.
+//   kyloengine    — LOF_001 Kylo: the Action waits without an upgrade in hand; the discard is an upgrade he can wear (downgrades kept);
+//                   the replay never puts a downgrade on him; the deploy goes first while an affordable upgrade waits in the discard.
+//   leiadisclose  — SEC_004 Leia: the disclosed card is the one that leaves a FRIENDLY Experience recipient; the Action waits without one.
+//   talzinforce   — LOF_002 Talzin: a non-killing -1/-1 waits while other Force cards (hand, or 2+ in deck) need the token; a "use the
+//                   Force" unit without it waits while a ready Force-unit attack can refill it.
+//   armorerengine — ASH_230 Improvised Identity is the host's attack (worthless once exhausted; the plain attack waits for it); JTL_028
+//                   Nabat Village bottoms the 3 cards worth least to keep.
+//   chewieline    — LAW_013 Chewbacca: the front Action only kills a 3+ cost unit before the deploy; the 4-resource deploy goes first.
+//   koskaorder    — ASH_079 Koska Reeves waits for the round's Credit sacrifice (her token and Sentinel need a friendly defeat this phase).
+//   asajjping     — JTL_001 Asajj: the ping waits without a contested arena; the friendly pick is in one and survives.
+const SWU_BOT_PART52_FEATURES = ['kyloengine', 'leiadisclose', 'talzinforce', 'armorerengine', 'chewieline', 'koskaorder', 'asajjping'];
+// Part 53 'hardctl4' (2026-10-17, owner: "1 then 2" — ship and freeze, then fix the trigger-order engine bug). Step 4a of the ASH lever hunt:
+// hard control + the biggest remaining deck gaps. Measured TOGETHER as '@try-hardctl4' vs baseline v2.5: archetype Spearman +0.30 → +0.32,
+// MAE 0.070 → 0.067, cells MAE 0.132 → 0.130; hard control bias −9.1 → −8.2 (first lever to move it); Mando Colossus 49% → 53% (real 54),
+// Mando Yellow 26% → 29% (39), Chewbacca Outpost 33% → 35% (53); Lando and Dedra unchanged. Helpers at the end of BotFallback.php. '@no-p53'.
+//   removalfirst    — the removal 'shrink-first' would cast on a ready 3+ power enemy goes before 'blocker-first's body (BotRules.php).
+//   mandoclaimplay  — Mando's claim-and-draw loses to a castable play when the claim would leave 2+ resources idle.
+//   mandodrawattack — deployed Mando's attack carries his "if you have the initiative, draw" while I hold it.
+//   landoflipbomb   — LAW_018 Lando's flip round with a 9-drop castable after it: the deploy first, other plays wait; Bo-Katan +2 vs 2+ kills.
+//   homeonewall     — ASH_065 Home One is the space Sentinel wall vs a space deck with ships out.
+//   dedratarget     — SEC_010 Dedra picks a unit her 2 damage defeats (both answers good for me), not a healthy chip target.
+//   outpostepic     — LAW_019 Alliance Outpost's once-per-game Epic waits unless a token unit or a doomed unit's token can be spent.
+const SWU_BOT_PART53_FEATURES = ['removalfirst', 'mandoclaimplay', 'mandodrawattack', 'landoflipbomb', 'homeonewall', 'dedratarget', 'outpostepic'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -731,7 +778,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES);   // part 2, then 3-49
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -746,7 +793,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1161,6 +1208,29 @@ const SWU_BOT_PROPOSALS = [
     //                     Maul v3 single-rule screen 2026-10-13: −16 (24:40, p .06) — DROPPED by the owner.
     //   recursionwipe   — no "overcommit into the opponent's wipe" penalty exists to discount; would need a new penalty built first.
     //   saboteurgrant   — needs a dedicated board computation (does the grant give a specific attacker lethal through a Sentinel).
+    // 2026-10-14 Krennic Blue vs Ahsoka Blue canary (10k games, Krennic 32.6%): LAW_037 Han Solo ("On Attack: Give an Experience token to
+    // this unit") survived the game in 50% of Krennic's losses vs 28% of its wins, and dealt 5.1 base damage a game in losses vs 2.9. A kill
+    // of a unit that GROWS on attack earns the base damage its next rounds would deal. _SWUBotGrowKillPremium (BotFallback.php).
+    'growkill',
+    // Same canary, owner 2026-10-14 ("let's test those 2 and then also test this line … build those 4 features and run 10k games each"):
+    'popfirst',      // the Credit Action's pick pops an enemy Shield first when it survives (BotCreditEngine.php)
+    'rewall',        // vs aggro: never sacrifice the last Sentinel in a contested arena; 'wall-first' through round 6
+    'mercramp',      // R1 weenie + sacrifice → R2 Expendable Mercenary on 3 resources + the Credit, sacrificed the same round (rule 'merc-line')
+    'krennicmerc',   // R1 Krennic unit (JTL_032) → R2 Mercenary at the discount, sacrificed the same round (rule 'merc-line')
+    // ('discloseanswer', 'selfburnguard', 'plotpick', 'hostileexhaust', 'nohostiletarget', 'downgradehost' — the 2026-10-15 lever hunt's bug
+    // class — SHIPPED 2026-10-15 as feature group 'p50' / 'bugfix1'.)
+    // 2026-10-15 ASH lever hunt, STEP 2 — the style-gradient levers, one ASH arm each (owner: "proceed with your suggested order").
+    'lukeaggro',          // G4-01: Luke JTL on Data Vault reads as an aggro leader (SWUBotOpponentIsAggroLeader)
+    'indirectprice',      // G1-05/G2-18: the 'indirect-damage' tag takes the base-damage weight (it priced 0 after the tags v3 split)
+    'pilotcost',          // G2-24/G3-09: a Piloting card costs its Piloting cost while a Vehicle can carry it (resourcing, curve, mulligan)
+    'enginedeploy',       // G3-05/G3-06: a control leader with a repeatable front Action stays home until round 7 unless under pressure
+    // ('kyloengine', 'leiadisclose', 'talzinforce', 'armorerengine', 'chewieline', 'koskaorder', 'asajjping' — the lever hunt's step 3 deck
+    // engines — SHIPPED 2026-10-16 as feature group 'p52' / 'engines3'.)
+    // ('removalfirst', 'mandoclaimplay', 'mandodrawattack', 'landoflipbomb', 'homeonewall', 'dedratarget', 'outpostepic' — the lever hunt's
+    // step 4a — SHIPPED 2026-10-17 as feature group 'p53' / 'hardctl4'.)
+    // Step 2 measured 2026-10-16 vs baseline v2.3 (archetype Pearson +0.11 / MAE 0.094): lukeaggro null (+0.12 / 0.095, Luke DV rose);
+    // indirectprice aggro +29 / control −39 (+0.10 / 0.096) — HOLD, pair with control-side levers; pilotcost soft aggro +109 / soft control −62
+    // (+0.09 / 0.100); enginedeploy Piett Colossus −27pp, control −216 (+0.01 / 0.100). ('mullfloor', 'actionbeforeclaim' SHIPPED as p51.)
 ];
 
 
@@ -1215,7 +1285,7 @@ function SWUBotFatigueHorizon(): int {
 }
 
 function SWUBotProposalList(): array {
-    return SWU_BOT_PROPOSALS;
+    return array_merge(SWU_BOT_PROPOSALS, function_exists('SWUBotLeverProposals') ? SWUBotLeverProposals() : []);   // + the lever registry (BotLevers.php)
 }
 
 // Named proposal GROUPS, switched on together by "@try-<group>" — the mirror of SWUBotFeatureGroups(). Used to
@@ -1241,6 +1311,8 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
                                  // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
                                  // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
+                                 // 2026-10-15 Krennic vs Ahsoka canary: the two winners together (popfirst +63, krennicmerc +94 alone).
+                                 'creditpop'   => ['popfirst', 'krennicmerc'],
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just
@@ -1289,6 +1361,8 @@ function SWUBotVariantDisabled(string $variant): ?array {
     if (str_starts_with($variant, 'try-')) {
         $p = substr($variant, 4);
         if (isset(SWU_BOT_PROPOSAL_GROUPS[$p])) return array_map(fn($x) => "try:$x", SWU_BOT_PROPOSAL_GROUPS[$p]);
+        $lg = function_exists('SWUBotLeverGroups') ? SWUBotLeverGroups() : [];   // a lever THEME switches its levers on together
+        if (isset($lg[$p])) return array_map(fn($x) => "try:$x", $lg[$p]);
         return in_array($p, SWUBotProposalList(), true) ? ["try:$p"] : null;
     }
     if (str_starts_with($variant, 'no-') && isset(SWUBotFeatureGroups()[substr($variant, 3)])) return SWUBotFeatureGroups()[substr($variant, 3)];
@@ -1304,7 +1378,8 @@ function SWUBotVariants(): array {
                        array_map(fn($p) => "w-$p", SWUBotWeightProbeList()),
                        array_map(fn($c) => "rand:$c", SWUBotRandomClassList()),
                        array_map(fn($p) => "try-$p", SWUBotProposalList()),
-                       array_map(fn($g) => "try-$g", array_keys(SWU_BOT_PROPOSAL_GROUPS)));
+                       array_map(fn($g) => "try-$g", array_keys(SWU_BOT_PROPOSAL_GROUPS)),
+                       array_map(fn($g) => "try-$g", array_keys(function_exists('SWUBotLeverGroups') ? SWUBotLeverGroups() : [])));
 }
 
 function SWUBotSetDisabledFeatures(array $features): void {
@@ -1317,3 +1392,6 @@ function SWUBotFeatureOn(string $feature): bool {
     return !in_array($feature, $GLOBALS['SWUBotDisabledFeatures'] ?? [], true)
         && !in_array($feature, $GLOBALS['SWUBotPinnedDisabled'] ?? [], true);
 }
+
+// The lever registry (2026-10-17): one file per lever under Custom/levers/, each an off-by-default proposal.
+require_once __DIR__ . '/BotLevers.php';

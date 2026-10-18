@@ -102,6 +102,26 @@ $check($undoState() === $beforeUndo, 'mode 10001: undo log, cursor and bookmarks
 $check(SWUBotLookahead(1, ['playerID' => 1, 'mode' => 99999, 'cardID' => 'x'], fn() => []) === null,
     'an unknown wire form returns null');
 
+// ── 4: a WINNING line leaves no winner behind ──────────────────────────────────────────────────────
+// ASH meta run 2026-10-14 (Dedra Meero Colossus vs Director Krennic Nevarro City, seed tb001): a lookahead line that killed the
+// opponent's base declared the winner. The payload restore put GAMEOVER_WINNER back, but the in-memory $gWinner stayed set, so every
+// later DoDrawCard() bailed ("the game is decided") — no regroup draws, no deck-out damage — and the real game never ended (300+ rounds).
+$build(function ($b) {
+    $b->WithGroundUnitForPlayer(1, 'LOF_084', true);   // Knight of Ren 4/4
+    $b->WithGroundUnitForPlayer(2, 'SOR_095', true);   // a second target, so the attack raises its prompt
+    $b->WithCardInDeckForPlayer(1, 'SOR_095'); $b->WithCardInDeckForPlayer(1, 'SOR_095');
+});
+$base2 = GetBase(2)[0];
+$base2->Damage = intval(CardHp(strval($base2->CardID))) - 2;      // 2 HP left: the 4-power attack is lethal
+$raiseAttack(1, 'myGroundArena-0');
+$inside = SWUBotLookahead(1, ['playerID' => 1, 'mode' => 100, 'cardID' => 'theirBase-0'], fn() => ['winner' => SWUGetGameWinner()]);
+$check($inside !== null && $inside['winner'] === 1, 'fixture: inside the lookahead the base attack wins the game — got ' . json_encode($inside));
+$check(SWUGetGameWinner() === 0, 'after the lookahead no winner is recorded (GAMEOVER_WINNER)');
+$check(empty($GLOBALS['gWinner']), 'after the lookahead the in-memory $gWinner is clear — got ' . var_export($GLOBALS['gWinner'] ?? null, true));
+$handBefore = count(array_filter(GetHand(1), fn($o) => empty($o->removed)));
+ob_start(); DoDrawCard(1, 1); ob_end_clean();
+$check(count(array_filter(GetHand(1), fn($o) => empty($o->removed))) === $handBefore + 1, 'a real draw after the lookahead still draws (the hang: every draw was skipped)');
+
 // ── timing ─────────────────────────────────────────────────────────────────────────────────────────
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });
 $raiseAttack(1, 'myGroundArena-0');
