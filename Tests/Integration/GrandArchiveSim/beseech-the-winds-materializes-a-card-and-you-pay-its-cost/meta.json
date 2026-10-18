@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Materialize a card from your material deck. *(You still pay for its costs.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

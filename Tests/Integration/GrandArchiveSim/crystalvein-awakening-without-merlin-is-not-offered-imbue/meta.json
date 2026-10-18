@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Merlin Bonus] **Imbue 2**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

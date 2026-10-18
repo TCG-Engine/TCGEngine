@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Tonoris Bonus] [Level 2+] **[REST]:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

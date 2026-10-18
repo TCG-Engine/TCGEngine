@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry*** \u2014 (6): The next three times a Suited Spell source you control would deal damage this turn, it deals that much plus 3 damage instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

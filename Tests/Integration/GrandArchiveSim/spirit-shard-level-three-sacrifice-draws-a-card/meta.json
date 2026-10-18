@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 3+] **Sacrifice CARDNAME**: Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

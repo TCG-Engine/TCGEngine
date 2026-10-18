@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] Whenever an **omen** counter is put on a card in your banishment, put a **refinement** counter on Confidant's Oath."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

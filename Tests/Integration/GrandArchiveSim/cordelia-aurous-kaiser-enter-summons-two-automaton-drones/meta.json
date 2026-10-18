@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Summon** two Automaton Drone tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

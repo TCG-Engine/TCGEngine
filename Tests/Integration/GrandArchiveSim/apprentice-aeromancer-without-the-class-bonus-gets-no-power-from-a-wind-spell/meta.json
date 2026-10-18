@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you activate a wind element Spell card"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

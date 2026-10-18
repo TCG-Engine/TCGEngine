@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Draw seven cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

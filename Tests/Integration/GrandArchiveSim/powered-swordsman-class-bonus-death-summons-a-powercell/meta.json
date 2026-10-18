@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Death:** **Summon** a Powercell token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

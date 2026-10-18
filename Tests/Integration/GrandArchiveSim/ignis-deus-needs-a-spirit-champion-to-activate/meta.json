@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Activate this card only if your champion is a Spirit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

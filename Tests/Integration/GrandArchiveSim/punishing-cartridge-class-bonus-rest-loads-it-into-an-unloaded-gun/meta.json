@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]: Load Punishing Cartridge into target unloaded Gun weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

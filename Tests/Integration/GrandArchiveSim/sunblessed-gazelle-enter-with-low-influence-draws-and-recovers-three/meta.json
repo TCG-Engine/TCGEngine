@@ -21,5 +21,8 @@
             "**On Enter**: If your **influence** is three or less, draw a card and **recover 3**.",
             "Sunblessed Gazelle gets +**X** [LIFE] where **X** is the **highest** influence among your opponents."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

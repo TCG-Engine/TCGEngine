@@ -18,5 +18,8 @@
         "rulesClauses": [
             "put three **durability** counters on a Siegeable domain you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

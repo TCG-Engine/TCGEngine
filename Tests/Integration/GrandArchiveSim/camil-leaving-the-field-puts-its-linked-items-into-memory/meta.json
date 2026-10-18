@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Leave:** Put the items that were linked to CARDNAME into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

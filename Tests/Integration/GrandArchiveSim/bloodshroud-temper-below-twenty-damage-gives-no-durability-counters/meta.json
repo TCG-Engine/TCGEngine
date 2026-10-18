@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Damage 20+] Put two **durability** counters on that weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

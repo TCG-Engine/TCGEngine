@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] Whenever another wind element object enters the field under your control, put a **buff** counter on Wildgrowth Fatestone."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

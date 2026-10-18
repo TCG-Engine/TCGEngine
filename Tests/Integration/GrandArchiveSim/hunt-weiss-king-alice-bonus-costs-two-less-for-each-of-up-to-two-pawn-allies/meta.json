@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] This card costs 2 less to activate for each of up to two Pawn allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

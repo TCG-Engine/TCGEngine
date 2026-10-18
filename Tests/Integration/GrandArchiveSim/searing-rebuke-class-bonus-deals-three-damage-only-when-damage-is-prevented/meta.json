@@ -22,5 +22,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever damage is prevented this way, deal 3 damage to target champion you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Reveal all cards in your memory. You may put up to two Animal cards from among them onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

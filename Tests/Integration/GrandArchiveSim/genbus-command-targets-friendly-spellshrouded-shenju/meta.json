@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target Beast ally gets +3 [LIFE] until end of turn. If that ally is a Shenju, recover 6."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

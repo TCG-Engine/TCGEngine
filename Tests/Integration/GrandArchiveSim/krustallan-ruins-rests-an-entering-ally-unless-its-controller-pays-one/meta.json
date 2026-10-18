@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever an ally enters the field under a player's control, rest that ally unless that player pays (1)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

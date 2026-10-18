@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever non-combat damage is dealt to one or more units by a fire element source you control, put a quest counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Banish the top four cards of target opponent\u2019s deck face down."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

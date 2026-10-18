@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Banish any amount of fire element cards from your graveyard. Empower 3+X, where X is the amount of cards banished this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

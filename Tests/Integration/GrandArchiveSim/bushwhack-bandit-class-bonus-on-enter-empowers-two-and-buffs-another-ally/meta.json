@@ -21,5 +21,8 @@
             "[Class Bonus] **On Enter:** **Empower 2**.",
             "[Class Bonus] Whenever you **empower**, put a **buff** counter on another target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

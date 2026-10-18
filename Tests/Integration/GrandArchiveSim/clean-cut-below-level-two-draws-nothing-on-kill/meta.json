@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 2+] **On Kill:** Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Return target ally to the top of its owner's deck. Your champion becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish CARDNAME and put an **omen** counter on it. If you do, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

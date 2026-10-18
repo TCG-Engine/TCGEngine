@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Otherwise, deal 2 damage to it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

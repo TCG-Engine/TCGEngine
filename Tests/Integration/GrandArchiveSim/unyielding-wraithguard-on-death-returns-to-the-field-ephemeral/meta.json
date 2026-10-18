@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Death**: Return Unyielding Wraithguard from your graveyard to the field. It becomes **ephemeral**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

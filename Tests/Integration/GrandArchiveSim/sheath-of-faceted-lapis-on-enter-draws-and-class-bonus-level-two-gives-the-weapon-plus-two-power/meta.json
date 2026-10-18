@@ -22,5 +22,8 @@
             "**On Enter:** Draw a card.",
             "[Class Bonus] [Level 2+] Linked weapon gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

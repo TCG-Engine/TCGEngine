@@ -17,5 +17,8 @@
         "rulesClauses": [
             "***Balance** \u2014 *Gildas gets +3 [POWER] as long as the amount of cards in your hand and memory are equal."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

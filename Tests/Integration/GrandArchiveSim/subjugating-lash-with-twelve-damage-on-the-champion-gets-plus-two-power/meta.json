@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as your champion has twelve or more damage counters on them, CARDNAME gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

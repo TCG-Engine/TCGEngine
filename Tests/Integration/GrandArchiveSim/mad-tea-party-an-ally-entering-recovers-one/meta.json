@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever an ally enters the field, **recover 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

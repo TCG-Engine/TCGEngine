@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME gets +1 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

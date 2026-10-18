@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Spell cards you own on the effects stack have \u201cIf this source would deal damage, it deals that much damage plus **X** instead, where **X** is **LV** divided by three, rounded down.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

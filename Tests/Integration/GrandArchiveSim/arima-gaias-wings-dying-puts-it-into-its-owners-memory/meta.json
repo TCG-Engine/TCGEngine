@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Death:** Put Arima into its owner's memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Only the Specter-only activation receives the Alice discount."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

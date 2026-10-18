@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you **negate** a card activation an opponent controls, put two **buff** counters on Moonveil Android."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Alice Bonus] At the beginning of your recollection phase, **recover X**, where **X **is the amount of Specter allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

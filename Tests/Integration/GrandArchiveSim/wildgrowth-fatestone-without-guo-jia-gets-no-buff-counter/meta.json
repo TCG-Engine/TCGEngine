@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus]"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Put a **level** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

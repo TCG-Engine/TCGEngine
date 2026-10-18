@@ -17,5 +17,8 @@
         "rulesClauses": [
             "On Enter: Flamebound Draug becomes ephemeral."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

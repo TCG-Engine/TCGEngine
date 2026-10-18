@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Draw a card for each of up to two Gun weapons you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

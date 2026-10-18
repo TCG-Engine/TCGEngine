@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: For each Human ally you control, put the top card of your deck into your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

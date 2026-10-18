@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to CARDNAME, prevent that damage. Apply this replacement effect only once each turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

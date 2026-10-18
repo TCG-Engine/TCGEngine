@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Mary Ann has **vigor** as long as one of your omens has **vigor**. The same is true for **ambush**, **intercept**, **steadfast**, **stealth**, **spellshroud**, **taunt**, and **true sight**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

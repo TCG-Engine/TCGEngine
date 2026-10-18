@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you activate a Chessman Command card, CARDNAME gains **unblockable** until end of turn. *(The attacks of a unit with **unblockable** can\u2019t be intercepted and ignores **taunt**.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Draw a card. Until end of turn, whenever an opponent activates a card or ability, that opponent's champion deals 8 unpreventable damage to itself."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Class Bonus:** That ally also gets +2 [POWER] as long as they're retaliating."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

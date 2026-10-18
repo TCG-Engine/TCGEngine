@@ -18,5 +18,8 @@
             "This card costs 1 less to activate for each Herb you control.",
             "Put two **buff** counters on target ally. *(Allies get +1 [POWER] and +1 [LIFE] for each **buff** counter on them.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

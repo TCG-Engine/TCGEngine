@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Look at the top two cards of your deck. Banish one of them and put an **omen** counter on it. Put the other on the bottom of your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

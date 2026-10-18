@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] **Ephemerate \u2014 (2)** *(You may activate this card from your graveyard by paying this cost. Action cards played this way become **ephemeral** on the effects stack.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

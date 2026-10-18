@@ -20,5 +20,8 @@
             "**Ally Link**",
             "**On Enter:** If you control the linked ally, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

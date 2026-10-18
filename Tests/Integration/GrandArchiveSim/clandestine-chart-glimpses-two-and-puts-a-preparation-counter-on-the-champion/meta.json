@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(2)**, Banish CARDNAME**: **Glimpse 2**. Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

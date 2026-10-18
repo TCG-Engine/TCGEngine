@@ -20,5 +20,8 @@
             "[Class Bonus] **On Enter:** Put a **lash** counter on your champion.",
             "CARDNAME gets +1 [POWER] for each **lash** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

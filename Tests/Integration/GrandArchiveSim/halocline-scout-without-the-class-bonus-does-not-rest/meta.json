@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Rest target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

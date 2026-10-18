@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Each player puts the top card of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

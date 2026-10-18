@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Players can't declare attacks with non-tera element units unless they pay (X) for each attack declaration, where **X** is the amount of **root** counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Recover** 3 and draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

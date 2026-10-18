@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(2): Put a preparation counter on your champion. This ability costs (1) more to activate for each time you've activated it this game."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

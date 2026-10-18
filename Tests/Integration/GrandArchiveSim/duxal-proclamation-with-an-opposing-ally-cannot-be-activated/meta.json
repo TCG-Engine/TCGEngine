@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Activate this ability only if each opponent controls no allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Reckless Slash (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

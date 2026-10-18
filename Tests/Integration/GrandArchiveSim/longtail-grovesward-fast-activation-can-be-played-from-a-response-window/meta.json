@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Fast Activation** *(You may activate this card at fast speed.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

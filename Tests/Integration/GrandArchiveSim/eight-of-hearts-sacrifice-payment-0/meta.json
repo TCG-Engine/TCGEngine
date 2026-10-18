@@ -17,5 +17,8 @@
         "rulesClauses": [
             "While paying for this card's reserve cost, you may sacrifice up to two Suited allies with reserve cost 4 or less. Each ally sacrificed this way pays for 3 of that cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

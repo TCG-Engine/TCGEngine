@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] The next Harmony card you activate this turn costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

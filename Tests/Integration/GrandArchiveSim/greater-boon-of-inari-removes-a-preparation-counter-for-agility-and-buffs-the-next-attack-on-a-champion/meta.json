@@ -20,5 +20,8 @@
             "**Remove a preparation counter from your champion: **You gain **agility 3** for this turn.",
             "Whenever you gain **agility**, your champion's next attack this turn against a champion gets +2[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

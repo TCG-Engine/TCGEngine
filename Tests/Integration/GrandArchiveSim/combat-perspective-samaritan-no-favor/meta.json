@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Gain Crowds Favor only when the attacked unit is not controlled by the caster."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

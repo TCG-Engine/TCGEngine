@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]**:** Banish a card at random from your memory. If a card was banished this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

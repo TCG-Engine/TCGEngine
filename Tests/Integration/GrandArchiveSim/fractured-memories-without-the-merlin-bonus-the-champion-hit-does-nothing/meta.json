@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Merlin Bonus]Your champion has \"**On Champion Hit:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

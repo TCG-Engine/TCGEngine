@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as Rilewind Sentinel is **fostered**, allies you control have **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

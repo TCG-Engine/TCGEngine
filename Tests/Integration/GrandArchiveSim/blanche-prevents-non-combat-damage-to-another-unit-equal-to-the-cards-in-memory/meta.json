@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If another unit you control would be dealt non-combat damage, prevent an amount of that damage equal to the amount of cards in your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Summon** an Automaton Drone token rested with a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

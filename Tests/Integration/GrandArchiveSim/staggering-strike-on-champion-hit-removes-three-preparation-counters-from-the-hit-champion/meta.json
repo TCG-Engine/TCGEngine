@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Champion Hit:** Remove three **preparation** counters from the hit champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

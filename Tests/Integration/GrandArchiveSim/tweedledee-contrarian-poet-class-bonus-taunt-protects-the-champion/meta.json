@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Taunt**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

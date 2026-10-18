@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Another target unit you control becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

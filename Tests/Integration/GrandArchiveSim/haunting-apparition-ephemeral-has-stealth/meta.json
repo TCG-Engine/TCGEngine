@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as CARDNAME is **ephemeral**, it has **stealth**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

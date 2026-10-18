@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If you control an Elysian object, each opponent discards an additional card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

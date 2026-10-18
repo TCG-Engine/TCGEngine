@@ -17,5 +17,8 @@
         "rulesClauses": [
             "CARDNAME enters the field with a **blood** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

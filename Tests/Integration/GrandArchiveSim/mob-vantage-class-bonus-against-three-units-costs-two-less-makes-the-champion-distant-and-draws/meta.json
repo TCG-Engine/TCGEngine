@@ -21,5 +21,8 @@
             "[Class Bonus] As long as an opponent controls three or more units, this card costs 2 less to activate.",
             "Your champion becomes **distant**. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

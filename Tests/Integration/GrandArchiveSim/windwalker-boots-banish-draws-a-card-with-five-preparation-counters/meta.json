@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Draw a card. Activate this ability only if your champion has five or more **preparation** counters on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "Whenever you activate an exia element card, you may banish it as it resolves.",
             "As long as there's a card banished by CARDNAME, it gets +2 [POWER]"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

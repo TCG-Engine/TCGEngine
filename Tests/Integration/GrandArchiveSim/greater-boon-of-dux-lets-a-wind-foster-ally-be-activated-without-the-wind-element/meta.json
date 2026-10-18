@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Ignore the elemental requirements of non-advanced element ally cards with **foster** you activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

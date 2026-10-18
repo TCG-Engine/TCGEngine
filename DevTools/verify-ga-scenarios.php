@@ -45,6 +45,15 @@ $failures = [];
 $formatDrift = [];
 foreach ($slugs as $slug) {
     $dir = "$fixtureRoot/$slug";
+    $meta = is_file("$repoRoot/$dir/meta.json") ? json_decode(file_get_contents("$repoRoot/$dir/meta.json"), true) : [];
+    if (isset($meta['sourceScenario'])) {
+        $output = [];
+        exec(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php') . ' --run-source ' . escapeshellarg('--fixture=' . $slug) . ' 2>&1', $output, $status);
+        if ($status !== 0) $failures[$slug] = ['source scenario failed'];
+        echo ($status === 0 ? 'PASS  ' : 'FAIL  ') . "$slug (source scenario)\n";
+        if ($status !== 0) echo implode("\n", $output) . "\n";
+        continue;
+    }
     $existedInHead = verifyHeadFile($repoRoot, "$dir/actions.json") !== null;
     $log = shell_exec('cd ' . escapeshellarg($repoRoot) . ' && php DevTools/create-prd-ability-fixtures.php --fixture=' . escapeshellarg($slug) . ' 2>&1');
     if (isset($behaviorCases[$slug]) && str_contains($log, '[PASS] ' . $slug . ' (behavior family)')) {

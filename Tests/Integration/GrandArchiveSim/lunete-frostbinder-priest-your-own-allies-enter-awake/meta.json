@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Allies your opponents control enter the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

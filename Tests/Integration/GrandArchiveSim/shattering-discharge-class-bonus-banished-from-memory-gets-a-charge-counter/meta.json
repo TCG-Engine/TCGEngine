@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever this card is banished from your memory, put a **charge** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

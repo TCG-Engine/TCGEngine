@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If this is CARDNAME's first attack this turn"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

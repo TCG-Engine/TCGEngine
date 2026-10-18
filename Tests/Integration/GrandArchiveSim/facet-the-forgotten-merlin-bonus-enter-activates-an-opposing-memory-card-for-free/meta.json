@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Merlin Bonus] **On Enter:** Look at target opponent's memory. You may activate a card from among them without paying its costs and ignoring its elemental requirements. If you do, your opponents can't play cards with the same name as the activated card for as long as you control CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

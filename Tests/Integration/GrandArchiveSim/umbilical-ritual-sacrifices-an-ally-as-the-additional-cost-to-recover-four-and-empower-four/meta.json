@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, sacrifice an ally.",
             "**Recover 4** and **empower 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

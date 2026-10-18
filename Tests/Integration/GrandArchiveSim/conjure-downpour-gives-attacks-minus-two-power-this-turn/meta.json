@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until end of turn, whenever a unit attacks, that attack gets -2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

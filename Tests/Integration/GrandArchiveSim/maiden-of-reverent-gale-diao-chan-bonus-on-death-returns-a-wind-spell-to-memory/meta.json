@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] **On Death**: Return target wind element Spell action card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

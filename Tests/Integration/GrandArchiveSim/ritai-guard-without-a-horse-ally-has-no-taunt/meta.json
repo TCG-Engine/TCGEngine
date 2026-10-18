@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] ***Equestrian*** -- As long as you control a Horse ally, CARDNAME has **taunt** and **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

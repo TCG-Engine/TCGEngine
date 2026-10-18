@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** Draw a card and **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Redirect the attack from your champion to the entered ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

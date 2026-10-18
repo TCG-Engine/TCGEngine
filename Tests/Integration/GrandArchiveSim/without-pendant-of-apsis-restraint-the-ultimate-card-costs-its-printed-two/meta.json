@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Ultimate cards cost (3) more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

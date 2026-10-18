@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: You may have CARDNAME deal 2 damage to your champion. If you do, put a durability counter on a weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

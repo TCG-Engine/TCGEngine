@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Pride 5**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

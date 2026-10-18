@@ -19,5 +19,8 @@
         "rulesClauses": [
             "The same Fire or Tera unique Human condition controls both clauses."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

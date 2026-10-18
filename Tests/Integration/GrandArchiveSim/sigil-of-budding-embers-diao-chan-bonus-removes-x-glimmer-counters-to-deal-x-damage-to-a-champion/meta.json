@@ -22,5 +22,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] [REST]**, Remove X glimmer counters from your champion, Banish CARDNAME:** As a Spell, deal **X** damage to target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

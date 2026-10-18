@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Banish target ally you control, then return it to the field under its owner's control rested. If that ally is a phantasia, it enters the field with an additional **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

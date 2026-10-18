@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]: Each player with **influence** less than seven draws a card into their memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

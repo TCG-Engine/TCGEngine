@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You cannot generate cards with the chosen name."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

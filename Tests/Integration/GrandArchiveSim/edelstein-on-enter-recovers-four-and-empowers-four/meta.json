@@ -20,5 +20,8 @@
             "**On Enter:** **Recover 4** and **empower 4**.",
             "Whenever you **empower** an amount, CARDNAME gets **+X** [POWER] until end of turn, where **X** is that amount."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

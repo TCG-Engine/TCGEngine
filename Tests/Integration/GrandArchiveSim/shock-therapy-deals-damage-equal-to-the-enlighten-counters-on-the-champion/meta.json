@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal an amount of damage to target ally equal to the amount of **enlighten** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

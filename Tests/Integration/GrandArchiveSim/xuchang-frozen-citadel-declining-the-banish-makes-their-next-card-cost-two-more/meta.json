@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If they don't, the next card they activate this turn costs 2 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

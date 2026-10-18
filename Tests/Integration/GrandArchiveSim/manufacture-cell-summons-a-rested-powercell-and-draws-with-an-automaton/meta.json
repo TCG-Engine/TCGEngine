@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Summon** a Powercell token rested. If you control an Automaton object, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

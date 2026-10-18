@@ -18,5 +18,8 @@
         "rulesClauses": [
             "change from facing North to West"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

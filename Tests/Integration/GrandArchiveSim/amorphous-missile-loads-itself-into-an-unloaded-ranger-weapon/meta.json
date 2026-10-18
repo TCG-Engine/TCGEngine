@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(1), [REST]**:** Load CARDNAME into target unloaded Ranger weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

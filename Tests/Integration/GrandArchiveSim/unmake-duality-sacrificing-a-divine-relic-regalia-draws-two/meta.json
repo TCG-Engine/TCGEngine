@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, sacrifice a regalia with **divine relic**.",
             "Draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Bulwark** *(This ally enters the field with a **bulwark** counter on it. If combat damage would be dealt to an ally with any **bulwark** counters on it, remove one and prevent that damage instead.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

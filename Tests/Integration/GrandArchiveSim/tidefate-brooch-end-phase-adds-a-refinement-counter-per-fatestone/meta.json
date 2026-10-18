@@ -19,5 +19,8 @@
         "rulesClauses": [
             "At the beginning of your end phase, put **X** **refinement** counters on Tidefate Brooch, where **X** is the amount of Fatestone and/or Fatebound objects you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

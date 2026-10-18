@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Merlin Bonus] **On Attack: ** You may move up to three **sheen** counters from among units on the field onto the defender."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

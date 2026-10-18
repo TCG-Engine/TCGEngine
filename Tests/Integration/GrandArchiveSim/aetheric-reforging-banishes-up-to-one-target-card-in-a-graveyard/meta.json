@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Banish up to one target card in a graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

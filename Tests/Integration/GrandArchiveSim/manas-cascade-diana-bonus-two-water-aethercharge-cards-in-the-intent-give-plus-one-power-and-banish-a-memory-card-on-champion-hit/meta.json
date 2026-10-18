@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Diana Bonus] **On Attack**: If there are two or more water element Aethercharge cards in the attacker's intent, this attack gets +1[POWER] and gains \u201d**On Champion Hit:** That opponent banishes a card at random from their memory.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

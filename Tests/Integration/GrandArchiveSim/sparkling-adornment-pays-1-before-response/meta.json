@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, remove one or more **sheen** counters from an object on the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

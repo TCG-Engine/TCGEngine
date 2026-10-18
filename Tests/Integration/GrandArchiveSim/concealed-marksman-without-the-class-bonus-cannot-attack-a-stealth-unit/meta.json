@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **True Sight**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

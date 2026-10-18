@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Sheen 18+] At the beginning of your end phase, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

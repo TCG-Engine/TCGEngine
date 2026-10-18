@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Players can't declare attacks with allies unless they pay (1) for each attack declaration."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

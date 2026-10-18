@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Attack**: Put an **aim** counter on Steady Sharpshooter. Then you may remove all **aim** counters from Steady Sharpshooter."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

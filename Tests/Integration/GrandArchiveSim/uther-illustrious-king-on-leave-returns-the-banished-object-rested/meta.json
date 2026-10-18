@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Leave:** Return the banished object to the field under its owner's control rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

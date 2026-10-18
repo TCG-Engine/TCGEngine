@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The first card your opponents activate each turn costs 1 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

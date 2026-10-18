@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you have four or more water element cards in your graveyard, Krustallan Longsword gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

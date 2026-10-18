@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you have four or more water element cards in your graveyard, CARDNAME gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

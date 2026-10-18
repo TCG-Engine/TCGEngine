@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, return a regalia you control to its owner's material deck.",
             "Draw a card, then put two **preparation** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

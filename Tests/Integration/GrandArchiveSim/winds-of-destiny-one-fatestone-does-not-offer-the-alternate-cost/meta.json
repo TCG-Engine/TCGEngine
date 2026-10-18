@@ -17,5 +17,8 @@
         "rulesClauses": [
             "You may rest two Fatestones you control"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

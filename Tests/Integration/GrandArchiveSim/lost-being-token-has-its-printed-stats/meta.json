@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Lost Being (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

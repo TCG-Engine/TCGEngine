@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Negate** target card activation unless its controller has CARDNAME deal **1+LV** unpreventable damage to their champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

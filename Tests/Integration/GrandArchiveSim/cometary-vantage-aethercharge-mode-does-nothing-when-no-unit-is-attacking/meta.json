@@ -17,5 +17,8 @@
         "rulesClauses": [
             "\u2022 If a unit is attacking, each Aethercharge card in that attacker's intent gains \"**On Hit**: Load this card into an Aetherwing weapon you control.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

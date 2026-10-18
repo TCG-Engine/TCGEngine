@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Opponents pay two more during your turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

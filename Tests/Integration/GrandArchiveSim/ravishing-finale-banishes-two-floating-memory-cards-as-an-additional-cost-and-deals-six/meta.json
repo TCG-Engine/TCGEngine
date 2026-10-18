@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, banish two cards with **floating memory** from your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

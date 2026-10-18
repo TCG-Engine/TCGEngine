@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As you gain this boon, draw two cards and put two **buff** counters on an ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

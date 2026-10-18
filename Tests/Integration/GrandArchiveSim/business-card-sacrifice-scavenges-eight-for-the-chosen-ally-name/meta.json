@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**(2), Sacrifice CARDNAME:** **Scavenge 8** for an ally card with the chosen name."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

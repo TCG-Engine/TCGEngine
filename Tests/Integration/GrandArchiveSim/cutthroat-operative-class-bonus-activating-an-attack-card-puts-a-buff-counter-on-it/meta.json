@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you activate an attack card, if CARDNAME has less than two **buff** counters on it, put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Put a **buff** counter on each Slime ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

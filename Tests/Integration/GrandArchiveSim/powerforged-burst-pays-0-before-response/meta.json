@@ -21,5 +21,8 @@
             "As an additional cost to activate this card, sacrifice **X** Powercell items. **X** can't be more than 3.",
             "Deal 2 damage to target unit **X** times. If **X** is 3, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

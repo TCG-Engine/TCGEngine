@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Blighted Jewel becomes **ephemeral**. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

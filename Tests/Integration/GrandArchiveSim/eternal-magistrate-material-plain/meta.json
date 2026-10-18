@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Opposing material cards cannot leave outside their owner materialize phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

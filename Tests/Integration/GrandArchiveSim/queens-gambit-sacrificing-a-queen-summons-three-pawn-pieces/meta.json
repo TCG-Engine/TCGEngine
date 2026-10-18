@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If the sacrificed ally was a Queen, **summon** three Pawn Piece tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

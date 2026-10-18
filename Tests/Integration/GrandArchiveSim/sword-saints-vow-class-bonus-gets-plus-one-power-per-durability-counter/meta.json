@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Sword Saint's Vow gets +1 [POWER] for each **durability** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

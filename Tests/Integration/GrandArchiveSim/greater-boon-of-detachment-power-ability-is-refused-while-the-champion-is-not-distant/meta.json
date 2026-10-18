@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Activate this ability only once during each of your turns, and only if your champion is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

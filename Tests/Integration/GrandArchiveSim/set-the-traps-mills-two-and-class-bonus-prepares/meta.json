@@ -19,5 +19,8 @@
             "Target player puts the top two cards of their deck into their graveyard.",
             "[Class Bonus] Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

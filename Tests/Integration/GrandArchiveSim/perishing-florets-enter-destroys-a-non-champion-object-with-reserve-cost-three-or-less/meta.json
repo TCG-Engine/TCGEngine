@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Destroy target non-champion object with reserve cost 3 or less or memory cost 0."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

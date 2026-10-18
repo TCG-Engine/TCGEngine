@@ -18,5 +18,8 @@
         "rulesClauses": [
             "reveal three wind element cards from your memory"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

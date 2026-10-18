@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 2+] Other units you control have **ranged 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

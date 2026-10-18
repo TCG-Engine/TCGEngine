@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Inherited Effect:** As long as CARDNAME is attacking a rested unit, CARDNAME's attacks get +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

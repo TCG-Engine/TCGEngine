@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If a champion with base level 2 you don't control would level up into a champion card, return that card to its owner's material deck instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

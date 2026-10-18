@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Token objects you control have **reservable**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

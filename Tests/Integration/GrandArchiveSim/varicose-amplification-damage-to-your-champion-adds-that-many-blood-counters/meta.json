@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever an amount of damage is dealt to your champion, put that many **blood** counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

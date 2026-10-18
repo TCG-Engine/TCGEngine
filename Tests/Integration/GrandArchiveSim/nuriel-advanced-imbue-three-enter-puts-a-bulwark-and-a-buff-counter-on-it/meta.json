@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter: ** If CARDNAME is **imbued**, put a **bulwark** and a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

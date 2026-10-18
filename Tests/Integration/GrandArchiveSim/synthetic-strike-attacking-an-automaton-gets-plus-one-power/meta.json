@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as the attacker is attacking an Automaton unit, CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

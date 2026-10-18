@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit:** The hit object doesn't wake up during its controller's next wake up phase unless that player pays (2)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

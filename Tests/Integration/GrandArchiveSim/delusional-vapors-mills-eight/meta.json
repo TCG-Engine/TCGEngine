@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Target opponent puts the top eight cards of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST], **Sacrifice Invigorating Concoction**: Put two **buff** counters on up to one target ally. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

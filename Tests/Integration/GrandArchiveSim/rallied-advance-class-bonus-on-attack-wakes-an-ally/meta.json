@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** Wake up target ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

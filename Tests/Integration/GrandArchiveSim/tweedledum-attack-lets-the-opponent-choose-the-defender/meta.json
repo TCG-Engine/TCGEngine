@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Choose an opponent as you declare an attack with CARDNAME rather than a target defender. That opponent chooses a valid unit they control as the target defender."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

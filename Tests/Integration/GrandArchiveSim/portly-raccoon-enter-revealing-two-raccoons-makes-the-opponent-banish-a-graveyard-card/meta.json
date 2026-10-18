@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** You may reveal two Raccoon cards from your hand and/or memory. When you do, target opponent banishes a card from their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

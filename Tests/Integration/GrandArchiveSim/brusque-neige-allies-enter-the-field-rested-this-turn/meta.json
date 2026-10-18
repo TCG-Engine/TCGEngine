@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Until end of turn, allies enter the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, **empower 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

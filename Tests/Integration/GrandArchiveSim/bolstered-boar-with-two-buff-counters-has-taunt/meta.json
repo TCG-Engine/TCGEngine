@@ -21,5 +21,8 @@
         "rulesClauses": [
             "As long as Bolstered Boar has two or more **buff** counters on it, it has **steadfast**, **taunt**, **vigor**, and **retort 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

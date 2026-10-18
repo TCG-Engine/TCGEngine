@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If you have two or less **omens**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

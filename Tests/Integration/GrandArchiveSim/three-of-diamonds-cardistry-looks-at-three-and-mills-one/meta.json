@@ -19,5 +19,8 @@
         "rulesClauses": [
             "***Cardistry*** -- (3): Look at the top three cards of your deck. Put one of them into your graveyard and the rest back on top of your deck in any order."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

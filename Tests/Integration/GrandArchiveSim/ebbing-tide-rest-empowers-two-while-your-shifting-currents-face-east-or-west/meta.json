@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**: Empower 2**. Activate this ability only if your Shifting Currents face East or West."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

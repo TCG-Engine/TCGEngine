@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(6)**:** Draw a card and put a **level** counter on CARDNAME. Activate this ability only once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

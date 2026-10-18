@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If you control a **distant** unit, CARDNAME becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]**, Discard a domain card:** Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

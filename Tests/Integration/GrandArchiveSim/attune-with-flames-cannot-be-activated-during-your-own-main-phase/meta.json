@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Activate this card only during an opponent's recollection phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

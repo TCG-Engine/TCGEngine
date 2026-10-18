@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Cheshire Cat has all activated abilities of Distortion regalia you control. "
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

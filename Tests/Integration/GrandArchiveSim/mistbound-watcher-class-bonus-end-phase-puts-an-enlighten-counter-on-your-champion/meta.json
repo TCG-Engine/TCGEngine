@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your end phase, put an **enlighten** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

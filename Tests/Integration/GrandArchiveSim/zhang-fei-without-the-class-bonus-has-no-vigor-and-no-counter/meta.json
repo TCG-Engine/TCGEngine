@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Vigor**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

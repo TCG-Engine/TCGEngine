@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** You may pay (2). When you do, put a **buff** counter on target Guardian ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If the killed unit had **intercept** or **taunt**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

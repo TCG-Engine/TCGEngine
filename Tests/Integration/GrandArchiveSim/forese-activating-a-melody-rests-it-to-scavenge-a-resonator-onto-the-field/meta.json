@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever you activate a Harmony or Melody card, you may rest CARDNAME. If you do, **scavenge 5** for a non-advanced element Resonator ally card with reserve cost 3 or less. Put the scavenged card onto the field rather than into your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

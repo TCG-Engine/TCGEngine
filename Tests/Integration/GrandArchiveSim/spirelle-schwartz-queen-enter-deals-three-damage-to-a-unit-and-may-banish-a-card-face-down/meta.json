@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter**: As a Spell, deal 3 damage to target unit. Then you may banish a card from your hand or memory face down."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

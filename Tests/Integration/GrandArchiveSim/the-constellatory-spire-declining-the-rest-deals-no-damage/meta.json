@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you **negate** a card activation, you may rest CARDNAME. When you do, deal 2 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

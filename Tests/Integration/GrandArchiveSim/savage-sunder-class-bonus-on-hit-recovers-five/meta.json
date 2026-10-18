@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit**: You may **recover 5**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** You may rest CARDNAME. If you do, wake up another Slime ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

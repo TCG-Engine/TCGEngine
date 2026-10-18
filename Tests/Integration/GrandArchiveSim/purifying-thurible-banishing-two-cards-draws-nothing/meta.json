@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If **X **is 3 or greater, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

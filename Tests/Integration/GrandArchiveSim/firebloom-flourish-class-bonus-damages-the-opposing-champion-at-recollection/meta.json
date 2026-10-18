@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, deal 1 damage to target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

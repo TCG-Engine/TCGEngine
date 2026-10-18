@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter**: If there's another fire element card in CARDNAME's lineage, the next Ranger ally card you activate this turn enters the field **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

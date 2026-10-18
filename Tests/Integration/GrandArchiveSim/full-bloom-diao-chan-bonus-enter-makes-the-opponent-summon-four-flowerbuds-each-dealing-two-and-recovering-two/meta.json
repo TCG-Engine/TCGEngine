@@ -23,5 +23,8 @@
             "[Diao Chan Bonus] **On Enter:** Target opponent **summons** four Flowerbud tokens.",
             "[Diao Chan Bonus] Whenever an opponent **summons** a Flowerbud token, deal 2 damage to each champion that opponent controls and you **recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

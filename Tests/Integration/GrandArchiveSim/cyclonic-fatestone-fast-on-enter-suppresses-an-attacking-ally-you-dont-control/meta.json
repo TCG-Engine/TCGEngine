@@ -21,5 +21,8 @@
             "**Fast Activation**",
             "**On Enter**: **Suppress** target attacking ally you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

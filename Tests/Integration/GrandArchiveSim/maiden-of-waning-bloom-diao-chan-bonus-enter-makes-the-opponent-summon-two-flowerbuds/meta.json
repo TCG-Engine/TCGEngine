@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] **On Enter: **Up to one target opponent **summons** two Flowerbud tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

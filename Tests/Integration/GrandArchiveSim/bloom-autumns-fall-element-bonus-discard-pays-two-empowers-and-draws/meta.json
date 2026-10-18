@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Element Bonus] (2), **Discard this card from your hand**: **Empower 2**. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

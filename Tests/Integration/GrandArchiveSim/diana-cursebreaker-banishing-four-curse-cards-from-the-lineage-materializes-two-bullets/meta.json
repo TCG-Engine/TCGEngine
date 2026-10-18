@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish all Curse cards from Diana's lineage:** Materialize two Bullet cards from your material deck. Until end of turn, Diana gains \"**On Attack:** Wake up Diana.\" Activate this ability only if there are four or more Curse cards in Diana's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

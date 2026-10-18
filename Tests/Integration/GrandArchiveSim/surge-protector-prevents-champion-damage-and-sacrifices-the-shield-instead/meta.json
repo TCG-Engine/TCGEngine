@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Until end of turn, target Shield item you control gains \"If damage would be dealt to your champion, prevent that damage and sacrifice this object instead.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

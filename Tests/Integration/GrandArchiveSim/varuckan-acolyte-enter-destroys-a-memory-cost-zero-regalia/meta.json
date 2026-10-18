@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Enter: Destroy target regalia with memory cost 0."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

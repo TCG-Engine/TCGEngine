@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control two or more Fatestone and/or Fatebound objects, this card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

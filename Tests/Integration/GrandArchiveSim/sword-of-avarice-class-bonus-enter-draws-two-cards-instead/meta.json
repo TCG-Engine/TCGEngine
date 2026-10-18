@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Class Bonus:** Draw two cards instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

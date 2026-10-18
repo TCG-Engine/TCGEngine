@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until the beginning of your next turn, players can't declare attacks with champions they control unless they pay (2) for each attack declaration. Then if you control a Suited ally, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

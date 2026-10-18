@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Ephemerate -- (2) (You may activate this card from your graveyard by paying this cost. Ally cards played this way become ephemeral as they enter the field.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

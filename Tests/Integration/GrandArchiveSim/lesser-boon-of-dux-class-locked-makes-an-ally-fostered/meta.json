@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, choose an ally and it becomes **fostered**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

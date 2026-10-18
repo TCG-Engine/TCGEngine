@@ -19,5 +19,8 @@
             "Return target attacking ally to its owner's memory.",
             "Then you may load Charging Galeshot into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

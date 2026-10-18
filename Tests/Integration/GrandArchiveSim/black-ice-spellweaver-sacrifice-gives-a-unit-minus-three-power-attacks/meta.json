@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** Target unit's attacks get -3[POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "Activate this card only during an opponent's recollection phase.",
             "Until end of turn, whenever a card from the turn player's memory is put into their hand, that player puts the top card of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

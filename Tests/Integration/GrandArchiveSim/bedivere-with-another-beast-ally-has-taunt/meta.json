@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Bedivere has **taunt** as long as you control another Animal or Beast ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "As CARDNAME enters the field, choose an ally card name.",
             "**On Enter:** Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

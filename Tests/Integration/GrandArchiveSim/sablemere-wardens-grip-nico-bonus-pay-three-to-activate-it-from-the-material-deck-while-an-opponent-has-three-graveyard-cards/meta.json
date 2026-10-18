@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Nico Bonus] As long as an opponent has three or more cards in their graveyard, you may pay (3) to activate this card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

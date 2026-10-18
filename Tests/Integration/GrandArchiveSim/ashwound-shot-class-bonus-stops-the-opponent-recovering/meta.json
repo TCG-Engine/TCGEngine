@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] Until end of turn, target opponent can't recover."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

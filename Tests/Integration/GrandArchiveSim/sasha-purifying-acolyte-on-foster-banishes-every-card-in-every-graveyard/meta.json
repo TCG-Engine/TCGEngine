@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Foster:** Banish all cards in all graveyards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

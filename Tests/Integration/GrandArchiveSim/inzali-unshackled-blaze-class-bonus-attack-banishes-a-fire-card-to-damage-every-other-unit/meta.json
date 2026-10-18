@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** You may banish a fire element card from your graveyard. If you do, deal 1 damage to each other unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **Gather**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

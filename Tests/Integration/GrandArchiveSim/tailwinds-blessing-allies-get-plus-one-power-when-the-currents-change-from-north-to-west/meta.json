@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever your Shifting Currents change from facing North to West, allies you control get +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Alice Bonus] **Commanded Will 1**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

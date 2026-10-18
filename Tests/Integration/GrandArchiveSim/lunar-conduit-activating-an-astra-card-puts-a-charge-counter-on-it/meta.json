@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever you activate an astra element card, put a **charge** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

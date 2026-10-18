@@ -19,5 +19,8 @@
             "**Efficiency** *(This card costs **LV** less to activate. **LV** refers to your champion's level.)*",
             "Banish all allies. For each ally banished this way, its controller draws a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

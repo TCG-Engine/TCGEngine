@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** Put a **buff** counter on target Automaton ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

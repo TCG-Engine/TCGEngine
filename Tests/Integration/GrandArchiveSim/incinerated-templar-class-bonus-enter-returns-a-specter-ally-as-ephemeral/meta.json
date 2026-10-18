@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: Put target Specter ally card with reserve cost 3 or less from your graveyard onto the field. It becomes ephemeral."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

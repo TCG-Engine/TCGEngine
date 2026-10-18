@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter: **You gain the Crowd's Favor status."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

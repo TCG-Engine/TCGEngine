@@ -21,5 +21,8 @@
             "**On Enter:** **Summon** two Atmos Shield tokens.",
             "[Class Bonus] CARDNAME gets +1 [POWER] for each ally named Atmos Shield you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

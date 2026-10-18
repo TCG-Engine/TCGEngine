@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] You may ignore this card's elemental requirements as you activate it. If you do, it costs 2 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish CARDNAME: Each player discards a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

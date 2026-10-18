@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST]**:** Load CARDNAME into target unloaded Gun weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]: If you don't control a Pawn ally, **summon** a Pawn Piece Token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

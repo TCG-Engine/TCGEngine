@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may banish three or more Suited ally cards with total reserve cost 10 from your graveyard rather than pay this card's reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

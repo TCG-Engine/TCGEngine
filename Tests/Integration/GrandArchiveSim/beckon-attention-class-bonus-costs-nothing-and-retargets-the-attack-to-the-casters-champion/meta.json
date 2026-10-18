@@ -21,5 +21,8 @@
             "[Class Bonus] This card costs 2 less to activate.",
             "Change the target of an attack that targets a unit you don't control to your champion. If you do, you gain the Crowd's Favor status."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

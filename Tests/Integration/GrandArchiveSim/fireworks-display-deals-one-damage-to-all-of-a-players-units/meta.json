@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 1 damage to all units target player controls."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

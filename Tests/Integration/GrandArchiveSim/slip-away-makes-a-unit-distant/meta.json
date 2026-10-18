@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target unit becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "On Death: Deal 2 damage to each champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

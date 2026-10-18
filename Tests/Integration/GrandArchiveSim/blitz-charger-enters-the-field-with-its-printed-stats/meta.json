@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Blitz Charger is a vanilla ally (3/1) with no ability."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

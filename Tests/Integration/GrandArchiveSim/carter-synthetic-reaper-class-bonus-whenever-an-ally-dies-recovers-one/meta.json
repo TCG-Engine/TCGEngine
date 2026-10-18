@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever an ally dies, **recover 1.**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

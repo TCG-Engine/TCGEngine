@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME's attacks can't be retaliated."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

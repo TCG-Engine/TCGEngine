@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Deal up to 7 damage to your champion. Destroy all non-champion objects with reserve cost equal to the amount of damage dealt to your champion this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

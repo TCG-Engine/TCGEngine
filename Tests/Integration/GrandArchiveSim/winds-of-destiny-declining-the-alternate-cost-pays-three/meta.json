@@ -16,5 +16,8 @@
         "rulesClauses": [
             "You may rest two Fatestones you control rather than pay this card's reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

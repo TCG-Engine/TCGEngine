@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Each player sacrifices an ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

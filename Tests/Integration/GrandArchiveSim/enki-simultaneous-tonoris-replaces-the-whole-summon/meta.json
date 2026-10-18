@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Tonoris replaces the whole simultaneous summon before Enki chooses a copy."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

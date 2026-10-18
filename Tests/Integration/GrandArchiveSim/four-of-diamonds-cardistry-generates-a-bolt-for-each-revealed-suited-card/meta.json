@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry*** -- (4): Reveal up to two Suited cards from your memory. For each card revealed this way, **generate** a Bolt of Diamonds card and put it into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter:** You may sacrifice another ally. If you do, Carter gets +2 [POWER] until end of turn. If an Automaton ally was sacrificed this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

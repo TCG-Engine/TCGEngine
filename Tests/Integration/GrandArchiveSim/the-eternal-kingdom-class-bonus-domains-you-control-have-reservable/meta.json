@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Domains you control have **reservable**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

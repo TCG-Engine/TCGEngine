@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Reveal the top two cards of your deck. If the total reserve cost of the revealed cards is 8, put both of them into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

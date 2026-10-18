@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] At the beginning of your recollection phase, you may banish a card with **floating memory** from your graveyard. If you do, transform Submerged Fatestone."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

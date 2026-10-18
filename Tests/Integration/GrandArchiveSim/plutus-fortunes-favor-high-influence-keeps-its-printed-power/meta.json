@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as your **influence** is four or less, CARDNAME gets +2[POWER] and damage dealt by CARDNAME is unpreventable."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

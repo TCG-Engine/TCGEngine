@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] **On Death**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

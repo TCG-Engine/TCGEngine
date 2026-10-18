@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as a Human ally you controlled has died this turn, this card costs 2 less to activate"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

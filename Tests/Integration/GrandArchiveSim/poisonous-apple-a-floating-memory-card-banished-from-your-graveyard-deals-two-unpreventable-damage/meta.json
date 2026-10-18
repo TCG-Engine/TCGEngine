@@ -21,5 +21,8 @@
             "**On Enter**: Choose a player. That player gains control of Poisonous Apple.",
             "Whenever a card with **floating memory** is banished from your graveyard, deal 2 unpreventable damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

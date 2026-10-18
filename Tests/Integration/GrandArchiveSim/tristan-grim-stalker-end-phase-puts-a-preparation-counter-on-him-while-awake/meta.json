@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your end phase, if Tristan is awake, put a **preparation** counter on Tristan."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

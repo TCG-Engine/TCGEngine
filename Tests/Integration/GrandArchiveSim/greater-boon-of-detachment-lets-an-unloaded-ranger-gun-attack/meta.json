@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may declare attacks with unloaded Ranger weapons you control as though they were loaded."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

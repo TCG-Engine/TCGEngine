@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Cardistry -- (8): Draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

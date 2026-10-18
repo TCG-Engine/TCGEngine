@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Ally Kill**: Deal **X** unpreventable damage to each other champion where **X** is the killed ally's power stat plus its life stat."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Jin Bonus] Choose a Polearm weapon you control and trigger each of its **on enter** effects. Then put a **durability** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

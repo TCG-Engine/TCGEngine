@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** You may banish two fire element cards from your graveyard. If you do, CARDNAME loses **pride** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **True Sight** *(This ally can attack units with stealth.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

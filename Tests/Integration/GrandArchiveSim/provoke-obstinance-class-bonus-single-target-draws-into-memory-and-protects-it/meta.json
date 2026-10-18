@@ -21,5 +21,8 @@
             "[Class Bonus] Whenever you activate this card, if there's exactly one target for its activation, draw a card into your memory.",
             "Up to five target objects you control gain **spellshroud** until end of turn. Prevent the next 2 damage that would be dealt to each of those targets this turn if they're units."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

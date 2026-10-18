@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] If damage would be dealt to linked unit, prevent 1 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

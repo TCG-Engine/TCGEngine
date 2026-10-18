@@ -19,5 +19,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, sacrifice Sovereign Sanctuary and draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

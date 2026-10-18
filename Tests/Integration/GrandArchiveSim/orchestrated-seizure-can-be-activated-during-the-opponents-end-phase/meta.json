@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Activate this card only during an opponent\u2019s end phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

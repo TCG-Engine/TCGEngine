@@ -18,5 +18,8 @@
             "Allies you control get +1[POWER] until end of turn.",
             "You may load CARDNAME into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

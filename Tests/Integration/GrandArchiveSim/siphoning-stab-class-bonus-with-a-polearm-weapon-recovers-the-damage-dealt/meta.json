@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as the attacker is attacking using a Polearm weapon, CARDNAME has \"**On Hit:** **Recover X**, where **X** is the amount of damage dealt by this hit.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

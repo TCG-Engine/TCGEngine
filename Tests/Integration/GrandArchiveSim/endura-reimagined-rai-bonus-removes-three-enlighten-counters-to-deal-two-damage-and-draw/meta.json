@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Rai Bonus] **Remove three enlighten counters from your champion,  [REST]:** As a Spell, deal 2 damage to up to one target unit. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[REST], **Banish CARDNAME:** **Empower X**, where **X** is the amount of water element cards in your graveyard. Activate this ability only at slow speed and only if your Shifting Currents face North or South."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

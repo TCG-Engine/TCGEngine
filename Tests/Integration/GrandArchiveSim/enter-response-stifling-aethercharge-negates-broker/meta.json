@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Negate all On Enter triggers from target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

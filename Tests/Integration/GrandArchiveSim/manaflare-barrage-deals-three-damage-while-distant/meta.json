@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If your champion is distant, deal 3 damage to those units instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

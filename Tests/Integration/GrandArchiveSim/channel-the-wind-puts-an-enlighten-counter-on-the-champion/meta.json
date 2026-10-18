@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Put an **enlighten** counter on your champion. *(You may remove three **enlighten** counters from your champion to draw a card.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

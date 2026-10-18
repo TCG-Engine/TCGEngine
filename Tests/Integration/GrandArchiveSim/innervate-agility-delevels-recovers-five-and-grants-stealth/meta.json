@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, **delevel** your champion and **recover 5**. *(To **delevel** your champion, return the top card of its lineage to its owner's material deck.)*",
             "Units you control gain your choice of **stealth** or **spellshroud** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 2 less to activate for each of up to three domains you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

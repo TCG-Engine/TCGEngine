@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until end of turn, cards you look at while **glimpsing** have \"**Starcalling** \u2014 (X)\", where **X** is that card's reserve cost. **Glimpse 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

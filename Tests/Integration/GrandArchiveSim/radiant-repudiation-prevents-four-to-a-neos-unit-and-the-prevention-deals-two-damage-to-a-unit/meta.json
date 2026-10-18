@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Prevent the next 4 damage that would be dealt to target neos element unit this turn. Whenever damage is prevented this way, deal 2 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

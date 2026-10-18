@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** Put a **refinement** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

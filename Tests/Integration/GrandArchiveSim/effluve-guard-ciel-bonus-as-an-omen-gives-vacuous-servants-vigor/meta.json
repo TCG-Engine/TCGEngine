@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] As long as this card is an **omen**, allies named Vacuous Servants you control have **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

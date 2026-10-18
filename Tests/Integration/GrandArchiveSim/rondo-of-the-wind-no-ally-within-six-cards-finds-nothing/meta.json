@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Scavenge 6** for an ally card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

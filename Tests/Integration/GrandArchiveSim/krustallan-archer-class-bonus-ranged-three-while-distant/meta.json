@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **Ranged 3**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

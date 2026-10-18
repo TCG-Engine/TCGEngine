@@ -19,5 +19,8 @@
             "Choose one\u2014",
             "\u2022 Destroy target phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

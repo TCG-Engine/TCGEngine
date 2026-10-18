@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If you would **summon** one or more tokens, you may **summon** that many Aurousteel Greatsword tokens instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

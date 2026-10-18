@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target ally card activation unless its controller pays (4). Banish the card that had its activation **negated** this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

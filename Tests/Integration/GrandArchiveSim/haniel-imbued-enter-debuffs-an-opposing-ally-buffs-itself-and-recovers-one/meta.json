@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**, put a **debuff** counter on target ally you don't control, put a **buff** counter on CARDNAME, and **recover 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

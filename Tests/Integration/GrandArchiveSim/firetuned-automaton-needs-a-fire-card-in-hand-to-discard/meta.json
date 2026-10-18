@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, discard a fire element card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

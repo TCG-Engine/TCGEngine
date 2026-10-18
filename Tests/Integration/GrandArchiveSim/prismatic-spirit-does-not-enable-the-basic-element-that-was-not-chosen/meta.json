@@ -17,5 +17,8 @@
         "rulesClauses": [
             "choose two basic elements"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

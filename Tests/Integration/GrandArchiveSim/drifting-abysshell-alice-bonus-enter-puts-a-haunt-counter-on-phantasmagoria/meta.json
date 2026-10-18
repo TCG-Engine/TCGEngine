@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**[Alice Bonus]** **On Enter:** Put a **haunt** counter on your Phantasmagoria."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

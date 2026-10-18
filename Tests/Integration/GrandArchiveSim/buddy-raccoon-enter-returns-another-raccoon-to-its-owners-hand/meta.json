@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter: **You may return another target Raccoon ally you control to its owner's hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

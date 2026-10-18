@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Death**: Banish CARDNAME, and a card at random from your memory. When you do, as a Spell, deal **X** damage to target champion where **X** is the total reserve cost of the banished cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If you control a Phone item, **scavenge 20** for an ally card with the chosen name instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

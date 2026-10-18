@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: If your **influence** is three or less, draw a card and **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

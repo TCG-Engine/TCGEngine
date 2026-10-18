@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Only opponents pay the surcharge."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

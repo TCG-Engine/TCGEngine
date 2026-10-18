@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Activate this ability only if you control a Chessman King ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

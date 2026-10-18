@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: As a Spell, if CARDNAME is **imbued**, deal 4 damage to target attacking ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

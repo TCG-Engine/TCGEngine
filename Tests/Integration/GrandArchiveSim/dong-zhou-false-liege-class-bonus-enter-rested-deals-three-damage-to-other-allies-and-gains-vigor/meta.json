@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** You may rest CARDNAME. If you do, choose two\u2014 \u2022 Deal 3 damage to all other allies. \u2022 **Empower 3**. \u2022 CARDNAME gains **vigor** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

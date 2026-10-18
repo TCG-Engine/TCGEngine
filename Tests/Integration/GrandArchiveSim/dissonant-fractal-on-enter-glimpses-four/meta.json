@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** **Glimpse 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

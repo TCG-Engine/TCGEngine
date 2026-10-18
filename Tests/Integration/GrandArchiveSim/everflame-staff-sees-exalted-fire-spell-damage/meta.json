@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Exalted Fire Spell damage qualifies as Fire."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

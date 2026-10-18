@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Fire element allies you control have **On Death**: If your **influence** is six or less, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

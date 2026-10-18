@@ -16,5 +16,8 @@
         "rulesClauses": [
             "If it's a Ranger ally, it becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

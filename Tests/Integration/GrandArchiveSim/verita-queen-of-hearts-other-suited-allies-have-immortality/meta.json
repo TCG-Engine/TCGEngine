@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Other Suited allies you control have **immortality**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Linked ally has **taunt** and loses **pride**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

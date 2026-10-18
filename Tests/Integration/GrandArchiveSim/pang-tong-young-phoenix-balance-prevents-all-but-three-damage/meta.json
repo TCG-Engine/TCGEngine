@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Balance \u2014 If damage would be dealt to a unit you control while the amount of cards in your hand and memory are equal, prevent all but 3 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Banish CARDNAME: As a Spell, deal 4 damage to target champion. Activate this ability only if there are three or more refinement counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

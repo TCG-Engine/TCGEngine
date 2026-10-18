@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If an opponent has **influence** eight or more"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

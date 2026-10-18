@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Token weapons you control have \"**Sacrifice this object:** Target weapon gets +**X** [POWER] until end of turn where **X** is this object's power.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

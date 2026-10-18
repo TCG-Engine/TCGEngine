@@ -17,5 +17,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, put three **buff** counters on Arima."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

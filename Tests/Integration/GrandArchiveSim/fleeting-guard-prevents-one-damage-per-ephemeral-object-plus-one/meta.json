@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Until end of turn, if target unit would be dealt damage, prevent **X** of that damage where **X** is the amount of **ephemeral** objects you control plus 1."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

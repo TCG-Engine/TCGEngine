@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Dahlia has **ranged X**, where **X** is the amount of water element cards in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter**: Remove all **buff** counters from all objects you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

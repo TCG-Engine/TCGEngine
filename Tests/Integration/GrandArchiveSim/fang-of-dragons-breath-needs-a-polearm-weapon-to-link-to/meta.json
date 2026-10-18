@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Polearm Weapon Link**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

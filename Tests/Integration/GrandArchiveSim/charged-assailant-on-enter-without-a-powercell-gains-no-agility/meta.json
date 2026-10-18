@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If you control a Powercell"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

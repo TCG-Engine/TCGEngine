@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever your champion levels up, **recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

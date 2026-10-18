@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control another Slime ally, Baby Silver Slime has **taunt**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

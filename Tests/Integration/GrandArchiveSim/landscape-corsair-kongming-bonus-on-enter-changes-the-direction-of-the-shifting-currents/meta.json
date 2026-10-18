@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Kongming Bonus] **On Enter:** You may change the direction of your Shifting Currents to a different direction of your choice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

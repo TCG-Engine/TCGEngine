@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Inherited Effect \u2014** Whenever you play an advanced element card while there are no Curse cards in Alice's lineage, deal 7 unpreventable damage to Alice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

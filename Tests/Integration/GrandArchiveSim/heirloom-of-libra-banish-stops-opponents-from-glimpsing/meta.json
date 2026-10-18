@@ -19,5 +19,8 @@
         "rulesClauses": [
             "\u2022 Until end of turn, your opponents can\u2019t **glimpse**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

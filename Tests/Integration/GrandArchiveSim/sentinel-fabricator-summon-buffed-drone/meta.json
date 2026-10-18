@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(3), REST: Summon an Automaton Drone token with a buff counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Up to one target Dagger or Sword weapon you control gets +1 [POWER] until end of turn. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] **On Attack**: If there are no cards in the attacker's intent, you may pay (X). **X** can't be more than the amount of omens you have. If you do, Lacuna's Grasp gets +**X**[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

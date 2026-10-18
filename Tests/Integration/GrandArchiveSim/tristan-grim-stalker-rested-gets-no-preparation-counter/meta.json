@@ -17,5 +17,8 @@
         "rulesClauses": [
             "At the beginning of your end phase, if Tristan is awake"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

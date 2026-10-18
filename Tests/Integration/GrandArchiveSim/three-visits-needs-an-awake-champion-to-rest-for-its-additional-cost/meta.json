@@ -16,5 +16,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, rest your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

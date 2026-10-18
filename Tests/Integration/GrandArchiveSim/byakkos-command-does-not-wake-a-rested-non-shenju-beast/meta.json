@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If that ally is a Shenju, wake it up."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

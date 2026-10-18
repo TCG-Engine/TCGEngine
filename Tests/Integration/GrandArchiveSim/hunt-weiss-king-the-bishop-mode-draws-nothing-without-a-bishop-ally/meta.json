@@ -18,5 +18,8 @@
         "rulesClauses": [
             "\u2022 If you control a Chessman Bishop ally, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

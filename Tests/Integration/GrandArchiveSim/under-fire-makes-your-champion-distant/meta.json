@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Your champion becomes distant. Then you may have CARDNAME deal 4 damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

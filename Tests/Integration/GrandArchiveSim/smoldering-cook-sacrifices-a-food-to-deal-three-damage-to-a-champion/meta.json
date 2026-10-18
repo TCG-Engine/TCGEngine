@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST], Sacrifice a Food item: Deal 3 damage to target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

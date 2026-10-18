@@ -18,5 +18,8 @@
             "Depending on your Shifting Currents' direction\u2014",
             "\u2022 North\u2014 Put a **buff** counter on an ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

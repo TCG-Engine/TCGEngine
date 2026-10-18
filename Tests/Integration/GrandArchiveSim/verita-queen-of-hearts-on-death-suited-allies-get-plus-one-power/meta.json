@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Death**: Suited allies you control get +1[POWER] until the end of your next turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

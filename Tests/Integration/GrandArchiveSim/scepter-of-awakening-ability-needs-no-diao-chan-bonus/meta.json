@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] As long as you control four or more phantasias, you may activate this card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

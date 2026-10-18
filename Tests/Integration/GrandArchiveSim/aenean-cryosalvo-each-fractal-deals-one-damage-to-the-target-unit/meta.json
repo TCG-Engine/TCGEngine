@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Each Fractal object you control deals 1 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

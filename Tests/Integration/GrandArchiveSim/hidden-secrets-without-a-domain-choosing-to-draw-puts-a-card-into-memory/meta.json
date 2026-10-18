@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Choose one. If you control one or more domains, choose up to two instead\u2014"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

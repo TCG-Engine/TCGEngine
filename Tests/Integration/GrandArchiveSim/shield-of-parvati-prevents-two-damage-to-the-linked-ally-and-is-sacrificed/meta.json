@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If linked ally would take damage, prevent 2 of that damage and sacrifice CARDNAME instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

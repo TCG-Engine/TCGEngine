@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 1 less to materialize."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

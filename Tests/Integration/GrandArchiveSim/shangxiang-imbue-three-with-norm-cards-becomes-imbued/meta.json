@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Imbue 3** *(You may reserve all cards revealed as you activate this card. If at least three of them are norm element, this card becomes **imbued**.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

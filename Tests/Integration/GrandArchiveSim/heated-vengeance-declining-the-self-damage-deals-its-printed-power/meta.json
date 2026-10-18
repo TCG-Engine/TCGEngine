@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as your champion has taken damage this turn, CARDNAME gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

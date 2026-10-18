@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** Put **X buff** counters on target ally, where **X** is the amount of **age** counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

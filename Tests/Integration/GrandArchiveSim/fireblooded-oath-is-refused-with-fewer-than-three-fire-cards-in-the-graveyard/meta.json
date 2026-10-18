@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, banish three fire element cards from your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

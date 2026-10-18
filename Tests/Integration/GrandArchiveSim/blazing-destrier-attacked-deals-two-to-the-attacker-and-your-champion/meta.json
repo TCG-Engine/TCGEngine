@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever CARDNAME is attacked, deal 2 damage to the attacker and your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

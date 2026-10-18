@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Choose one. If CARDNAME is **imbued**, choose two instead\u2014 Up to one target unit\u2019s attacks get -3 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

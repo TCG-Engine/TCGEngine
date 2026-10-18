@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Attack**: If Lily is attacking a unit with an even life stat, this attack gets +1[POWER] and you may return a card from your memory to your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

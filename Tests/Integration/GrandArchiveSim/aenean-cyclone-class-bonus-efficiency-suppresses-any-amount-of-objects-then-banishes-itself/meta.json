@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Suppress** any amount of target non-champion objects. Banish CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

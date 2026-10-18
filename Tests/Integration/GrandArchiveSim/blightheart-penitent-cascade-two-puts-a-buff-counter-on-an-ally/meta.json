@@ -19,5 +19,8 @@
         "rulesClauses": [
             "\u2022 2 and 3\u2014 Put a **buff** counter on target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever an ally you control becomes **fostered**, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

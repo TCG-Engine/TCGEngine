@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] **On Enter: **"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

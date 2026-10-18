@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Gather**, then draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

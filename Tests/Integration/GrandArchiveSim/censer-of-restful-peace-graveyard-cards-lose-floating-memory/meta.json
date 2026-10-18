@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Cards in graveyards lose all abilities."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

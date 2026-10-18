@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Ephemerate \u2014** (5)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

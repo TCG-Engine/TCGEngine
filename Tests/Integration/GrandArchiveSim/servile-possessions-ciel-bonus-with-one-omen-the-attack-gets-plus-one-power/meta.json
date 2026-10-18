@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] Whenever your champion attacks, depending on the amount of omens you have\u2014 1 to 2\u2014 That attack gets +1[POWER]. 3 to 4\u2014 That attack gets +2[POWER]. 5 or more\u2014 That attack gets +3[POWER]. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

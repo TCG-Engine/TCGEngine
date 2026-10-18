@@ -17,5 +17,8 @@
         "rulesClauses": [
             "On Enter: The next VelTech item card you activate targeting CARDNAME this turn costs 3 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

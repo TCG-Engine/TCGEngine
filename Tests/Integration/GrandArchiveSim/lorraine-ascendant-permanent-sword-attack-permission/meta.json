@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Sword weapons can attack as though they were allies for the rest of the game."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

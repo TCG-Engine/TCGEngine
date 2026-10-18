@@ -17,5 +17,8 @@
         "rulesClauses": [
             "\u2022 South\u2014 Return an ally you control to your owner's hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

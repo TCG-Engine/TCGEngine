@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as CARDNAME is **imbued**, it has **intercept**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

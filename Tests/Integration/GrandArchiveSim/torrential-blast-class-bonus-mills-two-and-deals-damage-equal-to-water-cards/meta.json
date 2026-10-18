@@ -20,5 +20,8 @@
             "[Class Bonus] Put the top two cards of your deck into your graveyard.",
             "Deal an amount of damage to up to one target ally equal to the amount of water element cards in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

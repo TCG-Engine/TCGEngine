@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] Whenever an opponent activates a card, if that opponent has exactly three cards in their memory, transform Fatestone of Balance."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

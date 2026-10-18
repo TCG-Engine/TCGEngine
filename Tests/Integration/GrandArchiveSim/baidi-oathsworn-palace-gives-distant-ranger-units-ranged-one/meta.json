@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Ranger units you control have **ranged 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

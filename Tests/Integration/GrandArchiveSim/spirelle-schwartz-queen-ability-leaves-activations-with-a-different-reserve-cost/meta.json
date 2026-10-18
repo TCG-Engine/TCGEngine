@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(2), [REST],  **Reveal a card banished by Spirelle with reserve cost X**: **Negate** each activation of cards with reserve cost **X**. Put each card **negated** this way and each card banished by Spirelle into their owner's memories. Then trigger each of Spirelle's  **on enter** abilities."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

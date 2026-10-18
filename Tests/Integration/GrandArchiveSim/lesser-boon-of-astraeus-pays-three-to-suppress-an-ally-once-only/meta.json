@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(3): As a Spell, **suppress** target ally, item, or weapon. Activate this ability only once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

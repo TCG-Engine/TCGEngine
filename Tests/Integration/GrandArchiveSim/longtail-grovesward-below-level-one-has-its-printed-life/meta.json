@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+] Longtail Grovesward gets +1[LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

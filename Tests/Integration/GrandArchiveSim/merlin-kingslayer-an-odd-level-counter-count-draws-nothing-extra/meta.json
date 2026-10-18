@@ -18,5 +18,8 @@
         "rulesClauses": [
             "if there's an even amount of **level** counters on CARDNAME, draw a card"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

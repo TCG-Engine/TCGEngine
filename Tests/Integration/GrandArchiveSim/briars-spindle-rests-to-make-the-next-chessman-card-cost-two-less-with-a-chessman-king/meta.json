@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]: The next Chessman card you activate this turn costs (2) less to activate. Activate this ability only if you control a Chessman King ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

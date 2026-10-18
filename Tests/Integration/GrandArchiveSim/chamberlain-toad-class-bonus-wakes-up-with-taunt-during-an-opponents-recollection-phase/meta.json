@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] (2): Wake up CARDNAME and it gains **taunt** until end of turn. Activate this ability only during an opponent's recollection phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

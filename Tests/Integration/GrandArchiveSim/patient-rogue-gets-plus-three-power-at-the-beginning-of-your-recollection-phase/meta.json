@@ -17,5 +17,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, CARDNAME gets +3 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

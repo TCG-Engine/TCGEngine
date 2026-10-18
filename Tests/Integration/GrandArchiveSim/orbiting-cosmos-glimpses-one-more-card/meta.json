@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If you would **glimpse** an amount, **glimpse X** instead, where **X** is that amount plus 1."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Another target ally you control becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

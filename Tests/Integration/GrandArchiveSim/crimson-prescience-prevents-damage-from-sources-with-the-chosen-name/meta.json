@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose a card name. Until end of turn, if damage would be dealt to your champion by a source with that name, prevent that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

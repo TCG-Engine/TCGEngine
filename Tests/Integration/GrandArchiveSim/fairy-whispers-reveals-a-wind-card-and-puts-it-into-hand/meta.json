@@ -19,5 +19,8 @@
             "**Glimpse 3**. *(To **glimpse**, look at that many cards from the top of your deck. Put those cards back on the top or on the bottom of your deck in any order.)*",
             "Reveal the top card of your deck. If that card is wind element, put it into your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

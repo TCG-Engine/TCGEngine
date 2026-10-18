@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** You may return a regalia you control to its owner's material deck. If you do, draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

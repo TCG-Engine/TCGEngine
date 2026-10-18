@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 6+] Deal 6 damage to that unit instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "[Class Bonus] This card costs 1 less to activate for each token object you control.",
             "CARDNAME gets +1 [POWER] and +1 [LIFE] for each token object you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

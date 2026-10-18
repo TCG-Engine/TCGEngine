@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as your Shifting Currents face North, CARDNAME gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

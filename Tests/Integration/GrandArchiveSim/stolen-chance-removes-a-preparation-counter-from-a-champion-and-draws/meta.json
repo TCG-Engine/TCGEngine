@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Remove a **preparation** counter from target champion. If a **preparation** counter was removed this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

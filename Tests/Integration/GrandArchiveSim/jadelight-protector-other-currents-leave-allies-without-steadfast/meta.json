@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as your Shifting Currents face South"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

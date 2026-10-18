@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+] As long as CARDNAME is attacking or retaliating against a Human, CARDNAME gets +1 [POWER]. "
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

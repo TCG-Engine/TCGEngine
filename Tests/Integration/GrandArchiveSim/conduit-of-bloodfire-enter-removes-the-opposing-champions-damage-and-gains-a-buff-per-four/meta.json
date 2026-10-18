@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Remove all damage counters from each champion your opponents control. For every four counters removed this way, put a **buff** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

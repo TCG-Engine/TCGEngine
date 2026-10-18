@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Reveal a card at random from your memory. If that card is wind element, choose another ally you control and put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

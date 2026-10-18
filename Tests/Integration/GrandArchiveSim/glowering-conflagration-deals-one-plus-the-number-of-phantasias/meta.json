@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Deal 1+X damage to target champion, where X is the amount of phantasias you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

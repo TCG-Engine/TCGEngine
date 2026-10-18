@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Champion Hit:** You may have that opponent put the top **X** cards of their deck into their graveyard, where **X** is the amount of **lash** counters on Nico."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

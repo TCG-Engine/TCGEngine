@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] Put up to **X** target ally **omens** you have onto the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

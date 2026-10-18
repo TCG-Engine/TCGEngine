@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, put a **level** counter on CARDNAME. Then, if there's an even amount of **level** counters on CARDNAME, draw a card and CARDNAME's attacks get +2 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

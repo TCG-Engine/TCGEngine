@@ -17,5 +17,8 @@
         "rulesClauses": [
             "This card costs 2 less to activate If you control a Shield item."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

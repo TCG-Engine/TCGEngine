@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target Human ally gets +1 [LIFE] and gains **retort 2** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

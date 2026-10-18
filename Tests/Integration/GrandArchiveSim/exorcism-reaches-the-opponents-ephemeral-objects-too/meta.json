@@ -18,5 +18,8 @@
         "rulesClauses": [
             "For each **ephemeral** object each player controls"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

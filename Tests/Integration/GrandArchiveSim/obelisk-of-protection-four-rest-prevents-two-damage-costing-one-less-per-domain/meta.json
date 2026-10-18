@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(4), [REST]**:** Prevent the next 2 damage that would be dealt to target unit this turn. This ability costs (1) less to activate for each domain you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

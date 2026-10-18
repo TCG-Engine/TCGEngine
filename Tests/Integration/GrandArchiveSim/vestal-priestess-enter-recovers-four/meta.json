@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** **Recover 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

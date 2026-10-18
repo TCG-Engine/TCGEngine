@@ -21,5 +21,8 @@
             "As an additional cost to activate this card, **delevel** your champion and **recover 5**.",
             "Deal 7 damage split among any amount of target allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

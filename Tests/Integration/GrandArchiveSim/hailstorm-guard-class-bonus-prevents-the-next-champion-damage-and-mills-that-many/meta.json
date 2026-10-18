@@ -21,5 +21,8 @@
             "[Class Bonus] This card costs 2 less to activate.",
             "The next time damage would be dealt to your champion this turn, prevent that damage. Put an amount of cards from the top of your deck into your graveyard equal to the amount of damage prevented this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

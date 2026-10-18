@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit:** Up to two target allies you control get +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

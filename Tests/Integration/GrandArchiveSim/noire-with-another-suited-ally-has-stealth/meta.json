@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control another Suited ally, Noire has **stealth**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

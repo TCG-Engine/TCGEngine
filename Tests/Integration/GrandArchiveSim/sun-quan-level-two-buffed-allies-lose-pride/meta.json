@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 2+] Allies you control with a **buff** counter on them lose **pride**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

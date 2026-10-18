@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[REST], **Sacrifice Forgetful Concoction**: Banish two cards at random from target opponent's memory. Return those cards to their memory at the beginning of their next end phase. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

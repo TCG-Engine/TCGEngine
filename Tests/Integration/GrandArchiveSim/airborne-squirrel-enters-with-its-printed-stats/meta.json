@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Airborne Squirrel (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

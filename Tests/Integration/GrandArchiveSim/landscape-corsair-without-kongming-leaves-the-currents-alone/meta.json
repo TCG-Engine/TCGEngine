@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Kongming Bonus] **On Enter:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

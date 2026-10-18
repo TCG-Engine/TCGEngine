@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as that card is banished, that opponent may look at it and activate it, ignoring its elemental requirements."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Tristan Bonus] **Summon** **X** Ominous Shadow tokens where **X** is the amount of **preparation** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

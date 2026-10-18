@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The starting champion resolves its own printed On Enter once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Your champion and other Slime objects you control have **spellshroud**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

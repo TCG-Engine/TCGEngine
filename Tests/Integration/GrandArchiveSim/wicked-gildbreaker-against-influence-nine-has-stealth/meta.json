@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as an opponent has **influence** nine or more, CARDNAME has **stealth** and **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

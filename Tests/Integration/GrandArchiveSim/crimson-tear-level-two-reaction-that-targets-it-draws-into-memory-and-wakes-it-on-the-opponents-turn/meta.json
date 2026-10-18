@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Level 2+] Whenever you activate a Reaction card that targets CARDNAME, draw a card into your memory. Then if it's not your turn, wake up CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Rest up to two target allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

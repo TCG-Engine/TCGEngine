@@ -18,5 +18,8 @@
         "rulesClauses": [
             "\u2022 Put a **buff** counter on a Chessman Knight ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

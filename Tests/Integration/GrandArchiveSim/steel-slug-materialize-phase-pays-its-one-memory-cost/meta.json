@@ -17,5 +17,8 @@
         "rulesClauses": [
             "memory cost 1"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

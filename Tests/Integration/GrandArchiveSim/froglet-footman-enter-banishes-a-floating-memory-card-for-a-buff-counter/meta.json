@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter**: You may banish a card with **floating memory** from your graveyard. If you do, put a **buff** counter on Froglet Footman."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

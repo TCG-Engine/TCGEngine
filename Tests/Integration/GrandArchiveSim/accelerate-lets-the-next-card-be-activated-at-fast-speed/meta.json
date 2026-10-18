@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The next card you activate this turn can be activated as though it had **fast activation**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Gather. Then you may banish up to three fire element cards from your graveyard. For each card banished this way, gather."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME gets +1 [POWER] as long as you control no allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] ***Deluge 6*** \u2014 As long as you have six or more water element cards in your graveyard, other Human allies you control get +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

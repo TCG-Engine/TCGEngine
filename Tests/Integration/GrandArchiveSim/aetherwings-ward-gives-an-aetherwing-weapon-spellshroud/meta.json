@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target Aetherwing weapon you control gains **spellshroud** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

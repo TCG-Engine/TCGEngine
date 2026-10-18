@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever your champion levels up, you may put two cards from your hand and/or memory on the bottom of your deck. If you do, draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

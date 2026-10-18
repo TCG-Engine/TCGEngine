@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Gain control of target ally with 2 [POWER] or less until end of turn. Wake up that ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
             "Activate this card only during an opponent's recollection phase.",
             "Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

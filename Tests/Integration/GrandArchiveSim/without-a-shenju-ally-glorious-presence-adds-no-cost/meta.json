@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control a Shenju ally, advanced element cards your opponents activate cost 2 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Generate up to **X** Bolt of Diamonds cards and put them into your memory. **X** is 0. Depending on the total reserve cost of Suited objects you control -- 6: **X** is 1 instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

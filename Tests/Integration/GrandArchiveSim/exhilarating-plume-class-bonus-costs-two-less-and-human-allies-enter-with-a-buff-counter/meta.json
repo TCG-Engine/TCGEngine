@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Human ally cards you activate enter the field with an additional **buff** counter on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

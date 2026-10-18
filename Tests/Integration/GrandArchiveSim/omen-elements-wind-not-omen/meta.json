@@ -18,5 +18,8 @@
         "rulesClauses": [
             "For each wind element omen, allies get +1 LIFE."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

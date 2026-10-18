@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Regalia you control have REST: Prevent the next 1 damage to target unit this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

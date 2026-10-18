@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If you control an Elysian object"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Summon** two Fledgling tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

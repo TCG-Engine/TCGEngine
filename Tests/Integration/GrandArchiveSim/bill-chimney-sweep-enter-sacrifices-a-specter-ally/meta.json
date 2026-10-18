@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is not **ephemeral**, sacrifice a Specter ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

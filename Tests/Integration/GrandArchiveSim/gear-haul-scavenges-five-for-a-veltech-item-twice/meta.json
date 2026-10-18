@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Scavenge 5** for a VelTech item card twice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

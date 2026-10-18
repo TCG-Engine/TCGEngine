@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Suited allies with reserve cost 4 or less."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

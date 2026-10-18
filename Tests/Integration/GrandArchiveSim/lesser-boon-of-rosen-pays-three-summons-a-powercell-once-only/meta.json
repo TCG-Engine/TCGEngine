@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(3): Summon a Powercell token rested. Activate this ability only once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

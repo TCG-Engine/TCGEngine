@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Enter: You may discard a fire element card. If you do, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

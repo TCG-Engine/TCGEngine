@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Players can't declare attacks targeting an object you control unless they pay (1) for each attack declaration."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

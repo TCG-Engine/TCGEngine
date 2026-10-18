@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Training Sword (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Whenever your champion levels up into a champion with base level 3, you may sacrifice CARDNAME. If you do, draw two cards into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Ephemerate (2) while controlling a Sword weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

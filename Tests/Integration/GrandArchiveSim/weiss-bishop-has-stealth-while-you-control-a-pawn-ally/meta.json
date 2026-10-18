@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control one or more Pawn allies, CARDNAME has **stealth**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

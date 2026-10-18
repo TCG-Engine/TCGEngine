@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Ciel Bonus] (2)**, Discard an ally card, sacrifice CARDNAME:** **Summon** a Vacuous Servant token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

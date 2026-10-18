@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 2 less to activate. For each Animal ally you control, you may put a Beast ally card from your hand onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If your champion is **distant**, they gain **ranged 4** for as long as they remain **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

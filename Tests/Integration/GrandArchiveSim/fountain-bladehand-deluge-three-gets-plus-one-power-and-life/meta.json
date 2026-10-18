@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Deluge 3 --*** As long as there are three or more water element cards in your graveyard, CARDNAME gets +1[POWER] and +1[LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

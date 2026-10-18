@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Ephemerate \u2014 **(2). Activate this card this way only if you control a Sword weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

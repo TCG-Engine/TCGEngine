@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Hindered (This object entered the field rested.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

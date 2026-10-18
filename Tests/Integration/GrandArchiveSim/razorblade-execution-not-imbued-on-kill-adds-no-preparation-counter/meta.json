@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Kill**: If Razorblade Execution is **imbued**, put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

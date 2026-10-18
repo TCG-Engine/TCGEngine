@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target ally's next attack this turn gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

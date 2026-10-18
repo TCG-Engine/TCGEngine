@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter:** You may banish a card with **floating memory** from your graveyard. If you do, put a **buff** counter on CARDNAME and draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

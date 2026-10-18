@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Each opponent puts the top fifteen cards of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "(2): Target Ranger unit becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

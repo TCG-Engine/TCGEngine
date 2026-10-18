@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Level 2+] **On Enter:** Target rested ally you don't control gets -4 [LIFE] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Intercept**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
             "The next ally card you activate this turn can be activated as though it had **fast activation**.",
             "Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

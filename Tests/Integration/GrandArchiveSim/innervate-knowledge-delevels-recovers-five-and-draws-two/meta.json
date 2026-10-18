@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, **delevel** your champion and **recover 5**.",
             "Draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

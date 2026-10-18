@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Blazing Lunge attacks for its printed 4 POWER."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Put a **durability** counter on target Warrior weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

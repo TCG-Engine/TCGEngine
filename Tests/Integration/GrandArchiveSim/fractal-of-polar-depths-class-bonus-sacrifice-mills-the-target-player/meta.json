@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **Sacrifice CARDNAME:** Target player puts the top **X** cards from their deck into their graveyard, where **X** is the amount of water element cards in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

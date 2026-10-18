@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Summon** two Vacuous Servant tokens rested. Then if you have three or more **omens**, wake them up."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

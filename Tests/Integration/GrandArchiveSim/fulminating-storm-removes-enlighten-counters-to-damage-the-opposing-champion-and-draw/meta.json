@@ -20,5 +20,8 @@
             "Remove up to nine **enlighten** counters from your champion. Deal **X** damage to each champion you don't control, where **X** is the amount of counters removed this way.",
             "[Class Bonus] For every three **enlighten** counters removed this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

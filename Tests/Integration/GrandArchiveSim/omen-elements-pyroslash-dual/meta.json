@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Ciel Bonus: costs two less for each of up to two fire omens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

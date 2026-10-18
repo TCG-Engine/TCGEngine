@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Overwhelming Swing attacks for its printed 5 POWER."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

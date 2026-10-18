@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack**: You may sacrifice another Sword regalia. If you do, wake up the attacker."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

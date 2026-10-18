@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Remove up to three **static** counters from among objects you control. Deal **X** damage to target unit, where **X** is the amount of counters removed this way. Then put **X** **durability** counters on a Warrior weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

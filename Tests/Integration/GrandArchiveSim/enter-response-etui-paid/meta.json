@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Negate all On Enter triggers from target opposing ally unless its controller pays three."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]: For each of up to three **buff** counters on CARDNAME, **summon** a Baby Slime token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

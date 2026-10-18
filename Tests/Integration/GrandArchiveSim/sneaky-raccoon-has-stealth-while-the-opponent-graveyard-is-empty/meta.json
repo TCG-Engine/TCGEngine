@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as an opponent has no cards in their graveyard, CARDNAME has stealth."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

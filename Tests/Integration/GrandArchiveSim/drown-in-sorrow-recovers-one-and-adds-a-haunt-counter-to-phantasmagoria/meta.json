@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Recover 1** and put a **haunt** counter on your Phantasmagoria. "
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

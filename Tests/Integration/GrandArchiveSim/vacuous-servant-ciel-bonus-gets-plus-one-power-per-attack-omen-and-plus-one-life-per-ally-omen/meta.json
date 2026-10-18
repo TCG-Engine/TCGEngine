@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Ciel Bonus] CARDNAME gets +1 [POWER] for each attack **omen** you have and +1 [LIFE] for each ally **omen** you have."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

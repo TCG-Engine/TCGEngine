@@ -20,5 +20,8 @@
             "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
             "Up to two target Human allies get +2[POWER] and +2[LIFE] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Attack:** You may remove a **preparation** counter from your champion. If you do, this attack gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If Sword Saint of Eveswind entered from a banishment"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If a unit hit by CARDNAME this turn would die, banish it instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If an opponent controls a non-Spirit champion with a card on top of its lineage that wasn't played, level up your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

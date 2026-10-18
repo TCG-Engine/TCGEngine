@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(2)**, Banish a Specter ally card from your graveyard:** **Recover 2** and CARDNAME gets +2 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "*(If the amount of cards you would draw is negative, don't draw any cards.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

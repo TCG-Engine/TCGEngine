@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Attack: Deal 2 damage to all allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

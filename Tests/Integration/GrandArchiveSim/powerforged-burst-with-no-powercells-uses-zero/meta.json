@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, sacrifice **X** Powercell items. **X** can't be more than 3."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(3), **Banish CARDNAME: **Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Draw 3+**X** cards, where **X** is the amount of Curse cards in your champion's lineage minus your **influence**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

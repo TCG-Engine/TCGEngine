@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Fire, water, and wind elements are enabled for you."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

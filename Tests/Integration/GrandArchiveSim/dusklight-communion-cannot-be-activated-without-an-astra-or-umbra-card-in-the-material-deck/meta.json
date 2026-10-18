@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, banish an astra or umbra element card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Otherwise, they become **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

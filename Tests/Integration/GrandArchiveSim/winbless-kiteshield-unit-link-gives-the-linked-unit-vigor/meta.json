@@ -18,5 +18,8 @@
             "**Unit Link**",
             "Linked unit has **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

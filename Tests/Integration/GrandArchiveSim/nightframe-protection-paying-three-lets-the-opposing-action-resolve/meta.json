@@ -19,5 +19,8 @@
         "rulesClauses": [
             "negate it unless the controller of the activation or trigger pays (3)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

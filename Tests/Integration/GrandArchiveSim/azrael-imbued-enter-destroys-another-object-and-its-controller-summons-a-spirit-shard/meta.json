@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** As a Spell, if CARDNAME is **imbued**, destroy another target non-regalia non-champion object with reserve cost 3 or less."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

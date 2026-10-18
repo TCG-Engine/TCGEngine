@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Sheen 10+] Your champion has **spellshroud** and **stealth** as long as they're awake and an opponent with the most cards in their memory has six or less cards in their memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

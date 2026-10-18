@@ -20,5 +20,8 @@
             "Return target ally you control to its owner\u2019s hand.",
             "[Class Bonus] [Level 3+] Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

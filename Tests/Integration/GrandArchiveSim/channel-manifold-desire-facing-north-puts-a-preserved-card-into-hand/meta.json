@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Then if your Shifting Currents face North, you may put a **preserved** card from your material deck into your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

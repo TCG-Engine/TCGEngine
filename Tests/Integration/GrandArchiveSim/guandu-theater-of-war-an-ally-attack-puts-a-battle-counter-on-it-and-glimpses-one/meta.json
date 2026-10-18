@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you declare an attack with an ally, put a **battle** counter on CARDNAME and **glimpse 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

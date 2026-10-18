@@ -172,3 +172,40 @@ remain next to each card. All original assertions and stable names are preserved
 Combined or interactive effects, revival, alternate death replacements, and
 special payment restrictions remain bespoke. As with the other families, these
 cases replace incidental whole-state snapshots with explicit behavior checks.
+
+## Source-backed snapshot scenarios
+
+Builder scenarios can also run directly while retaining their independently saved
+`expected_final_gamestate.txt`. These are separate from behavior families: they
+check every declared assertion AND compare the complete final snapshot.
+`meta.json` marks them with `sourceScenario: {"seed": 42}`. The runner builds the
+starting game and executes actions/assertions from PHP; no expanded initial state,
+actions JSON, or assertions JSON is needed. Other games and unmigrated fixtures
+retain their existing execution path.
+
+To migrate eligible existing builder fixtures:
+
+```sh
+php DevTools/create-prd-ability-fixtures.php --migrate-source
+# Or add --fixture=<slug> to migrate one case.
+```
+
+Migration requires matching saved actions and assertions, matching normalized
+initial state, successful actions (including expected rejections), passing
+step assertions, and an unchanged final snapshot. Only then does it mark the
+metadata and remove the three redundant input files. Mismatches are reported
+and left intact. Fixtures used as another fixture's base, and variants with
+initial-state replacements, remain saved fixtures. Use the original generation
+seed with `--seed=N` when appropriate; migration records it for future runs.
+
+Run migrated cases through the normal integration runner, or run all of them:
+
+```sh
+php DevTools/create-prd-ability-fixtures.php --run-source
+```
+
+Normal generation also executes marked source scenarios without rewriting any
+fixture files. Neither that path nor `--update-snapshots` implicitly accepts new
+expected results for them; expected snapshots must be reviewed and updated
+explicitly. Missing definitions or missing expected snapshots fail. Coverage
+audits and the scenario verifier read the source-backed definitions too.

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you activate a Spell card"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

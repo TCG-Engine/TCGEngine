@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Your champion gains **stealth** until end of turn. Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

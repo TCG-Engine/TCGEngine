@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Wake up target ally you control. It gains **taunt** and gets +1 [LIFE] until the beginning of your next turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

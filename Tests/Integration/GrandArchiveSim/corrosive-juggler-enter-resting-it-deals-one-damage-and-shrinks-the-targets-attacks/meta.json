@@ -21,5 +21,8 @@
         "rulesClauses": [
             "**On Enter:** You may rest CARDNAME. When you do, deal 1 damage to target unit. That unit's attacks get -2[POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

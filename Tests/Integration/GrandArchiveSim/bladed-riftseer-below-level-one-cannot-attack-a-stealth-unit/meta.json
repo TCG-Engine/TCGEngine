@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+] **True Sight**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

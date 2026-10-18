@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Mary Ann gets +1[POWER] for each omen you have with different reserve costs."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

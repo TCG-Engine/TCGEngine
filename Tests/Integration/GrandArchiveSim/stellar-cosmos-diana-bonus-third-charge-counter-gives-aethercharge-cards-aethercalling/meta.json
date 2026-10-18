@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Diana Bonus] **On Charge 3:** CARDNAME gains \"Aethercharge cards you look at while **glimpsing** have **aethercalling**.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

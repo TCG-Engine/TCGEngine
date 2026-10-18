@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Fast Activation**, **Ranged 1**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

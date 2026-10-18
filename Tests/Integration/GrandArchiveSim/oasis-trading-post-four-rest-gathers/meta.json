@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(4), [REST]: **Gather**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Destroy all phantasias."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

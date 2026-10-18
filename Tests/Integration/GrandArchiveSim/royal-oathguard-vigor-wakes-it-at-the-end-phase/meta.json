@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Vigor**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

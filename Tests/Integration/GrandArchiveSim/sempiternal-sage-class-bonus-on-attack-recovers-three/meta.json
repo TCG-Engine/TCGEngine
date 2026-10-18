@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** You may **recover 3**. If you don't, **empower 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

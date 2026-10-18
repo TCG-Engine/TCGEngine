@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Look at target opponent's memory and discard a card from among them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

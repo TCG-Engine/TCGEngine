@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as each player has four or less cards in their material deck, CARDNAME gets +3[POWER] and +3[LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

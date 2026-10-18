@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Draw a card, then put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

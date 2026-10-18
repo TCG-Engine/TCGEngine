@@ -20,5 +20,8 @@
             "**Imbue 2**",
             "**On Enter:** If CARDNAME is **imbued**, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Class Bonus] (3): Load this card from your graveyard into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] ***Equestrian*** \u2014 **On Enter:** If you control a Horse ally, wake up CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

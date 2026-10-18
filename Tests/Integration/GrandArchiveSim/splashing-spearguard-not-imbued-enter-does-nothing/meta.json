@@ -19,5 +19,8 @@
             "**Imbue 3**",
             "**On Enter**: If Splashing Spearguard is **imbued**, target player puts the top two cards of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

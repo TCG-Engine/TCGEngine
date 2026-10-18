@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(5), [REST]: **Summon** an Automaton Drone token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

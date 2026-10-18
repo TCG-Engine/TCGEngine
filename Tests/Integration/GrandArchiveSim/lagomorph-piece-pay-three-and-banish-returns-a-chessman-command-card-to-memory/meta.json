@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(3), **Banish CARDNAME: **Return target Chessman Command card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

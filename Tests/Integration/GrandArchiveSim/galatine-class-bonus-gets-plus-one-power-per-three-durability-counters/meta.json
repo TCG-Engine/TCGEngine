@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Galatine gets +1 [POWER] for every three **durability** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Put CARDNAME on the bottom of your champion's lineage. Then your champion's attacks this turn gain **true sight**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

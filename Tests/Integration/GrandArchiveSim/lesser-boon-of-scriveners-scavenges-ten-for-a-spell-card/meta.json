@@ -16,5 +16,8 @@
         "rulesClauses": [
             "As you gain this boon, **scavenge 10** for a Spell card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

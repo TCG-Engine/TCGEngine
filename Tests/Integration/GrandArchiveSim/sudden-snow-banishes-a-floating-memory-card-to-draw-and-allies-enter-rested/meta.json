@@ -20,5 +20,8 @@
             "You may banish a card with **floating memory** from your graveyard. If you do, draw a card.",
             "Until end of turn, allies enter the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

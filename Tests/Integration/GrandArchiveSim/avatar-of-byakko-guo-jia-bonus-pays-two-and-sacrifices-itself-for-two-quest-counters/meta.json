@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] (2)**, Sacrifice CARDNAME:** Put two **quest** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

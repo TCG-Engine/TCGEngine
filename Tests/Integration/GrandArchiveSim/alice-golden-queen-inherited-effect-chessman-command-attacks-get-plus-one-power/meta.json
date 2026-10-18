@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Inherited Effect** \u2014 Chessman Command attack cards you activate enter the intent with +1[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

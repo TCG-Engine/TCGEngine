@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** Put a card from your hand on the bottom of your deck. If you do, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

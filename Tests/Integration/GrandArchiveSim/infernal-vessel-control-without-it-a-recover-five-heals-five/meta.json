@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If a player would **recover** an amount, they **recover X** instead, where **X** is that amount minus 3."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

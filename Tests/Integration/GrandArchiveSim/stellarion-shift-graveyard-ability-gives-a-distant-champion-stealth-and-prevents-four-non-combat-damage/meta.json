@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] [Element Bonus] (2), **Banish this card from your graveyard**: Your champion gains **stealth** until end of turn. Prevent the next 4 non-combat damage that would be dealt to them this turn. Activate this ability only if your champion is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

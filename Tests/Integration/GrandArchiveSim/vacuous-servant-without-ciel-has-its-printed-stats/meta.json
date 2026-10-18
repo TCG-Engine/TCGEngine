@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Ciel Bonus]"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

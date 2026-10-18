@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Fire membership includes Exalted Fire."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

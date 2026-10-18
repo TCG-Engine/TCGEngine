@@ -18,5 +18,8 @@
         "rulesClauses": [
             "For each damage counter on your champion, banish the top card of your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

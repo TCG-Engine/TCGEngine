@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Alice Bonus] **On Ally Kill:** If the killed unit had **intercept** or **taunt**, wake up CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever your champion levels up, sacrifice CARDNAME, draw a card into your memory, and your champion's next attack this turn gets +2[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Each player's maximum **influence** is seven. *(As each player's end phase resolves, that player discards cards from their hand and/or memory until their **influence** is equal to their maximum influence.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

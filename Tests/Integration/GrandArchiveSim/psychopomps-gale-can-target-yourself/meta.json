@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target player banishes all cards in their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

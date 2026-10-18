@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to your champion this turn, prevent 2 of that damage. Your champion becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

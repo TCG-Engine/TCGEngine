@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If your champion has ten or less damage counters on them"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

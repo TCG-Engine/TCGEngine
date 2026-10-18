@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Units you control gain your choice of **stealth** or **spellshroud** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

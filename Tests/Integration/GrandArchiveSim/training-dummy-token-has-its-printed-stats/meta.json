@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Training Dummy (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Whenever an ally enters the field, you may sacrifice CARDNAME. If you do, that ally's next attack this turn gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "CARDNAME may only declare attacks against units your champion has dealt combat damage to this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

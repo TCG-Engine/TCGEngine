@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Target ally you control gets +2 [LIFE] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "***Equestrian*** \u2014 As long as you control a Horse ally, this card costs 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

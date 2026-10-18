@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If that card is wind element"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you have three or more advanced element cards in your banishment, CARDNAME has **spellshroud**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

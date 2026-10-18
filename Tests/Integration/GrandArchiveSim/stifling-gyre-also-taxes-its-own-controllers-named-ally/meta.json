@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever an **on enter** ability of an ally with the chosen name triggers, **negate** that trigger unless its controller pays (4)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

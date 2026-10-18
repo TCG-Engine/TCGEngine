@@ -21,5 +21,8 @@
             "**Command Automaton**",
             "[Class Bonus] **On Attack:** Put a **buff** counter on the attacker."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

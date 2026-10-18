@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Destroy all regalia you don't control. Until end of turn, Animal and/or Beast allies you control gain **cleave**. [Silvie Bonus] Put five **buff** counters on each Animal and/or Beast ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

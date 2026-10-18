@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If your champion is **distant**, **glimpse 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 2+X damage to target unit, where X is the amount of durability counters that was on the sacrificed weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

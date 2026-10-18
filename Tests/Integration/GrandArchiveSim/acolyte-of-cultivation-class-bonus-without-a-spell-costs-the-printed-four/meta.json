@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you've activated a Spell card this turn, this card costs 3 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

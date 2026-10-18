@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**Empower 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

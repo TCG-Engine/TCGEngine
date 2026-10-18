@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Each opponent sacrifices all Flowerbuds. For each Flowerbud sacrificed this way, their controller **summons** your choice of an Acerbica or a Washuru token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

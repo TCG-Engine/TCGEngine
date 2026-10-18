@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME**: Allies you control get +1 [POWER] until end of turn. Activate this ability only if each opponent controls no allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

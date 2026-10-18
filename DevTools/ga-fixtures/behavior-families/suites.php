@@ -94,3 +94,21 @@ function gaBehaviorDefinitions(): array {
     unset($definition);
     return $definitions;
 }
+
+// Source-backed snapshots retain historical metadata but execute live builder inputs.
+function gaSourceDefinitions(): array {
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(dirname(__DIR__, 2) . '/create-prd-ability-fixtures.php') . ' --export-definitions';
+    exec($command, $output, $status);
+    if ($status !== 0) throw new RuntimeException('Cannot load source scenario definitions');
+    $all = json_decode(implode("\n", $output), true, 512, JSON_THROW_ON_ERROR);
+    $definitions = [];
+    foreach (glob(dirname(__DIR__, 3) . '/Tests/Integration/GrandArchiveSim/*/meta.json') as $path) {
+        $meta = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+        if (!isset($meta['sourceScenario'])) continue;
+        $slug = basename(dirname($path));
+        if (empty($all[$slug]['strictActions'])) throw new RuntimeException("Missing source scenario: $slug");
+        $definitions[$slug] = $all[$slug];
+        $definitions[$slug]['meta'] = array_replace($meta, $all[$slug]['meta'] ?? []);
+    }
+    return $definitions;
+}

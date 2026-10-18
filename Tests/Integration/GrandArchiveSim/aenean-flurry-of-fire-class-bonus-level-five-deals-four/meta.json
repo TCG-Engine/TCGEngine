@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 5+] Deal 1 damage to that unit two more times."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

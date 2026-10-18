@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 3+] **On Death:** Put a **buff** counter on each Animal and/or Beast ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

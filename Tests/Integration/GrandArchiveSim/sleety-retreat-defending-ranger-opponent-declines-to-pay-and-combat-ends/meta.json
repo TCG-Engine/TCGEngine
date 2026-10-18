@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target Ranger unit becomes **distant**. If that unit is defending, end the combat phase unless an opponent pays (2)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

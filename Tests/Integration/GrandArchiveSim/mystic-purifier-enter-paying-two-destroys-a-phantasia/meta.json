@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** You may pay (2). When you do, destroy target phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever an ally you control dies, put a **refinement** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

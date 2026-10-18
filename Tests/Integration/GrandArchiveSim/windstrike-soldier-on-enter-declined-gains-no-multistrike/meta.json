@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may pay (3)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

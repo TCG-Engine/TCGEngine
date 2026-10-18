@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever another Animal and/or Beast ally enters"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

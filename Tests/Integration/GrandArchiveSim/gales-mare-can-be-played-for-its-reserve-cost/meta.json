@@ -16,5 +16,8 @@
         "rulesClauses": [
             ""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

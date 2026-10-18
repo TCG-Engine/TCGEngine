@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your end phase, deal **X**+**Y** damage to a random target champion you don\u2019t control, where **X** is the amount of fire element boons in your pantheon, and **Y** is the amount of fire element cards in your champion\u2019s lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Upkeep*** -- Whenever you materialize a card, sacrifice Varuck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

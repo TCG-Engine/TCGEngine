@@ -21,5 +21,8 @@
             "[Class Bonus] This card costs 1 less to activate.",
             "Put a **buff** counter on an ally you control and up to one ally you don't control. If a **buff** counter was put on an ally you don't control this way, you gain the Crowd's Favor status."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

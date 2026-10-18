@@ -19,5 +19,8 @@
             "You may rest two Fatestones you control rather than pay this card's reserve cost.",
             "**Suppress** target ally, item, or weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

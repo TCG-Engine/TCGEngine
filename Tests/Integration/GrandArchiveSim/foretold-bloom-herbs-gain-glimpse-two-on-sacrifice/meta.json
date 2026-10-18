@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until end of turn, Herbs you control gain \u201c**On Sacrifice: Glimpse 2**.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[REST], **Remove two buff counters from CARDNAME: ** Destroy target phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, sacrifice CARDNAME and draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

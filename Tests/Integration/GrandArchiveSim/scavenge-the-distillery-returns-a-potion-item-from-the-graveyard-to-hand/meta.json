@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Return up to one target Potion item card from your graveyard to your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

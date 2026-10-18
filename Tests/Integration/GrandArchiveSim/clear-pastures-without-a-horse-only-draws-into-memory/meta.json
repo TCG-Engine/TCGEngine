@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Equestrian*** \u2014 If you control a Horse ally, **glimpse 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

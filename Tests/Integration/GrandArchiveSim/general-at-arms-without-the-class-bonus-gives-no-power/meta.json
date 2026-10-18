@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Polearm attack cards you activate enter the intent with +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Deal X damage to target unit, where X is the amount of Suited objects you control with different costs plus 1."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

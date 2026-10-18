@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] You may banish two cards at random from your memory. If you do, draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

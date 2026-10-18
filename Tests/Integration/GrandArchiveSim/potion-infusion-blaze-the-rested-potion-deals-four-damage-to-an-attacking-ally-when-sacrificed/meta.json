@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Rest target Potion. If you do, it gains \"**On Sacrifice:** Deal 4 damage to target attacking ally\" until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

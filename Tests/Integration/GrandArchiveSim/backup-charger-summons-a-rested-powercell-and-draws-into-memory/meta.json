@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(3), **Banish CARDNAME:** **Summon** a Powercell token rested. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

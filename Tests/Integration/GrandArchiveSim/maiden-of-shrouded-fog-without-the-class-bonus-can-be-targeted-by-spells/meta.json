@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Spellshroud**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever an ally you control dies while it's not your turn, you may banish Death Essence Amulet. When you do, look at target opponent's hand or memory and discard a card from it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

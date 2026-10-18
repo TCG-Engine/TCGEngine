@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If you activated this card during your main phase, **recover 7**. Otherwise, **recover 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

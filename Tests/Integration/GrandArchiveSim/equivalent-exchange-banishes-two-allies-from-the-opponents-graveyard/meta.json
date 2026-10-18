@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Summon** a Lost Being token rested. Then you may banish two ally cards from a single graveyard. If you do, wake up that token and put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

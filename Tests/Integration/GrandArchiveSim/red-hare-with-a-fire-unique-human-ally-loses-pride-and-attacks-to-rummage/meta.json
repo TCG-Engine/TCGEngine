@@ -21,5 +21,8 @@
         "rulesClauses": [
             "As long as you control a fire or tera element unique Human ally, CARDNAME loses **pride**, and has \"**On Attack**: You may discard a card. If you do, draw a card.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

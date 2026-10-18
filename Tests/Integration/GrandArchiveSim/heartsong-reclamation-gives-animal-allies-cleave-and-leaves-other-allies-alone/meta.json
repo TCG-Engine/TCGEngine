@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until end of turn, Animal and/or Beast allies you control gain **cleave**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

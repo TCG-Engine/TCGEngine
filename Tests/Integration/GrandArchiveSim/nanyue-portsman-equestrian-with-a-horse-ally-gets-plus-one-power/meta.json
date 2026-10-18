@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Equestrian*** -- As long as you control a Horse ally, CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

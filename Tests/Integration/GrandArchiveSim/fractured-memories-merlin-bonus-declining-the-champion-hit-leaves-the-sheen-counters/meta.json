@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may move all **sheen** counters on the hit champion to your Fractured Memories."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

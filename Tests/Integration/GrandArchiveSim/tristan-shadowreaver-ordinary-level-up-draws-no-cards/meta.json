@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Tristan can level up into champions of the same base level. When she does, draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

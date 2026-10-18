@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you activate a Mage Spell action, wake up CARDNAME, and it gets +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 3+] The next time that card would enter the field this turn, it enters with \"**On Enter:** Deal 4 damage to your champion.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

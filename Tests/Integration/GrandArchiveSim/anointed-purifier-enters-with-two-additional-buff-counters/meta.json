@@ -17,5 +17,8 @@
         "rulesClauses": [
             "CARDNAME enters the field with two additional **buff** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

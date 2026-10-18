@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** You may pay (2)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

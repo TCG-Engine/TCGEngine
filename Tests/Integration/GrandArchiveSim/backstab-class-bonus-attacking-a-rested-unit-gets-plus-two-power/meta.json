@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as your champion is attacking a rested unit, CARDNAME gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

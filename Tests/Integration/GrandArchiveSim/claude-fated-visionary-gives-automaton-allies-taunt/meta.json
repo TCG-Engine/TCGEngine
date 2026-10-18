@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Automaton allies you control have **taunt**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

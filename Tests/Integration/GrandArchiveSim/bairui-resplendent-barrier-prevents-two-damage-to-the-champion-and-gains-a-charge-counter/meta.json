@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to your champion while CARDNAME has two or less **charge** counters on it, prevent 2 of that damage and put a **charge** counter on CARDNAME instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

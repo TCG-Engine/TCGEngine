@@ -19,5 +19,8 @@
             "**Ally Link**",
             "Linked ally gets +2 [POWER], has **pride 3**, and is a Beast in addition to its other types."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

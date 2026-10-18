@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you **brew** a Potion, put a **buff** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

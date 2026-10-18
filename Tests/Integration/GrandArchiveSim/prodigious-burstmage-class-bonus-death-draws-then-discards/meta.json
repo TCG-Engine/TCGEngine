@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] On Death: Draw a card, then discard a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

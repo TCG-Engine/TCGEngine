@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Your champion gets +1 level for every three **enlighten** counters on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "This card costs 2 less to activate for each Raccoon ally you control.",
             "Banish up to one target card from a graveyard. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

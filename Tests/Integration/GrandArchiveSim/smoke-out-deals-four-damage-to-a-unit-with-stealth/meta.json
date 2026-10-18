@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If that unit has stealth, deal 4 damage to it instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Summon** two Powercell tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

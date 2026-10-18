@@ -19,5 +19,8 @@
             "Brew \u2014 Two Herbs",
             "On Enter: If CARDNAME was brewed, draw two cards and discard a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

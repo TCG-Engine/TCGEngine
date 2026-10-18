@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Element Bonus] [Class Bonus] Whenever you reveal CARDNAME from your memory, **summon** a Fledgling token with a **buff** counter on it. It gains **intercept** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

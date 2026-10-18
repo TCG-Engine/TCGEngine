@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Attack:** You may pay (3). If you do, CARDNAME gets +3 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, put a **tactic** counter on CARDNAME, then **glimpse X** where **X** is the amount of **tactic** counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

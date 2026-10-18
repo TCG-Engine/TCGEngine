@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Then if you control three or more Chessman allies, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

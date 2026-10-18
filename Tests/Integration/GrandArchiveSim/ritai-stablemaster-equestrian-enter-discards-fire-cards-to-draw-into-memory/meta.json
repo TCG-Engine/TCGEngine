@@ -19,5 +19,8 @@
         "rulesClauses": [
             "***Equestrian*** -- **On Enter**: If you control a Horse ally, you may discard up to two fire element cards. For each card discarded this way, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

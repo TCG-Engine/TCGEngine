@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Automaton allies you control have \u201c**On Death: Summon** a Powercell token.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

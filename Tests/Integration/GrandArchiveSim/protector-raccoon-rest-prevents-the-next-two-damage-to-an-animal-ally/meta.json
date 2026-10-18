@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]: Prevent the next 2 damage that would be dealt to target Animal ally this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

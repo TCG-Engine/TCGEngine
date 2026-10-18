@@ -19,5 +19,8 @@
             "This card costs 1 less to activate if an opponent controls one or more allies.",
             "Look at the top two cards of your deck. Put one of those cards into your memory and the other on the bottom of your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

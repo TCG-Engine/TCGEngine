@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Bulwark**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

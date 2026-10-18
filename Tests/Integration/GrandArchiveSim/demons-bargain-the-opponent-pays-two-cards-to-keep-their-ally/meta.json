@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Gain control of target ally you don't control unless its controller has you draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

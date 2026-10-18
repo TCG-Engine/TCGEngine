@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Vanitas Bonus]"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

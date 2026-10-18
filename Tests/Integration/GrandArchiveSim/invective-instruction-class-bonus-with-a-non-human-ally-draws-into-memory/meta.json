@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] If you control a non-Human ally, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

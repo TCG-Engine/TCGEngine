@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever a unit uses this weapon for an attack, deal 3 damage to it. [Class Bonus] CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

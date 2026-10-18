@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] ***Deluge 4 \u2014*** As long as you have four or more water element cards in your graveyard, Animal and Beast allies you control get +1 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

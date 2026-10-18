@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**[REST], Sacrifice a Powercell:** **Cascade**\u2014 "
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

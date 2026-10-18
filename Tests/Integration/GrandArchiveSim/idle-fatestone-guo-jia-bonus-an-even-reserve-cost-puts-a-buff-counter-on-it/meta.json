@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] [REST], *(2)*: Reveal the top card of your deck. If that card's reserve cost is even, put a **buff** counter on Idle Fatestone. Otherwise, transform Idle Fatestone."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

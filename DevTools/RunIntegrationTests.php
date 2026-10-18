@@ -161,6 +161,22 @@ foreach ($fixtures as $slug) {
     continue;
   }
   $meta = RunnerLoadMeta($fixtureDir);
+  if ($args['root'] === 'GrandArchiveSim' && isset($meta['sourceScenario'])) {
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+      . ' --run-source ' . escapeshellarg('--fixture=' . $slug) . ' 2>&1';
+    $output = [];
+    exec($command, $output, $status);
+    if ($status === 0 && str_contains(implode("\n", $output), '[PASS] ' . $slug . ' (source scenario)')) {
+      ++$passes;
+      echo "[PASS] $slug (source scenario)\n";
+    } else {
+      ++$failures;
+      echo "[FAIL] $slug (source scenario)\n" . implode("\n", $output) . "\n";
+    }
+    if ($args['verbose'] && $status === 0) echo implode("\n", $output) . "\n";
+    continue;
+  }
+
   try {
     $initialFixtureDir = RunnerInitialFixtureDir($args['root'], $fixtureDir, $meta);
   } catch (Throwable $error) {

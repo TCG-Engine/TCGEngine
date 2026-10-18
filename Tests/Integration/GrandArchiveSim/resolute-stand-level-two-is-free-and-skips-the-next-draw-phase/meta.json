@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Level 2+] You may activate this card without paying its reserve cost. If you do, skip your next draw phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

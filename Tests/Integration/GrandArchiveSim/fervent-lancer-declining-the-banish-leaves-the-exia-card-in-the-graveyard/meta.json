@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever you activate an exia element card, you may banish it as it resolves."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

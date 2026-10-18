@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] The next card your opponent activates this turn costs (1) more to activate for every eight damage counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

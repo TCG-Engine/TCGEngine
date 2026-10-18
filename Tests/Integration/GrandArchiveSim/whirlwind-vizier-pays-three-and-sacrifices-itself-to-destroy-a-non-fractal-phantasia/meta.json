@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(3), [REST]**, Sacrifice CARDNAME:** Destroy target non-Fractal phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

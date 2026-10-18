@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Until end of turn, damage dealt by fire element sources you control can't be prevented."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

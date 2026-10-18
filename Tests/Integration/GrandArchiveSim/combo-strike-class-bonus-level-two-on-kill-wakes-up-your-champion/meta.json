@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 2+] **On Kill:** Wake up your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

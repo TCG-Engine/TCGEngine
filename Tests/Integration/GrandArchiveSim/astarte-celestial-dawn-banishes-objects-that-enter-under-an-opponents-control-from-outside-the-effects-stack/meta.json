@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If an object would enter the field under an opponent's control from anywhere except from the effects stack, banish it face down instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

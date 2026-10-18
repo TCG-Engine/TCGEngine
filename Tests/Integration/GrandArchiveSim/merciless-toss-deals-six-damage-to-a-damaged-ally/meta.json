@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 6 damage to target ally if it's damaged. Otherwise, deal 2 damage to it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

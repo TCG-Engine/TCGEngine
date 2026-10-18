@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(2): Materialize a Bullet card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

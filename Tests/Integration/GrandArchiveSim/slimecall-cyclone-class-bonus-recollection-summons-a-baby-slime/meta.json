@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, **summon** a Baby Slime token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

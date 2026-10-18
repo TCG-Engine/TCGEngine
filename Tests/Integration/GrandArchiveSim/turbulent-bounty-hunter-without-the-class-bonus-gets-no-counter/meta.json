@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever an ally that CARDNAME has dealt damage to this turn dies"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

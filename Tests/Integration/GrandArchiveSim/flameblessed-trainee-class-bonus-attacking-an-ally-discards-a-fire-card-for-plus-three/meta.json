@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Attack: If CARDNAME is attacking an ally, you may discard a fire element card. If you do, this attack gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

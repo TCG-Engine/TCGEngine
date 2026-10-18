@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you have one or more attack omens"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

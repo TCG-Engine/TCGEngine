@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] (3)**:** Return CARDNAME to its owner's material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

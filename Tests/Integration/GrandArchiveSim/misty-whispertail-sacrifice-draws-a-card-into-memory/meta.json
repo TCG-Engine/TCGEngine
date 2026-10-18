@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** If CARDNAME was not **ephemeral**, draw a card into your memory. Otherwise, **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

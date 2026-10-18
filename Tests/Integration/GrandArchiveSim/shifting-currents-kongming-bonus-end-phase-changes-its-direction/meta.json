@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Kongming Bonus] At the beginning of your end phase, you may change the direction of your CARDNAME to a different direction of your choice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

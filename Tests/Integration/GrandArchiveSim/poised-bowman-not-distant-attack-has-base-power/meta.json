@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as this unit is **distant**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

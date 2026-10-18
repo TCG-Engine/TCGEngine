@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If the banished card was astra element, destroy up to one target phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

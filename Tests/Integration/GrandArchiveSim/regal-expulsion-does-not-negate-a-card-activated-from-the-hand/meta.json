@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target card activation if that card was activated from a material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

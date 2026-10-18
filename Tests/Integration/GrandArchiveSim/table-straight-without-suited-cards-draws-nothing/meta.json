@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Reveal any amount of Suited cards from your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

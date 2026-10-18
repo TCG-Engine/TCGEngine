@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Rest target ally. That ally can't wake up for as long as you control Cataleptic Constellation."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

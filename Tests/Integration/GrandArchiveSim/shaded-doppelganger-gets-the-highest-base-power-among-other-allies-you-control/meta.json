@@ -18,5 +18,8 @@
         "rulesClauses": [
             "CARDNAME gets +**X**[POWER], where **X** is the highest base power stat among other allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

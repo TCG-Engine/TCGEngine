@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If you control a Horse ally"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

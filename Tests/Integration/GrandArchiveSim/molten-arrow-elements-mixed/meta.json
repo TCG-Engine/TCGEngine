@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Fire membership includes Exalted Fire at each sequential cost choice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Load CARDNAME into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** Put the top three cards of your deck into your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

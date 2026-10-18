@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Attack: You may remove up to three preparation counters from your champion. For each counter removed this way, this attack gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

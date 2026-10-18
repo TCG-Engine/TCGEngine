@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Innocuous Disposer's attacks can't be retaliated by Human allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

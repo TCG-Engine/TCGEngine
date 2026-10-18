@@ -20,5 +20,8 @@
             "Target Dagger weapon gets +2 [POWER] until end of turn.",
             "[Class Bonus] Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

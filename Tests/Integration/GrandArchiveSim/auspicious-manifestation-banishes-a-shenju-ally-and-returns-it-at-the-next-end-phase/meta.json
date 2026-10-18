@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] Banish a Shenju ally you control. Return that ally to the field under its owner's control transformed at the beginning of the next end phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

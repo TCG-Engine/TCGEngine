@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 2 unpreventable damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

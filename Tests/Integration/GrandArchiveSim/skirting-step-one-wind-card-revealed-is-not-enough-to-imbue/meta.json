@@ -16,5 +16,8 @@
         "rulesClauses": [
             "If at least two of them are wind element, this card becomes **imbued**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

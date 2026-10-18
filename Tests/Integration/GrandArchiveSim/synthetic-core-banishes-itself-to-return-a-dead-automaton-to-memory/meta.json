@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Whenever a non-token Automaton ally you control dies, you may banish Synthetic Core. If you do, return that ally to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Automaton Drone (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

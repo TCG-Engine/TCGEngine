@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+] Deal 2 damage to up to one target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

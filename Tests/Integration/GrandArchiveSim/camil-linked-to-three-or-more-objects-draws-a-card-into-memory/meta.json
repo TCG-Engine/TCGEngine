@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Then if CARDNAME is linked to three or more objects, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

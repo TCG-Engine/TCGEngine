@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Enter: You may level up your champion. If you do, deal 6+X unpreventable damage to it, where X is four times that champion's base level."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

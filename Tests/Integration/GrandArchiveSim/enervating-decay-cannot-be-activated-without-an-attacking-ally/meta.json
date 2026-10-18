@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Destroy target attacking ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

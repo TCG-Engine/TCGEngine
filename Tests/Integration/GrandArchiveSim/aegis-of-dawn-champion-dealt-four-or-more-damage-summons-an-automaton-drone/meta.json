@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever your champion is dealt four or more damage, **summon** an Automaton Drone Drone token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

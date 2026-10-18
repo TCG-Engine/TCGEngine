@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you **glimpse**, Moonveil Android gains **stealth** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

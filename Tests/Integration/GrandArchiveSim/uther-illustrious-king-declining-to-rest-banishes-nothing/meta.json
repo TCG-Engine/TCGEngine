@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** You may rest Uther. When you do, banish another target non-champion object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

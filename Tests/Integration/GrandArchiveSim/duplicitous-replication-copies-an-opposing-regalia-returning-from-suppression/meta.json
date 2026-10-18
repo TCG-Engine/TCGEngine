@@ -19,5 +19,8 @@
         "rulesClauses": [
             "The next regalia entry is covered even when it is not materialization."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

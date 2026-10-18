@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Attack:** You may have CARDNAME deal 10 unpreventable damage to the attacker. If you do, this attack gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Ephemerate \u2014** (2) As long as CARDNAME is **ephemeral**, it gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

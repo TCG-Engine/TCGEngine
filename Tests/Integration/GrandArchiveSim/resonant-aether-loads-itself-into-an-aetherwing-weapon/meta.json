@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Load Resonant Aether into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

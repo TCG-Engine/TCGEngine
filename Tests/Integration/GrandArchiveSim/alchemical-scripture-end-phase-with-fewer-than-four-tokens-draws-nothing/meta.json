@@ -18,5 +18,8 @@
         "rulesClauses": [
             "if you control four or more tokens"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

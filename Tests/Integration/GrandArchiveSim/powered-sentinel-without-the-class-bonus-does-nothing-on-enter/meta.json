@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: Deal 3 damage to your champion and summon a Powercell token rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

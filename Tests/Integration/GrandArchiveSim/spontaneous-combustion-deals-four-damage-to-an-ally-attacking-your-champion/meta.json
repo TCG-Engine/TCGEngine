@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 4 damage to target ally attacking your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

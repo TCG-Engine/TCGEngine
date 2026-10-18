@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter: **CARDNAME loses **pride** until end of turn. Then if an opponent controls three or more units, put a **buff** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

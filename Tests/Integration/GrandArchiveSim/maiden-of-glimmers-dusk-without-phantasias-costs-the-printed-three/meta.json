@@ -18,5 +18,8 @@
         "rulesClauses": [
             "for each of up to two phantasias you control"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever an ally you control becomes **fostered**, put a **training** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

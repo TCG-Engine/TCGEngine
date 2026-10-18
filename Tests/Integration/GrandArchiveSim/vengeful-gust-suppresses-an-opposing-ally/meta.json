@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Suppress** target ally you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

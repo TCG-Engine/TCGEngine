@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: You may banish a fire element card from your graveyard. If you do, choose a unit and deal 2 damage to it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

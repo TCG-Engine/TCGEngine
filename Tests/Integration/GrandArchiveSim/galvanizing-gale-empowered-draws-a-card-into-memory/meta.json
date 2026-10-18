@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If CARDNAME was **empowered**, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

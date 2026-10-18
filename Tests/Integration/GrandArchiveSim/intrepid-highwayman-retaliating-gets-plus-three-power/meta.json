@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as CARDNAME is retaliating, it gets +3 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Automaton allies you control have **true sight**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

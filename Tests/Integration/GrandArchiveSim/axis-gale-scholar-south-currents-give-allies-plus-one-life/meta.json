@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as your Shifting Currents face South, allies you control get +1 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

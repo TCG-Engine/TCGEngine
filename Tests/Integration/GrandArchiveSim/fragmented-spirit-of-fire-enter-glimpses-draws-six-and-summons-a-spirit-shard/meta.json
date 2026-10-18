@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter:** **Glimpse 6**. Draw six cards. Then **summon** a Spirit Shard token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

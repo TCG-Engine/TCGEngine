@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Then you may banish a card with **floating memory** from your graveyard. If you do, put CARDNAME into its owner's memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

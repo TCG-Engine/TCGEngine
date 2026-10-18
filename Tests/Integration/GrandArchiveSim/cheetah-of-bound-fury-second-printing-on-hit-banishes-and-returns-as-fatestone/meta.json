@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Hit: You may banish Cheetah of Bound Fury, then return it to the field under its owner's control. (It enters the field as Fatestone of Unrelenting.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

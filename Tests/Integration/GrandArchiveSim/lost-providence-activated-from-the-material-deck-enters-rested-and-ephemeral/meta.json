@@ -17,5 +17,8 @@
         "rulesClauses": [
             "You may activate this card from your material deck. If you do it enters the field **ephemeral**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

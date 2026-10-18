@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Destroy target item or weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

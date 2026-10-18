@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever an **on enter** ability of a non-champion object you don't control triggers, that object deals 1 damage to its controller's champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

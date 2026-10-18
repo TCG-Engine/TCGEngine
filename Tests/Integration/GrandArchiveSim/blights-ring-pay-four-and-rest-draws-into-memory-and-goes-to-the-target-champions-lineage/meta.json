@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(4), [REST]: Draw a card into your memory. Then put CARDNAME on the bottom of target champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

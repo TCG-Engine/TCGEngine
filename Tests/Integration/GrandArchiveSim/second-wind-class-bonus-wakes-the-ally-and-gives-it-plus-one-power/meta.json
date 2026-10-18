@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Wake up target ally. **Class Bonus:** That ally gets +1 [POWER] until end of turn. *(Apply the additional effect only if your champion's class matches this card's class.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

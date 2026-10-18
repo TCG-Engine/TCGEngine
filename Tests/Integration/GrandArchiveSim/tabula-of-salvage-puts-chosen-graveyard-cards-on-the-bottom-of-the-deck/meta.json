@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish Tabula of Salvage: Choose up to five cards from your graveyard and put them on the bottom of your deck in any order."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

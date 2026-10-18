@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Taunt**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

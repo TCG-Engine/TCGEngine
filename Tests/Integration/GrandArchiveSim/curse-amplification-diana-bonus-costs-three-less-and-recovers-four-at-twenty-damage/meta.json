@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Diana Bonus] This card costs 3 less to activate. If your champion has twenty or more damage counters on them, **recover 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

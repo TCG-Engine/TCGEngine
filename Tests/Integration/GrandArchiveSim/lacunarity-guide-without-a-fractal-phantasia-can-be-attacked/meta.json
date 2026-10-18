@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you control one or more Fractal phantasias, CARDNAME has **stealth**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

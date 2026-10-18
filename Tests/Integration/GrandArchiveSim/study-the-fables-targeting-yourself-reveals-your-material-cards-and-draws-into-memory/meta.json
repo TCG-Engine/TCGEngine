@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target player reveals six cards from their material deck. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

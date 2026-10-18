@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Jin Bonus]"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

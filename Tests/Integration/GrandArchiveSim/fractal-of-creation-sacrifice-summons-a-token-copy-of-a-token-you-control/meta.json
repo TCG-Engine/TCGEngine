@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** **Summon** a token copy of target token you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

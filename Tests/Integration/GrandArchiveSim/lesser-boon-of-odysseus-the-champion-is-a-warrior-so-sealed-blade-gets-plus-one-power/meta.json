@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Your champion is a Warrior class in addition to their other types."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

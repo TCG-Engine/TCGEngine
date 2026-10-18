@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Champion Hit:** Banish up to **X** cards from that opponent\u2019s graveyard, where X is the amount of damage dealt by this hit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

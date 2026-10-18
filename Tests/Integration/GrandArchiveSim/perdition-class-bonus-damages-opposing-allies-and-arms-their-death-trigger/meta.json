@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Each ally target opponent controls gains \"On Death: Deal 1 damage to each unit you control\" until end of turn. Then deal 1 damage to each ally that opponent controls."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

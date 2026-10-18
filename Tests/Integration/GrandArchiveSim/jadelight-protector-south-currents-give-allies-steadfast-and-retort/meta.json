@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as your Shifting Currents face South, allies you control have **steadfast** and **retort 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

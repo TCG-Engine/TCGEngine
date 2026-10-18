@@ -17,5 +17,8 @@
         "rulesClauses": [
             "You may remove three **preparation** counters from your champion rather than pay this card's reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

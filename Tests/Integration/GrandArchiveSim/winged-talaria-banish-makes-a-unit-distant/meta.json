@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(2)**, Banish CARDNAME**: Target unit becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

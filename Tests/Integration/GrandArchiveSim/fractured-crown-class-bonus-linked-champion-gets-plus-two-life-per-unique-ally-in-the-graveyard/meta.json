@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Linked champion's first attack each turn gets +2 [POWER]. **Class Bonus:** That champion also gets +2 [LIFE] for each unique ally card in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

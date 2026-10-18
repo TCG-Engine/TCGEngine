@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**, banish two cards at random from your memory. If you do, **glimpse 3** and then put the top two cards of your deck into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

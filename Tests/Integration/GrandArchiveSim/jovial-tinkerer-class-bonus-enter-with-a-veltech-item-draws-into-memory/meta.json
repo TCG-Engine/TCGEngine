@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter: **If you control a VelTech item, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

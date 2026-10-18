@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Draw three cards. Activate this ability only at slow speed and only if there are six or more **prize** counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

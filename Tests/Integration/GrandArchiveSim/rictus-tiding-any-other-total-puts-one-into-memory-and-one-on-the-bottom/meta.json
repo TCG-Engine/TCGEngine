@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Otherwise put one of them into your memory and the other on the bottom of your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

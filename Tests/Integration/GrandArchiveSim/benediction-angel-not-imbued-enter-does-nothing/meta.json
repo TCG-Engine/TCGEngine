@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Put a **buff** counter on target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

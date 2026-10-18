@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Suppress** target ally. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

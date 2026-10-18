@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(1), [REST]**, Sacrifice CARDNAME:** Target Automaton ally gets +2 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Ciel Bonus] **On Attack**: You may pay (3). If you do, **summon** a Vacuous Servant token rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The surcharge participates in affordability checks."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

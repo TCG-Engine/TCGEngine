@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Cards you activate, objects you control, and intents you control have an additional instance of each **deluge** ability and effect they have."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

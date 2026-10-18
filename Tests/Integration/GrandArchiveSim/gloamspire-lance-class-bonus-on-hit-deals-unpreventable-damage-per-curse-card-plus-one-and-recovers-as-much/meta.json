@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit:** Deal **X** unpreventable damage to the hit object, then **recover X**, where **X** is the amount of Curse cards in the attacker's lineage plus 1."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

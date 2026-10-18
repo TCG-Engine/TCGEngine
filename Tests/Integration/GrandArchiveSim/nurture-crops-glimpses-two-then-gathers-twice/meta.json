@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Glimpse 2**, then **gather** twice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

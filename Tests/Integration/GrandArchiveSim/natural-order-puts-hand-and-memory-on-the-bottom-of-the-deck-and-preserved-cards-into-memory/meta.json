@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put all cards from your hand and memory on the bottom of your deck in any order. Then put all **preserved** cards from your material deck into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Diana Bonus] **On Attack**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever your champion attacks, CARDNAME gets +2 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

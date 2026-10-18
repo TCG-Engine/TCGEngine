@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Put two **static** counters on linked object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

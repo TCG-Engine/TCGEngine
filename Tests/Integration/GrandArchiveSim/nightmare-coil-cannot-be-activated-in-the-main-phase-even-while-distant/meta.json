@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Activate this card only if your champion is **distant**, and only during your recollection phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

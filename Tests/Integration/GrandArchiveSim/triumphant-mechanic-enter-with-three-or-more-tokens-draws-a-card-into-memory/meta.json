@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** If you control three or more tokens, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

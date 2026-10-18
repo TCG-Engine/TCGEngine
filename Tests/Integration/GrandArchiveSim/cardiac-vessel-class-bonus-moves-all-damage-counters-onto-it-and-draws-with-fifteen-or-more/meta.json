@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Move all damage counters from your champion onto CARDNAME. If fifteen or more counters were moved this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

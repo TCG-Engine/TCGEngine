@@ -17,5 +17,8 @@
         "rulesClauses": [
             "On Enter: CARDNAME gains taunt until the beginning of your next turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

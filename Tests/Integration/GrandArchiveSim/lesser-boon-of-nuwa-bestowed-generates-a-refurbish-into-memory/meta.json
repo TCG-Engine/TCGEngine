@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, **generate** a Refurbish card and put it into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

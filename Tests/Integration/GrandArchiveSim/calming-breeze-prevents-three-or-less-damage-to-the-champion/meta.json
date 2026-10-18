@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until end of turn, if 3 or less damage would be dealt to your champion, prevent that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

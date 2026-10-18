@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Pay 2024 reserve, then generate any amount of Sword regalia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Upkeep*** \u2014 At the beginning of your recollection phase, if you don't control a unique ally, sacrifice Changban."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

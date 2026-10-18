@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** If the attacker is attacking a champion, CARDNAME gets +2 [POWER] for this attack."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

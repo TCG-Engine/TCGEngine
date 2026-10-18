@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose zero, one or all eligible Wind cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

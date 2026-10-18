@@ -19,5 +19,8 @@
         "rulesClauses": [
             "A card on top of the opposing lineage must not have been played."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

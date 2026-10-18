@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME:** For every three **age** counters that were on CARDNAME, banish a card at random from target player\u2019s memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If that unit is an Automaton ally, put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

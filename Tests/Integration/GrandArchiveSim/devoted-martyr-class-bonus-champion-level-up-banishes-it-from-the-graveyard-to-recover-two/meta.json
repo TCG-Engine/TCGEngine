@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever your champion levels up, you may banish this card from your graveyard. If you do, **recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The next time target unit would take damage from a Suited Spell source you control this turn, it takes that much damage plus 3 instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

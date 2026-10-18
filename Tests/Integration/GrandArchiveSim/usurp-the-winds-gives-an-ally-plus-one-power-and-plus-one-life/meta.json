@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Up to one target ally gets +1 [POWER] and +1 [LIFE] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

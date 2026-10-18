@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Attack:** If you control three or more tokens, **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

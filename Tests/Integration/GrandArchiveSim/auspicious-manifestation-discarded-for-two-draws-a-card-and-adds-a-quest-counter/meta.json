@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] (2), **Discard this card from your hand:** Draw a card. Then if your champion has five or less **quest** counters on them, put a **quest** counter on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

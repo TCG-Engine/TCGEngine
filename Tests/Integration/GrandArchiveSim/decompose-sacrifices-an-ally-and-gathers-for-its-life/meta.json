@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, sacrifice an ally.",
             "**Gather X** times, where **X** is the sacrificed ally\u2019s life stat."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

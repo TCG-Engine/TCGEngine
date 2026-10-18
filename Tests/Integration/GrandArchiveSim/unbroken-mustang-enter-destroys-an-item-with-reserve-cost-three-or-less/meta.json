@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Destroy up to one target item or weapon with memory cost 0 or reserve cost 3 or less."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

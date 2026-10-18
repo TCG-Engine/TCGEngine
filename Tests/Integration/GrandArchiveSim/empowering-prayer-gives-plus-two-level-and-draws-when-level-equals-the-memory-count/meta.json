@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Your champion gets +2 level until end of turn. Then if your champion's level is equal to the amount of cards in your memory, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

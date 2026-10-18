@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Put a **bulwark** counter on target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Arisanna Bonus] If you would **summon** one or more Silvershine and/or Fraysia tokens, **summon** that many Volnia tokens instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

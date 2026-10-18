@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Bulwark**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "[Class Bonus] This card costs 1 less to activate for each token object you control.",
             "**Cleave**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

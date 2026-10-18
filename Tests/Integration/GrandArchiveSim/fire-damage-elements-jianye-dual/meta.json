@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Fire element allies have On Death: if influence is six or less, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

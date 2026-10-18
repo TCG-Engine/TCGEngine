@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish target card from a graveyard. Then deal 2 damage to each champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "Up to one target Ranger unit becomes **distant**.",
             "If Squallbind Pounce is **imbued**, **suppress** up to one target attacking ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

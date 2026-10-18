@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you activate a Melody or Harmony card, put a **buff** counter on Quadrille's Gryphon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

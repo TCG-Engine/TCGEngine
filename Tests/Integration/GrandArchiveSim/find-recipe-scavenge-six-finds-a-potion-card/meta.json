@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Scavenge 6** for a Potion card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

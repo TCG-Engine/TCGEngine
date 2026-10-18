@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Ally Hit:** You may return the hit ally to its owner's memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

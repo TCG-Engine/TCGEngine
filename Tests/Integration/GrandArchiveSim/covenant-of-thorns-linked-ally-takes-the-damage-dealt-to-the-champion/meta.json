@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to your champion, that damage is dealt to linked ally instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

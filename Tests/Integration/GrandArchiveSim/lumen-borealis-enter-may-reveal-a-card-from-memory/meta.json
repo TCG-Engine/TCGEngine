@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: You may reveal a card from your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME was **imbued**, deal X damage to all other norm and basic element allies."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

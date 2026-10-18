@@ -19,5 +19,8 @@
         "rulesClauses": [
             "On Enter: Target non-champion object gains \"At the beginning of your recollection phase, deal 1 unpreventable damage to your champion\" for as long as you control CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

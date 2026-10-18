@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Summon** a Vacuous Servant token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If one or more cards would enter a player's graveyard while CARDNAME is **fostered**, banish them instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

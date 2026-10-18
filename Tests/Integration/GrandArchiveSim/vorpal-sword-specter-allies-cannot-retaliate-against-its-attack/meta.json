@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Specter allies can't retaliate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

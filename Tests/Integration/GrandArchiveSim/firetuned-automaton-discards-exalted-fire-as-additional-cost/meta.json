@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Preview and payment both accept Exalted Fire."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

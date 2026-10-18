@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Class Bonus: Deal 5 unpreventable damage to that unit instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

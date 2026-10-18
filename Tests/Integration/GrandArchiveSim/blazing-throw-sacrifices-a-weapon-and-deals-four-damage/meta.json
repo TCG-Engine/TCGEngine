@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, sacrifice a weapon.",
             "Deal 4 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Banish three Fire element and/or Automaton cards as an additional activation cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

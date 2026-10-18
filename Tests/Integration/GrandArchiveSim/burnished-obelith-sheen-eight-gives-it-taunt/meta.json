@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Sheen 8+] **Taunt**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

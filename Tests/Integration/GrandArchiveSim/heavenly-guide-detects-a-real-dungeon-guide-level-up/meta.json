@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Dungeon Guide puts an unplayed champion on top of the opposing lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

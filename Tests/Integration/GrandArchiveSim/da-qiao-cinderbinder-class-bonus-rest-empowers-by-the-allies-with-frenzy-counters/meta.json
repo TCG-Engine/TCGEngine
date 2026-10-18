@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]: Choose one -- **Empower X**, where **X** is the amount of allies on the field with a **frenzy** counter on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

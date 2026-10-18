@@ -18,5 +18,8 @@
         "rulesClauses": [
             "CARDNAME has **stealth** as long as your champion has three or more **preparation** counters on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

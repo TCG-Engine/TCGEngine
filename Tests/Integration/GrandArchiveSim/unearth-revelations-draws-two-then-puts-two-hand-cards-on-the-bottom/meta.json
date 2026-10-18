@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Draw two cards, then put two cards from your hand on the bottom of your deck in any order."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

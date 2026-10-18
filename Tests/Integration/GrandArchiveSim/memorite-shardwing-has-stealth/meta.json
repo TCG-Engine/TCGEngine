@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Stealth,**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

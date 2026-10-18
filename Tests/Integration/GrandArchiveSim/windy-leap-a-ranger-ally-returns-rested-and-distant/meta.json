@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish target ally you control, then return it to the field under its owner\u2019s control rested. If it's a Ranger ally, it becomes **distant**. *(Units stay **distant** until the end of their controller's turn.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(6)**, Remove a refinement counter from CARDNAME: **Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

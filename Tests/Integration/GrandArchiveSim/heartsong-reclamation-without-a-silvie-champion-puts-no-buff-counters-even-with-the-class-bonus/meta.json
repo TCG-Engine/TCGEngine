@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Silvie Bonus] Put five **buff** counters on each Animal and/or Beast ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

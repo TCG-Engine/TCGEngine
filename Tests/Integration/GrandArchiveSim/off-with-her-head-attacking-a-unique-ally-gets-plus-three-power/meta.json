@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as the attacker is attacking a unique ally, CARDNAME gets +3[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

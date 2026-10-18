@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Aenean Progression** *(This card costs (2) more to activate for each time you've resolved a card with **Aenean progression** this game.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

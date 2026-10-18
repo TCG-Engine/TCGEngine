@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, if your champion has zero damage counters on them, deal 20 unpreventable damage to your champion and draw three cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

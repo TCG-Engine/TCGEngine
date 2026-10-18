@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Each player **recovers 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

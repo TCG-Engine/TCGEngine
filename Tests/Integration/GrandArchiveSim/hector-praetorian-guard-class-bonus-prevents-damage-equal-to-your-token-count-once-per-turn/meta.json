@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] If damage would be dealt to one or more non-token neos element units you control, prevent X of that damage where **X** is the amount of tokens you control. Apply this replacement effect only once per turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

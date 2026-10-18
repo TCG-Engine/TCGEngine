@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Damage 35+] Fast Activation"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

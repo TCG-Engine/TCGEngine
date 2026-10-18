@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(2),[REST]**, Banish a card from your graveyard:** If the banished card was an Automaton ally card, **summon** an Automaton Drone token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

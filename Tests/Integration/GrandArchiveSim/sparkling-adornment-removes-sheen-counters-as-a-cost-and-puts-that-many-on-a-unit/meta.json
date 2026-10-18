@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, remove one or more **sheen** counters from an object on the field.",
             "Put **X** **sheen** counters on target unit, where **X** is the amount of counters removed."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

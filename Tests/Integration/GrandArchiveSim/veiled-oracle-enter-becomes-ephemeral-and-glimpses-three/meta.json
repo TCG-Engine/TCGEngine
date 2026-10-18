@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Veiled Oracle becomes **ephemeral**. **Glimpse 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

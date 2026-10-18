@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Return all allies to their owner's hands."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

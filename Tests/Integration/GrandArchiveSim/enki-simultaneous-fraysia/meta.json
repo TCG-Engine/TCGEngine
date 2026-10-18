@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose either token from one simultaneous summon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

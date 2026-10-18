@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Then if that champion has five or less damage counters on them, deal an additional 4 damage to them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

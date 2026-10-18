@@ -17,5 +17,8 @@
         "rulesClauses": [
             "This card costs 4 less to bestow for each graveyard with eight or more cards in it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

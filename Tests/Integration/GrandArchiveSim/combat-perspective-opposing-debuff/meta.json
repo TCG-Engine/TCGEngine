@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The target unit attacks with three less power."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

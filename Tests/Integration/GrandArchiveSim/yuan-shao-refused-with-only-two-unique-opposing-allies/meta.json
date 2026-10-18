@@ -22,5 +22,8 @@
         "rulesClauses": [
             "Activate this ability only if there are three or more unique allies on the field you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

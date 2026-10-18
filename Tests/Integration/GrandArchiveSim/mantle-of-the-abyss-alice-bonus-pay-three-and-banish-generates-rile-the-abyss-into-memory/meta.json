@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Alice Bonus] (3), **Banish CARDNAME:** **Generate** a Rile the Abyss card and put it into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

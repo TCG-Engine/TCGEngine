@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Draw a card, then discard a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

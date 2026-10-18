@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** You may banish a fire element card from your graveyard. If you do, **empower 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

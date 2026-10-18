@@ -19,5 +19,8 @@
             "Target weapon gains **omnishroud** until end of turn.",
             "[Damage 20+] Put two **durability** counters on that weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

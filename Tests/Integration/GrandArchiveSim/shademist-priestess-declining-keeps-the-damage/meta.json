@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever your champion is dealt damage from a source you don't control, you may **recover 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put four **wither** counters on target non-champion object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

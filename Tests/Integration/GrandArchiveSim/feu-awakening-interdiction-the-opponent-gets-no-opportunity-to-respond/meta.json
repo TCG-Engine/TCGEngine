@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Interdiction** *(As long as this card's activation is on the effects stack, players can't gain opportunity.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

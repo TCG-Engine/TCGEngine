@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** The next Beast ally card you activate this turn costs 3 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

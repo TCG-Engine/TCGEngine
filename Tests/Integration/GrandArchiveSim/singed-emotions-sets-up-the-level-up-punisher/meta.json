@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until the beginning of your next turn, whenever a champion levels up, deal 4 damage to that champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

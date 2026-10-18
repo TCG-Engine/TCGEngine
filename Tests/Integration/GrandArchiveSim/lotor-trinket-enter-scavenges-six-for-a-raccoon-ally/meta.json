@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** **Scavenge 6** for a Raccoon ally card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

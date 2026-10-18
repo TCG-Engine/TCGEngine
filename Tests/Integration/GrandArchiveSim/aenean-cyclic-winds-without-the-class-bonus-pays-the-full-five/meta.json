@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 3+] This card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

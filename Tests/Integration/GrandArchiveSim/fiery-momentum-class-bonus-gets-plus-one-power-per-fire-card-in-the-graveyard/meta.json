@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME gets +1 [POWER] for each fire element card in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Lineage Release** -- **Recover 6**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

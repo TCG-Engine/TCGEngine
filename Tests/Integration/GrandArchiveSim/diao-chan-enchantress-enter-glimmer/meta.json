@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Enter: Put two glimmer counters on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Rest target Potion. If you do, put **LV age** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

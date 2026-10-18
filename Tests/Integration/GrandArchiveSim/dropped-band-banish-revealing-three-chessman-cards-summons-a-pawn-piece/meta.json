@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** You may reveal three Chessman cards from your hand and/or memory. If you do, **summon** a Pawn Piece token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

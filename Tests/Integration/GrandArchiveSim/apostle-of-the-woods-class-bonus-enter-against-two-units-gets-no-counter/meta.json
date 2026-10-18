@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Then if an opponent controls three or more units"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

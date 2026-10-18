@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Linked ally gets +1 [LIFE] and has **taunt**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

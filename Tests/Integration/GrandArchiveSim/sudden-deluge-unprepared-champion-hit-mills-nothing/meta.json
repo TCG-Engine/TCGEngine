@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Champion Hit:** If CARDNAME was **prepared**, that opponent puts the top ten cards from their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

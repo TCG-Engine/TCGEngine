@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Linked weapon gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until the beginning of your next turn, you and target player can't declare attacks. Banish Peaceful Reunion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

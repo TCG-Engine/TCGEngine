@@ -16,5 +16,8 @@
         "rulesClauses": [
             "CARDNAME can't attack."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

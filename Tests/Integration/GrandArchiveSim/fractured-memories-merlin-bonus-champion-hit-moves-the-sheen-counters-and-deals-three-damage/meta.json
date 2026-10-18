@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Merlin Bonus]Your champion has \"**On Champion Hit:** You may move all **sheen** counters on the hit champion to your Fractured Memories. When three or more counters are moved this way, deal 3 damage to that champion.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

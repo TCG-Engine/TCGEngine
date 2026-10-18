@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The declared target determines affordability."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

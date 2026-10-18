@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Activate this ability only during an opponent's recollection phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

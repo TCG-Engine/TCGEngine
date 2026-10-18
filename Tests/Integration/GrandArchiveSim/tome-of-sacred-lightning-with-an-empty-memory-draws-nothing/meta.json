@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If a card was banished this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

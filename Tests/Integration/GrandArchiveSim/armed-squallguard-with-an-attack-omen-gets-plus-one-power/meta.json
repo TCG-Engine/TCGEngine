@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you have one or more attack omens, Armed Squallguard gets +1[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

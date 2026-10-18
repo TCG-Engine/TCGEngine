@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+] **On Enter:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

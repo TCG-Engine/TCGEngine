@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(X)**, Banish CARDNAME:** Target opponent banishes **X** cards from their graveyard. If **X **is 3 or greater, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

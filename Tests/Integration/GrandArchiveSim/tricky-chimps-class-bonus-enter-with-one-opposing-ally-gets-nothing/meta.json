@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** If an opponent controls two or more allies"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

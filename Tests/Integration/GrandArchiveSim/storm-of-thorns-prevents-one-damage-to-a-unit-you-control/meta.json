@@ -16,5 +16,8 @@
         "rulesClauses": [
             "If damage would be dealt to a unit you control this turn, prevent 1 of that damage. If the damage prevented had a unit as its source, deal 1 damage to that unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

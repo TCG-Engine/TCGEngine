@@ -24,7 +24,7 @@ require_once __DIR__ . '/GaSemanticCoverage.php';
 $behaviorDefinitions = [];
 if ($rootName === 'GrandArchiveSim') {
     require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
-    $behaviorDefinitions = gaBehaviorDefinitions();
+    $behaviorDefinitions = gaBehaviorDefinitions() + gaSourceDefinitions();
 }
 
 $fixtureRoot = $repoRoot . '/Tests/Integration/' . $rootName;

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**(1), Sacrifice CARDNAME: **Return the linked ally to its owner's memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

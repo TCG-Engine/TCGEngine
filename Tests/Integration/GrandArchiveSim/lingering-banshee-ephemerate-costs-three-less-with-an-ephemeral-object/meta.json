@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you control one or more **ephemeral** objects, this card costs (3) less to activate this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

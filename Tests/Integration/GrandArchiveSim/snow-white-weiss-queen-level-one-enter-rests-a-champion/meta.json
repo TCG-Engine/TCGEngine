@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 1+] **On Enter**: Rest target champion. It doesn't wake up during its controller's next wake up phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

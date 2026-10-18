@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**:** Target non-Human ally gets +1 [POWER] until end of turn. Activate this ability only if you have two or more non-Human ally cards in your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

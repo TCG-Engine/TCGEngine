@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: **Glimpse 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

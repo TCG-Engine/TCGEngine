@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Champion Hit:** Put CARDNAME on the bottom of the hit champion\u2019s lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

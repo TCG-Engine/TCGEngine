@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Champions you control have **spellshroud**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

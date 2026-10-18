@@ -19,5 +19,8 @@
             "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
             "**Suppress** target ally. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

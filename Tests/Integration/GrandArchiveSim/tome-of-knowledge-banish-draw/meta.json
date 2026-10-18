@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Banish Tome of Knowledge: Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

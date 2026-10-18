@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Look at the top 3+**X** cards of your deck, where **X** is the amount of Distortion objects you control. Put those cards back on top of your deck in any order."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Merlin Bonus] Your champion has \"**On Ally Kill:** Put **X** **sheen** counters onto your Fractured Memories, where **X** is the amount of **sheen** counters that were on the killed ally.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

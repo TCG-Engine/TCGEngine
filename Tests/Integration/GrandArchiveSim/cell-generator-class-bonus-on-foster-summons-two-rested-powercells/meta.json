@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Foster:** **Summon** two Powercell tokens rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

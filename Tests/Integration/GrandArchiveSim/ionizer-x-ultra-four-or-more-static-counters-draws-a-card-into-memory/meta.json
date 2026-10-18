@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Then if there are four or more **static** counters on it, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

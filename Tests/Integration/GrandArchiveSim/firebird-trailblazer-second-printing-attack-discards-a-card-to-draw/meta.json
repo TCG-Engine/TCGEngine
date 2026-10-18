@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Attack: You may discard a card. If you do, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

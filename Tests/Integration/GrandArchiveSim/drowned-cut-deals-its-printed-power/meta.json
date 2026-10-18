@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Drowned Cut deals its printed POWER to the attacked champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

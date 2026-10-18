@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Linked ally gets +1 [LIFE] and has **intercept**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

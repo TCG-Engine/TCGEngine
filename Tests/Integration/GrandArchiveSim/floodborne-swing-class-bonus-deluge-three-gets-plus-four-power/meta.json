@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus]***Deluge 3 --*** As long as you have three or more water element cards in your graveyard, CARDNAME gets +4[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

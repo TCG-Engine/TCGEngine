@@ -20,5 +20,8 @@
         "rulesClauses": [
             "If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage and draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

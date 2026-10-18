@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(3): Activate this ability only twice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

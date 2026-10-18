@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME enters the field **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

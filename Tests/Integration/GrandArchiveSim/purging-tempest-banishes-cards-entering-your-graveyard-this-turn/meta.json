@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until end of turn, if one or more cards would enter target player's graveyard from anywhere except the field, banish them instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

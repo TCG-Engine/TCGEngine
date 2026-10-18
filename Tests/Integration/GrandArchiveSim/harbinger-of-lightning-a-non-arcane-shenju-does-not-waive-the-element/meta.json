@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as you control an arcane element Shenju ally, ignore this card's elemental requirements as you activate it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] While paying for this card's reserve cost, you may rest your champion to pay for 2 of that cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

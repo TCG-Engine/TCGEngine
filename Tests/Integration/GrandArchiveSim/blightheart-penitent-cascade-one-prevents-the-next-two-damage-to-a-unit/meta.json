@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**:** If you control an Elysian object, **cascade**\u2014 <br>\u2022 1\u2014 Prevent the next 2 damage that would be dealt to target unit this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

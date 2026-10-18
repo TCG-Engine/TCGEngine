@@ -18,5 +18,8 @@
         "rulesClauses": [
             "A Wind unique Human ally removes pride, including effective dual elements."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Champion Hit**: Cards that opponent materializes cost 1 more to materialize until the beginning of your next turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

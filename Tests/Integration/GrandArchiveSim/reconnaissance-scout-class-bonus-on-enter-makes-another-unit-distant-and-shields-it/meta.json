@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: Another target unit you control becomes **distant**. Prevent the next 1 damage that would be dealt to that unit this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

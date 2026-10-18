@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Put a buff counter on each damaged ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

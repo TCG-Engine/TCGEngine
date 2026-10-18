@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If a unit you control would be dealt damage, prevent 2 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

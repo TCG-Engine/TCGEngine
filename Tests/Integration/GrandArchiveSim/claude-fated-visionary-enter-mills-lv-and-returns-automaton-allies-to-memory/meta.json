@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** Put the top **LV** cards of your deck into your graveyard. Then return up to two Automaton ally cards from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

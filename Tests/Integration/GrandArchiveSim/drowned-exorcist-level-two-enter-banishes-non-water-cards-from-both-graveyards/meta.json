@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 2+] **On Enter:** Each player banishes all non-water element cards from their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

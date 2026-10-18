@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Death: Each player with influence four or less draws a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

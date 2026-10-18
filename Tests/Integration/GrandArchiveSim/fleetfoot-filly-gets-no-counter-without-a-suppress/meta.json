@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever a player **suppresses** an object"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

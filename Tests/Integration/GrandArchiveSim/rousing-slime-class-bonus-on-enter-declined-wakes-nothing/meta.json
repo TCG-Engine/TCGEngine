@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may rest CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

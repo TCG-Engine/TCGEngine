@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] On Attack: You may discard a fire element card and have CARDNAME deal 2 unpreventable damage to your champion. If you do, this attack gets +2 [POWER] and gains \"On Champion Hit: Draw a card.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

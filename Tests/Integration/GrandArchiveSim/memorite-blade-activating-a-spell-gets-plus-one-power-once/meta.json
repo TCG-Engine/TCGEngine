@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever you activate a Spell card, CARDNAME gets +1 [POWER]. Trigger this ability only once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

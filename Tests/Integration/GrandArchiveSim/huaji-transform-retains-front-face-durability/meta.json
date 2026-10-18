@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Retains durability counters as it transforms."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

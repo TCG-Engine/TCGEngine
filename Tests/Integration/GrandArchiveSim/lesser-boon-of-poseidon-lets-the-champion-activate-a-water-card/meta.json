@@ -17,5 +17,8 @@
         "rulesClauses": [
             "WATER element is enabled for you."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

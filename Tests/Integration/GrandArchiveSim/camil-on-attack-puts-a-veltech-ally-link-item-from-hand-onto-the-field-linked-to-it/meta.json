@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Attack:** You may put a non-advanced element VelTech item card with **ally link** from your hand or memory onto the field linked to CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

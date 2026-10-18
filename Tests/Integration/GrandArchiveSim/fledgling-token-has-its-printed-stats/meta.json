@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Fledgling (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

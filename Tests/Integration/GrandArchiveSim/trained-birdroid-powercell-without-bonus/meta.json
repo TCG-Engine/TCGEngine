@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you activate an ability of a Powercell item targeting another ally you control, gets +1 POWER this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

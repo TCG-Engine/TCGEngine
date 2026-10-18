@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

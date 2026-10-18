@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Angel cards and objects can't become **imbued**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

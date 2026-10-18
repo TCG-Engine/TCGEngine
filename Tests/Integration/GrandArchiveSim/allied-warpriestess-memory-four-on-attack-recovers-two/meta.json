@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Memory 4+] **On Attack: Recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

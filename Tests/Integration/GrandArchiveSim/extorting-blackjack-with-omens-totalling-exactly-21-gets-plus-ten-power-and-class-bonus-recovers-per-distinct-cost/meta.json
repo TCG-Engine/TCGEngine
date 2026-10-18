@@ -21,5 +21,8 @@
         "rulesClauses": [
             "As long as the total reserve cost among your omens is exactly 21, Extorting Blackjack gets +10[POWER]. [Class Bonus] **On Attack**: **Recover** **X**, where **X** is the amount of **omens** you have with different costs."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

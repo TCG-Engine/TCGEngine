@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Diana Bonus] (2), [REST], **Remove two durability counters from Radiant Vega**: **Negate** target card activation unless its controller pays (X), where **X** is the amount of Aethercharge cards loaded into Radiant Vega. Activate this ability only if your champion is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

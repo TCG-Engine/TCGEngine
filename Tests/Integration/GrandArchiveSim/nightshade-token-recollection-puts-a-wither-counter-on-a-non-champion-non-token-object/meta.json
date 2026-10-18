@@ -19,5 +19,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, put a **wither** counter on target non-champion non-token object you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

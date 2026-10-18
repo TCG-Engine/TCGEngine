@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Sacrifice CARDNAME: Glimpse 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

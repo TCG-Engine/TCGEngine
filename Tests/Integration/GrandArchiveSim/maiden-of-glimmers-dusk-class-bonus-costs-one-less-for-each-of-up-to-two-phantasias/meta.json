@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 1 less to activate for each of up to two phantasias you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

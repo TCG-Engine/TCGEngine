@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Return target ally card from your graveyard to the field. It becomes **ephemeral**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

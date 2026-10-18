@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Your champion is an Assassin class in addition to their other types."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

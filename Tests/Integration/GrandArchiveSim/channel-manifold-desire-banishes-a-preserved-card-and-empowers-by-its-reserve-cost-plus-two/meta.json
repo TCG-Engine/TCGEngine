@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, banish a **preserved** card from your material deck. **Empower X+2**, where **X** is the reserve cost of the banished card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

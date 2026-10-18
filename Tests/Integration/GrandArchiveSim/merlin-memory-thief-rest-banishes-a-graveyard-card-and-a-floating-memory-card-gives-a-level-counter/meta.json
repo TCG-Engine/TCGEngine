@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**:** Choose a card from a graveyard and banish it. If that card has **floating memory**, put a **level** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

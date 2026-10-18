@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Hit:** CARDNAME gets -3 [POWER]. (This effect lasts indefinitely.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** If an opponent has **influence** eight or more, put a **buff** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

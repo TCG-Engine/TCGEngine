@@ -20,5 +20,8 @@
             "This card costs 2 less to activate for each unique ally you control.",
             "Until end of turn, Human and Horse allies you control get +1 [LIFE] and gain **ambush** and **steadfast**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

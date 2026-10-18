@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** You may banish a card with **floating memory** from your graveyard. If you do, **empower 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

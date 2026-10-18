@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If your **influence** is five or less, draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

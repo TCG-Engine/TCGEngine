@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]: Choose one that hasn't been chosen\u2014 \u2022 If you control a Chessman Bishop ally, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

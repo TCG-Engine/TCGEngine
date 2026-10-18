@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Lorraine Bonus] [Element Bonus] At the beginning of your end phase, if this card is in your banishment, put a **static** counter on a Sword weapon you control and each object linked to it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

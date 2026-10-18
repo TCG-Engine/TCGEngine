@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Glimpse 3**. Draw a card. You may put an Animal or Beast ally card with reserve cost **LV** or less from your hand onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

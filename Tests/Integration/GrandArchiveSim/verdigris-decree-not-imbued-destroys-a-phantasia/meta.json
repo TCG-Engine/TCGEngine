@@ -18,5 +18,8 @@
         "rulesClauses": [
             "\u2022 Destroy up to one target phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

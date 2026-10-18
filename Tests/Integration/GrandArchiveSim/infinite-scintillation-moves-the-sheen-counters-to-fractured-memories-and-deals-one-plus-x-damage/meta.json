@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Move all **sheen** counters from target unit to your Fractured Memories. Then deal 1+**X** damage to that unit, where **X** is the amount of counters moved this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -21,5 +21,8 @@
         "rulesClauses": [
             "(3), [REST]**:** As a Spell, deal an amount of damage to target unit equal to the amount of **charge** counters on CARDNAME. Then remove a **charge** counter from CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

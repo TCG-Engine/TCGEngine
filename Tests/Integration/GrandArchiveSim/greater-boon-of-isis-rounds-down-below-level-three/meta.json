@@ -17,5 +17,8 @@
         "rulesClauses": [
             "where **X** is **LV** divided by three, rounded down."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

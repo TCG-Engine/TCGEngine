@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] As long as you control one or more Chessman Pawn allies, prevent all damage that would be dealt to CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

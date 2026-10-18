@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If a card with **floating memory** would be put into a player's graveyard, that player banishes it instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

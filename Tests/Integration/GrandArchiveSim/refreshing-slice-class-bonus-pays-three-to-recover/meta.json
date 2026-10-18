@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack: **You may pay (3). If you do, **recover 3**+**LV**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

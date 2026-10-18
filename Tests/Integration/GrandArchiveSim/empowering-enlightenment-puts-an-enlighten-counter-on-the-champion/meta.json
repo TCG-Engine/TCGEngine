@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Empower 2**. Put an **enlighten** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

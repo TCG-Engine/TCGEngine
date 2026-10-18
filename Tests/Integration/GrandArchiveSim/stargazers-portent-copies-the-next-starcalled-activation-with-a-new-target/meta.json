@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The next time you **starcall** a card this turn, copy that activation. You may choose new targets for the copy."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

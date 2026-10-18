@@ -21,5 +21,8 @@
             "**On Enter:** You may rest Arthur. If you do, Arthur gains **immortality** until the beginning of your next turn.",
             "As long as Arthur is rested, other allies you control get +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

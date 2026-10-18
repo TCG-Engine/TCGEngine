@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit:** You may load CARDNAME into target unloaded Bow weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

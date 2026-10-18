@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** You may banish a card with **floating memory** from your graveyard. When you do, look at target opponent's memory and discard a card from it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

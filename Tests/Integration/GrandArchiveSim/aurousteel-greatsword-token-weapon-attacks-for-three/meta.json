@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Token weapon with 3 power"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

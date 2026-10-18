@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: If you have no cards in your hand, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

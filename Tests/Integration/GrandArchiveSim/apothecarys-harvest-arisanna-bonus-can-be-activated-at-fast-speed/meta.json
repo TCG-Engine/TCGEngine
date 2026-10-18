@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Arisanna Bonus] **Fast Activation**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target ally gets +2 [POWER] until end of turn and becomes distant."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

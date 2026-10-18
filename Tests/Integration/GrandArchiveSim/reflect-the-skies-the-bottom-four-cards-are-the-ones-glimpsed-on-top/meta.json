@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put the bottom four cards of your deck on top of your deck in a random order. **Glimpse 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -22,5 +22,8 @@
             "**On Enter:** Look at the top card of your deck. You may put it into your graveyard.",
             "[Class Bonus] As long as you have four or more water element cards in your graveyard, CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

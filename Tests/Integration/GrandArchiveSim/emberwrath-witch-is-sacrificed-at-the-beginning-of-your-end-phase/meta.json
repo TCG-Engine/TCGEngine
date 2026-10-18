@@ -17,5 +17,8 @@
         "rulesClauses": [
             "At the beginning of your end phase, sacrifice CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

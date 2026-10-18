@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The first Aethercharge card you activate each turn"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** You gain the Phantasmagoria mastery. Then put two **haunt** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

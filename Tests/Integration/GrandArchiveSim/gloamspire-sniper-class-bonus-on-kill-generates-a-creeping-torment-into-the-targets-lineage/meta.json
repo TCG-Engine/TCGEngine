@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Kill: Generate** a Creeping Torment card and put it on the bottom of target champion\u2019s lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

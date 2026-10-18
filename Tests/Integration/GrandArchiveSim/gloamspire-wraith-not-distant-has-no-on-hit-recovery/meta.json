@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as CARDNAME is **distant**, it has \"**On Hit: Recover X**, where **X** is the amount of damage dealt by this hit.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

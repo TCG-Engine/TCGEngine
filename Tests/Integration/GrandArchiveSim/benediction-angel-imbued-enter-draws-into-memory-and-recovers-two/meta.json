@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**, draw a card into your memory and **recover 2.**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

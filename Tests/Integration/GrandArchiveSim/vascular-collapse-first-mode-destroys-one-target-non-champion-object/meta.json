@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose one\u2014 \u2022 Destroy target non-champion object. \u2022 [Level 9+] Destroy two target non-champion objects. \u2022 [Level 15+] Destroy all non-champion objects."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

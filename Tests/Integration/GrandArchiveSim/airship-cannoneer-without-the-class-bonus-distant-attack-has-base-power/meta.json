@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Ranged 4 (As long as this unit is distant, its attacks get +4 [POWER].)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

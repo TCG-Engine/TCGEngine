@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** If CARDNAME is **imbued**, target player can\u2019t play more than two cards during their next turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

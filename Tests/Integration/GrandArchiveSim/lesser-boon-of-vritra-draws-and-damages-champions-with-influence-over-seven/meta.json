@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As you gain this boon, each player draws a card. Then deal 2 damage to each champion controlled by players with influence more than seven."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

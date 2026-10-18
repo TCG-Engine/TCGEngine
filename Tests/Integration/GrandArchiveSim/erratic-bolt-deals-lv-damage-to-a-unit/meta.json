@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal **LV** damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

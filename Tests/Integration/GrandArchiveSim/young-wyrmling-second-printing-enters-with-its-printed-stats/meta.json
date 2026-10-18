@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Young Wyrmling (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

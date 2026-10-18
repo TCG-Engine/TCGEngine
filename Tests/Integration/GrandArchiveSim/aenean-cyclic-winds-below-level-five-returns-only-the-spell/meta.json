@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 5+] Reveal up to two wind element cards from your memory"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

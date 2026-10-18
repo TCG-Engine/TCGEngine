@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Damage dealt by fire element sources you control cannot be prevented."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

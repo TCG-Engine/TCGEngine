@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Put a **buff** counter on another target ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

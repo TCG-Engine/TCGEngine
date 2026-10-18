@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as you control a unique ally, each player with **influence** eight or more can't draw cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

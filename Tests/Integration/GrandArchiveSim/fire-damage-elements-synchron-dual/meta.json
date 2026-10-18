@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever your champion is dealt non-combat damage by a fire element source, put a refinement counter on this object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

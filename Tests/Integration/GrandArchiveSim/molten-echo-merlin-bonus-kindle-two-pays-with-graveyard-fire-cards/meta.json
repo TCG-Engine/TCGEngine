@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Merlin Bonus] **Kindle 2**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

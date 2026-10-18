@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Banish up to three target fire element cards from a single graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

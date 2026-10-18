@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish CARDNAME: Shuffle up to three cards from your hand into your deck, then draw that many cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "On Enter: You may discard a fire element card. If you do, draw a card and CARDNAME becomes distant."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

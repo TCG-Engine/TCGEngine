@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you sacrifice CARDNAME, draw two cards into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

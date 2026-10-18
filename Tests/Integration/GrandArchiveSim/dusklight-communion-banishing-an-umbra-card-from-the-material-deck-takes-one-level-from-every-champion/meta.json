@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, banish an astra or umbra element card from your material deck.",
             "If the banished card was umbra element, CARDNAME gains \"Champions get -1 level.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] Put an **enlighten** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

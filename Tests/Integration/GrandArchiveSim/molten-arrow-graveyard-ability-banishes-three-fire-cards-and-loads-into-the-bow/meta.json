@@ -22,5 +22,8 @@
         "rulesClauses": [
             "Banish three other fire element cards from your graveyard: Load the card from your graveyard into target unloaded Bow weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

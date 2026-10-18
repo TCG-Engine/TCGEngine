@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Arisanna Bonus] (3)**, Banish CARDNAME: ****Gather** twice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

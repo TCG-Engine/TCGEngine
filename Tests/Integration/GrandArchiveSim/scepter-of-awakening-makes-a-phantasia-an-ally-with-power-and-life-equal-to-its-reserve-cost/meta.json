@@ -21,5 +21,8 @@
         "rulesClauses": [
             "*(2)*, [REST]: Target phantasia you control becomes an ally in addition to its other types with base power and life equal to its reserve cost until end of turn. Put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

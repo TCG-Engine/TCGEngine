@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] You may banish two fire element cards from your graveyard. If you do, your champion's next attack this turn using an Aetherwing weapon gains \"Combat damage dealt by this attack is unpreventable.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

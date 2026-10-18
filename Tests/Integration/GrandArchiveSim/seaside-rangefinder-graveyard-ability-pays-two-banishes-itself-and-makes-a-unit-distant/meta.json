@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

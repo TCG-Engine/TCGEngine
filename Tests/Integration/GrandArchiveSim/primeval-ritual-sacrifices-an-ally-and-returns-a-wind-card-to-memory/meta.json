@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, sacrifice an ally.",
             "Return target wind element card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

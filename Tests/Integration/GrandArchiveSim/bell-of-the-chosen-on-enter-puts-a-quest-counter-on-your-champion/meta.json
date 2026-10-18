@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter**: Put a **quest** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

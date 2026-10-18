@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Kongming Bonus] **Sacrifice CARDNAME:** **Empower 7**. Activate this ability only if there are three **charge** counters on CARDNAME and only if your Shifting Currents face South."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

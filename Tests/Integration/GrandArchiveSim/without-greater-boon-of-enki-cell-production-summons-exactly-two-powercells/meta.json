@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Summon** two Powercell tokens rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

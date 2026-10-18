@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(5): Draw a card into your memory. This ability costs (1) less to activate for each phantasia you control. Activate this ability only once."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

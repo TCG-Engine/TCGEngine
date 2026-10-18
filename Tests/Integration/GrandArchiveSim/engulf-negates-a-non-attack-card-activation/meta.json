@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Negate** target non-attack card activation."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

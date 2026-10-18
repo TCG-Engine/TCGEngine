@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Deal up to 7 unpreventable damage to your champion. Then **scavenge 2+X** for an exia element card, where **X** is the amount of damage dealt to your champion this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

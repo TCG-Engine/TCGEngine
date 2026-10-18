@@ -19,5 +19,8 @@
             "**Suppress** up to one target ally an opponent controls. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*",
             "[Class Bonus] Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

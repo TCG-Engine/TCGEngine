@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Imbue 2**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Your champion becomes an Ascendant in addition to its other types. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

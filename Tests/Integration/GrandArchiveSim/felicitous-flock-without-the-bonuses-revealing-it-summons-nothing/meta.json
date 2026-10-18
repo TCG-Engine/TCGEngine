@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Element Bonus] [Class Bonus] Whenever you reveal CARDNAME from your memory"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

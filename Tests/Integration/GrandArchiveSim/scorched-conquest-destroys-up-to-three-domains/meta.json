@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Destroy up to three target domains."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

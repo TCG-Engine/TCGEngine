@@ -18,5 +18,8 @@
             "As an additional cost to activate this card, banish two cards from your material deck.",
             "Target regalia gains **spellshroud** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

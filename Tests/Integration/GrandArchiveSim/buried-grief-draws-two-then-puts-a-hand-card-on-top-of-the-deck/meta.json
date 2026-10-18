@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Draw two cards, then put a card from your hand on top of your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

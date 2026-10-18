@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until end of turn, players can\u2019t declare attacks unless they pay (2) for each attack declaration."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

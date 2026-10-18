@@ -20,5 +20,8 @@
             "***Equestrian*** \u2014 If you control a Horse ally, **glimpse 3**.",
             "Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

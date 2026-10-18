@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your next recollection phase, you may activate the banished card without paying its reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

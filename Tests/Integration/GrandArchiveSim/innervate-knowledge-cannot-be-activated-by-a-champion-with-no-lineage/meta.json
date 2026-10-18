@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, **delevel** your champion and **recover 5**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

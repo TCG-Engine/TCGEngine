@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter: **You may pay (3). If you do, CARDNAME gains **multistrike 2** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

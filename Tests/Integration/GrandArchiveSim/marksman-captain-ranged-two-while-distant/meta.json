@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2 [POWER].)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

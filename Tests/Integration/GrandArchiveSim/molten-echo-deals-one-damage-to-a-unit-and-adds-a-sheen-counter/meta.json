@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 1 damage to target unit. Then put a **sheen** counter on your Fractured Memories."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

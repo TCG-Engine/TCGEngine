@@ -21,5 +21,8 @@
             "[Class Bonus] This card costs 2 less to activate.",
             "Target unit gains **spellshroud** until end of turn. Then if your **influence** is five or less, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

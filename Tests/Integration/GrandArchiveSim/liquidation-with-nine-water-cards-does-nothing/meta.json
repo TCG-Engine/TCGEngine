@@ -17,5 +17,8 @@
         "rulesClauses": [
             "***Deluge 10 --*** If there are ten or more water element cards in your graveyard, deal 7 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** You may banish a card with **floating memory** from your graveyard. If you do, deal 2 damage to each rested unit you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

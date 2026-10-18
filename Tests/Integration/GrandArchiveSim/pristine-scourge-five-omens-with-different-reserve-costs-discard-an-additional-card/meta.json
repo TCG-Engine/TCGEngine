@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If you have five or more omens with different reserve costs, discard an additional card from among them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

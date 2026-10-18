@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Destroy target **ephemeral** object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

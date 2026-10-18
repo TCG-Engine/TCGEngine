@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] This card's activation can't be **negated**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If that ally is an Automaton, summon a Powercell token rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

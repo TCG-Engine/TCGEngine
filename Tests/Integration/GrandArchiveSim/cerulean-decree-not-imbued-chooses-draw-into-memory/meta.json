@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose one. If CARDNAME is **imbued**, choose two instead\u2014 Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

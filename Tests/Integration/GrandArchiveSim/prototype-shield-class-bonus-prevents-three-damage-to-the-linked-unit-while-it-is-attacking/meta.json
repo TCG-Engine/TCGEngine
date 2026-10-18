@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] If damage would be dealt to linked unit while it\u2019s attacking, prevent 3 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

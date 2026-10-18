@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** All basic elements are enabled for you until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

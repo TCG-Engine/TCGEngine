@@ -19,5 +19,8 @@
             "**Pride 3**",
             "As long as you control a fire or tera element unique Human ally, CARDNAME loses **pride**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

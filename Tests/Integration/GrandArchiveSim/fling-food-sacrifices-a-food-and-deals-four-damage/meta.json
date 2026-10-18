@@ -20,5 +20,8 @@
             "Deal 4 damage to target unit."
         ]
     },
-    "notes": "Regression: the Food sacrifice printed as an additional cost was never paid, so Fling Food dealt its 4 damage for free and kept the item."
+    "notes": "Regression: the Food sacrifice printed as an additional cost was never paid, so Fling Food dealt its 4 damage for free and kept the item.",
+    "sourceScenario": {
+        "seed": 42
+    }
 }

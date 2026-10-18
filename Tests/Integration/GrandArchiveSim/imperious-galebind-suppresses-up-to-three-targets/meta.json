@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Suppress** up to three target allies, items, or weapons. *(To **suppress** an object, banish it and return it to the field under its owner\u2019s control at the beginning of the next end phase.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

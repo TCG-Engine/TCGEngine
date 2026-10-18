@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** If Hector is **imbued**, **summon** two Automaton Drone tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

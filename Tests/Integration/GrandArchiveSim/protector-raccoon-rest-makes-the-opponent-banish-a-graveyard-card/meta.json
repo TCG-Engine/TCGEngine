@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST]: Target opponent banishes a card from their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

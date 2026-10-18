@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Look at the top four cards of your deck and put them back in any order. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "as long as your champion has three or more **preparation** counters"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

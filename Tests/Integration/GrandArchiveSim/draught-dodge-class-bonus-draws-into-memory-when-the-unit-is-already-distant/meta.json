@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] If that unit is **distant**, draw a card into your memory. Otherwise, it becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

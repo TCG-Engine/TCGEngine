@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Champion Hit:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

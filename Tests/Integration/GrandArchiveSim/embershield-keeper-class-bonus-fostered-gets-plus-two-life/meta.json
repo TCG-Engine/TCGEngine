@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as CARDNAME is fostered, it gets +2 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

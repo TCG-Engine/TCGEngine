@@ -19,5 +19,8 @@
             "Activate this card only during an opponent's recollection phase.",
             "Until end of turn, players can't declare attacks with allies unless they pay (X) for each attack declaration, where **X** is the highest [POWER] among fire element allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

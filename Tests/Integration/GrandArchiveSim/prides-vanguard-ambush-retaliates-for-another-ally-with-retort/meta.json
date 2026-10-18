@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Ambush** *(This ally may retaliate against attackers while not defending.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

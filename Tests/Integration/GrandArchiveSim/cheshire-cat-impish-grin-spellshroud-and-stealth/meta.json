@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Spellshroud**, **Stealth**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

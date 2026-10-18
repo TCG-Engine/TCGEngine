@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST]**:** The next time target neos element unit would take non-combat damage this turn, prevent 2 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

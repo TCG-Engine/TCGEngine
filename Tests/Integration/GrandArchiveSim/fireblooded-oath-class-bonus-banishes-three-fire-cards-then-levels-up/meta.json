@@ -21,5 +21,8 @@
             "As an additional cost to activate this card, banish three fire element cards from your graveyard.",
             "Level up your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, put up to four target regalia cards from any banishment into their owner\u2019s material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

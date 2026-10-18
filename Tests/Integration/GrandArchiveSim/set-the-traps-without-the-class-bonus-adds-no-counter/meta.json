@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] Put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

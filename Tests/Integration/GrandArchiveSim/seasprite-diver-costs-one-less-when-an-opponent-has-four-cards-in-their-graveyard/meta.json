@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as an opponent has four or more cards in their graveyard, this card costs 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

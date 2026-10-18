@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter**: If Stellaria Shower was **starcalled**, as a Spell, deal **X** damage to target unit, where **X** is the amount of phantasias you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

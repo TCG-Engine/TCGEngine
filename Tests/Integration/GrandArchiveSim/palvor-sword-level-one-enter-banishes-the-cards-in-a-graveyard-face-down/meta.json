@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+]**On Enter:** Banish all cards in target player's graveyard face down until CARDNAME leaves the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

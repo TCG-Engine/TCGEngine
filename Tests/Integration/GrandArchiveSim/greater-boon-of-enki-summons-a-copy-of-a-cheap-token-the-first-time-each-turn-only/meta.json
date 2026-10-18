@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you **summon** one or more tokens with reserve cost 1 or less for the first time each turn, **summon** a copy of one of those tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

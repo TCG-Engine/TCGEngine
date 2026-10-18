@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] **On Hit:** At the beginning of your next recollection phase, you win the game."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

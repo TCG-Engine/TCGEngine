@@ -17,5 +17,8 @@
         "rulesClauses": [
             "You may activate this card from your banishment as long as there's a **charge** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

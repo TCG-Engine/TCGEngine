@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put a **buff** counter on each Human ally you control. Until end of turn, Human allies that enter the field under your control enter with an additional **buff** counter on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

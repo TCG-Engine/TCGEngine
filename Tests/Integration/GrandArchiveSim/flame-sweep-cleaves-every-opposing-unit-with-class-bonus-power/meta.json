@@ -20,5 +20,8 @@
             "Cleave (Attack all units a chosen opponent controls.)",
             "[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

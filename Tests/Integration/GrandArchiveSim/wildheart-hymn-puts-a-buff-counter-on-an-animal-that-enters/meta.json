@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until end of turn, whenever an Animal enters the field under your control, put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

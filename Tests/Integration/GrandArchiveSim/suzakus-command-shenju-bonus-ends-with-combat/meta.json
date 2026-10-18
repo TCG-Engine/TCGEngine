@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Target Beast ally's next attack this turn gains **unblockable** and gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

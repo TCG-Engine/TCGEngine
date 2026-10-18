@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Prevent the next 3 non-combat damage that would be dealt to target unit you control this turn. That unit becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

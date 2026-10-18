@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Sheen 36+] [REST]: Move any amount of **sheen** counters from your Fractured Memories to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

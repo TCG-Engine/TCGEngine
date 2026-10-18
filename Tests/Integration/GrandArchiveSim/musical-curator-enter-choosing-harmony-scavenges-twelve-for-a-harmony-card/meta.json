@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Choose Harmony or Melody. **Scavenge 12 **for a card of that subtype."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

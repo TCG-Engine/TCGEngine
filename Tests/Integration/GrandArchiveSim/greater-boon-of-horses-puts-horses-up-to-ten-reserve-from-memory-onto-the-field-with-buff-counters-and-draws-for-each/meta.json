@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As you gain this boon, put any amount of Horse ally cards with total reserve cost 10 or less from your memory onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

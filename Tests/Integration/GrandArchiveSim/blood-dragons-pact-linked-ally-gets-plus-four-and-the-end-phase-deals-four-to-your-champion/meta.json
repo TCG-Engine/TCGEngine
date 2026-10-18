@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Linked ally gets +4[POWER] and +4[LIFE]. At the beginning of your end phase, deal 4 unpreventable damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

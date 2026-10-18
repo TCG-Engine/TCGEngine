@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: Up to one target Animal or Beast ally you control loses pride and gets -1 [POWER] until end of turn. If that ally is an Automaton, summon a Powercell token rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

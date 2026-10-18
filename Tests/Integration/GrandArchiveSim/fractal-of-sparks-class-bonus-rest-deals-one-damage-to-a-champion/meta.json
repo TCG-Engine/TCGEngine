@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]: Deal 1 damage to target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

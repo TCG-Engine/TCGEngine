@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 5+] Until end of turn, if a Fractal source you control would deal damage, it deals that much damage plus 1 instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

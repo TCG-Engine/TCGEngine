@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Banish Consumption Ring**: Until end of turn, non-ally cards your opponents activate cost (4) more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

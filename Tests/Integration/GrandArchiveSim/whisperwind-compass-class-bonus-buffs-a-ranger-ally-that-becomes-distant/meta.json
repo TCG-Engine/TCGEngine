@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever a Ranger ally you control becomes **distant**, if that ally has no **buff** counters on it, put a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Hit:** You may remove a **buff** counter from CARDNAME. If you do, rest the hit object and it doesn't wake up during its controller's next wake up phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

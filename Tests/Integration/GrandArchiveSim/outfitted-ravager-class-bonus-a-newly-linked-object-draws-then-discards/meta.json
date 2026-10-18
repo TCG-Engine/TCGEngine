@@ -21,5 +21,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever an object becomes linked to CARDNAME, draw a card and discard a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

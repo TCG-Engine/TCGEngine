@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Materialize a champion card with base level 1 from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

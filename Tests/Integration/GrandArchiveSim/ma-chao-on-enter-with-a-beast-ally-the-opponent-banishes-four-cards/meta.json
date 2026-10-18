@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If you control an Animal or Beast ally, that player banishes four cards from their graveyard instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

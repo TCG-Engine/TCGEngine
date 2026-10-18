@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Switch the power and life stat of target Animal or Beast ally you control until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

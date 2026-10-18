@@ -18,5 +18,8 @@
         "rulesClauses": [
             "On Enter: Discard two cards at random. For each fire element card discarded this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

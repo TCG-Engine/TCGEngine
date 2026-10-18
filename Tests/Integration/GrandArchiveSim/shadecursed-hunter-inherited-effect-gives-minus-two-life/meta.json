@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Inherited Effect:** This object gets -2 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

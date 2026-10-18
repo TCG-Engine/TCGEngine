@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Destroy target rested ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

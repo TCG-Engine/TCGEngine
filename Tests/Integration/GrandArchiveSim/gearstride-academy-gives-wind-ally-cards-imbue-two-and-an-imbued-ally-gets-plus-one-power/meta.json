@@ -19,5 +19,8 @@
             "Wind ally cards you activate have **imbue 2**.",
             "Wind allies you control have \u201c**On Enter:** If this ally is **imbued**, it gets +1 [POWER] until end of turn.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

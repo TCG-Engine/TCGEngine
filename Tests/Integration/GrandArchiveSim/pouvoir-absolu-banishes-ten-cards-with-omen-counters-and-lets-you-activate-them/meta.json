@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

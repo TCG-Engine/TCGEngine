@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Require three other Fire cards before beginning payment."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

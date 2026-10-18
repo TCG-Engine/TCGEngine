@@ -20,5 +20,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, if CARDNAME is **imbued**, target player puts the top card of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

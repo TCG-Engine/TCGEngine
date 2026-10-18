@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal **X** damage to all units where **X** is the reserve cost of the discarded card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

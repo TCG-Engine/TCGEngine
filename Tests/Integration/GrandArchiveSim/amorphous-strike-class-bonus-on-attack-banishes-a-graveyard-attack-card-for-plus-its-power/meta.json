@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** You may banish an attack card from your graveyard. If you do, CARDNAME gets **+X** [POWER] where **X** is the banished card's power."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

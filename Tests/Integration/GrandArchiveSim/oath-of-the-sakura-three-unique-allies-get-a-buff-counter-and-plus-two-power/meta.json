@@ -19,5 +19,8 @@
             "Put a **buff** counter on each ally you control.",
             "If you control exactly three allies that are all unique, they each get +2 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

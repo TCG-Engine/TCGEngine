@@ -21,5 +21,8 @@
             "[Class Bonus] [Level 3+] This card costs 2 less to activate.",
             "Return target Spell card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

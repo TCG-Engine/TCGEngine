@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Death:** Put CARDNAME on the bottom of your champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

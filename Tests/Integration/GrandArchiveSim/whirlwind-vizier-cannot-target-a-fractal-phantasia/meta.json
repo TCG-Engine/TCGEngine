@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Destroy target non-Fractal phantasia."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

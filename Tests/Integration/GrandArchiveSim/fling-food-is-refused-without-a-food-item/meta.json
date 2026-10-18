@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As an additional cost to activate this card, sacrifice a Food item."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

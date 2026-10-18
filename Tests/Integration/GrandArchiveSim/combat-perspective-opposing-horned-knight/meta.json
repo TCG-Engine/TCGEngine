@@ -18,5 +18,8 @@
         "rulesClauses": [
             "While attacking an ally, this gets one additional power."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

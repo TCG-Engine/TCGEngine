@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As an additional cost to use this weapon for an attack, pay (3)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

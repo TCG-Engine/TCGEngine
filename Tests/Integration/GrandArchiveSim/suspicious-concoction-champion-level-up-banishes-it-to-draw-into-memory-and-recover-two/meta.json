@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Whenever your champion levels up, you may banish Suspicious Concoction. If you do, draw a card into your memory and **recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "If that ally is **fostered**, put two additional **buff** counters on it and deal 6 unpreventable damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

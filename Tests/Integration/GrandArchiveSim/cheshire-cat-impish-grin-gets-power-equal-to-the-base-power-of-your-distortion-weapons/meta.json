@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Cheshire Cat gets +**X**[POWER] where **X** is the total base power among Distortion weapons you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

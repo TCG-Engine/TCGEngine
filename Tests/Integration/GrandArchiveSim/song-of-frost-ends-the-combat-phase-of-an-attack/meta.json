@@ -16,5 +16,8 @@
         "rulesClauses": [
             "If a unit is attacking, end the combat phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

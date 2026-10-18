@@ -18,5 +18,8 @@
         "rulesClauses": [
             "All printed costs must be payable before activating."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME has **ranged 3+X**, where **X** is three times the amount of Curse cards in your champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

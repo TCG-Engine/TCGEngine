@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Ambush**, **Retort 2**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As you gain this boon, choose a non-champion non-regalia card name. The next time you activate a card with the same name this game, draw two cards and **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

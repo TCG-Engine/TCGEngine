@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Banish target non-champion object if one of its types matches one of the types among cards in your banishment."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

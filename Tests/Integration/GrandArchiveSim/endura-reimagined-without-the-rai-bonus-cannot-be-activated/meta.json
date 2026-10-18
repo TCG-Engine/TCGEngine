@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Rai Bonus] **Remove three enlighten counters from your champion,  [REST]:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

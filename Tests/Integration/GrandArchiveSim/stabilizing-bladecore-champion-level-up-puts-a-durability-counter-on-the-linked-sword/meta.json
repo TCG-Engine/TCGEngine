@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever your champion levels up, put a **durability** counter on linked weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

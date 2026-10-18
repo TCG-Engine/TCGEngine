@@ -18,5 +18,8 @@
             "**Ally Link**",
             "Linked ally has **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

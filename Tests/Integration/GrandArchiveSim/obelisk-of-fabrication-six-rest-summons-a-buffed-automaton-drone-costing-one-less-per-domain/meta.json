@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(6), [REST]: **Summon** an Automaton Drone token with a **buff** counter on it. This ability costs (1) less to activate for each domain you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

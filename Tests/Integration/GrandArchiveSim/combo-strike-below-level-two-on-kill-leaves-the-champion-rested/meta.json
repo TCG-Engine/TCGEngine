@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 2+] **On Kill:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever an arcane element card activation you control is **negated**, deal **X** damage to target champion, where **X** is that card's reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

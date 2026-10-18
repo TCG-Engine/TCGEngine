@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Target opponent reveals two cards at random from their memory. Banish each wind element card revealed this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

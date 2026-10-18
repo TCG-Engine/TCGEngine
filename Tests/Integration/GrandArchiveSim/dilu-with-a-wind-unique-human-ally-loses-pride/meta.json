@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you control a wind element unique Human ally, Dilu loses **pride**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you control two or more Animal and/or Beast allies, CARDNAME gets +2 level."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

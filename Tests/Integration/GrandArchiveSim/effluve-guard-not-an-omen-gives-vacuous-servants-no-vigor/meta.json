@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as this card is an **omen**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

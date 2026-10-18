@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of each opponent's end phase, if that player has an odd amount of cards in their memory, deal 2 unpreventable damage to their champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "On Enter: You may sacrifice another ally. If you do, Peppered Chef gets +2 [POWER] until end of turn."
         ]
     },
-    "notes": "Regression: the Chef was tagged through its pre-sacrifice mz id, which pointed at an empty slot after the field compacted, so it never got the +2 POWER."
+    "notes": "Regression: the Chef was tagged through its pre-sacrifice mz id, which pointed at an empty slot after the field compacted, so it never got the +2 POWER.",
+    "sourceScenario": {
+        "seed": 42
+    }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, put six **durability** counters on a Siegeable domain you control or put three **durability** counters on a Siegeable domain you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

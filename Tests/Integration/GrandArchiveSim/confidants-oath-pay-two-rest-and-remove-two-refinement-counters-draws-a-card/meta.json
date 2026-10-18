@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(2), [REST], **Remove two refinement counters from Confidant's Oath:** Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

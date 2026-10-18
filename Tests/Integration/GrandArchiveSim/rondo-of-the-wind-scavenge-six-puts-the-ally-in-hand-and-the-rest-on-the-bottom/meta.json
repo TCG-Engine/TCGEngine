@@ -20,5 +20,8 @@
             "[Class Bonus] This card costs 1 less to activate.",
             "**Scavenge 6** for an ally card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

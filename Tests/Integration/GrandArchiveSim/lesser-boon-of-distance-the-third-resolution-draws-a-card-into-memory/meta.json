@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If this is the third time this ability has resolved, draw a card into your memory. Activate this ability only thrice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

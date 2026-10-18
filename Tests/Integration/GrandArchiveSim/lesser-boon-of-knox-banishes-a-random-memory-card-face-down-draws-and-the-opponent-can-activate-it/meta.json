@@ -19,5 +19,8 @@
             "As you gain this boon, each opponent banishes a card at random from your memory face down.",
             "You draw a card for each card banished from your memory this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

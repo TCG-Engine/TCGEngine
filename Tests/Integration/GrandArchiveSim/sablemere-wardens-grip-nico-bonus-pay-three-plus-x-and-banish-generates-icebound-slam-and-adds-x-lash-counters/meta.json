@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Nico Bonus] **(3+X), Banish CARDNAME:** **Generate** an Icebound Slam card and put it into your memory. Then put **X** **lash** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

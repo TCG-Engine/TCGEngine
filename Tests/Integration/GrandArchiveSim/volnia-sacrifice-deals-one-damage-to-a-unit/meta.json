@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Sacrifice CARDNAME: As a Spell, deal 1 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

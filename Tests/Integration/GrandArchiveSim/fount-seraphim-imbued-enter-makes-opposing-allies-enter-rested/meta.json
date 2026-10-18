@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**, until the beginning of your next turn, allies your opponents control enter the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

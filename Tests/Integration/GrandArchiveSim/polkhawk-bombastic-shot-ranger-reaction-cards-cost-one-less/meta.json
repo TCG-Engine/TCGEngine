@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Ranger Reaction cards you activate cost 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

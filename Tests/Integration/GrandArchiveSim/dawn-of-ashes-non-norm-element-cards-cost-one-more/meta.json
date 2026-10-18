@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Non-norm element cards cost 1 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Cardistry -- (4): Draw a card into your memory, then put a fire or norm element Suited ally card with reserve cost 3 or less from your memory onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

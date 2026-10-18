@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, you may return CARDNAME to your hand."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

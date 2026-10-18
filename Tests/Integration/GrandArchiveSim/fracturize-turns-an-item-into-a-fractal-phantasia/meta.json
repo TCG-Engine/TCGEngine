@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target item or weapon becomes a Cleric Fractal phantasia with **reservable** and loses all other abilities."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

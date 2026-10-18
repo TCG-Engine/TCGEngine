@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Rest target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

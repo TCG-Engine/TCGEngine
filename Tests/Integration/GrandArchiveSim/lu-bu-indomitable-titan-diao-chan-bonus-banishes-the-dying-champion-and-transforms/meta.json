@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] If your champion would die with exactly thirty-two damage counters on them, banish them, transform CARDNAME, and destroy all other objects you control instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

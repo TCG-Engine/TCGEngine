@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Element Bonus] Whenever this card is banished from your graveyard to pay for a reserve cost, put it onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

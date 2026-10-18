@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as CARDNAME is **fostered**, it gets +1 [POWER] and +2 [LIFE], and has **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

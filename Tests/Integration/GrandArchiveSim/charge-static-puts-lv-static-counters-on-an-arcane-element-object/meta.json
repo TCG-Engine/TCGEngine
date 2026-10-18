@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put **LV** **static** counters on target arcane element object you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

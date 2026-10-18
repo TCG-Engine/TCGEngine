@@ -18,5 +18,8 @@
         "rulesClauses": [
             "CARDNAME has **retort 2+X**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

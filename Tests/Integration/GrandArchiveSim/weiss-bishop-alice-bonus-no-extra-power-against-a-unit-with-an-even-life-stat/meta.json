@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Alice Bonus] CARDNAME gets +1 [POWER] as long as it's attacking a unit with an odd life stat."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

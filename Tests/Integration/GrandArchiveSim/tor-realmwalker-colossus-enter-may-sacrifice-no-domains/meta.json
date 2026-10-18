@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Sacrifice up to three domains. For each domain sacrificed this way, put 2+**X** **durability** counters on CARDNAME where **X** is that domain's reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

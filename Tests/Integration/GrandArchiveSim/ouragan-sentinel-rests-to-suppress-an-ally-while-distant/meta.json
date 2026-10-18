@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**: Suppress** target ally, item, or weapon. Activate this ability only if CARDNAME is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

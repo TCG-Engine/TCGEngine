@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Each player discards all but seven cards from their hand and/or memory. If you control an Elysian object, each opponent discards an additional card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

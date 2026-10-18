@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Deluge 3*** -- As long as you have three or more water element cards in your graveyard, this card costs 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

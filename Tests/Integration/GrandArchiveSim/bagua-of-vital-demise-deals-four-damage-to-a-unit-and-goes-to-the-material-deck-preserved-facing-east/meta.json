@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Deal 4 damage to target unit. If your Shifting Currents face East, put this card into its owner's material deck **preserved**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

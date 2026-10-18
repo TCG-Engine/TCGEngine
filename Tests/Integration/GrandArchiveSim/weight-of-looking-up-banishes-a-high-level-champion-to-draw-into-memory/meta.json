@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may banish a champion card with base level 3 or higher from your material deck. If you do, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

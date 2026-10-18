@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Target ally you control gains **true sight** until end of turn. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

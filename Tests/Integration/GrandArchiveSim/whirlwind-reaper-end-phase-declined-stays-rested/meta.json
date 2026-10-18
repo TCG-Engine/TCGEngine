@@ -17,5 +17,8 @@
         "rulesClauses": [
             "you may remove a **preparation** counter"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

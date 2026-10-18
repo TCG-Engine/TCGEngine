@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST]**:** Put CARDNAME on the bottom of your champion's lineage then choose a class. CARDNAME gains \"**Inherited Effect:** This object is the chosen class in addition to its other classes.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

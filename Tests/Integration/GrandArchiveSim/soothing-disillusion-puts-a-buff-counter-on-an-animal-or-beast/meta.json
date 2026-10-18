@@ -18,5 +18,8 @@
         "rulesClauses": [
             "\u2022 Put a **buff** counter on target Animal or Beast ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

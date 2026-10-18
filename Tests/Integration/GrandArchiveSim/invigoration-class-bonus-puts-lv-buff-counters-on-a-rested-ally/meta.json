@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 2 less to activate. Put **LV buff** counters on target rested ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

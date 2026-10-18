@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Tonoris Bonus] [Level 2+] **[REST]:** **Negate** up to one target **upkeep** trigger. Then **summon** an Automaton Drone token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

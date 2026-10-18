@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Flowerbud token (no text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

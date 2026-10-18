@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry*** \u2014 (5): Five of Spades gets +5[POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

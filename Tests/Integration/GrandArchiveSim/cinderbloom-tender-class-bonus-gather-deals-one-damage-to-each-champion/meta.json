@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you gather, deal 1 damage to each champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

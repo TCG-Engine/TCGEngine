@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you activate a wind element Spell card, CARDNAME gets +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

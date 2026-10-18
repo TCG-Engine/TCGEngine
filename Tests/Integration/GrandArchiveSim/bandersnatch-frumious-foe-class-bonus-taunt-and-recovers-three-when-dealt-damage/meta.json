@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **Taunt** Whenever CARDNAME is dealt damage, **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

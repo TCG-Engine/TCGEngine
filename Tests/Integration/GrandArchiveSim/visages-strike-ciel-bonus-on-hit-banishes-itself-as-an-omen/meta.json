@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Ciel Bonus] **On Hit: ** If you have two or less **omens**, banish CARDNAME and put an **omen** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

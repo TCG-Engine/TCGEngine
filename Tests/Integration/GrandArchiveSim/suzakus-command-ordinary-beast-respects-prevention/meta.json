@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If that ally is a Shenju, that attack gets an additional +2 [POWER] and its combat damage is unpreventable."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

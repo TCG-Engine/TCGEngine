@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Choose one. If CARDNAME is imbued, choose two instead\u2014 Deal 3 damage to up to one target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

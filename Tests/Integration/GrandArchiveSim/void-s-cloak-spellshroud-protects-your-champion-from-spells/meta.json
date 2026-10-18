@@ -17,5 +17,8 @@
         "rulesClauses": [
             "You have **spellshroud**. *(A player with **spellshroud** can't be targeted by Spells.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

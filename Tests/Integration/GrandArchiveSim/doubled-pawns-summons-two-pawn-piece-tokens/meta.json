@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Summon** two Pawn Piece tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

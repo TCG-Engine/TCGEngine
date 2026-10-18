@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Banish up to three fire element cards from your graveyard. For each card banished this way, recover 2."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

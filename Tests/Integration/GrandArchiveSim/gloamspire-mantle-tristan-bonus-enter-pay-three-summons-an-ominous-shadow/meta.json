@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Tristan Bonus] **On Enter:** You may pay (3). If you do, **summon** an Ominous Shadow token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

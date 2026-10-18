@@ -16,5 +16,8 @@
         "rulesClauses": [
             "If damage would be dealt to CARDNAME, prevent 3 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Empower X**, where **X** is the amount of wind element non-champion objects you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

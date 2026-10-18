@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Balance -- On Enter: As a Spell, if the amount of cards in your hand and memory are equal, deal 2 unpreventable damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

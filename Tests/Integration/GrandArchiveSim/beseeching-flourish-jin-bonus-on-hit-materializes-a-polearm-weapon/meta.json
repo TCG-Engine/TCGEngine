@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Jin Bonus] **On Hit:** **Materialize** a Polearm weapon card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

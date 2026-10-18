@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target ally you control becomes **distant**. **Negate** all card activations targeting it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

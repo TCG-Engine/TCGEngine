@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Three eligible cards are required to activate Furnace Drone."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

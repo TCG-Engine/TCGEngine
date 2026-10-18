@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] [Element Bonus] (2), Banish this card from your graveyard: Target unit becomes distant. Activate this ability only if your champion's class matches this card's class."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

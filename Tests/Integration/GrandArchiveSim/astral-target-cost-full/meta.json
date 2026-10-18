@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The discount is bound to banished-name targets before payment."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

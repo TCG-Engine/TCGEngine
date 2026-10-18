@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME is **imbued**, reveal the top card of your deck and put it into your material deck **preserved**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

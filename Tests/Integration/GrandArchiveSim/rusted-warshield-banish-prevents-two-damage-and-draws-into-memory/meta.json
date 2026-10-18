@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Prevent the next 2 damage that would be dealt to your champion this turn. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

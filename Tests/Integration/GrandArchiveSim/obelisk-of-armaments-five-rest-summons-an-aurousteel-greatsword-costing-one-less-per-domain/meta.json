@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(5), [REST]: **Summon** an Aurousteel Greatsword token. This ability costs (1) less to activate for each domain you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

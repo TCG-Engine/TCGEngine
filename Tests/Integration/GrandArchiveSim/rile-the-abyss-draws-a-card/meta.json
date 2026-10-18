@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Draw a card. Then discard up to two Specter cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

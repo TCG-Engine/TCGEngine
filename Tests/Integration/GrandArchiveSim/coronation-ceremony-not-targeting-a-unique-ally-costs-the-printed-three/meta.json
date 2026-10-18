@@ -17,5 +17,8 @@
         "rulesClauses": [
             "This card costs 2 less to activate if it targets a unique ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

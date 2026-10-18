@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** If CARDNAME was **brewed**, deal 2 damage to each champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

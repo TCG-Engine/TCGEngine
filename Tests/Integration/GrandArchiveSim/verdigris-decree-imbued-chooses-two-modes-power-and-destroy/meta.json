@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Choose one. If CARDNAME is **imbued**, choose two instead\u2014"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

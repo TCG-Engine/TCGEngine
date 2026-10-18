@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Recover 3**. Then for each of up to two allies you don't control, **recover 3** again."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

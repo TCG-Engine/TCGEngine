@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** CARDNAME gets +**X** [POWER] until end of turn where **X** is the amount of allies target opponent controls more than you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

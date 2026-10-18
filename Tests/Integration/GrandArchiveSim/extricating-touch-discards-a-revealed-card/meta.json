@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target player reveals your choice of their hand or memory. Choose a card from among the revealed cards and discard it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

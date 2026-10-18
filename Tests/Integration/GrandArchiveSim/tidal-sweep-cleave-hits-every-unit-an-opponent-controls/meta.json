@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Cleave** *(Attack all units a chosen opponent controls. This attack can't be intercepted.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

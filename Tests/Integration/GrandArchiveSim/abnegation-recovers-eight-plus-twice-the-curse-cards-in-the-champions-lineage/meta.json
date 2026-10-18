@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Recover 8+X**, where **X** is twice the amount of Curse cards in your champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Put the top three cards of your deck into your graveyard. Then if there are three or more water element cards in your graveyard, choose a unit and it becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "CARDNAME gets +1[POWER] and +1[LIFE] for each VelTech item linked to it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Then you may sacrifice any amount of Fractals. For each Fractal sacrificed this way, deal an additional 2 damage to that unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

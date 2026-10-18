@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Merlin Bonus] **On Enter:** Put two **sheen** counters on target unit you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

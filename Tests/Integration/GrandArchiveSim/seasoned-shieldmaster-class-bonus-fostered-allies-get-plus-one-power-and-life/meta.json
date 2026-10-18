@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Fostered** allies you control get +1 [POWER] and +1 [LIFE]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

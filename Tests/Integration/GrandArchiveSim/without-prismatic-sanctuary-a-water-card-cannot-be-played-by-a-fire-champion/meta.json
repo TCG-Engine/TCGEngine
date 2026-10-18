@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Control case for the element-enabling domain."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

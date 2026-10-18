@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Attack**: If this is CARDNAME's first attack this turn, you may pay (2). If you do, wake up CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

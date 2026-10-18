@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as there's a card banished by CARDNAME, it gets +2 [POWER] and must attack a champion each turn if able."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

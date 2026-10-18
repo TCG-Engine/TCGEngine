@@ -17,5 +17,8 @@
         "rulesClauses": [
             "while CARDNAME has two or less **charge** counters on it"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

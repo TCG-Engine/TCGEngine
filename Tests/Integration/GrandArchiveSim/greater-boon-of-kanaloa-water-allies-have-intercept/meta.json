@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Water element allies you control get +1[POWER] and +1[LIFE], and have **intercept** and **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

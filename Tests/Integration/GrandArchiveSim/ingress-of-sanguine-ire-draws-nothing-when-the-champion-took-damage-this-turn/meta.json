@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If your champion hasn't taken damage this turn, draw two cards into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

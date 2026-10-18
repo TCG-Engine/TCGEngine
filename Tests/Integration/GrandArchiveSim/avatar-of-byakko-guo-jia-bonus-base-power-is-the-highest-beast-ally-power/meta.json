@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] As long as you control a Beast, CARDNAME's base power is **X**, where **X** is the highest base power stat among Beast allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

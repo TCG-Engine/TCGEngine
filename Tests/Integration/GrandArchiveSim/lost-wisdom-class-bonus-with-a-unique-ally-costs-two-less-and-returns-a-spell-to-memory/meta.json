@@ -19,5 +19,8 @@
             "[Class Bonus] This card costs 2 less to activate if you control one or more unique allies.",
             "Return a Spell card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

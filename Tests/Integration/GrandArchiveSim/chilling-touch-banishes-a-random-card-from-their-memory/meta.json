@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Banish a card at random from target opponent's memory. Return that card to their memory at the beginning of their next end phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

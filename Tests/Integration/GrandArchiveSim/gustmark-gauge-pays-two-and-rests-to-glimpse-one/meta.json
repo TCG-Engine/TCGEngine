@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(2), [REST]: **Glimpse 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

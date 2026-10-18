@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Umbra element phantasia allies you control have **ambush**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

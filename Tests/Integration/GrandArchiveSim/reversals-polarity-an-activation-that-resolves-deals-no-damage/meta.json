@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever an arcane element card activation you control is **negated**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

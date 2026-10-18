@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack**: **Cascade**-- 1-- **Empower 1**. 2-- **Empower 2**. 3-- This attack gets +3[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

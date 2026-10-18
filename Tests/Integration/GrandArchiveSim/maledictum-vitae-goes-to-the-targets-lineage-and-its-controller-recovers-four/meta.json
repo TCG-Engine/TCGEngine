@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put CARDNAME on the bottom of target champion's lineage. Whenever this card is put into a champion's lineage, that champion's controller **recovers 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

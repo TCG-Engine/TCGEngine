@@ -19,5 +19,8 @@
         "rulesClauses": [
             "For each aim counter removed this way, gains ranged 2 for this attack."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

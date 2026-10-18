@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deadly Opportunist gets +3[POWER] as long as it's attacking a rested ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

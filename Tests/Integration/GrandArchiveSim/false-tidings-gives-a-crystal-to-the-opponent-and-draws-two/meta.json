@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target opponent gains control of target Crystal object you control. If they do, you draw two cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

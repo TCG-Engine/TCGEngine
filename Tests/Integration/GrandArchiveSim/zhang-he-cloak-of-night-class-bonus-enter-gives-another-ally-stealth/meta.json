@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: Another target ally you control gains **stealth** for as long as you control Zhang He."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

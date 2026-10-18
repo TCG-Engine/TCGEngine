@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Draw a card and **empower 1**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

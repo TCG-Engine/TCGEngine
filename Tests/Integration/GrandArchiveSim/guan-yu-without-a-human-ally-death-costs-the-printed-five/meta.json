@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as a Human ally you controlled has died this turn"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

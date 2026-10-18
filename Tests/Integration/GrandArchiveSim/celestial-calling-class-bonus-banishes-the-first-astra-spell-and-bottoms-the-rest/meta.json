@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Reveal cards from the top of your deck until you reveal an astra element Spell card. Banish that card and put the rest on the bottom of your deck in a random order."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** Put a **buff** counter on target Animal or Beast ally you control without a **buff** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

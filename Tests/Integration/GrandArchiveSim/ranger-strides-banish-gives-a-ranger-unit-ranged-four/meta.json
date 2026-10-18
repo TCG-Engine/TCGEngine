@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish Ranger Strides:** Target Ranger unit gains **ranged 4** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

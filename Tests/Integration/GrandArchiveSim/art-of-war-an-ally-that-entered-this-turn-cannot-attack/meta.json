@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Players can't declare attacks with allies that entered the field this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

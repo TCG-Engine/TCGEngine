@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as Ghost Hunter is attacking an **ephemeral** ally, it gets +3[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

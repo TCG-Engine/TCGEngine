@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Death: You may banish two fire element cards from your graveyard. If you do, deal 4 damage to each champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

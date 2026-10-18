@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** **Summon** two Baby Slime tokens rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

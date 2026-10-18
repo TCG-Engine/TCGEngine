@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Foster** *(At the beginning of your recollection phase, if this ally hasn\u2019t been dealt damage since the end of your previous turn, it becomes **fostered**.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

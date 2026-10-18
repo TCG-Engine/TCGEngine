@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Negate** target trigger or action card activation that targets an Automaton ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

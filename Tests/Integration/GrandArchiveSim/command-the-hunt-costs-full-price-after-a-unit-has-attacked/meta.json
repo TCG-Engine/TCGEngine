@@ -17,5 +17,8 @@
         "rulesClauses": [
             "This card costs 2 less to activate if no units have attacked this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

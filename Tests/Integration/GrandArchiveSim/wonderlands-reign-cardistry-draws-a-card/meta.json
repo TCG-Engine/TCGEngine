@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry*** \u2014 *(10)*: Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

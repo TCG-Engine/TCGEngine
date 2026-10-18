@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may banish any amount of cards with **floating memory** from your graveyard. When a card is banished this way, deal 3 damage to target unit you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

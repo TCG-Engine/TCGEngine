@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Foster:** **Summon** an Automaton Drone token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

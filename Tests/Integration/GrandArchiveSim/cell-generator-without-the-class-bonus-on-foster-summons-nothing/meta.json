@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Foster:**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

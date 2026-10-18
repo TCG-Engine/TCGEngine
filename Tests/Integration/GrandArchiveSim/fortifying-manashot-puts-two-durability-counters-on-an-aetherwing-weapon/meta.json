@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Put two **durability** counters on target Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

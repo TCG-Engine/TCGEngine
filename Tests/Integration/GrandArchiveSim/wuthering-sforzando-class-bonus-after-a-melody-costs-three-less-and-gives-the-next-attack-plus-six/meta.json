@@ -21,5 +21,8 @@
             "[Class Bonus] As long as you've activated a Melody card this turn, this card costs 3 less to activate.",
             "Target ally's next attack this turn gets +6[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

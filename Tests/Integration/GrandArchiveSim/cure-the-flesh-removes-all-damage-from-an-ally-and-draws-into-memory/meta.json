@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Remove all temporary damage from target ally. Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "CARDNAME gets +1 [POWER] and +1 [LIFE] for each of up to five **sheen** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

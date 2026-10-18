@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Draw six cards then choose two basic elements. CARDNAME gains \"**Inherited Effect:** This object is each of the chosen elements in addition to its other elements.\""
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

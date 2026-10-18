@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Rest target Potion. If you do, the next time you activate an ability of that Potion this turn, copy that ability."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

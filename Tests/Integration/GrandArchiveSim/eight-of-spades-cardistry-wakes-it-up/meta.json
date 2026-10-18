@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry \u2014*** (8): Wake up Eight of Spades."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

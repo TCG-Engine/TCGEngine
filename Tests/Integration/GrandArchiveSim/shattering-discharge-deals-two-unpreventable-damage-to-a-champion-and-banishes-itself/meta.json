@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Deal 2 unpreventable damage to target champion. Banish CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

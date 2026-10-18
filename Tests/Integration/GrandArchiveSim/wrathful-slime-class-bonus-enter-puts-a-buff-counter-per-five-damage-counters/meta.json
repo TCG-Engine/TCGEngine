@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: For every five damage counters on your champion, put a **buff** counter on Wrathful Slime."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

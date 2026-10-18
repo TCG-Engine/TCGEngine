@@ -19,5 +19,8 @@
             "As an additional cost to activate this card, rest your champion.",
             "**Glimpse 2** and **recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

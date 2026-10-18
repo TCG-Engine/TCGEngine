@@ -19,5 +19,8 @@
             "This card costs 1 less to activate for each regalia weapon card in your banishment.",
             "Put a card named The Majestic Spirit from your material deck or banishment onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Cardistry*** \u2014 (2): Put a **buff** counter on Two of Spades."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

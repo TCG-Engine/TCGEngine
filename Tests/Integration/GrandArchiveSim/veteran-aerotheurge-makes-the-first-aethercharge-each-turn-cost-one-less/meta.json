@@ -16,5 +16,8 @@
         "rulesClauses": [
             "The first Aethercharge card you activate each turn costs 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

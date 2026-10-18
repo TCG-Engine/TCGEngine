@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Alice Bonus](2), [REST], **Banish a Specter card from your graveyard:** **Recover 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

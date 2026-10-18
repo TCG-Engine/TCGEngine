@@ -19,5 +19,8 @@
             "Up to three target allies get +1 [LIFE] until end of turn.",
             "[Class Bonus] Put an **enlighten** counter on your champion. *(You may remove three **enlighten** counters from your champion to draw a card.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

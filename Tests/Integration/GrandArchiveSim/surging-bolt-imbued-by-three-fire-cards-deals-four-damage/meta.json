@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Imbue 3. Deal 3 damage to target champion. If CARDNAME is imbued, deal 4 damage to that champion instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The next time damage would be dealt to target ally you control this turn, prevent that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

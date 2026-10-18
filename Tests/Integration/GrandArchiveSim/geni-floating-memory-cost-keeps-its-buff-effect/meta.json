@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If the banished card had floating memory, put two buff counters on an Automaton ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

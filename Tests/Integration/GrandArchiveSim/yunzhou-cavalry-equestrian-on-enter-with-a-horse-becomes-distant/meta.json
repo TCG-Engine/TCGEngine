@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Equestrian*** \u2014 **On Enter:** If you control a Horse ally, CARDNAME becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

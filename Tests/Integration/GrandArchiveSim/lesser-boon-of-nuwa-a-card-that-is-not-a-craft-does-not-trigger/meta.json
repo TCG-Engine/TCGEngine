@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever you activate a Craft card, target weapon gets +1[POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

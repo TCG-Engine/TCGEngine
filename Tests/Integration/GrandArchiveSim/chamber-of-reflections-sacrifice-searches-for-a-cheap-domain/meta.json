@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST], **Sacrifice Chamber of Reflections**: Search your deck for a non-advanced element non-Distortion domain card with reserve cost 3 or less and put it onto the field."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

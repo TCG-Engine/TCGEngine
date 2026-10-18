@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Deal 4 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

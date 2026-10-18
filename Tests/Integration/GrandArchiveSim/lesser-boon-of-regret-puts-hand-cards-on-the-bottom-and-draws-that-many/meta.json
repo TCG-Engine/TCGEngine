@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As you gain this boon, put up to seven cards from your hand on the bottom of your deck in any order. Then draw that many cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

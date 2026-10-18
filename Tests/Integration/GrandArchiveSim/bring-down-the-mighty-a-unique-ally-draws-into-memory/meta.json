@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If that ally is unique, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "[Class Bonus] CARDNAME enters the field **distant**.",
             "**On Enter:** Your champion becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

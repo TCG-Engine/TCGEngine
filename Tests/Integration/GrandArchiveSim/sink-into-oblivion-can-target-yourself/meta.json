@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Target player puts the top three cards of their deck into their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

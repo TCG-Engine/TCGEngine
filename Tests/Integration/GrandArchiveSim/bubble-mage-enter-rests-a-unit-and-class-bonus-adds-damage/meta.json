@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** Rest target unit. **Class Bonus:** Until end of turn, if that unit would take damage, it takes that much damage plus 1 instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

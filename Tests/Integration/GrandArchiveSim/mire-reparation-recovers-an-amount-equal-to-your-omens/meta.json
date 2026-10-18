@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Recover** **X**, where **X** is the amount of omens you have."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

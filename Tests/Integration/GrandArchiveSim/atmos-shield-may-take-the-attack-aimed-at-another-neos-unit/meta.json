@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever another neos element unit you control is targeted for an attack, you may change the target of that attack to this ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Renewable** *(If this card would be banished from the field or an intent, put it into its owner's material deck instead.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

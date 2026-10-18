@@ -16,5 +16,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

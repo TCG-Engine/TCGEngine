@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, deal 1 unpreventable damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

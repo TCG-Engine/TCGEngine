@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your end phase, if your champion is awake, put a **preparation** counter on them."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

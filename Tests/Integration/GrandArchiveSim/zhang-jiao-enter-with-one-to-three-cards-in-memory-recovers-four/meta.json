@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Depending on the amount of cards in your memory\u2014"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

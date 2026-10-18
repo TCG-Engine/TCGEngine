@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 1+] **On Enter:** Return target Harmony or Melody card from your graveyard to your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

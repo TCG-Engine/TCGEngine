@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Rest target Potion. If you do, put **LV age** counters on it. *(**LV** refers to your champion\u2019s level.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

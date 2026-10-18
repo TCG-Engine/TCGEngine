@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(2)**:** Return CARDNAME to its owner's hand. If you do, put a **preparation** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

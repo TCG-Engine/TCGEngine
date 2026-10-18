@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Prevent the next **X+3** damage that would be dealt to your champion this turn. [Tristan Bonus] If **X** is 3 or greater, **summon** two Ominous Shadow tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

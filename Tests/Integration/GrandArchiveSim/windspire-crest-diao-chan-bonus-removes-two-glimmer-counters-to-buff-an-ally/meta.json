@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Diao Chan Bonus] (2), [REST], **Remove two glimmer counters from your champion**: Put a **buff** counter on an ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

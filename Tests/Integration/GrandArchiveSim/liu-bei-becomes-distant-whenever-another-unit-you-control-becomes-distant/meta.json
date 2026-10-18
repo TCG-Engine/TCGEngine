@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Whenever another unit you control becomes **distant**, CARDNAME becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

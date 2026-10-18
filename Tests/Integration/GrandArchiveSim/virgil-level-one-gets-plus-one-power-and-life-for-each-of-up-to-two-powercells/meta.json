@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Level 1+]CARDNAME gets +1[POWER] and +1[LIFE] for each of up to two Powercell items you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

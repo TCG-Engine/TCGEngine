@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(3): Target Ranger weapon gets +3[POWER] until end of turn. Activate this ability only once during each of your turns, and only if your champion is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

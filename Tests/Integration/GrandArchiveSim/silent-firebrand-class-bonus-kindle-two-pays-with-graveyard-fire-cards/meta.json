@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Kindle 2 (You may banish up to two fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card's cost.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "***Harmonize*** \u2014 If you've activated a Melody card this turn, summon two Fledgling tokens.",
             "Animals you control get +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

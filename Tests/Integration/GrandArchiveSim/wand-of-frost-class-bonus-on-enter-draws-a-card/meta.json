@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

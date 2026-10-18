@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Recover 1**+**X**, where **X** is the amount of Fatestone and Fatebound objects you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

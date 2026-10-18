@@ -18,5 +18,8 @@
         "rulesClauses": [
             "CARDNAME has **stealth** as long as it\u2019s awake."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

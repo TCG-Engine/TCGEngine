@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to linked unit from a **distant** source, prevent 1 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

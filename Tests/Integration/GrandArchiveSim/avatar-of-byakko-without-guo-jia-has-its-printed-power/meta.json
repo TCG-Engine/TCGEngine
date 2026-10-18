@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] As long as you control a Beast, CARDNAME's base power is **X**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

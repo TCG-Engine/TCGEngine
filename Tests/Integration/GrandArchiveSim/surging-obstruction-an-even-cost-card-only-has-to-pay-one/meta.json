@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target card activation unless its controller pays (1). If that card has an odd reserve cost, **negate** its activation unless its controller pays (3) instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

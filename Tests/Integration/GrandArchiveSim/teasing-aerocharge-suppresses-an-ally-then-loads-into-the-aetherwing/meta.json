@@ -19,5 +19,8 @@
             "**Suppress** target ally.",
             "Then you may load Teasing Aerocharge into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

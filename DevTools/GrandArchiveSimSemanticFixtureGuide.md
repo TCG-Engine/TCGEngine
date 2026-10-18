@@ -119,6 +119,15 @@ gaScenario('thunderclap-level-three-costs-two-less')
   directly (opening-hand cards); `action(player, mode, card)` is any other input row. `tested(...)` overrides the
   tested cards when they are not just the cards played.
 
+Builder fixtures marked `sourceScenario` in `meta.json` execute directly from PHP in a fresh
+process, checking both their step assertions and the retained full expected final snapshot.
+They do not store `initial_gamestate.txt`, `actions.json`, or `assertions.json`; normal generation
+runs them without rewriting their expected results. Coverage tools read their source definitions.
+Use `php DevTools/create-prd-ability-fixtures.php --migrate-source --fixture=<slug>` to migrate
+an existing fixture only after its saved inputs and final result match. Saved-state variants and
+their bases remain in the original format. See
+[the migration and execution guide](ga-fixtures/behavior-families/README.md#source-backed-snapshot-scenarios).
+
 Where things live: `ga-fixtures/cards-<letter>.php` holds the migrated fixtures grouped by the first letter of
 the tested card, `damage*.php` the damage family and the newer backlog work, and `families.php` the fixtures
 built in loops (Shackled Theurgist, Bygone Days, the Heirloom pair, Lamentation's Toll, Seeker's Aetherwing).

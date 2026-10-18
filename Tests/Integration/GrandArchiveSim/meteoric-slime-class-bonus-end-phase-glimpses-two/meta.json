@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your end phase, **glimpse 2**. Then reveal the top two cards of your deck. When you do, as a Spell, deal **X** damage to target unit where **X** is the lowest reserve cost among the revealed cards."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

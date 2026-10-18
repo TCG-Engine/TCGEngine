@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If you didn't discard a Potion item card, deal 3 damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

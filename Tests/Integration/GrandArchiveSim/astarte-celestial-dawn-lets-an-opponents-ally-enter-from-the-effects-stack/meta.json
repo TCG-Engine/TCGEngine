@@ -17,5 +17,8 @@
         "rulesClauses": [
             "from anywhere except from the effects stack"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

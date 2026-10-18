@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Deal 3 unpreventable damage to your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

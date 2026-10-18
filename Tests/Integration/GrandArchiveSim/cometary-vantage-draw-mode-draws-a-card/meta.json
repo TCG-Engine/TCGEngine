@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Choose one. \u2022 Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

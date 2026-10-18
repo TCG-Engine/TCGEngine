@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Deal 1 damage to all allies and rest them. Those allies don't wake up during their controller's next wake up phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

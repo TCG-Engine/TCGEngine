@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as a player doesn't control an object named Vorpal Sword, prevent all damage that would be dealt to CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

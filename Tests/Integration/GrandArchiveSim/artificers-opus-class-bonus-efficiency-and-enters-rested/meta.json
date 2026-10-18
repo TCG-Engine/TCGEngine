@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Efficiency** CARDNAME enters the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

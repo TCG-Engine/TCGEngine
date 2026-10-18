@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If that champion's controller has eight or more cards in their graveyard, deal 6 damage to that champion instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

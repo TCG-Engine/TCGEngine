@@ -21,5 +21,8 @@
             "[Class Bonus] **On Enter**: Put a **durability** counter on target Warrior weapon you control.",
             "[Class Bonus] Warrior weapons you control get +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

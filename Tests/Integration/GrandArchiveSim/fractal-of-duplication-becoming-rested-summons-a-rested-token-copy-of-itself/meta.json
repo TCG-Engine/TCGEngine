@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Whenever CARDNAME becomes rested, **summon** a token copy of it rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

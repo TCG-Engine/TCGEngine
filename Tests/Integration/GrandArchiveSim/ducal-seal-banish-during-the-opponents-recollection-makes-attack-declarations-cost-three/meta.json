@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** Until end of turn, players can\u2019t declare attacks unless they pay (3) for each attack declaration. Activate this ability only during an opponent\u2019s recollection phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

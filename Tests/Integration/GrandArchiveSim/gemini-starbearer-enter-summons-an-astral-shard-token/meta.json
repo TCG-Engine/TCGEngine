@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Summon** an Astral Shard token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

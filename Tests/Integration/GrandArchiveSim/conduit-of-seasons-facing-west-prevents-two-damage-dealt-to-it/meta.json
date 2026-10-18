@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If damage would be dealt to CARDNAME while your Shifting Currents face West, prevent 2 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

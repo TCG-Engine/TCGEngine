@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as the total reserve cost among your **omens** is 33 or greater"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

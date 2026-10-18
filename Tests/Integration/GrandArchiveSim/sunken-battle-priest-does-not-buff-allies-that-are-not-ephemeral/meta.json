@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Other **ephemeral** allies you control get +1[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Ally Link** *(This object enters the field linked to target ally. If the link is broken, sacrifice this object.)* Linked ally has **taunt** and loses **pride**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

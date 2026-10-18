@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Pride 2 (This ally won't obey you unless your champion is level 2 or higher.)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

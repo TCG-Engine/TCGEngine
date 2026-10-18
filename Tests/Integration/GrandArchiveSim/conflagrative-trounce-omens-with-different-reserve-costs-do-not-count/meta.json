@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Ciel Bonus] As long as you have two or more omens with the same reserve cost, Conflagrative Trounce gets +2[POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

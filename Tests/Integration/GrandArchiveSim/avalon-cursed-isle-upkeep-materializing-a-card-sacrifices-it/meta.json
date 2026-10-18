@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Upkeep*** \u2014 Whenever you materialize a card, sacrifice Avalon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

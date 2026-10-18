@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Summon** a Memorite Shardwing token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

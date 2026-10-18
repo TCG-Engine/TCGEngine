@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Champion Hit**: The first card that opponent activates during their next turn costs 2 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

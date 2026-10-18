@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Tristan Bonus] **On Hit: **Put CARDNAME on the bottom of target champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

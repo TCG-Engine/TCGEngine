@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Specter cards you activate from your graveyard cost (1) less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

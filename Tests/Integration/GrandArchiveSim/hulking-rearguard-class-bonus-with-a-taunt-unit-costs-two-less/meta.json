@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you control a unit with **taunt**, this card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

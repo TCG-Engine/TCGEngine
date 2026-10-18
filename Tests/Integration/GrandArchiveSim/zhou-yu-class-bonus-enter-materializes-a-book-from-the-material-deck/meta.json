@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: Materialize a Book or Scripture card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

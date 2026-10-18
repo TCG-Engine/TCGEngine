@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If you control an Animal or Beast ally, your champion gets +1 level until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

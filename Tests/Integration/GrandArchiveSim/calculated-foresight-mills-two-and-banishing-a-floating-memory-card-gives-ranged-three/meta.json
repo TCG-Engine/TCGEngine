@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Put the top two cards of your deck into your graveyard. Then you may banish a card with **floating memory** from your graveyard. If you do, your champion gains **ranged 3** until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

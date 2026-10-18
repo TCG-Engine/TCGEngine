@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you rest CARDNAME to pay for the reserve cost of a Harmony or Melody activation, put a **buff** counter on an Animal or Beast ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

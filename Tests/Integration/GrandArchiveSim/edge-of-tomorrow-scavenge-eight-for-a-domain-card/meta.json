@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Scavenge 8** for a domain card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

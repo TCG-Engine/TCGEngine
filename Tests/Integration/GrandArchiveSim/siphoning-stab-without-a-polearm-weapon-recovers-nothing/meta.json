@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as the attacker is attacking using a Polearm weapon"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Choose a player."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

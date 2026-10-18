@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** The next card you activate this turn costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

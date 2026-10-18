@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Put a **buff** counter on target Automaton ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Attack:** **Summon** a Powercell token rested. Then each opponent banishes **X** cards from their graveyard, where **X** is the amount of Powercells you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

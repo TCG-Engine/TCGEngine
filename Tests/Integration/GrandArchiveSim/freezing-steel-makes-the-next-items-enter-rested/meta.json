@@ -17,5 +17,8 @@
         "rulesClauses": [
             "The next time one or more items would enter the field this turn, those items enter the field rested instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

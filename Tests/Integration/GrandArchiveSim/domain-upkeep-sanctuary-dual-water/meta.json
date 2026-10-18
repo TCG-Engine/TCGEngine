@@ -18,5 +18,8 @@
         "rulesClauses": [
             "A matching basic or Norm element remains present on a dual-element card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

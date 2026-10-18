@@ -18,5 +18,8 @@
         "rulesClauses": [
             "target unit"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

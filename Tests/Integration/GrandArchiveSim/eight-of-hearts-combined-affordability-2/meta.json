@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Each ally sacrificed this way pays for 3 of that cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

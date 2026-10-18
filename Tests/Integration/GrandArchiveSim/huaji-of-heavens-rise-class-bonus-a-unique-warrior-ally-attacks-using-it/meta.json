@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] Unique Warrior allies you control can attack using this weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

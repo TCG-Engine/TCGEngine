@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(3), [REST]**:** Reveal the top card of your deck. **Negate** target card activation if its reserve cost is equal to the reserve cost of the revealed card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

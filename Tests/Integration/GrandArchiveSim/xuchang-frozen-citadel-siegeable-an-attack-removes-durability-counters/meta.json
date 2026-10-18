@@ -18,5 +18,8 @@
         "rulesClauses": [
             "*(Siegeable \u2014 This domain can be attacked. It takes damage in the form of removing **durability** counters.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

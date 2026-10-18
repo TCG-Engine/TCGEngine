@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Whenever a water element card with **floating memory** is banished from an opponent's graveyard, put a **refinement** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

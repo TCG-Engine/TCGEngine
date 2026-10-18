@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Target Warrior weapon you control gains **spellshroud** until end of turn. Put two **durability** counters on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

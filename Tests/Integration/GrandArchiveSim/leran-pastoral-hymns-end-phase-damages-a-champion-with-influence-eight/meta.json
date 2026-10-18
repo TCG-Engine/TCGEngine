@@ -18,5 +18,8 @@
         "rulesClauses": [
             "At the beginning of each player's end phase, if that player's influence is eight or more, deal X-7 damage to that player's champion, where X is that player's influence."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

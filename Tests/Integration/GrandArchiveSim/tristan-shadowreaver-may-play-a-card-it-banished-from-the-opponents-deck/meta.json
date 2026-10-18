@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as they\u2019re banished, you may play those cards, ignoring their elemental requirements."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

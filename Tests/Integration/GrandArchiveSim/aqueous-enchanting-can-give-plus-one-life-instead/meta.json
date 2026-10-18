@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Allies you control get your choice of +1 [POWER] or +1 [LIFE] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

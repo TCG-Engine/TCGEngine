@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you control a Powercell, CARDNAME gets +1 [POWER] and your champion gets +1 level."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

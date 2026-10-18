@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The class discount requires the actual target to be unique."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

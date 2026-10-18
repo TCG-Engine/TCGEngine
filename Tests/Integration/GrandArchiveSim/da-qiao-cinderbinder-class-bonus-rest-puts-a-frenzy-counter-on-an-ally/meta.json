@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Class Bonus] [REST]: Choose one -- Put a **frenzy** counter on target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

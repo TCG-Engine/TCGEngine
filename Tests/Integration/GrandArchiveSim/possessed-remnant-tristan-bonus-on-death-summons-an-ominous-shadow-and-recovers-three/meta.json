@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[Tristan Bonus] **On Death:** **Summon** an Ominous Shadow token and **recover 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

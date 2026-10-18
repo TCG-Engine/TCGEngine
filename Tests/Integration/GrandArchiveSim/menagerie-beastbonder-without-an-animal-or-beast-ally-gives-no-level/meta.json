@@ -17,5 +17,8 @@
         "rulesClauses": [
             "as long as you control an Animal or Beast ally"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

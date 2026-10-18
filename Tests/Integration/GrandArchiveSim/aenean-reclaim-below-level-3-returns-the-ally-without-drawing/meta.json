@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 3+] Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

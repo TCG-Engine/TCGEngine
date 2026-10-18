@@ -19,5 +19,8 @@
             "**Ally Link**",
             "Linked ally gets +1 [POWER] and +1 [LIFE], and has **vigor**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter:** CARDNAME gains **stealth** and **spellshroud** until the beginning of your next turn. Put a **preparation** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] If a card activation you controlled was negated this turn, this card in your graveyard has ephemerate (2)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

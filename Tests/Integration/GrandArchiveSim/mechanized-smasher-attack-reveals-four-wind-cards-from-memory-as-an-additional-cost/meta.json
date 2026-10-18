@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As an additional cost to use CARDNAME for an attack, reveal four wind element cards from your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

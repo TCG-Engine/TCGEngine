@@ -18,5 +18,8 @@
         "rulesClauses": [
             "a token copy of an Herb item you control"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

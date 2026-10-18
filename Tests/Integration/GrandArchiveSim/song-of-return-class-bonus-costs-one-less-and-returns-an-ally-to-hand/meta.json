@@ -19,5 +19,8 @@
             "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
             "Return up to two target allies you control to their owner's hands."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

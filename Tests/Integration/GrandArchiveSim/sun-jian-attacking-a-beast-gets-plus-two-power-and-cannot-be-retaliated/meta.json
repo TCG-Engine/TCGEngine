@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as Sun Jian is attacking a Beast unit, Sun Jian gets +2 [POWER] and her attacks can't be retaliated."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

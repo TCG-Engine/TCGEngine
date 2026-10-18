@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Ciel Bonus On Enter: two or more wind omens enable suppression."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

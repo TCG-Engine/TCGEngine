@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Kindle 6**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

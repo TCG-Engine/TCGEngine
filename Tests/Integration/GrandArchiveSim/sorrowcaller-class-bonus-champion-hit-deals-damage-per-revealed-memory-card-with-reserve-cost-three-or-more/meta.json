@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Champion Hit:** Reveal the hit opponent\u2019s memory. Deal an amount of unpreventable damage to the hit champion equal to the amount of cards with reserve cost 3 or greater revealed this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

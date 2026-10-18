@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Then if your champion is distant, draw another card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

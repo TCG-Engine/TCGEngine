@@ -19,5 +19,8 @@
         "rulesClauses": [
             "As long as Sunglory Sentinel is fostered and is attacking a champion, it gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

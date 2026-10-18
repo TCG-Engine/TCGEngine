@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The granted REST must be payable."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

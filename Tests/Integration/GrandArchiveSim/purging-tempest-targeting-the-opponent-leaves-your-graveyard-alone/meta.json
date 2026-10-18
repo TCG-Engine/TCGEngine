@@ -17,5 +17,8 @@
         "rulesClauses": [
             "if one or more cards would enter target player's graveyard"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

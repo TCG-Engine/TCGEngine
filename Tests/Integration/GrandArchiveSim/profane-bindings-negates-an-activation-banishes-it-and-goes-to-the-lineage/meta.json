@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target card activation. Banish the card that had its activation **negated** this way. Put Profane Bindings on the bottom of your champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "CARDNAME enters the field rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

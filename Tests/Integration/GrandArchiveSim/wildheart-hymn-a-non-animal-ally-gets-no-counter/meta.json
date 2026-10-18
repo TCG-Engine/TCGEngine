@@ -17,5 +17,8 @@
         "rulesClauses": [
             "whenever an Animal enters the field under your control"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

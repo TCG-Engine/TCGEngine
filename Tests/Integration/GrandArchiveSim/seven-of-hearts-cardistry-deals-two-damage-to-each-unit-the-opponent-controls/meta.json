@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Cardistry -- (7): Deal 2 damage to each unit target opponent controls."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

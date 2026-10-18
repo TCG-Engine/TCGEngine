@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Merlin Bonus] [Sheen 8+] **Fast Activation** *(You may activate this card at fast speed.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

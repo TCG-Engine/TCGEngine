@@ -16,5 +16,8 @@
         "rulesClauses": [
             "you may load Teasing Aerocharge"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

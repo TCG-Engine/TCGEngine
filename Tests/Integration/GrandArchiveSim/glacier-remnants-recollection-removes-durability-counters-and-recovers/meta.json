@@ -20,5 +20,8 @@
         "rulesClauses": [
             "At the beginning of your recollection phase, remove up to two **durability** counters from CARDNAME. Then **recover X**, where **X** is the amount of counters removed this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

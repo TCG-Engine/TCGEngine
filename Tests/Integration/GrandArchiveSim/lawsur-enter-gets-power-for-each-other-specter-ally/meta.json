@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Lawsur gets +**X**[POWER] until end of turn, where **X** is the amount of other Specter allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

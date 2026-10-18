@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever an Animal ally you control dies, you may reveal a card from your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

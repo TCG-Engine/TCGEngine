@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Activate this ability only at slow speed."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

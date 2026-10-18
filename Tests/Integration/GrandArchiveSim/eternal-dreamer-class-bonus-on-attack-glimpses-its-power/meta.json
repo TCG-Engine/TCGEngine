@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack:** **Glimpse X**, where **X** is CARDNAME\u2019s power."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever you **empower** an amount, if that amount is greater than the amount of **root** counters on CARDNAME, put a **root** counter on it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

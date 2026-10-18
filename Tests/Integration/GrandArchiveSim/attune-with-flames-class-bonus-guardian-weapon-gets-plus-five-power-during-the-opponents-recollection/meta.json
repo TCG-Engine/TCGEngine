@@ -21,5 +21,8 @@
             "Target Guardian weapon you control gets +5 [POWER] until the end of your next turn.",
             "[Class Bonus] This card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

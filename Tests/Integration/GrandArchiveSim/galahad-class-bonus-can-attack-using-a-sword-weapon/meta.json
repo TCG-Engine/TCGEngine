@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME can attack using Sword weapons you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as Ghost Hunter is attacking an **ephemeral** ally"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

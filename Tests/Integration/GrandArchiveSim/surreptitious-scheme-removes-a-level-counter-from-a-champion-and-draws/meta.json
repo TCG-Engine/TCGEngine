@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Remove a **level** counter from target champion. If **level** counter was removed this way, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -22,5 +22,8 @@
             "[Class Bonus] **Foster**",
             "**On Foster:** You may banish up to two cards with **floating memory** from your graveyard. For each card banished this way, put a **buff** counter on CARDNAME and draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish Enfeebled Dagger**: Deal 1 damage to target unit."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

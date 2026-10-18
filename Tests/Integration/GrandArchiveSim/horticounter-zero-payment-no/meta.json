@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, sacrifice **Y** Herbs.",
             "**Negate** target card activation unless its controller pays (X+Y). Banish the card that had its activation **negated** this way. When an activation is negated this way, **glimpse 3**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

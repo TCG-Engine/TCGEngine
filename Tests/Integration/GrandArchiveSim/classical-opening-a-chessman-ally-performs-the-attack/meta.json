@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Command Chessman** *(A Chessman ally you control performs this attack.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

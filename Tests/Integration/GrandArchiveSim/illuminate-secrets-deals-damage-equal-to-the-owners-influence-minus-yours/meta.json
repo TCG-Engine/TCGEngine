@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal an amount of damage to target unit equal to its owner's **influence** minus your **influence**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

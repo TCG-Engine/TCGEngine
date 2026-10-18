@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Look at the top card of your deck. You may put that card into your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

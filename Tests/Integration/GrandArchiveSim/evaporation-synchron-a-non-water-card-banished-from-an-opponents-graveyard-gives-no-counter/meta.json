@@ -18,5 +18,8 @@
         "rulesClauses": [
             "a water element card with **floating memory**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

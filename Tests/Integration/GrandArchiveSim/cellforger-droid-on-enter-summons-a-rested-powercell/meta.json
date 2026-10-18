@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** **Summon** a Powercell token rested."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

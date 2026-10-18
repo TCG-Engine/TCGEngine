@@ -19,5 +19,8 @@
         "rulesClauses": [
             "(4)**, Banish CARDNAME:** **Generate** up to two Bolt of Diamonds cards and put them into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

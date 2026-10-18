@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

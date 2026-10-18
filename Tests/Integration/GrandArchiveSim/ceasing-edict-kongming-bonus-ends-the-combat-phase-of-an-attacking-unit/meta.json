@@ -17,5 +17,8 @@
         "rulesClauses": [
             "As long as your Shifting Currents face South, this card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

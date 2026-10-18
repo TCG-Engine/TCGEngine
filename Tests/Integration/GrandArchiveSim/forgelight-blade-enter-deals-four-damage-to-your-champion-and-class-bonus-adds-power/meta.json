@@ -19,5 +19,8 @@
         "rulesClauses": [
             "On Enter: Deal 4 damage to your champion. [Class Bonus] CARDNAME gets +1 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

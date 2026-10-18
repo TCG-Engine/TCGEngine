@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish Sacramental Rite:** Your champion becomes an Ascendant in addition to its other types. You may play the banished card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

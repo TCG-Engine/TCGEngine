@@ -19,5 +19,8 @@
             "Banish target ally, then return it to the field under its owner's control rested.",
             "[Class Bonus] Put an **enlighten** counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

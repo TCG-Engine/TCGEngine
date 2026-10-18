@@ -17,5 +17,8 @@
         "rulesClauses": [
             "***Deluge 4*** -- If there are four or more water element cards in your graveyard, put a **preparation** counter on your champion and draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

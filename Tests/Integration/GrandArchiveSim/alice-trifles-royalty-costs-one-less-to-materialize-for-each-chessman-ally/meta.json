@@ -17,5 +17,8 @@
         "rulesClauses": [
             "This card costs 1 less to materialize for each Chessman ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

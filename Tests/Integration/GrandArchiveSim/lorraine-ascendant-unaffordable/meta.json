@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Require Ascendant and all 2024 reserve before starting."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Attack**: Put a **buff** counter on up to two target Suited allies you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

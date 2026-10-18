@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] Whenever you activate an attack card"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

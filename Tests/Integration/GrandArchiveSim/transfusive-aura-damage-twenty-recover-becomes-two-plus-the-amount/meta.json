@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Damage 20+] If you would **recover** an amount, **recover 2+X** instead, where **X** is that amount."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

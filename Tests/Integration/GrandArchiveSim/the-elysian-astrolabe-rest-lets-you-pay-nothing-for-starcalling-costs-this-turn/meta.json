@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[REST]**:** Until end of turn, you may pay (0) rather than pay a card's **starcalling** costs."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

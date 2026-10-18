@@ -20,5 +20,8 @@
             "Target opponent reveals all cards in their hand and memory. You gain the Crowd's Favor status.",
             "[Class Bonus] Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

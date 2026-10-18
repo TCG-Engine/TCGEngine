@@ -20,5 +20,8 @@
         "rulesClauses": [
             "Whenever your champion levels up, return this card from your graveyard to the field. If you do, it becomes **ephemeral** and draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

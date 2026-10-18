@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Remove a preparation counter from your champion: **You gain **agility 3** for this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

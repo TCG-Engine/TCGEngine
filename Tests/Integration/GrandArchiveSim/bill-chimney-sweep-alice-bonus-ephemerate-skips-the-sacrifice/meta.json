@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Alice Bonus] **Ephemerate \u2014 **(5), Discard a card. *(You may activate this card from your graveyard by paying this cost. Ally cards played this way become **ephemeral** as they enter the field.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

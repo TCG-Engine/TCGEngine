@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Put two **durability** counters on target Sword weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

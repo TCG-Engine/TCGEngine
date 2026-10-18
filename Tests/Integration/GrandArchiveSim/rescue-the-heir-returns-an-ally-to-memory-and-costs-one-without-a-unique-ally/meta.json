@@ -19,5 +19,8 @@
             "Return target ally you control to its owner's memory.",
             "[Level 1+] As long as you control a unique ally, this card costs 1 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

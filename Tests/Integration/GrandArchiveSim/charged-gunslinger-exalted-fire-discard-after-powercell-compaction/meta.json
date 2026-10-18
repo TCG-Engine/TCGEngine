@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Fire membership and source identity survive Powercell departure."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "Target Suited ally you control gains **stealth** until end of turn.",
             "[Class Bonus] Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

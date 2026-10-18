@@ -21,5 +21,8 @@
             "Your champion's first attack during your next turn gets +3 [POWER].",
             "If your champion hasn't taken damage this turn, draw two cards into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST], Remove a **gem** **counter from Devouring Malice**: As a Spell, choose one that hasn't been chosen\u2014 \u2022 Put three **debuff** counters on target ally."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

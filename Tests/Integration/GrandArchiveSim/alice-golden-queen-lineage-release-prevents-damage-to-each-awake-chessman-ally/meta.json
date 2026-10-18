@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Lineage Release** \u2014 For each awake Chessman ally you control, prevent the next 3 damage that would be dealt to that ally this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

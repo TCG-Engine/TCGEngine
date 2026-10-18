@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Alice Bonus] **Ephemerate \u2014 **(2), Discard a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

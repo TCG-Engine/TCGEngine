@@ -19,5 +19,8 @@
             "**Ally Link**",
             "**On Enter: Glimpse 2**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

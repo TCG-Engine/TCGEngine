@@ -17,5 +17,8 @@
         "rulesClauses": [
             "During your turn, water element cards your opponents activate cost 2 more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

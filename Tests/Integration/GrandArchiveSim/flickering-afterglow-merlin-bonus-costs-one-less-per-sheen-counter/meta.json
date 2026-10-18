@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Merlin Bonus] This card costs 1 less to activate for each **sheen** counter on your Fractured Memories."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

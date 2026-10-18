@@ -19,5 +19,8 @@
             "[Class Bonus] You may banish four fire element cards from your graveyard. If you do, draw a card."
         ]
     },
-    "notes": "Regression: the banish loop moved the same graveyard card four times, so one card was banished instead of four."
+    "notes": "Regression: the banish loop moved the same graveyard card four times, so one card was banished instead of four.",
+    "sourceScenario": {
+        "seed": 42
+    }
 }

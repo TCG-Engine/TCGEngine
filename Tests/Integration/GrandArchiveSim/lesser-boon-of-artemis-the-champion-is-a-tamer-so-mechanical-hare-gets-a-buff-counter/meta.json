@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Your champion is a Tamer class in addition to their other types."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

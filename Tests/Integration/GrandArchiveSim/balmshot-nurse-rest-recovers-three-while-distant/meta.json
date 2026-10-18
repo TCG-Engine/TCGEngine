@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]: **Recover 3**. Activate this ability only if CARDNAME is **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

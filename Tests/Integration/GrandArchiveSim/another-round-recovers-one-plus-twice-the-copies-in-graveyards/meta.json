@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Recover 1+X**, where **X** is twice the amount of cards named CARDNAME in all graveyards. Then draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

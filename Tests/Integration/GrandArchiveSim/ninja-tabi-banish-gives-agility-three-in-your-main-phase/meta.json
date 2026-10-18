@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**Banish CARDNAME:** You gain **agility 3** for this turn. Activate this ability only at slow speed."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

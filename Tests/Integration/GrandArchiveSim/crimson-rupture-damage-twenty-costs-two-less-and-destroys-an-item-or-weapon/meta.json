@@ -20,5 +20,8 @@
             "[Damage 20+] This card costs 2 less to activate.",
             "Destroy target item or weapon."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

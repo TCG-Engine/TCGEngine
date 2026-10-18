@@ -18,5 +18,8 @@
         "rulesClauses": [
             "(2), [REST]: **Cascade**\u2014"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] **Stealth**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

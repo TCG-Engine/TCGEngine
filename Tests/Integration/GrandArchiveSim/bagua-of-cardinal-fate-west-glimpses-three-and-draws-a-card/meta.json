@@ -17,5 +17,8 @@
         "rulesClauses": [
             "\u2022 West\u2014 **Glimpse 3**. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** Look at target opponent's hand and memory. "
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

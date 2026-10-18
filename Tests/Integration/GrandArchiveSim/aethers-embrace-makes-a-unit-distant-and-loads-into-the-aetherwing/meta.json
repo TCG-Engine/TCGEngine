@@ -19,5 +19,8 @@
             "Target unit becomes **distant**.",
             "You may load Aether's Embrace into an Aetherwing weapon you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

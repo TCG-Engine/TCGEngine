@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] [Level 6+] **Summon** a Core Fractal token."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

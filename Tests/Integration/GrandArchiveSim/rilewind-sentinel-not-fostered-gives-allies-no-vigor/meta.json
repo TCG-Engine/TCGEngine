@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as Rilewind Sentinel is **fostered**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

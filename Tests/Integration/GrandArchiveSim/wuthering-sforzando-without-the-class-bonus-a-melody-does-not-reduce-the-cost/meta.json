@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Class Bonus] As long as you've activated a Melody card this turn"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

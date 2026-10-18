@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** Until end of turn, you may activate target Warrior attack card in your banishment."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

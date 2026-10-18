@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**On Enter:** Target opponent may materialize a champion card from their material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

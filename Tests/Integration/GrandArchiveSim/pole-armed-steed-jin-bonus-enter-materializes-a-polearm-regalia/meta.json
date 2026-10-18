@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Jin Bonus] **On Enter:** Materialize a Polearm regalia card from your material deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

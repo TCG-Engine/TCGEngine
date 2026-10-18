@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as CARDNAME has two or more **training** counters on it, allies you control get +1[POWER] and have \u201c**On Enter: **This ally becomes **fostered**.\u201d"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

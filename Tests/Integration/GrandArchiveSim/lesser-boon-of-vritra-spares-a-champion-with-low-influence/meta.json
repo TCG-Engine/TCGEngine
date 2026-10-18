@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Deal 2 damage to each champion controlled by players with influence more than seven."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

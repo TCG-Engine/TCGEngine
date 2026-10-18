@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter**: Target opponent banishes two cards from their graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[REST]**:** Put a **time** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

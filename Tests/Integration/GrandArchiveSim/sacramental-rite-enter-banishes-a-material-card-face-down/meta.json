@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**On Enter:** Banish a non-champion card from your material deck face down."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

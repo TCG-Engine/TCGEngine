@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Attack**: Look at the top card of your deck. You may put it into your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

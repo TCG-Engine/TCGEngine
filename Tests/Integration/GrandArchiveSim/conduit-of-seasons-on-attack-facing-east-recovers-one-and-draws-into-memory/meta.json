@@ -20,5 +20,8 @@
         "rulesClauses": [
             "**On Attack:** If your Shifting Currents face East, **recover 1** and draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

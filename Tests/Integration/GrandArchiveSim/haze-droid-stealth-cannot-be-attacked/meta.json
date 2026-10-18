@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Stealth** *(This unit can\u2019t be targeted by attacks unless permitted by **true sight**.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

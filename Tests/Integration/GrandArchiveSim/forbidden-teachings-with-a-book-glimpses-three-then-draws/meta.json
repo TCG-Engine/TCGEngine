@@ -19,5 +19,8 @@
             "If you control a Book object, **glimpse 3**.",
             "Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -20,5 +20,8 @@
             "**Summon** three Titan Mk II tokens.",
             "[Tonoris Bonus] Put **X** **buff** counters on each token ally you control, where **X** is the amount of tokens you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

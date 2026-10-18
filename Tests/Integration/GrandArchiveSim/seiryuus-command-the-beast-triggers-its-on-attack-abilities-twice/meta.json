@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Until end of turn, whenever target Beast attacks, trigger all of its **on attack** abilities twice."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

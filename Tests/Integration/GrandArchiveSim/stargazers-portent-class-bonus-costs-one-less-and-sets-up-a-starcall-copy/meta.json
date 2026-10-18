@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] This card costs 1 less to activate. The next time you **starcall** a card this turn, copy that activation."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

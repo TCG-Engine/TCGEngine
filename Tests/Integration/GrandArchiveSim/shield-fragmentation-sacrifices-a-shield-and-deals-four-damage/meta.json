@@ -20,5 +20,8 @@
             "Deal 4 damage to target unit."
         ]
     },
-    "notes": "Regression: the Shield sacrifice printed as an additional cost was never paid, so Shield Fragmentation dealt its 4 damage for free and kept the Shield."
+    "notes": "Regression: the Shield sacrifice printed as an additional cost was never paid, so Shield Fragmentation dealt its 4 damage for free and kept the Shield.",
+    "sourceScenario": {
+        "seed": 42
+    }
 }

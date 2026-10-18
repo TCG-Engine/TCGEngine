@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Your champion becomes **distant**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

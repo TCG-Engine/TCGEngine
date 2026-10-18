@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Guo Jia Bonus] Put a quest counter on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

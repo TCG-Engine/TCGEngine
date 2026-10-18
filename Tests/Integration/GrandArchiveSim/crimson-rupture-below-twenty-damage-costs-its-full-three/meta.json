@@ -17,5 +17,8 @@
         "rulesClauses": [
             "[Damage 20+] This card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

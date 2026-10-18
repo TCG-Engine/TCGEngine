@@ -20,5 +20,8 @@
             "[Class Bonus] This card costs 1 less to activate.",
             "The next time damage would be dealt to your champion this turn, prevent that damage. If 3 or more damage was prevented this way, put a **buff** counter on an ally you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

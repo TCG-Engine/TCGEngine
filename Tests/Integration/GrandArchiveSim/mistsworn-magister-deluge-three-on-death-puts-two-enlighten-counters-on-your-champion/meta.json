@@ -18,5 +18,8 @@
         "rulesClauses": [
             "***Deluge 3*** -- **On Death**: If you have three or more water element cards in your graveyard, put two **enlighten** counters on your champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

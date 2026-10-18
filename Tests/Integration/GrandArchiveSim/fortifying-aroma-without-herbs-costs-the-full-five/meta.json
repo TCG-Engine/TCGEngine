@@ -16,5 +16,8 @@
         "rulesClauses": [
             "This card costs 1 less to activate for each Herb you control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

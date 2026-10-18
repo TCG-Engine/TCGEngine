@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] At the beginning of your recollection phase, put an **age** counter on CARDNAME."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

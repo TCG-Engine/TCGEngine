@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Rested non-champion objects you don't control lose all activated abilities and can't be used for an attack."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

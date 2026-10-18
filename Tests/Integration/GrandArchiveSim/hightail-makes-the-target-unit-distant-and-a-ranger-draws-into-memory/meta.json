@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Target unit becomes **distant**. If that unit is a Ranger, draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

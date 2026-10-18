@@ -18,5 +18,8 @@
         "rulesClauses": [
             "[Class Bonus] **Sacrifice CARDNAME:** The next time one or more allies would enter the field this turn, they enter the field rested instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

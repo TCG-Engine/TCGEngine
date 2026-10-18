@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If a unit is attacking, end the combat phase. *(As a phase ends, banish all triggers, activations, and materializations on the effects stack.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

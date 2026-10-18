@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Until end of turn, all allies gain **stealth**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

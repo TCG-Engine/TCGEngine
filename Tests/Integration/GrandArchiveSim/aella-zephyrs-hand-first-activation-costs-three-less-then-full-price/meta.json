@@ -20,5 +20,8 @@
         "rulesClauses": [
             "(3): As a Spell, **suppress** another target ally, item, or weapon. This ability costs (3) less to activate the first time you activate it."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

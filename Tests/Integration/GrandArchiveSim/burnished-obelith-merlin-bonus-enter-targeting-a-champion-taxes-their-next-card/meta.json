@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If that unit is a champion, the next card its controller activates this turn costs (2) more to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -23,5 +23,8 @@
             "**On Foster**: Put the top three cards of your deck into your graveyard.",
             "As long as Tidebreaker Sentinel is **fostered**, it gets +2 [LIFE] and has **taunt**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

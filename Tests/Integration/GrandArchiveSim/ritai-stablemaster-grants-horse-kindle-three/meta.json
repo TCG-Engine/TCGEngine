@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Horse cards you activate have kindle 3."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as you have three or more **omens** with different reserve costs, this card costs 3 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

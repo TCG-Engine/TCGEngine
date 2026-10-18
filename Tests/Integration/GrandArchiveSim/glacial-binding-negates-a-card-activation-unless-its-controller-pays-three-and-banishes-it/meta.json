@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target card activation unless its controller pays (3). Banish the card that had its activation **negated** this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

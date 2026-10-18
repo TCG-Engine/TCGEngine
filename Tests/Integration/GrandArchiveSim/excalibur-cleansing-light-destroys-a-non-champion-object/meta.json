@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Destroy target non-champion object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

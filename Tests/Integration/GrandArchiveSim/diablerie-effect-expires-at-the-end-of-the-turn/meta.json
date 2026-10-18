@@ -18,5 +18,8 @@
         "rulesClauses": [
             "The next time a regalia with **divine relic** would enter the field this turn"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

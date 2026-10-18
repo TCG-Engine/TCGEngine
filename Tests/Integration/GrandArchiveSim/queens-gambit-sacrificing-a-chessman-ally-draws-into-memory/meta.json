@@ -20,5 +20,8 @@
             "As an additional cost to activate this card, sacrifice a Chessman ally.",
             "**On Enter:** Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

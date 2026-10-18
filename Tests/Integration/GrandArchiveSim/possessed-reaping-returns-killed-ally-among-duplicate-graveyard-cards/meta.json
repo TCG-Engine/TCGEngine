@@ -19,5 +19,8 @@
         "rulesClauses": [
             "The exact killed ally returns without stealing either earlier same-name graveyard card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Animal and Beast allies you control get +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

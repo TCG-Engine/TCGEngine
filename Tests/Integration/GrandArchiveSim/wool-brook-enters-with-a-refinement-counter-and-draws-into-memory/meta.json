@@ -19,5 +19,8 @@
             "CARDNAME enters the field with a **refinement** counter on it.",
             "**On Enter:** Draw a card into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

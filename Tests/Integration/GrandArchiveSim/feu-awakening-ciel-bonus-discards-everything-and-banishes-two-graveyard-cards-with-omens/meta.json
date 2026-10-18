@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Ciel Bonus] Discard all cards from your hand and memory. Then banish up to two cards from your graveyard. Put an **omen** counter on each card banished this way."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

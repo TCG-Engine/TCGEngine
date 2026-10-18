@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Prevent the next 2 damage that would be dealt to target unit this turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

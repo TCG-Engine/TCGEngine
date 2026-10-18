@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Your opponents can't **recover**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
         "rulesClauses": [
             "Banish CARDNAME: Deal 1 damage to target ally. Class Bonus: If that ally is attacking, deal 2 damage to it instead."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

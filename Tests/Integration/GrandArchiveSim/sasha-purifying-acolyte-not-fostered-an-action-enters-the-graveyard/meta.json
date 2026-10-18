@@ -17,5 +17,8 @@
         "rulesClauses": [
             "while CARDNAME is **fostered**"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

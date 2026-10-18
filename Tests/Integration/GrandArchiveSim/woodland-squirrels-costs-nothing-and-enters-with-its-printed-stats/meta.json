@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Woodland Squirrels (no rules text)"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

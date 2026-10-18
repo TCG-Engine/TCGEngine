@@ -19,5 +19,8 @@
             "Deal X damage to all units except for your champion, where X is the lowest reserve cost among your omens.",
             "[Ciel Bonus] This card costs 2 less to activate."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

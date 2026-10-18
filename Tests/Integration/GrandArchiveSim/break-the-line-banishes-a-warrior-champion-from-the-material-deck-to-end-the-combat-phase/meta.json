@@ -18,5 +18,8 @@
         "rulesClauses": [
             "You may banish a Warrior champion card from your material deck. If you do, end the combat phase."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

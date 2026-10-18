@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If your Fractured Memories has six or less **sheen** counters on it, put two **sheen** counters on it. Otherwise, **recover 3**. *(If you don't have the mastery, **recover 3**.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

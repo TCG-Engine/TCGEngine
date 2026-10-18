@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Remove a preparation counter from your champion:** CARDNAME gets +1 [POWER] until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

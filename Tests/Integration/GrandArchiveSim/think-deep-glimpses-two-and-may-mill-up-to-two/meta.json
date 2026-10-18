@@ -17,5 +17,8 @@
         "rulesClauses": [
             "**Glimpse 2**, then put up to two cards from the top of your deck into your graveyard."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

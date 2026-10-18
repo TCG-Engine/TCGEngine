@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Target unit becomes **distant**. Draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

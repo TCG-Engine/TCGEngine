@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Hindered** *(This ally enters the field rested.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

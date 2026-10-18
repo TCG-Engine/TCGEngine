@@ -18,5 +18,8 @@
         "rulesClauses": [
             "If target unit would be dealt combat damage this turn, prevent 3 of that damage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

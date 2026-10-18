@@ -18,5 +18,8 @@
         "rulesClauses": [
             "**Negate** target card activation if a Chessman ally is attacking."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

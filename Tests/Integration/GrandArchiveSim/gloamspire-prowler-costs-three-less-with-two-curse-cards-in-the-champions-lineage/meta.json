@@ -18,5 +18,8 @@
         "rulesClauses": [
             "This card costs 3 less to activate as long as there are two or more Curse cards in your champion's lineage."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

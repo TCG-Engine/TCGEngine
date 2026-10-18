@@ -17,5 +17,8 @@
         "rulesClauses": [
             "If that unit is a champion, its controller can't recover until end of turn."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

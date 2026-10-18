@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Class Bonus] On Enter: You may have CARDNAME deal 4 damage to your champion. If you do, CARDNAME becomes distant."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

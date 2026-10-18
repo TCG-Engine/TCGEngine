@@ -20,5 +20,8 @@
         "rulesClauses": [
             "If Cataleptic Constellation is **imbued**, **summon** two Astral Shard tokens."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

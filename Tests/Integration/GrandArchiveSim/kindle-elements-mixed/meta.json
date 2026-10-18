@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Kindle accepts fire element graveyard cards, including Exalted Fire; payment is optional."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

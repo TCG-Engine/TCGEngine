@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Kill**: If the killed unit had an even life stat, draw a card."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

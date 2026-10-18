@@ -18,5 +18,8 @@
         "rulesClauses": [
             "As long as CARDNAME is attacking a domain, it gets +2 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

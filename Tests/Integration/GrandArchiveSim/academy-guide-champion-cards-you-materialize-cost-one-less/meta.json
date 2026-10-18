@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Champion cards you materialize cost 1 less to materialize."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -16,5 +16,8 @@
         "rulesClauses": [
             "**Recover 4**."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

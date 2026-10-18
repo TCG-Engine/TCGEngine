@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Deal 2 damage to all units."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

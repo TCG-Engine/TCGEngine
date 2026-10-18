@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Your champion's first attack using a Gun weapon during your next turn gets +10 [POWER]."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

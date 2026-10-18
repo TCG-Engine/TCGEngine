@@ -2,7 +2,7 @@
 /**
  * Batch-create PRD regression fixtures programmatically.
  *
- * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG] [--families]
+ * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG] [--families] [--migrate-source | --run-source]
  *
  * Creates selfplay games from curated decks, replays actions to exercise
  * specific card abilities, and saves regression fixtures.
@@ -18,6 +18,8 @@ $dryRun = false;
 $onlyFixture = null;
 $resetMeta = false;
 $auditActions = false;
+$migrateSource = in_array('--migrate-source', $argv, true);
+$runSource = in_array('--run-source', $argv, true);
 $familiesOnly = in_array('--families', $argv, true);
 
 foreach (array_slice($argv, 1) as $arg) {
@@ -27,6 +29,7 @@ foreach (array_slice($argv, 1) as $arg) {
     elseif ($arg === '--audit-actions') $auditActions = true;
     elseif (str_starts_with($arg, '--fixture=')) $onlyFixture = substr($arg, 10);
 }
+$sourceSeed = $seed;
 // Regenerating a fixture used to wipe its directory, including the hand-written assertions.json and the meta.json notes / semanticCoverage / engineBug records. They are now carried over unless
 // --reset-meta is passed: the snapshot (initial/expected gamestate, actions.json) is always rebuilt from the definition below, and the verification run at the end tells you when the kept
 // assertions no longer match the rebuilt fixture.
@@ -1147,6 +1150,11 @@ foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $scenarioFile) {
     if (!in_array(basename($scenarioFile), ['Scenario.php', 'decks.php'], true)) require_once $scenarioFile;
 }
 
+if (in_array('--export-definitions', $argv, true)) {
+    echo json_encode($fixtures, JSON_THROW_ON_ERROR);
+    exit(0);
+}
+
 // Read-only definition export for inventory tools and reviewed family discovery.
 if (in_array('--export-shared-families', $argv, true)) {
     echo json_encode(array_filter($fixtures, fn($def) => isset($def['meta']['behaviorFamily'])), JSON_THROW_ON_ERROR);
@@ -1186,6 +1194,15 @@ if ($auditActions) {
     exit($truncated === 0 ? 0 : 1);
 }
 
+if ($runSource && !$onlyFixture) {
+    foreach (glob($repoRoot . '/Tests/Integration/GrandArchiveSim/*/meta.json') as $path) {
+        $meta = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+        if (isset($meta['sourceScenario']) && empty($fixtures[basename(dirname($path))]['strictActions'])) {
+            throw new RuntimeException('Missing source scenario: ' . basename(dirname($path)));
+        }
+    }
+}
+
 if ($onlyFixture) {
     if (!isset($fixtures[$onlyFixture])) {
         echo "Unknown fixture: $onlyFixture\n";
@@ -1198,16 +1215,39 @@ if ($onlyFixture) {
 // ---------------------------------------------------------------------------
 // Create each fixture
 // ---------------------------------------------------------------------------
+// Fixtures referenced by saved variants must keep their serialized initial state.
+$sourceBaseFixtures = [];
+foreach ($migrateSource ? glob($repoRoot . '/Tests/Integration/GrandArchiveSim/*/meta.json') : [] as $metaPath) {
+    $candidateMeta = json_decode(file_get_contents($metaPath), true, 512, JSON_THROW_ON_ERROR);
+    if (!empty($candidateMeta['baseFixture'])) $sourceBaseFixtures[$candidateMeta['baseFixture']] = true;
+}
 $created = 0;
 $failed = 0;
 
 foreach ($fixtures as $slug => $def) {
-    echo "\n=== $slug ===\n";
-
     $fixtureDir = $repoRoot . '/Tests/Integration/' . $rootName . '/' . $slug;
 
+    $savedMeta = is_file($fixtureDir . '/meta.json') ? json_decode(file_get_contents($fixtureDir . '/meta.json'), true, 512, JSON_THROW_ON_ERROR) : [];
+    if ($runSource && !isset($savedMeta['sourceScenario']) && !$onlyFixture) continue;
+    $sourceOnly = $runSource || isset($savedMeta['sourceScenario']);
+    if ($migrateSource && (isset($sourceBaseFixtures[$slug]) || isset($savedMeta['baseFixture']) || isset($savedMeta['initialGamestateReplacements']))) continue;
+    if ($migrateSource && (isset($behaviorCases[$slug]) || $sourceOnly || empty($def['strictActions']) || !is_file($fixtureDir . '/initial_gamestate.txt') || !is_file($fixtureDir . '/expected_final_gamestate.txt'))) continue;
+    $sourceOnly = $sourceOnly || $migrateSource;
+    // A fresh engine process per case prevents static/runtime state leaking between games.
+    if ($sourceOnly && !$onlyFixture && !$dryRun) {
+        $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__FILE__)
+            . ($migrateSource ? ' --migrate-source' : ' --run-source')
+            . ' ' . escapeshellarg('--fixture=' . $slug) . ' ' . escapeshellarg('--seed=' . $sourceSeed) . ' 2>&1';
+        passthru($command, $status);
+        if ($status === 0) ++$created; else ++$failed;
+        continue;
+    }
+    echo "\n=== $slug ===\n";
+    if ($sourceOnly && empty($def['strictActions'])) throw new RuntimeException("Source execution requires a builder scenario: $slug");
+    $seed = $savedMeta['sourceScenario']['seed'] ?? $sourceSeed;
+
     if ($dryRun) {
-        echo isset($behaviorCases[$slug]) ? "[DRY-RUN] Would run behavior family $slug\n" : "[DRY-RUN] Would create $fixtureDir\n";
+        echo $sourceOnly ? "[DRY-RUN] Would verify source scenario $slug\n" : (isset($behaviorCases[$slug]) ? "[DRY-RUN] Would run behavior family $slug\n" : "[DRY-RUN] Would create $fixtureDir\n");
         echo "  Deck: " . substr_count($def['deck'], "\n") . " lines\n";
         echo "  Actions: " . count($def['actions']) . "\n";
         echo "  Tested cards: " . implode(', ', $def['testedCards']) . "\n";
@@ -1220,7 +1260,7 @@ foreach ($fixtures as $slug => $def) {
     // Clean existing fixture (keeping its hand-written assertions and meta unless --reset-meta)
     $keptAssertionsJson = null;
     $keptMeta = null;
-    if (!$behaviorOnly && is_dir($fixtureDir)) {
+    if (!$behaviorOnly && !$sourceOnly && is_dir($fixtureDir)) {
         if (!$resetMeta) {
             if (is_file($fixtureDir . '/assertions.json')) {
                 $decodedAssertions = json_decode(file_get_contents($fixtureDir . '/assertions.json'), true);
@@ -1233,7 +1273,7 @@ foreach ($fixtures as $slug => $def) {
         }
         RegressionDeleteDirRecursive($fixtureDir);
     }
-    if (!$behaviorOnly) RegressionEnsureDir($fixtureDir);
+    if (!$behaviorOnly && !$sourceOnly) RegressionEnsureDir($fixtureDir);
 
     $gameName = 'prd_batch_' . $slug . '_' . $seed . '_' . bin2hex(random_bytes(4));
     $gameDir = $repoRoot . '/' . $rootName . '/Games/' . $gameName;
@@ -1434,7 +1474,9 @@ foreach ($fixtures as $slug => $def) {
         // 5. Save initial gamestate
         RegressionFlushCurrentGamestate($rootName);
         $initialGamestate = RegressionCurrentGamestateText($rootName, $gameName);
-        if (!$behaviorOnly) file_put_contents($fixtureDir . '/initial_gamestate.txt', $initialGamestate);
+        if ($migrateSource) gaSourceAssertMigrationInputs($fixtureDir, $def, $initialGamestate, $rootName);
+        if (!$behaviorOnly && !$sourceOnly) file_put_contents($fixtureDir . '/initial_gamestate.txt', $initialGamestate);
+        if ($sourceOnly) gaCheckBehaviorStep($def, 'source', 0);
         if ($behaviorOnly) gaCheckBehaviorStep($def, $behaviorCases[$slug][0], 0);
         echo "  Prepared initial gamestate\n";
 
@@ -1446,6 +1488,7 @@ foreach ($fixtures as $slug => $def) {
                 'disableRecording' => true,
             ]);
 
+            if ($sourceOnly) gaCheckBehaviorStep($def, 'source', $i + 1);
             if ($behaviorOnly) gaCheckBehaviorStep($def, $behaviorCases[$slug][0], $i + 1);
 
             if (!empty($action['expectFailure'])) {
@@ -1480,6 +1523,25 @@ foreach ($fixtures as $slug => $def) {
 
         if ($behaviorOnly) {
             echo "[PASS] $slug (behavior family)\n";
+            ++$created;
+            RegressionDeleteDirRecursive($gameDir);
+            continue;
+        }
+
+        if ($sourceOnly) {
+            RegressionFlushCurrentGamestate($rootName);
+            gaSourceAssertFinal($fixtureDir, RegressionCurrentGamestateText($rootName, $gameName), $rootName);
+            if ($migrateSource) {
+                $savedMeta['sourceScenario'] = ['seed' => $seed];
+                $metaTemp = $fixtureDir . '/meta.json.tmp-' . bin2hex(random_bytes(8));
+                if (file_put_contents($metaTemp, json_encode($savedMeta, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n") === false) throw new RuntimeException('Cannot write source metadata');
+                if (!rename($metaTemp, $fixtureDir . '/meta.json')) {
+                    unlink($metaTemp);
+                    throw new RuntimeException('Cannot replace source metadata');
+                }
+                foreach (['initial_gamestate.txt', 'actions.json', 'assertions.json'] as $file) unlink($fixtureDir . '/' . $file);
+            }
+            echo "[PASS] $slug (source scenario)\n";
             ++$created;
             RegressionDeleteDirRecursive($gameDir);
             continue;
@@ -1558,6 +1620,6 @@ foreach ($fixtures as $slug => $def) {
 }
 
 echo "\n=== Summary ===\n";
-echo "Created: $created | Failed: $failed | Total: " . count($fixtures) . "\n";
+echo "Created: $created | Failed: $failed | Total: " . ($created + $failed) . "\n";
 
 exit($failed > 0 ? 1 : 0);

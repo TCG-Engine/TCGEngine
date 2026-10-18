@@ -20,5 +20,8 @@
         "rulesClauses": [
             "***Cardistry*** -- (6): Banish a fire element action card with reserve cost 2 or less from your graveyard. If you do, copy it and you may activate that copy without paying its reserve cost."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

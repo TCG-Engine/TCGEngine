@@ -16,5 +16,8 @@
         "rulesClauses": [
             "Put a **buff** counter on target Beast ally. If that ally is a Shenju, wake it up."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -17,5 +17,8 @@
         "rulesClauses": [
             "Deal 3 damage to target champion."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

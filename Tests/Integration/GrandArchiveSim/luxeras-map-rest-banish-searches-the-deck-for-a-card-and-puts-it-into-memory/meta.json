@@ -20,5 +20,8 @@
         "rulesClauses": [
             "[REST]**, Banish CARDNAME:** Search your deck for a card and put it into your memory. Then shuffle your deck."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

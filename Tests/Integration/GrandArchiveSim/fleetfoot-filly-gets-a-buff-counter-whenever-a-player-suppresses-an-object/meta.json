@@ -18,5 +18,8 @@
         "rulesClauses": [
             "Whenever a player **suppresses** an object, put a **buff** counter on Fleetfoot Filly."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

@@ -19,5 +19,8 @@
             "[Guo Jia Bonus] You may remove a **quest** counter from your champion rather than pay this card's reserve cost.",
             "Put a **buff** counter on target Fatestone or Fatebound object."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

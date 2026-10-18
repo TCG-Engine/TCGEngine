@@ -19,5 +19,8 @@
         "rulesClauses": [
             "**On Enter**: **Glimpse 7**. Draw seven cards into your memory."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }
