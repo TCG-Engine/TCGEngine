@@ -16,7 +16,8 @@
             "stealth"
         ],
         "rulesClauses": [
-            "CARDNAME has **stealth** as long as it\u2019s awake."
+            "CARDNAME has **stealth** as long as it’s awake."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

@@ -5,39 +5,24 @@
 
 // ---- Novice Healer ----
 
-gaScenario('novice-healer-class-bonus-enter-recovers-three')
-    ->deckTemplate('quiet', 'Novice Healer')
-    ->readyFor('Novice Healer', classBonus: true, damage: 5)
-    ->seed('myHand', 'Novice Healer')
-    ->play('Novice Healer')->pay(3)
-    ->expectDamage('p1Field-0', 2, '[Class Bonus] Recover 3: 5 - 3')
-    ->tested('Novice Healer')
-    ->covers(['class-bonus', 'on-enter', 'recover'], '[Class Bonus] **On Enter:** **Recover 3**.')
-    ->register();
-
-gaScenario('novice-healer-without-the-class-bonus-does-not-recover')
-    ->deckTemplate('quiet', 'Novice Healer')
-    ->readyFor('Novice Healer', damage: 5)
-    ->seed('myHand', 'Novice Healer')
-    ->play('Novice Healer')->pay(3)
-    ->expectDamage('p1Field-0', 5, 'No class bonus: no recovery')
-    ->tested('Novice Healer')
-    ->covers(['class-bonus', 'condition', 'recover'], '[Class Bonus] **On Enter:** **Recover 3**.')
-    ->register();
+gaEnterRecover('Novice Healer', payment: 3, clause: '[Class Bonus] **On Enter:** **Recover 3**.', cases: [
+    'novice-healer-class-bonus-enter-recovers-three' => [true, 5, 2, '[Class Bonus] Recover 3: 5 - 3'],
+    'novice-healer-without-the-class-bonus-does-not-recover' => [false, 5, 5, 'No class bonus: no recovery'],
+    'novice-healer-class-bonus-enter-recover-clamps-at-zero' => [true, 1, 0, 'Recover 3 cannot reduce damage below zero'],
+    'novice-healer-class-bonus-enter-recover-at-zero' => [true, 0, 0, 'Recover 3 leaves an undamaged champion at zero'],
+]);
 
 // ---- Owl Familiar ----
 
-gaScenario('owl-familiar-class-bonus-enter-glimpses-two')
-    ->deckTemplate('quiet', 'Owl Familiar')
-    ->readyFor('Owl Familiar', classBonus: true)
-    ->deckTop(['Dungeon Guide', 'Gray Wolf'])
-    ->seed('myHand', 'Owl Familiar')
-    ->play('Owl Familiar')->pay(1)
-    ->answer(1, 'Top=em6eEh9q8y;Bottom=hJ2xh9lNMR')
-    ->expectCardExists('myField', 'Owl Familiar', 'The Owl entered and glimpsed')
-    ->tested('Owl Familiar')
-    ->covers(['class-bonus', 'on-enter', 'glimpse'], '[Class Bonus] **On Enter:** **Glimpse 2**.')
-    ->register();
+gaEnterGlimpse('Owl Familiar', payment: 1, clause: '[Class Bonus] **On Enter:** **Glimpse 2**.',
+    revealed: ['Dungeon Guide', 'Gray Wolf'], cases: [
+        'owl-familiar-class-bonus-enter-glimpses-two' => [
+            ['Dungeon Guide'], ['Gray Wolf'], ['Dungeon Guide', 'Fluffy Shopkeep', 'Gray Wolf']],
+        'owl-familiar-glimpse-reorders-both-on-top' => [
+            ['Gray Wolf', 'Dungeon Guide'], [], ['Gray Wolf', 'Dungeon Guide', 'Fluffy Shopkeep']],
+        'owl-familiar-glimpse-sends-both-to-bottom' => [
+            [], ['Gray Wolf', 'Dungeon Guide'], ['Fluffy Shopkeep', 'Gray Wolf', 'Dungeon Guide']],
+    ], entryLabel: 'The Owl entered and glimpsed');
 
 // ---- Cell Assembler ----
 
@@ -64,13 +49,7 @@ gaScenario('cell-assembler-enter-declined-summons-nothing')
 
 // ---- Delivery Droid ----
 
-gaScenario('delivery-droid-on-death-summons-a-powercell')
-    ->deckTemplate('quiet', 'Delivery Droid')
-    ->readyFor('Delivery Droid')
-    ->seed('myField', 'Delivery Droid')
-    ->seed('myField', 'Rotund Squirrel', player: 2, properties: ['Status' => 2])
-    ->endTurn()
-    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, '-')
+gaOnDeathCase('delivery-droid-on-death-summons-a-powercell', 'Delivery Droid', 'Rotund Squirrel')
     ->expectCardExists('myGraveyard', 'Delivery Droid', 'The Droid died')
     ->expectCardExists('myField', 'Powercell', 'On Death: a Powercell token was summoned')
     ->tested('Delivery Droid')

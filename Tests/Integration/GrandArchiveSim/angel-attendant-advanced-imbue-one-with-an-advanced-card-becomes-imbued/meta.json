@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**Advanced Imbue 1** *(You may reserve all cards revealed as you activate this card. If at least one of them is advanced element, this card becomes **imbued**.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

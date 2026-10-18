@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Advanced Imbue 2**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

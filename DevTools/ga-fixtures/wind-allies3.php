@@ -83,15 +83,8 @@ gaWindRanged('galewind-scout-ranged-three-while-distant', 'Galewind Scout', 5, '
 
 // ---- Daunting Panda ----
 
-gaScenario('daunting-panda-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Daunting Panda')
-    ->readyFor('Daunting Panda')
-    ->seed('myField', 'Daunting Panda', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', 'Vigor: the rested Panda woke at the beginning of the end phase')
-    ->tested('Daunting Panda')
-    ->covers(['vigor'], '**Vigor** *(At the beginning of your end phase, wake up this unit.)*')
-    ->register();
+gaVigorCase('daunting-panda-vigor-wakes-it-at-the-end-of-the-turn', 'Daunting Panda', 'Daunting Panda', [],
+    ['vigor'], '**Vigor** *(At the beginning of your end phase, wake up this unit.)*', '2', 'Vigor: the rested Panda woke at the beginning of the end phase');
 
 // ---- Courtside Beastkeeper ----
 
@@ -375,22 +368,12 @@ gaScenario('ghost-hunter-attacking-a-non-ephemeral-ally-has-its-printed-power')
 
 // ---- Imperial Alchemist ----
 
-gaScenario('imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token')
-    ->deckTemplate('quiet', 'Imperial Alchemist')
-    ->readyFor('Imperial Alchemist', classBonus: true)
-    ->seed('myHand', 'Imperial Alchemist')
-    ->play('Imperial Alchemist')->pay(2)
-    ->expectZoneCount('myField', 3, 1, 'Gather summoned one herb token beside the champion and the Alchemist')
+gaEnterGatherCase('imperial-alchemist-class-bonus-on-enter-gathers-a-herb-token', 'Imperial Alchemist', 2, true, 3, 'Gather summoned one herb token beside the champion and the Alchemist')
     ->tested('Imperial Alchemist')
     ->covers(['on-enter', 'class-bonus', 'token', 'gather'], '[Class Bonus] **On Enter:** **Gather**.')
     ->register();
 
-gaScenario('imperial-alchemist-without-the-class-bonus-gathers-nothing')
-    ->deckTemplate('quiet', 'Imperial Alchemist')
-    ->readyFor('Imperial Alchemist')
-    ->seed('myHand', 'Imperial Alchemist')
-    ->play('Imperial Alchemist')->pay(2)
-    ->expectZoneCount('myField', 2, 1, 'No class bonus: no token')
+gaEnterGatherCase('imperial-alchemist-without-the-class-bonus-gathers-nothing', 'Imperial Alchemist', 2, false, 2, 'No class bonus: no token')
     ->tested('Imperial Alchemist')
     ->covers(['on-enter', 'class-bonus', 'condition'], '[Class Bonus] **On Enter:** **Gather**.')
     ->register();

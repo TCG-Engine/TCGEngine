@@ -93,27 +93,11 @@ gaScenario('accompanying-guard-class-bonus-enter-makes-another-ally-fostered')
 
 // ---- Apostle of the Woods ----
 
-gaScenario('apostle-of-the-woods-pride-three-does-not-obey-a-level-two-champion')
-    ->deckTemplate('quiet', 'Apostle of the Woods')
-    ->readyFor('Apostle of the Woods', level: 2)
-    ->seed('myField', 'Apostle of the Woods')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 3: a level 2 champion is not enough, the Apostle never attacked')
-    ->tested('Apostle of the Woods')
-    ->covers(['pride', 'keyword'], '**Pride 3**')
-    ->register();
+gaPrideCase('apostle-of-the-woods-pride-three-does-not-obey-a-level-two-champion', 'Apostle of the Woods', 'Apostle of the Woods', ['level' => 2],
+    ['pride', 'keyword'], '**Pride 3**', false, 'Pride 3: a level 2 champion is not enough, the Apostle never attacked');
 
-gaScenario('apostle-of-the-woods-pride-three-obeys-a-level-three-champion')
-    ->deckTemplate('quiet', 'Apostle of the Woods')
-    ->readyFor('Apostle of the Woods', level: 3)
-    ->seed('myField', 'Apostle of the Woods')
-    ->reachTurnThree()
-    ->attack('myField-1', 'theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Pride 3 is satisfied at level 3: the Apostle attacked and rested')
-    ->tested('Apostle of the Woods')
-    ->covers(['pride', 'keyword', 'level-gate'], '**Pride 3**')
-    ->register();
+gaPrideCase('apostle-of-the-woods-pride-three-obeys-a-level-three-champion', 'Apostle of the Woods', 'Apostle of the Woods', ['level' => 3],
+    ['pride', 'keyword', 'level-gate'], '**Pride 3**', true, 'Pride 3 is satisfied at level 3: the Apostle attacked and rested');
 
 gaScenario('apostle-of-the-woods-class-bonus-enter-loses-pride-and-gets-a-buff-counter-against-three-units')
     ->deckTemplate('quiet', 'Apostle of the Woods')
@@ -140,13 +124,7 @@ gaScenario('apostle-of-the-woods-class-bonus-enter-against-two-units-gets-no-cou
 
 // ---- Machined Monstrosity ----
 
-gaScenario('machined-monstrosity-class-bonus-on-death-summons-a-rested-powercell')
-    ->deckTemplate('quiet', 'Machined Monstrosity')
-    ->readyFor('Machined Monstrosity', classBonus: true)
-    ->seed('myField', 'Machined Monstrosity', properties: ['Counters' => ['buff' => 0]])
-    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Counters' => ['buff' => 3]])
-    ->endTurn()
-    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, '-')
+gaOnDeathCase('machined-monstrosity-class-bonus-on-death-summons-a-rested-powercell', 'Machined Monstrosity', 'Giant Tortoise', ['classBonus' => true], ['Counters' => ['buff' => 0]], ['Counters' => ['buff' => 3]])
     ->expectCardExists('myGraveyard', 'Machined Monstrosity', 'The Monstrosity died')
     ->expectCardExists('myField', 'Powercell', '[Class Bonus] On Death: a Powercell was summoned')
     ->expectProperty('p1Field-1', 'Status', '1', 'The Powercell entered rested')

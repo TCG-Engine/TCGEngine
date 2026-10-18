@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**On Death:** **Summon** a Powercell token."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

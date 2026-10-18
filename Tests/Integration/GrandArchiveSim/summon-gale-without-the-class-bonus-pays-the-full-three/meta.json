@@ -17,5 +17,6 @@
         "rulesClauses": [
             "[Class Bonus] **Efficiency**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

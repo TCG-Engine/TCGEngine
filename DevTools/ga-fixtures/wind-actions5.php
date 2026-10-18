@@ -646,24 +646,16 @@ gaScenario('wuthering-sforzando-without-the-class-bonus-a-melody-does-not-reduce
 
 // ---- Summon Gale ----
 
-gaScenario('summon-gale-class-bonus-efficiency-returns-the-ally-to-its-owners-hand')
-    ->standardDeck('Summon Gale')
-    ->readyFor('Summon Gale', classBonus: true, level: 2)
-    ->seed('myField', 'Giant Tortoise', player: 2)
-    ->seed('myHand', 'Summon Gale')
-    ->castSpell('Summon Gale', pay: 1, window: 'me', target: 'theirField-1')
+gaEfficiencyCase('summon-gale-class-bonus-efficiency-returns-the-ally-to-its-owners-hand', 'Summon Gale', true, 2, 1,
+    fn($s) => $s->standardDeck('Summon Gale')->seed('myField', 'Giant Tortoise', player: 2), 'theirField-1')
     ->expectZoneCount('theirField', 1, 1, 'The opposing ally left the field')
     ->expectZoneCount('myMemory', 1, 1, 'Efficiency at level 2: cost 3 - 2 = 1')
     ->tested('Summon Gale')
     ->covers(['efficiency', 'class-bonus', 'cost-reduction', 'zone-movement', 'targeting'], '[Class Bonus] **Efficiency**', 'Return target ally to its owner\'s hand.')
     ->register();
 
-gaScenario('summon-gale-without-the-class-bonus-pays-the-full-three')
-    ->standardDeck('Summon Gale')
-    ->readyFor('Summon Gale', level: 2)
-    ->seed('myField', 'Giant Tortoise')
-    ->seed('myHand', 'Summon Gale')
-    ->castSpell('Summon Gale', pay: 3, window: 'me', target: 'myField-1')
+gaEfficiencyCase('summon-gale-without-the-class-bonus-pays-the-full-three', 'Summon Gale', false, 2, 3,
+    fn($s) => $s->standardDeck('Summon Gale')->seed('myField', 'Giant Tortoise'), 'myField-1')
     ->expectCardExists('myHand', 'Giant Tortoise', 'Your own ally returned to your hand')
     ->expectZoneCount('myMemory', 3, 1, 'No class bonus: full cost')
     ->tested('Summon Gale')
@@ -738,22 +730,16 @@ gaScenario('winds-of-destiny-one-fatestone-does-not-offer-the-alternate-cost')
     ->register();
 
 // ---- Rapid Reload ----
-gaScenario('rapid-reload-class-bonus-efficiency-materializes-a-bullet')
-    ->deck("# Material\n1 Spirit of Fire\n1 Windpiercer\n# Main\n4 Rapid Reload\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep")
-    ->readyFor('Rapid Reload', classBonus: true, level: 2)
-    ->seed('myHand', 'Rapid Reload')
-    ->castSpell('Rapid Reload', pay: 1, window: 'me')->answer(1, 'myMaterial-0')
+gaEfficiencyCase('rapid-reload-class-bonus-efficiency-materializes-a-bullet', 'Rapid Reload', true, 2, 1,
+    fn($s) => $s->deck("# Material\n1 Spirit of Fire\n1 Windpiercer\n# Main\n4 Rapid Reload\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep"))->answer(1, 'myMaterial-0')
     ->expectCardExists('myField', 'Windpiercer', 'The Bullet was materialized')
     ->expectZoneCount('myMemory', 1, 1, 'Efficiency at level 2: cost 3 - 2 = 1')
     ->tested('Rapid Reload')
     ->covers(['efficiency', 'class-bonus', 'cost-reduction', 'materialize'], '[Class Bonus] **Efficiency**', 'Materialize a Bullet card from your material deck.')
     ->register();
 
-gaScenario('rapid-reload-without-the-class-bonus-pays-the-full-three')
-    ->deck("# Material\n1 Spirit of Fire\n1 Windpiercer\n# Main\n4 Rapid Reload\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep")
-    ->readyFor('Rapid Reload', level: 2)
-    ->seed('myHand', 'Rapid Reload')
-    ->castSpell('Rapid Reload', pay: 3, window: 'me')->answer(1, 'myMaterial-0')
+gaEfficiencyCase('rapid-reload-without-the-class-bonus-pays-the-full-three', 'Rapid Reload', false, 2, 3,
+    fn($s) => $s->deck("# Material\n1 Spirit of Fire\n1 Windpiercer\n# Main\n4 Rapid Reload\n4 Dungeon Guide\n4 Fairy Whispers\n4 Fluffy Shopkeep"))->answer(1, 'myMaterial-0')
     ->expectCardExists('myField', 'Windpiercer', 'The Bullet was materialized')
     ->expectZoneCount('myMemory', 3, 1, 'No class bonus: no Efficiency, full cost 3')
     ->tested('Rapid Reload')

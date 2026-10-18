@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Steadfast** *(This ally can retaliate while rested and doesn't rest to do so.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

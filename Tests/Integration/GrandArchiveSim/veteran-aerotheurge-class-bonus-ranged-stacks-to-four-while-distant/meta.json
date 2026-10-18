@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Class Bonus] **Ranged 2**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

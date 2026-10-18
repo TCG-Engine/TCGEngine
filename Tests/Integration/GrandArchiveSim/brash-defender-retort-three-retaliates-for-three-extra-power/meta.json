@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Retort 3** *(As long as this ally is retaliating, it gets +3 [POWER].)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

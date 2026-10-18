@@ -16,5 +16,6 @@
         "rulesClauses": [
             "**Vigor** *(At the beginning of your end phase, wake up this unit.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

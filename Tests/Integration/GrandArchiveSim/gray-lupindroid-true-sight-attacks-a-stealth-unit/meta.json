@@ -19,5 +19,6 @@
         "rulesClauses": [
             "**True Sight** *(This ally can attack units with **stealth**.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

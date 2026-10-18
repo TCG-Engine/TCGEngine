@@ -54,27 +54,11 @@ gaScenario('ovation-guide-enter-the-opponent-declining-gives-you-nothing')
 
 // ---- Capricious Lynx ----
 
-gaScenario('capricious-lynx-pride-four-does-not-obey-a-level-three-champion')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Capricious Lynx', level: 3)
-    ->seed('myField', 'Capricious Lynx')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 4: a level 3 champion is not enough')
-    ->tested('Capricious Lynx')
-    ->covers(['pride', 'keyword'], '**Pride 4**')
-    ->register();
+gaPrideCase('capricious-lynx-pride-four-does-not-obey-a-level-three-champion', 'Capricious Lynx', 'Dungeon Guide', ['level' => 3],
+    ['pride', 'keyword'], '**Pride 4**', false, 'Pride 4: a level 3 champion is not enough');
 
-gaScenario('capricious-lynx-pride-four-obeys-a-level-four-champion')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Capricious Lynx', level: 4)
-    ->seed('myField', 'Capricious Lynx')
-    ->reachTurnThree()
-    ->attack('myField-1', 'theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Pride 4 is satisfied at level 4: the Lynx attacked and rested')
-    ->tested('Capricious Lynx')
-    ->covers(['pride', 'keyword', 'level-gate'], '**Pride 4**')
-    ->register();
+gaPrideCase('capricious-lynx-pride-four-obeys-a-level-four-champion', 'Capricious Lynx', 'Dungeon Guide', ['level' => 4],
+    ['pride', 'keyword', 'level-gate'], '**Pride 4**', true, 'Pride 4 is satisfied at level 4: the Lynx attacked and rested');
 
 gaScenario('capricious-lynx-class-bonus-enter-loses-all-abilities-so-it-obeys-at-level-zero')
     ->deckTemplate('quiet', 'Dungeon Guide')

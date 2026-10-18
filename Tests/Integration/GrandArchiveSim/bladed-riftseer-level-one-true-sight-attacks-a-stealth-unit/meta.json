@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Level 1+] **True Sight**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

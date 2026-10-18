@@ -17,5 +17,6 @@
         "rulesClauses": [
             "[Class Bonus] CARDNAME gets +1 [POWER]."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

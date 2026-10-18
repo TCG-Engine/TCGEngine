@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**On Death:** Draw a card."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

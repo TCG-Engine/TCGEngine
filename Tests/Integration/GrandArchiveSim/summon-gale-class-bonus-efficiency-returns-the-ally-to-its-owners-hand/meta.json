@@ -21,5 +21,6 @@
             "[Class Bonus] **Efficiency**",
             "Return target ally to its owner's hand."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

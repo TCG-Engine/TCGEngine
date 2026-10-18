@@ -18,5 +18,6 @@
         "rulesClauses": [
             "[Class Bonus] [Level 2+] CARDNAME gets +2 [LIFE]."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

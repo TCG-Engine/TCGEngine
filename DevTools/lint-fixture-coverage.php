@@ -209,6 +209,12 @@ function LintExpectedPropertiesForMechanics($mechanicHits) {
 // Main scan
 // ---------------------------------------------------------------------
 
+$behaviorDefinitions = [];
+if ($rootName === 'GrandArchiveSim') {
+    require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+    $behaviorDefinitions = gaBehaviorDefinitions();
+}
+
 $fixtureRoot = $repoRoot . '/Tests/Integration/' . $rootName;
 if (!is_dir($fixtureRoot)) {
     echo "No fixture directory found for {$rootName}\n";
@@ -218,6 +224,7 @@ if (!is_dir($fixtureRoot)) {
 $slugs = array_values(array_filter(scandir($fixtureRoot), function ($e) use ($fixtureRoot) {
     return $e !== '.' && $e !== '..' && is_dir($fixtureRoot . '/' . $e);
 }));
+$slugs = array_values(array_unique(array_merge($slugs, array_keys($behaviorDefinitions))));
 sort($slugs);
 
 $totalFixtures = 0;
@@ -228,20 +235,22 @@ foreach ($slugs as $slug) {
 
     $dir = $fixtureRoot . '/' . $slug;
     $assertionsPath = $dir . '/assertions.json';
-    if (!is_file($assertionsPath)) continue; // not a real fixture dir
-
+    if (isset($behaviorDefinitions[$slug])) {
+        $def = $behaviorDefinitions[$slug];
+        $meta = ['testedCards' => $def['testedCards']] + $def['meta'];
+        $assertions = $def['assertions'] ?? [];
+        $actions = $def['actions'];
+    } else {
+        if (!is_file($assertionsPath)) continue;
+        $metaPath = $dir . '/meta.json';
+        $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
+        $assertions = json_decode(file_get_contents($assertionsPath), true) ?: [];
+        $actionsPath = $dir . '/actions.json';
+        $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
+    }
     ++$totalFixtures;
-
-    $metaPath = $dir . '/meta.json';
-    $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
     $testedCards = GaResolveTestedCards($meta);
     $semanticContract = GaSemanticContract($meta);
-
-    $assertions = json_decode(file_get_contents($assertionsPath), true);
-    if (!is_array($assertions)) $assertions = [];
-    $actionsPath = $dir . '/actions.json';
-    $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
-    if (!is_array($actions)) $actions = [];
 
     $mechanicHits = LintSlugMatchesMechanicKeywords($slug, $mechanicKeywords);
     $flaggedThisFixture = false;

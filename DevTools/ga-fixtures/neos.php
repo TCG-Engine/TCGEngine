@@ -289,7 +289,6 @@ gaScenario('automata-genesis-summons-three-titan-mk-ii-tokens-and-the-tonoris-bo
 
 // ---- Titan Mk II ----
 
-gaWindTaunt('titan-mk-ii-token-taunt-must-be-attacked-first', 'Titan Mk II', '**Taunt**, **Vigor**');
 
 // ---- Aurousteel Greatsword ----
 

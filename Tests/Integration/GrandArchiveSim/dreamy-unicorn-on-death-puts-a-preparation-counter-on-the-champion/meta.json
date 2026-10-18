@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**On Death**: Put a **preparation** counter on your champion."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

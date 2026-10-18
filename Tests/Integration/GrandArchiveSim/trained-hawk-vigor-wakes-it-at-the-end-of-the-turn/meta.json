@@ -16,5 +16,6 @@
         "rulesClauses": [
             "**Vigor** *(This ally wakes up at the beginning of your end phase.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

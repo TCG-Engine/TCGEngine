@@ -119,7 +119,14 @@ if ($args['root'] === null) {
   exit(1);
 }
 
+$gaBehaviorCases = [];
+if ($args['root'] === 'GrandArchiveSim') {
+  require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+  $gaBehaviorCases = gaBehaviorCases();
+}
+
 $fixtures = $args['test'] !== null ? [$args['test']] : RegressionListFixtures($args['root']);
+if ($args['test'] === null) $fixtures = array_values(array_unique(array_merge($fixtures, array_keys($gaBehaviorCases))));
 if (empty($fixtures)) {
   echo "No regression fixtures found for root {$args['root']}.\n";
   exit(0);
@@ -131,6 +138,21 @@ $executed = 0;
 
 foreach ($fixtures as $slug) {
   ++$executed;
+  if (isset($gaBehaviorCases[$slug])) {
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg(__DIR__ . '/create-prd-ability-fixtures.php')
+      . ' --families ' . escapeshellarg('--fixture=' . $slug) . ' 2>&1';
+    $output = [];
+    exec($command, $output, $status);
+    if ($status === 0 && str_contains(implode("\n", $output), '[PASS] ' . $slug . ' (behavior family)')) {
+      ++$passes;
+      echo "[PASS] $slug (behavior family)\n";
+    } else {
+      ++$failures;
+      echo "[FAIL] $slug (behavior family)\n" . implode("\n", $output) . "\n";
+    }
+    if ($args['verbose'] && $status === 0) echo implode("\n", $output) . "\n";
+    continue;
+  }
   $fixtureDir = RegressionFixtureDir($args['root'], $slug);
   if (!is_dir($fixtureDir)) {
     echo "[FAIL] {$slug}: fixture directory not found.\n";

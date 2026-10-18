@@ -222,15 +222,9 @@ gaScenario('lunar-conduit-pay-three-and-rest-deals-damage-equal-to-its-charge-co
 
 // ---- Weapons ----
 
-gaScenario('sword-of-shadows-class-bonus-gets-plus-one-power')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Sword of Shadows', classBonus: true)
-    ->seed('myField', 'Sword of Shadows')
-    ->observe()
-    ->expectPower('p1Field-1', 2, '1 + 1 with the Warrior class bonus')
-    ->tested('Sword of Shadows')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] Sword of Shadows gets +1[POWER].')
-    ->register();
+gaSingleStatMatrix('Sword of Shadows', 'Dungeon Guide', 'power', ['class-bonus', 'stat-change'], '[Class Bonus] Sword of Shadows gets +1[POWER].', [
+    'sword-of-shadows-class-bonus-gets-plus-one-power' => [['classBonus' => true], 2, '1 + 1 with the Warrior class bonus'],
+]);
 
 gaScenario('sword-of-shadows-gets-minus-one-power-while-an-opponent-controls-an-ally-with-stealth')
     ->deckTemplate('quiet', 'Dungeon Guide')
@@ -243,25 +237,10 @@ gaScenario('sword-of-shadows-gets-minus-one-power-while-an-opponent-controls-an-
     ->covers(['condition', 'stealth', 'stat-change'], 'As long as an opponent controls an ally with **stealth**, Sword of Shadows gets -1[POWER].')
     ->register();
 
-gaScenario('inert-sword-class-bonus-gets-plus-one-power')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Inert Sword', classBonus: true)
-    ->seed('myField', 'Inert Sword')
-    ->observe()
-    ->expectPower('p1Field-1', 3, '2 + 1 with the Guardian class bonus')
-    ->tested('Inert Sword')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] Inert Sword gets +1[POWER].')
-    ->register();
-
-gaScenario('inert-sword-without-the-class-bonus-keeps-two-power')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Inert Sword')
-    ->seed('myField', 'Inert Sword')
-    ->observe()
-    ->expectPower('p1Field-1', 2, 'No class bonus: printed 2')
-    ->tested('Inert Sword')
-    ->covers(['class-bonus', 'condition'], '[Class Bonus] Inert Sword gets +1[POWER].')
-    ->register();
+gaSingleStatMatrix('Inert Sword', 'Dungeon Guide', 'power', ['class-bonus', 'stat-change'], '[Class Bonus] Inert Sword gets +1[POWER].', [
+    'inert-sword-class-bonus-gets-plus-one-power' => [['classBonus' => true], 3, '2 + 1 with the Guardian class bonus'],
+    'inert-sword-without-the-class-bonus-keeps-two-power' => [[], 2, 'No class bonus: printed 2', ['class-bonus', 'condition']],
+]);
 
 gaScenario('palvor-sword-level-one-enter-banishes-the-cards-in-a-graveyard-face-down')
     ->deckTemplate('quiet', 'Dungeon Guide')

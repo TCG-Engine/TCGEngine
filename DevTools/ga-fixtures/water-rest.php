@@ -481,15 +481,7 @@ gaScenario('ebbing-tide-banish-empowers-x-for-the-water-cards-in-your-graveyard-
     ->covers(['activated-ability', 'rest', 'banish-self', 'empower', 'shifting-currents', 'condition'], '[REST], **Banish CARDNAME:** **Empower X**, where **X** is the amount of water element cards in your graveyard. Activate this ability only at slow speed and only if your Shifting Currents face North or South.')
     ->register();
 
-gaScenario('ebbing-tide-hindered-enters-the-field-rested')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Ebbing Tide')
-    ->seed('myMaterial', 'Ebbing Tide')
-    ->endTurn()->endTurn(2)->target('myMaterial-4')
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: it entered rested')
-    ->tested('Ebbing Tide')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This object enters the field rested)*')
-    ->register();
+gaMaterializedHindered('ebbing-tide-hindered-enters-the-field-rested', 'Ebbing Tide', '**Hindered** *(This object enters the field rested)*', ready: true);
 
 
 gaScenario('vaporjet-shield-class-bonus-prevents-one-damage-to-the-linked-unit')

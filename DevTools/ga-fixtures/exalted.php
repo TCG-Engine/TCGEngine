@@ -674,15 +674,7 @@ gaScenario('focusing-gem-rest-and-banish-makes-the-next-card-cost-three-less')
     ->covers(['activated-ability', 'rest', 'banish-self', 'cost-reduction'], '[REST], **Banish CARDNAME:** The next card you activate this turn costs (3) less to activate.')
     ->register();
 
-gaScenario('focusing-gem-hindered-enters-the-field-rested')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->champion(lineage: ['Lorraine, Arclight Saber'])
-    ->seed('myMaterial', 'Focusing Gem')
-    ->endTurn()->endTurn(2)->target('myMaterial-4')
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: it entered rested')
-    ->tested('Focusing Gem')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This object enters the field rested.)*')
-    ->register();
+gaMaterializedHindered('focusing-gem-hindered-enters-the-field-rested', 'Focusing Gem', '**Hindered** *(This object enters the field rested.)*', lineage: ['Lorraine, Arclight Saber']);
 
 gaScenario('heirloom-of-libra-banish-gives-each-opposing-champion-minus-five-level')
     ->deckTemplate('quiet', 'Dungeon Guide')

@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Class Bonus] **Floating Memory**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

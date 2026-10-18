@@ -17,5 +17,6 @@
         "rulesClauses": [
             "[Class Bonus] Inert Sword gets +1[POWER]."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

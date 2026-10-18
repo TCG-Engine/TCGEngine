@@ -51,15 +51,8 @@ gaScenario('wicked-gildbreaker-against-influence-nine-has-stealth')
     ->covers(['influence', 'condition', 'stealth'], 'As long as an opponent has **influence** nine or more, CARDNAME has **stealth** and **vigor**.')
     ->register();
 
-gaScenario('wicked-gildbreaker-against-influence-seven-has-no-vigor')
-    ->deckTemplate('quiet', 'Wicked Gildbreaker')
-    ->readyFor('Wicked Gildbreaker')
-    ->seed('myField', 'Wicked Gildbreaker', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '1', 'Influence 7: no vigor, still rested')
-    ->tested('Wicked Gildbreaker')
-    ->covers(['influence', 'condition', 'vigor'], 'As long as an opponent has **influence** nine or more')
-    ->register();
+gaVigorCase('wicked-gildbreaker-against-influence-seven-has-no-vigor', 'Wicked Gildbreaker', 'Wicked Gildbreaker', [],
+    ['influence', 'condition', 'vigor'], 'As long as an opponent has **influence** nine or more', '1', 'Influence 7: no vigor, still rested');
 
 // ---- Biding Endroid ----
 
@@ -110,47 +103,22 @@ gaScenario('cheerful-slime-without-the-class-bonus-gains-nothing')
 
 // ---- Automated Gardener ----
 
-gaScenario('automated-gardener-class-bonus-enter-gathers-a-token')
-    ->deckTemplate('quiet', 'Automated Gardener')
-    ->readyFor('Automated Gardener', classBonus: true)
-    ->seed('myHand', 'Automated Gardener')
-    ->play('Automated Gardener')->pay(3)
-    ->expectZoneCount('myField', 3, 1, '[Class Bonus] Gather: a random plant token joined the champion and the Gardener')
+gaEnterGatherCase('automated-gardener-class-bonus-enter-gathers-a-token', 'Automated Gardener', 3, true, 3, '[Class Bonus] Gather: a random plant token joined the champion and the Gardener')
     ->tested('Automated Gardener')
     ->covers(['class-bonus', 'on-enter', 'gather', 'summon'], '[Class Bonus] **On Enter**: **Gather**.')
     ->register();
 
-gaScenario('automated-gardener-without-the-class-bonus-gathers-nothing')
-    ->deckTemplate('quiet', 'Automated Gardener')
-    ->readyFor('Automated Gardener')
-    ->seed('myHand', 'Automated Gardener')
-    ->play('Automated Gardener')->pay(3)
-    ->expectZoneCount('myField', 2, 1, 'No class bonus: only the champion and the Gardener')
+gaEnterGatherCase('automated-gardener-without-the-class-bonus-gathers-nothing', 'Automated Gardener', 3, false, 2, 'No class bonus: only the champion and the Gardener')
     ->tested('Automated Gardener')
     ->covers(['class-bonus', 'condition', 'gather'], '[Class Bonus] **On Enter**: **Gather**.')
     ->register();
 
 // ---- Allied Warpriestess ----
 
-gaScenario('allied-warpriestess-class-bonus-gets-plus-one-power')
-    ->deckTemplate('quiet', 'Allied Warpriestess')
-    ->readyFor('Allied Warpriestess', classBonus: true)
-    ->seed('myField', 'Allied Warpriestess')
-    ->observe()
-    ->expectPower('p1Field-1', 2, '[Class Bonus] 1 + 1 power')
-    ->tested('Allied Warpriestess')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER].')
-    ->register();
-
-gaScenario('allied-warpriestess-without-the-class-bonus-has-its-printed-power')
-    ->deckTemplate('quiet', 'Allied Warpriestess')
-    ->readyFor('Allied Warpriestess')
-    ->seed('myField', 'Allied Warpriestess')
-    ->observe()
-    ->expectPower('p1Field-1', 1, 'No class bonus: the printed 1 power')
-    ->tested('Allied Warpriestess')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER].')
-    ->register();
+gaSingleStatMatrix('Allied Warpriestess', 'Allied Warpriestess', 'power', ['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER].', [
+    'allied-warpriestess-class-bonus-gets-plus-one-power' => [['classBonus' => true], 2, '[Class Bonus] 1 + 1 power'],
+    'allied-warpriestess-without-the-class-bonus-has-its-printed-power' => [[], 1, 'No class bonus: the printed 1 power'],
+]);
 
 gaScenario('allied-warpriestess-memory-four-on-attack-recovers-two')
     ->deckTemplate('quiet', 'Allied Warpriestess')

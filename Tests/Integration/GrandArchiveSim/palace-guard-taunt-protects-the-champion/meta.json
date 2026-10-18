@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**Taunt**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

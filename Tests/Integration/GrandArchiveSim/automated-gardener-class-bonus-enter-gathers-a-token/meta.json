@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter**: **Gather**."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

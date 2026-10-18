@@ -18,5 +18,6 @@
         "rulesClauses": [
             "[Level 2+] **Vigor**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

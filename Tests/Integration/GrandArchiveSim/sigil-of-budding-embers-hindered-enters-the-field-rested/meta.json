@@ -17,5 +17,6 @@
         "rulesClauses": [
             "**Hindered** *(This object enters the field rested.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

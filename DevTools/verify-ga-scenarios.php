@@ -21,9 +21,13 @@ $fixtureRoot = 'Tests/Integration/GrandArchiveSim';
 require_once $repoRoot . '/Core/EngineActionRunner.php';
 EngineLoadRootRuntime('GrandArchiveSim');
 
+require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+$behaviorCases = gaBehaviorCases();
+
 $keep = in_array('--keep', $argv, true);   // compare only; leave regenerated files in place (restore once afterwards, e.g. when running slugs in parallel)
 $slugs = array_values(array_filter(array_slice($argv, 1), fn($a) => !str_starts_with($a, '--')));
 if (empty($slugs)) {
+    $slugs = array_keys($behaviorCases);
     foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $file) {
         if (in_array(basename($file), ['Scenario.php', 'decks.php'], true)) continue;
         if (preg_match_all("/gaScenario\\('((?:[^'\\\\]|\\\\.)+)'\\)/", file_get_contents($file), $m)) {
@@ -43,10 +47,14 @@ foreach ($slugs as $slug) {
     $dir = "$fixtureRoot/$slug";
     $existedInHead = verifyHeadFile($repoRoot, "$dir/actions.json") !== null;
     $log = shell_exec('cd ' . escapeshellarg($repoRoot) . ' && php DevTools/create-prd-ability-fixtures.php --fixture=' . escapeshellarg($slug) . ' 2>&1');
+    if (isset($behaviorCases[$slug]) && str_contains($log, '[PASS] ' . $slug . ' (behavior family)')) {
+        echo "PASS  $slug (behavior family, no recorded snapshot)\n";
+        continue;
+    }
     if (strpos($log, '[OK] Fixture passes verification') === false) {
         $failures[$slug] = ['generator verification failed'];
         echo "FAIL  $slug (generator verification failed)\n";
-        if (!$keep) shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
+        if (!$keep && !isset($behaviorCases[$slug])) shell_exec('cd ' . escapeshellarg($repoRoot) . ' && git checkout -- ' . escapeshellarg($dir) . ' 2>/dev/null');
         continue;
     }
     if (!$existedInHead) {
@@ -85,6 +93,6 @@ foreach ($slugs as $slug) {
     }
 }
 
-echo "\n" . (count($slugs) - count($failures)) . " of " . count($slugs) . " scenarios match HEAD"
+echo "\n" . (count($slugs) - count($failures)) . " of " . count($slugs) . " scenarios verified"
     . ($formatDrift ? " (" . count($formatDrift) . " of them differ only in recorded gamestate serialization)" : "") . ".\n";
 exit($failures ? 1 : 0);

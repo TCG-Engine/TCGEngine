@@ -7,25 +7,10 @@
 
 gaWindRanged('winbless-arbalest-ranged-two-while-distant', 'Winbless Arbalest', 4, 'Ranged 2 while distant: 2 + 2 = 4 damage', '**Ranged 2**');
 
-gaScenario('winbless-arbalest-class-bonus-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Winbless Arbalest')
-    ->readyFor('Winbless Arbalest', classBonus: true)
-    ->seed('myField', 'Winbless Arbalest', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', 'Class Bonus vigor: the rested Arbalest woke at the end phase')
-    ->tested('Winbless Arbalest')
-    ->covers(['vigor', 'class-bonus'], '[Class Bonus] **Vigor**')
-    ->register();
-
-gaScenario('winbless-arbalest-without-the-class-bonus-stays-rested')
-    ->deckTemplate('quiet', 'Winbless Arbalest')
-    ->readyFor('Winbless Arbalest')
-    ->seed('myField', 'Winbless Arbalest', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '1', 'No class bonus: no vigor')
-    ->tested('Winbless Arbalest')
-    ->covers(['vigor', 'class-bonus', 'condition'], '[Class Bonus] **Vigor**')
-    ->register();
+gaVigorMatrix('Winbless Arbalest', 'Winbless Arbalest', ['vigor', 'class-bonus'], '[Class Bonus] **Vigor**', [
+    'winbless-arbalest-class-bonus-vigor-wakes-it-at-the-end-of-the-turn' => [['classBonus' => true], '2', 'Class Bonus vigor: the rested Arbalest woke at the end phase'],
+    'winbless-arbalest-without-the-class-bonus-stays-rested' => [[], '1', 'No class bonus: no vigor', ['vigor', 'class-bonus', 'condition'], '[Class Bonus] **Vigor**'],
+]);
 
 // ---- Yunzhou Cavalry ----
 
@@ -231,9 +216,6 @@ gaScenario('windstalker-wolf-attacks-for-five-when-the-champion-reaches-the-prid
 
 // ---- Vigilant Sentry / Sworn Windhand (taunt) ----
 
-gaWindTaunt('vigilant-sentry-class-bonus-taunt-protects-the-champion', 'Vigilant Sentry', '[Class Bonus] **Taunt**', true);
-gaWindTaunt('sworn-windhand-class-bonus-taunt-protects-the-champion', 'Sworn Windhand', '[Class Bonus] **Taunt**', true);
-
 gaScenario('sworn-windhand-retaliates-with-retort-two-plus-the-number-of-omens')
     ->deckTemplate('quiet', 'Sworn Windhand')
     ->readyFor('Sworn Windhand')
@@ -273,15 +255,8 @@ gaScenario('trained-hawk-true-sight-attacks-a-stealth-unit')
     ->covers(['true-sight', 'stealth', 'combat'], '**True Sight** *(This ally can attack units with **stealth**.)*')
     ->register();
 
-gaScenario('trained-hawk-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Trained Hawk')
-    ->readyFor('Trained Hawk')
-    ->seed('myField', 'Trained Hawk', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', 'Vigor: the rested Hawk woke at the end phase')
-    ->tested('Trained Hawk')
-    ->covers(['vigor'], '**Vigor** *(This ally wakes up at the beginning of your end phase.)*')
-    ->register();
+gaVigorCase('trained-hawk-vigor-wakes-it-at-the-end-of-the-turn', 'Trained Hawk', 'Trained Hawk', [],
+    ['vigor'], '**Vigor** *(This ally wakes up at the beginning of your end phase.)*', '2', 'Vigor: the rested Hawk woke at the end phase');
 
 // ---- Sword Saint of Eveswind ----
 

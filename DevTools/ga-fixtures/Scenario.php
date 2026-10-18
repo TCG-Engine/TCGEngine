@@ -369,6 +369,12 @@ class GaScenario {
         return $this;
     }
 
+    // Marks a reviewed shared suite; discovery is checked against families.json.
+    public function behaviorFamily(string $family): self {
+        $this->meta['behaviorFamily'] = $family;
+        return $this;
+    }
+
     // ---- meta.json ---------------------------------------------------------------------------
 
     public function notes(string $notes): self {
@@ -455,7 +461,7 @@ function gaAbilitySandbox(string $slug, string $cardName, string $classes = 'WAR
 // casts a targeting spell, every holder is refused as an answer (the engine must reject it), and the decoy is then chosen
 // and resolves. $spell picks the kit: 'Liturgy of Corruption' (buff counter on an ally, decoy Dungeon Guide), 'Fracturize'
 // (item/weapon becomes a phantasia, decoy Mirrordepth's Blade) or 'Disenchant' (decoy Ominous Shadow; the refusals are
-// the only evidence). $holderCounters is each holder's Counters JSON (default none); $word is the keyword in the labels
+// checked along with survival and destruction of the legal decoy). $holderCounters is each holder's Counters JSON (default none); $word is the keyword in the labels
 // ('Spellshroud' or 'Omnishroud'); $oppChampion replaces player 2's champion (class-dependent shroud).
 function gaSpellshroudCase(string $slug, array $holders, string $spell, array $holderCounters = [], string $word = 'Spellshroud', ?string $oppChampion = null): GaScenario {
     global $mordredDeck;
@@ -470,7 +476,7 @@ function gaSpellshroudCase(string $slug, array $holders, string $spell, array $h
     if (!isset($kits[$spell])) throw new RuntimeException("gaSpellshroudCase[{$slug}]: unknown spell kit '{$spell}'");
     $kit = $kits[$spell];
     $n = count($holders);
-    $s = gaScenario($slug)->deck($mordredDeck);
+    $s = gaScenario($slug)->behaviorFamily('spellshroud')->deck($mordredDeck);
     if ($oppChampion !== null) $s->champion(cardName: $oppChampion, player: 2);
     foreach ($holders as $h) $s->seed('myField', $h, player: 2);
     $s->seed('myField', $kit['decoy'], player: 2)
@@ -484,7 +490,16 @@ function gaSpellshroudCase(string $slug, array $holders, string $spell, array $h
     }
     $step = $n + 3;
     $s->target('theirField-' . ($n + 1))->tested(...$holders);
-    if (!isset($kit['pre'])) return $s;
+    if (!isset($kit['pre'])) {
+        $s->expectZoneCount('theirField', $n + 2, 1, 'Rejected targets leave the field unchanged', step: $step);
+        foreach ($holders as $i => $h) {
+            $s->expectProperty('p2Field-' . ($i + 1), 'Counters', $holderCounters[$i] ?? '[]', 'Rejected spell leaves protected counters unchanged', step: $step)
+                ->expectProperty('p2Field-' . ($i + 1), 'Counters', $holderCounters[$i] ?? '[]', 'Resolved spell leaves protected counters unchanged')
+                ->expectCardExists('theirField', $h, 'Protected holder remains on the field');
+        }
+        return $s->expectZoneCount('theirField', $n + 1, 1, 'The legal token decoy was destroyed; protected holders remain')
+            ->expectProperty('p1Graveyard-0', 'CardID', GaScenario::id($spell), 'Disenchant resolved')->expectDqEmpty();
+    }
     $hc = fn($i) => $holderCounters[$i] ?? '[]';
     foreach ($holders as $i => $h) {
         $s->expectProperty('p2Field-' . ($i + 1), 'Counters', $hc($i), "The refused answers left {$names[$i]} untouched: {$word} stops the opposing {$spell} from targeting it", step: $step);
@@ -504,11 +519,11 @@ function gaSpellshroudCase(string $slug, array $holders, string $spell, array $h
 // Layer 2 shape helper (moved here from water-allies2.php so every element file can use it): $card sits in the graveyard with no
 // memory seeded; levelling up banishes it as the memory payment. $classes overrides the champion class; $pays=false is the no-bonus twin.
 function gaFloatingPays(string $slug, string $card, string $clause, ?string $classes = null, bool $pays = true, string $label = ''): void {
-    $s = gaScenario($slug)->deckTemplate('lorraine-windslice', 'Dungeon Guide');
+    $s = gaScenario($slug)->behaviorFamily('floating-memory')->deckTemplate('lorraine-windslice', 'Dungeon Guide');
     if ($classes !== null) $s->champion(classes: $classes);
     $s->seed('myGraveyard', $card)->endTurn()->endTurn(2)->target('myMaterial-0');
     if ($pays) {
-        $s->target('myGraveyard-0')
+        $s->target('myGraveyard-0')->expectCardExists('myBanish', $card, 'Floating Memory banishes the payment card')
           ->expectProperty('myField-0', 'CardID', 'DpHDGaX2Pn', 'The champion levelled up, so the 1-memory cost was paid')
           ->expectZoneCount('myGraveyard', 0, 1, $label !== '' ? $label : "$card was banished from the graveyard as the floating memory payment");
     } else {

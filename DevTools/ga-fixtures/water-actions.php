@@ -24,15 +24,6 @@ gaScenario('bolt-of-diamonds-level-two-costs-two-less')
     ->covers(['cost-reduction', 'level'], '[Level 2+] This card costs 2 less to activate.')
     ->register();
 
-gaScenario('aenean-swelling-tides-recovers-three')
-    ->standardDeck('Aenean Swelling Tides')
-    ->readyFor('Aenean Swelling Tides', damage: 5)
-    ->seed('myHand', 'Aenean Swelling Tides')
-    ->castSpell('Aenean Swelling Tides', pay: 2, window: 'both')
-    ->expectDamage('p1Field-0', 2, 'Recover 3: 5 damage down to 2')
-    ->tested('Aenean Swelling Tides')
-    ->covers(['recover'], '**Recover 3**.')
-    ->register();
 
 gaScenario('frigid-embrittlement-deals-two-damage-to-a-rested-unit')
     ->standardDeck('Frigid Embrittlement')

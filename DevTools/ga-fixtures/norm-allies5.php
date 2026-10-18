@@ -87,25 +87,10 @@ gaScenario('determined-spearman-equestrian-with-a-horse-costs-one-less')
     ->covers(['equestrian', 'cost-reduction', 'condition'], '***Equestrian*** — As long as you control a Horse ally, this card costs 1 less to activate.')
     ->register();
 
-gaScenario('determined-spearman-level-one-gets-plus-one-life')
-    ->deckTemplate('quiet', 'Determined Spearman')
-    ->readyFor('Determined Spearman', level: 1)
-    ->seed('myField', 'Determined Spearman')
-    ->observe()
-    ->expectLife('p1Field-1', 3, '[Level 1+] 2 + 1 life')
-    ->tested('Determined Spearman')
-    ->covers(['level-gate', 'stat-change'], '[Level 1+] CARDNAME gets +1 [LIFE].')
-    ->register();
-
-gaScenario('determined-spearman-below-level-one-has-its-printed-life')
-    ->deckTemplate('quiet', 'Determined Spearman')
-    ->readyFor('Determined Spearman', level: 0)
-    ->seed('myField', 'Determined Spearman')
-    ->observe()
-    ->expectLife('p1Field-1', 2, 'Level 0: the printed 2 life')
-    ->tested('Determined Spearman')
-    ->covers(['level-gate', 'stat-change'], '[Level 1+] CARDNAME gets +1 [LIFE].')
-    ->register();
+gaSingleStatMatrix('Determined Spearman', 'Determined Spearman', 'life', ['level-gate', 'stat-change'], '[Level 1+] CARDNAME gets +1 [LIFE].', [
+    'determined-spearman-level-one-gets-plus-one-life' => [['level' => 1], 3, '[Level 1+] 2 + 1 life'],
+    'determined-spearman-below-level-one-has-its-printed-life' => [['level' => 0], 2, 'Level 0: the printed 2 life'],
+]);
 
 // ---- Eight of Spades ----
 
@@ -155,15 +140,8 @@ gaScenario('promising-recruit-below-level-two-gets-no-counter')
 
 // ---- Vigor family ----
 
-gaScenario('fervent-beastmaster-class-bonus-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Fervent Beastmaster')
-    ->readyFor('Fervent Beastmaster', classBonus: true)
-    ->seed('myField', 'Fervent Beastmaster', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', '[Class Bonus] Vigor woke the Beastmaster')
-    ->tested('Fervent Beastmaster')
-    ->covers(['class-bonus', 'vigor'], '[Class Bonus] **Vigor**')
-    ->register();
+gaVigorCase('fervent-beastmaster-class-bonus-vigor-wakes-it-at-the-end-of-the-turn', 'Fervent Beastmaster', 'Fervent Beastmaster', ['classBonus' => true],
+    ['class-bonus', 'vigor'], '[Class Bonus] **Vigor**', '2', '[Class Bonus] Vigor woke the Beastmaster');
 
 gaScenario('fervent-beastmaster-with-a-beast-ally-gets-plus-one-power-and-life')
     ->deckTemplate('quiet', 'Fervent Beastmaster')
@@ -177,37 +155,15 @@ gaScenario('fervent-beastmaster-with-a-beast-ally-gets-plus-one-power-and-life')
     ->covers(['condition', 'stat-change'], 'As long as you control a Beast ally, CARDNAME gets +1 [POWER] and +1 [LIFE].')
     ->register();
 
-gaScenario('sturdy-droid-class-bonus-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Sturdy Droid')
-    ->readyFor('Sturdy Droid', classBonus: true)
-    ->seed('myField', 'Sturdy Droid', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', '[Class Bonus] Vigor woke the Droid')
-    ->tested('Sturdy Droid')
-    ->covers(['class-bonus', 'vigor'], '[Class Bonus] **Vigor**')
-    ->register();
-
-gaScenario('sturdy-droid-without-the-class-bonus-stays-rested')
-    ->deckTemplate('quiet', 'Sturdy Droid')
-    ->readyFor('Sturdy Droid')
-    ->seed('myField', 'Sturdy Droid', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '1', 'No class bonus: no vigor')
-    ->tested('Sturdy Droid')
-    ->covers(['class-bonus', 'vigor', 'condition'], '[Class Bonus] **Vigor**')
-    ->register();
+gaVigorMatrix('Sturdy Droid', 'Sturdy Droid', ['class-bonus', 'vigor'], '[Class Bonus] **Vigor**', [
+    'sturdy-droid-class-bonus-vigor-wakes-it-at-the-end-of-the-turn' => [['classBonus' => true], '2', '[Class Bonus] Vigor woke the Droid'],
+    'sturdy-droid-without-the-class-bonus-stays-rested' => [[], '1', 'No class bonus: no vigor', ['class-bonus', 'vigor', 'condition'], '[Class Bonus] **Vigor**'],
+]);
 
 // ---- Lumbering Steed ----
 
-gaScenario('lumbering-steed-hindered-enters-rested')
-    ->deckTemplate('quiet', 'Lumbering Steed')
-    ->readyFor('Lumbering Steed')
-    ->seed('myHand', 'Lumbering Steed')
-    ->play('Lumbering Steed')->pay(4)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: the Steed entered rested')
-    ->tested('Lumbering Steed')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*')
-    ->register();
+gaHinderedCase('lumbering-steed-hindered-enters-rested', 'Lumbering Steed', 'Lumbering Steed', [],
+    ['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*', 4, 'Hindered: the Steed entered rested');
 
 // ---- Banner Slime / Baby Silver Slime ----
 

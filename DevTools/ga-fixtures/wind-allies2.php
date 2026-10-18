@@ -506,27 +506,10 @@ gaScenario('battlefield-spotter-below-level-two-grants-no-ranged')
 
 // ---- Unrelenting Warden ----
 
-gaWindTaunt('unrelenting-warden-class-bonus-taunt-protects-the-champion', 'Unrelenting Warden', '[Class Bonus] **Taunt**', true);
-
-gaScenario('unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Unrelenting Warden')
-    ->readyFor('Unrelenting Warden', level: 2)
-    ->seed('myField', 'Unrelenting Warden', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', 'Level 2: vigor woke the Warden at the end phase')
-    ->tested('Unrelenting Warden')
-    ->covers(['level-gate', 'vigor'], '[Level 2+] **Vigor**')
-    ->register();
-
-gaScenario('unrelenting-warden-below-level-two-stays-rested')
-    ->deckTemplate('quiet', 'Unrelenting Warden')
-    ->readyFor('Unrelenting Warden', level: 1)
-    ->seed('myField', 'Unrelenting Warden', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '1', 'Level 1: no vigor, the Warden is still rested')
-    ->tested('Unrelenting Warden')
-    ->covers(['level-gate', 'vigor', 'condition'], '[Level 2+] **Vigor**')
-    ->register();
+gaVigorMatrix('Unrelenting Warden', 'Unrelenting Warden', ['level-gate', 'vigor'], '[Level 2+] **Vigor**', [
+    'unrelenting-warden-level-two-vigor-wakes-it-at-the-end-of-the-turn' => [['level' => 2], '2', 'Level 2: vigor woke the Warden at the end phase'],
+    'unrelenting-warden-below-level-two-stays-rested' => [['level' => 1], '1', 'Level 1: no vigor, the Warden is still rested', ['level-gate', 'vigor', 'condition'], '[Level 2+] **Vigor**'],
+]);
 
 // ---- Brisk Windtrotter ----
 

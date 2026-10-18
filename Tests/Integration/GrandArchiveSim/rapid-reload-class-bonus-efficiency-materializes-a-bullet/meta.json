@@ -20,5 +20,6 @@
             "[Class Bonus] **Efficiency**",
             "Materialize a Bullet card from your material deck."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

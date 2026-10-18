@@ -113,15 +113,8 @@ gaScenario('galahad-class-bonus-can-attack-using-a-sword-weapon')
 
 // ---- Lucca, Gateway Manager ----
 
-gaScenario('lucca-class-bonus-vigor-wakes-her-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Lucca, Gateway Manager', classBonus: true)
-    ->seed('myField', 'Lucca, Gateway Manager', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', '[Class Bonus] Vigor woke Lucca at the end phase')
-    ->tested('Lucca, Gateway Manager')
-    ->covers(['class-bonus', 'vigor'], '[Class Bonus] **Vigor**')
-    ->register();
+gaVigorCase('lucca-class-bonus-vigor-wakes-her-at-the-end-of-the-turn', 'Lucca, Gateway Manager', 'Dungeon Guide', ['classBonus' => true],
+    ['class-bonus', 'vigor'], '[Class Bonus] **Vigor**', '2', '[Class Bonus] Vigor woke Lucca at the end phase');
 
 gaScenario('lucca-rest-cascades')
     ->deckTemplate('quiet', 'Dungeon Guide')

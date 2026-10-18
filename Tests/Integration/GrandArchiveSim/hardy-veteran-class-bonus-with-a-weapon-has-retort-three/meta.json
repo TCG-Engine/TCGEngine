@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Class Bonus] As long as you control a weapon, CARDNAME has **retort 3**."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

@@ -356,15 +356,6 @@ gaScenario('weaving-manastream-makes-your-champion-distant')
     ->covers(['distant', 'champion'], 'Your champion becomes **distant**.')
     ->register();
 
-gaScenario('refreshing-charge-recovers-three')
-    ->standardDeck('Refreshing Charge')
-    ->readyFor('Refreshing Charge', damage: 5)
-    ->seed('myHand', 'Refreshing Charge')
-    ->castSpell('Refreshing Charge', pay: 2, window: 'both')
-    ->expectDamage('p1Field-0', 2, 'Recover 3: 5 damage became 2')
-    ->tested('Refreshing Charge')
-    ->covers(['recover'], '**Recover 3**.')
-    ->register();
 
 gaScenario('spalling-cleanse-without-the-mastery-recovers-three')
     ->standardDeck('Spalling Cleanse')

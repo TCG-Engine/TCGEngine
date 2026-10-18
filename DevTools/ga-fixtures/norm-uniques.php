@@ -72,16 +72,8 @@ gaScenario('gildas-balance-with-unequal-hand-and-memory-has-its-printed-power')
 
 // ---- Geldus, Terror of Dorumegia ----
 
-gaScenario('geldus-pride-four-does-not-obey-a-level-three-champion')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Geldus, Terror of Dorumegia', level: 3)
-    ->seed('myField', 'Geldus, Terror of Dorumegia')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 4: a level 3 champion is not enough')
-    ->tested('Geldus, Terror of Dorumegia')
-    ->covers(['pride', 'keyword'], '**Pride 4**')
-    ->register();
+gaPrideCase('geldus-pride-four-does-not-obey-a-level-three-champion', 'Geldus, Terror of Dorumegia', 'Dungeon Guide', ['level' => 3],
+    ['pride', 'keyword'], '**Pride 4**', false, 'Pride 4: a level 3 champion is not enough');
 
 gaScenario('geldus-level-three-costs-two-less')
     ->deckTemplate('quiet', 'Dungeon Guide')
@@ -95,25 +87,14 @@ gaScenario('geldus-level-three-costs-two-less')
 
 // ---- Lancelot, Goliath of Aesa ----
 
-gaScenario('lancelot-hindered-enters-rested')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Lancelot, Goliath of Aesa')
-    ->seed('myHand', 'Lancelot, Goliath of Aesa')
-    ->play('Lancelot, Goliath of Aesa')->pay(4)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: Lancelot entered rested')
-    ->tested('Lancelot, Goliath of Aesa')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*')
-    ->register();
+gaHinderedCase('lancelot-hindered-enters-rested', 'Lancelot, Goliath of Aesa', 'Dungeon Guide', [],
+    ['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*', 4, 'Hindered: Lancelot entered rested');
 
-gaScenario('lancelot-class-bonus-level-two-gets-plus-two-life')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Lancelot, Goliath of Aesa', classBonus: true, level: 2)
-    ->seed('myField', 'Lancelot, Goliath of Aesa')
-    ->observe()
-    ->expectLife('p1Field-1', 5, '[Class Bonus] [Level 2+] 3 + 2 life')
-    ->tested('Lancelot, Goliath of Aesa')
-    ->covers(['class-bonus', 'level-gate', 'stat-change'], '[Class Bonus] [Level 2+] CARDNAME gets +2 [LIFE].')
-    ->register();
+gaSingleStatMatrix('Lancelot, Goliath of Aesa', 'Dungeon Guide', 'life', ['class-bonus', 'level-gate', 'stat-change'], '[Class Bonus] [Level 2+] CARDNAME gets +2 [LIFE].', [
+    'lancelot-class-bonus-level-two-gets-plus-two-life' => [['classBonus' => true, 'level' => 2], 5, '[Class Bonus] [Level 2+] 3 + 2 life'],
+    'lancelot-without-class-bonus-level-two-keeps-printed-life' => [['level' => 2], 3, 'No class bonus: printed 3 life'],
+    'lancelot-class-bonus-below-level-two-keeps-printed-life' => [['classBonus' => true, 'level' => 1], 3, 'Level 1: printed 3 life'],
+]);
 
 gaScenario('lancelot-on-attack-paying-three-gets-plus-three-power')
     ->deckTemplate('quiet', 'Dungeon Guide')

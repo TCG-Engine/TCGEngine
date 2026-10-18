@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2 [POWER].)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

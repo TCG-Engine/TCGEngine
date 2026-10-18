@@ -102,16 +102,8 @@ gaScenario('trained-birdroid-automaton-allies-have-true-sight')
 
 // ---- Engineered Slime ----
 
-gaScenario('engineered-slime-pride-two-does-not-obey-a-level-one-champion')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Engineered Slime', level: 1)
-    ->seed('myField', 'Engineered Slime')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 2: a level 1 champion is not enough')
-    ->tested('Engineered Slime')
-    ->covers(['pride', 'keyword'], '**Pride 2**')
-    ->register();
+gaPrideCase('engineered-slime-pride-two-does-not-obey-a-level-one-champion', 'Engineered Slime', 'Dungeon Guide', ['level' => 1],
+    ['pride', 'keyword'], '**Pride 2**', false, 'Pride 2: a level 1 champion is not enough');
 
 // ---- Academy Guide ----
 

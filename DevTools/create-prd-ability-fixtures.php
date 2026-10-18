@@ -2,7 +2,7 @@
 /**
  * Batch-create PRD regression fixtures programmatically.
  *
- * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG]
+ * Usage: php DevTools/create-prd-ability-fixtures.php [--seed=N] [--dry-run] [--fixture=SLUG] [--families]
  *
  * Creates selfplay games from curated decks, replays actions to exercise
  * specific card abilities, and saves regression fixtures.
@@ -12,11 +12,13 @@ ini_set('display_errors', 1);
 
 $repoRoot = dirname(__DIR__);
 $rootName = 'GrandArchiveSim';
+chdir($repoRoot);
 $seed = 42;
 $dryRun = false;
 $onlyFixture = null;
 $resetMeta = false;
 $auditActions = false;
+$familiesOnly = in_array('--families', $argv, true);
 
 foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--seed=')) $seed = intval(substr($arg, 7));
@@ -1140,14 +1142,39 @@ if (!empty($inlineViolations)) {
     exit(1);
 }
 require_once __DIR__ . '/ga-fixtures/Scenario.php';
+require_once __DIR__ . '/ga-fixtures/helpers.php';
 foreach (glob(__DIR__ . '/ga-fixtures/*.php') as $scenarioFile) {
     if (!in_array(basename($scenarioFile), ['Scenario.php', 'decks.php'], true)) require_once $scenarioFile;
 }
+
+// Read-only definition export for inventory tools and reviewed family discovery.
+if (in_array('--export-shared-families', $argv, true)) {
+    echo json_encode(array_filter($fixtures, fn($def) => isset($def['meta']['behaviorFamily'])), JSON_THROW_ON_ERROR);
+    exit(0);
+}
+
+// Behavior families run from definitions and never record their own expected outcomes.
+require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+$behaviorCases = gaBehaviorCases();
+foreach ($behaviorCases as $behaviorSlug => $row) {
+    if ($row[1] === '@shared') {
+        if (($fixtures[$behaviorSlug]['meta']['behaviorFamily'] ?? null) !== $row[0]) {
+            throw new RuntimeException("Shared behavior definition missing or changed: $behaviorSlug");
+        }
+    } else gaBehaviorScenario($behaviorSlug, $row)->register();
+}
+foreach ($fixtures as $sharedSlug => $sharedDef) {
+    if (isset($sharedDef['meta']['behaviorFamily']) && !isset($behaviorCases[$sharedSlug])) {
+        throw new RuntimeException("Shared behavior missing from reviewed families.json: $sharedSlug");
+    }
+}
+if ($familiesOnly) $fixtures = array_intersect_key($fixtures, $behaviorCases);
 
 // --audit-actions: list saved fixtures whose actions.json has fewer actions than their definition (an older generator silently dropped every action after the first refused one).
 if ($auditActions) {
     $checked = 0; $truncated = 0;
     foreach ($fixtures as $auditSlug => $auditDef) {
+        if (isset($behaviorCases[$auditSlug])) continue;
         $auditFile = "$repoRoot/Tests/Integration/$rootName/$auditSlug/actions.json";
         if (!is_file($auditFile)) continue;
         ++$checked;
@@ -1180,7 +1207,7 @@ foreach ($fixtures as $slug => $def) {
     $fixtureDir = $repoRoot . '/Tests/Integration/' . $rootName . '/' . $slug;
 
     if ($dryRun) {
-        echo "[DRY-RUN] Would create $fixtureDir\n";
+        echo isset($behaviorCases[$slug]) ? "[DRY-RUN] Would run behavior family $slug\n" : "[DRY-RUN] Would create $fixtureDir\n";
         echo "  Deck: " . substr_count($def['deck'], "\n") . " lines\n";
         echo "  Actions: " . count($def['actions']) . "\n";
         echo "  Tested cards: " . implode(', ', $def['testedCards']) . "\n";
@@ -1188,10 +1215,12 @@ foreach ($fixtures as $slug => $def) {
         continue;
     }
 
+    $behaviorOnly = isset($behaviorCases[$slug]);
+
     // Clean existing fixture (keeping its hand-written assertions and meta unless --reset-meta)
     $keptAssertionsJson = null;
     $keptMeta = null;
-    if (is_dir($fixtureDir)) {
+    if (!$behaviorOnly && is_dir($fixtureDir)) {
         if (!$resetMeta) {
             if (is_file($fixtureDir . '/assertions.json')) {
                 $decodedAssertions = json_decode(file_get_contents($fixtureDir . '/assertions.json'), true);
@@ -1204,9 +1233,9 @@ foreach ($fixtures as $slug => $def) {
         }
         RegressionDeleteDirRecursive($fixtureDir);
     }
-    RegressionEnsureDir($fixtureDir);
+    if (!$behaviorOnly) RegressionEnsureDir($fixtureDir);
 
-    $gameName = 'prd_batch_' . $slug . '_' . $seed;
+    $gameName = 'prd_batch_' . $slug . '_' . $seed . '_' . bin2hex(random_bytes(4));
     $gameDir = $repoRoot . '/' . $rootName . '/Games/' . $gameName;
 
     try {
@@ -1218,8 +1247,8 @@ foreach ($fixtures as $slug => $def) {
         $GLOBALS['gameName'] = $gameName;
         InitializeGamestate();
         SetDeterministicRandomCounter($seed);
-        WriteGamestate('./');
-        ParseGamestate('./');
+        WriteGamestate('./' . $rootName . '/');
+        ParseGamestate('./' . $rootName . '/');
         SetDeterministicRandomCounter($seed);
 
         // 2. Load decks
@@ -1405,8 +1434,9 @@ foreach ($fixtures as $slug => $def) {
         // 5. Save initial gamestate
         RegressionFlushCurrentGamestate($rootName);
         $initialGamestate = RegressionCurrentGamestateText($rootName, $gameName);
-        file_put_contents($fixtureDir . '/initial_gamestate.txt', $initialGamestate);
-        echo "  Saved initial gamestate\n";
+        if (!$behaviorOnly) file_put_contents($fixtureDir . '/initial_gamestate.txt', $initialGamestate);
+        if ($behaviorOnly) gaCheckBehaviorStep($def, $behaviorCases[$slug][0], 0);
+        echo "  Prepared initial gamestate\n";
 
         // 6. Replay actions
         $replayedActions = [];
@@ -1415,6 +1445,8 @@ foreach ($fixtures as $slug => $def) {
                 'updateCache' => false,
                 'disableRecording' => true,
             ]);
+
+            if ($behaviorOnly) gaCheckBehaviorStep($def, $behaviorCases[$slug][0], $i + 1);
 
             if (!empty($action['expectFailure'])) {
                 // A deliberately-illegal action (semantic negative path): the engine must reject
@@ -1444,6 +1476,13 @@ foreach ($fixtures as $slug => $def) {
             }
             $replayedActions[] = $action;
             echo "  Action $i OK (mode={$action['mode']}, card={$action['cardID']})\n";
+        }
+
+        if ($behaviorOnly) {
+            echo "[PASS] $slug (behavior family)\n";
+            ++$created;
+            RegressionDeleteDirRecursive($gameDir);
+            continue;
         }
 
         // 7. Save fixture files
@@ -1520,3 +1559,5 @@ foreach ($fixtures as $slug => $def) {
 
 echo "\n=== Summary ===\n";
 echo "Created: $created | Failed: $failed | Total: " . count($fixtures) . "\n";
+
+exit($failed > 0 ? 1 : 0);

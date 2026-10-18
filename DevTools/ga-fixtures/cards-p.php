@@ -923,7 +923,7 @@ gaScenario('possessed-reaping-onallykill-return-as-spirit')
 // Player 2 controls the holder plus a Ominous Shadow; player 1 plays Disenchant ("Destroy target phantasia", a
 // Spell): the target prompt offers ONLY the Ominous Shadow, answering with the holder is refused
 // (expectFailure) and the legal answer then resolves.
-gaSpellshroudCase('pantheon-barrier-printed-omnishroud-spell-cannot-target-it', ['Pantheon Barrier'], 'Disenchant')
+gaSpellshroudCase('pantheon-barrier-printed-omnishroud-spell-cannot-target-it', ['Pantheon Barrier'], 'Disenchant', holderCounters: ['{"durability":6}'], word: 'Omnishroud')
     ->register();
 
 // --- Piccarda, Night Rider: [Class Bonus] Spellshroud -- already implemented, pinned (Class Bonus met: player

@@ -16,7 +16,8 @@
             "stealth"
         ],
         "rulesClauses": [
-            "[Class Bonus] **Stealth** *(This unit can\u2019t be targeted by attacks unless permitted by** true sight**.)*"
+            "[Class Bonus] **Stealth** *(This unit can’t be targeted by attacks unless permitted by** true sight**.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

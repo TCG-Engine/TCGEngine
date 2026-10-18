@@ -281,14 +281,7 @@ gaScenario('sigil-of-budding-embers-diao-chan-bonus-removes-x-glimmer-counters-t
     ->covers(['diao-chan-bonus', 'activated-ability', 'rest', 'remove-counters', 'banish-self', 'damage', 'targeting'], '[Diao Chan Bonus] [REST]**, Remove X glimmer counters from your champion, Banish CARDNAME:** As a Spell, deal **X** damage to target champion.')
     ->register();
 
-gaScenario('sigil-of-budding-embers-hindered-enters-the-field-rested')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->seed('myMaterial', 'Sigil of Budding Embers')
-    ->endTurn()->endTurn(2)->target('myMaterial-4')
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: it entered rested')
-    ->tested('Sigil of Budding Embers')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This object enters the field rested.)*')
-    ->register();
+gaMaterializedHindered('sigil-of-budding-embers-hindered-enters-the-field-rested', 'Sigil of Budding Embers', '**Hindered** *(This object enters the field rested.)*');
 
 // ---- Boons ----
 

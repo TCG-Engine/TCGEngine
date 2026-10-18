@@ -14,25 +14,10 @@ gaNormRetort('fatebound-caracal-second-printing-retort-two-retaliates-for-two-ex
 
 gaNormRetort('brash-defender-retort-three-retaliates-for-three-extra-power', 'Brash Defender', 4, 'Retaliating with 1 + 3 power', '**Retort 3** *(As long as this ally is retaliating, it gets +3 [POWER].)*');
 
-gaScenario('brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn')
-    ->deckTemplate('quiet', 'Brash Defender')
-    ->readyFor('Brash Defender', level: 1)
-    ->seed('myField', 'Brash Defender', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '2', 'Level 1: vigor woke the Defender at the end phase')
-    ->tested('Brash Defender')
-    ->covers(['level-gate', 'vigor'], '[Level 1+] **Vigor** *(This unit wakes up at the beginning of your end phase. Apply this effect only if your champion is level 1 or higher.)*')
-    ->register();
-
-gaScenario('brash-defender-below-level-one-stays-rested')
-    ->deckTemplate('quiet', 'Brash Defender')
-    ->readyFor('Brash Defender', level: 0)
-    ->seed('myField', 'Brash Defender', properties: ['Status' => 1])
-    ->endTurn()
-    ->expectProperty('p1Field-1', 'Status', '1', 'Level 0: no vigor, the Defender stays rested')
-    ->tested('Brash Defender')
-    ->covers(['level-gate', 'vigor'], '[Level 1+] **Vigor**')
-    ->register();
+gaVigorMatrix('Brash Defender', 'Brash Defender', ['level-gate', 'vigor'], '[Level 1+] **Vigor** *(This unit wakes up at the beginning of your end phase. Apply this effect only if your champion is level 1 or higher.)*', [
+    'brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn' => [['level' => 1], '2', 'Level 1: vigor woke the Defender at the end phase'],
+    'brash-defender-below-level-one-stays-rested' => [['level' => 0], '1', 'Level 0: no vigor, the Defender stays rested', ['level-gate', 'vigor'], '[Level 1+] **Vigor**'],
+]);
 
 // ---- Pride's Vanguard ----
 
@@ -71,13 +56,7 @@ gaNormRetort('palace-guard-without-the-class-bonus-retaliates-for-its-printed-po
 
 gaNormIntercept('dreamy-unicorn-intercept-redirects-the-attack-on-the-champion', 'Dreamy Unicorn', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
 
-gaScenario('dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion')
-    ->deckTemplate('quiet', 'Dreamy Unicorn')
-    ->readyFor('Dreamy Unicorn')
-    ->seed('myField', 'Dreamy Unicorn')
-    ->seed('myField', 'Rotund Squirrel', player: 2, properties: ['Status' => 2])
-    ->endTurn()
-    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, '-')
+gaOnDeathCase('dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion', 'Dreamy Unicorn', 'Rotund Squirrel')
     ->expectCardExists('myGraveyard', 'Dreamy Unicorn', 'The Unicorn took 2 damage and died')
     ->expectProperty('p1Field-0', 'Counters', '{"preparation":1}', 'On Death: a preparation counter went on the champion')
     ->tested('Dreamy Unicorn')

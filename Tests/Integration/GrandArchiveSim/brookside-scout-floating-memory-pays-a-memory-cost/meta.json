@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Floating Memory**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

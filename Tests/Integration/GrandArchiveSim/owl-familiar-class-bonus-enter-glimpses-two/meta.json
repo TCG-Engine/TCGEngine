@@ -18,5 +18,6 @@
         "rulesClauses": [
             "[Class Bonus] **On Enter:** **Glimpse 2**."
         ]
-    }
+    },
+    "behaviorFamily": true
 }

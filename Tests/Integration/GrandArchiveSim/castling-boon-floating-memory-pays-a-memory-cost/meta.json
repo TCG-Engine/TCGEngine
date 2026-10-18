@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

@@ -18,5 +18,6 @@
         "rulesClauses": [
             "**Ranged 3**"
         ]
-    }
+    },
+    "behaviorFamily": true
 }

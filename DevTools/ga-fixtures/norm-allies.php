@@ -147,73 +147,25 @@ gaScenario('wingpeak-patriarch-gives-other-bird-objects-plus-one-power')
 
 // ---- Royal Bear ----
 
-gaScenario('royal-bear-class-bonus-gets-plus-one-power-and-life')
-    ->deckTemplate('quiet', 'Royal Bear')
-    ->readyFor('Royal Bear', classBonus: true)
-    ->seed('myField', 'Royal Bear')
-    ->observe()
-    ->expectPower('p1Field-1', 3, '[Class Bonus] 2 + 1 power')
-    ->expectLife('p1Field-1', 4, '[Class Bonus] 3 + 1 life')
-    ->tested('Royal Bear')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].')
-    ->register();
+gaClassStatsCase('royal-bear-class-bonus-gets-plus-one-power-and-life', 'Royal Bear', 'Royal Bear', ['classBonus' => true],
+    ['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].', 3, '[Class Bonus] 2 + 1 power', 4, '[Class Bonus] 3 + 1 life');
 
-gaScenario('royal-bear-without-the-class-bonus-has-its-printed-stats')
-    ->deckTemplate('quiet', 'Royal Bear')
-    ->readyFor('Royal Bear')
-    ->seed('myField', 'Royal Bear')
-    ->observe()
-    ->expectPower('p1Field-1', 2, 'No class bonus: 2 power')
-    ->expectLife('p1Field-1', 3, 'No class bonus: 3 life')
-    ->tested('Royal Bear')
-    ->covers(['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].')
-    ->register();
+gaClassStatsCase('royal-bear-without-the-class-bonus-has-its-printed-stats', 'Royal Bear', 'Royal Bear', [],
+    ['class-bonus', 'stat-change'], '[Class Bonus] CARDNAME gets +1 [POWER] and +1 [LIFE].', 2, 'No class bonus: 2 power', 3, 'No class bonus: 3 life');
 
-gaScenario('royal-bear-pride-two-does-not-obey-a-level-zero-champion')
-    ->deckTemplate('quiet', 'Royal Bear')
-    ->readyFor('Royal Bear')
-    ->seed('myField', 'Royal Bear')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 2: the Bear stays awake because it never attacked')
-    ->tested('Royal Bear')
-    ->covers(['pride', 'keyword'], '**Pride 2** *(This ally won’t obey you unless your champion is level 2 or higher. You can’t attack with, intercept with, or activate abilities of allies that don’t obey you.)*')
-    ->register();
+gaPrideCase('royal-bear-pride-two-does-not-obey-a-level-zero-champion', 'Royal Bear', 'Royal Bear', [],
+    ['pride', 'keyword'], '**Pride 2** *(This ally won’t obey you unless your champion is level 2 or higher. You can’t attack with, intercept with, or activate abilities of allies that don’t obey you.)*', false, 'Pride 2: the Bear stays awake because it never attacked');
 
-gaScenario('royal-bear-pride-two-obeys-a-level-two-champion')
-    ->deckTemplate('quiet', 'Royal Bear')
-    ->readyFor('Royal Bear', level: 2)
-    ->seed('myField', 'Royal Bear')
-    ->reachTurnThree()
-    ->attack('myField-1', 'theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Pride 2 is satisfied at level 2: the Bear attacked and rested')
-    ->tested('Royal Bear')
-    ->covers(['pride', 'keyword', 'level-gate'], '**Pride 2**')
-    ->register();
+gaPrideCase('royal-bear-pride-two-obeys-a-level-two-champion', 'Royal Bear', 'Royal Bear', ['level' => 2],
+    ['pride', 'keyword', 'level-gate'], '**Pride 2**', true, 'Pride 2 is satisfied at level 2: the Bear attacked and rested');
 
 // ---- Enraged Boars ----
 
-gaScenario('enraged-boars-pride-five-obeys-a-level-five-champion')
-    ->deckTemplate('quiet', 'Enraged Boars')
-    ->readyFor('Enraged Boars', level: 5)
-    ->seed('myField', 'Enraged Boars')
-    ->reachTurnThree()
-    ->attack('myField-1', 'theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Pride 5 is satisfied at level 5: the Boars attacked and rested')
-    ->tested('Enraged Boars')
-    ->covers(['pride', 'keyword', 'level-gate'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*')
-    ->register();
+gaPrideCase('enraged-boars-pride-five-obeys-a-level-five-champion', 'Enraged Boars', 'Enraged Boars', ['level' => 5],
+    ['pride', 'keyword', 'level-gate'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*', true, 'Pride 5 is satisfied at level 5: the Boars attacked and rested');
 
-gaScenario('enraged-boars-pride-five-does-not-obey-a-level-four-champion')
-    ->deckTemplate('quiet', 'Enraged Boars')
-    ->readyFor('Enraged Boars', level: 4)
-    ->seed('myField', 'Enraged Boars')
-    ->reachTurnThree()
-    ->action(1, 10002, 'myField-1!FSM!')
-    ->expectProperty('p1Field-1', 'Status', '2', 'Pride 5: a level 4 champion is not enough, the Boars never attacked')
-    ->tested('Enraged Boars')
-    ->covers(['pride', 'keyword'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*')
-    ->register();
+gaPrideCase('enraged-boars-pride-five-does-not-obey-a-level-four-champion', 'Enraged Boars', 'Enraged Boars', ['level' => 4],
+    ['pride', 'keyword'], '**Pride 5** *(This ally won\'t obey you unless your champion is level 5 or higher.)*', false, 'Pride 5: a level 4 champion is not enough, the Boars never attacked');
 
 // ---- Bolstered Boar ----
 
@@ -278,23 +230,14 @@ gaScenario('simple-slime-twin-an-ordinary-ally-can-attack-at-the-same-point')
 
 // ---- Palace Guard ----
 
-gaWindTaunt('palace-guard-taunt-protects-the-champion', 'Palace Guard', '**Taunt**');
 
 // ---- Unyielding Wraithguard ----
 
-gaWindTaunt('unyielding-wraithguard-taunt-protects-the-champion', 'Unyielding Wraithguard', '**Taunt**');
 
 // ---- Rotund Squirrel ----
 
-gaScenario('rotund-squirrel-hindered-enters-the-field-rested')
-    ->deckTemplate('quiet', 'Rotund Squirrel')
-    ->readyFor('Rotund Squirrel')
-    ->seed('myHand', 'Rotund Squirrel')
-    ->play('Rotund Squirrel')->pay(2)
-    ->expectProperty('p1Field-1', 'Status', '1', 'Hindered: the Squirrel entered rested')
-    ->tested('Rotund Squirrel')
-    ->covers(['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*')
-    ->register();
+gaHinderedCase('rotund-squirrel-hindered-enters-the-field-rested', 'Rotund Squirrel', 'Rotund Squirrel', [],
+    ['keyword', 'hindered'], '**Hindered** *(This ally enters the field rested.)*', 2, 'Hindered: the Squirrel entered rested');
 
 // ---- Woodland Squirrels / Young Wyrmling (vanilla) ----
 

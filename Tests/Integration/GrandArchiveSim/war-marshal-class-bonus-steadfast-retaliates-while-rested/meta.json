@@ -19,5 +19,6 @@
         "rulesClauses": [
             "[Class Bonus] **Steadfast** *(This ally can retaliate while rested and doesn't rest to do so.)*"
         ]
-    }
+    },
+    "behaviorFamily": true
 }
