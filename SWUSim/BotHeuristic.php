@@ -207,6 +207,10 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
         $sb = SWUBotSelfBurnFilter($ctx);
         if (count($sb) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:self-burn'); $ctx['actions'] = $sb; }
     }
+    if (function_exists('SWUBotLeverChain')) {   // lever registry (Custom/BotLevers.php): an action filter; never empties the list
+        $lf = SWUBotLeverChain('filter', $ctx['actions'], $ctx);
+        if (is_array($lf) && !empty($lf)) $ctx['actions'] = array_values($lf);
+    }
     $all = $ctx['actions'];
     if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);

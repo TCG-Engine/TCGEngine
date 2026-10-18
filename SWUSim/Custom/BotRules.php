@@ -624,6 +624,9 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
     if (!(SWUBotProposalOn('blockerfirst') || SWUBotFeatureOn('blockerfirst')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     if (count(SWUBotUnits($seat)) >= count(SWUBotUnits($opp))) return null;
+    // FEATURE 'removalfirst' (p53, 2026-10-17, G1-07): the removal 'shrink-first' would cast on a READY 3+ power enemy goes before the body — this
+    // rule was promoted ahead of it, so Mando Colossus put down ground bodies three rounds running while a 7-power ship hit the base.
+    if (SWUBotFeatureOn('removalfirst') && ($sf = SWUBotRuleShrinkFirst($ctx)) !== null) { _SWUBotFired('removalfirst', $seat); return $sf; }
     $hasAttack = false;
     foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'attack') { $hasAttack = true; break; } }
     if (!$hasAttack) return null;

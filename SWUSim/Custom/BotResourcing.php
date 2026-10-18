@@ -280,6 +280,7 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('curveresource')) {   // feature p38
             $keep += SWU_BOT_CURVE_RESOURCE_KEEP * (SWUBotCurveSurplus($seat, $cid, SWUBotHorizon(strval($ctx['style']), $seat)) ?? 0.0);
         }
+        $keep = SWUBotLeverChain('keep', $keep, $ctx, $seat, $cid, intval($i));   // lever registry (BotLevers.php)
         $ranked[] = [$keep, $i];
     }
     // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,

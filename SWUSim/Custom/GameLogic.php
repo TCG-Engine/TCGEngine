@@ -14432,6 +14432,18 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             $topIdx = array_flip(_SWUEsTopLayerIndices());
             $remaining = array_values(array_filter($stack, fn($e, $i) => empty($e->removed ?? false) && isset($topIdx[$i]), ARRAY_FILTER_USE_BOTH));
         }
+    } elseif (!empty(_SWUEsLayers())) {
+        // ⚠ A COMBAT resume settles the layers too (ASH meta run 2026-10-17, game 493761). A reaction that fired while one of this
+        // attack's triggers resolved (deployed Jabba's, off Maul's On Attack pings) opened a NESTED layer, resolved, and left it EMPTY.
+        // Unsettled, this resume still counted both players' batch triggers and asked "Resolve_Which_Player_First?" — but the answer
+        // offers only the innermost layer (_SWUEffectStackTargetsForPlayer), which was empty, so nothing resolved and the question
+        // repeated forever. Pop the empty layers, then work on the innermost one inside this batch, as the bare resume does. An open
+        // Plot hold (settle → false) is left to its window, exactly as before.
+        if (_SWUEsSettleLayers()) {
+            $topIdx = array_flip(_SWUEsTopLayerIndices());
+            $inTop = array_values(array_filter($stack, fn($e, $i) => empty($e->removed ?? false) && $i >= $batchStart && isset($topIdx[$i]), ARRAY_FILTER_USE_BOTH));
+            if (!empty($inTop)) $remaining = $inTop;
+        }
     }
 
     if (empty($remaining)) {
