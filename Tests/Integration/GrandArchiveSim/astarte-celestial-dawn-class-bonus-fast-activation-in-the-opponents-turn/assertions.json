@@ -1,0 +1,11 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "f0ht2tsn0y",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "An ally was activated in a priority window: only possible at fast speed"
+    }
+]

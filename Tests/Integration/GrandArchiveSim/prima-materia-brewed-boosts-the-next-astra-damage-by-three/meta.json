@@ -1,0 +1,22 @@
+{
+    "name": "prima-materia-brewed-boosts-the-next-astra-damage-by-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:18:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vt9y597fqr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vt9y597fqr"
+        ],
+        "mechanics": [
+            "brew",
+            "rest",
+            "damage-boost"
+        ],
+        "rulesClauses": [
+            "[Arisanna Bonus] **Brew** \u2014 Four Herbs with different names. [REST]: Draw a card into your memory. If CARDNAME was **brewed**, the next time an astra element source you control would deal damage to one or more units this turn, it deals that much damage plus 3 to those units instead."
+        ]
+    }
+}

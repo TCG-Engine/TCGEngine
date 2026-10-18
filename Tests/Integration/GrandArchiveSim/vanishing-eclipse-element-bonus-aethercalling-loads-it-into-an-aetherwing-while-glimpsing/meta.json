@@ -1,0 +1,23 @@
+{
+    "name": "vanishing-eclipse-element-bonus-aethercalling-loads-it-into-an-aetherwing-while-glimpsing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:13:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gamylrj1fc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gamylrj1fc"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "aethercalling",
+            "glimpse",
+            "load"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] **Aethercalling** *(As you're looking at this card while **glimpsing**, you may load it into an Aetherwing weapon you control.)*"
+        ]
+    }
+}

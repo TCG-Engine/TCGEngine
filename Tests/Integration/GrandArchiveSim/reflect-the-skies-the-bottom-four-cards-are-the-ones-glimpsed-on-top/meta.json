@@ -1,0 +1,22 @@
+{
+    "name": "reflect-the-skies-the-bottom-four-cards-are-the-ones-glimpsed-on-top",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:21:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "67duh1cy3g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "67duh1cy3g"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "random-order",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "Put the bottom four cards of your deck on top of your deck in a random order. **Glimpse 2**."
+        ]
+    }
+}

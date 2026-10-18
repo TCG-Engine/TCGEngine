@@ -4330,6 +4330,61 @@ $handActivatedAbilityPrereqs["pebu7agtcd:0"] = function($player, $mzID, $ability
     return IsElementBonusActive($player, "pebu7agtcd");
 };
 
+// Cometary Vantage (y4c89re0bd): "Choose one. If your champion is distant, choose two instead-- Glimpse 4 / Draw a card / If a unit is attacking, each Aethercharge card in that attacker's intent
+// gains 'On Hit: Load this card into an Aetherwing weapon you control.'" The generated body skipped the third mode and picked the first two whenever the champion was distant.
+$cardActivatedAbilities["y4c89re0bd:0"] = function($player) {
+    $champMZ = FindChampionMZ($player);
+    $champObj = ($champMZ !== null) ? GetZoneObject($champMZ) : null;
+    $picks = ($champObj !== null && IsDistant($champObj)) ? 2 : 1;
+    DecisionQueueController::AddDecision($player, "MZMODAL", $picks . "|" . $picks . "|A:_Glimpse_4&B:_Draw_a_card&C:_Aethercharge_cards_in_the_attacker's_intent_gain_On_Hit_load", 1, "Cometary_Vantage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CometaryVantageModes", 1);
+};
+$customDQHandlers["CometaryVantageModes"] = function($player, $parts, $lastDecision) {
+    $picked = array_map('intval', array_filter(explode(",", strval($lastDecision)), fn($x) => $x !== ""));
+    sort($picked);
+    foreach($picked as $mode) {
+        if($mode === 0) Glimpse($player, 4);
+        else if($mode === 1) Draw($player, 1);
+        else if($mode === 2) {
+            $attackerMZ = GetCombatAttackerMZ();
+            $attackerObj = $attackerMZ === null ? null : GetZoneObject($attackerMZ);
+            if($attackerObj === null || $attackerObj->removed) continue;
+            foreach(GetIntentCards(intval($attackerObj->Controller)) as $intentMZ) {
+                $intentObj = GetZoneObject($intentMZ);
+                if($intentObj === null || $intentObj->removed || !PropertyContains(CardSubtypes($intentObj->CardID), "AETHERCHARGE")) continue;
+                AddTurnEffect($intentMZ, "y4c89re0bd_LOAD_ON_HIT");
+            }
+        }
+    }
+};
+// "On Hit: Load this card into an Aetherwing weapon you control." for an intent card marked above (called from OnHitTrigger()). The card leaves the intent zone right away: combat
+// cleanup would otherwise send it to the graveyard before a queued decision could load it.
+function GAQueueIntentAetherwingLoad($player, $intentMZ) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    $intentObj = GetZoneObject($intentMZ);
+    if($intentObj === null || $intentObj->removed) return;
+    $loadedCardID = $intentObj->CardID;
+    $intentObj->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+    $wings = GetAetherwingWeapons($player);
+    if(count($wings) === 1) { GALoadCardIDIntoAetherwing($wings[0], $loadedCardID); return; }
+    DecisionQueueController::StoreVariable("CometaryVantageLoadedCard", $loadedCardID);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $wings), 1, tooltip:"Load_into_an_Aetherwing_weapon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CometaryVantageLoad", 1);
+}
+function GALoadCardIDIntoAetherwing($wingMZ, $cardID) {
+    $wingObj = &GetZoneObject($wingMZ);
+    if($wingObj === null) return;
+    if(!is_array($wingObj->Subcards)) $wingObj->Subcards = [];
+    $wingObj->Subcards[] = $cardID;
+}
+$customDQHandlers["CometaryVantageLoad"] = function($player, $parts, $lastDecision) {
+    $cardID = DecisionQueueController::GetVariable("CometaryVantageLoadedCard");
+    if($cardID === null || $cardID === "" || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    GALoadCardIDIntoAetherwing($lastDecision, $cardID);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

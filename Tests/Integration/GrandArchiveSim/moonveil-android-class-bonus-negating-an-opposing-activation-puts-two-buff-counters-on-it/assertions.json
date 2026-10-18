@@ -1,0 +1,20 @@
+[
+    {
+        "step": 10,
+        "type": "card_exists",
+        "zone": "theirMemory",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The negated Gray Wolf went to its owner's memory"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"buff\":2}",
+        "semantic": true,
+        "label": "Negating the opposing activation: two buff counters"
+    }
+]

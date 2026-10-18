@@ -1,0 +1,16 @@
+[
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "Played for its reserve cost: not brewed, so Cosmic Bolt deals its printed 4"
+    },
+    {
+        "step": 17,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

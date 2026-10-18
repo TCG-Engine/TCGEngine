@@ -1,0 +1,22 @@
+{
+    "name": "stellaria-shower-starcalled-deals-damage-equal-to-the-phantasias-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:11:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xmtjrvfpuc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xmtjrvfpuc"
+        ],
+        "mechanics": [
+            "on-enter",
+            "starcalling",
+            "damage"
+        ],
+        "rulesClauses": [
+            "**On Enter**: If Stellaria Shower was **starcalled**, as a Spell, deal **X** damage to target unit, where **X** is the amount of phantasias you control."
+        ]
+    }
+}

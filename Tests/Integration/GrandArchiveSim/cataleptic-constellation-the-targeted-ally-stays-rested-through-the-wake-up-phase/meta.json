@@ -1,0 +1,22 @@
+{
+    "name": "cataleptic-constellation-the-targeted-ally-stays-rested-through-the-wake-up-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:21:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lflzwiiewz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lflzwiiewz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "wake-up-lock"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Rest target ally. That ally can't wake up for as long as you control Cataleptic Constellation."
+        ]
+    }
+}

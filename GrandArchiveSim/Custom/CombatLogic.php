@@ -2283,6 +2283,8 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
             QueueHitTriggeredAbility($player, $iObj->CardID, $iMZ);
         }
+        // Cometary Vantage: the intent card gained "On Hit: Load this card into an Aetherwing weapon you control."
+        if(in_array("y4c89re0bd_LOAD_ON_HIT", $iObj->TurnEffects ?? [])) GAQueueIntentAetherwingLoad($player, $iMZ);
     }
 
     // Dispatch On Hit for combat weapon

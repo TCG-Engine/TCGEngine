@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-18T02:03:30+00:00",
+    "generatedAt": "2026-10-18T02:24:49+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -15278,9 +15278,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "stellarion-shift-graveyard-ability-gives-a-distant-champion-stealth-and-prevents-four-non-combat-damage",
+                "stellarion-shift-graveyard-prevention-absorbs-the-next-non-combat-damage",
                 "stellarion-shift-makes-a-unit-distant-and-draws-a-card"
             ],
             "semanticFixtures": [
+                "stellarion-shift-graveyard-ability-gives-a-distant-champion-stealth-and-prevents-four-non-combat-damage",
+                "stellarion-shift-graveyard-prevention-absorbs-the-next-non-combat-damage",
                 "stellarion-shift-makes-a-unit-distant-and-draws-a-card"
             ],
             "starterDecks": [],
@@ -19328,9 +19332,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "prima-materia-brewed-boosts-the-next-astra-damage-by-three",
+                "prima-materia-not-brewed-adds-nothing-to-astra-damage",
                 "prima-materia-rest-draws-a-card-into-memory"
             ],
             "semanticFixtures": [
+                "prima-materia-brewed-boosts-the-next-astra-damage-by-three",
+                "prima-materia-not-brewed-adds-nothing-to-astra-damage",
                 "prima-materia-rest-draws-a-card-into-memory"
             ],
             "starterDecks": [],
@@ -21673,11 +21681,13 @@
             ],
             "existingFixtures": [
                 "cataleptic-constellation-enter-rests-an-ally-that-cannot-wake-up",
-                "cataleptic-constellation-imbued-enter-summons-two-astral-shards"
+                "cataleptic-constellation-imbued-enter-summons-two-astral-shards",
+                "cataleptic-constellation-the-targeted-ally-stays-rested-through-the-wake-up-phase"
             ],
             "semanticFixtures": [
                 "cataleptic-constellation-enter-rests-an-ally-that-cannot-wake-up",
-                "cataleptic-constellation-imbued-enter-summons-two-astral-shards"
+                "cataleptic-constellation-imbued-enter-summons-two-astral-shards",
+                "cataleptic-constellation-the-targeted-ally-stays-rested-through-the-wake-up-phase"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -21894,9 +21904,15 @@
                 "condition"
             ],
             "existingFixtures": [
+                "cometary-vantage-aethercharge-mode-does-nothing-when-no-unit-is-attacking",
+                "cometary-vantage-attacker-aethercharge-intent-card-loads-back-into-the-aetherwing-on-hit",
+                "cometary-vantage-distant-champion-chooses-two-modes-glimpse-four-and-draw",
                 "cometary-vantage-draw-mode-draws-a-card"
             ],
             "semanticFixtures": [
+                "cometary-vantage-aethercharge-mode-does-nothing-when-no-unit-is-attacking",
+                "cometary-vantage-attacker-aethercharge-intent-card-loads-back-into-the-aetherwing-on-hit",
+                "cometary-vantage-distant-champion-chooses-two-modes-glimpse-four-and-draw",
                 "cometary-vantage-draw-mode-draws-a-card"
             ],
             "starterDecks": [],
@@ -24964,10 +24980,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "the-constellatory-spire-class-bonus-enter-draws-a-card"
+                "the-constellatory-spire-class-bonus-enter-draws-a-card",
+                "the-constellatory-spire-declining-the-rest-deals-no-damage",
+                "the-constellatory-spire-negating-an-activation-lets-you-rest-it-to-deal-two-damage"
             ],
             "semanticFixtures": [
-                "the-constellatory-spire-class-bonus-enter-draws-a-card"
+                "the-constellatory-spire-class-bonus-enter-draws-a-card",
+                "the-constellatory-spire-declining-the-rest-deals-no-damage",
+                "the-constellatory-spire-negating-an-activation-lets-you-rest-it-to-deal-two-damage"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32286,10 +32306,12 @@
                 "condition"
             ],
             "existingFixtures": [
-                "stellaria-shower-entering-without-starcalling-deals-no-damage"
+                "stellaria-shower-entering-without-starcalling-deals-no-damage",
+                "stellaria-shower-starcalled-deals-damage-equal-to-the-phantasias-you-control"
             ],
             "semanticFixtures": [
-                "stellaria-shower-entering-without-starcalling-deals-no-damage"
+                "stellaria-shower-entering-without-starcalling-deals-no-damage",
+                "stellaria-shower-starcalled-deals-damage-equal-to-the-phantasias-you-control"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -42104,10 +42126,14 @@
                 "status"
             ],
             "existingFixtures": [
-                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant"
+                "vanishing-eclipse-element-bonus-aethercalling-loads-it-into-an-aetherwing-while-glimpsing",
+                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant",
+                "vanishing-eclipse-without-the-element-bonus-has-no-aethercalling"
             ],
             "semanticFixtures": [
-                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant"
+                "vanishing-eclipse-element-bonus-aethercalling-loads-it-into-an-aetherwing-while-glimpsing",
+                "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant",
+                "vanishing-eclipse-without-the-element-bonus-has-no-aethercalling"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -43484,10 +43510,12 @@
             ],
             "existingFixtures": [
                 "astarte-celestial-dawn-banishes-objects-that-enter-under-an-opponents-control-from-outside-the-effects-stack",
+                "astarte-celestial-dawn-class-bonus-fast-activation-in-the-opponents-turn",
                 "astarte-celestial-dawn-lets-an-opponents-ally-enter-from-the-effects-stack"
             ],
             "semanticFixtures": [
                 "astarte-celestial-dawn-banishes-objects-that-enter-under-an-opponents-control-from-outside-the-effects-stack",
+                "astarte-celestial-dawn-class-bonus-fast-activation-in-the-opponents-turn",
                 "astarte-celestial-dawn-lets-an-opponents-ally-enter-from-the-effects-stack"
             ],
             "starterDecks": [],
@@ -47497,10 +47525,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse"
+                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse",
+                "moonveil-android-class-bonus-negating-an-opposing-activation-puts-two-buff-counters-on-it",
+                "moonveil-android-without-the-class-bonus-negating-puts-no-buff-counters-on-it"
             ],
             "semanticFixtures": [
-                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse"
+                "moonveil-android-class-bonus-gains-stealth-whenever-you-glimpse",
+                "moonveil-android-class-bonus-negating-an-opposing-activation-puts-two-buff-counters-on-it",
+                "moonveil-android-without-the-class-bonus-negating-puts-no-buff-counters-on-it"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -48659,10 +48691,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two"
+                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two",
+                "reflect-the-skies-the-bottom-four-cards-are-the-ones-glimpsed-on-top"
             ],
             "semanticFixtures": [
-                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two"
+                "reflect-the-skies-puts-the-bottom-four-cards-on-top-and-glimpses-two",
+                "reflect-the-skies-the-bottom-four-cards-are-the-ones-glimpsed-on-top"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49123,10 +49157,12 @@
                 "zone-movement"
             ],
             "existingFixtures": [
-                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost"
+                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost",
+                "scry-the-stars-glimpsed-cards-gain-starcalling-equal-to-their-reserve-cost"
             ],
             "semanticFixtures": [
-                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost"
+                "scry-the-stars-class-bonus-banishing-scry-the-skies-pays-the-reserve-cost",
+                "scry-the-stars-glimpsed-cards-gain-starcalling-equal-to-their-reserve-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -49824,10 +49860,12 @@
                 "targeting"
             ],
             "existingFixtures": [
-                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy"
+                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy",
+                "stargazers-portent-copies-the-next-starcalled-activation-with-a-new-target"
             ],
             "semanticFixtures": [
-                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy"
+                "stargazers-portent-class-bonus-costs-one-less-and-sets-up-a-starcall-copy",
+                "stargazers-portent-copies-the-next-starcalled-activation-with-a-new-target"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

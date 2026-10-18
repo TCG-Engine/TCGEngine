@@ -1,0 +1,21 @@
+{
+    "name": "cometary-vantage-aethercharge-mode-does-nothing-when-no-unit-is-attacking",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:16:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4c89re0bd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4c89re0bd"
+        ],
+        "mechanics": [
+            "modal",
+            "condition"
+        ],
+        "rulesClauses": [
+            "\u2022 If a unit is attacking, each Aethercharge card in that attacker's intent gains \"**On Hit**: Load this card into an Aetherwing weapon you control.\""
+        ]
+    }
+}

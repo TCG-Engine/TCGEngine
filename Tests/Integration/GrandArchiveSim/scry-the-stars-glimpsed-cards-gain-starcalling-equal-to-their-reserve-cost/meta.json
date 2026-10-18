@@ -1,0 +1,22 @@
+{
+    "name": "scry-the-stars-glimpsed-cards-gain-starcalling-equal-to-their-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:11:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oz23yfzk96"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oz23yfzk96"
+        ],
+        "mechanics": [
+            "grant-ability",
+            "starcalling",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "Until end of turn, cards you look at while **glimpsing** have \"**Starcalling** \u2014 (X)\", where **X** is that card's reserve cost. **Glimpse 3**."
+        ]
+    }
+}

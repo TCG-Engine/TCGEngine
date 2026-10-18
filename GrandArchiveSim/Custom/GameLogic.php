@@ -10772,6 +10772,16 @@ function DoAllyDestroyed($player, $mzCard) {
     }
 }
 
+// True while the Cataleptic Constellation that locked $obj is still on its caster's field (the lock is dropped once it has left).
+function CataleptConstellationHoldsLock($obj) {
+    if($obj === null || !is_array($obj->Counters ?? null) || !isset($obj->Counters['_catcon_controller'])) return false;
+    foreach(GetField(intval($obj->Counters['_catcon_controller'])) as $lockerObj) {
+        if(!$lockerObj->removed && $lockerObj->CardID === "lflzwiiewz") return true;
+    }
+    unset($obj->Counters['_catcon_controller']);
+    return false;
+}
+
 function WakeUpPhase() {
     // Backstop: no explicit removed-card protection should still be "in progress" once a new turn
     // begins. This guards against any dispatch that isn't wired to
@@ -10880,6 +10890,8 @@ function WakeUpPhase() {
             if(in_array("ao1cfkhbp6", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ao1cfkhbp6"]));
             }
+            // Cataleptic Constellation (lflzwiiewz): the targeted ally can't wake up for as long as its caster controls the Constellation.
+            if(CataleptConstellationHoldsLock($field[$i])) continue;
             $field[$i]->Status = 2;
         }
     }

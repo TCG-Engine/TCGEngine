@@ -1,0 +1,23 @@
+{
+    "name": "the-constellatory-spire-negating-an-activation-lets-you-rest-it-to-deal-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:07:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yd609g44vm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yd609g44vm"
+        ],
+        "mechanics": [
+            "trigger",
+            "negate",
+            "rest",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Whenever you **negate** a card activation, you may rest CARDNAME. When you do, deal 2 damage to target unit."
+        ]
+    }
+}

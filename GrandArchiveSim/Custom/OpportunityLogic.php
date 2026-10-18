@@ -344,6 +344,16 @@ function NegatedActivationDestination($mzID, $mode = "default") {
     return "myGraveyard";
 }
 
+// Moonveil Android (c34iTVRS8h): [Class Bonus] Whenever you negate a card activation an opponent controls, put two buff counters on it.
+function TriggerMoonveilAndroidNegate($player) {
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "c34iTVRS8h" || HasNoAbilities($field[$i])) continue;
+        if(!IsClassBonusActive($player, ["ASSASSIN", "CLERIC"])) continue;
+        AddCounters($player, "myField-" . $i, "buff", 2);
+    }
+}
+
 function NegateCardActivation($player, $targetMZ, $destinationMode = "default") {
     $target = GetZoneObject($targetMZ);
     if($target === null || $target->removed) return false;
@@ -359,6 +369,7 @@ function NegateCardActivation($player, $targetMZ, $destinationMode = "default") 
     TrackCardActivationNegated($player, $cardID, $controller);
     TriggerReversalsPolarity($controller, $cardID);
     QueueConstellatorySpireTrigger($player);
+    if($controller != $player) TriggerMoonveilAndroidNegate($player);
     DecisionQueueController::CleanupRemovedCards();
     return true;
 }
@@ -750,8 +761,8 @@ $cbFastActivationCards = [
     "a5igwbsmks" => ["TAMER"], // Spirited Falconer
     "itwys9kf4r" => ["ASSASSIN"], // Cloaked Executioner
     "cqadnk9iz0" => ["TAMER"], // Baby Green Slime
-    "2bbmoqk2c7" => ["GUARDIAN"], // Rose, Eternal Paragon
-    "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
+    "2bbmoqk2c7" => ["GUARDIAN", "WARRIOR"], // Rose, Eternal Paragon (GUARDIAN, WARRIOR)
+    "f0ht2tsn0y" => ["CLERIC"], // Astarte, Celestial Dawn
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
     "yky280mtts" => ["TAMER"], // Flamebreak Chorus
     "uPn9SZdqrr" => ["GUARDIAN"], // Gustguard Bastion

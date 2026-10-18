@@ -1,0 +1,22 @@
+{
+    "name": "moonveil-android-class-bonus-negating-an-opposing-activation-puts-two-buff-counters-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:07:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c34iTVRS8h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c34iTVRS8h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "negate",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you **negate** a card activation an opponent controls, put two **buff** counters on Moonveil Android."
+        ]
+    }
+}
