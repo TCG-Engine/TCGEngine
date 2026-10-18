@@ -1,0 +1,23 @@
+{
+    "name": "gloamspire-wraith-distant-on-hit-recovers-the-damage-dealt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:01:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xrpx8jypwc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xrpx8jypwc"
+        ],
+        "mechanics": [
+            "on-hit",
+            "recover",
+            "distant",
+            "granted-ability"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **distant**, it has \"**On Hit: Recover X**, where **X** is the amount of damage dealt by this hit.\""
+        ]
+    }
+}

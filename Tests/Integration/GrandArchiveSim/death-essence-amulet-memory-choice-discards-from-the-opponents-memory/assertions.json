@@ -1,0 +1,43 @@
+[
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myBanish",
+        "cardID": "ddag7ue0k7",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The Amulet banished itself"
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "hJ2xh9lNMR",
+        "viewerPlayerID": 2,
+        "semantic": true,
+        "label": "The opponent's memory card was discarded"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 2,
+        "value": 0,
+        "semantic": true,
+        "label": "Their memory is empty"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 2,
+        "value": 8,
+        "semantic": true,
+        "label": "Their hand was not touched (8 cards)"
+    },
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

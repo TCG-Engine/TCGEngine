@@ -1037,6 +1037,8 @@ function HasAmbush($fieldObj, array $ownField): bool {
     if(HasNoAbilities($fieldObj)) return false;
     if(HasKeyword_Ambush($fieldObj)) return true;
     if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) return true;
+    // Mary Ann, Maladroit Maid (mt5zs1w6c0): has ambush while one of your omens has ambush
+    if(MaryAnnOmensHaveKeyword($fieldObj, "Ambush")) return true;
     // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
     if(PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
         && EffectiveCardElement($fieldObj) === "UMBRA") {

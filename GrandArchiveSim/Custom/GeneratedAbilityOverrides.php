@@ -4385,6 +4385,48 @@ $customDQHandlers["CometaryVantageLoad"] = function($player, $parts, $lastDecisi
     GALoadCardIDIntoAetherwing($lastDecision, $cardID);
 };
 
+// Spirelle, Schwartz Queen (p2n1953som): "(2), [REST], Reveal a card banished by Spirelle with reserve cost X: Negate each activation of cards with reserve cost X. Put each card
+// negated this way and each card banished by Spirelle into their owner's memories. Then trigger each of Spirelle's on enter abilities."
+// The generated body offered EVERY banished card (omens, Tristan's cards, ...) and only moved the revealed one to memory; the cards Spirelle banished carry a spirelle_banished counter.
+function GASpirelleBanishedCards($player) {
+    $found = [];
+    $banish = GetBanish($player);
+    for($bi = 0; $bi < count($banish); ++$bi) {
+        if(!$banish[$bi]->removed && GetCounterCount($banish[$bi], "spirelle_banished") > 0) $found[] = "myBanish-" . $bi;
+    }
+    return $found;
+}
+$activateAbilityAbilities["p2n1953som:0"] = function($player) {
+    $banished = GASpirelleBanishedCards($player);
+    if(empty($banished)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $banished), 1, "Reveal_a_card_banished_by_Spirelle");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "p2n1953som:0:ActivateAbility-1", 1);
+};
+$activateAbilityPrereqs["p2n1953som:0"] = function($player, $mzID, $abilityIndex) {
+    $sourceObject = GetZoneObject($mzID);
+    if($sourceObject === null) return false;
+    return $sourceObject->Status == 2 && count(GetHand($player)) >= 2 && !empty(GASpirelleBanishedCards($player));
+};
+$customDQHandlers["p2n1953som:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $chosen = $lastDecision;
+    $chosenObj = GetZoneObject($chosen);
+    if($chosenObj === null || $chosenObj->removed || GetCounterCount($chosenObj, "spirelle_banished") <= 0) return;
+    DoRevealCard($player, $chosen);
+    $cost = intval(CardCost_reserve($chosenObj->CardID));
+    $targets = GetEffectStackActivationTargets($player, ["reserveCost" => $cost]);
+    for($i = count($targets) - 1; $i >= 0; --$i) {
+        NegateCardActivation($player, $targets[$i], "memory");
+    }
+    // Every card banished by Spirelle (negating may have shifted the banish zone, so look them up again).
+    $banished = GASpirelleBanishedCards($player);
+    for($i = count($banished) - 1; $i >= 0; --$i) {
+        MZMove($player, $banished[$i], "myMemory");
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    OnEnter($player, $mzID);
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

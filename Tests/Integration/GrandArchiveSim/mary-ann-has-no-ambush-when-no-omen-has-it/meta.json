@@ -1,0 +1,23 @@
+{
+    "name": "mary-ann-has-no-ambush-when-no-omen-has-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:05:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mt5zs1w6c0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mt5zs1w6c0"
+        ],
+        "mechanics": [
+            "static",
+            "keyword-sharing",
+            "ambush",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Mary Ann has **vigor** as long as one of your omens has **vigor**. The same is true for **ambush**, **intercept**, **steadfast**, **stealth**, **spellshroud**, **taunt**, and **true sight**."
+        ]
+    }
+}

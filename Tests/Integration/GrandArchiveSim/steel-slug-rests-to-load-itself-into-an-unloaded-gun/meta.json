@@ -1,0 +1,22 @@
+{
+    "name": "steel-slug-rests-to-load-itself-into-an-unloaded-gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:11:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ao8bki6fxx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ao8bki6fxx"
+        ],
+        "mechanics": [
+            "load",
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

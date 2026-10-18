@@ -107,6 +107,14 @@ $customDQHandlers["SpirelleEnterBanish"] = function($player, $parts, $lastDecisi
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     MZMove($player, $lastDecision, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
+    // Remember which banished card Spirelle banished: her activated ability reveals one of them and later puts all of them into memory.
+    $spBanish = GetBanish($player);
+    for($spi = count($spBanish) - 1; $spi >= 0; --$spi) {
+        if($spBanish[$spi]->removed) continue;
+        if(!is_array($spBanish[$spi]->Counters)) $spBanish[$spi]->Counters = [];
+        $spBanish[$spi]->Counters["spirelle_banished"] = 1;
+        break;
+    }
 };
 
 /**

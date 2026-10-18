@@ -1,0 +1,22 @@
+{
+    "name": "tristan-shadowreaver-ordinary-level-up-draws-no-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:10:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4upufooz13"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4upufooz13"
+        ],
+        "mechanics": [
+            "lineage",
+            "level-up",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Tristan can level up into champions of the same base level. When she does, draw two cards."
+        ]
+    }
+}

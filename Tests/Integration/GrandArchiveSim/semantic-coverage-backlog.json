@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-18T02:24:49+00:00",
+    "generatedAt": "2026-10-18T04:17:38+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -15253,10 +15253,14 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down"
+                "spirelle-schwartz-queen-ability-leaves-activations-with-a-different-reserve-cost",
+                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down",
+                "spirelle-schwartz-queen-negates-activations-with-the-revealed-reserve-cost-and-moves-the-banished-cards-to-memory"
             ],
             "semanticFixtures": [
-                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down"
+                "spirelle-schwartz-queen-ability-leaves-activations-with-a-different-reserve-cost",
+                "spirelle-schwartz-queen-enter-deals-three-damage-to-a-unit-and-may-banish-a-card-face-down",
+                "spirelle-schwartz-queen-negates-activations-with-the-revealed-reserve-cost-and-moves-the-banished-cards-to-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -16165,10 +16169,14 @@
                 "condition"
             ],
             "existingFixtures": [
-                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant"
+                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant",
+                "nightmare-coil-class-bonus-activation-cannot-be-negated",
+                "nightmare-coil-recollection-draws-and-punishes-an-opponent-activation-for-eight"
             ],
             "semanticFixtures": [
-                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant"
+                "nightmare-coil-cannot-be-activated-in-the-main-phase-even-while-distant",
+                "nightmare-coil-class-bonus-activation-cannot-be-negated",
+                "nightmare-coil-recollection-draws-and-punishes-an-opponent-activation-for-eight"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -22794,9 +22802,13 @@
                 "condition"
             ],
             "existingFixtures": [
+                "gloamspire-mantle-absent-the-umbra-phantasia-ally-cannot-retaliate",
+                "gloamspire-mantle-gives-umbra-phantasia-allies-ambush",
                 "gloamspire-mantle-tristan-bonus-enter-pay-three-summons-an-ominous-shadow"
             ],
             "semanticFixtures": [
+                "gloamspire-mantle-absent-the-umbra-phantasia-ally-cannot-retaliate",
+                "gloamspire-mantle-gives-umbra-phantasia-allies-ambush",
                 "gloamspire-mantle-tristan-bonus-enter-pay-three-summons-an-ominous-shadow"
             ],
             "starterDecks": [],
@@ -22818,10 +22830,14 @@
             ],
             "existingFixtures": [
                 "gloamspire-wraith-class-bonus-ranged-two",
+                "gloamspire-wraith-distant-on-hit-recovers-the-damage-dealt",
+                "gloamspire-wraith-not-distant-has-no-on-hit-recovery",
                 "gloamspire-wraith-without-the-class-bonus-has-no-ranged"
             ],
             "semanticFixtures": [
                 "gloamspire-wraith-class-bonus-ranged-two",
+                "gloamspire-wraith-distant-on-hit-recovers-the-damage-dealt",
+                "gloamspire-wraith-not-distant-has-no-on-hit-recovery",
                 "gloamspire-wraith-without-the-class-bonus-has-no-ranged"
             ],
             "starterDecks": [],
@@ -24711,10 +24727,16 @@
                 "condition"
             ],
             "existingFixtures": [
-                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs"
+                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs",
+                "soutirer-vortex-each-matching-omen-recovers-one-and-damages-the-activators-champion",
+                "soutirer-vortex-omen-trigger-ignores-a-different-reserve-cost",
+                "soutirer-vortex-omens-do-nothing-without-the-vortex"
             ],
             "semanticFixtures": [
-                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs"
+                "soutirer-vortex-costs-three-less-with-three-omens-of-different-reserve-costs",
+                "soutirer-vortex-each-matching-omen-recovers-one-and-damages-the-activators-champion",
+                "soutirer-vortex-omen-trigger-ignores-a-different-reserve-cost",
+                "soutirer-vortex-omens-do-nothing-without-the-vortex"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -25153,12 +25175,16 @@
                 "condition"
             ],
             "existingFixtures": [
+                "tristan-shadowreaver-lineage-same-level-up-draws-two-cards",
                 "tristan-shadowreaver-may-play-a-card-it-banished-from-the-opponents-deck",
-                "tristan-shadowreaver-on-enter-banishes-the-top-four-cards-of-the-opponents-deck"
+                "tristan-shadowreaver-on-enter-banishes-the-top-four-cards-of-the-opponents-deck",
+                "tristan-shadowreaver-ordinary-level-up-draws-no-cards"
             ],
             "semanticFixtures": [
+                "tristan-shadowreaver-lineage-same-level-up-draws-two-cards",
                 "tristan-shadowreaver-may-play-a-card-it-banished-from-the-opponents-deck",
-                "tristan-shadowreaver-on-enter-banishes-the-top-four-cards-of-the-opponents-deck"
+                "tristan-shadowreaver-on-enter-banishes-the-top-four-cards-of-the-opponents-deck",
+                "tristan-shadowreaver-ordinary-level-up-draws-no-cards"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -27253,10 +27279,16 @@
                 "trigger"
             ],
             "existingFixtures": [
-                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard"
+                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard",
+                "death-essence-amulet-declining-the-banish-keeps-the-amulet-and-discards-nothing",
+                "death-essence-amulet-does-not-trigger-when-the-ally-dies-on-your-own-turn",
+                "death-essence-amulet-memory-choice-discards-from-the-opponents-memory"
             ],
             "semanticFixtures": [
-                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard"
+                "death-essence-amulet-an-ally-dying-on-the-opponents-turn-lets-you-banish-it-to-make-them-discard",
+                "death-essence-amulet-declining-the-banish-keeps-the-amulet-and-discards-nothing",
+                "death-essence-amulet-does-not-trigger-when-the-ally-dies-on-your-own-turn",
+                "death-essence-amulet-memory-choice-discards-from-the-opponents-memory"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -30203,10 +30235,20 @@
                 "condition"
             ],
             "existingFixtures": [
-                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost"
+                "mary-ann-gains-ambush-from-an-omen-with-ambush-and-retaliates",
+                "mary-ann-gains-intercept-from-an-omen-with-intercept",
+                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost",
+                "mary-ann-has-no-ambush-when-no-omen-has-it",
+                "mary-ann-stays-rested-without-a-vigor-omen",
+                "mary-ann-wakes-up-at-end-of-turn-with-a-vigor-omen"
             ],
             "semanticFixtures": [
-                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost"
+                "mary-ann-gains-ambush-from-an-omen-with-ambush-and-retaliates",
+                "mary-ann-gains-intercept-from-an-omen-with-intercept",
+                "mary-ann-gets-plus-one-power-for-each-omen-with-a-different-reserve-cost",
+                "mary-ann-has-no-ambush-when-no-omen-has-it",
+                "mary-ann-stays-rested-without-a-vigor-omen",
+                "mary-ann-wakes-up-at-end-of-turn-with-a-vigor-omen"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -32284,10 +32326,18 @@
                 "condition"
             ],
             "existingFixtures": [
-                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet",
+                "steel-slug-cannot-be-materialized-with-an-empty-memory",
+                "steel-slug-materialize-phase-pays-its-one-memory-cost",
+                "steel-slug-renewable-returns-to-the-material-deck-after-the-loaded-attack",
+                "steel-slug-rests-to-load-itself-into-an-unloaded-gun"
             ],
             "semanticFixtures": [
-                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet"
+                "lesser-boon-of-bullets-pays-two-and-materializes-a-bullet",
+                "steel-slug-cannot-be-materialized-with-an-empty-memory",
+                "steel-slug-materialize-phase-pays-its-one-memory-cost",
+                "steel-slug-renewable-returns-to-the-material-deck-after-the-loaded-attack",
+                "steel-slug-rests-to-load-itself-into-an-unloaded-gun"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

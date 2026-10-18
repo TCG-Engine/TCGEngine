@@ -6586,6 +6586,7 @@ function GAFieldAbilityCostTable() {
         "jjGLZKfRn5:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Suzaku
         "67CIhG8hmG:0" => ['reserve' => 2, 'sacrifice' => true, 'noAutoRest' => true, 'bonus' => 'guojia'], // Avatar of Genbu
         "PIcB5KuuMd:0" => ['rest' => true, 'banishMaterial' => true, 'bonus' => 'merlin'], // Vorpal Sword: "[Merlin Bonus] [REST], Banish a card from your material deck" (the REST was never paid and the first material card was banished unasked)
+        "p2n1953som:0" => ['reserve' => 2, 'rest' => true], // Spirelle, Schwartz Queen: (2), [REST] (the generated body paid neither the (2) nor tied the reveal to cards Spirelle banished)
     ];
     return $table;
 }
@@ -7982,8 +7983,7 @@ function OnCardActivated($player, $mzCard) {
         if($vortexObj->removed || $vortexObj->CardID !== "du4df43ci2" || HasNoAbilities($vortexObj)) continue;
         $matchingOmens = 0;
         $activatedReserveCost = intval(CardCost_reserve($obj->CardID));
-        foreach(GetOmens($opponent) as $omenMZ) {
-            $omenObj = GetZoneObject($omenMZ);
+        foreach(GetOmens($opponent) as $omenObj) { // GetOmens returns objects, not mzIDs
             if($omenObj === null || $omenObj->removed) continue;
             if(intval(CardCost_reserve($omenObj->CardID)) === $activatedReserveCost) {
                 ++$matchingOmens;
@@ -25105,6 +25105,9 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
     if($obj->CardID !== "mt5zs1w6c0") return false;
     foreach(GetOmens($obj->Controller) as $omenObj) {
         switch($keyword) {
+            case "Ambush":
+                if(HasKeyword_Ambush($omenObj)) return true;
+                break;
             case "Vigor":
                 if(HasKeyword_Vigor($omenObj)) return true;
                 break;
