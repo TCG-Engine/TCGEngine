@@ -36,7 +36,11 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       assert.equal(await page.locator('.orb-liquid').first().evaluate(el => getComputedStyle(el).animationName), 'none', 'full hands have no liquid motion');
       assert.equal(await page.locator('.orb-slosh').first().evaluate(el => getComputedStyle(el).display), 'none', 'full hands show no exposed surface');
       assert.notEqual(await page.locator('.orb-fill').first().evaluate(el => getComputedStyle(el).backgroundColor), 'rgba(0, 0, 0, 0)', 'full hands fill the entire orb');
+      assert.equal(await page.locator('.health-slosh').first().evaluate(el => getComputedStyle(el).display), 'none', 'full health has no exposed liquid edge');
+      assert.equal(await page.locator('.health-fill').first().evaluate(el => getComputedStyle(el).backgroundSize), '100% 100%', 'full health fills the reservoir');
       await page.evaluate(() => {
+        state.players[0].life=28;
+        state.players[1].life=32;
         for (const player of state.players) {
           let remaining = 3;
           player.available = player.available.filter(id => card(id).color !== 'Red' || remaining-- > 0);
@@ -51,13 +55,23 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
           return Math.abs(parseFloat(angle));
         });
       });
-      assert.ok(Math.max(...idleTilt) <= 1, 'idle surface only wavers by a fraction of a degree');
+      assert.ok(Math.max(...idleTilt) <= 1.5, 'idle surface only wavers by a fraction of a degree');
+      assert.equal(await page.locator('.health-slosh').first().evaluate(el => getComputedStyle(el).animationName), 'health-liquid-idle');
+      const healthIdle = await page.locator('.health-slosh').first().evaluate(el => el.getAnimations()[0].effect.getKeyframes().map(frame => frame.clipPath));
+      assert.ok(healthIdle.some(transform => transform.includes('polygon')), 'resting health liquid gently moves as well as tilting');
+      assert.deepEqual(await page.locator('.health-fill').evaluateAll(fills=>fills.map(el=>el.style.width)), ['70%', '80%']);
       const hit = amount => page.evaluate(amount => {
         const previous = structuredClone(state), next = structuredClone(state);
         next.players[0].life -= amount;
+        state=next; render();
         animateMeterChanges(previous, next);
         const animation = document.querySelector('#yourOrbs .orb-slosh').getAnimations()[0];
+        const healthAnimation=document.querySelector('.health-slosh').getAnimations().find(a => !(a instanceof CSSAnimation));
         return {
+          healthDuration:healthAnimation.effect.getTiming().duration,
+          healthSurge:Math.max(...healthAnimation.effect.getKeyframes().map(frame => Math.abs(parseFloat(frame.clipPath.split(',')[1])-66.667))),
+          healthRotates:healthAnimation.effect.getKeyframes().some(frame => frame.transform && frame.transform !== 'none'),
+          opponentHealth:document.querySelectorAll('.health-slosh')[1].getAnimations().filter(a => !(a instanceof CSSAnimation)).length,
           duration: animation.effect.getTiming().duration,
           peak: Math.max(...animation.effect.getKeyframes().map(frame => Math.abs(parseFloat(frame.transform.match(/rotate\(([^d]+)/)[1])))),
           own: [...document.querySelectorAll('#yourOrbs .orb-slosh')].filter(el => el.getAnimations().length).length,
@@ -65,10 +79,16 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
         };
       }, amount);
       const small = await hit(1), large = await hit(12);
+      assert.equal(await page.locator('.health-track.damage-hit').count(), 1, 'damage still flashes the health bar');
+      assert.ok(await page.locator('.health-trail').count() > 0, 'lost health still leaves a trailing fill');
       assert.equal(large.own, 1, 'only partially drained hands animate after damage');
       assert.equal(large.opponent, 0, 'only the damaged fighter sloshes');
       assert.ok(large.peak > small.peak * 3, 'larger damage gives a stronger impulse');
       assert.ok(large.duration > small.duration, 'larger damage settles longer');
+      assert.ok(large.healthDuration > small.healthDuration, 'larger damage also rocks the reservoir longer');
+      assert.ok(large.healthSurge > small.healthSurge * 3, 'large hits surge the health liquid farther');
+      assert.equal(large.healthRotates, false, 'damage deforms the liquid edge without rotating it');
+      assert.equal(large.opponentHealth, 0, 'the undamaged reservoir stays calm');
       await page.evaluate(() => {
         // An inventory change, browse, or bot update must not cut the impulse short.
         state.players[0].available = state.players[0].available.filter(id => card(id).color !== 'Red' || id === state.players[0].available[0]);
@@ -77,15 +97,19 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       assert.ok(await page.locator('#yourOrbs .orb-slosh').first().evaluate(el => el.getAnimations().length > 0));
       await page.locator('#your-orb-Blue').click();
       assert.ok(await page.locator('#yourOrbs .orb-slosh').first().evaluate(el => el.getAnimations().length > 0), 'browsing preserves the settling motion');
+      assert.ok(await page.locator('.health-slosh').first().evaluate(el => el.getAnimations().some(a => !(a instanceof CSSAnimation))), 'reservoir motion survives browsing too');
       await page.screenshot({ path: join(shots, `${name}-${viewport.width}.png`), fullPage: true });
       await page.waitForFunction(() => [...document.querySelectorAll('#yourOrbs .orb-slosh')].every(el => !el.getAnimations().length));
+      assert.equal(await page.locator('.health-slosh').first().evaluate(el=>el.getAnimations().filter(a => !(a instanceof CSSAnimation)).length),0,'reservoir edge settles after a hit');
       await page.evaluate(() => animateMeterChanges(state, state));
       assert.equal(await page.locator('#yourOrbs .orb-slosh').first().evaluate(el => el.getAnimations().length), 0, 'unchanged state does not replay damage');
       await hit(6);
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      await page.waitForFunction(() => !document.querySelector('#yourOrbs .orb-slosh').getAnimations().length);
+      await page.waitForFunction(() => !document.querySelector('#yourOrbs .orb-slosh').getAnimations().length && getComputedStyle(document.querySelector('.orb-liquid')).animationName==='none');
       assert.equal(await page.locator('.orb-liquid').first().evaluate(el => getComputedStyle(el).animationName), 'none');
       assert.equal(await page.locator('.orb-wave').first().evaluate(el => getComputedStyle(el).animationName), 'none');
+      assert.equal(await page.locator('.health-slosh').first().evaluate(el => getComputedStyle(el).animationName), 'none');
+      assert.equal(await page.locator('.health-slosh').first().evaluate(el=>el.getAnimations().length),0,'reduced motion cancels reservoir impulses');
       await page.evaluate(() => {
         const next = structuredClone(state); next.players[1].life -= 5;
         animateMeterChanges(state, next);

@@ -2,12 +2,13 @@
 let state = null, token = '', catalog = new Map(), styles = {}, busy = false, selectedMain = null, selectedBonuses = new Set(), browseColor = null;
 let selectedAdvantages = new Set(), extraSwitch = null;
 let opponentColor = null;
+let fightLogTrigger = null;
 let activeMotion = [];
-let orbImpacts = [null, null];
+let liquidImpacts = [null, null];
 const orbMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 orbMotionPreference.addEventListener('change', () => {
-  orbImpacts = [null, null];
-  document.querySelectorAll('.orb-slosh').forEach(surface => surface.getAnimations().forEach(animation => animation.cancel()));
+  liquidImpacts = [null, null];
+  document.querySelectorAll('.orb-slosh, .health-slosh').forEach(surface => surface.getAnimations().forEach(animation => animation.cancel()));
 });
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -19,7 +20,7 @@ function orbMeter(count) {
   const wave='<path d="M0 5 Q50 4 100 5 T200 5 V100 H0 Z" fill="currentColor"/><path d="M0 5 Q50 4 100 5 T200 5" fill="none" stroke="white" stroke-opacity=".35" stroke-width=".8"/>';
   return `<span class="orb-meter ${extra?'overfilled':''}"><span class="orb-sphere"><span class="orb-fill" data-empty="${count===0}" data-full="${count>=6}" style="height:${Math.min(100,count/6*100)}%"><span class="orb-slosh" aria-hidden="true"><span class="orb-liquid"><svg class="orb-wave orb-wave-back" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg><svg class="orb-wave orb-wave-front" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg></span></span></span><span class="orb-count">${count}</span></span>${extra?`<span class="orb-extra" aria-hidden="true">+${extra}</span>`:''}</span>`;
 }
-function sloshHandOrbs(seat, amount) {
+function sloshFighterLiquid(seat, amount) {
   if(orbMotionPreference.matches || !Number.isFinite(amount) || amount<=0) return;
   // A damped impulse keeps small hits soft, while big hits rock farther and settle longer.
   const strength=Math.min(amount,20), direction=seat===0?1:-1;
@@ -30,19 +31,27 @@ function sloshHandOrbs(seat, amount) {
     const lift=Math.sin(progress*Math.PI*10+Math.PI/2)*(1+strength*.18)*decay*Math.sin(progress*Math.PI);
     return {offset:progress,transform:`translateY(${lift}px) rotate(${tilt}deg)`};
   });
-  orbImpacts[seat]={start:performance.now(),duration,frames};
-  document.querySelectorAll(`#${seat===0?'yourOrbs':'opponentOrbs'} .orb-slosh`).forEach(surface=>surface.getAnimations().forEach(animation=>animation.cancel()));
-  restoreOrbSloshes();
+  const healthFrames=Array.from({length:81},(_,index)=>{
+    const progress=index/80, decay=Math.pow(1-progress,2.3);
+    const wave=Math.sin(progress*Math.PI*10)*decay;
+    const edge=66.667+wave*Math.min(20,3+strength*1.1);
+    const lean=wave*Math.min(7,1+strength*.4);
+    // Deform the liquid boundary, keeping the reservoir itself level.
+    return {offset:progress,clipPath:`polygon(0 0, ${edge+lean}% 0, ${edge+lean*.3+.5*wave}% 33%, ${edge-lean*.3+.5*wave}% 67%, ${edge-lean}% 100%, 0 100%)`};
+  });
+  liquidImpacts[seat]={start:performance.now(),duration,frames,healthFrames};
+  document.querySelectorAll(`#fighters .fighter:nth-child(${seat+1}) .orb-slosh, #fighters .fighter:nth-child(${seat+1}) .health-slosh`).forEach(surface=>surface.getAnimations().filter(animation=>!(animation instanceof CSSAnimation)).forEach(animation=>animation.cancel()));
+  restoreLiquidImpacts();
 }
-function restoreOrbSloshes() {
+function restoreLiquidImpacts() {
   if(orbMotionPreference.matches) return;
-  orbImpacts.forEach((impact,seat)=>{
+  liquidImpacts.forEach((impact,seat)=>{
     if(!impact) return;
     const elapsed=performance.now()-impact.start;
-    if(elapsed>=impact.duration) {orbImpacts[seat]=null;return;}
-    document.querySelectorAll(`#${seat===0?'yourOrbs':'opponentOrbs'} .orb-fill:not([data-empty="true"]):not([data-full="true"]) .orb-slosh`).forEach(surface=>{
-      if(surface.getAnimations().length) return;
-      const animation=surface.animate(impact.frames,{duration:impact.duration,easing:'linear'});
+    if(elapsed>=impact.duration) {liquidImpacts[seat]=null;return;}
+    document.querySelectorAll(`#fighters .fighter:nth-child(${seat+1}) .orb-fill:not([data-empty="true"]):not([data-full="true"]) .orb-slosh, #fighters .fighter:nth-child(${seat+1}) .health-fill:not([data-empty="true"]):not([data-full="true"]) .health-slosh`).forEach(surface=>{
+      if(surface.getAnimations().some(animation=>!(animation instanceof CSSAnimation))) return;
+      const animation=surface.animate(surface.classList.contains('health-slosh')?impact.healthFrames:impact.frames,{duration:impact.duration,easing:'linear'});
       animation.currentTime=elapsed;
     });
   });
@@ -90,7 +99,7 @@ function accept(data) {
     if(state.phase==='reactions'&&['relocating','routing','directing','switching'].includes(data.state.phase)&&!data.state.players[0].discarded.includes(state.commitments[0].main)) moves.push({type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${state.commitments[0].main}`,durationMs:340});
   }
   const prepared=prepareMotion(moves);
-  if(!state || state.matchId !== data.state?.matchId) { orbImpacts=[null,null]; opponentColor=null; ClosePopup(); HideCardDetail(true); $('damageEffects').replaceChildren(); }
+  if(!state || state.matchId !== data.state?.matchId) { DFGFighterReactions.reset(); liquidImpacts=[null,null]; opponentColor=null; ClosePopup(); HideCardDetail(true); $('damageEffects').replaceChildren(); }
   const changed = !state || !data.state || state.matchId !== data.state.matchId || state.round !== data.state.round || state.phase !== data.state.phase;
   token = data.token; state = data.state; styles = data.colors; catalog = new Map(data.cards.map(c => [c.id,c]));
   if (changed) { selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); extraSwitch=null; browseColor = state?.players[0].color ?? 'Red'; }
@@ -100,13 +109,15 @@ function accept(data) {
   TCGCardMotion.playPreparedZoneMoves(prepared,1);
 }
 function animateMeterChanges(previous,next) {
+  if(next?.phase==='finished') DFGFighterReactions.syncOutcome(next.winner,{animate:!!previous&&previous.matchId===next.matchId&&previous.phase!=='finished'});
   if(!previous||!next||previous.matchId!==next.matchId) return;
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const resolved=previous.phase==='reactions'&&['stripping','relocating','routing','directing','switching','finished'].includes(next.phase);
   const damage=next.players.map((player,seat)=>Math.max(0,Number(resolved?next.stats?.[1-seat]?.damage??previous.players[seat].life-player.life:previous.players[seat].life-player.life)));
+  damage.forEach((amount,seat)=>{if(resolved||amount>0) DFGFighterReactions.play(seat,amount);});
   damage.forEach((amount,seat)=>{if(amount>0) showDamageImpact(seat,amount,reduced);});
   if(reduced) return;
-  damage.forEach((amount,seat)=>{if(amount>0) sloshHandOrbs(seat,amount);});
+  damage.forEach((amount,seat)=>{if(amount>0) sloshFighterLiquid(seat,amount);});
   const shake=(element,amount,className)=>{
     if(!element||!amount) return;
     const hand=className==='hand-impact', heavy=amount>=5;
@@ -205,7 +216,7 @@ async function act(action) {
 function fighter(seat) {
   const p = state.players[seat];
   const advantage=`<div class="advantage-tray" aria-label="${seat===0?'Your':'Bot'} advantage tokens"><span>ADV</span>${(p.advantages??[]).length?p.advantages.map(color=>`<span class="advantage-token ${classColor(color)}" title="${esc(color)} advantage" aria-label="${esc(color)} advantage"></span>`).join(''):'<span class="muted" aria-label="No advantage">—</span>'}</div>`;
-  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div class="fighter-identity"><h2>${seat===0?'YOU':'SPARRING BOT'}</h2></div><div class="fighter-vitals">${advantage}<div class="life">${p.life}<small> / 40</small></div></div></div><div class="health-track"><div class="health-fill" data-full="${p.life>=40}" style="width:${Math.max(0,p.life)/40*100}%"></div></div>${handStatus(seat)}</div>`;
+  return `<div class="fighter ${classColor(p.color)}"><div class="fighter-head"><div class="fighter-identity"><h2>${seat===0?'YOU':'SPARRING BOT'}</h2></div><div class="fighter-vitals">${advantage}<div class="life">${p.life}<small> / 40</small></div></div></div><div class="health-track"><div class="health-fill" data-full="${p.life>=40}" data-empty="${p.life<=0}" style="width:${Math.min(40,Math.max(0,p.life))/40*100}%"><span class="health-slosh" aria-hidden="true"><svg class="health-meniscus" viewBox="0 0 18 100" preserveAspectRatio="none"><defs><linearGradient id="health-glass-${seat}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="white" stop-opacity=".22"/><stop offset=".42" stop-color="white" stop-opacity=".04"/><stop offset=".55" stop-color="black" stop-opacity="0"/><stop offset="1" stop-color="black" stop-opacity=".2"/></linearGradient></defs><rect width="18" height="100" fill="currentColor"/><rect width="18" height="100" fill="url(#health-glass-${seat})"/></svg></span></div></div>${handStatus(seat)}</div>`;
 }
 function reveal(seat) {
   const staged=seat===0&&state.phase==='planning'&&!state.commitments[0];
@@ -251,11 +262,11 @@ function showRulesPopup() {
   closePreview();HideCardDetail(true);
   $('popupContainer').innerHTML=createPopupHTML('rules','',{titleHTML:'Prototype rules',contentHTML:$('rulesContent').innerHTML});
   const popup=$('rulesPopup');popup.setAttribute('role','dialog');popup.setAttribute('aria-label','Prototype rules');
-  _openPopup='rules';$('showRules').setAttribute('aria-expanded','true');
+  _openPopup='rules';$('showRules').setAttribute('aria-expanded','true');$('homeRules').setAttribute('aria-expanded','true');
   popup.querySelector('button').setAttribute('aria-label','Close rules');popup.querySelector('button').focus();
 }
 function closeRulesPopup() {
-  ClosePopup();$('showRules').setAttribute('aria-expanded','false');($('home').hidden?$('matchMenu').querySelector('summary'):$('homeRules')).focus();
+  ClosePopup();$('showRules').setAttribute('aria-expanded','false');$('homeRules').setAttribute('aria-expanded','false');($('home').hidden?$('matchMenu').querySelector('summary'):$('homeRules')).focus();
 }
 function showScreen(play) {
   closePreview(); HideCardDetail(true); ClosePopup(); opponentColor=null;
@@ -287,7 +298,8 @@ function cardMarkup(c) {
 }
 function controls() {
   const phase = state.phase, p = state.players[0];
-  $('matchControls').dataset.phase=phase;
+  $('matchControls').dataset.phase=state.needsNewMatch?'rules-updated':phase;
+  $('phaseTag').hidden=phase!=='finished'||state.needsNewMatch;
   if(state.needsNewMatch) {
     $('phaseTag').textContent='RULES UPDATED'; $('phaseTitle').textContent='Start a fresh match.';
     $('phaseHint').textContent='Rules or card balance changed. Start a new match to use the updated cards.';
@@ -340,19 +352,28 @@ function controls() {
       return `<button class="hand-orb ${classColor(color)} ${color===p.color?'active-hand':''}" data-switch="${esc(color)}" aria-label="Choose ${esc(label)}" title="${esc(label)}" ${busy?'disabled':''}>${orbMeter(remaining)}<span class="orb-label">${esc(color)}</span></button>`;
     }).join('')}</div>`;
   } else {
-    $('phaseTitle').textContent=state.winner==='draw'?'Draw.':state.winner===0?'You win.':'Bot wins.';
-    $('phaseHint').textContent='Review the fight log, inspect your remaining cards, or try another opening.';
-    $('controls').innerHTML='<button id="playAgain" class="primary">Play again</button>';
+    $('matchControls').dataset.outcome=state.winner==='draw'?'draw':state.winner===0?'victory':'defeat';
+    $('phaseTitle').textContent=state.winner==='draw'?'Draw':state.winner===0?'You win!':'Bot wins';
+    $('phaseHint').textContent='';
+    $('controls').innerHTML='<button id="playAgain" class="primary">Play again <span aria-hidden="true">↻</span></button><button id="reviewFight" aria-haspopup="dialog">Fight log</button>';
   }
 }
 function render() {
   $('homePlay').disabled=busy||!catalog.size;
   $('setupTitle').textContent=state?'Start a new fight.':'Choose your opening.';
   $('setupForm').querySelector('p').textContent=state?'Starting a new fight replaces your saved match. All six hands will be available again.':'All six hands are yours. Only your active hand can play or burn cards.';
+  const canResume=!!state && state.phase!=='finished' && !state.needsNewMatch;
   $('resumeMatch').hidden=!state;
-  $('resumeMatch').textContent=state?.phase==='finished'?'View last match':'Resume match';
+  $('resumeMatch').classList.toggle('primary',canResume);
+  $('homePlay').classList.toggle('primary',!canResume);
+  $('homePlay').textContent=state?'New match':'Play vs bot';
+  $('resumeMatch').textContent=state?.needsNewMatch?'View saved match':state?.phase==='finished'?'View last match':'Resume match';
+  const primaryHomeAction=canResume?$('resumeMatch'):$('homePlay');
+  if(primaryHomeAction.parentElement.firstElementChild!==primaryHomeAction) primaryHomeAction.parentElement.prepend(primaryHomeAction);
+  $('savedMatch').hidden=!state;
   $('savedMatch').textContent=state?`Round ${state.round} · ${state.players[0].color} · ${state.players[0].life} life${state.needsNewMatch?' · Rules updated; start a fresh match.':state.phase==='finished'?' · Complete':''}`:'Ready for your first fight? Start with the guided tutorial.';
   $('showRules').setAttribute('aria-expanded',_openPopup==='rules'?'true':'false');
+  $('homeRules').setAttribute('aria-expanded',_openPopup==='rules'?'true':'false');
   $('resign').hidden=!state||state.phase==='finished'||state.needsNewMatch;
   $('resign').disabled=busy;
   if(!state) { $('fighters').innerHTML='<p class="muted">Choose your opening hand to start a local match against the bot.</p>'; $('phaseHint').textContent='36 reusable moves. Permanent burns. Every round changes your next options.'; $('controls').innerHTML='<button id="playAgain" class="primary">Start a match</button>'; return; }
@@ -381,12 +402,11 @@ function render() {
   });
   $('timeline').innerHTML=[['planning','COMMIT FACE DOWN'],...(state.phase==='cancelling'?[['cancelling','CHOOSE CANCEL']]:[]),['reactions','REVEAL & REACT'],...(state.phase==='stripping'?[['stripping','REMOVE ADVANTAGE']]:[]),...(state.phase==='relocating'?[['relocating','MOVE MAIN']]:[]),...(state.phase==='routing'?[['routing','CUT ROUTE']]:[]),...(state.phase==='directing'?[['directing','DIRECT HAND']]:[]),['switching','DAMAGE & SWITCH']].map(([phase,label])=>`<span class="${state.phase===phase?'current':''}">${label}</span>`).join('');
   $('reveals').innerHTML=reveal(0)+reveal(1);
-  $('result').hidden=state.phase!=='finished'; $('result').textContent=state.winner==='draw'?'Draw · both fighters defeated':state.winner===0?'Victory. Well played.':'Defeat. Try a different line.';
   const p=state.players[0];browseColor=browseColor??p.color;
   $('cards').innerHTML=[...catalog.values()].filter(c=>cardHand(p,c.id)===browseColor).map(cardMarkup).join('');
   if(opponentColor && _openPopup==='opponentHand') renderOpponentPopup();
   controls();
-  restoreOrbSloshes();
+  restoreLiquidImpacts();
   $('log').innerHTML=state.log.slice().reverse().map(entry=>`<div class="log-entry"><small>R${entry.round}</small>${esc(entry.text)}</div>`).join('');
 }
 document.addEventListener('click',event=>{
@@ -400,7 +420,7 @@ document.addEventListener('click',event=>{
   if(button.id==='goHome'){showScreen(false);return;}
   if(button.id==='resumeMatch'){showScreen(true);return;}
   if(button.id==='homePlay'){$('setup').showModal();return;}
-  if(button.id==='showLog'){$('fightLog').showModal();button.setAttribute('aria-expanded','true');return;}
+  if(['showLog','reviewFight'].includes(button.id)){fightLogTrigger=button.id==='reviewFight'?button:$('matchMenu').querySelector('summary');$('fightLog').showModal();$('showLog').setAttribute('aria-expanded','true');return;}
   if(button.id==='closeLog'){$('fightLog').close();return;}
   if(button.closest('#rulesPopup')&&button.getAttribute('onclick')==='ClosePopup()'){closeRulesPopup();return;}
   if(button.dataset.handAction){clickHandCard(Number(button.dataset.handAction),button);return;}
@@ -454,8 +474,12 @@ document.addEventListener('focusout', event => { if(event.target.closest('[data-
 document.addEventListener('keydown', event => { if(event.key==='Escape') { closePreview(); if($('advantagePicker')?.open) { $('advantagePicker').open=false; $('advantagePicker').querySelector('summary').focus(); } if($('matchMenu').open) { $('matchMenu').open=false; $('matchMenu').querySelector('summary').focus(); } } });
 document.addEventListener('click', event => { if(previewPinned && !event.target.closest('#cardPreview, [data-inspect]')) closePreview(); });
 window.addEventListener('resize', positionPreview);
-$('fightLog').addEventListener('close',()=>{$('showLog').setAttribute('aria-expanded','false');$('matchMenu').querySelector('summary').focus();});
+$('fightLog').addEventListener('close',()=>{$('showLog').setAttribute('aria-expanded','false');if(fightLogTrigger?.isConnected)fightLogTrigger.focus();});
 window.addEventListener('scroll', () => { if(!previewPinned) closePreview(); }, {passive:true});
+// Close setup consistently in browsers that do not dispatch native dialog cancellation.
+$('setup').addEventListener('keydown',event=>{
+  if(event.key==='Escape') { event.preventDefault();$('setup').close(); }
+});
 $('setupForm').addEventListener('submit',async event=>{
   event.preventDefault();if(busy)return;busy=true;
   const submit=$('setupForm').querySelector('[type=submit]');submit.disabled=true;

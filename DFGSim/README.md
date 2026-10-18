@@ -77,7 +77,7 @@ Hidden main/bonus commitments and next-hand choices stay hidden until their norm
 
 ## Advantage prototype
 
-Start a fresh match for rules version 43. Each player starts with no advantage. Tokens are public,
+Start a fresh match for rules version 44. Each player starts with no advantage. Tokens are public,
 persistent across hand changes, and capped at one of each color. They cannot be spent on their own,
 on a bonus burn, or on a reaction. Select a spending card as your main, then choose its optional tokens
 in the action panel. Spending choices remain hidden with the
@@ -278,8 +278,8 @@ not change your rules to force a finish. All card balance is provisional.
 
 ## Card data and source
 
-The version 6 switching pass gives each color exactly one card that lists its own color (6/36):
-Red — Rushdown; Orange — Off-Balance Sweep; Yellow — Darting Strike; Green — Driving Palm;
+The switching rules give each color exactly one card that lists its own color (6/36):
+Red — Rushdown; Orange — Off-Balance Sweep; Yellow — Darting Strike; Green — Firm Counter;
 Blue — Counterpunch; Purple — Charged Fist. The other 30 cards force movement to another hand.
 Every card retains two or three destinations. Incoming printed routes are distributed across the
 colors (Red/Orange/Purple 14 each, Yellow/Blue 15 each, Green 16), and every hand remains reachable from every opening.
@@ -808,3 +808,9 @@ its defensive-bonus penetration if both resources were committed. Printed/main/a
 and reaction block are not ignored by its existing bonus-bypass effect. Stats, burns, and routes
 are unchanged. Start a new match for v43. `php DevTools/DFGSim/heavy-feint-tests.php` verifies
 both seats, independent and overlapping reads, multi-token spends, cancellation, and live resolution.
+
+## Green stay option: Firm Counter (v44)
+
+Driving Palm (ID 23) now switches to Red/Purple. Its Green destination moves to Firm Counter
+(ID 21), which now switches to Red/Green/Blue. Green still has exactly one card that can stay
+in its own hand. Stats, abilities, and burn effects are unchanged. Start a fresh match for v44.

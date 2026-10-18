@@ -307,6 +307,7 @@
       "reaction": "Gain +1 block this round.",
       "switches": [
         "Red",
+        "Green",
         "Blue"
       ]
     },
@@ -335,7 +336,6 @@
       "reaction": "Gain +1 attack this round.",
       "switches": [
         "Red",
-        "Green",
         "Purple"
       ]
     },

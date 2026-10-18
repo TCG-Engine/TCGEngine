@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/CardCatalog.php';
-const DFG_RULES_VERSION = 43;
+const DFG_RULES_VERSION = 44;
 
 function DFGNewGame(string $humanColor = 'Red', string $botColor = 'Purple', int $seed = 1, int $first = 0, string $difficulty = 'tactical'): array {
     if (!in_array($humanColor, DFG_COLORS, true) || !in_array($botColor, DFG_COLORS, true) || !in_array($first, [0, 1], true)

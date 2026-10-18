@@ -95,7 +95,7 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       assert.equal(await page.locator('#cards .playable').count(),6,'all available active-hand mains glow');
       assert.equal(await page.locator('#cards .playable .tile-face').first().evaluate(el=>getComputedStyle(el).animationName),'none','reduced-motion preference is respected');
       const liquidAnimations=()=>page.evaluate(()=>({health:getComputedStyle(document.querySelector('.health-fill'),'::after').animationName,orb:getComputedStyle(document.querySelector('.orb-fill'),'::after').animationName}));
-      assert.deepEqual(await liquidAnimations(),{health:'none',orb:'none'},'arcade meters retain static scanlines with reduced motion');
+      assert.deepEqual(await liquidAnimations(),{health:'none',orb:'none'},'meter lighting stays still with reduced motion');
       if(viewport.width===1600) {
         await page.emulateMedia({reducedMotion:'no-preference'});
         assert.equal(await page.locator('#cards .playable .tile-face').first().evaluate(el=>getComputedStyle(el).animationName),'playable-glow');

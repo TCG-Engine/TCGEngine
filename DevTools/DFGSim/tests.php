@@ -120,9 +120,9 @@ $stats = DFGComputeRound([['main' => 33, 'bonuses' => []], ['main' => 2, 'bonuse
 check($stats[0]['damage'] === 5, 'block reduction cannot make block negative');
 $stats = DFGComputeRound([['main' => 25, 'bonuses' => []], ['main' => 2, 'bonuses' => []]]);
 check($stats[0]['attack'] === 3 && $stats[0]['block'] === 6, 'Blue conditional attack and block both apply');
-check(array_keys(array_filter(DFGCatalog(), fn($card) => in_array($card['color'], $card['switches'], true))) === [2, 11, 14, 23, 30, 32], 'exactly the six designated cards permit staying in the same hand');
+check(array_keys(array_filter(DFGCatalog(), fn($card) => in_array($card['color'], $card['switches'], true))) === [2, 11, 14, 21, 30, 32], 'exactly the six designated cards permit staying in the same hand');
 foreach (DFG_COLORS as $color) check(count(array_filter(DFGCatalog(), fn($card) => $card['color'] === $color && in_array($color, $card['switches'], true))) === 1, 'each hand has exactly one stay option');
-foreach ([2, 11, 14, 23, 30, 32] as $id) {
+foreach ([2, 11, 14, 21, 30, 32] as $id) {
     $stayState = finishWindow(revealed($id, 1));
     $stayState = DFGApply($stayState, 0, ['type' => 'switch', 'color' => DFGCatalog()[$id]['color']]);
     check($stayState['switches'][0] === DFGCatalog()[$id]['color'], 'the designated stay card legally selects its own hand after damage');

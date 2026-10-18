@@ -1,0 +1,9 @@
+Settings: Kling 4.0, Keyframes, 720p, 5 seconds, adaptive ratio, one output per fighter.
+First frame: fighter-blue-black.png or fighter-red-black.png.
+Leave middle/last keyframes empty: the fighter must end down, not return to the standing source image.
+Approved budget: 45 credits each, 90 total.
+
+Blue prompt:
+DFG blue knockout. A single five-second fighting-game knockout animation of this exact blue martial artist, initially facing right in the supplied guard, on a perfectly uniform pure black background. In the first two seconds an unseen final blow from screen-right makes the fighter recoil backward toward screen-left, lose balance, knees buckle, then collapse naturally onto their back or side on the invisible ground. The body settles completely into a clearly defeated lying-down pose by the third second. Remain lying motionless on the ground for the rest of the clip. DO NOT stand up or return to guard. Keep the entire body, head, hands and both feet visible within the original frame throughout, including the final horizontal pose; leave margin from every canvas edge. Preserve the original blank faceless head, blue tunic, brown pants, dark outlines, simple flat illustration style, proportions, size and constant lighting. Locked camera and unchanged framing, no pan or zoom. One fall only, no rolling away, no repeated impacts, no victory gestures. No attacker, extra characters, blood, wounds, gore, debris, particles, shadows, floor texture, scenery, text or audio. Final pose stays down permanently.
+
+Red prompt: same text, replacing the opening "DFG blue knockout" with "DFG red knockout", "blue martial artist"/"blue tunic" with "red martial artist"/"red tunic", "initially facing right" with "initially facing left", and "from screen-right ... toward screen-left" with "from screen-left ... toward screen-right".

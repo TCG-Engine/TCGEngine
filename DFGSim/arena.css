@@ -9,8 +9,15 @@
 .fight-screen .timeline span{font-size:10px;letter-spacing:.7px;padding:9px 4px;border-color:#263b4a}
 .fight-screen .timeline .current{color:var(--accent);border-color:var(--accent);background:linear-gradient(transparent,#efc66f10)}
 .fight-screen .combat-layout{position:relative;isolation:isolate;display:flex;flex-direction:column;gap:0;min-height:440px;padding:20px 24px 24px;border:1px solid #41505b;border-radius:12px;overflow:hidden;background:#111924}
-.arena-art{position:absolute;z-index:-2;inset:0;pointer-events:none;background:url('assets/prototype-arena.png') center center/cover no-repeat}
-.arena-art:after{content:'';position:absolute;inset:0;background:linear-gradient(#050d17c9,transparent 50%,#080e17a8)}
+.arena-art{position:absolute;z-index:-2;inset:0;pointer-events:none;background:url('assets/arena-courtyard-kling.png') center center/cover no-repeat}
+.arena-art:after{content:'';position:absolute;z-index:2;inset:0;background:linear-gradient(#050d17c9,transparent 50%,#080e17a8)}
+.arena-backdrop{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s ease}
+.arena-backdrop.is-playing{opacity:1}
+@media(prefers-reduced-motion:reduce){.arena-backdrop{transition:none}}
+/* Transparent Kling loops; picture sources select stills for reduced motion. */
+.arena-fighter{position:absolute;z-index:1;top:16%;bottom:0;width:29%;height:84%;object-fit:contain;object-position:center bottom}
+.arena-fighter-player{left:0}
+.arena-fighter-opponent{right:0}
 .fight-screen .combat-layout .fighters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(100px,15vw,260px);width:100%;align-items:start;order:0}
 .fight-screen .combat-layout .fighter{padding:0;background:none;border:0;border-radius:0;min-width:0;text-shadow:0 2px 6px #000}
 .fight-screen .combat-layout .fighter{display:flex;flex-direction:column}
@@ -68,10 +75,8 @@
 @media(max-width:760px){
   .fight-screen .fighter-head,.fight-screen .fighter:last-child .fighter-head{flex-direction:column;align-items:flex-start;min-height:62px;gap:4px}
   .fight-screen .fighter:last-child .fighter-head{align-items:flex-end}
-  .fight-screen .arena-art{background-size:auto 360px;background-position:center 80px}
-  .fight-screen .arena-art:before,.fight-screen .arena-art:after{content:'';position:absolute;top:80px;bottom:0;width:50%;background-image:linear-gradient(#08111b30,#08111b80),url('assets/temple-arena.png');background-repeat:no-repeat;background-size:100% 100%,auto 360px;pointer-events:none}
-  .fight-screen .arena-art:before{inset:80px auto 0 0;background-position:center,left top}
-  .fight-screen .arena-art:after{inset:80px 0 0 auto;background-position:center,right top}
+  .fight-screen .arena-art{background-size:auto 100%;background-position:center}
+  .fight-screen .arena-fighter{top:90px;height:250px;width:42%}
   .fight-screen .played-content>.tile-face{width:86px;min-height:90px}
 }
 
@@ -312,13 +317,26 @@
   .fight-screen .play-layout{flex:0 0 auto}
 }
 
-/* Arcade energy: crisp colored fills, fine scanlines, and occasional light sweeps. */
+/* Smooth glass lighting and occasional light sweeps keep the meters readable at rest. */
 .fight-screen .health-track{position:relative;isolation:isolate}
 .fight-screen .health-fill,.fight-screen .orb-fill{position:relative;overflow:hidden;isolation:isolate;pointer-events:none}
 .fight-screen .combat-layout .fighter .health-fill{z-index:1;border-radius:1px;background:linear-gradient(var(--hand),var(--hand));box-shadow:inset 0 1px #ffffff70,inset 0 -1px #0004}
 .fight-screen .orb-fill{position:absolute;border-radius:0;background:var(--hand);box-shadow:inset 0 1px #ffffff55}
-.fight-screen .health-fill:before,.fight-screen .orb-fill:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 2px,#07121e25 2px 3px);opacity:.65}
-.fight-screen .health-fill:before{background:repeating-linear-gradient(180deg,transparent 0 2px,#07121e25 2px 3px),repeating-linear-gradient(90deg,transparent 0 24px,#07121e20 24px 25px)}
+.fight-screen .health-fill:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#ffffff38 0%,#ffffff0a 42%,transparent 55%,#0003 100%);box-shadow:inset 0 1px #ffffff40}
+/* A glass reservoir with a softly curved liquid edge facing the center of the arena. */
+.fight-screen .combat-layout .health-track{background:linear-gradient(180deg,#030b14dd,#1b2935b3);box-shadow:inset 0 2px 5px #0008,0 0 12px color-mix(in srgb,var(--hand) 18%,transparent)}
+.fight-screen .health-track:before{content:'';position:absolute;inset:1px;z-index:2;pointer-events:none;border-radius:3px;background:linear-gradient(180deg,#ffffff1a,transparent 40%,transparent 75%,#ffffff08);box-shadow:inset 0 1px #ffffff35}
+.fight-screen .combat-layout .fighter .health-fill{overflow:visible;background-size:calc(100% - 6px) 100%;background-repeat:no-repeat;box-shadow:none}
+.fight-screen .health-fill:before{right:6px}
+.fight-screen .fighter:last-child .health-fill{transform:scaleX(-1)}
+.fight-screen .health-slosh{position:absolute;right:-12px;top:0;width:36px;height:100%;color:var(--hand);animation:health-liquid-idle 3.8s ease-in-out infinite}
+.fight-screen .health-meniscus{display:block;width:100%;height:100%}
+.fight-screen .combat-layout .fighter .health-fill[data-full=true]{background-size:100% 100%}
+.fight-screen .health-fill[data-full=true]:before{right:0}
+.fight-screen .health-fill[data-full=true] .health-slosh{display:none}
+.fight-screen .health-fill[data-full=true] .health-slosh,.fight-screen .health-fill[data-empty=true] .health-slosh{animation:none}
+.fight-screen .health-fill[data-empty=true]{visibility:hidden}
+@keyframes health-liquid-idle{0%,100%{clip-path:polygon(0 0,64% 0,65% 33%,66% 67%,68% 100%,0 100%)}50%{clip-path:polygon(0 0,70% 0,69% 33%,68% 67%,65% 100%,0 100%)}}
 .fight-screen .health-fill:after,.fight-screen .orb-fill:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#ffffff75 50%,transparent 70%);transform:translateX(-110%);opacity:0;animation:arcade-sweep 9s linear infinite}
 .fight-screen .health-fill.meter-change:after,.fight-screen .orb-fill.meter-change:after{animation:arcade-response .65s ease-out both}
 .fight-screen .fighter:last-child .health-fill:not(.meter-change):after,.fight-screen .hand-orb:nth-child(2n) .orb-fill:not(.meter-change):after{animation-delay:-4.5s}
@@ -338,14 +356,15 @@
 .fight-screen .orb-fill[data-full=true] .orb-slosh{display:none}
 .fight-screen .orb-fill[data-full=true] .orb-liquid,.fight-screen .orb-fill[data-empty=true] .orb-liquid{animation:none}
 .fight-screen .orb-slosh{position:absolute;top:0;bottom:-40px;left:-50%;right:-50%;transform-origin:50% 0}
-.fight-screen .orb-liquid{position:absolute;inset:0;transform-origin:50% 0;animation:orb-liquid-idle 7.8s ease-in-out infinite}
+.fight-screen .orb-liquid{position:absolute;inset:0;transform-origin:50% 0;animation:orb-liquid-idle 6.2s ease-in-out infinite}
 .fight-screen .orb-wave{position:absolute;top:-3px;left:0;width:100%;height:100%;color:var(--hand)}
 .fight-screen .orb-wave-back{opacity:.42;top:-3.5px}
 .fight-screen .orb-wave-front{filter:drop-shadow(0 3px 3px #0003)}
-.fight-screen .hand-orb:nth-child(2n) .orb-liquid{animation-delay:-2.3s}
-.fight-screen .hand-orb:nth-child(3n) .orb-liquid{animation-delay:-4.6s}
-@keyframes orb-liquid-idle{0%,100%{transform:rotate(-.9deg)}50%{transform:rotate(.9deg)}}
+.fight-screen .hand-orb:nth-child(2n) .orb-liquid{animation-delay:-1.8s}
+.fight-screen .hand-orb:nth-child(3n) .orb-liquid{animation-delay:-3.6s}
+@keyframes orb-liquid-idle{0%,100%{transform:translateY(-.45px) rotate(-1.4deg)}50%{transform:translateY(.45px) rotate(1.4deg)}}
 @media(prefers-reduced-motion:reduce){
+  .fight-screen .health-slosh{animation:none;clip-path:polygon(0 0,66.667% 0,66.667% 100%,0 100%)}
   .fight-screen .orb-liquid,.fight-screen .orb-wave{animation:none}
   .fight-screen .health-fill,.fight-screen .orb-fill,.fight-screen .health-fill:before,.fight-screen .health-fill:after,.fight-screen .orb-fill:before,.fight-screen .orb-fill:after{animation:none;transition:none}
   .fight-screen .health-trail{display:none;animation:none}
@@ -362,7 +381,6 @@
 .fight-screen .combat-slots .main-slot>.tile-face,.fight-screen .combat-slots .played-back{flex-shrink:0}
 .fight-screen #matchControls{grid-row:4;align-self:start;height:100%;min-height:0;margin:0 auto}
 .fight-screen #matchControls:not([data-phase=planning]):not([data-phase=reactions]):not([data-phase=switching]){overflow-y:auto;scrollbar-width:thin}
-.fight-screen .arena>.result{position:absolute;z-index:2;top:145px;left:50%;transform:translateX(-50%);width:min(80%,600px);margin:0;background:#0b1723ed}
 @media(min-width:761px) and (max-height:650px){
   .fight-screen{--main-width:clamp(88px,14vh,96px)}
   .fight-screen .combat-layout{height:max(414px,calc(100vh - var(--hand-height) - 40px));height:max(414px,calc(100svh - var(--hand-height) - 40px));grid-template-rows:minmax(100px,1fr) 28px calc(var(--main-width)*1.34375 + 44px) 76px;row-gap:6px}
@@ -399,5 +417,33 @@
 @media(prefers-reduced-motion:reduce){
   .fight-screen .art-impact,.fight-screen .hand-impact,.fight-screen .health-track.damage-hit:after{animation:none}
   .fight-screen .damage-number{animation:none;transform:translate(-50%,-50%)}
+}
+
+/* Keep the result and replay actions together inside the reserved action row. */
+.fight-screen #matchControls[data-phase=finished]{
+  --result-accent:#f0cb78;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;
+  align-content:center;column-gap:20px;row-gap:4px;
+  width:min(640px,calc(100% - 24px));padding:10px 22px;
+  border:1px solid #f0cb7855;border-left:3px solid var(--result-accent);border-radius:12px;
+  background:linear-gradient(110deg,#172333f5,#0b1521f5);
+  box-shadow:0 6px 24px #0005;text-align:left;
+}
+.fight-screen #matchControls[data-phase=finished][data-outcome=victory]{--result-accent:#8ae2ba}
+.fight-screen #matchControls[data-phase=finished][data-outcome=defeat]{--result-accent:#f1a99b}
+.fight-screen #matchControls[data-phase=finished] #phaseTag{grid-column:1;grid-row:1;font-size:9px;letter-spacing:1.5px;color:#bcc8d6}
+.fight-screen #matchControls[data-phase=finished] #phaseTitle{grid-column:1;grid-row:2;margin:0;font-size:28px;line-height:1.1;color:var(--result-accent);text-shadow:none}
+.fight-screen #matchControls[data-phase=finished] #controls{grid-column:2;grid-row:1 / 3;flex-wrap:nowrap;gap:8px}
+.fight-screen #matchControls[data-phase=finished] #controls button{min-height:42px;white-space:nowrap;font-size:13px;padding:10px 16px}
+.fight-screen #matchControls[data-phase=finished] #playAgain span{margin-left:8px}
+.fight-screen #matchControls[data-phase=finished] #reviewFight{background:#ffffff08;border-color:#ffffff30;color:#e0e7ef}
+.fight-screen #matchControls[data-phase=finished] #reviewFight:hover{background:#ffffff18}
+@media(max-width:480px){
+  .fight-screen #matchControls[data-phase=finished]{padding:10px 12px;column-gap:10px}
+  .fight-screen #matchControls[data-phase=finished] #phaseTitle{font-size:22px}
+  .fight-screen #matchControls[data-phase=finished] #phaseTag{font-size:8px;letter-spacing:.5px}
+  .fight-screen #matchControls[data-phase=finished] #controls{gap:6px}
+  .fight-screen #matchControls[data-phase=finished] #controls button{padding:10px;font-size:12px}
+  .fight-screen #matchControls[data-phase=finished] #playAgain span{display:none}
 }
 
