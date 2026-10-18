@@ -4320,6 +4320,16 @@ $activateAbilityAbilities["PIcB5KuuMd:0"] = function($player) { //Spellshroud
   AddTurnEffect($mzID, "SPELLSHROUD");
 };
 
+// Bloom: Autumn's Fall (pebu7agtcd): "[Element Bonus] (2), Discard this card from your hand: Empower 2. Draw a card."
+// The generated rows had no hand ability for it; the count comes from GAHandActivateAbilityCountOverrides(), the cost from ActivatedAbilityCost().
+$handActivatedAbilityAbilities["pebu7agtcd:0"] = function($player) {
+    Empower($player, 2, "pebu7agtcd");
+    Draw($player, 1);
+};
+$handActivatedAbilityPrereqs["pebu7agtcd:0"] = function($player, $mzID, $abilityIndex) {
+    return IsElementBonusActive($player, "pebu7agtcd");
+};
+
 // KEEP LAST: wrap the final closures. Anything defined after these calls would escape the class-bonus source wrappers and the printed-cost prereqs.
 // ---------------------------------------------------------------------------------------------
 // (The tables live in this file's scope -- see the header comment: the file is included from inside EngineLoadRootRuntime() -- so they are handed over by reference rather than read from $GLOBALS.)

@@ -1,0 +1,29 @@
+[
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Discarded the card, paid two, drew one: 8 - 1 - 2 + 1"
+    },
+    {
+        "step": 3,
+        "type": "card_exists",
+        "zone": "myGraveyard",
+        "cardID": "pebu7agtcd",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "The discarded card is in the graveyard"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"pebu7agtcd\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]",
+        "semantic": true,
+        "label": "Empower 2 on the champion"
+    }
+]

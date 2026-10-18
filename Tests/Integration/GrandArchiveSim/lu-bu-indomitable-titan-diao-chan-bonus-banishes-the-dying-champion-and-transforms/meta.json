@@ -1,0 +1,23 @@
+{
+    "name": "lu-bu-indomitable-titan-diao-chan-bonus-banishes-the-dying-champion-and-transforms",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:00:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xyan7zbtxi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xyan7zbtxi"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "replacement",
+            "transform",
+            "banish"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] If your champion would die with exactly thirty-two damage counters on them, banish them, transform CARDNAME, and destroy all other objects you control instead."
+        ]
+    }
+}

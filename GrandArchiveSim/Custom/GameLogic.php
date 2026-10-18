@@ -6772,8 +6772,22 @@ function GAActivateAbilityCountOverrides() {
 // Lazy, idempotent application to the generated count/name arrays for callers that run without
 // Custom/GeneratedAbilityOverrides.php having been loaded (the NextTurn/GetNextTurn render path loads only
 // GamestateParser.php). Never lowers a count the generator already provides.
+// cardID => ability names of hand-activated abilities missing from the generated CardHandActivatedAbilityCount rows.
+function GAHandActivateAbilityCountOverrides() {
+    return [
+        "pebu7agtcd" => ["Discard"], // Bloom: Autumn's Fall ([Element Bonus] (2), Discard this card from your hand: Empower 2, draw)
+    ];
+}
+
 function GAApplyActivateAbilityCountOverrides() {
-    global $CardActivateAbilityCountData, $CardActivateAbilityCountNamesData;
+    global $CardActivateAbilityCountData, $CardActivateAbilityCountNamesData, $CardHandActivatedAbilityCountData, $CardHandActivatedAbilityCountNamesData;
+    if(is_array($CardHandActivatedAbilityCountData ?? null) && is_array($CardHandActivatedAbilityCountNamesData ?? null)) {
+        foreach(GAHandActivateAbilityCountOverrides() as $handCardID => $handNames) {
+            if(($CardHandActivatedAbilityCountData[$handCardID] ?? 0) >= count($handNames)) continue;
+            $CardHandActivatedAbilityCountData[$handCardID] = count($handNames);
+            foreach($handNames as $handIdx => $handName) $CardHandActivatedAbilityCountNamesData[$handCardID . ":" . $handIdx] = $handName;
+        }
+    }
     if(!is_array($CardActivateAbilityCountData) || !is_array($CardActivateAbilityCountNamesData)) return;
     foreach(GAActivateAbilityCountOverrides() as $overrideCardID => $overrideNames) {
         if(($CardActivateAbilityCountData[$overrideCardID] ?? 0) >= count($overrideNames)) continue;
@@ -8317,6 +8331,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             }
             break;
         case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
+            if(intval($abilityIndex) === 0) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::CleanupRemovedCards();
+            }
+            break;
+        case "pebu7agtcd": // Bloom: Autumn's Fall - [Element Bonus] (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
