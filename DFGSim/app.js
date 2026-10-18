@@ -3,6 +3,12 @@ let state = null, token = '', catalog = new Map(), styles = {}, busy = false, se
 let selectedAdvantages = new Set(), extraSwitch = null;
 let opponentColor = null;
 let activeMotion = [];
+let orbImpacts = [null, null];
+const orbMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+orbMotionPreference.addEventListener('change', () => {
+  orbImpacts = [null, null];
+  document.querySelectorAll('.orb-slosh').forEach(surface => surface.getAnimations().forEach(animation => animation.cancel()));
+});
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const card = id => catalog.get(id);
@@ -10,7 +16,36 @@ const classColor = color => color.toLowerCase();
 const cardHand = (player, id) => player.cardHands?.[id] ?? card(id).color;
 function orbMeter(count) {
   const extra=Math.max(0,count-6);
-  return `<span class="orb-meter ${extra?'overfilled':''}"><span class="orb-sphere"><span class="orb-fill" style="height:${Math.min(100,count/6*100)}%"></span><span class="orb-count">${count}</span></span>${extra?`<span class="orb-extra" aria-hidden="true">+${extra}</span>`:''}</span>`;
+  const wave='<path d="M0 5 Q50 4 100 5 T200 5 V100 H0 Z" fill="currentColor"/><path d="M0 5 Q50 4 100 5 T200 5" fill="none" stroke="white" stroke-opacity=".35" stroke-width=".8"/>';
+  return `<span class="orb-meter ${extra?'overfilled':''}"><span class="orb-sphere"><span class="orb-fill" data-empty="${count===0}" data-full="${count>=6}" style="height:${Math.min(100,count/6*100)}%"><span class="orb-slosh" aria-hidden="true"><span class="orb-liquid"><svg class="orb-wave orb-wave-back" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg><svg class="orb-wave orb-wave-front" viewBox="0 0 200 100" preserveAspectRatio="none">${wave}</svg></span></span></span><span class="orb-count">${count}</span></span>${extra?`<span class="orb-extra" aria-hidden="true">+${extra}</span>`:''}</span>`;
+}
+function sloshHandOrbs(seat, amount) {
+  if(orbMotionPreference.matches || !Number.isFinite(amount) || amount<=0) return;
+  // A damped impulse keeps small hits soft, while big hits rock farther and settle longer.
+  const strength=Math.min(amount,20), direction=seat===0?1:-1;
+  const duration=1500+strength*85, angle=(5+strength*1.8)*direction;
+  const frames=Array.from({length:81},(_,index)=>{
+    const progress=index/80, decay=Math.pow(1-progress,2.3);
+    const tilt=Math.sin(progress*Math.PI*10)*angle*decay;
+    const lift=Math.sin(progress*Math.PI*10+Math.PI/2)*(1+strength*.18)*decay*Math.sin(progress*Math.PI);
+    return {offset:progress,transform:`translateY(${lift}px) rotate(${tilt}deg)`};
+  });
+  orbImpacts[seat]={start:performance.now(),duration,frames};
+  document.querySelectorAll(`#${seat===0?'yourOrbs':'opponentOrbs'} .orb-slosh`).forEach(surface=>surface.getAnimations().forEach(animation=>animation.cancel()));
+  restoreOrbSloshes();
+}
+function restoreOrbSloshes() {
+  if(orbMotionPreference.matches) return;
+  orbImpacts.forEach((impact,seat)=>{
+    if(!impact) return;
+    const elapsed=performance.now()-impact.start;
+    if(elapsed>=impact.duration) {orbImpacts[seat]=null;return;}
+    document.querySelectorAll(`#${seat===0?'yourOrbs':'opponentOrbs'} .orb-fill:not([data-empty="true"]):not([data-full="true"]) .orb-slosh`).forEach(surface=>{
+      if(surface.getAnimations().length) return;
+      const animation=surface.animate(impact.frames,{duration:impact.duration,easing:'linear'});
+      animation.currentTime=elapsed;
+    });
+  });
 }
 let previewId = null, previewPinned = false, previewTimer = null, previewAnchor = null;
 function closePreview() {
@@ -55,7 +90,7 @@ function accept(data) {
     if(state.phase==='reactions'&&['relocating','routing','directing','switching'].includes(data.state.phase)&&!data.state.players[0].discarded.includes(state.commitments[0].main)) moves.push({type:'ZONE_MOVE',source:'played-main-0',destination:`hand-${state.commitments[0].main}`,durationMs:340});
   }
   const prepared=prepareMotion(moves);
-  if(!state || state.matchId !== data.state?.matchId) { opponentColor=null; ClosePopup(); HideCardDetail(true); $('damageEffects').replaceChildren(); }
+  if(!state || state.matchId !== data.state?.matchId) { orbImpacts=[null,null]; opponentColor=null; ClosePopup(); HideCardDetail(true); $('damageEffects').replaceChildren(); }
   const changed = !state || !data.state || state.matchId !== data.state.matchId || state.round !== data.state.round || state.phase !== data.state.phase;
   token = data.token; state = data.state; styles = data.colors; catalog = new Map(data.cards.map(c => [c.id,c]));
   if (changed) { selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); extraSwitch=null; browseColor = state?.players[0].color ?? 'Red'; }
@@ -71,6 +106,7 @@ function animateMeterChanges(previous,next) {
   const damage=next.players.map((player,seat)=>Math.max(0,Number(resolved?next.stats?.[1-seat]?.damage??previous.players[seat].life-player.life:previous.players[seat].life-player.life)));
   damage.forEach((amount,seat)=>{if(amount>0) showDamageImpact(seat,amount,reduced);});
   if(reduced) return;
+  damage.forEach((amount,seat)=>{if(amount>0) sloshHandOrbs(seat,amount);});
   const shake=(element,amount,className)=>{
     if(!element||!amount) return;
     const hand=className==='hand-impact', heavy=amount>=5;
@@ -350,6 +386,7 @@ function render() {
   $('cards').innerHTML=[...catalog.values()].filter(c=>cardHand(p,c.id)===browseColor).map(cardMarkup).join('');
   if(opponentColor && _openPopup==='opponentHand') renderOpponentPopup();
   controls();
+  restoreOrbSloshes();
   $('log').innerHTML=state.log.slice().reverse().map(entry=>`<div class="log-entry"><small>R${entry.round}</small>${esc(entry.text)}</div>`).join('');
 }
 document.addEventListener('click',event=>{

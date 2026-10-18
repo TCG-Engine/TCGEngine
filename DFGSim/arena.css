@@ -330,7 +330,23 @@
 @keyframes arcade-response{0%{transform:translateX(-110%);opacity:0}25%{opacity:.5}100%{transform:translateX(110%);opacity:0}}
 @keyframes arcade-damage{0%,30%{opacity:.95}100%{opacity:0}}
 @keyframes arcade-orb-pulse{0%,100%{box-shadow:inset 0 0 8px #0008,0 2px 5px #0004,0 0 3px color-mix(in srgb,var(--hand) 20%,transparent)}50%{box-shadow:inset 0 0 8px #0008,0 2px 5px #0004,0 0 7px color-mix(in srgb,var(--hand) 35%,transparent)}}
+/* Full hands fill the glass. Partially drained hands have a quiet, nearly level surface. */
+.fight-screen .orb-fill{overflow:visible;background:transparent;box-shadow:none}
+.fight-screen .orb-fill:before{display:none}
+.fight-screen .orb-fill[data-empty=true]{visibility:hidden}
+.fight-screen .orb-fill[data-full=true]{background:var(--hand)}
+.fight-screen .orb-fill[data-full=true] .orb-slosh{display:none}
+.fight-screen .orb-fill[data-full=true] .orb-liquid,.fight-screen .orb-fill[data-empty=true] .orb-liquid{animation:none}
+.fight-screen .orb-slosh{position:absolute;top:0;bottom:-40px;left:-50%;right:-50%;transform-origin:50% 0}
+.fight-screen .orb-liquid{position:absolute;inset:0;transform-origin:50% 0;animation:orb-liquid-idle 7.8s ease-in-out infinite}
+.fight-screen .orb-wave{position:absolute;top:-3px;left:0;width:100%;height:100%;color:var(--hand)}
+.fight-screen .orb-wave-back{opacity:.42;top:-3.5px}
+.fight-screen .orb-wave-front{filter:drop-shadow(0 3px 3px #0003)}
+.fight-screen .hand-orb:nth-child(2n) .orb-liquid{animation-delay:-2.3s}
+.fight-screen .hand-orb:nth-child(3n) .orb-liquid{animation-delay:-4.6s}
+@keyframes orb-liquid-idle{0%,100%{transform:rotate(-.9deg)}50%{transform:rotate(.9deg)}}
 @media(prefers-reduced-motion:reduce){
+  .fight-screen .orb-liquid,.fight-screen .orb-wave{animation:none}
   .fight-screen .health-fill,.fight-screen .orb-fill,.fight-screen .health-fill:before,.fight-screen .health-fill:after,.fight-screen .orb-fill:before,.fight-screen .orb-fill:after{animation:none;transition:none}
   .fight-screen .health-trail{display:none;animation:none}
   .fight-screen .orb-sphere{animation:none}
