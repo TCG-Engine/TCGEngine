@@ -10,6 +10,15 @@
     },
     {
         "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The (2) was paid"
+    },
+    {
+        "step": 4,
         "type": "computed_power_equals",
         "mzId": "p1Field-1",
         "value": 6,

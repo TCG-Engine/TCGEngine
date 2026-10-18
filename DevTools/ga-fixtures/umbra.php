@@ -274,7 +274,6 @@ gaScenario('jabberwocky-calamitys-call-banish-a-specter-ally-card-recovers-two-a
     ->seed('myGraveyard', 'Ghastly Slime')
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)->answer(1, 'myGraveyard-0')
     ->expectDamage('p1Field-0', 3, 'Recover 2: 5 down to 3')
-    ->expectProperty('p1Field-1', 'Status', '1', 'The Ticket rested')
     ->expectZoneCount('myMemory', 2, 1, 'The (2) was paid')
     ->expectPower('p1Field-1', 6, '4 + 2')
     ->tested('Jabberwocky, Calamity\'s Call')

@@ -6,6 +6,6 @@
         "property": "Damage",
         "value": "5",
         "semantic": true,
-        "label": "probe"
+        "label": "The Revolver's 1 + the Plated Bullet's 2 + 2 for attacking a champion"
     }
 ]

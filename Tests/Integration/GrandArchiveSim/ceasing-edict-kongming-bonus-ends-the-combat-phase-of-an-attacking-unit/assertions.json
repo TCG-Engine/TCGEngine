@@ -7,5 +7,14 @@
         "value": "0",
         "semantic": true,
         "label": "The combat phase ended before any damage"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0,
+        "semantic": true,
+        "label": "Shifting Currents face South: the (2) cost was fully discounted"
     }
 ]

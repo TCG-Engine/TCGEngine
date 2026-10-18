@@ -431,7 +431,7 @@ verified by regenerating and comparing by meaning.
   - Split damage (Innervate Fury, Spirit Blade: Dispersion, ...) left a later target alive when an earlier one died, because the zone compacted and the next index shifted; damage is now dealt highest index first.
   - Potion Infusion: Blaze read the raw "CombatAttacker" mz (attacker's perspective) and so never hit the opponent's attacking ally.
 - New findings (not fixed): ~20 other raw `GetVariable("CombatAttacker")` readers in GameLogic.php/GeneratedMacroCode.php resolve the attacker from the acting player's perspective; any
-  defender-side reaction that uses it can mis-resolve (audit list in the end-of-Fire report). Suzaku's Command's Shenju clause is unreachable: every Shenju has Spellshroud and
+  defender-side reaction that uses it can mis-resolve (audit list in the end-of-Fire report). Suzaku's Command's Shenju clause was thought unreachable (corrected 2026-10-16: it is a Skill, not a Spell, so spellshroud never applied; fixed in Phase A). Original note: every Shenju has Spellshroud and
   `FilterSpellshroudTargets` also hides it from its controller's own spells (rules question: does Spellshroud stop your own spells?).
 
 ### Phase 3a (Fire) -- allies, regalia and champions batch 5 (2026-10-11)
