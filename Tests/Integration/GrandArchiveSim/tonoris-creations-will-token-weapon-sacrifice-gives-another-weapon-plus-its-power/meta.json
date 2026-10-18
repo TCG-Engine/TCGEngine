@@ -1,0 +1,23 @@
+{
+    "name": "tonoris-creations-will-token-weapon-sacrifice-gives-another-weapon-plus-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n2jnltv5kl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n2jnltv5kl"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "sacrifice",
+            "power-buff",
+            "token-weapon"
+        ],
+        "rulesClauses": [
+            "Token weapons you control have \"**Sacrifice this object:** Target weapon gets +**X** [POWER] until end of turn where **X** is this object's power.\""
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "tonoris-creations-will-token-weapon-sacrifice-can-target-an-opposing-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n2jnltv5kl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n2jnltv5kl"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "sacrifice",
+            "power-buff",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Token weapons you control have \"**Sacrifice this object:** Target weapon gets +**X** [POWER] until end of turn where **X** is this object's power.\""
+        ]
+    }
+}

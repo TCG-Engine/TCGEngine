@@ -1,0 +1,20 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "hkurfp66pv",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Only my own domain counts: (5) - 1 = 4 payments"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4,
+        "semantic": true,
+        "label": "Exactly four cards were paid"
+    }
+]

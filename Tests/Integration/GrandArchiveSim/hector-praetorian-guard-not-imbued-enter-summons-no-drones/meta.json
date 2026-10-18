@@ -1,0 +1,22 @@
+{
+    "name": "hector-praetorian-guard-not-imbued-enter-summons-no-drones",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AsDKTmP3kp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AsDKTmP3kp"
+        ],
+        "mechanics": [
+            "on-enter",
+            "imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If Hector is **imbued**, **summon** two Automaton Drone tokens."
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+[
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2,
+        "semantic": true,
+        "label": "The token weapon was sacrificed (tokens cease to exist): the champion and the Training Sword remain"
+    },
+    {
+        "step": 2,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 4,
+        "semantic": true,
+        "label": "Training Sword 1 + the sacrificed token's power 3"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

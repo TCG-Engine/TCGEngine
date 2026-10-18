@@ -1,0 +1,42 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myField",
+        "cardID": "YKrCbNs3rh",
+        "viewerPlayerID": 1,
+        "semantic": true,
+        "label": "Tor stays on the field"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3,
+        "semantic": true,
+        "label": "Both other domains were sacrificed: the champion, Tor and the Elysian Test Subject Epicurean Institute leaves behind"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"durability\":12}",
+        "semantic": true,
+        "label": "Printed 4 + (2 + 1) for Epicurean Institute + (2 + 3) for Iron Halo"
+    },
+    {
+        "step": 5,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 3,
+        "semantic": true,
+        "label": "+1 power for each four of the 12 durability counters"
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
