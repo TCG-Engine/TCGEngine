@@ -1,0 +1,22 @@
+{
+    "name": "mirrorbound-covenant-absent-the-end-phase-does-not-cap-influence-at-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:40:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PKnOTdQJJ1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PKnOTdQJJ1"
+        ],
+        "mechanics": [
+            "static",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Each player's maximum **influence** is seven. *(As each player's end phase resolves, that player discards cards from their hand and/or memory until their **influence** is equal to their maximum influence.)*"
+        ]
+    }
+}

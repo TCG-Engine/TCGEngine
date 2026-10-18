@@ -1,0 +1,22 @@
+{
+    "name": "labyrinth-jeweled-opus-sheen-ten-gives-your-champion-stealth-so-it-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:42:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A58xZJJMz6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A58xZJJMz6"
+        ],
+        "mechanics": [
+            "sheen",
+            "stealth",
+            "static"
+        ],
+        "rulesClauses": [
+            "[Sheen 10+] Your champion has **spellshroud** and **stealth** as long as they're awake and an opponent with the most cards in their memory has six or less cards in their memory."
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "mirrorbound-covenant-caps-the-opposing-players-influence-at-their-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:40:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PKnOTdQJJ1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PKnOTdQJJ1"
+        ],
+        "mechanics": [
+            "static",
+            "influence",
+            "discard",
+            "opposing-player"
+        ],
+        "rulesClauses": [
+            "Each player's maximum **influence** is seven. *(As each player's end phase resolves, that player discards cards from their hand and/or memory until their **influence** is equal to their maximum influence.)*"
+        ]
+    }
+}
