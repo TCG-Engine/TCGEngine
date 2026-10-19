@@ -367,6 +367,17 @@ function _SWUBotWdBoardValue(int $seat, string $cid, array $enemies, array $W): 
     return [$best[$n][0], $best[$n][1]];
 }
 
+// Proposal 'uniqueattackfirst': among this decision's actions, an attack by my unit $uid that scores above zero.
+function _SWUBotCopyHasWorthwhileAttack(array $ctx, int $seat, int $uid): bool {
+    foreach (($ctx['actions'] ?? []) as $k => $a) {
+        if (SWUBotActionKind($a) !== 'attack') continue;
+        $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        if ($att === null || intval($att['uid'] ?? 0) !== $uid) continue;
+        if (SWUBotScoreAction($ctx, $a, intval($k)) > 0.0) return true;
+    }
+    return false;
+}
+
 // My unit view of the copy of unique $cid I already control (same title AND subtitle), or null.
 function _SWUBotUniqueCopy(int $seat, string $cid): ?array {
     if (!CardUnique($cid)) return null;
@@ -926,6 +937,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $policyHosts = SWUBotFeatureOn('hostpolicy') ? _SWUBotPolicyHosts($seat, $cid) : null;
                 if ($policyHosts !== null && empty($policyHosts)) return -0.5;
                 if ($policyHosts === null && SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
+                // PROPOSAL 'flipholdhand' (owner 2026-10-19): a FLIP-DEPENDENT Plot card waits in hand for the resources while the leader is
+                // undeployed — see _SWUBotFlipHandHold.
+                if (SWUBotProposalOn('flipholdhand') && _SWUBotFlipHandHold($seat, $cid)) { _SWUBotFired('flipholdhand', $seat); return -0.5; }
                 $v = _SWUBotPlayValue($seat, $cid, $W) + $anakin;
                 // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
                 if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
@@ -1000,6 +1014,14 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // 'uniquerefresh' (p41): only what is still intact of a WORN copy is lost — a fully worn one costs nothing to replace.
                 if (SWUBotFeatureOn('picks') && !$replay && _SWUBotUniqueClash($seat, $cid))
                     $v -= ($W['develop'] * intval(CardCost($cid)) + 1.0) * (SWUBotFeatureOn('uniquerefresh') ? 1.0 - _SWUBotUniqueWear($seat, $cid) : 1.0);
+                // PROPOSAL 'uniqueattackfirst' (default OFF, '@try-uniqueattackfirst'; bug report game 1647080, 2026-10-19): the copy already in play is READY and has an attack
+                // worth making — playing the second copy first makes the uniqueness rule defeat it and throws that attack away (Blue Leader
+                // replaced at 2 damage before it swung). Attack with it first; once it is spent the replacement is priced as before.
+                if (SWUBotProposalOn('uniqueattackfirst') && _SWUBotUniqueClash($seat, $cid) && ($copy = _SWUBotUniqueCopy($seat, $cid)) !== null
+                    && !empty($copy['ready']) && _SWUBotCopyHasWorthwhileAttack($ctx, $seat, intval($copy['uid']))) {
+                    _SWUBotFired('uniqueattackfirst', $seat);
+                    return -0.5;
+                }
                 // …and over an UNDAMAGED copy it gains nothing: held (feature 'unique'; owner report 2026-09-14, Bot
                 // Practice game 183227 — Sabine's Masterpiece played over a healthy one). A damaged copy is a heal.
                 // A refinement of 'picks', so it needs 'picks' on too (bot_picks_test compares picks on/off).
@@ -2715,6 +2737,46 @@ function _SWUBotPilotDeployValue(int $seat, array $action, array $W): float {
 // The Plot cards in $seat's resources it could actually PAY for if it deployed right now, cheapest first —
 // cheapest because Plot is capped by the resource budget, not by a card limit, so two cheap cards beat one dear
 // one. Shared by the deploy's score and by the max-units guide, which must agree about what a deploy produces.
+// PROPOSAL 'flipholdhand' (owner 2026-10-19, Ahsoka): "you typically do not play the Naboo ship from hand ever. and if a Jar Jar is already
+// in resources, then only in niche cases is it okay to play a Jar Jar from hand. for example, if its boost can clear a sentinel or if its
+// boost can setup lethal next round." Generalised (owner: split it) to the FLIP-DEPENDENT Plot cards only — most Plot decks cast theirs
+// from hand (Topple the Summit, Galen Erso, Chancellor Palpatine), and holding those would throw removal and tempo away:
+//   • a "friendly leader unit(s) gain/get" card (Naboo Royal Starship) does nothing before the flip: never from hand while undeployed;
+//   • an on-play "+N/+N for this phase" buff (Jar Jar Binks) is a flip burst: with none banked it goes to the resources instead; with one
+//     banked it is played from hand only when the +2 clears an enemy Sentinel this round or sets up lethal next round.
+// Lifted once the leader has deployed (owner) — SWUBotLeaderDeployThreshold is 0 then.
+function _SWUBotFlipHandHold(int $seat, string $cid): bool {
+    if (SWUBotLeaderDeployThreshold($seat) <= 0) return false;
+    $text = strval(CardText($cid));
+    if (!preg_match('/(^|\n)\s*Plot\b/', $text)) return false;
+    if (preg_match('/friendly leader units? (gains?|gets?)\b/i', $text)) return true;
+    if (!preg_match('/When Played:[^\n]*\+(\d+)\/\+\d+ for this phase/i', $text, $m)) return false;
+    $banked = 0;
+    foreach (GetResources($seat) as $r) if ($r !== null && empty($r->removed) && CardTitle(strval($r->CardID ?? '')) === CardTitle($cid)) $banked++;
+    if ($banked === 0) return true;
+    return !_SWUBotFlipBuffNiche($seat, intval($m[1]));
+}
+
+// The niche cases where a banked flip buff may still be played from hand: the +$buff lets a ready friendly unit kill an enemy Sentinel it
+// cannot kill now, or this round's damage plus $buff and next round's swing reach the opponent's base when they did not without it.
+function _SWUBotFlipBuffNiche(int $seat, int $buff): bool {
+    $mine = SWUBotUnits($seat);
+    foreach (SWUBotEnemyUnits($seat) as $e) {
+        if (empty($e['sentinel'])) continue;
+        foreach ($mine as $u) {
+            if (empty($u['ready']) || $u['arena'] !== $e['arena']) continue;
+            if (intval($e['shields']) > 0 && empty($u['saboteur'])) continue;
+            $atk = intval($u['attackPower']);
+            if ($atk < intval($e['remaining']) && $atk + $buff >= intval($e['remaining'])) return true;
+        }
+    }
+    $opp = SWUBotOpponent($seat);
+    $left = function_exists('SWUBaseRemainingHp') ? SWUBaseRemainingHp($opp) : PHP_INT_MAX;
+    $now = 0; $next = 0;
+    foreach ($mine as $u) { if (!empty($u['ready'])) $now += max(0, intval($u['attackPower'])); $next += max(0, intval($u['power'])); }
+    return $now > 0 && $now + $next < $left && $now + $buff + $next >= $left;
+}
+
 function _SWUBotAffordablePlots(int $seat): array {
     if (!function_exists('HasKeyword_Plot')) return [];
     global $playerID;
@@ -2730,6 +2792,10 @@ function _SWUBotAffordablePlots(int $seat): array {
         $plots[] = [$cost, $cid];
     }
     $playerID = $saved;
+    // PROPOSAL 'flippackage': with an owner package banked and payable, THAT is what the deploy plays (not the cheapest cards first).
+    if (SWUBotProposalOn('flippackage') && ($pk = SWUBotAffordableFlipPackage($seat, $cap)) !== null) {
+        return array_map(fn($cid) => [_SWUBotPlotCardCost($seat, $cid), $cid], $pk);
+    }
     usort($plots, fn($a, $b) => $a[0] <=> $b[0]);
     $spent = 0; $out = [];
     foreach ($plots as [$cost, $cid]) {
@@ -5236,6 +5302,10 @@ function _SWUBotPromptFixScore(array $ctx, int $seat, string $tip, string $type,
         if ($u === '') return -1.0;
         $v = _SWUBotPlayValue($seat, $u, $W, 'resources');
         _SWUBotFired('plotpick', $seat);
+        // PROPOSAL 'flippackage': the window plays the owner's package first (Naboo Royal Starship + Jar Jar on Ahsoka's 6), whatever the
+        // single cards score — one at a time by value let two Jar Jars spend 4 and price Naboo Royal Starship out.
+        if (SWUBotProposalOn('flippackage') && ($pk = SWUBotAffordableFlipPackage($seat, intval(SWUTotalPaymentCapacity($seat)))) !== null
+            && in_array($u, $pk, true)) { _SWUBotFired('flippackage', $seat); return 5.0 + max(0.0, $v); }
         return $v > 0.0 ? 0.01 + $v : -0.1;
     }
     if (SWUBotFeatureOn('hostileexhaust')) {

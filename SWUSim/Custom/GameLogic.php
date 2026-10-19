@@ -7,6 +7,12 @@ $debugMode = true;
 // fataled at resolution. Guard: SWUSim/DevTools/tests/runtime_loader_handlers_test.php.
 global $customDQHandlers;
 $customDQHandlers = [];
+// The same trap for every OTHER registry the per-card files write into: cards/_loader.php (included below) runs before
+// these names' own `global` lines further down, so they must be bound to the globals HERE or every registration is
+// dropped in a live request (2026-10-19: TWI_069 Roger Roger never re-attached; HMW_172 Heavy Ion Cannon, HMW_037 Bacta
+// Tank and HMW_095 Carbonite Chamber lost their base-upgrade abilities). Their later `?? []` initialisers keep the
+// entries. Guard: runtime_loader_handlers_test.php checks EVERY top-level registry, not just $customDQHandlers.
+global $upgradeWhenDefeatedAbilities, $baseUpgradeAbilities, $baseUpgradeActionAvailable;
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
