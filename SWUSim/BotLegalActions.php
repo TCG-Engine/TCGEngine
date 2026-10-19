@@ -302,6 +302,39 @@ function _SWUBotExploitPayableAnswers(array $actions, int $seat): array {
     try { return $check(); } finally { $playerID = $saved; }
 }
 
+// The SEC_122 Droid-pay picker must leave the play PAYABLE. Game 1647080: 1 ready resource + 3 ready Droids, a 4-cost card.
+// The card is offered because SWUTotalPaymentCapacity counts the Droids, but the fallback answered '-', DROID_PAY refused the
+// play ("Not enough ready resources"), the card stayed in hand and the next step played it again, forever. Keeps only the
+// answers whose valid picks cover what the ready resources leave short, re-deriving it exactly as the DROID_PAY handler
+// (CardDQHandlers.php) does: picks must be ready friendly Droids, capped at the offer's cap. No answer pays -> unchanged.
+// Guard: SWUSim/DevTools/tests/bot_droidpay_test.php.
+function _SWUBotDroidPayableAnswers(array $actions, int $seat): array {
+    if (!function_exists('SWUReadyFriendlyDroids')) return $actions;
+    $p = explode('|', _SWUBotNextDecisionParam($seat));
+    if (($p[0] ?? '') !== 'DROID_PAY') return $actions;
+    $cap = intval($p[1] ?? 0); $required = intval($p[2] ?? 0);
+    $check = function () use ($actions, $seat, $cap, $required) {
+        $shortfall = $required - SWUResourceCount($seat, readyOnly: true);
+        if ($shortfall <= 0) return $actions;
+        $ready = array_flip(SWUReadyFriendlyDroids($seat));
+        $max = min(count($ready), max(0, $cap));
+        $out = [];
+        foreach ($actions as $a) {
+            $c = strval($a['cardID'] ?? '');
+            $valid = 0;
+            foreach (($c === '-' || $c === 'PASS') ? [] : array_unique(explode('&', $c)) as $mz) {
+                if ($mz !== '' && isset($ready[$mz]) && $valid < $max) $valid++;
+            }
+            if ($valid >= $shortfall) $out[] = $a;
+        }
+        return empty($out) ? $actions : $out;
+    };
+    if (function_exists('BridgeWithPlayerPerspective')) return BridgeWithPlayerPerspective($seat, $check);
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    try { return $check(); } finally { $playerID = $saved; }
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -318,7 +351,7 @@ function SWUBotLegalActions($gameName, $seat) {
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
         $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (strval($legal['decisionType'] ?? '') === 'NAMECARD') $actions = _SWUBotNameCardPool($actions, $seat);
-        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotExploitPayableAnswers($actions, $seat);
+        if (strval($legal['decisionType'] ?? '') === 'MZMULTICHOOSE') $actions = _SWUBotDroidPayableAnswers(_SWUBotExploitPayableAnswers($actions, $seat), $seat);
         $actions = _SWUBotWeaknessEnemyOnly(strval($legal['decisionType'] ?? ''), strval($legal['decisionTooltipRaw'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;

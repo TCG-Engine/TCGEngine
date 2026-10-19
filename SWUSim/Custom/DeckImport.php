@@ -194,6 +194,22 @@ function SWUIsAcceptableCardID($cardId) {
     return (bool)preg_match('/^[A-Z][A-Z0-9]{1,4}_\d{2,4}$/', $cardId);
 }
 
+// Fold a CardID padded differently from the dictionary onto the real card: TS26_030 -> TS26_30 (TS26 is
+// keyed two-digit, see CardIDDoubleDigitSets), SOR_14 -> SOR_014. Some deck sources pad every number to
+// three digits, and SWUIsAcceptableCardID's shape fallback lets those through, so a game was built with
+// ids no dictionary holds: no art, no title, no ability (game 1647080). Uses the generated
+// DecomposeCardID/BuildCardID grammar. An id that is already a card, a token, or one with no card behind
+// it after re-padding is returned unchanged.
+function SWUCanonicalCardID($cardId) {
+    $cardId = (string)$cardId;
+    if ($cardId === '' || !function_exists('DecomposeCardID') || !function_exists('BuildCardID')) return $cardId;
+    if (IsSWUCardID($cardId)) return $cardId;
+    $parts = DecomposeCardID($cardId);
+    if ($parts === null || $parts['isToken']) return $cardId;
+    $built = BuildCardID($parts['set'], $parts['number']);
+    return IsSWUCardID($built) ? $built : $cardId;
+}
+
 function SWUNormalizeStandardJSON($data) {
     $leader    = '';
     $base      = '';
@@ -543,15 +559,18 @@ function SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved, $nam
     // Alias every printing to one the sim implements so reprints (incl. cards
     // printed only in non-implemented sets) play with their real abilities.
     // $leader is a single CardID (standard decks) or an array of 2 (Twin Suns).
-    $resolvedLeader = is_array($leader) ? array_map('SWUResolveToImplementedPrint', $leader) : SWUResolveToImplementedPrint($leader);
+    // Ids are first folded onto the dictionary's padding (SWUCanonicalCardID): every import path ends
+    // here, so this is the one place that covers them all.
+    $resolve = fn($id) => SWUResolveToImplementedPrint(SWUCanonicalCardID($id));
+    $resolvedLeader = is_array($leader) ? array_map($resolve, $leader) : $resolve($leader);
     return [
         'success'    => true,
         'message'    => '',
         'name'       => $name,
         'leader'     => $resolvedLeader,
-        'base'       => SWUResolveToImplementedPrint($base),
-        'mainDeck'   => array_map('SWUResolveToImplementedPrint', $mainDeck),
-        'sideboard'  => array_map('SWUResolveToImplementedPrint', $sideboard),
+        'base'       => $resolve($base),
+        'mainDeck'   => array_map($resolve, $mainDeck),
+        'sideboard'  => array_map($resolve, $sideboard),
         'unresolved' => $unresolved,
     ];
 }
