@@ -1,0 +1,63 @@
+/* Fight-poster cards. Color denotes printed hand and destinations only. */
+.technique-card{--poster-font:Impact,Haettenschweiler,'Arial Narrow Bold','Arial Narrow',sans-serif;display:flex;flex-direction:column;min-width:0;min-height:100%;background:#faf6ed;color:#141513;overflow:hidden}
+.technique-card .card-top,.card-preview .technique-card .card-top,#cardDetail .technique-card .card-top{padding:12px 15px;background:#faf6ed;color:#151613;flex-shrink:0}
+.technique-card .card-top small{display:flex;align-items:center;gap:7px;font-family:var(--poster-font);font-size:13px;font-weight:400;letter-spacing:1px}
+.technique-card .card-top small:after{content:'';height:1px;flex:1;background:var(--hand);margin-left:4px}
+.technique-card .card-top small>span{color:var(--hand)}
+.technique-art{position:relative;display:block;flex-shrink:0;overflow:hidden;width:100%;aspect-ratio:1.5;background-color:#14232a}
+/* Individual landscape art fills the window; no sheet offsets or distorted figures. */
+.technique-art:before{content:'';position:absolute;inset:0;width:100%;height:100%;background-image:var(--art-image);background-size:cover;background-position:center;background-repeat:no-repeat}
+.technique-card>.technique-art{width:100%;margin:0}
+.technique-card .card-heading{display:flex;align-items:center;gap:10px;margin:0 14px;padding:13px 0;border-bottom:1px solid #34372f}
+.technique-card .card-heading h3,.gallery-grid .technique-card .card-heading h3,.card-preview .technique-card .card-heading h3{flex:1;min-width:0;margin:0;font-family:var(--poster-font);font-size:30px;font-weight:400;letter-spacing:-.4px;line-height:1.05;text-transform:uppercase;overflow-wrap:break-word}
+.technique-card .card-stats,.card-preview .technique-card .card-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:0 0 104px;margin:0;padding:0;border:0;color:#141513}
+.technique-card .card-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 8px;border-left:1px solid #a9a69d}
+.technique-card .card-stats span{font-family:var(--poster-font);font-size:9px;font-weight:400;letter-spacing:.5px;color:#141513}
+.technique-card .card-stats strong,.card-preview .technique-card .card-stats strong{font-family:var(--poster-font);font-weight:400;font-size:38px;line-height:1;color:#141513}
+.technique-card .card-text,.card-preview .technique-card .card-text{display:flex;flex-direction:column;gap:14px;padding:14px 14px 0;flex:1;color:#20221f}
+.technique-card .main-ability{font-size:12px;line-height:1.55;overflow-wrap:break-word}
+.technique-card .card-burns{display:flex;flex-direction:column;gap:5px;margin-top:auto}
+.technique-card .card-text .burn-ability,.gallery-grid .technique-card .card-text .burn-ability,.card-preview .technique-card .card-text .burn-ability{display:grid;grid-template-columns:80px minmax(0,1fr);gap:10px;align-items:start;margin:0;padding:9px;background:#eae7e1;border:0;border-radius:2px;font-size:11px;line-height:1.45;overflow-wrap:break-word}
+.technique-card .burn-ability b,.gallery-grid .technique-card .burn-ability b{display:block;margin:0;padding-right:8px;border-right:1px solid #b8b5ad;font-family:var(--poster-font);font-size:11px;font-weight:400;letter-spacing:.3px;color:#141513;line-height:1.45}
+.technique-card .empty-ability{font-size:12px;font-style:italic;color:#77766e}
+.technique-card .card-switches,.card-preview .technique-card .card-switches{display:flex;flex-direction:column;gap:10px;padding:13px 14px 14px;background:transparent;border:0;font-size:10px;margin-top:0;color:#20221f}
+.switch-divider{display:flex;align-items:center;gap:9px;width:100%}.switch-divider:before,.switch-divider:after{content:'';height:1px;background:#34372f;flex:1}.switch-divider svg{width:20px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;flex-shrink:0}
+.card-destinations{display:flex;justify-content:center;flex-wrap:wrap;gap:15px}
+.technique-card .color-chip,.card-preview .technique-card .color-chip{display:inline-flex;align-items:center;gap:5px;padding:0;background:transparent;color:#242820;font-size:10px;font-weight:500;letter-spacing:0}
+.technique-card .color-chip i{width:11px;height:11px;border-radius:50%;background:var(--hand);box-shadow:inset 0 0 0 1px #0002}
+.gallery-grid .card{border:1px solid #2d302c;border-radius:6px;box-shadow:0 6px 18px #0003}.gallery-grid .technique-card{flex:1}.gallery-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.card-preview{border-radius:6px;border:1px solid #2d302c;background:#faf6ed}.preview-help{background:#faf6ed}
+/* Compact faces keep artwork and their caption in separate layout rows. */
+.tile-face,.fight-screen .card-grid .tile-face,.fight-screen .combat-slots .main-slot>.tile-face,.fight-screen .combat-slots .played-burns .tile-face,.opponent-popup-cards .tile-face{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);align-content:stretch;justify-content:stretch;gap:0;padding:0;background:#faf6ed;color:#141513}
+.tile-face>.technique-art-compact{position:relative;z-index:auto;inset:auto;width:100%;height:100%;min-height:0;aspect-ratio:auto}
+.tile-face .tile-caption{display:flex;flex-direction:column;gap:5px;min-width:0;padding:7px 8px 6px;background:#faf6ed}
+.tile-face .tile-heading{display:flex;align-items:center;gap:7px;min-width:0}
+.tile-face .tile-caption .tile-heading .tile-name{display:block;flex:1;min-width:0;margin:0;padding:0;background:transparent;color:#141513;font-family:Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;text-shadow:none;font-size:12px;line-height:1.12;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile-face .tile-caption .tile-stats{display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto;gap:5px;margin:0;background:transparent}
+.tile-face .tile-caption .tile-heading .tile-stats>span{display:inline-flex;align-items:center;gap:2px;font-family:Impact,Haettenschweiler,'Arial Narrow',sans-serif;font-size:17px;line-height:1;font-weight:400;color:#141513}
+.tile-face .tile-caption svg{width:11px;height:11px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile-face .tile-caption .tile-switches{display:flex;align-items:center;justify-content:flex-end;gap:5px;padding:0;background:transparent;color:#55594f}
+.tile-face .tile-switches svg{width:14px;height:12px;margin-right:2px}
+.tile-face .tile-caption .tile-switches i{display:block;height:7px;width:7px;border-radius:50%;background:var(--hand);box-shadow:inset 0 0 0 1px #0002}
+.tile-face .tile-badge,.fight-screen .card-grid .tile-badge{position:absolute;top:5px;left:5px;z-index:1;max-width:calc(100% - 10px);margin:0;padding:3px 4px;background:#faf6edef;color:#20221f;font-size:7px;border-radius:2px;line-height:1.2;white-space:normal}
+/* Small burn and reaction slots retain the same row, with tighter typography. */
+.played-burn.tile-face .tile-caption{padding:4px 3px;gap:3px}
+.played-burn.tile-face .tile-heading{gap:3px}
+.played-burn.tile-face .tile-heading .tile-name{font-size:8px}
+.played-burn.tile-face .tile-caption .tile-stats{gap:3px}
+.played-burn.tile-face .tile-caption .tile-heading .tile-stats>span{font-size:12px;gap:1px}
+.played-burn.tile-face .tile-caption .tile-stats svg{width:8px;height:8px}
+.played-burn.tile-face .tile-caption .tile-switches{gap:3px}
+.played-burn.tile-face .tile-caption .tile-switches i{width:5px;height:5px}
+.played-burn.tile-face .tile-caption .tile-switches svg{width:11px;height:9px}
+@media(max-width:560px){.gallery-grid{grid-template-columns:minmax(0,1fr)}}
+
+@media(max-width:760px){
+  .fight-screen .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fight-screen .combat-slots .main-slot .tile-caption{padding:5px 4px;gap:4px}
+  .fight-screen .combat-slots .main-slot .tile-heading{gap:4px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-name{font-size:10px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats{gap:3px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:14px}
+  .fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
+}

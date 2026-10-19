@@ -2,13 +2,13 @@
 $reactionManifest = __DIR__ . '/assets/fighter-reactions.json';
 $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_contents($reactionManifest), true) : [];
 ?><!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deterministic Fighting Game · Simulator</title><link rel="stylesheet" href="app.css?v=<?= filemtime(__DIR__ . '/app.css') ?>"><link rel="stylesheet" href="compact.css?v=<?= filemtime(__DIR__ . '/compact.css') ?>"><link rel="stylesheet" href="arena.css?v=<?= filemtime(__DIR__ . '/arena.css') ?>"><link rel="stylesheet" href="menu.css?v=<?= filemtime(__DIR__ . '/menu.css') ?>"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deterministic Fighting Game · Simulator</title><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-no-pips-16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-no-pips-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-no-pips-64.png?v=1"><link rel="stylesheet" href="app.css?v=<?= filemtime(__DIR__ . '/app.css') ?>"><link rel="stylesheet" href="compact.css?v=<?= filemtime(__DIR__ . '/compact.css') ?>"><link rel="stylesheet" href="arena.css?v=<?= filemtime(__DIR__ . '/arena.css') ?>"><link rel="stylesheet" href="menu.css?v=<?= filemtime(__DIR__ . '/menu.css') ?>"><link rel="stylesheet" href="cards.css?v=<?= filemtime(__DIR__ . '/cards.css') ?>"></head>
 <body class="fight-screen">
 <main class="shell">
 <div id="error" class="error" role="alert" hidden></div>
 <section id="home" class="home-screen" aria-labelledby="homeTitle">
 <header class="home-header">
-<a class="home-brand" href="./" aria-label="DFG main menu"><span class="home-brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="19" height="25" rx="2" transform="rotate(-15 17.5 20.5)"/><rect x="15" y="6" width="19" height="25" rx="2" fill="#0b131b"/><path d="m26 11-6 9h8l-6 7"/></svg></span><span>DFG<span class="home-brand-caption">DETERMINISTIC FIGHTING GAME</span></span></a>
+<a class="home-brand" href="./" aria-label="DFG main menu"><span class="home-brand-mark" aria-hidden="true"><img src="assets/logo-no-randomness.png?v=1" width="44" height="44" alt=""></span><span>DFG<span class="home-brand-caption">DETERMINISTIC FIGHTING GAME</span></span></a>
 <span class="home-mode"><span aria-hidden="true"></span> SOLO ARENA</span>
 </header>
 <div class="home-stage">

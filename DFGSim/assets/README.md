@@ -1,3 +1,16 @@
+# Production card art
+
+The card renderer serves 36 individual WebP illustrations from `cards/individual/`,
+using stable catalog IDs (`001` through `036`). IDs 10, 12, 20, 33 and 35 use `v5`;
+all others use `v4`. These are browser-ready assets: no runtime encoding or source
+PNG is required. `card-renderer.js` and `cards.css` provide the full and mini card
+layouts. Artwork stays attached to its catalog ID when a card changes hands.
+
+# Logo and tab icons
+
+The menu uses `logo-no-randomness.png` (256px). All three HTML entry points declare
+`favicon-no-pips-{16,32,64}.png`. These transparent PNG exports are ready to serve.
+
 # Arena art
 
 The active arena uses an independent courtyard, the second blue Kling idle loop, and the first red Kling idle loop, both at 1.5x speed:

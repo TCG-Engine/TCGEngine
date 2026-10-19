@@ -78,11 +78,11 @@ check($stats[0]['attack'] === 5 && $stats[0]['block'] === 5 && $stats[1]['attack
 $stats = DFGComputeRound([['main'=>21,'bonuses'=>[]],['main'=>26,'bonuses'=>[]]], [['seat'=>1,'card'=>29]]);
 check($stats[0]['attack'] === 2 && $stats[0]['block'] === 2, 'an opposing reaction burn cannot activate either Firm Counter reward');
 $stats = DFGComputeRound([['main'=>20,'bonuses'=>[]],['main'=>31,'bonuses'=>[]]]);
-check($stats[0]['attack'] === 3 && $stats[0]['block'] === 3, 'Shield Bash starts at three attack and three block without either buff');
+check($stats[0]['attack'] === 3 && $stats[0]['block'] === 3, 'Forearm Check starts at three attack and three block without either buff');
 $stats = DFGComputeRound([['main'=>20,'bonuses'=>[],'advantages'=>['Green']],['main'=>31,'bonuses'=>[]]]);
-check($stats[0]['attack'] === 3 && $stats[0]['block'] === 5, 'Shield Bash Green spending adds two block without granting the low-attack buff');
+check($stats[0]['attack'] === 3 && $stats[0]['block'] === 5, 'Forearm Check Green spending adds two block without granting the low-attack buff');
 $stats = DFGComputeRound([['main'=>20,'bonuses'=>[],'advantages'=>['Green']],['main'=>16,'bonuses'=>[]]]);
-check($stats[0]['attack'] === 5 && $stats[0]['block'] === 5, 'Shield Bash combines its printed low-attack read with Green spending');
+check($stats[0]['attack'] === 5 && $stats[0]['block'] === 5, 'Forearm Check combines its printed low-attack read with Green spending');
 $stats = DFGComputeRound([['main'=>28,'bonuses'=>[]],['main'=>24,'bonuses'=>[]]]);
 check($stats[0]['attack'] === 7 && $stats[0]['block'] === 2, 'Find the Gap reaches 7/2 at printed block four without an opposing bonus');
 $stats = DFGComputeRound([['main'=>28,'bonuses'=>[]],['main'=>29,'bonuses'=>[27]]], [['seat'=>1,'card'=>25]]);

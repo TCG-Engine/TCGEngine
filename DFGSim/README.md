@@ -44,7 +44,16 @@ mark up to one other card as a bonus burn. Commit to reveal both players' cards.
 when it is your turn. After damage, choose one of your main card's bottom colors to begin the next
 round. Browsing an inactive hand only previews it; it never changes your current active hand.
 
-Hands use compact square tiles. Hover or keyboard-focus a tile to see its full card. Click a playable
+Cards use cream fight-poster frames, bold condensed titles, neutral attack/block values and burn
+rows, and individually generated monochrome martial-arts illustrations with broad painterly shading and
+restrained motion cues. Each scene is tailored to that card's name, rules, and role, using shades of its
+printed hand color throughout the figures and background. A centered
+switch icon divides the footer above named destination dots. The gallery and in-game inspectors
+share the same template; compact tiles,
+played cards, burns, and opponent inventory retain the corresponding art. Production WebP
+illustrations are in `assets/cards/individual/`; asset mappings are documented in `assets/README.md`.
+
+Hands use compact tiles. Hover or keyboard-focus a tile to see its full card. Click a playable
 card to select your main, then click another eligible card to select a bonus burn. Click either
 selected card again to undo; commit explicitly when ready. Clear a selected card before replacing it.
 During reactions, clicking an eligible card burns it immediately. Inactive,
@@ -131,7 +140,7 @@ Rules v10 reduces **Haymaker (ID 31)** to 7 attack / 0 block. Its objective, bon
 no reaction, and Red/Yellow routes stay unchanged.
 
 Rules v11 changes **Firm Counter (ID 21)** to 4 attack / 2 block, with +3 block against
-an opposing bonus commitment (5 block total). **Shield Bash (ID 20)** becomes 3 attack /
+an opposing bonus commitment (5 block total). **Forearm Check (ID 20)** becomes 3 attack /
 3 block, retaining its low-attack +2 attack condition and Green advantage +2 block spend.
 Their burn effects, reactions, and switch destinations stay unchanged.
 
@@ -165,7 +174,7 @@ The pair-analysis outputs below remain historical v14 results and do not include
 | Rushdown | Red | On hit, +2 attack next round only |
 | Driving Tackle | Orange | Ignore 2 block; on hit, choose one opposing legal next color to prohibit if more than one remains |
 | Driving Kick | Yellow | On hit, choose the opponent's next hand from their legal destinations |
-| Shield Bash | Green | +2 block and permission to remain Green |
+| Forearm Check | Green | +2 block and permission to remain Green |
 | Counterpunch | Blue | +1 attack and +1 block; on hit, prevent the opponent earning advantage this round |
 | Charged Fist | Purple | No stat bonus; on hit, permanently burn the opposing main after damage |
 
@@ -521,7 +530,7 @@ are in `DevTools/DFGSim/results/play-win-v30/` and `pairs-v30/`; `comparison-v29
 Rooted Guard using identical starting scenarios. Its pooled main-play win rate changed from
 42.7% (N=1,866) to 42.2% (N=1,222), and tactical rate from 42.2% to 40.2%. Total main plays
 fell from 2,747 to 1,605. Its no-bonus mean damage edge fell from +0.1592 to -0.1592, and
-with Shield Bash or Driving Palm from +0.6269 to +0.2935. These are descriptive bot-policy
+with Forearm Check or Driving Palm from +0.6269 to +0.2935. These are descriptive bot-policy
 associations with changing card-use cohorts; the overall v30 win baseline is 41.6% with draws.
 
 ## Guarded Strike revision (v31)

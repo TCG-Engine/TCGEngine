@@ -43,13 +43,11 @@
   place-items: center;
   flex: 0 0 44px;
   height: 44px;
-  border: 1px solid #edc77e70;
   color: var(--menu-gold);
   font-size: 15px;
   letter-spacing: -1px;
-  background: #edc77e08;
 }
-.home-brand-mark svg { width: 36px; height: 36px; }
+.home-brand-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .home-brand-caption {
   display: block;
   margin-top: 7px;
@@ -174,7 +172,6 @@
   .home-header { min-height: 74px; gap: 12px; }
   .home-brand { font-size: 21px; gap: 10px; }
   .home-brand-mark { flex-basis: 38px; height: 38px; font-size: 13px; }
-  .home-brand-mark svg { width: 31px; height: 31px; }
   .home-brand-caption { font-size: 8px; letter-spacing: .5px; max-width: 180px; line-height: 1.5; }
   .home-mode { font-size: 10px; letter-spacing: .5px; }
   .home-stage { min-height: 0; padding-top: 135px; }
