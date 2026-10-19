@@ -16,7 +16,7 @@ function phaseDCheck($ok, $label) {
 function phaseDLoad($slug) {
     global $gameDir, $playerID;
     $playerID = 1;
-    copy('Tests/Integration/GrandArchiveSim/' . $slug . '/initial_gamestate.txt', $gameDir . '/Gamestate.txt');
+    copy('DevTools/ga-fixtures/base-states/' . $slug . '.txt', $gameDir . '/Gamestate.txt');
     ParseGamestate('./GrandArchiveSim/');
     $playerID = 1;
 }

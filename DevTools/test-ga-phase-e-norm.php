@@ -17,7 +17,7 @@ function nmCheck($ok, $label) {
 function nmLoad() {
     global $gameDir, $playerID;
     $playerID = 1;
-    copy('Tests/Integration/GrandArchiveSim/slipstream-target-cost-ordinary/initial_gamestate.txt', $gameDir . '/Gamestate.txt');
+    copy('DevTools/ga-fixtures/base-states/slipstream-target-cost-ordinary.txt', $gameDir . '/Gamestate.txt');
     ParseGamestate('./GrandArchiveSim/');
     $playerID = 1;
     foreach ([1, 2] as $seat) { $q = &GetDecisionQueue($seat); $q = []; }
