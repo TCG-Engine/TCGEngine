@@ -23,6 +23,9 @@ try {
         page.on('pageerror',e=>errors.push(e.message));
         await page.goto(base);
         await page.locator('#homePlay:enabled').waitFor();
+        assert.deepEqual(await page.locator('#home a, #home button').allTextContents(), ['Learn to play', 'Play against the bot']);
+        assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Menu fits viewport');
+        if(process.env.DFG_SCREENSHOTS) await page.screenshot({path:`${process.env.DFG_SCREENSHOTS}/${name}-${viewport.width}-menu.png`});
         // The full art set should warm while the player is still on the menu.
         await page.waitForFunction(() => new Set(performance.getEntriesByType('resource')
           .filter(entry=>entry.name.includes('/assets/cards/individual/') && entry.initiatorType==='img')
@@ -38,6 +41,12 @@ try {
         await page.locator('#setupForm [type=submit]').click();
         await page.locator('#gameView').waitFor();
         const saved = await page.evaluate(async()=> (await (await fetch('api.php')).json()).state);
+        await page.locator('#matchMenu summary').click();
+        await page.locator('#goHome').click();
+        await page.locator('#homePlay').click();
+        assert.equal(await page.locator('#gameView').isVisible(),true,'Play resumes an active match');
+        assert.equal(await page.locator('#setup').isVisible(),false,'Resuming skips new match setup');
+        assert.deepEqual(await page.evaluate(async()=> (await (await fetch('api.php')).json()).state),saved,'Resuming preserves the match');
         await page.goto(base+'learn.php');
         await page.locator('#tutorialGuide:visible').waitFor();
         await page.locator('#hand-2').waitFor();

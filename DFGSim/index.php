@@ -7,24 +7,13 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 <main class="shell">
 <div id="error" class="error" role="alert" hidden></div>
 <section id="home" class="home-screen" aria-labelledby="homeTitle">
-<header class="home-header">
-<a class="home-brand" href="./" aria-label="DFG main menu"><span class="home-brand-mark" aria-hidden="true"><img src="assets/logo-no-randomness.png?v=1" width="44" height="44" alt=""></span><span>DFG<span class="home-brand-caption">DETERMINISTIC FIGHTING GAME</span></span></a>
-<span class="home-mode"><span aria-hidden="true"></span> SOLO ARENA</span>
-</header>
-<div class="home-stage">
-<div class="home-scene" aria-hidden="true"><div class="home-scene-light"></div><img class="home-fighter home-fighter-blue" src="assets/fighter-blue-transparent.webp" alt="" draggable="false"><img class="home-fighter home-fighter-red" src="assets/fighter-red-transparent.webp" alt="" draggable="false"><span class="home-stage-caption">THE COURTYARD</span></div>
-<div class="home-hero"><span class="eyebrow home-kicker"><span aria-hidden="true"></span> A DUEL OF DECISIONS</span><h1 id="homeTitle" tabindex="-1">Read the move.<br><em>Win the exchange.</em></h1><p class="home-description">Choose your move in secret. Reveal together.<br> Burn cards for power. Every sacrifice is permanent.</p>
-<div class="home-actions"><button id="resumeMatch" hidden>Resume match</button><button id="homePlay" class="primary" disabled>Play vs bot</button></div>
-<p id="savedMatch" class="home-save" role="status">Loading your local match…</p>
-<div class="home-principles" aria-label="Game features"><span>Simultaneous reveals</span><span>36 cards · 6 hands</span><span>No random combat</span></div>
-</div>
-</div>
-<nav class="home-resources" aria-label="Explore the game">
-<a class="home-resource home-learn" href="learn.php"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 5 11 7-11 7V5Z"/></svg></span><span class="home-resource-copy"><strong>Learn to play <span class="home-resource-tag">5 min</span></strong><span class="home-resource-description">Find your footing with guided practice.</span></span><span class="home-resource-arrow" aria-hidden="true">→</span></a>
-<a class="home-resource" href="gallery.php"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="13" height="17" rx="2"/><path d="M4 7v13a3 3 0 0 0 3 3M11 8h5m-5 4h5"/></svg></span><span class="home-resource-copy"><strong>Explore the cards</strong><span class="home-resource-description">Six colors. Every move and every route.</span></span><span class="home-resource-arrow" aria-hidden="true">→</span></a>
-<button id="homeRules" class="home-resource" aria-haspopup="dialog" aria-expanded="false"><span class="home-resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5C9 3 5 3 2 5v15c3-2 7-2 10 0 3-2 7-2 10 0V5c-3-2-7-2-10 0Zm0 0v15"/></svg></span><span class="home-resource-copy"><strong>Rules reference</strong><span class="home-resource-description">Combat, burns, and advantage.</span></span><span class="home-resource-arrow" aria-hidden="true">+</span></button>
+<img class="home-logo" src="assets/logo-no-randomness.png?v=1" width="72" height="72" alt="">
+<h1 id="homeTitle" tabindex="-1">Deterministic Fighting Game</h1>
+<nav class="home-actions" aria-label="Main menu">
+<a class="home-learn" href="learn.php">Learn to play</a>
+<button id="homePlay" class="primary" disabled>Play against the bot</button>
 </nav>
-<footer class="home-footer"><span class="home-palette" aria-hidden="true"><i class="red"></i><i class="orange"></i><i class="yellow"></i><i class="green"></i><i class="blue"></i><i class="purple"></i></span><p>Local solo play <span aria-hidden="true">/</span> Match saved in this browser’s session</p></footer>
+<p id="savedMatch" class="home-save" role="status" hidden></p>
 </section>
 <div id="gameView" hidden>
 <?php if (!empty($dfgTutorial)): ?>

@@ -269,11 +269,11 @@ function showRulesPopup() {
   closePreview();HideCardDetail(true);
   $('popupContainer').innerHTML=createPopupHTML('rules','',{titleHTML:'Prototype rules',contentHTML:$('rulesContent').innerHTML});
   const popup=$('rulesPopup');popup.setAttribute('role','dialog');popup.setAttribute('aria-label','Prototype rules');
-  _openPopup='rules';$('showRules').setAttribute('aria-expanded','true');$('homeRules').setAttribute('aria-expanded','true');
+  _openPopup='rules';$('showRules').setAttribute('aria-expanded','true');
   popup.querySelector('button').setAttribute('aria-label','Close rules');popup.querySelector('button').focus();
 }
 function closeRulesPopup() {
-  ClosePopup();$('showRules').setAttribute('aria-expanded','false');$('homeRules').setAttribute('aria-expanded','false');($('home').hidden?$('matchMenu').querySelector('summary'):$('homeRules')).focus();
+  ClosePopup();$('showRules').setAttribute('aria-expanded','false');($('home').hidden?$('matchMenu').querySelector('summary'):$('homePlay')).focus();
 }
 function showScreen(play) {
   closePreview(); HideCardDetail(true); ClosePopup(); opponentColor=null;
@@ -434,17 +434,9 @@ function render() {
   $('setupTitle').textContent=state?'Start a new fight.':'Choose your opening.';
   $('setupForm').querySelector('p').textContent=state?'Starting a new fight replaces your saved match. All six hands will be available again.':'All six hands are yours. Only your active hand can play or burn cards.';
   const canResume=!!state && state.phase!=='finished' && !state.needsNewMatch;
-  $('resumeMatch').hidden=!state;
-  $('resumeMatch').classList.toggle('primary',canResume);
-  $('homePlay').classList.toggle('primary',!canResume);
-  $('homePlay').textContent=state?'New match':'Play vs bot';
-  $('resumeMatch').textContent=state?.needsNewMatch?'View saved match':state?.phase==='finished'?'View last match':'Resume match';
-  const primaryHomeAction=canResume?$('resumeMatch'):$('homePlay');
-  if(primaryHomeAction.parentElement.firstElementChild!==primaryHomeAction) primaryHomeAction.parentElement.prepend(primaryHomeAction);
-  $('savedMatch').hidden=!state;
-  $('savedMatch').textContent=state?`Round ${state.round} · ${state.players[0].color} · ${state.players[0].life} life${state.needsNewMatch?' · Rules updated; start a fresh match.':state.phase==='finished'?' · Complete':''}`:'Ready for your first fight? Start with the guided tutorial.';
+  $('savedMatch').hidden=!canResume;
+  $('savedMatch').textContent=canResume?`Continue your match against the bot · Round ${state.round}`:'';
   $('showRules').setAttribute('aria-expanded',_openPopup==='rules'?'true':'false');
-  $('homeRules').setAttribute('aria-expanded',_openPopup==='rules'?'true':'false');
   $('resign').hidden=!state||state.phase==='finished'||state.needsNewMatch;
   $('resign').disabled=busy;
   if(!state) { $('fighters').innerHTML='<p class="muted">Choose your opening hand to start a local match against the bot.</p>'; $('phaseHint').textContent='36 reusable moves. Permanent burns. Every round changes your next options.'; $('controls').innerHTML='<button id="playAgain" class="primary">Start a match</button>'; return; }
@@ -488,10 +480,13 @@ document.addEventListener('click',event=>{
   event.target.closest('.commit-prompt.needs-main')?.focus({preventScroll:true});
   const button=event.target.closest('button');if(!button||button.disabled)return;
   if(button.id==='closePreview'){closePreview();return;}
-  if(['showRules','homeRules'].includes(button.id)){showRulesPopup();return;}
+  if(button.id==='showRules'){showRulesPopup();return;}
   if(button.id==='goHome'){if($('tutorialGuide'))location.href='index.php';else showScreen(false);return;}
-  if(button.id==='resumeMatch'){showScreen(true);return;}
-  if(button.id==='homePlay'){$('setup').showModal();return;}
+  if(button.id==='homePlay'){
+    if(state && state.phase!=='finished' && !state.needsNewMatch) showScreen(true);
+    else $('setup').showModal();
+    return;
+  }
   if(['showLog','reviewFight'].includes(button.id)){fightLogTrigger=button.id==='reviewFight'?button:$('matchMenu').querySelector('summary');$('fightLog').showModal();$('showLog').setAttribute('aria-expanded','true');return;}
   if(button.id==='closeLog'){$('fightLog').close();return;}
   if(button.closest('#rulesPopup')&&button.getAttribute('onclick')==='ClosePopup()'){closeRulesPopup();return;}

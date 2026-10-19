@@ -6,10 +6,11 @@ at runtime. This is an isolated PHP prototype in `DFGSim/`; it does not modify o
 
 ## Play
 
-The entry page is a main menu with Play vs bot, Resume match, Learn to play, the card
-gallery, and the rules reference. Returning to the menu or refreshing preserves the
-current session match. Starting another fight replaces it. The in-match menu also
-links back to the main menu and tutorial.
+The main menu has two actions: Learn to play and Play against the bot. Play resumes
+an unfinished session match, or opens match setup when there is no active fight.
+Returning to the menu or refreshing preserves the current session match. The in-match
+menu provides new matches, the card gallery, rules, and a link to the tutorial.
+Starting another fight replaces the saved match.
 
 The menu warms all 36 card-art images in the background, two low-priority requests
 at a time, starting with the saved or default opening hands. Changing opening hands
