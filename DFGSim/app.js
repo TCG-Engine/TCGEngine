@@ -5,9 +5,13 @@ let opponentColor = null;
 let fightLogTrigger = null;
 let activeMotion = [];
 let liquidImpacts = [null, null];
+let timelineState = null, timelineAnimation = null;
+let roundDisplayState = null, roundAnimations = [];
 const orbMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 orbMotionPreference.addEventListener('change', () => {
   liquidImpacts = [null, null];
+  if (state) renderTimeline(state, true);
+  if (state) renderRound(state, true);
   document.querySelectorAll('.orb-slosh, .health-slosh').forEach(surface => surface.getAnimations().forEach(animation => animation.cancel()));
 });
 const $ = id => document.getElementById(id);
@@ -231,7 +235,7 @@ function reveal(seat) {
   if (!plan || plan.hidden) mainMarkup=`<div id="played-main-${seat}" class="played-back" aria-label="${owner}: ${plan?'face down':'no main selected'}"><span class="slot-label">${seat===0?'Your main':'Opponent main'}</span></div>`;
   else {
     const main=card(plan.main), stats=state.stats?.[seat];
-    mainMarkup=`<button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection: ':'Inspect '}${esc(main.name)}">${DFGCardRenderer.mini(main, {badge:`${seat===0?"YOUR MAIN":"OPPONENT MAIN"}${staged?" / UNDO":""}}`, attack:stats?.attack??main.attack, block:stats?.block??main.block})}</button>${stats?`<span class="main-status">${['cancelling','reactions'].includes(state.phase)?'Projected':'Dealt'}: <strong>${stats.damage}</strong>${stats.directDamage?` · ${stats.directDamage} direct`:''}${stats.pierce?` · pierce ${stats.pierce}`:''}</span>`:''}${plan.advantages?.length?`<span class="main-status">Spent${plan.cancelledFrom?' on Darting':''}: ${plan.advantages.map(esc).join(' + ')}</span>`:''}`;
+    mainMarkup=`<button id="played-main-${seat}" class="tile-face ${classColor(main.color)}" data-inspect="${main.id}" ${staged?`data-hand-action="${main.id}"`:''} aria-label="${staged?'Undo main selection: ':'Inspect '}${esc(main.name)}">${DFGCardRenderer.mini(main, {attack:stats?.attack??main.attack, block:stats?.block??main.block})}</button>${stats?`<span class="main-status">${['cancelling','reactions'].includes(state.phase)?'Projected':'Dealt'}: <strong>${stats.damage}</strong>${stats.directDamage?` · ${stats.directDamage} direct`:''}${stats.pierce?` · pierce ${stats.pierce}`:''}</span>`:''}${plan.advantages?.length?`<span class="main-status">Spent${plan.cancelledFrom?' on Darting':''}: ${plan.advantages.map(esc).join(' + ')}</span>`:''}`;
   }
   const mainSlot=`<div class="main-slot slot-group" aria-label="${seat===0?'Your main':'Opponent main'}">${mainMarkup}</div>`;
   return `<div class="reveal combat-slots" aria-label="${owner}"><div class="played-burns" id="burns-${seat}">${reactionMarkup}${bonusMarkup}</div>${mainSlot}</div>`;
@@ -358,6 +362,70 @@ function controls() {
     $('controls').innerHTML='<button id="playAgain" class="primary">Play again <span aria-hidden="true">↻</span></button><button id="reviewFight" aria-haspopup="dialog">Fight log</button>';
   }
 }
+function renderRound(next, immediate = false) {
+  const number=$('roundNumber'), previous=roundDisplayState;
+  if(!immediate && previous && previous.matchId===next.matchId && previous.round===next.round) return;
+  roundAnimations.forEach(animation=>animation.cancel());
+  roundAnimations=[];
+  roundDisplayState={matchId:next.matchId,round:next.round};
+  const incoming=document.createElement('i');
+  incoming.className='round-digit';incoming.textContent=next.round;
+  number.replaceChildren(incoming);
+  if(immediate || !previous || previous.matchId!==next.matchId || next.round<=previous.round || orbMotionPreference.matches) return;
+  const outgoing=document.createElement('i');
+  outgoing.className='round-digit';outgoing.textContent=previous.round;outgoing.setAttribute('aria-hidden','true');
+  number.prepend(outgoing);
+  const timing={duration:440,easing:'cubic-bezier(.22,.7,.25,1)'};
+  roundAnimations=[
+    outgoing.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(110%)',opacity:0}],{...timing,fill:'forwards'}),
+    incoming.animate([{transform:'translateY(-110%)',opacity:.35},{transform:'translateY(0)',opacity:1}],timing)
+  ];
+  roundAnimations[0].finished.then(()=>outgoing.remove()).catch(()=>{});
+}
+function renderTimeline(next, immediate = false) {
+  const rail=$('timeline');
+  const previous=timelineState;
+  const signature=[next.matchId,next.round,next.phase].join(':');
+  if(!immediate && previous?.signature===signature) return;
+  const oldHighlight=rail.querySelector('.phase-highlight');
+  const oldOpacity=oldHighlight?getComputedStyle(oldHighlight).opacity:'1';
+  timelineAnimation?.cancel();
+  timelineAnimation=null;
+  timelineState={signature,matchId:next.matchId,round:next.round};
+  const phases = [['planning','COMMIT FACE DOWN'],...(next.phase==='cancelling'?[['cancelling','CHOOSE CANCEL']]:[]),['reactions','REVEAL & REACT'],...(next.phase==='stripping'?[['stripping','REMOVE ADVANTAGE']]:[]),...(next.phase==='relocating'?[['relocating','MOVE MAIN']]:[]),...(next.phase==='routing'?[['routing','CUT ROUTE']]:[]),...(next.phase==='directing'?[['directing','DIRECT HAND']]:[]),['switching','DAMAGE & SWITCH']];
+  const currentPhase = phases.findIndex(([phase])=>phase===next.phase);
+  const markup=phases.map(([phase,label],index)=>{
+    const current=phase===next.phase, complete=next.phase==='finished'||(currentPhase>=0&&index<currentPhase);
+    const marker=complete?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 8 3 3 5-6"/></svg>':String(index+1).padStart(2,'0');
+    return `<span class="phase-step${current?' current':''}${complete?' complete':''}"${current?' aria-current="step"':''}><i class="phase-marker" aria-hidden="true">${marker}</i><b class="phase-label">${label}</b></span>`;
+  }).join('');
+  const commit = () => {
+    rail.innerHTML='<div class="phase-highlight" aria-hidden="true"></div>'+markup;
+    const highlight=rail.querySelector('.phase-highlight'), current=rail.querySelector('.current');
+    highlight.hidden=!current;
+    if(!current) return;
+    highlight.innerHTML=current.innerHTML;
+    const target={left:current.offsetLeft,top:current.offsetTop,width:current.offsetWidth,height:current.offsetHeight};
+    Object.entries(target).forEach(([key,value])=>highlight.style[key]=`${value}px`);
+  };
+  const sameMatch=previous && previous.matchId===next.matchId;
+  if(!immediate && sameMatch && oldHighlight && !oldHighlight.hidden && !orbMotionPreference.matches){
+    const fade=oldHighlight.animate([{opacity:oldOpacity},{opacity:0}],{duration:150,fill:'forwards'});
+    timelineAnimation=fade;
+    fade.finished.then(()=>{
+      if(timelineAnimation!==fade) return;
+      commit(); fade.cancel();
+      const highlight=rail.querySelector('.phase-highlight');
+      if(!highlight.hidden) timelineAnimation=highlight.animate([{opacity:0},{opacity:1}],{duration:210,easing:'ease-out'});
+    }).catch(()=>{});
+  } else commit();
+}
+new ResizeObserver(()=>{
+  const rail=$('timeline'),current=rail.querySelector('.current'),highlight=rail.querySelector('.phase-highlight');
+  if(!highlight || !current) return;
+  for(const [key,value] of Object.entries({left:current.offsetLeft,top:current.offsetTop,width:current.offsetWidth,height:current.offsetHeight})) highlight.style[key]=`${value}px`;
+}).observe($('timeline'));
+
 function render() {
   $('homePlay').disabled=busy||!catalog.size;
   $('setupTitle').textContent=state?'Start a new fight.':'Choose your opening.';
@@ -377,7 +445,7 @@ function render() {
   $('resign').hidden=!state||state.phase==='finished'||state.needsNewMatch;
   $('resign').disabled=busy;
   if(!state) { $('fighters').innerHTML='<p class="muted">Choose your opening hand to start a local match against the bot.</p>'; $('phaseHint').textContent='36 reusable moves. Permanent burns. Every round changes your next options.'; $('controls').innerHTML='<button id="playAgain" class="primary">Start a match</button>'; return; }
-  $('roundNumber').textContent=state.round;
+  renderRound(state);
   $('fighters').innerHTML=fighter(0)+fighter(1);
   [...$('fighters').querySelectorAll('.fighter')].forEach((element,index)=>{
     const p=state.players[index];
@@ -400,7 +468,7 @@ function render() {
     details.append(element.querySelector('.hand-orbs'),statuses);
     element.append(details);
   });
-  $('timeline').innerHTML=[['planning','COMMIT FACE DOWN'],...(state.phase==='cancelling'?[['cancelling','CHOOSE CANCEL']]:[]),['reactions','REVEAL & REACT'],...(state.phase==='stripping'?[['stripping','REMOVE ADVANTAGE']]:[]),...(state.phase==='relocating'?[['relocating','MOVE MAIN']]:[]),...(state.phase==='routing'?[['routing','CUT ROUTE']]:[]),...(state.phase==='directing'?[['directing','DIRECT HAND']]:[]),['switching','DAMAGE & SWITCH']].map(([phase,label])=>`<span class="${state.phase===phase?'current':''}">${label}</span>`).join('');
+  renderTimeline(state);
   $('reveals').innerHTML=reveal(0)+reveal(1);
   const p=state.players[0];browseColor=browseColor??p.color;
   $('cards').innerHTML=[...catalog.values()].filter(c=>cardHand(p,c.id)===browseColor).map(cardMarkup).join('');

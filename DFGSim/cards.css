@@ -40,24 +40,45 @@
 .tile-face .tile-switches svg{width:14px;height:12px;margin-right:2px}
 .tile-face .tile-caption .tile-switches i{display:block;height:7px;width:7px;border-radius:50%;background:var(--hand);box-shadow:inset 0 0 0 1px #0002}
 .tile-face .tile-badge,.fight-screen .card-grid .tile-badge{position:absolute;top:5px;left:5px;z-index:1;max-width:calc(100% - 10px);margin:0;padding:3px 4px;background:#faf6edef;color:#20221f;font-size:7px;border-radius:2px;line-height:1.2;white-space:normal}
-/* Small burn and reaction slots retain the same row, with tighter typography. */
-.played-burn.tile-face .tile-caption{padding:4px 3px;gap:3px}
-.played-burn.tile-face .tile-heading{gap:3px}
-.played-burn.tile-face .tile-heading .tile-name{font-size:8px}
-.played-burn.tile-face .tile-caption .tile-stats{gap:3px}
-.played-burn.tile-face .tile-caption .tile-heading .tile-stats>span{font-size:12px;gap:1px}
-.played-burn.tile-face .tile-caption .tile-stats svg{width:8px;height:8px}
-.played-burn.tile-face .tile-caption .tile-switches{gap:3px}
-.played-burn.tile-face .tile-caption .tile-switches i{width:5px;height:5px}
-.played-burn.tile-face .tile-caption .tile-switches svg{width:11px;height:9px}
+/* Burns reserve a full title row instead of squeezing it beside the stats. */
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:4px 3px;gap:3px 2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading{display:contents}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-name{grid-column:1/-1;min-height:2.24em;font-size:9px;line-height:1.12;white-space:normal;text-overflow:clip;overflow:visible;overflow-wrap:anywhere}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-stats{justify-content:flex-start;gap:2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-heading .tile-stats>span{font-size:11px;gap:1px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-stats svg{width:7px;height:7px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches{gap:2px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches i{width:4px;height:4px}
+.fight-screen .combat-slots .played-burns .tile-face .tile-caption .tile-switches svg{width:9px;height:8px;margin-right:0}
+.fight-screen .combat-slots .played-burns .tile-face .tile-badge{top:3px;left:3px;max-width:calc(100% - 6px);padding:2px;font-size:6px;letter-spacing:0}
+.fight-screen .combat-slots .bonus-slot>.tile-face{height:max(100px,calc(var(--bonus-width)*1.34))}
+/* Reaction slots are narrower, so their switch row sits under the stats. */
+.fight-screen .combat-slots .reaction-cards>.tile-face{height:max(90px,calc(var(--reaction-width)*1.375))}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-caption{grid-template-columns:minmax(0,1fr);gap:2px}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-heading .tile-name{font-size:8px}
+.fight-screen .combat-slots .reaction-cards .tile-face .tile-caption .tile-switches{justify-content:flex-start}
+@media(max-width:760px){
+  .fight-screen .combat-slots .bonus-slot .tile-face .tile-caption{grid-template-columns:minmax(0,1fr)}
+  .fight-screen .combat-slots .bonus-slot .tile-face .tile-caption .tile-switches{justify-content:flex-start}
+}
 @media(max-width:560px){.gallery-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Played mains have a narrower portrait window than the cards in hand. */
+.fight-screen .combat-slots .main-slot .tile-caption{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px 4px;padding:7px 7px 6px}
+.fight-screen .combat-slots .main-slot .tile-heading{display:contents}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-name{grid-column:1/-1;min-height:2.24em;font-size:12px;line-height:1.12;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:normal}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-stats{justify-content:flex-start;gap:3px}
+.fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:16px}
+.fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
+.fight-screen .combat-slots .main-slot .tile-switches{gap:2px}
+.fight-screen .combat-slots .main-slot .tile-switches svg{margin-right:0;width:10px}
+.fight-screen .combat-slots .main-slot .tile-switches i{width:5px;height:5px}
 
 @media(max-width:760px){
   .fight-screen .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .fight-screen .combat-slots .main-slot .tile-caption{padding:5px 4px;gap:4px}
-  .fight-screen .combat-slots .main-slot .tile-heading{gap:4px}
-  .fight-screen .combat-slots .main-slot .tile-heading .tile-name{font-size:10px}
+  .fight-screen .combat-slots .main-slot .tile-caption{padding:6px 4px;gap:4px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-name{font-size:11px}
   .fight-screen .combat-slots .main-slot .tile-heading .tile-stats{gap:3px}
-  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:14px}
+  .fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:16px}
   .fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
 }

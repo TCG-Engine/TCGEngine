@@ -43,7 +43,7 @@
   .fight-screen .fighter:last-child .fighter-details{align-items:flex-end}
   .fight-screen .fighter-statuses{width:100%;margin:0}
 }
-.arena-round{position:absolute;top:24px;left:50%;transform:translateX(-50%);width:86px;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #d4a753;background:linear-gradient(135deg,#152331ef,#080f19ef);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);filter:drop-shadow(0 0 12px #e8bd6c30)}
+.arena-round{position:absolute;top:24px;left:50%;transform:translateX(-50%);width:86px;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #d4a753;background:linear-gradient(135deg,#152331ef,#080f19ef);border-radius:14px;box-shadow:0 5px 18px #0004,inset 0 1px 0 #fff1}
 .arena-round span{font-size:10px;letter-spacing:2px;color:var(--accent)}.arena-round strong{font-size:32px;line-height:1.2}
 .fight-screen .combat-layout .reveals{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:24px;width:min(690px,64%);margin:90px auto 0;order:1}
 .fight-screen .combat-layout .reveals:before{content:'VS';position:absolute;left:50%;top:52px;transform:translateX(-50%);font-size:15px;font-style:italic;font-weight:900;color:var(--accent);text-shadow:0 0 12px #000}
@@ -187,7 +187,6 @@
 /* Match navigation lives on the stage, with phases directly above the cards. */
 .fight-screen .combat-slots .played-back:after{display:none}
 .fight-screen .combat-slots .played-back>.slot-label,.fight-screen .combat-slots .burn-placeholder>.slot-label{white-space:normal;text-align:center;line-height:1.5;padding:4px;letter-spacing:.5px}
-.fight-screen .combat-slots .main-slot .tile-badge{white-space:normal}
 .fight-screen .shell{padding-top:12px}
 .fight-screen .arena{position:relative}
 .fight-screen .arena>.match-menu{position:absolute;top:12px;right:12px}
@@ -447,3 +446,33 @@
   .fight-screen #matchControls[data-phase=finished] #playAgain span{display:none}
 }
 
+
+/* Quiet round medallion and a single segmented phase rail. */
+.fight-screen .arena-round{isolation:isolate;width:86px;height:96px;min-height:96px;gap:3px;border:0;background:none;border-radius:0;box-shadow:none;filter:drop-shadow(0 4px 8px #0004)}
+.fight-screen .arena-round:after{content:none}
+.fight-screen .arena-round span{font-size:9px;font-weight:600;letter-spacing:1.8px;color:#f5dfad;text-shadow:0 1px 3px #08121acc}
+.fight-screen .arena-round strong{font-size:34px;font-weight:700;line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;color:#faf4e5;text-shadow:0 2px 5px #0005}
+.fight-screen .arena-round #roundNumber{position:relative;display:block;width:3ch;height:1.16em;overflow:hidden;line-height:1.16}
+.round-digit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:inherit;letter-spacing:inherit}
+.fight-screen .combat-layout>.timeline{position:relative;width:min(100%,560px);gap:3px;padding:3px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.phase-highlight{position:absolute;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;gap:8px;padding:3px 7px;border:1px solid transparent;background:none;color:#fff0bf;text-shadow:0 1px 2px #08121a,0 0 2px #362104,0 0 5px #ffdf8f,0 0 12px #ffbd45e6,0 0 22px #ffae3580}
+.phase-highlight .phase-marker{color:inherit}
+.fight-screen .combat-layout>.timeline .phase-step{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding:3px 7px;border:1px solid transparent;border-radius:6px;background:transparent;color:#e1e8eb;text-shadow:0 1px 2px #08121a,0 0 4px #08121ab3;line-height:1.1}
+.phase-marker{display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;width:18px;height:18px;border:0;border-radius:0;font-size:8px;font-style:normal;font-weight:700;letter-spacing:0;font-variant-numeric:tabular-nums;color:#e1e8eb}
+.phase-marker svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.phase-label{font-size:9px;font-weight:700;letter-spacing:.45px}
+.fight-screen .combat-layout>.timeline .phase-step.complete{color:#e1e8eb}
+.phase-step.complete .phase-marker{background:none;color:#d0dfdf}
+.fight-screen .combat-layout>.timeline .phase-step.current{color:#e1e8eb;border-color:transparent;background:transparent;box-shadow:none}
+.phase-step.current .phase-marker{background:none;color:inherit;text-shadow:inherit;box-shadow:none}
+@media(max-width:760px){
+  .fight-screen .arena-round{width:58px;height:68px;min-height:68px;gap:2px}
+  .fight-screen .arena-round span{font-size:7px;letter-spacing:1.2px}
+  .fight-screen .arena-round strong{font-size:27px}
+  .fight-screen .combat-layout>.timeline{gap:2px;padding:2px;border-radius:7px}
+  .fight-screen .combat-layout>.timeline .phase-step{gap:4px;padding:2px 3px;border-radius:4px}
+  .phase-highlight{gap:4px;padding:2px 3px}
+  .phase-marker{flex-basis:14px;width:14px;height:14px;font-size:7px}
+  .phase-marker svg{width:10px;height:10px}
+  .phase-label{font-size:7px;letter-spacing:0;line-height:1.2}
+}
