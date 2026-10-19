@@ -211,6 +211,8 @@ function _SWUBotLookaheadContinue(int $seat, callable $read, callable $score, in
     };
     if ($depth <= 0 || $budget <= 0 || !function_exists('SWUBotLegalActions') || SWUBotPendingDecisionSeat() !== $seat) return $leaf();
     $legal = SWUBotLegalActions(strval($GLOBALS['gameName'] ?? ''), $seat);
+    // Answers a proposal gates (SWUBotStripGatedAnswers, BotLegalActions.php) leave unless that proposal is on for this decision.
+    if (function_exists('SWUBotStripGatedAnswers')) $legal['actions'] = SWUBotStripGatedAnswers((array)($legal['actions'] ?? []));
     $answers = array_slice((array)($legal['actions'] ?? []), 0, min(SWU_BOT_LOOKAHEAD_BRANCH, $budget));
     $truncated = count($answers) < count((array)($legal['actions'] ?? []));
     if (($legal['kind'] ?? '') !== 'decision' || empty($answers)) return $leaf();

@@ -16,8 +16,9 @@ SWUBotLeverRegister('zztheme', 'zzlever2', ['play' => fn(float $v) => $v * 2.0])
 check(in_array('zzlever', SWUBotProposalList(), true), 'a registered lever is listed as a proposal');
 check((SWUBotLeverGroups()['zztheme'] ?? []) === ['zzlever', 'zzlever2'], 'its theme groups the levers registered under it');
 
-// The shipped levers (p54) are pinned off for this section: it drives the hooks with a dummy card, and only the test's own levers are under test.
-$GLOBALS['SWUBotPinnedDisabled'] = SWU_BOT_PART54_FEATURES;
+// The shipped levers (p54, p56 …) are pinned off for this section: it drives the hooks with a dummy card, and only the test's own levers are
+// under test. Derived from the registry (_SWUBotShippedLevers), so a newly shipped group is pinned too (2026-10-19: p56 broke the literal).
+$GLOBALS['SWUBotPinnedDisabled'] = _SWUBotShippedLevers();
 SWUBotSetDisabledFeatures([]);
 check(SWUBotLeverChain('play', 1.0, [], 1, 'X', [], []) === 1.0, 'with no variant, a chain hook returns its input untouched');
 check(SWUBotLeverFirst('decision', [], 1, 't', 'YESNO', 'h', 'YES', []) === null, 'with no variant, a first hook defers (null)');

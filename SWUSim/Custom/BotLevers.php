@@ -18,12 +18,18 @@
 //   chain 'killextra'  fn(float $extra, array $def, array $W, int $seat): ?float  — what a kill of $def earns beyond W[kill] x value
 //   chain 'keep'       fn(float $keep, array $ctx, int $seat, string $cid, int $i): ?float — resourcing keep (higher = keep in hand)
 //   chain 'mulligan'   fn(?bool $mull, int $seat, string $style): ?bool          — the mulligan answer (true = mulligan)
+//   chain 'lossfactor'  fn(float $f, array $att): ?float                         — the loss-weight factor of attacker $att (leaderrisk …)
+//   chain 'observertax' fn(float $tax, array $att, array $W): ?float             — what losing attacker $att costs through enemy observers
+//   chain 'weakness'    fn(float $score, int $seat, array $v, bool $enemy, int $weak, array $W, int $loss): ?float — a Weakness give on $v ($loss = HP it takes)
+//   chain 'finisherhp'  fn(int $n, int $seat, array $v): ?int                    — my finisher threshold vs target $v (_SWUBotFinisherHPFor)
+//   chain 'splitown'    fn(float $part, int $seat, array $v, int $amt, array $W): ?float — a damage split's share on MY unit $v (_SWUBotSplitScore)
+//   ($GLOBALS['SWUBotKillCtx'] === 'removal' while a hostile DEFEAT is priced by _SWUBotTargetScore — 'killextra' callers can tell removal from attacks)
 
 $GLOBALS['SWUBotLevers'] = $GLOBALS['SWUBotLevers'] ?? [];   // name => ['theme' => string, 'hooks' => [hook => callable]]
 // SHIPPED levers (feature group p54, BotFeatures.php): default ON — active unless "@no-<name>" (or its group) switches the feature off. They are
 // FEATURES, so they leave the proposal list; every other registered lever stays an off-by-default proposal.
 function _SWUBotShippedLevers(): array {
-    return defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [];
+    return array_merge(defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [], defined('SWU_BOT_PART56_FEATURES') ? SWU_BOT_PART56_FEATURES : []);   // p54 + p56
 }
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {
