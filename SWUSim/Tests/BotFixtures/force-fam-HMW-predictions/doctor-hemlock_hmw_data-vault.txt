@@ -1,0 +1,50 @@
+# Self-play fixture — "Hemlock DV" (Doctor Hemlock, Emotion Has No Place Here - Data Vault)
+# Source: Force Fam member Ninin (NininTCG)'s "Hemlock DV", given by the owner as JSON 2026-10-18. 60 main-deck cards (Data Vault:
+#   minimum deck size +10), 5 sideboard. Reference play: her 22 SWU Forge games of version "main v1" on 2026-10-18 (18-4), logs in
+#   docs/superpowers/swuforge-research/2026-10-18_doctor-hemlock-vs-*.
+#   Base: Data Vault is not a common, so it keeps its printed title; no card cares about a base trait.
+# Author: Ninin
+# Archetype (owner, 2026-10-18): "defer to classifier". Classifier (SWUBotDeckStyle, 2026-10-18): softcontrol, HIGH confidence, source
+#   shape — score 2.91, 0% aggro side (24 units <= 3 cost, 0 burn, 0 attack/buff cards; 10 units >= 6 cost, 7 removal events, 8 wipes);
+#   no labelled list of this leader is a 75% match.
+# Style: softcontrol
+# Flavours: tempo
+
+Leader
+1 HMW_003
+
+Base
+1 JTL_024
+
+Deck
+1 ASH_102
+2 ASH_133
+3 ASH_048
+3 ASH_052
+3 ASH_053
+3 ASH_079
+3 ASH_097
+3 HMW_107
+3 HMW_062
+2 JTL_242
+3 JTL_032
+3 JTL_033
+1 JTL_041
+2 JTL_043
+2 LAW_132
+3 LAW_133
+3 LAW_037
+3 LAW_039
+3 LAW_044
+3 LAW_097
+3 LOF_091
+2 SEC_038
+1 SEC_040
+2 SEC_078
+
+Sideboard
+1 ASH_133
+1 JTL_041
+1 JTL_043
+1 SEC_040
+1 SEC_078

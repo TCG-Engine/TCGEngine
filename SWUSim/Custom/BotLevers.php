@@ -20,28 +20,36 @@
 //   chain 'mulligan'   fn(?bool $mull, int $seat, string $style): ?bool          — the mulligan answer (true = mulligan)
 
 $GLOBALS['SWUBotLevers'] = $GLOBALS['SWUBotLevers'] ?? [];   // name => ['theme' => string, 'hooks' => [hook => callable]]
+// SHIPPED levers (feature group p54, BotFeatures.php): default ON — active unless "@no-<name>" (or its group) switches the feature off. They are
+// FEATURES, so they leave the proposal list; every other registered lever stays an off-by-default proposal.
+function _SWUBotShippedLevers(): array {
+    return defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [];
+}
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {
     $GLOBALS['SWUBotLevers'][$name] = ['theme' => $theme, 'hooks' => $hooks];
 }
 function SWUBotLeverProposals(): array {
-    return array_keys($GLOBALS['SWUBotLevers'] ?? []);
+    return array_values(array_diff(array_keys($GLOBALS['SWUBotLevers'] ?? []), _SWUBotShippedLevers()));
 }
 function SWUBotLeverGroups(): array {
     $g = [];
-    foreach ($GLOBALS['SWUBotLevers'] ?? [] as $name => $l) $g[$l['theme']][] = $name;
+    $shipped = _SWUBotShippedLevers();
+    foreach ($GLOBALS['SWUBotLevers'] ?? [] as $name => $l) if (!in_array($name, $shipped, true)) $g[$l['theme']][] = $name;
     return $g;
 }
 // The callbacks of the levers switched on for THIS seat's variant, for one hook. Cached per disabled-set (the variant can differ by seat).
 function _SWUBotLeverActive(string $hook): array {
     static $cache = [];
     $dis = $GLOBALS['SWUBotDisabledFeatures'] ?? [];
-    if (empty($dis) || empty($GLOBALS['SWUBotLevers'])) return [];
-    $key = implode('|', $dis);
+    if (empty($GLOBALS['SWUBotLevers'])) return [];
+    $key = implode('|', $dis) . '#' . implode('|', $GLOBALS['SWUBotPinnedDisabled'] ?? []);
     if (!isset($cache[$key])) {
         $by = [];
+        $shipped = _SWUBotShippedLevers();
         foreach ($GLOBALS['SWUBotLevers'] as $name => $l) {
-            if (!in_array("try:$name", $dis, true)) continue;
+            $on = in_array($name, $shipped, true) ? SWUBotFeatureOn($name) : in_array("try:$name", $dis, true);
+            if (!$on) continue;
             foreach ($l['hooks'] as $h => $fn) $by[$h][$name] = $fn;
         }
         $cache[$key] = $by;

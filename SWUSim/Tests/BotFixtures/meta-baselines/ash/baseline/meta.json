@@ -1,14 +1,14 @@
 {
- "frozen": "2026-10-17T04:59:53Z",
- "gitHead": "6fa6a982",
+ "frozen": "2026-10-19T07:07:19Z",
+ "gitHead": "f2e0695e",
  "treeDirty": true,
  "arm": "superset+seeds:tb+pairs:pairs.txt",
- "games": 19655,
- "failed": 1,
- "matches": 9864,
- "run": ".claude/tmp/ash-meta-runs/plain-p53-20261017",
- "note": "ASH meta baseline v2.6 (owner 2026-10-17: '1. yes plox' \u2014 ship step 4a and freeze). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD 6fa6a982 PLUS the uncommitted bot tree: feature group p53 'hardctl4' (removalfirst, mandoclaimplay, mandodrawattack, landoflipbomb, homeonewall, dedratarget, outpostepic \u2014 ON). Reproduces the @try-hardctl4 run 19,656/19,656. 1 FAILED game (c2c839bf vs 8d8173a7, Maul Blue vs Jabba DV): an ENGINE bug \u2014 a COMBAT trigger resume never popped an empty nested effect-stack layer, so 'Resolve_Which_Player_First?' looped (fix pending, guard SWUSim/DevTools/tests/combat_resume_stale_layer_test.php). vs v2.5: winner changed in 1,174 games; archetype Spearman +0.30 -> +0.32, MAE 0.070 -> 0.067; hard control bias -9.1 -> -8.2; Mando Colossus 49% -> 53% (real 54). Lever hunt: .claude/tmp/ash-levers-20261015/LEVERS.md.",
- "version": "2.6",
+ "games": 19656,
+ "failed": 0,
+ "matches": 9865,
+ "run": ".claude/tmp/ash-meta-runs/plain-p54-20261019",
+ "note": "ASH meta baseline v2.7 (owner 2026-10-19: 'ship the 8 and freeze'). Full stack (no variant), superset, both seats, seed tb001. Game code = HEAD f2e0695e PLUS the uncommitted bot tree: feature group p54 'finalists' \u2014 8 registry levers ON (wdpaybackkeep, hostkeep, forcexpfirst, disclosecover, riosaboteur, pilotdeployfirst, vanecheapupgrade, tempcapturevalue; Custom/levers/), the registry's shipped-lever support (BotLevers.php), and 99 other registry levers that are off-by-default proposals. Includes the combat-resume stale-layer engine fix (the v2.6 failed game now plays). Reproduces the @try-finalists run 19,656/19,656, 0 failed. vs v2.6: winner changed in 732 games, no style moved at p < .14; archetype MAE 0.067 -> 0.066, spread SD 8.5 -> 8.0pp (real 5.8); Pearson +0.36 -> +0.35, Spearman +0.32 -> +0.29; Thrawn DV +7.0, Thrawn Yellow +6.7, Rio +8.2, Leia LAW +5.1, Vane +4.4 (toward real); Armorer Yellow -3.7, Sloane Blue -3.5, Client -3.3 (away). Screen: .claude/tmp/ash-levers-20261015/{canary,stage2}/RESULTS.md.",
+ "version": "2.7",
  "matrixArtifact": "https://claude.ai/artifact/MrQcLgewzYmV57W7MiQxnk",
- "gitHeadNote": "The run used the UNCOMMITTED bot tree on top of the recorded gitHead (feature group p53, see note). Once the owner commits, the commit holding this baseline/ directory is the run code."
+ "gitHeadNote": "The run used the UNCOMMITTED bot tree on top of the recorded gitHead (feature group p54 + lever registry changes, see note). Once the owner commits, the commit holding this baseline/ directory is the run code."
 }
