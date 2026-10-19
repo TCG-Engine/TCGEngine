@@ -11,6 +11,18 @@ gallery, and the rules reference. Returning to the menu or refreshing preserves 
 current session match. Starting another fight replaces it. The in-match menu also
 links back to the main menu and tutorial.
 
+The menu warms all 36 card-art images in the background, two low-priority requests
+at a time, starting with the saved or default opening hands. Changing opening hands
+moves those colors ahead in the queue. The preloader shares the renderer’s versioned
+art URLs and never blocks starting a match. It pauses in hidden tabs and skips
+background downloads when the browser reports Save-Data or a 2G connection.
+The same queue warms the arena still, hit/block/knockout animations, knockout final
+frames, and ambient video. Idle fighters already load through the page’s image tags.
+Reduced-motion visitors skip animated downloads. Warmed reaction clips restart from
+in-memory data instead of downloading a new cache-busting URL on every hit; the
+ambient video also uses its warmed data when ready, and only plays in the arena.
+Browsers that reject preloaded MP4 playback retry the normal versioned video URL.
+
 `learn.php` offers an introduction and four guided lessons (25 steps) using the normal match page, card renderer,
 arena, hand browser, previews, Commit, Pass reaction, advantage picker, and switch controls.
 The floating guide reuses AzukiSim’s popup and spotlight styles, highlights the next

@@ -23,6 +23,17 @@ try {
         page.on('pageerror',e=>errors.push(e.message));
         await page.goto(base);
         await page.locator('#homePlay:enabled').waitFor();
+        // The full art set should warm while the player is still on the menu.
+        await page.waitForFunction(() => new Set(performance.getEntriesByType('resource')
+          .filter(entry=>entry.name.includes('/assets/cards/individual/') && entry.initiatorType==='img')
+          .map(entry=>entry.name)).size===36, null, {timeout:20000});
+        assert.equal(await page.locator('#home').isVisible(),true);
+        const warmed = await page.evaluate(() => performance.getEntriesByType('resource')
+          .filter(entry=>entry.name.includes('/assets/cards/individual/') && entry.initiatorType==='img')
+          .map(entry=>new URL(entry.name).pathname.split('/').pop()));
+        assert.equal(warmed.length,36,'Each art URL warms only once');
+        assert.ok(warmed.slice(0,6).every(file=>/^00[1-6]-/.test(file)),'Red opening hand warms first');
+        assert.ok(warmed.includes('020-v5.webp'),'Preloader uses current art revisions');
         await page.locator('#homePlay').click();
         await page.locator('#setupForm [type=submit]').click();
         await page.locator('#gameView').waitFor();
@@ -73,9 +84,10 @@ try {
           assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Fits viewport');
           steps++;
           if(steps===1) {
+            const resumedTitle=await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial.title);
             await page.reload();
             await page.locator('#tutorialGuide:visible').waitFor();
-            await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Your cards are already here');
+            await page.waitForFunction(title=>document.getElementById('stepTitle').textContent===title,resumedTitle);
           }
         }
         assert.equal(await page.locator('#stepTitle').textContent(),'You’re ready.');

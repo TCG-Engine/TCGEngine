@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 const url = process.env.DFG_URL || 'http://localhost/TCGEngine/DFGSim/';
 let completed = 0;
 for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
+  if(process.env.DFG_BROWSERS && !process.env.DFG_BROWSERS.split(',').includes(name)) continue;
   let browser;
   try { browser = await engine.launch({ headless: true }); }
   catch (error) { console.log(`${name}: unavailable: ${error.message.split('\n')[0]}`); continue; }
@@ -11,7 +12,19 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
     const page = await browser.newPage({ viewport: { width: 1366, height: 900 }, reducedMotion: 'no-preference' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
+    const downloads=[];
+    page.on('request', request=> { if(/fighter-(blue|red)-hit-/.test(request.url())) downloads.push(request.url()); });
     await page.goto(url);
+    await page.waitForFunction(() => {
+      const clips=JSON.parse(document.getElementById('fighterReactionAssets').textContent);
+      return Object.values(clips).flatMap(set=>Object.values(set)).flatMap(clip=>[clip.src,clip.finalSrc].filter(Boolean)).every(url=> {
+        const source=DFGAssetPreloader.playbackSource(url);
+        source?.release();
+        return !!source;
+      });
+    }, null, {timeout:30000});
+    assert.equal(await page.locator('#home').isVisible(),true,'All reactions warm before starting a fight');
+    const warmedDownloads=downloads.length;
     await page.locator('#homePlay').click();
     await page.locator('#setupForm [type=submit]').click();
     await page.locator('#cards .card-tile').first().waitFor();
@@ -21,6 +34,11 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       assert.equal(await page.locator(`.arena-fighter[data-reaction=${kind}]`).count(), 2);
       await page.waitForFunction(() => !document.querySelector('.arena-fighter[data-reaction]'));
     }
+    await page.evaluate(() => DFGFighterReactions.syncOutcome(1,{animate:true}));
+    await page.waitForFunction(() => document.querySelector('.arena-fighter-player').dataset.reactionState==='held');
+    await page.evaluate(() => DFGFighterReactions.reset());
+    assert.equal(downloads.length,warmedDownloads,'Repeated hits and knockout reuse downloaded animation data');
+    assert.ok(downloads.every(src=>!src.includes('play=')),'Warmed animations never use cache-busting requests');
     await page.evaluate(() => { DFGFighterReactions.play(0, 5); DFGFighterReactions.play(0, 1); });
     await page.waitForFunction(() => document.querySelector('.arena-fighter-player').dataset.reaction === 'light');
     await page.evaluate(() => DFGFighterReactions.reset());

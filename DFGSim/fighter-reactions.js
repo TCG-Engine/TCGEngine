@@ -13,6 +13,7 @@ window.DFGFighterReactions = (() => {
     clearTimeout(active.timer);
     active.image.onload = active.image.onerror = null;
     active.image.replaceWith(active.host);
+    active.release?.();
     // Re-evaluate picture media sources after restoring a detached idle image.
     const idle = active.host.tagName === 'PICTURE' ? active.host.querySelector('img') : active.host;
     idle.src = idle.getAttribute('src');
@@ -28,7 +29,10 @@ window.DFGFighterReactions = (() => {
     clearTimeout(active.timer);
     active.image.onload = null;
     active.image.dataset.reactionState = 'held';
-    active.image.src = active.finalSrc;
+    const warmed = window.DFGAssetPreloader?.playbackSource(active.finalSrc);
+    active.image.src = warmed?.src ?? active.finalSrc;
+    active.release?.();
+    active.release = warmed?.release;
   }
   function start(seat, type, animate = true) {
     stop(seat);
@@ -59,8 +63,11 @@ window.DFGFighterReactions = (() => {
       if (knockout && image.dataset.reactionState !== 'held') holdFinal(seat);
       else stop(seat);
     };
-    // A distinct URL restarts even a repeat of the same hit, rather than reusing its clock.
-    image.src = `${clip.src}${clip.src.includes('?') ? '&' : '?'}play=${++serial}`;
+    const warmed = window.DFGAssetPreloader?.playbackSource(clip.src);
+    active.release = warmed?.release;
+    // Distinct object URLs restart warmed clips with no download. Keep the
+    // original fallback for a hit that arrives before background loading ends.
+    image.src = warmed?.src ?? `${clip.src}${clip.src.includes('?') ? '&' : '?'}play=${++serial}`;
     host.replaceWith(image);
     // Recover if the request stalls; normal playback timing starts on load.
     active.timer = setTimeout(() => knockout ? holdFinal(seat) : stop(seat), 10000);

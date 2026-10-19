@@ -88,6 +88,7 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 </dialog>
 <input type="hidden" id="folderPath" value="DFGSim"><div id="popupContainer"></div><aside id="cardDetail" class="card-preview" style="display:none" aria-label="Card details"></aside><script src="../Core/jsInclude.js?v=<?= filemtime(__DIR__ . '/../Core/jsInclude.js') ?>" defer></script><script src="../Core/CardMotion.js?v=<?= filemtime(__DIR__ . '/../Core/CardMotion.js') ?>" defer></script>
 <script src="card-renderer.js?v=<?= filemtime(__DIR__ . '/card-renderer.js') ?>" defer></script>
+<script src="asset-preloader.js?v=<?= filemtime(__DIR__ . '/asset-preloader.js') ?>" defer></script>
 <script id="fighterReactionAssets" type="application/json"><?= json_encode($fighterReactionAssets ?: (object)[], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <script src="fighter-reactions.js?v=<?= filemtime(__DIR__ . '/fighter-reactions.js') ?>" defer></script>
 <script src="arena-background.js?v=<?= filemtime(__DIR__ . '/arena-background.js') ?>" defer></script>

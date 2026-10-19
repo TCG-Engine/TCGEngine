@@ -111,6 +111,7 @@ function accept(data) {
   if (changed) { selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); extraSwitch=null; browseColor = state?.players[0].color ?? 'Red'; }
   if (changed) closePreview();
   render();
+  DFGAssetPreloader.warmCards(data.cards, [state?.players[0].color ?? 'Red', state?.players[1].color ?? 'Purple']);
   animateMeterChanges(previousState,state);
   TCGCardMotion.playPreparedZoneMoves(prepared,1);
 }
@@ -516,7 +517,10 @@ document.addEventListener('click',event=>{
   if(button.id==='cancelSetup')$('setup').close();
   if(button.id==='refresh')request().then(accept).catch(error=>showError(error.message));
 });
-document.addEventListener('change',event=>{if(event.target.id==='extraSwitch')extraSwitch=event.target.value;});
+document.addEventListener('change',event=>{
+  if(event.target.id==='extraSwitch')extraSwitch=event.target.value;
+  if(['humanColor','botColor'].includes(event.target.id)) DFGAssetPreloader.warmCards([...catalog.values()], [$('humanColor').value, $('botColor').value]);
+});
 function showOpponentDetail(event, button, pin=false) {
   const c=card(Number(button.dataset.opponentCard)), rect=button.getBoundingClientRect();
   ShowHTMLCardDetail({type:event.type,clientX:event.clientX??rect.right,clientY:event.clientY??rect.top},`${pin?'<button class="preview-close" style="display:block" data-close-shared="true" aria-label="Close card details">×</button>':''}${cardDetails(c)}`,button,{skipDelay:pin,allowTouch:pin,pin});

@@ -4,10 +4,27 @@ import assert from 'node:assert/strict';
 const url = process.env.DFG_URL || 'http://localhost/TCGEngine/DFGSim/';
 let completed = 0;
 for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
+  if(process.env.DFG_BROWSERS && !process.env.DFG_BROWSERS.split(',').includes(name)) continue;
   let browser;
   try { browser = await engine.launch({headless: true}); }
   catch (error) { console.log(`${name}: unavailable: ${error.message.split('\n')[0]}`); continue; }
   try {
+    const warm = await browser.newPage({reducedMotion:'no-preference'});
+    await warm.goto(url);
+    await warm.waitForFunction(() => {
+      const video=document.getElementById('arenaBackdrop');
+      const source=DFGAssetPreloader.playbackSource(video.dataset.src);
+      source?.release();
+      return !!source;
+    }, null, {timeout:30000});
+    assert.equal(await warm.locator('#home').isVisible(),true);
+    assert.equal(await warm.locator('#arenaBackdrop').getAttribute('src'),null,'Menu warms video without playing it');
+    await warm.locator('#homePlay').click();
+    await warm.locator('#setupForm [type=submit]').click();
+    await warm.waitForFunction(()=>document.getElementById('arenaBackdrop').readyState>=2);
+    const warmVideo=await warm.locator('#arenaBackdrop').evaluate(video=>({src:video.src,original:new URL(video.dataset.src,location.href).href}));
+    assert.ok(warmVideo.src.startsWith('blob:') || warmVideo.src===warmVideo.original,'Use preloaded video or the WebKit-compatible network fallback');
+    await warm.close();
     for (const width of [1600, 390]) {
       const page = await browser.newPage({viewport: {width, height: 900}, reducedMotion: 'reduce'});
       const errors = [];
