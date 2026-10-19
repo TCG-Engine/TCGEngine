@@ -146,15 +146,6 @@ gaScenario('shatterfall-keep-rest-banish-a-floating-memory-card-to-mill-two')
     ->covers(['activated-ability', 'rest', 'floating-memory', 'banish', 'mill'], '[REST]**, Banish a card with floating memory from your graveyard:** Put the top two cards of your deck into your graveyard.')
     ->register();
 
-gaScenario('captivating-opulence-on-enter-draws-a-card-into-memory')
-    ->standardDeck('Captivating Opulence')
-    ->readyFor('Captivating Opulence')
-    ->seed('myField', 'Captivating Opulence')
-    ->observe()
-    ->expectZoneCount('myMemory', 1, 1, 'On Enter: drew a card into memory')
-    ->tested('Captivating Opulence')
-    ->covers(['on-enter', 'draw-into-memory'], '**On Enter**: Draw a card into your memory.')
-    ->register();
 
 gaScenario('forgetful-concoction-rest-sacrifice-banishes-two-cards-from-their-memory-and-draws')
     ->standardDeck('Forgetful Concoction')

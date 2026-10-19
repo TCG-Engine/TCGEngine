@@ -80,15 +80,6 @@ gaScenario('lost-being-token-has-its-printed-stats')
     ->covers(['vanilla'], 'Lost Being (no rules text)')
     ->register();
 
-gaScenario('spirit-shard-level-three-sacrifice-draws-a-card')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->champion(level: 3)
-    ->seed('myField', 'Spirit Shard')
-    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
-    ->expectZoneCount('myHand', 8, 1, '[Level 3+] Sacrificed: a card was drawn')
-    ->tested('Spirit Shard')
-    ->covers(['level-gate', 'activated-ability', 'sacrifice-self', 'draw'], '[Level 3+] **Sacrifice CARDNAME**: Draw a card.')
-    ->register();
 
 gaScenario('memorite-obelith-gets-plus-one-power-and-life-for-each-of-up-to-five-sheen-counters')
     ->deckTemplate('quiet', 'Dungeon Guide')

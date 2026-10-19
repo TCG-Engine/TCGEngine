@@ -7,30 +7,24 @@
 // Player 2 attacks on turn 2 with no recollection phase before it (their seeded rested ally stays rested), which is why the wake-up
 // attacks are written from their seat.
 
-gaScenario('rallied-advance-class-bonus-on-attack-wakes-an-ally')
-    ->deckTemplate('quiet', 'Rallied Advance')
-    ->readyFor('Rallied Advance', classBonus: true, player: 2)
-    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 1])
-    ->seed('myHand', 'Rallied Advance', player: 2)
-    ->endTurn()
-    ->play('Rallied Advance', 2)->pay(2, 2)->target('theirField-0', 2)->answer(2, 'myField-1')
-    ->expectProperty('p2Field-1', 'Status', '2', '[Class Bonus] On Attack: the rested ally woke up')
-    ->tested('Rallied Advance')
-    ->covers(['combat', 'on-attack', 'class-bonus', 'status', 'targeting'], '[Class Bonus] **On Attack:** Wake up target ally you control.')
-    ->register();
-
-gaScenario('rallied-advance-without-the-class-bonus-leaves-the-ally-rested')
-    ->deckTemplate('quiet', 'Rallied Advance')
-    ->readyFor('Rallied Advance', player: 2)
-    ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 1])
-    ->seed('myHand', 'Rallied Advance', player: 2)
-    ->endTurn()
-    ->play('Rallied Advance', 2)->pay(2, 2)->target('theirField-0', 2)
-    ->expectProperty('p2Field-1', 'Status', '1', 'No class bonus: the ally stays rested')
-    ->expectDamage('p1Field-0', 1, 'The attack dealt its 1 POWER to the champion')
-    ->tested('Rallied Advance')
-    ->covers(['on-attack', 'class-bonus', 'condition'], '[Class Bonus] **On Attack:** Wake up target ally you control.')
-    ->register();
+foreach ([
+    ['rallied-advance-class-bonus-on-attack-wakes-an-ally', true, '2', '[Class Bonus] On Attack: the rested ally woke up', ['combat', 'on-attack', 'class-bonus', 'status', 'targeting']],
+    ['rallied-advance-without-the-class-bonus-leaves-the-ally-rested', false, '1', 'No class bonus: the ally stays rested', ['on-attack', 'class-bonus', 'condition']],
+] as [$slug, $classBonus, $status, $label, $mechanics]) {
+    $s = gaScenario($slug)
+        ->deckTemplate('quiet', 'Rallied Advance')
+        ->readyFor('Rallied Advance', classBonus: $classBonus, player: 2)
+        ->seed('myField', 'Giant Tortoise', player: 2, properties: ['Status' => 1])
+        ->seed('myHand', 'Rallied Advance', player: 2)
+        ->endTurn()
+        ->play('Rallied Advance', 2)->pay(2, 2)->target('theirField-0', 2);
+    if ($classBonus) $s->answer(2, 'myField-1');
+    $s->expectProperty('p2Field-1', 'Status', $status, $label);
+    if (!$classBonus) $s->expectDamage('p1Field-0', 1, 'The attack dealt its 1 POWER to the champion');
+    $s->tested('Rallied Advance')
+        ->covers($mechanics, '[Class Bonus] **On Attack:** Wake up target ally you control.')
+        ->register();
+}
 
 // ---- Crosswind Cuts ----
 
@@ -127,29 +121,22 @@ foreach ([
 
 // ---- Eternal Directive ----
 
-gaScenario('eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton')
-    ->deckTemplate('quiet', 'Eternal Directive')
-    ->readyFor('Eternal Directive', classBonus: true)
-    ->seed('myField', 'Automaton Drone')
-    ->seed('myHand', 'Eternal Directive')
-    ->reachTurnThree()
-    ->play('Eternal Directive')->pay(2)->target('myField-1')->target('theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', '[Class Bonus] On Attack: a buff counter on the attacker')
-    ->tested('Eternal Directive')
-    ->covers(['command-chessman', 'class-bonus', 'on-attack', 'counter', 'combat'], '**Command Automaton**', '[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.')
-    ->register();
-
-gaScenario('eternal-directive-without-the-class-bonus-adds-no-counter')
-    ->deckTemplate('quiet', 'Eternal Directive')
-    ->readyFor('Eternal Directive')
-    ->seed('myField', 'Automaton Drone')
-    ->seed('myHand', 'Eternal Directive')
-    ->reachTurnThree()
-    ->play('Eternal Directive')->pay(2)->target('myField-1')->target('theirField-0')->pass(2)
-    ->expectProperty('p1Field-1', 'Counters', '[]', 'No class bonus: no counter')
-    ->tested('Eternal Directive')
-    ->covers(['class-bonus', 'condition'], '[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.')
-    ->register();
+foreach ([
+    ['eternal-directive-class-bonus-on-attack-puts-a-buff-counter-on-the-automaton', true, '{"buff":1}', '[Class Bonus] On Attack: a buff counter on the attacker', ['command-chessman', 'class-bonus', 'on-attack', 'counter', 'combat'], ['**Command Automaton**', '[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.']],
+    ['eternal-directive-without-the-class-bonus-adds-no-counter', false, '[]', 'No class bonus: no counter', ['class-bonus', 'condition'], ['[Class Bonus] **On Attack:** Put a **buff** counter on the attacker.']],
+] as [$slug, $classBonus, $counters, $label, $mechanics, $clauses]) {
+    gaScenario($slug)
+        ->deckTemplate('quiet', 'Eternal Directive')
+        ->readyFor('Eternal Directive', classBonus: $classBonus)
+        ->seed('myField', 'Automaton Drone')
+        ->seed('myHand', 'Eternal Directive')
+        ->reachTurnThree()
+        ->play('Eternal Directive')->pay(2)->target('myField-1')->target('theirField-0')->pass(2)
+        ->expectProperty('p1Field-1', 'Counters', $counters, $label)
+        ->tested('Eternal Directive')
+        ->covers($mechanics, ...$clauses)
+        ->register();
+}
 
 // ---- Razorblade Execution (Imbue 3) ----
 

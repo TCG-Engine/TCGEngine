@@ -136,17 +136,7 @@ gaScenario('healing-aura-class-bonus-costs-one-less')
     ->covers(['class-bonus', 'cost-reduction'], '[Class Bonus] This card costs 1 less to activate.')
     ->register();
 
-// ---- Waited Accord ----
-
-gaScenario('waited-accord-level-two-sacrifice-draws-a-card')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Waited Accord', level: 2)
-    ->seed('myField', 'Waited Accord')
-    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')
-    ->expectZoneCount('myHand', 8, 1, '[Level 2+] Sacrificed: a card was drawn')
-    ->tested('Waited Accord')
-    ->covers(['level-gate', 'activated-ability', 'sacrifice-self', 'draw'], '[Level 2+]** Sacrifice CARDNAME: **Draw a card.')
-    ->register();
+// Waited Accord sacrifice-to-draw is in simple-effect-matrices.php.
 
 // ---- Wonderland's Reign ----
 

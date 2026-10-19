@@ -3,20 +3,7 @@
  * Phase 3b (Wind): items and regalia. Written on the 'quiet' deck.
  */
 
-// ---- Draw-into-memory items ----
-
-foreach ([['Aenean Flux Generator', 3], ['Poisonous Breezecap', 3], ['Whisperwind Compass', 3]] as [$gaItem, $gaCost]) {
-    $gaSlug = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($gaItem)), '-');
-    gaScenario("$gaSlug-on-enter-draws-a-card-into-memory")
-        ->deckTemplate('quiet', $gaItem)
-        ->readyFor($gaItem)
-        ->seed('myHand', $gaItem)
-        ->play($gaItem)->pay($gaCost)
-        ->expectZoneCount('myMemory', $gaCost + 1, 1, "The $gaCost paid cards plus the card drawn into memory")
-        ->tested($gaItem)
-        ->covers(['on-enter', 'draw-into-memory'], '**On Enter: **Draw a card into your memory.')
-        ->register();
-}
+// Draw-into-memory entry cases are in simple-effect-matrices.php.
 
 // ---- Whisperwind Compass (Class Bonus) ----
 
