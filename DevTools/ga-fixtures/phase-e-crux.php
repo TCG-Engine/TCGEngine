@@ -133,6 +133,23 @@ $gaVorpalResolveHit(gaVorpalHit('vorpal-sword-on-ally-hit-needs-a-preparation-co
     ->covers(['merlin-bonus', 'on-ally-hit', 'counter', 'condition'], GA_VORPAL_HIT_TEXT)
     ->register();
 
+// A lethal hit is still a hit: the ally dies from the Sword's 3 damage, and the trigger still offers the wake-up.
+gaScenario('vorpal-sword-on-ally-hit-triggers-even-when-the-hit-kills-the-ally')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(cardName: 'Merlin, Memorite Vassal')
+    ->seed('myField', 'Vorpal Sword')
+    ->patch('myField-0', ['Counters' => ['preparation' => 1]])
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->reachTurnThree(fastCardInHand: true)
+    ->action(1, 10002, 'myField-0!FSM!')->answer(1, 'myField-1')->answer(1, 'theirField-1')
+    ->pass(1)->pass(2)
+    ->answer(1, 'YES')
+    ->expectCardExists('theirGraveyard', 'Dungeon Guide', 'The 3-life ally died to the 3 damage')
+    ->expectProperty('p1Field-0', 'Status', '2', 'The champion woke up: a lethal hit still triggers On Ally Hit')
+    ->tested('Vorpal Sword')
+    ->covers(['merlin-bonus', 'on-ally-hit', 'wake-up'], GA_VORPAL_HIT_TEXT)
+    ->register();
+
 // "On Ally Hit" on a weapon belongs to attacks made with it: an ally attacking on its own does not trigger the Sword.
 gaScenario('vorpal-sword-on-ally-hit-does-not-trigger-for-an-ally-attacking-without-the-sword')
     ->deckTemplate('quiet', 'Dungeon Guide')

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-ally-hit",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Ally Hit:** You may remove a **preparation** counter from your champion. If you do, wake up the attacker. Trigger this ability only once per turn."
+        ]
+    },
+    "name": "vorpal-sword-on-ally-hit-triggers-even-when-the-hit-kills-the-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-19T21:24:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

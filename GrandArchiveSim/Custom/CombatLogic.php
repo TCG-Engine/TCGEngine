@@ -2260,6 +2260,15 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($iMZForProtection, $player));
     }
 
+    // RefreshCombatTargetForHit() drops the combat target once it has died, so remember whether it was an ally
+    // before that: a lethal hit is still a hit ("On Ally Hit" must fire even when the hit ally dies).
+    $hitWasAlly = false;
+    $preHitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($preHitTarget !== null && $preHitTarget !== "-" && $preHitTarget !== "") {
+        $preHitObj = GetZoneObject($preHitTarget);
+        $hitWasAlly = $preHitObj !== null && PropertyContains(EffectiveCardType($preHitObj), "ALLY");
+    }
+
     RefreshCombatTargetForHit($player);
 
     // Preserve prior macro context and set source mzID per dispatched On Hit ability.
@@ -2636,30 +2645,26 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn.
     // On a weapon, On Hit means "when an attack using this deals combat damage" (rule: On Hit, 3), so the trigger belongs to the attack made WITH the Sword
     // (the champion's weapon attack, or the Sword itself attacking as though it were an ally), not to every ally attack while the Sword is in play.
-    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-    if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
-        $hitObj = GetZoneObject($hitTarget);
-        if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
-            foreach([GetCombatWeapon(), $attackerMZ] as $vorpalMZ) {
-                if($vorpalMZ === null || $vorpalMZ === "-") continue;
-                $fObj = GetZoneObject($vorpalMZ);
-                if($fObj === null || $fObj->removed || $fObj->CardID !== "PIcB5KuuMd" || HasNoAbilities($fObj)) continue;
-                if(!IsMerlinBonusActive($player) || in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) break;
-                $vorpalZone = strpos($vorpalMZ, "their") === 0 ? "theirField" : "myField";
-                foreach(GetZone($vorpalZone) as $ci => $cObj) {
-                    if($cObj === null || $cObj->removed || !PropertyContains(EffectiveCardType($cObj), "CHAMPION")) continue;
-                    if(GetPrepCounterCount($cObj) >= 1) {
-                        DecisionQueueController::StoreVariable("VorpalSwordMZ", $vorpalMZ);
-                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", $vorpalZone . "-" . $ci);
-                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
-                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                            tooltip:"Remove_prep_counter_to_wake_attacker?");
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
-                    }
-                    break;
+    if($hitWasAlly) {
+        foreach([GetCombatWeapon(), $attackerMZ] as $vorpalMZ) {
+            if($vorpalMZ === null || $vorpalMZ === "-") continue;
+            $fObj = GetZoneObject($vorpalMZ);
+            if($fObj === null || $fObj->removed || $fObj->CardID !== "PIcB5KuuMd" || HasNoAbilities($fObj)) continue;
+            if(!IsMerlinBonusActive($player) || in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) break;
+            $vorpalZone = strpos($vorpalMZ, "their") === 0 ? "theirField" : "myField";
+            foreach(GetZone($vorpalZone) as $ci => $cObj) {
+                if($cObj === null || $cObj->removed || !PropertyContains(EffectiveCardType($cObj), "CHAMPION")) continue;
+                if(GetPrepCounterCount($cObj) >= 1) {
+                    DecisionQueueController::StoreVariable("VorpalSwordMZ", $vorpalMZ);
+                    DecisionQueueController::StoreVariable("VorpalSwordChampMZ", $vorpalZone . "-" . $ci);
+                    DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Remove_prep_counter_to_wake_attacker?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
                 }
                 break;
             }
+            break;
         }
     }
     ClearProtectedRemovedCardUniqueIDs();
