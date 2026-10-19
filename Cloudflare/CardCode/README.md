@@ -15,7 +15,7 @@ rotate it before then. The temporary migration maintainer token has been revoked
 
 ### Card source corrections, October 19, 2026
 
-Two reviewed migrations now update 12 cards in the hosted workspace:
+Four reviewed migrations now update 17 cards in the hosted workspace:
 
 - `DevTools/card-code-migrations/20261019-destruction.json`: Disenchant, Ghastly Corrosion,
   Reduce to Ash, Crumbling Reign, Rapid Combustion, Expel the Departed, Converge Reflections,
@@ -23,6 +23,13 @@ Two reviewed migrations now update 12 cards in the hosted workspace:
   exclude missing-cost sentinel values. Converge Reflections reads effective subtypes.
 - `DevTools/card-code-migrations/20261019-low-cost-targets.json`: Unstable Fractal, Alkahest,
   Swooping Talons, and Smashing Force use the same corrected cost filtering.
+- `DevTools/card-code-migrations/20261019-choice-continuations.json`: Luminous Quartz
+  reacquires its champion before removing preparation; Turm preserves its departing buff
+  count across the target choice. Their three redundant override functions were removed.
+- `DevTools/card-code-migrations/20261019-assassin-class-bonus.json`: Coup de Grace,
+  Ignited Stab, and Thousand Refractions explicitly require an Assassin champion for their
+  class-bonus riders. The three dedicated wrappers and their unused helper were removed;
+  the separate preparation-cost workarounds remain.
 
 From the repository root, preview with
 `php DevTools/ApplyCardCodeMigration.php DevTools/card-code-migrations/<file>.json`;
@@ -33,10 +40,16 @@ conflict stops the run; reconcile before continuing. Cards already saved in a pa
 remain saved. The checked-in before/after sources also provide a reviewable reversal if needed.
 
 The corresponding local overrides were removed. Older database copies need these source
-updates and regeneration before using this checkout. Validation: 22 focused integration
+updates and regeneration before using this checkout. Validation: 34 focused integration
 fixtures passed, and runtime inspection confirmed the migrated entry points and eight
 destruction continuations resolve to generated source rather than the override file.
-The full regression suite was not completed for this batch.
+The two choice-continuation fixtures also passed after regeneration and override removal;
+their three dispatch entries were confirmed to use generated source.
+All ten Assassin-card fixtures passed (paid, declined, insufficient preparation, and
+non-Assassin cases); reflection through shared wrappers confirmed the corrected generated
+bodies. These fixtures emitted an undefined `Intent::$Status` warning from unchanged
+`GAParvatiRegaliaAbilityActive` logic. The generator also retains its earlier line-3944 warning.
+The full regression suite was not completed for these batches.
 
 The earlier recollection-phase, Perfect Repulsion, Hypothermia, and Cleansing Reunion
 corrections were verified in Cloudflare. Red Slime's simultaneous-trigger ordering is already

@@ -3,7 +3,7 @@
 // in the authored card database. These remaining workarounds are being migrated to the hosted
 // source in reviewed batches; generated files must never be hand-edited.
 // Apply the 20261019 migrations in DevTools/card-code-migrations/ and regenerate before using
-// this revision with an older card database (twelve cards now use their corrected source).
+// this revision with an older card database (seventeen cards now have source corrections applied).
 //
 // This file must be loaded AFTER GeneratedCode/GeneratedMacroCode.php so its assignments win.
 // GrandArchiveSim/Custom/GameLogic.php is NOT a safe place for this: GamestateParser.php includes
@@ -63,92 +63,6 @@ $cardActivatedAbilities["7mmve2l328:0"] = function($player) { // Band of Burning
     // (enterAbilities["7mmve2l328:0"], Draw a card) already runs independently of this table; the
     // printed [Class Bonus][REST] buff ability lives in $activateAbilityAbilities instead
     // (Custom/GameLogic.php) and only fires from an explicit later activation.
-};
-
-// Luminous Quartz (40lgjj1yS3, Sheen 12+ item ability): "[Sheen 12+] REST, Remove a preparation
-// counter from your champion: As a Spell, deal 1+X damage to target unit, where X is the amount of
-// sheen counters on it." Documented in Tests/Integration/GrandArchiveSim/
-// luminous-quartz-sheen12-rest-damage/meta.json: customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"]
-// (GeneratedCode/GeneratedMacroCode.php ~line 27053) calls RemoveCounters($player, $champMZ,
-// "preparation", 1) but never assigns $champMZ anywhere in that handler's scope -- $champMZ is only
-// computed locally inside the sibling $activateAbilityAbilities["40lgjj1yS3:0"] body and the
-// $activateAbilityPrereqs["40lgjj1yS3:0"] prereq closure (two separate closures/scopes), so the
-// customDQHandlers closure hits a genuine "Undefined variable $champMZ" PHP warning and
-// RemoveCounters() is called with $champMZ === null, which silently no-ops -- the REST cost IS paid
-// ($sourceObj2->Status = 1, correct and preserved below) but the "Remove a preparation counter"
-// cost never is. Confirmed activateAbilityPrereqs["40lgjj1yS3:0"] already correctly computes its
-// own $champMZ via FindChampionMZ($player) and gates activation on
-// GetPrepCounterCount($champObj) >= 1 -- that gate is NOT broken, only this handler's actual
-// removal of the counter. Fixed by computing $champMZ the same way other cards in this codebase
-// reference "your own champion" (FindChampionMZ($player), Custom/CardDQHandlers.php) before the
-// RemoveCounters() call; everything else (REST, target resolution, 1+X damage) is unchanged from
-// the generated body.
-$customDQHandlers["40lgjj1yS3:0:ActivateAbility-1"] = function($player, $parts, $lastDecision) { //Sheen
-    // Retrieve macro parameters
-    $mzID = DecisionQueueController::GetVariable("mzID");
-    $abilityIndex = DecisionQueueController::GetVariable("abilityIndex");
-    DecisionQueueController::StoreVariable("target", $lastDecision);
-    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
-    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "40lgjj1yS3:0:ActivateAbility-1")) return;
-    $target = $lastDecision;
-    $sourceObj2 = &GetZoneObject($mzID);
-    if($sourceObj2 !== null) $sourceObj2->Status = 1;
-    $champMZ = FindChampionMZ($player);
-    if($champMZ !== null) RemoveCounters($player, $champMZ, "preparation", 1);
-    $targetObj = GetZoneObject($target);
-    if($targetObj === null || $targetObj->removed) return;
-    $damage = 1 + GetCounterCount($targetObj, "sheen");
-    DealDamage($player, $mzID, $target, $damage);
-};
-
-// Turm, Schwartz Rook (rYyOEGB3tD): "[Alice Bonus] On Leave: Put the buff counters that were on
-// CARDNAME on a Pawn ally you control."
-//
-// The generated leaveFieldAbilities closure is fine up to the target prompt (the stale-target-mzID
-// half of this class of bug is fixed engine-side by GameOnZoneElementSpliced(), see
-// Custom/GameLogic.php). But its paired CUSTOM follow-up ("rYyOEGB3tD:0:LeaveField-1") re-reads the
-// DEPARTING Turm through the ambient "mzID" variable via GetZoneObject($mzID) -- long after the
-// leave trigger has finished, Turm has been spliced out of the field and OnLeaveField() has restored
-// "mzID" to whatever it held before, so $leavingObj is null (or the wrong object) and the buff
-// counters are never put on the Pawn even though the player picked one. Same shape as Green Slime's
-// hand-written GreenSlimeTransfer handler: snapshot the count while the departing object is still
-// readable (inside the leave closure) and have the follow-up use the snapshot.
-$leaveFieldAbilities["rYyOEGB3tD:0"] = function($player) { //Move buffs to Pawn
-    // Retrieve macro parameters
-    $mzID = DecisionQueueController::GetVariable("mzID");
-    if(!IsAliceBonusActive($player)) return;
-    $leavingObj = GetZoneObject($mzID);
-    if($leavingObj === null) return;
-    $buffCount = GetCounterCount($leavingObj, "buff");
-    if($buffCount <= 0) return;
-    DecisionQueueController::StoreVariable("TurmBuffCount", strval($buffCount));
-    $pawns = [];
-    $field = GetField($player);
-    foreach($field as $i => $fObj) {
-        if($fObj->removed) continue;
-        if(!PropertyContains(EffectiveCardType($fObj), "ALLY")) continue;
-        if(!PropertyContains(EffectiveCardSubtypes($fObj), "PAWN")) continue;
-        $pawns[] = "myField-" . $i;
-    }
-    if(empty($pawns)) return;
-    $targetStr = implode("&", $pawns);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "rYyOEGB3tD:0:LeaveField-1", 1);
-};
-
-$customDQHandlers["rYyOEGB3tD:0:LeaveField-1"] = function($player, $parts, $lastDecision) { //Move buffs to Pawn
-    // Retrieve macro parameters
-    $mzID = DecisionQueueController::GetVariable("mzID");
-    DecisionQueueController::StoreVariable("chosen", $lastDecision);
-    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
-    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "rYyOEGB3tD:0:LeaveField-1")) return;
-    $chosen = $lastDecision;
-    if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
-    $buffCount = intval(DecisionQueueController::GetVariable("TurmBuffCount"));
-    if($buffCount > 0) {
-        AddCounters($player, $chosen, "buff", $buffCount);
-    }
-    DecisionQueueController::ClearVariable("TurmBuffCount");
 };
 
 // Arrow Trap (uoQGe5xGDQ): "Prepare 1 (You may remove a preparation counter from your champion as
@@ -320,22 +234,6 @@ foreach([
 $cardActivatedAbilities["r84E55KBLM:0"] = function($player) { // Condemning Evisceration: [Class Bonus] Prepare 1
     GAQueueFixedPrepare($player, 1, "r84E55KBLM");
 };
-// The generated riders for Coup de Grace / Ignited Stab / Thousand Refractions gate their "[Class Bonus]"
-// with IsClassBonusActive($player) and NO class list, which only checks "controls any champion" and is
-// always true. Re-gate them on the cards' real class (ASSASSIN) so a prepared copy played by a
-// non-Assassin champion gets no rider.
-function GAWrapClassBonusGate(&$abilityTable, $key, $classes) {
-    $original = $abilityTable[$key] ?? null;
-    if($original === null) return;
-    $abilityTable[$key] = function($player) use ($original, $classes) {
-        if(!IsClassBonusActive($player, $classes)) return;
-        $original($player);
-    };
-}
-GAWrapClassBonusGate($onAttackAbilities, "5qWWpkgQLl:0", ["ASSASSIN"]); // Coup de Grace: [Class Bonus] critical 4
-GAWrapClassBonusGate($onAttackAbilities, "GRkBQ1Uvir:0", ["ASSASSIN"]); // Ignited Stab: [Class Bonus] +2 POWER
-GAWrapClassBonusGate($onHitAbilities, "XLbCBxla8K:0", ["ASSASSIN"]);    // Thousand Refractions: [Class Bonus] wake up + return
-
 // Soultrace Tessellation (7ePq6I4uZ8, ACTION): "Prepare 1. Put three sheen counters on target unit. If
 // Soultrace Tessellation was prepared, put an additional sheen counter on that unit for every three
 // cards in your banishment." The generated ability was registered as enterAbilities["7ePq6I4uZ8:0"],
