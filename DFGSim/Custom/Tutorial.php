@@ -6,6 +6,11 @@ require_once __DIR__ . '/GameLogic.php';
 const DFG_TUTORIAL_VERSION = 2;
 
 function DFGTutorialLessons(): array {
+    // Start, advance, and payload helpers share these immutable checkpoints for
+    // this request. PHP's copy-on-write arrays keep caller changes isolated.
+    static $cachedLessons = null;
+    if ($cachedLessons !== null) return $cachedLessons;
+
     $lessons = [];
     $frames = [];
     $s = DFGNewGame('Red', 'Purple');
@@ -68,7 +73,7 @@ function DFGTutorialLessons(): array {
     $add('Out of moves', 'You lost because Orange had no cards left to play. That’s why burning your last card in a hand can be dangerous. Some moves can even let your opponent choose where you go next.', 'You also lose at zero life or if every card is burned. If both players lose together, the fight is a draw.');
     $add('Time for your own fight', 'You’ve tried choosing a main, burning for attack and defense, changing hands, and spending advantage. You don’t need to memorize all 36 cards before you play. Hover or focus a card to read it.', 'Try a Casual bot for your first fight. You can replay a lesson whenever you want.', null, [], null, 'Finish tutorial');
     $finishLesson('Running out of moves');
-    return $lessons;
+    return $cachedLessons = $lessons;
 }
 
 function DFGTutorialStart(int $lesson = 0, int $step = 0): array {
