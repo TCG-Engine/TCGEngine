@@ -1166,6 +1166,12 @@ function RestoreUndoVersion($targetPlayerID, $raw) {
 // banished/discarded, clear staged copies. Core's ExecuteStaticMethods() skips a CUSTOM handler on PASS unless it was queued with dontSkipOnPass, and several of these are queued by generated
 // card bodies that cannot be edited; Core asks this hook (GameCustomHandlerRunsOnPass) before skipping. Each handler consumes the decline with ConsumeDeclinedChoice().
 $gaDeclineAwareHandlers = [
+    // Hosted optional deck choices must finish bottom-deck cleanup even when the reveal is declined.
+    "vFvhZeunOc:0:ActivateAbility-1" => true,
+    "fIQR28QmYg:0:Enter-1" => true,
+    "gwve1d47o7:0:ActivateAbility-1" => true,
+    "edg616r0za:0:CardActivated-1" => true,
+    "disqw3d0o5:0:Enter-1" => true,
     "DianaL2LoadChoice" => true, "HoarfrostHoldChoose" => true, "ImmaterialDissolveSelect" => true, "LostInThoughtBanish" => true, "MalevolentVow1" => true,
     "ModulatingCadenceReveal" => true, "OrbOfRegretShuffle" => true, "SinisterMindreaverPick2" => true, "SpiritBladeChooseSword" => true, "StonescaleBandDiscard" => true,
     "CastlingFirstTarget" => true, "FoundPowerDiscard1" => true, "RegalInquisitionDiscard" => true, "ProvokeObstinanceApply" => true,

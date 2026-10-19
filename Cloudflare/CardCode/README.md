@@ -15,7 +15,7 @@ rotate it before then. The temporary migration maintainer token has been revoked
 
 ### Card source corrections, October 19, 2026
 
-Four reviewed migrations now update 17 cards in the hosted workspace:
+Seven reviewed migrations now update 31 cards in the hosted workspace:
 
 - `DevTools/card-code-migrations/20261019-destruction.json`: Disenchant, Ghastly Corrosion,
   Reduce to Ash, Crumbling Reign, Rapid Combustion, Expel the Departed, Converge Reflections,
@@ -30,6 +30,27 @@ Four reviewed migrations now update 17 cards in the hosted workspace:
   Ignited Stab, and Thousand Refractions explicitly require an Assassin champion for their
   class-bonus riders. The three dedicated wrappers and their unused helper were removed;
   the separate preparation-cost workarounds remain.
+- `DevTools/card-code-migrations/20261019-milling.json`: Pure Cytosynth, Overflow the Barrow,
+  Icebound Slam, and Waterfall Veiler use `MillCards` instead of repeatedly moving deck slot
+  zero. Their four override bodies were removed. Five focused fixtures pass, including both
+  sides of Icebound Slam's water-card threshold; runtime inspection confirms generated bodies.
+
+- `DevTools/card-code-migrations/20261019-deck-movement.json`: Paired Minds, Kindred Souls
+  and Storm Tyrant's Eye move distinct deck cards using `MZMoveTopOfZone`; Dormant Sacrificial
+  Altar uses `MillCards` after its sacrifices. Their three overrides were removed. All six
+  focused fixtures pass, and runtime inspection confirms the generated handlers are active.
+
+- `DevTools/card-code-migrations/20261019-optional-deck-and-helpers.json`: SignalTech X Ultra
+  and Lucia preserve the looked-at count across their optional choice. Lena, Enhance Hearing,
+  and Captain Archer move distinct top cards; Enhance Hearing uses effective element/subtypes,
+  and Captain Archer uses the reserve-cost helper and puts remaining cards on the bottom.
+  Restoring Embers calls `DrawIntoMemory`; Genuflecting Execution calls `DoAllyDestroyed`.
+  Eleven redundant override closures were removed. Five entries in Grand Archive's existing
+  decline-aware handler hook keep optional deck cleanup running on PASS; this runtime support
+  is still required because the generator does not mark those continuations to run on decline.
+  All 20 focused fixtures pass, including declines, no-candidate cases, influence thresholds,
+  and both-player coverage. Runtime inspection confirms all 14 dispatch entries use generated
+  source. A repeat migration preview reports zero pending cards.
 
 From the repository root, preview with
 `php DevTools/ApplyCardCodeMigration.php DevTools/card-code-migrations/<file>.json`;
@@ -40,7 +61,7 @@ conflict stops the run; reconcile before continuing. Cards already saved in a pa
 remain saved. The checked-in before/after sources also provide a reviewable reversal if needed.
 
 The corresponding local overrides were removed. Older database copies need these source
-updates and regeneration before using this checkout. Validation: 34 focused integration
+updates and regeneration before using this checkout. Validation: 65 focused integration
 fixtures passed, and runtime inspection confirmed the migrated entry points and eight
 destruction continuations resolve to generated source rather than the override file.
 The two choice-continuation fixtures also passed after regeneration and override removal;
