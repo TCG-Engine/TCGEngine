@@ -36,16 +36,38 @@ $customDQHandlers["HMW_067#0"] = function ($player, $parts, $lastDecision) {
     if ($mz === null) return;
     global $playerID; $playerID = intval($player);
     if (DoGiveTokenUpgrade(intval($player), $mz, 'HMW_T02') === '-') return;   // not given → "If you do" fails
-    $self = GetZoneObject($mz);
+    $weak = _SWUHmw067CountWeakness(GetZoneObject($mz));
+    // ASH_094 Moff Jerjerrod: the Weakness give is itself a token creation, and if it raised a doubling offer
+    // the count must include the doubled token — so count (and create) only once that offer resolves. The
+    // count taken here rides along as the last-known value in case the Progenitor is gone by then.
+    if (_SWUJerjerrodUpgradeOfferPending(intval($player), 'HMW_T02')) {
+        DecisionQueueController::AddDecision(intval($player), 'CUSTOM', "HMW_067#1|{$uid}|{$weak}", 1);
+        return;
+    }
+    // A lethal Weakness defeats the unit as it lands — BEFORE the Beasts exist. This line fixes that ORDER
+    // only: SWUCreateUnitTokens runs the same state check after creating (_SWUAfterTokensCreated), so
+    // deleting this is measured GREEN — no current board observes the order. Not a load-bearing guard.
+    SWUCheckShrinkDefeats();
+    if ($weak > 0) SWUCreateUnitTokens(intval($player), 'HMW_T03', $weak);
+};
+
+function _SWUHmw067CountWeakness($self): int {
     $weak = 0;
     if (!SWUObjGone($self)) {
         foreach (GetUpgradesOnUnit($self) as $u) {
             if (empty($u->removed) && CardTitle($u->CardID ?? '') === 'Weakness') $weak++;
         }
     }
-    // A lethal Weakness defeats the unit as it lands — BEFORE the Beasts exist. This line fixes that ORDER
-    // only: SWUCreateUnitTokens runs the same state check after creating (_SWUAfterTokensCreated), so
-    // deleting this is measured GREEN — no current board observes the order. Not a load-bearing guard.
+    return $weak;
+}
+
+// The count + Beasts deferred past an ASH_094 Moff Jerjerrod offer on the Weakness give (see HMW_067#0).
+// $parts = [progenitorUID, weaknessCountAtTheGive]. Accepted: the doubled Weakness is on the unit now and is
+// counted. Progenitor gone meanwhile: fall back to the count at the give (last known).
+$customDQHandlers["HMW_067#1"] = function ($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    $weak = $mz !== null ? _SWUHmw067CountWeakness(GetZoneObject($mz)) : intval($parts[1] ?? 0);
     SWUCheckShrinkDefeats();
     if ($weak > 0) SWUCreateUnitTokens(intval($player), 'HMW_T03', $weak);
 };

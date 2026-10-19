@@ -3045,6 +3045,7 @@ $customDQHandlers["MOVE_UPGRADE#1"] = function ($player, $parts, $lastDecision) 
 };
 $customDQHandlers["DEFEAT_UPGRADE"] = function ($player, $parts, $lastDecision) {
   if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') {
+    DecisionQueueController::StoreVariable("DefeatUpgFriendlyTo", "");   // declined: the friendly scope ends here
     DecisionQueueController::CleanupRemovedCards();
     return;
   }
@@ -3160,10 +3161,17 @@ function _SWUResolveDefeatUpgradeHost(int $player, string $hostMzID): void
   $min = intval($min);
   $max = intval($max);
 
+  // "Defeat a FRIENDLY upgrade" cards (SWUFriendlyUpgradeOnlyOnHost): only the upgrades friendly to that player
+  // count, so a host carrying one of mine AND an enemy's never offers or auto-defeats the enemy's. Read once.
+  $friendlyTo = intval(DecisionQueueController::GetVariable("DefeatUpgFriendlyTo"));
+  DecisionQueueController::StoreVariable("DefeatUpgFriendlyTo", "");
+
   // matching upgrades as real GetUpgradesOnUnit indices (the index space SWUDefeatUpgrade expects)
   $upgrades = GetUpgradesOnUnit($host);
   $matchIdx = [];
   foreach ($upgrades as $i => $up) {
+    if ($friendlyTo > 0 && !SWUIsFriendlyUpgrade($friendlyTo, $host, $up))
+      continue;
     if (SWUUpgradeMatchesFilter($up->CardID ?? '', $filter))
       $matchIdx[] = $i;
   }

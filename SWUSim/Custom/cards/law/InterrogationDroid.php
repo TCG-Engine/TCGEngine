@@ -23,6 +23,10 @@ $customDQHandlers["LAW_075#0"] = function($player, $parts, $lastDecision) {
     // OtherPlayer($player), which at four seats is not the controller of the unit just exhausted — a
     // seat-3 unit's exhaust made SEAT 2 discard.
     $ctrl = intval($o->Controller ?? $o->Owner ?? 0);
+    // "IF YOU DO" — only when the exhaust changed the unit's state: an already-exhausted unit, or one
+    // that can't be exhausted by enemy card abilities (Mythosaur, Kylo Ren's Lightsaber), fails it.
+    $wasReady = (intval($o->Status ?? 1) === 1);
     OnExhaustCard(intval($player), $lastDecision);
+    if (!$wasReady || intval($o->Status ?? 1) !== 0) return;
     if ($ctrl > 0 && intval(CardCost($o->CardID ?? '')) <= 3) SWUDiscardCards(intval($player), 1, $ctrl);
 };

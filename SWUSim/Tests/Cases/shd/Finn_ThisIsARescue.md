@@ -322,3 +322,24 @@ WithP2GroundArena: SOR_046:1:0
 
 ## EXPECT
 P1SELECTABLEHAS:theirGroundArena-0
+
+---
+
+# Front_ATokenIGaveToAnENEMYUnit_IsNotFriendly
+#// SHD_003 — the token half of "friendly upgrade": CR "A player owns and controls any token upgrades attached to
+#// units they control", so an Experience token P1 GAVE to P2's unit is P2's. SHD_040 gives it to P2's SOR_046;
+#// Finn has no friendly upgrade to defeat — the token stays and no Shield is given.
+## GIVEN
+CommonSetup: bbw/bbw/{myLeader:SHD_003;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SHD_040
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>UseLeaderAbility
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1NODECISION

@@ -1307,8 +1307,17 @@ function SWUGetValidSupportAttackers(int $activePlayer, $supportObj): array {
 }
 
 // Lend S's EFFECTIVE "other abilities" to A for one attack, then begin A's attack.
-function _SWUSupportGrantAbilities(int $player, string $supportMz, string $attackerMz): void {
-    $S = GetZoneObject($supportMz);
+// A Support unit that has LEFT PLAY by the time its Support resolves (HMW_016 Maul defeats the unit he plays
+// before its When Played window): its last known information, enough to lend its abilities — the printed card
+// (keywords and triggered/constant abilities key off CardID), its UID for provenance, its controller.
+function _SWUSupportLastKnown(string $cardID, int $uid, int $player): object {
+    return (object)['CardID' => $cardID, 'UniqueID' => $uid, 'Controller' => $player, 'Owner' => $player,
+                    'TurnEffects' => [], 'Subcards' => [], 'Status' => 1, 'Damage' => 0, 'removed' => false];
+}
+
+// $support: S's mzID, or S itself (a live object, or _SWUSupportLastKnown when S left play).
+function _SWUSupportGrantAbilities(int $player, $support, string $attackerMz): void {
+    $S = is_object($support) ? $support : GetZoneObject((string)$support);
     $A = GetZoneObject($attackerMz);
     if ($S === null || SWUObjGone($A)) return;
 

@@ -22,6 +22,7 @@ $customDQHandlers["ASH_094#0"] = function ($player, $parts, $lastDecision) {
   if ($jMz === null || $tokenID === '' || $count < 1)
     return;   // Jerjerrod gone → can't pay
   SWUDefeatUnit(intval($player), $jMz);
+  _SWUDropPendingJerjerrodOffers(intval($player));   // he is gone: any other queued doubling can't be paid
   if ($kind === 'credit') {
     SWUCreateCreditToken(intval($player), $count, false);   // create $count MORE Credits (net 2×); no re-offer
     return;
@@ -35,4 +36,38 @@ $customDQHandlers["ASH_094#0"] = function ($player, $parts, $lastDecision) {
       _SWUApplyTokenRider(intval($player), $mz, $upgradeToken);
   }
   _SWUAfterTokensCreated();   // the doubled tokens meet any continuous shrink too (SHD_037 / HMW_065)
+};
+
+// ASH_094 Moff Jerjerrod — TOKEN UPGRADES (queued by _SWUJerjerrodNoteUpgradeGiven, GameLogic.php). A given
+// token upgrade is a created token (CR), so accepting defeats Jerjerrod and gives each host the same number
+// AGAIN — the instruction's N tokens become 2N on the units it put them on.
+// $parts = [tokenCardID, jerjerrodUID, "hostUID:n,hostUID:n"]; $lastDecision = the YESNO answer.
+$customDQHandlers["ASH_094#1"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $playerID = intval($player);
+  $tokenID = $parts[0] ?? '';
+  unset($GLOBALS['SWU_JERJERROD_UPGRADE_BATCH'][intval($player) . '|' . $tokenID]);   // the batch is closed
+  if ($lastDecision !== 'YES' || $tokenID === '')
+    return;
+  $jMz = SWUFindMzByUID(intval($parts[1] ?? 0));
+  if ($jMz === null)
+    return;   // Jerjerrod gone → can't pay
+  $hosts = [];
+  foreach (array_filter(explode(',', $parts[2] ?? '')) as $pair) {
+    [$uid, $n] = array_map('intval', explode(':', $pair));
+    if ($uid > 0 && $n > 0) $hosts[$uid] = $n;
+  }
+  SWUDefeatUnit(intval($player), $jMz);
+  _SWUDropPendingJerjerrodOffers(intval($player));
+  $GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER'] = true;   // the doubled tokens are this offer's, never a new one
+  try {
+    foreach ($hosts as $uid => $n) {
+      $playerID = intval($player);
+      $mz = SWUFindMzByUID($uid);
+      if ($mz === null) continue;               // host left play since: nothing to attach to
+      for ($i = 0; $i < $n; $i++) _SWUGiveTokenUpgradeOfKind(intval($player), $mz, $tokenID);
+    }
+  } finally {
+    unset($GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER']);
+  }
 };

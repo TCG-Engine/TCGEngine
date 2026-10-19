@@ -4379,14 +4379,24 @@ function _SWUAfterTokensCreated(): void {
 
 // Apply a persistent token-upgrade rider to a freshly created token. Kept in one place so the immediate
 // creation and the Jerjerrod-doubled creation cannot drift apart.
+// ⚠ A rider never raises its OWN ASH_094 Moff Jerjerrod offer: it rides with the token-unit offer, whose
+// doubled units each get the rider too (ASH_094#0), so the rider tokens double through the units. Without
+// this the rider's offer was queued BEFORE the unit offer and a YES doubled the rider instead (Easy Prey,
+// Jedi General, The Great Progenitor).
 function _SWUApplyTokenRider(int $player, string $mz, string $upgradeToken): void {
-    if ($upgradeToken === 'EXPERIENCE') { DoGiveExperienceToken($player, $mz); return; }
-    if ($upgradeToken === 'SHIELD')     { DoGiveShieldToken($player, $mz); return; }
-    // Anything else is a token-upgrade CardID (HMW_T02 Weakness, and any future one). Until 2026-08-26
-    // this function knew only the two named riders and SILENTLY DID NOTHING for a CardID — so passing
-    // one to SWUCreateUnitTokens' $upgradeToken looked wired and produced a bare token. Found writing
-    // HMW_237 Easy Prey, whose whole second clause is "create a Beast token. Give a Weakness token to it".
-    DoGiveTokenUpgrade($player, $mz, $upgradeToken);
+    $saved = $GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER'] ?? false;
+    $GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER'] = true;
+    try {
+        if ($upgradeToken === 'EXPERIENCE') { DoGiveExperienceToken($player, $mz); return; }
+        if ($upgradeToken === 'SHIELD')     { DoGiveShieldToken($player, $mz); return; }
+        // Anything else is a token-upgrade CardID (HMW_T02 Weakness, and any future one). Until 2026-08-26
+        // this function knew only the two named riders and SILENTLY DID NOTHING for a CardID — so passing
+        // one to SWUCreateUnitTokens' $upgradeToken looked wired and produced a bare token. Found writing
+        // HMW_237 Easy Prey, whose whole second clause is "create a Beast token. Give a Weakness token to it".
+        DoGiveTokenUpgrade($player, $mz, $upgradeToken);
+    } finally {
+        $GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER'] = $saved;
+    }
 }
 
 // ASH_094 Moff Jerjerrod — "If you would create a number of tokens, you may defeat this unit. If you do,
@@ -4404,6 +4414,88 @@ function _SWUMaybeOfferJerjerrodDouble(int $player, string $tokenID, int $count,
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
         tooltip: 'Defeat_Moff_Jerjerrod_to_create_twice_as_many_tokens?');
     DecisionQueueController::AddDecision($player, 'CUSTOM', "ASH_094#0|{$tokenID}|{$count}|{$r}|{$jUID}|{$turnEffect}|{$kind}|{$upgradeToken}", 1);
+}
+
+// ASH_094 Moff Jerjerrod for TOKEN UPGRADES (Shield, Experience, Advantage, Weakness, …). CR: "When an ability
+// instructs a player to 'give' some number of token upgrades to a unit … the tokens are considered 'created'",
+// so every give is a creation and Jerjerrod may double it. Owner ruling 2026-10-19: all tokens, and the GIVER
+// creates them — a Weakness I put on an ENEMY unit is doubled by MY Jerjerrod. Reported: game 1647080, ASH_015
+// Emperor Palpatine's Advantage tokens were never offered.
+//
+// The four Do*Token givers each attach ONE token, so the offer cannot live there per token: "give 3
+// Advantage" is ONE instruction and gets ONE offer. The first token of a kind queues the shared YESNO plus an
+// ASH_094#1 resolver; every further token of that kind given before the resolver runs (the rest of the same
+// instruction's loop, in this request) is ADDED to that resolver's Param instead of raising another offer.
+// Different kinds are different instructions ("an Experience token AND a Shield token") and get their own
+// offers; accepting one defeats Jerjerrod, and the resolver then drops the offers he can no longer pay for.
+// The no-Jerjerrod path queues nothing, so it is byte-identical to before.
+const SWU_JERJERROD_TOOLTIP = 'Defeat_Moff_Jerjerrod_to_create_twice_as_many_tokens?';
+
+function _SWUJerjerrodNoteUpgradeGiven(int $player, $hostObj, string $tokenCardID): void {
+    if ($player <= 0 || SWUObjGone($hostObj) || !empty($GLOBALS['SWU_JERJERROD_NO_UPGRADE_OFFER'])) return;
+    $hostUID = intval($hostObj->UniqueID ?? 0);
+    if ($hostUID <= 0) return;
+    $jUID = 0;
+    foreach (GetUnitsInPlay($player) as $u) {
+        if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_094') { $jUID = intval($u->UniqueID ?? 0); break; }
+    }
+    if ($jUID <= 0) return;
+    // Still-pending resolver for this giver + kind? Then this token belongs to the same instruction.
+    $key = $player . '|' . $tokenCardID;
+    $pending = $GLOBALS['SWU_JERJERROD_UPGRADE_BATCH'][$key] ?? null;
+    if ($pending !== null) {
+        foreach (GetDecisionQueue($player) as $e) {
+            if ($e !== $pending || !empty($e->removed)) continue;
+            $p = explode('|', (string)$e->Param);           // ASH_094#1|tokenID|jUID|uid:n,uid:n
+            $counts = [];
+            foreach (array_filter(explode(',', $p[3] ?? '')) as $pair) { [$u, $n] = array_map('intval', explode(':', $pair)); $counts[$u] = $n; }
+            $counts[$hostUID] = ($counts[$hostUID] ?? 0) + 1;
+            $p[3] = implode(',', array_map(fn($u, $n) => "$u:$n", array_keys($counts), $counts));
+            $e->Param = implode('|', $p);
+            return;
+        }
+    }
+    DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: SWU_JERJERROD_TOOLTIP);
+    $param = "ASH_094#1|{$tokenCardID}|{$jUID}|{$hostUID}:1";
+    DecisionQueueController::AddDecision($player, 'CUSTOM', $param, 1);
+    $GLOBALS['SWU_JERJERROD_UPGRADE_BATCH'][$key] = null;
+    $q = GetDecisionQueue($player);
+    for ($i = count($q) - 1; $i >= 0; $i--) {
+        if (($q[$i]->Type ?? '') === 'CUSTOM' && (string)$q[$i]->Param === $param) { $GLOBALS['SWU_JERJERROD_UPGRADE_BATCH'][$key] = $q[$i]; break; }
+    }
+}
+
+// Is a Jerjerrod doubling offer for $player's $tokenCardID gives still waiting in the queue? A card that READS
+// the tokens right after giving them ("create a Beast for each Weakness token on this unit", HMW_067) must
+// read them after this resolves, or a doubled give is counted as undoubled.
+function _SWUJerjerrodUpgradeOfferPending(int $player, string $tokenCardID): bool {
+    $pending = $GLOBALS['SWU_JERJERROD_UPGRADE_BATCH'][$player . '|' . $tokenCardID] ?? null;
+    if ($pending === null) return false;
+    foreach (GetDecisionQueue($player) as $e) if ($e === $pending && empty($e->removed)) return true;
+    return false;
+}
+
+// Jerjerrod is gone (he was just defeated to pay for a doubling): every OTHER doubling offer still queued
+// for $player can no longer be paid, so remove it rather than ask a question whose YES does nothing.
+function _SWUDropPendingJerjerrodOffers(int $player): void {
+    $q = &GetDecisionQueue($player);
+    for ($i = count($q) - 2; $i >= 0; $i--) {
+        $a = $q[$i]; $b = $q[$i + 1];
+        if (($a->Type ?? '') === 'YESNO' && ($a->Tooltip ?? '') === SWU_JERJERROD_TOOLTIP
+            && ($b->Type ?? '') === 'CUSTOM' && str_starts_with((string)$b->Param, 'ASH_094#')) {
+            array_splice($q, $i, 2);
+        }
+    }
+}
+
+// Give one more token of $tokenCardID to $mz, through the same giver it was first given by.
+function _SWUGiveTokenUpgradeOfKind(int $player, string $mz, string $tokenCardID): void {
+    switch ($tokenCardID) {
+        case 'SOR_T02': DoGiveShieldToken($player, $mz); break;
+        case 'SOR_T01': DoGiveExperienceToken($player, $mz); break;
+        case 'ASH_T02': DoGiveAdvantageToken($player, $mz); break;
+        default:        DoGiveTokenUpgrade($player, $mz, $tokenCardID); break;
+    }
 }
 
 // True if $obj is a valid "Resistance unit OR a unit with a Resistance upgrade on it" target
@@ -5339,6 +5431,7 @@ function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // a Shield is an upgrade attaching (ASH_208)
     _SWUNoteTokenUpgradeGiven($player, $targetMZ);
+    _SWUJerjerrodNoteUpgradeGiven(intval($player), $obj, 'SOR_T02');   // ASH_094: a given token is created
     return $targetMZ;
 }
 
@@ -5392,6 +5485,7 @@ function DoGiveExperienceToken($player, $targetMZ, bool $fireAsh208 = true) {
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     if ($fireAsh208) _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // an Experience token is an upgrade attaching (ASH_208)
     _SWUNoteTokenUpgradeGiven($player, $targetMZ);
+    _SWUJerjerrodNoteUpgradeGiven(intval($player), $obj, 'SOR_T01');   // ASH_094: a given token is created
     return $targetMZ;
 }
 
@@ -5416,6 +5510,7 @@ function DoGiveAdvantageToken($player, $targetMZ) {
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // an Advantage token is an upgrade attaching (ASH_208)
     _SWUNoteTokenUpgradeGiven($player, $targetMZ);
+    _SWUJerjerrodNoteUpgradeGiven(intval($player), $obj, 'ASH_T02');   // ASH_094: a given token is created
     return $targetMZ;
 }
 
@@ -5445,6 +5540,7 @@ function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     _SWUAsh208OnUpgradeAttach(intval($player), $obj);       // self-gates to ASH_208 Sabine hosts
     _SWUNoteTokenUpgradeGiven($player, $targetMZ);
+    _SWUJerjerrodNoteUpgradeGiven(intval($player), $obj, $tokenCardID);   // ASH_094: a given token is created (the GIVER's Jerjerrod)
     return $targetMZ;
 }
 
@@ -11756,12 +11852,25 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             // One combined "may choose" popup (pick an attacker OR decline) — mirrors IBH_064's
             // "may attack with another unit" so the interactive choice resolves cleanly inside the
             // entry-trigger resume (a YESNO + separate MZCHOOSE chain misorders here).
+            // Identity, not slot (same as 'Ambush' above): re-resolve S by the UID the trigger carries.
+            $supUID = intval($extra[0] ?? 0);
             $supObj = GetZoneObject($mzID);
-            if (SWUObjGone($supObj)) break;
+            if ($supUID > 0 && (SWUObjGone($supObj) || intval($supObj->UniqueID ?? -1) !== $supUID)) {
+                $reMz   = SWUFindMzByUID($supUID);
+                $mzID   = $reMz ?? '';
+                $supObj = ($reMz !== null) ? GetZoneObject($reMz) : null;
+            }
+            // ⚠ S LEFT PLAY ≠ Support fizzles. CR: Support "resolves like the triggered ability 'When Played…:
+            // You may attack with another unit…'", in the same window as When Played abilities, and a triggered
+            // ability resolves even after its source has left play. HMW_016 Maul says so outright ("When Played
+            // abilities resolve after the unit is defeated"). The attack is made by ANOTHER unit, so S being
+            // gone stops nothing; S's abilities are lent from its last known information. Reported 2026-10-19:
+            // Maul playing ASH_050 Morgan Elsbeth never offered her Support attack.
+            if (SWUObjGone($supObj)) { $supObj = _SWUSupportLastKnown((string)$cardID, $supUID, intval($player)); $mzID = ''; }
             $supAttackers = SWUGetValidSupportAttackers($player, $supObj);
             if (empty($supAttackers)) break;
             SWUQueueMayChooseTarget($player, $supAttackers, "Support__attack_with_another_unit?",
-                "Choose_a_unit_to_attack_with", "SWUSupportChooseAttacker|{$mzID}");
+                "Choose_a_unit_to_attack_with", "SWUSupportChooseAttacker|{$mzID}|{$supUID}|{$cardID}");
             break;
         // Support-granted abilities fire the supporting unit's (S's) closure against the attacker's (A's)
         // mzID, so "this unit" resolves to A. Reuse the innate/upgrade dispatch helpers.
@@ -11884,7 +11993,9 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     if ($obj !== null && HasKeyword_Support($obj)) {
         $supportAttackers = SWUGetValidSupportAttackers($activePlayer, $obj);
         if (!empty($supportAttackers)) {
-            AddTrigger($activePlayer, 'Support', $cardID, $mzID, implode('&', $supportAttackers));
+            // Carries S's UID (dispatch recomputes the attackers): S may leave play before Support resolves —
+            // HMW_016 Maul defeats the unit he plays first — and dispatch must still know WHICH unit it was.
+            AddTrigger($activePlayer, 'Support', $cardID, $mzID, (string)intval($obj->UniqueID ?? 0));
         }
     }
 
@@ -14816,11 +14927,20 @@ $customDQHandlers["SWUSupportChooseAttacker"] = function($player, $parts, $lastD
     $savedPID  = $playerID;
     $playerID  = intval($player);
     $supportMz = $parts[0] ?? '';
+    $supUID    = intval($parts[1] ?? 0);
+    $supCardID = (string)($parts[2] ?? '');
     if ($lastDecision === "PASS" || $lastDecision === "" || $lastDecision === "-") {
         // Declined — the SWU_TRIGGER_RESUME (block 20) handles SWUAfterAction; just clean up.
         DecisionQueueController::CleanupRemovedCards();
     } else {
-        _SWUSupportGrantAbilities(intval($player), $supportMz, $lastDecision);   // grants + BeginSWUAttack
+        // S by identity: its slot if that is still S, else by UID, else its last known information (S left play).
+        $S = ($supportMz !== '') ? GetZoneObject($supportMz) : null;
+        if ($supUID > 0 && (SWUObjGone($S) || intval($S->UniqueID ?? -1) !== $supUID)) {
+            $reMz = SWUFindMzByUID($supUID);
+            $S = ($reMz !== null) ? GetZoneObject($reMz) : null;
+        }
+        if (SWUObjGone($S) && $supCardID !== '') $S = _SWUSupportLastKnown($supCardID, $supUID, intval($player));
+        _SWUSupportGrantAbilities(intval($player), $S, $lastDecision);   // grants + BeginSWUAttack
     }
     $playerID = $savedPID;
 };
@@ -17280,6 +17400,54 @@ function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): a
     return $result;
 }
 
+// ── "A FRIENDLY UPGRADE" ─────────────────────────────────────────────────────────────────────────────────
+// CR: "A player may play an upgrade onto an enemy unit. That player is still the controller of that upgrade",
+// and "A player owns and controls any token upgrades attached to units they control." Official ASH_012 Vane
+// ruling: "A friendly upgrade is any upgrade you put into play or any token upgrade on a friendly unit." So:
+//   • a NON-token upgrade is friendly when $player controls IT — wherever it is attached, enemy units included;
+//   • a TOKEN upgrade is friendly when $player controls its HOST — whoever created it. ⚠ Read the host, never the
+//     token's own Controller: DoGiveShieldToken / DoGiveExperienceToken / DoGiveAdvantageToken stamp the GIVER
+//     there, so a token given to an enemy unit would otherwise read as the giver's.
+// Team-aware like every other "friendly" read (a teammate is not an enemy); identical to "=== $player" outside
+// a team game. Reported 2026-10-19: Vane couldn't defeat Ascension Cable / Sudden Ferocity played on enemy units.
+function SWUIsFriendlyUpgrade(int $player, $host, $sub): bool {
+    if ($player <= 0 || $host === null || $sub === null) return false;
+    $cid  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+    $isToken = str_contains((string)(CardType($cid) ?? ''), 'Token');
+    if ($isToken) $ctrl = intval($host->Controller ?? $host->Owner ?? 0);
+    else          $ctrl = is_array($sub) ? intval($sub['Controller'] ?? $sub['Owner'] ?? 0) : intval($sub->Controller ?? $sub->Owner ?? 0);
+    return $ctrl > 0 && !SWUIsEnemySeat($player, $ctrl);
+}
+
+// Every unit (and base) on the WHOLE table carrying at least one upgrade friendly to $player, in $player's frame.
+// The pool for the "defeat a friendly upgrade" cards' host-first pick; pair it with SWUFriendlyUpgradeOnlyOnHost
+// so the host step offers only the friendly ones on that host.
+function SWUFriendlyUpgradeHosts(int $player): array {
+    global $playerID;
+    $saved = $playerID; $playerID = $player;
+    try {
+        $hosts = [];
+        foreach (SWUGetUpgradeSubcardMzIDs() as $subMz) {
+            $p = MZParseSubcardID($subMz);
+            if ($p === null || isset($hosts[$p['host']])) continue;
+            $host = GetZoneObject($p['host']);
+            if (SWUObjGone($host)) continue;
+            foreach (GetUpgradesOnUnit($host) as $up) {
+                if (SWUIsFriendlyUpgrade($player, $host, $up)) { $hosts[$p['host']] = true; break; }
+            }
+        }
+        return array_keys($hosts);
+    } finally {
+        $playerID = $saved;
+    }
+}
+
+// Restrict the NEXT host-first DEFEAT_UPGRADE step (_SWUResolveDefeatUpgradeHost) to upgrades friendly to
+// $player. Read and cleared by that step (and by DEFEAT_UPGRADE's decline path), so it never leaks onward.
+function SWUFriendlyUpgradeOnlyOnHost(int $player): void {
+    DecisionQueueController::StoreVariable("DefeatUpgFriendlyTo", strval($player));
+}
+
 // Predicate over a candidate upgrade's CardID. $filter is a comma-separated list of
 // AND-ed clauses "field op value"; fields unique/leader/cost, ops = != < <= > >=.
 // Empty filter => always true. Used by SWUGetUnitsWithUpgrades + the defeat-upgrade
@@ -19341,14 +19509,8 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // ASH_012 Vane — Action [Exhaust, defeat a friendly upgrade]: the upgrade-defeat is a mandatory COST, so
     // the action is unavailable (leader not exhausted) when there is no friendly upgrade to defeat.
     if ($cardID === 'ASH_012') {
-        $hasUpg = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && count(GetUpgradesOnUnit($o)) > 0) { $hasUpg = true; break 2; }
-            }
-        }
-        if (!$hasUpg) return false;
+        // The same friendly-upgrade pool the Action pays from (SWUIsFriendlyUpgrade — whole table, CR-scoped).
+        if (empty(SWUFriendlyUpgradeHosts(intval($player)))) return false;
     }
     // TS26_02 Anakin / TS26_04 Padmé (front) are deliberately NOT gated here.
     // RULING (2026-08-09): their Action costs nothing but [Exhaust], so it may always be taken as a "soft

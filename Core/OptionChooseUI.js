@@ -86,6 +86,23 @@
       flex: 0 0 auto;
     }
     .optchoose-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; min-width: 0; }
+    /* CARD-CHOICE shape: every option is a CardID (SEC_017 Sabé "Discard 1 of the top 2", JTL_039 Chimaera's
+       "Choose a When Defeated ability"). Each option is drawn as its card with its own button beneath it, and
+       the prompt sits on its own row above. Display only — the button submits the same raw CardID. */
+    /* width:max-content — a fixed box at left:50% shrink-wraps into the HALF of the viewport right of its
+       left edge (195px on a 390px phone), which stacked the two cards. max-width still caps it on screen. */
+    .optchoose-banner.optchoose--choices { flex-direction: column; gap: 14px; width: max-content; }
+    .optchoose--choices .optchoose-label { max-width: 100%; }
+    .optchoose-choices { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; min-width: 0; }
+    .optchoose-choice { display: inline-flex; flex-direction: column; align-items: stretch; gap: 12px; min-width: 0; }
+    .optchoose-choice-card {
+      height: min(320px, 42vh);
+      width: auto;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid rgba(95,208,255,0.5);
+      box-shadow: 0 0 10px rgba(95,208,255,0.3);
+    }
     /* Skin from .btn (button.css); layout only kept here. */
     .optchoose-btn { padding: 10px 24px; font-size: 15px; max-width: 100%; }
 
@@ -100,6 +117,9 @@
       .optchoose-options { flex-basis: 100%; }
       .optchoose-btn     { padding: 10px 16px; font-size: 14px; }
       .optchoose-card    { height: 104px; }
+      .optchoose-choices { gap: 14px; }
+      /* Two portrait cards side by side inside the phone banner (94vw less padding). */
+      .optchoose-choice-card { height: min(220px, 30vh); }
     }
   `;
 
@@ -113,11 +133,86 @@
     document.head.appendChild(styleEl);
   }
 
+  // A SWU CardID: the set code may carry digits (TS26_30, IC27_001) and TS26 numbers are two digits.
+  const CARD_ID_RE = /^[A-Z][A-Z0-9]{1,4}_\d{2,4}$/;
+
+  // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+  // resolves to the deleted ./SWUSim/concat tree and 404s.
+  function cardImageSrc(cid) {
+    const imgBase = (window.assetImageFolder || ((window.rootPath || '.') + '/concat')) + '/';
+    // Preview (mock) cards are stored as mock_<CardID>.webp — resolve, never use the raw CardID.
+    return imgBase + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cid) : cid) + '.webp';
+  }
+
+  // The WHOLE card (rules text included) for the card-choice tiles: the player is deciding by what the cards
+  // DO, and concat/ holds only the square board crop. Same corpus swap the board uses (UILibraries
+  // "AppCore/SWU/Images/{concat,WebpImages}"); a root whose folder is not that corpus keeps the crop.
+  function fullCardImageSrc(cid) {
+    const folder = String(window.assetImageFolder || '');
+    if (!/\/concat\/?$/.test(folder)) return cardImageSrc(cid);
+    return folder.replace(/\/concat\/?$/, '/WebpImages') + '/'
+      + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cid) : cid) + '.webp';
+  }
+
+  function cardName(cid) {
+    try { if (typeof CardTitle === 'function' && CardTitle(cid)) return String(CardTitle(cid)); } catch (e) {}
+    return String(cid).replace(/_/g, ' ');
+  }
+
+  // Every option is a card (and none is a "@" display segment): draw each card with its own button under it.
+  // The button is labelled by the prompt's leading verb — "Discard 1 of the top 2…" -> "Discard" — and
+  // SUBMITS the untouched CardID, exactly as the text button it replaces did.
+  function renderCardChoices(options, tooltip, decisionIndex, submitCallback) {
+    const verbMatch = /^([A-Za-z]+)/.exec(String(tooltip || ''));
+    const verb = verbMatch ? verbMatch[1] : 'Choose';
+
+    bannerEl.classList.add('optchoose--choices');
+    const label = document.createElement('div');
+    label.className = 'optchoose-label';
+    label.textContent = tooltip;
+
+    const choicesWrap = document.createElement('div');
+    choicesWrap.className = 'optchoose-choices';
+    options.forEach(function(opt) {
+      const tile = document.createElement('div');
+      tile.className = 'optchoose-choice';
+      const img = document.createElement('img');
+      img.className = 'optchoose-choice-card';
+      img.addEventListener('error', function onErr() {   // no full art for this card: fall back to the crop
+        img.removeEventListener('error', onErr);
+        img.src = cardImageSrc(opt);
+      });
+      img.src = fullCardImageSrc(opt);
+      img.alt = cardName(opt);
+      const btn = document.createElement('button');
+      btn.className = 'optchoose-btn btn optchoose-choice-btn';
+      btn.textContent = verb;
+      btn.setAttribute('aria-label', verb + ' ' + cardName(opt));
+      btn.setAttribute('data-option', opt);   // the raw submitted value — for tests, never for display
+      btn.addEventListener('click', function() {
+        submitCallback(opt, decisionIndex);
+        HideOptionChooseUI();
+      });
+      tile.appendChild(img);
+      tile.appendChild(btn);
+      choicesWrap.appendChild(tile);
+    });
+
+    bannerEl.appendChild(label);
+    bannerEl.appendChild(choicesWrap);
+    document.body.appendChild(bannerEl);
+  }
+
   function render(options, tooltip, decisionIndex, submitCallback, cardIDs) {
     if (bannerEl) bannerEl.remove();
 
     bannerEl = document.createElement('div');
     bannerEl.className = 'optchoose-banner';
+
+    if ((!cardIDs || !cardIDs.length) && options.length && options.every(function(o) { return CARD_ID_RE.test(o); })) {
+      renderCardChoices(options, tooltip, decisionIndex, submitCallback);
+      return;
+    }
 
     // Optional: the card(s) being acted on, shown to the left of the prompt.
     if (cardIDs && cardIDs.length) {
