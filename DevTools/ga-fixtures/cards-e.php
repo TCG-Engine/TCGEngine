@@ -453,6 +453,23 @@ gaScenario('enervating-decay-cannot-be-activated-without-an-attacking-ally')
     ->covers(['destroy', 'attacking', 'condition'], 'Destroy target attacking ally.')
     ->register();
 
+// The attacking-ally case through real play: the defender reacts to an opposing attack and the attacker is destroyed (Dungeon Guide has 3 life, so X = 3).
+gaScenario('enervating-decay-destroys-the-opposing-attacking-ally-and-recovers-its-life')
+    ->deck($fillerDeck)
+    ->champion(lineage: ['Kongming, Fel Eidolon'], damage: 5)
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
+    ->seed('myHand', 'Enervating Decay')
+    ->endTurn()->pass(1)->pass(1)
+    ->action(2, 10002, 'myField-1!FSM!')->answer(2, 'theirField-0')
+    ->target('myHand-7')->pay(4)->answer(1, 'theirField-1')
+    ->expectDqEmpty()
+    ->expectZoneCount('theirField', 1, 1)
+    ->expectCardExists('theirGraveyard', 'Dungeon Guide', 'The attacking ally was destroyed')
+    ->expectDamage('p1Field-0', 2, 'Recovered X = the destroyed ally life (5 damage - 3)')
+    ->tested('Enervating Decay')
+    ->covers(['destroy', 'attacking', 'condition'], 'Destroy target attacking ally.')
+    ->register();
+
 // --- Elyan, Lustre Loyalty: [Class Bonus] whenever you recover, +X POWER (X = amount recovered) ---
 // Elyan's element is LUXEM; the starting champion's CardID is patched directly to Zander,
 // Blinding Steel (LUXEM, ASSASSIN) both for its own element-requirement precondition (Bathe in
