@@ -185,7 +185,13 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
         ? fn(array $r) => ($oppPotBefore - $r['oppPot']) >= SWU_BOT_WIPE_THREAT_WORTH
                           && ($oppPotBefore - $r['oppPot']) > ($myPotBefore - $r['myPot'])
         : fn(array $r) => false;
-    $qualifies = fn(array $r) => $countGate($r) || $threatGate($r);
+    // LEVER 'widewipe' (Custom/levers/controlread_widewipe.php; owner 2026-10-19 "when you see the opponent going wide, it is a good time to
+    // wipe"): most wipe decisions are this rule's, so the lever's play-scorer bonus alone fired once in 132 smoke games. With the proposal on,
+    // a wipe also qualifies when it defeats 3+ of their units, at least 2 more of theirs than mine, and more of their value than mine.
+    $wideGate = SWUBotFeatureOn('widewipe')   // SHIPPED 2026-10-19 (p56)
+        ? fn(array $r) => ($r['defeated'] - $r['ownLost']) >= 3 && ($r['defeated'] - 2 * $r['ownLost']) >= 2 && $r['net'] > 0
+        : fn(array $r) => false;
+    $qualifies = fn(array $r) => $countGate($r) || $threatGate($r) || $wideGate($r);
     $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
     // Feature 'wipeaware' (p30): a wipe that leaves me in a SHOWN per-unit wipe's lethal range — Pre Vizsla's tokens — is
     // not this rule's to play (owner's game 1483356 R19); the fallback holds it the same way.
@@ -213,10 +219,12 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     // switch. `docker exec -e SWUBOT_WIPE_DIAG=1 …` to read them.
     $diag = (bool)getenv('SWUBOT_WIPE_DIAG');
     if ($diag && !empty(array_filter($ctx['actions'], $isWipe))) SWUBotRecordCoverage($seat, 'wipe:castable');
-    $ok = function (array $r) use ($countGate, $threatGate, $seat, $diag) {
+    $ok = function (array $r) use ($countGate, $threatGate, $wideGate, $seat, $diag) {
         $c = $countGate($r); $t = $threatGate($r);
         if ($diag && $t && !$c) SWUBotRecordCoverage($seat, 'wipe:threat-only');
-        return $c || $t;
+        $w = $wideGate($r);
+        if ($w && !$c && !$t) _SWUBotFired('widewipe', $seat);
+        return $c || $t || $w;
     };
     $line = _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
     if ($line !== null && SWUBotFeatureOn('gloom') && ($go = _SWUBotHandObject($seat, $line)) !== null

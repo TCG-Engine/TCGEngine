@@ -182,7 +182,9 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     $ctx = ['style' => $style, 'seat' => $seat, 'opp' => SWUBotOpponent($seat),
             'kind' => strval($legal['kind'] ?? ''), 'type' => strval($legal['decisionType'] ?? ''),
             'param' => strval($legal['decisionParam'] ?? ''), 'tooltip' => strval($legal['decisionTooltip'] ?? ''),
-            'following' => (array)($legal['following'] ?? []), 'actions' => array_values($actions)];
+            'following' => (array)($legal['following'] ?? []),
+            // Answers a proposal gates (BotLegalActions.php SWUBotStripGatedAnswers) leave unless that proposal is on for this decision.
+            'actions' => array_values(function_exists('SWUBotStripGatedAnswers') ? SWUBotStripGatedAnswers($actions) : $actions)];
     SWUValueLogPosition($ctx);   // value-model data collection (spec 2026-09-19); a no-op unless SWU_VALUE_LOG is set
     $inSet = function ($pick) use (&$ctx) {
         foreach ($ctx['actions'] as $a) { if (($a['cardID'] ?? null) === ($pick['cardID'] ?? '')) return true; }

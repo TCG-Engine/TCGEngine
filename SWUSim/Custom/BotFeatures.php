@@ -769,6 +769,33 @@ const SWU_BOT_PART52_FEATURES = ['kyloengine', 'leiadisclose', 'talzinforce', 'a
 //   dedratarget     — SEC_010 Dedra picks a unit her 2 damage defeats (both answers good for me), not a healthy chip target.
 //   outpostepic     — LAW_019 Alliance Outpost's once-per-game Epic waits unless a token unit or a doomed unit's token can be spent.
 const SWU_BOT_PART53_FEATURES = ['removalfirst', 'mandoclaimplay', 'mandodrawattack', 'landoflipbomb', 'homeonewall', 'dedratarget', 'outpostepic'];
+// Part 54 'finalists' (2026-10-19, owner: "ship the 8 and freeze"). The ASH lever hunt's step 4b, screened one lever at a time: 107 registry levers
+// (Custom/levers/) → a targeted 1,000-game canary each → 26 to a 5,000-game fresh-seed stage → the 8 that moved toward real in BOTH
+// (.claude/tmp/ash-levers-20261015/{canary,stage2}/RESULTS.md). Measured TOGETHER as '@try-finalists' vs baseline v2.6: archetype MAE 0.067 → 0.066,
+// spread SD 8.5 → 8.0pp (real 5.8); Thrawn DV 43% → 50% (real 52), Thrawn Yellow 34% → 41% (42), Rio 21% → 29% (44), Leia LAW 31% → 36% (50),
+// Vane 42% → 46% (55); Armorer Yellow −3.7, Sloane Blue −3.5, Client −3.3 the other way; no style moved at p < .14. These are REGISTRY levers: each
+// lives in Custom/levers/<theme>_<name>.php and runs while its feature is on (BotLevers.php, SWU_BOT_SHIPPED_LEVERS). '@no-p54' / '@no-<name>'.
+//   wdpaybackkeep (Thrawn keeps his When Defeated payback bodies) · hostkeep (upgrade decks keep unique hosts) · forcexpfirst (a ready unit waits
+//   for Obi-Wan's Experience) · disclosecover (a disclose-gated card waits while the rest of the hand cannot cover it) · riosaboteur (Rio's Action
+//   priced as the +1/Saboteur swing) · pilotdeployfirst (a pilot leader deploys before the host Vehicle swings) · vanecheapupgrade (Vane pays with
+//   tokens first) · tempcapturevalue (Arrest priced by the damage it removes this phase).
+const SWU_BOT_PART54_FEATURES = ['wdpaybackkeep', 'hostkeep', 'forcexpfirst', 'disclosecover', 'riosaboteur', 'pilotdeployfirst', 'vanecheapupgrade', 'tempcapturevalue'];
+// Part 55 'selfweakfix' (2026-10-19, owner: "let's fix those issues" — the Hemlock DV lever build's review). A bug fix, shipped ON:
+//   noweaknesstarget — HMW_003 Doctor Hemlock's mandatory "Give a Weakness token to a unit without a Weakness token on it" Action waits while no
+//                      ENEMY unit can take the token ('nohostiletarget' only knew "-N/-N", damage and exhaust). 20 self-gives in 40 plain games
+//                      vs Mando Colossus (R1-R2 on my own Mandalorian token). '@no-p55' / '@no-noweaknesstarget' turn it off.
+//   sentinelclearfloor — 'sentinelclear' (p48) took max(Action value, Sentinel-clear buff value) for racing seats; with no buff to clear for that
+//                      value is 0, so a WAITING (negative) leader Action was lifted to 0, tied PASS and won on index. That, not the missing
+//                      pattern alone, is what fired Hemlock's target-less Action (nb002 R15). Only a positive clear value raises the Action now.
+const SWU_BOT_PART55_FEATURES = ['noweaknesstarget', 'sentinelclearfloor'];
+// Part 56 'controlkit' (2026-10-19, owner: "sure ship those as suggested"). The Hemlock DV levers (plans 2026-10-19-hemlock-dv-levers{,-plan2}),
+// measured one at a time on the HMW meta baseline (390 games/arm) and Hemlock DV vs the hmw-meta field (440): nothing significant either way,
+// so under the ship/hold rule every null-or-better one ships. HELD (trended harmful on Hemlock DV): 'handfinisher' (10:18) and 'upgradedtext'
+// (3:7) stay off-by-default proposals. Report: .claude/tmp/lever-runs-20261019/m3/REPORT.md. 19 are registry levers (Custom/levers/), and
+// 'handpick' was a proposal (BotFallback.php). '@no-p56' / '@no-controlkit' / '@no-<name>' turn them off.
+const SWU_BOT_PART56_FEATURES = ['healobserver', 'enginewatch', 'koskawait', 'leadergone', 'nebulashield', 'fatiguefeed', 'widewipe',
+    'clockdefence', 'wipecap', 'finisherexposure', 'finisherhold', 'curvesink', 'threatshape', 'blockerdeny', 'xpsink', 'shuttlemove',
+    'doomedsoak', 'removalbeforewall', 'plotfirst', 'handpick'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
@@ -778,7 +805,7 @@ function SWUBotFeatureList(): array {
                        SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES,
                        SWU_BOT_PART14_FEATURES, SWU_BOT_PART15_FEATURES,
                        SWU_BOT_PART16_FEATURES, SWU_BOT_PART17_FEATURES,
-                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES);   // part 2, then 3-49
+                       SWU_BOT_PART18_FEATURES, SWU_BOT_PART19_FEATURES, SWU_BOT_PART20_FEATURES, SWU_BOT_PART21_FEATURES, SWU_BOT_PART22_FEATURES, SWU_BOT_PART23_FEATURES, SWU_BOT_PART24_FEATURES, SWU_BOT_PART25_FEATURES, SWU_BOT_PART26_FEATURES, SWU_BOT_PART27_FEATURES, SWU_BOT_PART28_FEATURES, SWU_BOT_PART29_FEATURES, SWU_BOT_PART30_FEATURES, SWU_BOT_PART31_FEATURES, SWU_BOT_PART32_FEATURES, SWU_BOT_PART33_FEATURES, SWU_BOT_PART34_FEATURES, SWU_BOT_PART35_FEATURES, SWU_BOT_PART36_FEATURES, SWU_BOT_PART37_FEATURES, SWU_BOT_PART38_FEATURES, SWU_BOT_PART39_FEATURES, SWU_BOT_PART40_FEATURES, SWU_BOT_PART41_FEATURES, SWU_BOT_PART42_FEATURES, SWU_BOT_PART43_FEATURES, SWU_BOT_PART44_FEATURES, SWU_BOT_PART45_FEATURES, SWU_BOT_PART46_FEATURES, SWU_BOT_PART47_FEATURES, SWU_BOT_PART48_FEATURES, SWU_BOT_PART49_FEATURES, SWU_BOT_PART50_FEATURES, SWU_BOT_PART51_FEATURES, SWU_BOT_PART52_FEATURES, SWU_BOT_PART53_FEATURES, SWU_BOT_PART54_FEATURES, SWU_BOT_PART55_FEATURES, SWU_BOT_PART56_FEATURES);   // part 2, then 3-49
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -793,7 +820,7 @@ function SWUBotFeatureGroups(): array {
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p14' => SWU_BOT_PART14_FEATURES, 'p15' => SWU_BOT_PART15_FEATURES,
-            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES,
+            'p16' => SWU_BOT_PART16_FEATURES, 'p17' => SWU_BOT_PART17_FEATURES, 'p18' => SWU_BOT_PART18_FEATURES, 'p19' => SWU_BOT_PART19_FEATURES, 'p20' => SWU_BOT_PART20_FEATURES, 'p21' => SWU_BOT_PART21_FEATURES, 'p22' => SWU_BOT_PART22_FEATURES, 'p23' => SWU_BOT_PART23_FEATURES, 'p24' => SWU_BOT_PART24_FEATURES, 'p25' => SWU_BOT_PART25_FEATURES, 'p26' => SWU_BOT_PART26_FEATURES, 'p27' => SWU_BOT_PART27_FEATURES, 'p28' => SWU_BOT_PART28_FEATURES, 'p29' => SWU_BOT_PART29_FEATURES, 'p30' => SWU_BOT_PART30_FEATURES, 'p31' => SWU_BOT_PART31_FEATURES, 'p32' => SWU_BOT_PART32_FEATURES, 'p33' => SWU_BOT_PART33_FEATURES, 'p34' => SWU_BOT_PART34_FEATURES, 'p35' => SWU_BOT_PART35_FEATURES, 'p36' => SWU_BOT_PART36_FEATURES, 'p37' => SWU_BOT_PART37_FEATURES, 'p38' => SWU_BOT_PART38_FEATURES, 'p39' => SWU_BOT_PART39_FEATURES, 'p40' => SWU_BOT_PART40_FEATURES, 'p41' => SWU_BOT_PART41_FEATURES, 'p42' => SWU_BOT_PART42_FEATURES, 'p43' => SWU_BOT_PART43_FEATURES, 'p44' => SWU_BOT_PART44_FEATURES, 'p45' => SWU_BOT_PART45_FEATURES, 'p46' => SWU_BOT_PART46_FEATURES, 'tempolines' => SWU_BOT_PART46_FEATURES, 'p47' => SWU_BOT_PART47_FEATURES, 'p48' => SWU_BOT_PART48_FEATURES, 'p49' => SWU_BOT_PART49_FEATURES, 'creditengine' => SWU_BOT_PART49_FEATURES, 'p50' => SWU_BOT_PART50_FEATURES, 'bugfix1' => SWU_BOT_PART50_FEATURES, 'p51' => SWU_BOT_PART51_FEATURES, 'step2' => SWU_BOT_PART51_FEATURES, 'p52' => SWU_BOT_PART52_FEATURES, 'engines3' => SWU_BOT_PART52_FEATURES, 'p53' => SWU_BOT_PART53_FEATURES, 'hardctl4' => SWU_BOT_PART53_FEATURES, 'p54' => SWU_BOT_PART54_FEATURES, 'finalists' => SWU_BOT_PART54_FEATURES, 'p55' => SWU_BOT_PART55_FEATURES, 'selfweakfix' => SWU_BOT_PART55_FEATURES, 'p56' => SWU_BOT_PART56_FEATURES, 'controlkit' => SWU_BOT_PART56_FEATURES,
             'controlvalue' => SWU_BOT_PART44_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
@@ -1194,8 +1221,7 @@ const SWU_BOT_PROPOSALS = [
                         // an enemy unit. ~12 opponent leaders died within one action of deploying. bot_deploysafe_test
     'leaderhunt',       // a kill of a deployed ENEMY LEADER unit carries a premium (it cannot deploy again): x W['kill'], so control most,
                         // aggro least. Grievous killed 9/9 deployed leaders, Krennic answered 9/10. bot_leaderhunt_test
-    'handpick',         // "look at an opponent's hand and discard a card" (~20 cards) takes the card that hurts me most — the answer to my
-                        // best unit, then the bomb they can cast soonest — not the first in hand. bot_handpick_test
+    // ('handpick' — SHIPPED 2026-10-19 as part of feature group 'p56' / 'controlkit'.)
     // ('handhate', 'leaderkill', 'freshsac', 'maulpitch', 'condetb', 'gloom', 'wdattack', 'spenttrade', 'enginekill', 'cleanupsoft' — the
     // 2026-10-12 re-read's ten owner-ruled rules — SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
     // ('nightpick', 'wdbait', 'ambushsetup' — the 2026-10-13 deep read of the Maul Blue v2 games — SHIPPED 2026-10-13 as feature group 'p46'.)
@@ -1308,11 +1334,12 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  // 2026-10-11 Krennic workshop: all five owner rulings together.
                                  'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
                                  // 2026-10-12 human-game read: the three general rules together.
-                                 'leaderwatch' => ['deploysafe', 'leaderhunt', 'handpick'],
+                                 'leaderwatch' => ['deploysafe', 'leaderhunt'],   // ('handpick' shipped 2026-10-19, p56)
                                  // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
                                  // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
                                  // 2026-10-15 Krennic vs Ahsoka canary: the two winners together (popfirst +63, krennicmerc +94 alone).
                                  'creditpop'   => ['popfirst', 'krennicmerc'],
+                                 // ('finalists' SHIPPED 2026-10-19 as feature group 'p54'.)
                                  ];
 // ⚠ No 'creditline' group. #1098 + #1099 are one chain, but p16 shipped the waiver half as a FEATURE, so
 // plain @try-creditbank already measures "the Credit half ON TOP OF the waiver fix" — a group would just

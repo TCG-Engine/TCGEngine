@@ -236,8 +236,30 @@ function _SWUBotWeaknessEnemyOnly(string $type, string $tooltip, array $actions,
         foreach ($parts as $mz) if (!SWUBotIsEnemyMz($seat, $mz) || !str_contains($mz, 'Arena-')) { $allEnemy = false; break; }
         if ($allEnemy) $enemy[] = $a;
     }
-    if (!empty($enemy)) return $enemy;
+    if (!empty($enemy)) {
+        // LEVER 'nebulashield' (owner 2026-10-19, Custom/levers/controlread_nebulashield.php): vs hard control KNOWN to hold Nebula Ignition,
+        // the friendly hosts worth shielding come back TAGGED. This list is built OUTSIDE a decision (BotController), where the variant is not
+        // set, so the tag is stripped again inside the chooser stack and the lookahead unless the proposal is on (SWUBotStripGatedAnswers).
+        if (function_exists('_SWUBotLvNebulaSeen') && _SWUBotLvNebulaSeen($seat)) {
+            foreach ($actions as $a) {
+                $c = strval($a['cardID'] ?? '');
+                if (str_contains($c, '&') || SWUBotIsEnemyMz($seat, $c) || ($sv = _SWUBotLvNebulaShieldValue($seat, SWUBotViewForMz($seat, $c))) === null || $sv <= 0) continue;
+                $a['gatedBy'] = 'nebulashield';
+                $enemy[] = $a;
+            }
+        }
+        return $enemy;
+    }
     return !empty($decline) ? $decline : $actions;
+}
+
+// Answers tagged 'gatedBy' => <proposal> are legal only while that proposal is on. Called where the variant IS set: the chooser stack
+// (BotHeuristic.php) and the lookahead (BotLookahead.php). Never empties a non-empty list.
+function SWUBotStripGatedAnswers(array $actions): array {
+    // A gate may be a proposal (off unless '@try-') or a SHIPPED feature (on unless '@no-') — 'nebulashield' shipped 2026-10-19 (p56).
+    $on = fn(string $g) => in_array($g, SWUBotFeatureList(), true) ? SWUBotFeatureOn($g) : SWUBotProposalOn($g);
+    $kept = array_values(array_filter($actions, fn($a) => empty($a['gatedBy']) || $on(strval($a['gatedBy']))));
+    return empty($kept) ? $actions : $kept;
 }
 
 // The Exploit picker ("Defeat_up_to_N_units_(Exploit)", continuation EXPLOIT_RESOLVE): keep only the answers that

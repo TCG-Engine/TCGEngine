@@ -14,8 +14,8 @@ humans actually did, and with the frozen **ASH meta baseline**.
 - **The ASH meta baseline is THE reference.** Every new feature is tested against it. Do **not** run new baselines, canaries or fixture
   sweeps to have something to compare with — this run plus its frozen baseline is the comparison.
 - **Never re-freeze unasked.** The baseline changes only when the owner asks for a new "ASH meta baseline" (Mode B).
-- The **HMW meta baseline** is a separate, smaller set: `SWUSim/Tests/BotFixtures/meta-baselines/hmw/` (melee 480807, Nexus Open: Homeworlds,
-  42 matches / 84 games, frozen 2026-10-11; curated fixtures `hmw-meta-2026-09/` with the owner's deck-by-deck style labels; matrix
+- The **HMW meta baseline** is a separate, smaller set: `SWUSim/Tests/BotFixtures/meta-baselines/hmw/` (melee 480807 Nexus Open: Homeworlds
+  + 463642 Datacup II - El Abismo de Helm Wargames (added 2026-10-18), 74 decks / 196 matches; baseline v2 = all 196 / 390 games, frozen 2026-10-19 @e5841b2d (v1 was 480807 only, 42 / 84); curated fixtures `hmw-meta-2026-09/` with the owner's deck-by-deck style labels; matrix
   https://claude.ai/artifact/7WWPM4jigHT6ss89YGwV7a). Same tools, its meta dir instead of `ash`; small, so `analyze.py … --min 3 --cell-min 2`
   and `matrix.py … --min 1` (both stored in its `meta.json`). Test features against it the same way.
 

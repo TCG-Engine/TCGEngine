@@ -10,14 +10,15 @@
 // so pricing its loss like a real unit makes the bot under-attack with leaders.
 // PROPOSAL 'tradewhenbehind' (default OFF): while behind on units, an even trade is worth taking (owner Q10,
 // "most of the time a 1-to-1 trade is good") — as a CONDITION, where the flat loss weight could not express it.
+const SWU_BOT_LEADERRISK_FACTOR = 0.3;   // 'leaderrisk': a leader's loss in a trade, as a share of a unit's (lever 'leadergone' undoes it)
 function _SWUBotLossFactor(array $att): float {
     $f = 1.0;
-    if (SWUBotFeatureOn('leaderrisk') && !empty($att['isLeader'])) $f *= 0.3;
+    if (SWUBotFeatureOn('leaderrisk') && !empty($att['isLeader'])) $f *= SWU_BOT_LEADERRISK_FACTOR;
     if (SWUBotProposalOn('tradewhenbehind') && function_exists('SWUBotUnits')) {
         $seat = intval($att['controller']);
         if (count(SWUBotUnits($seat)) < count(SWUBotUnits(SWUBotOpponent($seat)))) $f *= 0.5;
     }
-    return $f;
+    return SWUBotLeverChain('lossfactor', $f, $att);   // lever registry (BotLevers.php)
 }
 
 // PROPOSAL 'mgtrade' (default OFF): what killing $def is worth BEYOND the card — the damage it will not deal.
@@ -614,6 +615,9 @@ function _SWUBotObserverPings(int $victim): int {
 // each, and the game when the pings reach the base's remaining HP (Ninin vs Wicket Green R11: Wicket died into HK-47 at 1 HP).
 const SWU_BOT_OBSERVER_LETHAL = 100.0;
 function _SWUBotObserverTax(array $att, array $W): float {
+    return SWUBotLeverChain('observertax', _SWUBotObserverTaxCore($att, $W), $att, $W);   // lever registry (BotLevers.php)
+}
+function _SWUBotObserverTaxCore(array $att, array $W): float {
     if (!SWUBotFeatureOn('observertax')) return 0.0;
     $seat = intval($att['controller']);
     $pings = _SWUBotObserverPings($seat);
@@ -683,9 +687,13 @@ function _SWUBotSplitScore(int $seat, string $candidate, array $W, bool $unpreve
             }
             continue;
         }
-        if ($amt >= $v['remaining']) $s += ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
-        elseif (!$enemy && SWUBotProposalOn('indirectsoak') && _SWUBotSoakIntoReach($seat, $v, $amt)) $s -= SWU_BOT_SOAK_LOSS * $W['loss'] * SWUBotUnitValue($v);
-        else $s += ($enemy ? 1 : -1) * $W['chip'] * $amt;
+        $part = 0.0;
+        if ($amt >= $v['remaining']) $part = ($enemy ? $W['kill'] : -$W['loss']) * SWUBotUnitValue($v) + ($enemy ? 0.5 : -0.5);
+        elseif (!$enemy && SWUBotProposalOn('indirectsoak') && _SWUBotSoakIntoReach($seat, $v, $amt)) $part = -SWU_BOT_SOAK_LOSS * $W['loss'] * SWUBotUnitValue($v);
+        else $part = ($enemy ? 1 : -1) * $W['chip'] * $amt;
+        // lever registry: what a share of the split landing on MY OWN unit costs (lever 'doomedsoak' prices a unit that dies anyway as fodder).
+        if (!$enemy) $part = floatval(SWUBotLeverChain('splitown', $part, $seat, $v, $amt, $W));
+        $s += $part;
     }
     // Feature 'splitlethal' (p33, bug #1126): points that FINISH an enemy base are the game, not W['base'] each — game 1485163's
     // Devastator spread 4 indirect over two kills while the Krennic base sat on 4 HP. "theirBase" is the opponent (the first
@@ -845,7 +853,13 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                                    if ($popScore > 0.1) $av = min($av, $popScore - 0.01);
                                }
                                // Feature 'sentinelclear' (p48): the leader buff a Sentinel clear is waiting for goes first.
-                               if (SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1) $av = max($av, _SWUBotSentinelClearBuffValue($seat, $W));
+                               if (SWUBotFeatureOn('sentinelclear') && SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) <= 1) {
+                                   $sc = _SWUBotSentinelClearBuffValue($seat, $W);
+                                   // FEATURE 'sentinelclearfloor' (p55): with no buff to clear for, the clear value is 0 and max() LIFTED a waiting
+                                   // (negative) Action to 0 — a tie with PASS that the lower index (the Action) won: Hemlock's target-less Action
+                                   // then landed its mandatory Weakness on my own unit (nb002 R15). Only a real buff value raises the Action.
+                                   if (!SWUBotFeatureOn('sentinelclearfloor') || $sc > 0.0) $av = max($av, $sc);
+                               }
                                return $av;
             case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
             case 'attack':
@@ -1288,7 +1302,7 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // PROPOSAL 'handpick' (2026-10-12): a card picked from an OPPONENT's revealed hand — every such prompt in the pool is a discard (Spark of
     // Rebellion, Hold For Questioning, Remnant Lookouts, Bazine Netal …) — is the one that hurts me most. It fell to the tiebreak below: the
     // first card in their hand. 1.0 up keeps every card above an optional prompt's PASS (0).
-    if (SWUBotProposalOn('handpick') && preg_match('/^(their|p(\d+))Hand-(\d+)$/', $c, $hp)) {
+    if (SWUBotFeatureOn('handpick') && preg_match('/^(their|p(\d+))Hand-(\d+)$/', $c, $hp)) {   // 'handpick' SHIPPED 2026-10-19 (p56)
         $owner = $hp[1] === 'their' ? SWUBotOpponent($seat) : intval($hp[2]);
         $ho = GetHand($owner)[intval($hp[3])] ?? null;
         if ($ho !== null) return 1.0 + _SWUBotOppHandThreat($seat, $owner, strval($ho->CardID ?? ''), $W) - $index * 1e-6;
@@ -1712,6 +1726,11 @@ function _SWUBotWeaknessCount(string $tip, string $next): int {
 //   and scaled by the unit's power so the tokens CONCENTRATE on the strongest body (a token on a 1/5 is worth less than
 //   one on a 3/5).
 function _SWUBotWeaknessScore(int $seat, array $v, bool $enemy, int $dmg, string $head, int $weak, array $W): float {
+    // $loss = the HP the give takes, as the core counts it (Weakness + damage a Shield does not stop) — a lever's "is it a kill" test.
+    $loss = $weak + ((!str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0) ? 0 : $dmg);
+    return SWUBotLeverChain('weakness', _SWUBotWeaknessScoreCore($seat, $v, $enemy, $dmg, $head, $weak, $W), $seat, $v, $enemy, $weak, $W, $loss);   // lever registry
+}
+function _SWUBotWeaknessScoreCore(int $seat, array $v, bool $enemy, int $dmg, string $head, int $weak, array $W): float {
     $shieldStopsDamage = !str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0;
     $loss = $weak + ($shieldStopsDamage ? 0 : $dmg);
     $kill = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;
@@ -1831,7 +1850,10 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     if ($hostile && $enemy && $amount === 0 && _SWUBotHeadDefeats($head) && SWUBotDefeatFizzles($v)) return 0.0;
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     // 'leaderhunt': a defeat aimed at an enemy leader unit takes its body for the game.
-    if ($hostile && $enemy && $amount === 0 && _SWUBotHeadDefeats($head)) $score += _SWUBotKillExtras($v, $W, $seat);
+    if ($hostile && $enemy && $amount === 0 && _SWUBotHeadDefeats($head)) {
+        $GLOBALS['SWUBotKillCtx'] = 'removal';   // lever 'blockerdeny' prices a Sentinel breach only for removal, not attacks ('breach' has those)
+        try { $score += _SWUBotKillExtras($v, $W, $seat); } finally { unset($GLOBALS['SWUBotKillCtx']); }
+    }
     // A hostile effect aimed at MY OWN board is a sacrifice: price it as fodder, not as a loss of printed value
     // (feature 'fodder'), so the unit whose defeat pays me back is the one that goes.
     if (!$good && $hostile && !$enemy && SWUBotFeatureOn('fodder')) {
@@ -3318,6 +3340,9 @@ function _SWUBotFinisherHP(int $seat): int {
 //   'onattackfinish' (p36) — a READY deployed leader whose On Attack gives a Weakness token / -1/-1 to a unit (Hemlock, Talzin):
 //                            Reprint_Cad split Ninth Sister 1/1/1, then Hemlock's attack token finished the Interceptor.
 function _SWUBotFinisherHPFor(int $seat, array $v): int {
+    return intval(SWUBotLeverChain('finisherhp', _SWUBotFinisherHPForCore($seat, $v), $seat, $v));   // lever registry
+}
+function _SWUBotFinisherHPForCore(int $seat, array $v): int {
     $n = _SWUBotFinisherHP($seat);
     // FEATURE 'ambushsetup' (p46, 2026-10-13): a just-played unit of mine whose Ambush is still on the effect stack attacks next — damage that
     // leaves $v within its power (same arena) sets that kill up. Snub Fighter Squadron's When Played 1, then its 4-power Ambush: Ninin 4/4.
@@ -5228,6 +5253,19 @@ function _SWUBotPromptFixScore(array $ctx, int $seat, string $tip, string $type,
 // unit") with NO enemy unit on the board can only hit my own: Talzin's Force Action put -1/-1 on her own units 115 times (82 in Red), mostly
 // after the opponent's wipe. It waits.
 function _SWUBotHostileActionNoTarget(int $seat, array $action): bool {
+    // FEATURE 'noweaknesstarget' (p55 'selfweakfix', 2026-10-19, Hemlock DV read): HMW_003 Doctor Hemlock's "Action [1 resource, Exhaust]: Give a Weakness token to a unit without a Weakness
+    // token on it" is MANDATORY once used: with no enemy able to take the token it lands on my own unit (20 self-gives in 40 plain games vs
+    // Mando Colossus, e.g. R1-R2 on my Mandalorian token). It waits while no ENEMY unit is eligible ("without a Weakness token" counts) —
+    // unless lever 'nebulashield' wants the token on my own unit (vs hard control known to hold Nebula Ignition).
+    if (SWUBotFeatureOn('noweaknesstarget')
+        && preg_match('/^\s*Action \[[^\]]*\]:\s*Give a Weakness token to a unit( without a Weakness token on it)?\./mi', _SWUBotActionSourceText($seat, $action), $wm)) {
+        if (SWUBotFeatureOn('nebulashield') && function_exists('_SWUBotLvNebulaSeen') && _SWUBotLvNebulaSeen($seat)) return false;   // p56
+        foreach (SWUBotEnemyUnits($seat) as $e) {
+            if (empty($wm[1]) || !isset($e['obj']) || !function_exists('_SWUUnitHasUpgrade') || !_SWUUnitHasUpgrade($e['obj'], 'HMW_T02')) return false;
+        }
+        _SWUBotFired('noweaknesstarget', $seat);
+        return true;
+    }
     if (!SWUBotFeatureOn('nohostiletarget') || !empty(SWUBotEnemyUnits($seat))) return false;
     if (!preg_match('/^\s*Action \[[^\]]*\]:\s*(?:Give a unit -\d+\/-\d+|Deal \d+ damage to a unit\b|Exhaust a unit\b)/mi', _SWUBotActionSourceText($seat, $action))) return false;
     _SWUBotFired('nohostiletarget', $seat);

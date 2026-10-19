@@ -16,6 +16,9 @@ SWUBotLeverRegister('zztheme', 'zzlever2', ['play' => fn(float $v) => $v * 2.0])
 check(in_array('zzlever', SWUBotProposalList(), true), 'a registered lever is listed as a proposal');
 check((SWUBotLeverGroups()['zztheme'] ?? []) === ['zzlever', 'zzlever2'], 'its theme groups the levers registered under it');
 
+// The shipped levers (p54, p56 …) are pinned off for this section: it drives the hooks with a dummy card, and only the test's own levers are
+// under test. Derived from the registry (_SWUBotShippedLevers), so a newly shipped group is pinned too (2026-10-19: p56 broke the literal).
+$GLOBALS['SWUBotPinnedDisabled'] = _SWUBotShippedLevers();
 SWUBotSetDisabledFeatures([]);
 check(SWUBotLeverChain('play', 1.0, [], 1, 'X', [], []) === 1.0, 'with no variant, a chain hook returns its input untouched');
 check(SWUBotLeverFirst('decision', [], 1, 't', 'YESNO', 'h', 'YES', []) === null, 'with no variant, a first hook defers (null)');
@@ -30,5 +33,18 @@ check(SWUBotLeverChain('play', 1.0, [], 1, 'X', [], []) === 22.0, "'@try-zztheme
 
 SWUBotSetDisabledFeatures(SWUBotVariantDisabled('try-zzlever2'));
 check(SWUBotLeverChain('play', 1.0, [], 1, 'X', [], []) === 2.0, 'a different lever of the same theme does not switch on its neighbour');
+SWUBotSetDisabledFeatures([]);
+
+unset($GLOBALS['SWUBotPinnedDisabled']);
+// A SHIPPED lever (feature group p54) is a FEATURE: active with no variant, off under "@no-<name>", and no longer a proposal.
+$shippedOn = fn(string $n) => array_key_exists($n, _SWUBotLeverActive('keep'));
+check(in_array('wdpaybackkeep', SWUBotFeatureList(), true) && !in_array('wdpaybackkeep', SWUBotProposalList(), true),
+    'a shipped lever is listed as a feature, not a proposal');
+SWUBotSetDisabledFeatures([]);
+check($shippedOn('wdpaybackkeep'), 'a shipped lever runs with no variant (default ON)');
+SWUBotSetDisabledFeatures(SWUBotVariantDisabled('no-wdpaybackkeep'));
+check(!$shippedOn('wdpaybackkeep'), "'@no-wdpaybackkeep' switches the shipped lever off");
+SWUBotSetDisabledFeatures(SWUBotVariantDisabled('no-p54'));
+check(!$shippedOn('wdpaybackkeep'), "'@no-p54' switches the whole shipped group off");
 SWUBotSetDisabledFeatures([]);
 echo "ALL PASS\n";
