@@ -27,6 +27,19 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 <footer class="home-footer"><span class="home-palette" aria-hidden="true"><i class="red"></i><i class="orange"></i><i class="yellow"></i><i class="green"></i><i class="blue"></i><i class="purple"></i></span><p>Local solo play <span aria-hidden="true">/</span> Match saved in this browser’s session</p></footer>
 </section>
 <div id="gameView" hidden>
+<?php if (!empty($dfgTutorial)): ?>
+<div id="tutorialBackdrop" class="dfg-tutorial-backdrop" hidden aria-hidden="true"></div>
+<div id="tutorialSpotlight" class="azuki-tutorial-cutout" hidden aria-hidden="true"></div>
+<section id="tutorialGuide" class="azuki-tutorial-panel dfg-tutorial-panel" role="dialog" aria-modal="false" aria-labelledby="stepTitle" hidden>
+<div class="tutorial-heading"><span id="tutorialProgress" class="azuki-tutorial-kicker"></span><a href="index.php" aria-label="Exit tutorial">Exit</a></div>
+<h2 id="stepTitle" tabindex="-1"></h2>
+<p id="tutorialText"></p>
+<p id="tutorialTask" role="status" aria-live="polite"></p>
+<div class="tutorial-actions"><button id="tutorialContinue" class="azuki-tutorial-button">Continue</button><a id="tutorialPlay" href="index.php?play" hidden>Play vs bot →</a></div>
+<nav id="lessonTabs" aria-label="Lessons" hidden></nav>
+<div class="tutorial-navigation"><button id="tutorialPrevious">Back</button><button id="tutorialRestart">Restart</button><button id="tutorialLessons">Lessons</button></div>
+</section>
+<?php endif; ?>
 <section class="arena" aria-label="Fight arena">
 <details id="matchMenu" class="match-menu"><summary aria-label="Match menu" title="Match menu"><span aria-hidden="true">☰</span></summary><div class="match-actions"><button id="goHome">Main menu</button><a class="text-button gallery-link" href="learn.php">Learn to play</a><a class="text-button gallery-link" href="gallery.php">Card gallery</a><button id="showRules" class="text-button" aria-haspopup="dialog" aria-expanded="false">Rules</button><button id="showLog" class="text-button" aria-haspopup="dialog" aria-expanded="false">Fight log</button><button id="resign" class="text-button" hidden>Resign match</button><button id="newMatch">New match</button></div></details>
 
@@ -78,5 +91,6 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 <script id="fighterReactionAssets" type="application/json"><?= json_encode($fighterReactionAssets ?: (object)[], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
 <script src="fighter-reactions.js?v=<?= filemtime(__DIR__ . '/fighter-reactions.js') ?>" defer></script>
 <script src="arena-background.js?v=<?= filemtime(__DIR__ . '/arena-background.js') ?>" defer></script>
+<?php if (!empty($dfgTutorial)): ?><link rel="stylesheet" href="../AzukiSim/Tutorial/tutorial.css?v=<?= filemtime(__DIR__ . '/../AzukiSim/Tutorial/tutorial.css') ?>"><link rel="stylesheet" href="learn.css?v=<?= filemtime(__DIR__ . '/learn.css') ?>"><script src="learn.js?v=<?= filemtime(__DIR__ . '/learn.js') ?>" defer></script><?php endif; ?>
 <script src="app.js?v=<?= filemtime(__DIR__ . '/app.js') ?>" defer></script>
 </body></html>

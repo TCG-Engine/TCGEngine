@@ -1,37 +1,139 @@
-'use strict';
-const practiceData=JSON.parse(document.getElementById('practiceData').textContent);
-const practiceCards=new Map(practiceData.cards.map(c=>[c.id,c]));
-const escapeText=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let lesson=0,step=0,selection=null;
-function practiceRender(focus=false){
-  const current=practiceData.lessons[lesson],frame=current.frames[step],s=frame.state,choice=frame.choice;
-  document.getElementById('lessonTabs').innerHTML=practiceData.lessons.map((l,i)=>`<button data-lesson="${i}" ${i===lesson?'aria-current="step"':''}>${i+1}. ${escapeText(l.name)}</button>`).join('');
-  const main=seat=>{const plan=s.commitments[seat],c=plan&&!plan.hidden?practiceCards.get(plan.main):null,stats=s.stats?.[seat];return `<article class="practice-card ${c?.color.toLowerCase()??''}"><small>${seat===0?'YOUR MAIN':'OPPONENT MAIN'}</small><h3>${c?escapeText(c.name):'Face down'}</h3>${c?`<strong>${stats?.attack??c.attack} attack / ${stats?.block??c.block} block</strong><p>${escapeText(c.ability||'No main ability.')}</p>${plan.bonuses.length?`<p>Bonus burn: ${plan.bonuses.map(id=>escapeText(practiceCards.get(id).name)).join(', ')}</p>`:''}`:'<p>Both players commit before revealing.</p>'}</article>`;};
-  let options=[];
-  if(choice?.kind==='card') options=s.players[0].available.filter(id=>!s.players[0].discarded.includes(id)&&(s.players[0].cardHands?.[id]??practiceCards.get(id).color)===s.players[0].color&&!s.commitments[0]?.bonuses?.includes(id)&&s.commitments[0]?.main!==id).map(id=>({value:id,label:practiceCards.get(id).name,color:practiceCards.get(id).color,detail:`${practiceCards.get(id).attack} ATK / ${practiceCards.get(id).block} BLK`}));
-  if(choice?.kind==='color') options=s.switchOptions.map(color=>({value:color,label:color,color,detail:`${s.players[0].available.filter(id=>(s.players[0].cardHands?.[id]??practiceCards.get(id).color)===color).length} cards`}));
-  if(choice?.kind==='token') options=s.players[0].advantages.map(color=>({value:color,label:`${color} advantage`,color,detail:'Spend with Forearm Check'}));
-  document.getElementById('practice').innerHTML=`<div class="lesson-body"><section class="lesson-copy" aria-labelledby="stepTitle"><span class="lesson-progress">LESSON ${lesson+1} / 4 · STEP ${step+1} / ${current.frames.length}</span><h2 id="stepTitle" tabindex="-1">${escapeText(frame.title)}</h2><p>${escapeText(frame.text)}</p><p class="lesson-task">${escapeText(frame.task)}</p><p id="choiceFeedback" role="status"></p><button id="advance" class="primary" ${choice?'disabled':''}>${escapeText(frame.button)}</button></section><section class="practice-board" aria-label="Practice arena"><div class="practice-vitals">${s.players.map((p,i)=>`<div>${i===0?'You':'Practice opponent'} · ${p.life} life<small>${p.color} hand · ${p.discarded.length} burned</small><small>Advantage: ${p.advantages.join(', ')||'none'}${p.nextAttack?` · +${p.nextAttack} next attack`:''}</small></div>`).join('')}</div><div class="practice-mains">${main(0)}${main(1)}</div>${options.length?`<p class="practice-note">${choice.kind==='card'?'Choose the card named in the prompt. This practice opponent follows a fixed script.':'Choose the highlighted lesson’s destination or resource.'}</p><div class="practice-hand">${options.map(o=>`<button class="${o.color.toLowerCase()}" data-choice="${o.value}" aria-pressed="false">${escapeText(o.label)}<small>${escapeText(o.detail)}</small></button>`).join('')}</div>`:''}<p class="practice-note">Reaction burns: ${s.reactions.map(r=>`${r.seat===0?'You':'Opponent'} — ${escapeText(practiceCards.get(r.card).name)}`).join(', ')||'none'}</p>${['switching','finished'].includes(s.phase)?`<div class="lesson-outcome">${s.phase==='finished'?'Defeat · entered an empty hand':`Damage resolved: you dealt ${s.stats[0].damage}, opponent dealt ${s.stats[1].damage}.`}</div>`:''}</section></div>`;
-  document.getElementById('previous').disabled=lesson===0&&step===0;
-  if(focus)document.getElementById('stepTitle').focus();
-}
-document.addEventListener('click',event=>{
-  const button=event.target.closest('button');if(!button||button.disabled)return;
-  if(button.dataset.lesson!==undefined){lesson=Number(button.dataset.lesson);step=0;selection=null;practiceRender(true);}
-  if(button.dataset.choice!==undefined){
-    const expected=String(practiceData.lessons[lesson].frames[step].choice.value);
-    selection=button.dataset.choice;
-    document.querySelectorAll('[data-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    const correct=selection===expected;document.getElementById('advance').disabled=!correct;
-    document.getElementById('choiceFeedback').textContent=correct?'Selected. Continue when ready.':'For this guided exercise, follow the named choice in the prompt.';
+/* Guidance only: app.js owns all board rendering and gameplay inputs. */
+window.DFGTutorial = (() => {
+  let guide = null, choosingLesson = false, lastStep = null, targetKey = null, queued = false;
+  const panel = document.getElementById('tutorialGuide');
+  const spotlight = document.getElementById('tutorialSpotlight');
+  document.body.classList.add('dfg-guided-game');
+  function findTarget() {
+    if (choosingLesson || guide?.complete) return null;
+    if (guide?.target) return document.getElementById(guide.target);
+    const action = guide?.action;
+    if (!action) return null;
+    const get = id => document.getElementById(id);
+    if (action.type === 'commit') {
+      if (browseColor !== state.players[0].color) return get(`your-orb-${state.players[0].color}`);
+      if (selectedMain !== action.main) return get(`hand-${action.main}`);
+      const bonus = action.bonuses?.find(id => !selectedBonuses.has(id));
+      if (bonus) return get(`hand-${bonus}`);
+      const color = action.advantages?.find(color => !selectedAdvantages.has(color));
+      if (color) {
+        const picker = get('advantagePicker');
+        return picker?.open ? picker.querySelector(`[data-advantage="${color}"]`) : picker?.querySelector('summary');
+      }
+      return get('commit');
+    }
+    if (action.type === 'react') return browseColor !== state.players[0].color ? get(`your-orb-${state.players[0].color}`) : get(`hand-${action.card}`);
+    if (action.type === 'pass') return get('pass');
+    if (action.type === 'switch') return document.querySelector(`[data-switch="${action.color}"]`);
+    return null;
   }
-  if(button.id==='advance'){
-    if(step<practiceData.lessons[lesson].frames.length-1)step++;
-    else if(lesson<practiceData.lessons.length-1){lesson++;step=0;}
-    else{document.getElementById('practice').innerHTML='<section class="lesson-copy"><h2 id="stepTitle" tabindex="-1">You’re ready.</h2><p>Read the opposing hand. Keep an eye on your routes. Burn when the exchange is worth the card.</p><a class="menu-link" href="index.php?play">Play your first match →</a><p><a href="index.php">Return to main menu</a></p></section>';document.getElementById('stepTitle').focus();return;}
-    selection=null;practiceRender(true);
+  function position() {
+    queued = false;
+    if (!guide) return;
+    const target = findTarget();
+    const gap = 18, edge = 14, width = innerWidth, height = innerHeight;
+    panel.style.maxHeight = `${Math.max(160, target ? Math.min(height * 0.55, height - 2 * edge) : height - 2 * edge)}px`;
+    panel.classList.toggle('is-centered', !target);
+    spotlight.hidden = !target;
+    document.getElementById('tutorialBackdrop').hidden = !!target;
+    if (!target) {
+      panel.style.left = ''; panel.style.top = ''; panel.style.transform = '';
+      targetKey = null;
+      return;
+    }
+    const key = `${guide.lesson}:${guide.step}:${panel.offsetHeight}:${height}:${target.id || target.outerHTML.slice(0,100)}`;
+    const rect = target.getBoundingClientRect();
+    const pw = panel.offsetWidth, ph = panel.offsetHeight;
+    const clamp = (v, max) => Math.max(edge, Math.min(max - edge, v));
+    const candidates = [
+      [clamp(rect.left, width-pw), rect.top-ph-gap],
+      [clamp(rect.left, width-pw), rect.bottom+gap],
+      [rect.right+gap, clamp(rect.top, height-ph)],
+      [rect.left-pw-gap, clamp(rect.top, height-ph)]
+    ];
+    const fits = ([x,y]) => x>=edge && y>=edge && x+pw<=width-edge && y+ph<=height-edge;
+    const spot = candidates.find(fits);
+    let [left, top] = spot || [width-pw-edge, height-ph-edge];
+    // Keep the current real control above the popup on compact screens. Extra bottom
+    // scroll space lets the last hand row move clear of the floating explanation.
+    if (!spot || rect.top < edge || rect.bottom > height-edge) {
+      if (targetKey !== key) {
+        targetKey = key;
+        const desiredTop = Math.max(edge, (top - Math.min(rect.height, top-edge)) / 2);
+        window.scrollBy({top:rect.top-desiredTop, behavior:'instant'});
+        schedulePosition();
+      }
+    } else targetKey = key;
+    panel.style.setProperty('--tutorial-left', `${left}px`); panel.style.setProperty('--tutorial-top', `${top}px`);
+    panel.style.left = `${left}px`; panel.style.top = `${top}px`; panel.style.transform = 'none';
+    const current = target.getBoundingClientRect();
+    spotlight.style.left = `${current.left-6}px`; spotlight.style.top = `${current.top-6}px`;
+    spotlight.style.width = `${current.width+12}px`; spotlight.style.height = `${current.height+12}px`;
   }
-  if(button.id==='previous'){if(step>0)step--;else{lesson--;step=practiceData.lessons[lesson].frames.length-1;}selection=null;practiceRender(true);}
-  if(button.id==='restart'){step=0;selection=null;practiceRender(true);}
-});
-practiceRender();
+  function schedulePosition() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(position);
+  }
+  window.addEventListener('resize', schedulePosition);
+  window.addEventListener('scroll', schedulePosition, {passive:true});
+  document.addEventListener('toggle', schedulePosition, true);
+  new ResizeObserver(schedulePosition).observe(panel);
+  async function navigate(command, extra = {}) {
+    if (busy) return;
+    busy = true;
+    showError('');
+    try {
+      const data = await request({command, ...extra, matchId: state.matchId, revision: state.revision});
+      busy = false;
+      selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); browseColor = null;
+      accept(data);
+      document.getElementById('stepTitle').focus({preventScroll:true});
+    } catch (error) {
+      if (error.status === 409) accept(await request());
+      showError(error.message);
+    } finally { busy = false; render(); }
+  }
+  document.addEventListener('click', event => {
+    const button = event.target.closest('#tutorialGuide button');
+    if (!button || button.disabled || !guide) return;
+    if (button.dataset.lesson !== undefined) { choosingLesson = false; navigate('lesson', {lesson:Number(button.dataset.lesson)}); }
+    if (button.id === 'tutorialRestart') navigate('lesson', {lesson:guide.lesson});
+    if (button.id === 'tutorialPrevious') {
+      if (choosingLesson) { choosingLesson = false; render(); }
+      else navigate('lesson', {lesson:guide.lesson, step:Math.max(0,guide.step-1)});
+    }
+    if (button.id === 'tutorialLessons') { choosingLesson = true; render(); document.getElementById('stepTitle').focus({preventScroll:true}); }
+    if (button.id === 'tutorialContinue') navigate('continue');
+  });
+  return {
+    accept(data) { guide = data; },
+    render() {
+      if (!guide) return;
+      const get = id => document.getElementById(id);
+      get('lessonTabs').innerHTML = guide.names.map((name,i) => `<button data-lesson="${i}" ${i===guide.lesson?'aria-current="step"':''} ${busy?'disabled':''}>${i+1}. ${esc(name)}</button>`).join('');
+      panel.hidden = false;
+      get('tutorialProgress').textContent = choosingLesson ? 'Learn to play · Lessons' : `${guide.names[guide.lesson]} · ${guide.step+1}/${guide.steps}`;
+      const stepKey = `${guide.lesson}:${guide.step}:${guide.complete}`;
+      if(lastStep !== stepKey) { lastStep = stepKey; targetKey = null; }
+      get('stepTitle').tabIndex = -1;
+      get('stepTitle').textContent = choosingLesson ? 'What would you like to try?' : guide.complete ? 'You’re ready.' : guide.title;
+      get('tutorialText').textContent = guide.complete ? 'That’s the basics. Pick a hand, read their move, and decide what you’re willing to spend. The rest will come with a few fights.' : guide.text;
+      get('tutorialTask').textContent = guide.complete ? 'Play against the bot, or use Exit to return to your saved match.' : guide.task;
+      get('tutorialContinue').hidden = choosingLesson || guide.complete || !!guide.action;
+      get('tutorialContinue').disabled = busy;
+      get('tutorialContinue').textContent = guide.button;
+      get('tutorialPrevious').disabled = busy || (!choosingLesson && guide.step===0);
+      get('tutorialPrevious').textContent = choosingLesson ? 'Back to lesson' : 'Back';
+      get('tutorialRestart').hidden = choosingLesson;
+      get('tutorialLessons').hidden = choosingLesson;
+      get('lessonTabs').hidden = !choosingLesson;
+      get('tutorialText').hidden = choosingLesson;
+      get('tutorialTask').hidden = choosingLesson || !get('tutorialTask').textContent;
+      get('tutorialRestart').disabled = busy;
+      get('tutorialPlay').hidden = choosingLesson || !guide.complete;
+      ['newMatch','playAgain','resign'].forEach(id => { if(get(id)) get(id).hidden=true; });
+      schedulePosition();
+    }
+  };
+})();

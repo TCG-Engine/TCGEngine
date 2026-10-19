@@ -11,14 +11,17 @@ gallery, and the rules reference. Returning to the menu or refreshing preserves 
 current session match. Starting another fight replaces it. The in-match menu also
 links back to the main menu and tutorial.
 
-`learn.php` offers four guided lessons (14 steps): the round loop, bonus/reaction burns,
-advantage and pressure, and defeat by entering an empty hand. Lessons use scripted
-practice states computed by the real rules engine in `Custom/Tutorial.php`. They open
-no session and never change the regular match. Previous step, restart, and direct
-lesson selection allow replay; completing practice links to match setup.
+`learn.php` offers an introduction and four guided lessons (25 steps) using the normal match page, card renderer,
+arena, hand browser, previews, Commit, Pass reaction, advantage picker, and switch controls.
+The floating guide reuses AzukiSim’s popup and spotlight styles, highlights the next
+card or control, and shows the full explanation and next action in each popup.
+Back, Restart, and Lessons allow replay without collapsible sections. The server
+validates the lesson action and runs it through the real engine with a scripted opponent. Tutorial progress is saved in a
+separate session entry and never replaces the regular match. Reload to resume, restart
+or select a lesson, or return to the menu to resume your saved fight.
 
-Validate with `php DevTools/DFGSim/tutorial-tests.php` and the Playwright harness
-`DevTools/ui-harness/dfg-menu-tutorial.mjs` (desktop/mobile, Chromium/Firefox/WebKit).
+Validate with `php DFGSim/tests/tutorial.php` and
+`node DevTools/ui-harness/dfg-menu-tutorial.mjs` (desktop/mobile, Chromium/Firefox/WebKit).
 
 With the existing XAMPP Apache server running, open:
 

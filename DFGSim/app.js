@@ -46,6 +46,7 @@ function sloshFighterLiquid(seat, amount) {
   liquidImpacts[seat]={start:performance.now(),duration,frames,healthFrames};
   document.querySelectorAll(`#fighters .fighter:nth-child(${seat+1}) .orb-slosh, #fighters .fighter:nth-child(${seat+1}) .health-slosh`).forEach(surface=>surface.getAnimations().filter(animation=>!(animation instanceof CSSAnimation)).forEach(animation=>animation.cancel()));
   restoreLiquidImpacts();
+  if(window.DFGTutorial) DFGTutorial.render();
 }
 function restoreLiquidImpacts() {
   if(orbMotionPreference.matches) return;
@@ -86,12 +87,13 @@ function delayClosePreview() {
 }
 function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
 async function request(body = null) {
-  const response = await fetch('api.php', body ? {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,token})} : {cache:'no-store'});
+  const response = await fetch($('tutorialGuide') ? 'api.php?tutorial=1' : 'api.php', body ? {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,token})} : {cache:'no-store'});
   const data = await response.json();
   if (!data.ok) { const error = new Error(data.error || 'Request failed'); error.status = response.status; throw error; }
   return data;
 }
 function accept(data) {
+  if(window.DFGTutorial) DFGTutorial.accept(data.tutorial);
   const previousState=state;
   const moves=[];
   if(state && data.state && state.matchId===data.state.matchId) {
@@ -475,6 +477,7 @@ function render() {
   if(opponentColor && _openPopup==='opponentHand') renderOpponentPopup();
   controls();
   restoreLiquidImpacts();
+  if(window.DFGTutorial) DFGTutorial.render();
   $('log').innerHTML=state.log.slice().reverse().map(entry=>`<div class="log-entry"><small>R${entry.round}</small>${esc(entry.text)}</div>`).join('');
 }
 document.addEventListener('click',event=>{
@@ -485,7 +488,7 @@ document.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||button.disabled)return;
   if(button.id==='closePreview'){closePreview();return;}
   if(['showRules','homeRules'].includes(button.id)){showRulesPopup();return;}
-  if(button.id==='goHome'){showScreen(false);return;}
+  if(button.id==='goHome'){if($('tutorialGuide'))location.href='index.php';else showScreen(false);return;}
   if(button.id==='resumeMatch'){showScreen(true);return;}
   if(button.id==='homePlay'){$('setup').showModal();return;}
   if(['showLog','reviewFight'].includes(button.id)){fightLogTrigger=button.id==='reviewFight'?button:$('matchMenu').querySelector('summary');$('fightLog').showModal();$('showLog').setAttribute('aria-expanded','true');return;}
@@ -561,5 +564,6 @@ request().then(data=>{
   accept(data);
   const options=Object.entries(styles).map(([color,style])=>`<option value="${color}">${color} · ${esc(style)}</option>`).join('');
   $('humanColor').innerHTML=options;$('botColor').innerHTML=options;$('humanColor').value='Red';$('botColor').value='Purple';
+  if($('tutorialGuide'))showScreen(true);
   if(new URLSearchParams(location.search).has('play'))$('setup').showModal();
 }).catch(error=>showError(error.message));

@@ -1,72 +1,97 @@
-import {chromium,firefox,webkit} from 'playwright';
+import {chromium, firefox, webkit} from 'playwright';
 import assert from 'node:assert/strict';
-import {execFileSync} from 'node:child_process';
+import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {mkdir,readFile} from 'node:fs/promises';
-import {tmpdir} from 'node:os';
-import {join} from 'node:path';
-const php=process.env.PHP_BINARY||'C:/xampp/php/php.exe';
-const fixture=JSON.parse(execFileSync(php,[fileURLToPath(new URL('../DFGSim/iron-guard-tests.php',import.meta.url)),'--fixtures'],{encoding:'utf8'})).planning;
-const shots=process.env.DFG_SCREENSHOTS||join(tmpdir(),'dfg-menu-tutorial');await mkdir(shots,{recursive:true});
-let failures=0;
-for(const [name,engine] of Object.entries({chromium,firefox,webkit})){
- if(process.env.DFG_BROWSERS&&!process.env.DFG_BROWSERS.split(',').includes(name))continue;
- let browser;
- try{
-  browser=await engine.launch({headless:true});
-  for(const viewport of [{width:1440,height:1000},{width:390,height:844}]){
-   const page=await browser.newPage({viewport,reducedMotion:'reduce'}),errors=[],writes=[];
-   page.on('pageerror',e=>errors.push(e.message));
-   await page.route('**/*',async route=>{
-    const relative=new URL(route.request().url()).pathname.replace(/^\/TCGEngine\//,'');
-    if(!relative.startsWith('DFGSim/')&&!relative.startsWith('Core/'))return route.fulfill({status:404,body:''});
-    const source=new URL(`../../${relative.endsWith('/')?relative+'index.php':relative}`,import.meta.url);
-    try{const body=source.pathname.endsWith('.php')?execFileSync(php,[fileURLToPath(source)]):await readFile(source);return route.fulfill({body,contentType:source.pathname.endsWith('.php')?'text/html':source.pathname.endsWith('.js')?'text/javascript':source.pathname.endsWith('.css')?'text/css':'image/png'});}
-    catch{return route.fulfill({status:404,body:''});}
-   });
-   let saved=null;
-   await page.route('**/DFGSim/api.php',async route=>{
-    const body=route.request().postDataJSON();if(body){writes.push(body);saved=fixture.state;}
-    await route.fulfill({json:{...fixture,state:saved}});
-   });
-   const base='http://localhost/TCGEngine/DFGSim/';
-   await page.goto(base);await page.locator('#homePlay:enabled').waitFor();
-   assert.equal(await page.locator('#home').isVisible(),true);assert.equal(await page.locator('#gameView').isVisible(),false);
-   assert.equal(await page.locator('#setup').isVisible(),false);assert.equal(await page.locator('#resumeMatch').isVisible(),false);
-   await page.locator('#homeRules').click();await page.locator('#rulesPopup').waitFor();await page.keyboard.press('Escape');
-   await page.locator('#homePlay').click();await page.locator('#setup').waitFor();await page.locator('#cancelSetup').click();assert.equal(await page.locator('#home').isVisible(),true);
-   await page.screenshot({path:join(shots,`${name}-${viewport.width}-home.png`),fullPage:true});
-   // Start through the actual form; navigation must not create another match.
-   await page.locator('#homePlay').click();await page.locator('#setupForm [type=submit]').click();await page.locator('#gameView').waitFor();
-   assert.equal(writes.length,1);assert.equal(writes[0].command,'new');assert.equal(writes[0].settings.difficulty,'tactical');
-   await page.locator('#matchMenu summary').click();await page.locator('#goHome').click();await page.locator('#resumeMatch').click();assert.equal(writes.length,1);
-   await page.reload();await page.locator('#resumeMatch').waitFor();assert.equal(await page.locator('#home').isVisible(),true);
-   await page.locator('#home a[href="learn.php"]').click();await page.locator('#stepTitle').waitFor();
-   assert.equal(await page.locator('#advance').isDisabled(),true);
-   await page.locator('[data-choice="1"]').click();assert.equal(await page.locator('#advance').isDisabled(),true);
-   await page.locator('[data-choice="2"]').click();assert.equal(await page.locator('#advance').isEnabled(),true);
-   await page.screenshot({path:join(shots,`${name}-${viewport.width}-learn.png`),fullPage:true});
-   const overflow=()=>page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
-   assert.equal(await overflow(),false,'Tutorial fits viewport');
-   const lessons=await page.evaluate(()=>practiceData.lessons);
-   for(let l=0;l<lessons.length;l++){
-    await page.locator(`[data-lesson="${l}"]`).click();
-    for(let i=0;i<lessons[l].frames.length;i++){
-     const frame=lessons[l].frames[i];assert.equal(await page.locator('#stepTitle').textContent(),frame.title);
-     if(frame.choice)await page.locator(`[data-choice="${frame.choice.value}"]`).click();
-     assert.equal(await overflow(),false,`Fits lesson ${l} step ${i}`);
-     await page.locator('#advance').click();
-    }
-   }
-   assert.equal(await page.locator('#stepTitle').textContent(),'You’re ready.');
-   await page.locator('#restart').click();assert.equal(await page.locator('#stepTitle').textContent(),'An empty hand is a trap');
-   await page.locator('#previous').click();assert.equal(await page.locator('#stepTitle').textContent(),'Objectives create future options');
-   await page.locator('.lesson-nav a[href="index.php"]').click();await page.locator('#resumeMatch').click();
-   assert.equal(writes.length,1,'Tutorial and resume never modify the live match');
-   assert.equal(await page.locator('#roundNumber').textContent(),String(fixture.state.round));
-   await page.locator('#matchMenu summary').click();await page.locator('#goHome').click();assert.equal(await overflow(),false,'Menu fits viewport');
-   assert.deepEqual(errors,[]);console.log(`${name} ${viewport.width}: menu and all 14 tutorial steps passed`);await page.close();
+const port = Number(process.env.DFG_TEST_PORT || 18779);
+const root = fileURLToPath(new URL('../../', import.meta.url));
+const server = spawn(process.env.PHP_BINARY || 'C:/xampp/php/php.exe', ['-S', `127.0.0.1:${port}`, '-t', root], {stdio:'ignore'});
+const base = `http://127.0.0.1:${port}/DFGSim/`;
+let failures = 0;
+try {
+  for(let i=0;i<50;i++) {
+    try { if((await fetch(base)).ok) break; } catch {}
+    await new Promise(resolve=>setTimeout(resolve,100));
   }
- }catch(error){failures++;console.error(`${name}: ${error.stack}`);}finally{await browser?.close();}
-}
-console.log(`Screenshots: ${shots}`);if(failures)process.exitCode=1;
+  for (const [name, engine] of Object.entries({chromium,firefox,webkit})) {
+    if(process.env.DFG_BROWSERS && !process.env.DFG_BROWSERS.split(',').includes(name)) continue;
+    let browser;
+    try {
+      browser = await engine.launch({headless:true});
+      for (const viewport of [{width:1440,height:1000},{width:390,height:844}]) {
+        const page = await browser.newPage({viewport,reducedMotion:'reduce'});
+        const errors=[];
+        page.on('pageerror',e=>errors.push(e.message));
+        await page.goto(base);
+        await page.locator('#homePlay:enabled').waitFor();
+        await page.locator('#homePlay').click();
+        await page.locator('#setupForm [type=submit]').click();
+        await page.locator('#gameView').waitFor();
+        const saved = await page.evaluate(async()=> (await (await fetch('api.php')).json()).state);
+        await page.goto(base+'learn.php');
+        await page.locator('#tutorialGuide:visible').waitFor();
+        await page.locator('#hand-2').waitFor();
+        assert.equal(await page.locator('#stepTitle').textContent(),'Tired of losing to a bad hand?');
+        assert.match(await page.locator('#tutorialText').textContent(),/There’s no randomness/);
+        assert.equal(await page.locator('#tutorialGuide details').count(),0,'No dropdown explanations or navigation');
+        assert.equal(await page.locator('#tutorialSpotlight').isVisible(),false,'Introduction starts before a card choice');
+        assert.equal(await page.locator('#tutorialGuide').evaluate(el=>getComputedStyle(el).position),'fixed');
+        if(process.env.DFG_SCREENSHOTS) await page.screenshot({path:`${process.env.DFG_SCREENSHOTS}/${name}-${viewport.width}-intro.png`});
+        assert.equal(await page.locator('.practice-board').count(),0);
+        const rejected = await page.evaluate(async()=> {
+          const data=await (await fetch('api.php?tutorial=1')).json();
+          return (await fetch('api.php?tutorial=1', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:data.token,command:'action',matchId:data.state.matchId,revision:data.state.revision,action:{type:'commit',main:1}})})).json();
+        });
+        assert.equal(rejected.ok,false);
+        assert.match(rejected.error,/Continue/);
+        let steps=0;
+        const total=await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial.totalSteps);
+        assert.equal(total,25);
+        while(steps<total) {
+          const guide=await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial);
+          assert.equal(guide.complete,false);
+          const title=await page.locator('#stepTitle').textContent();
+          await page.waitForFunction(() => {
+            const el=document.getElementById('tutorialGuide'), r=el.getBoundingClientRect();
+            return r.top>=0 && r.bottom<=innerHeight;
+          }, null, {timeout:10000});
+          assert.equal(await page.locator('#tutorialText').isVisible(),true,'Full explanation is visible');
+          if(steps===5 && process.env.DFG_SCREENSHOTS) await page.screenshot({path:`${process.env.DFG_SCREENSHOTS}/${name}-${viewport.width}-card.png`});
+          const action=guide.action;
+          if(!action) await page.locator('#tutorialContinue').click();
+          else if(action.type==='commit') {
+            await page.locator(`#hand-${action.main}`).click();
+            for(const id of action.bonuses||[]) await page.locator(`#hand-${id}`).click();
+            if(action.advantages?.length) {
+              await page.locator('#advantagePicker summary').click();
+              for(const color of action.advantages) await page.locator(`[data-advantage="${color}"]`).click();
+            }
+            await page.locator('#commit').click();
+          } else if(action.type==='react') await page.locator(`#hand-${action.card}`).click();
+          else if(action.type==='pass') await page.locator('#pass').click();
+          else if(action.type==='switch') await page.locator(`[data-switch="${action.color}"]`).click();
+          await page.waitForFunction(old=>document.getElementById('stepTitle').textContent!==old,title);
+          assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Fits viewport');
+          steps++;
+          if(steps===1) {
+            await page.reload();
+            await page.locator('#tutorialGuide:visible').waitFor();
+            await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Your cards are already here');
+          }
+        }
+        assert.equal(await page.locator('#stepTitle').textContent(),'You’re ready.');
+        await page.locator('#tutorialRestart').click();
+        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Keep an eye on your hands');
+        await page.locator('#tutorialLessons').click();
+        await page.locator('[data-lesson="0"]').click();
+        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Tired of losing to a bad hand?');
+        const after=await page.evaluate(async()=> (await (await fetch('api.php')).json()).state);
+        assert.deepEqual(after,saved,'Tutorial preserves regular match exactly');
+        assert.deepEqual(errors,[]);
+        console.log(`${name} ${viewport.width}: 25 steps, introduction, visible explanations, normal controls, reload, replay, isolation passed`);
+        await page.close();
+      }
+    } catch(error) { failures++; console.error(`${name}: ${error.stack}`); }
+    finally { await browser?.close(); }
+  }
+} finally { server.kill(); }
+if(failures) process.exitCode=1;
