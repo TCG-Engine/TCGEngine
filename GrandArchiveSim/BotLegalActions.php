@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/BotDecisions.php";
 // Legal-action enumeration for the GA heuristic bot. Reuses the exact functions that already
 // drive the client's card-highlight colors (CanActivateCardForSelection) and the exact function
 // that is simultaneously the check AND the action for attacks (BeginCombatPhase has no
@@ -93,42 +94,16 @@ function GABotLegalActions($gameName, $player) {
         $type = $front !== null ? strval($front->Type ?? '') : '';
         $param = $front !== null ? strval($front->Param ?? '') : '';
         $actions = [];
-        if ($type === 'MZCHOOSE' && $param === 'myHand') {
-            // Reserve-cost payment: pay with the lowest-memory-cost live card in hand, so the bot
-            // keeps its more expensive/impactful cards available to actually play rather than
-            // always feeding away whatever happens to be first in hand order.
-            $handObjs = GetHand($pending);
-            $payIndex = null;
-            $payCost = null;
-            foreach ($handObjs as $i => $obj) {
-                if ($obj === null || !empty($obj->removed)) continue;
-                $cost = function_exists('CardMemoryCost') ? intval(CardMemoryCost($obj)) : 0;
-                if ($payCost === null || $cost < $payCost) { $payCost = $cost; $payIndex = $i; }
+        $context = GABotDecisionContext($pending, $front);
+        if (in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE'], true)) {
+            foreach (GABotChoiceCandidates($pending, $param) as $candidate) {
+                $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $candidate];
             }
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $payIndex !== null ? "myHand-$payIndex" : 'myHand-0'];
-        } elseif ($type === 'MZCHOOSE' && strpos($param, '&') !== false) {
-            // Required choice among several listed candidates (e.g. "Choose_attack_target":
-            // Param="theirField-0&theirField-1", or a mixed list like "myHand&myField-1" where a
-            // bare zone token needs resolving to a concrete card) — not a May-choose, so PASS is
-            // not a valid response. Pick the first resolvable candidate.
-            $rawCandidates = array_filter(explode('&', $param));
-            $candidates = array_values(array_filter(array_map(
-                fn($token) => GABotResolveChoiceToken($pending, $token),
-                $rawCandidates
-            )));
-            $tooltip = strval($front->Tooltip ?? '');
-            $choice = stripos($tooltip, 'attack_target') !== false
-                ? GABotChooseCombatTarget($pending, $candidates)
-                : reset($candidates);
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $choice !== false ? $choice : 'PASS'];
-        } elseif ($type === 'MZCHOOSE' && preg_match('/^(my|their)[A-Za-z]+-\d+$/', $param)) {
-            // Required choice with exactly one candidate, named directly in Param (e.g. the
-            // pregame "Reveal your starting Lv 0 champion" decision: Param="myMaterial-11") — the
-            // only legal response IS that mzID, so echo it back rather than treating this like the
-            // reserve-payment or opportunity-window cases below.
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $param];
+            if ($type === 'MZMAYCHOOSE' || empty($actions)) {
+                $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'PASS'];
+            }
         } elseif ($type === 'YESNO') {
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'NO'];
+            foreach (['NO', 'YES'] as $answer) $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $answer];
         } elseif ($type === 'NAMECARD') {
             // Use the same deterministic chooser as goldfish automation: prefer an explicit
             // preview candidate, then a card visible in the bot's own zones. NAMECARD expects
@@ -142,35 +117,19 @@ function GABotLegalActions($gameName, $player) {
             // Preserve it verbatim, matching GoldfishResolveDecisionInput().
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $param];
         } elseif ($type === 'MZMULTICHOOSE') {
-            // Param: min|max|candidateMzIDs. Meet the required minimum with the first legal
-            // candidates; decline cleanly when the choice is optional.
+            // Keep the candidate pool in context; the chooser builds a bounded valid subset.
             $parts = explode('|', $param, 3);
-            $min = max(0, intval($parts[0] ?? 0));
-            $candidates = array_values(array_filter(explode('&', strval($parts[2] ?? ''))));
-            if ($min === 0) {
-                $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => '-'];
-            } elseif (count($candidates) >= $min) {
-                $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => implode('&', array_slice($candidates, 0, $min))];
-            } else {
-                $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => '-'];
-            }
+            $context['minimum'] = max(0, intval($parts[0] ?? 0));
+            $context['maximum'] = max($context['minimum'], intval($parts[1] ?? 0));
+            $context['candidates'] = GABotChoiceCandidates($pending, $parts[2] ?? '');
+            $minimum = $context['minimum'];
+            $answer = $minimum > 0 ? implode('&', array_slice($context['candidates'], 0, $minimum)) : '-';
+            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $answer ?: '-'];
         } elseif (in_array($type, ['MZMODAL', 'NUMBERCHOOSE', 'TWOSIDEDSLIDER', 'MZSPLITASSIGN', 'CHOOSEZONE', 'ICONCHOICE'], true)) {
             // Goldfish already has a deterministic, engine-compatible response encoder for these
             // non-card decision formats. Reuse it so bot and goldfish agree on wire syntax.
             $input = function_exists('GoldfishResolveDecisionInput') ? GoldfishResolveDecisionInput($pending, $front) : null;
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $input !== null ? $input : '-'];
-        } elseif ($type === 'MZMAYCHOOSE' || $type === 'MZCHOOSE') {
-            // Opportunity windows and other optional/May choices: decline. A required MZCHOOSE cannot be
-            // declined (GameValidateDecisionAnswer refuses PASS while it has a candidate), so answer it with
-            // its first resolvable candidate; only when there is none fall back to PASS.
-            $choice = false;
-            if ($type === 'MZCHOOSE') {
-                foreach (array_filter(explode('&', $param)) as $token) {
-                    $resolved = GABotResolveChoiceToken($pending, $token);
-                    if ($resolved) { $choice = $resolved; break; }
-                }
-            }
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $choice !== false ? $choice : 'PASS'];
         } else {
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'PASS'];
             error_log("GABot: unrecognized decision type '$type' (param='$param') for seat $pending — defaulting to PASS.");
@@ -178,7 +137,7 @@ function GABotLegalActions($gameName, $player) {
             // particular) assert "no unhandled decision gap occurred" without scraping log text.
             $GLOBALS['GABotUnrecognizedDecisions'][] = ['type' => $type, 'param' => $param, 'seat' => $pending];
         }
-        return ['playerID' => $pending, 'kind' => 'decision', 'decisionType' => $type, 'actions' => $actions];
+        return array_merge($context, ['playerID' => $pending, 'kind' => 'decision', 'decisionType' => $type, 'actions' => $actions]);
     }
 
     // Free play: legal hand materializes + legal attack candidates + always-available end turn.

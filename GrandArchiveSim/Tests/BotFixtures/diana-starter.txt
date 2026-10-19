@@ -1,0 +1,36 @@
+# Main
+4 Backstep
+4 Evasive Maneuvers
+4 Idle Thoughts
+4 Imperial Rifleman
+4 Materialize Munitions
+3 Reposition
+2 Supply Drone
+3 Take Aim
+1 Take Cover
+3 Trained Sharpshooter
+3 Airship Engineer
+3 Automaton Bomber
+2 Force Load
+4 Incendiary Shot
+2 Rocket Jump
+1 Anathema's End
+4 Creeping Torment
+3 Mindbreak Bullet
+2 Umbra Sight
+3 Umbral Tithe
+1 Violet Haze
+
+# Material
+1 Spirit of Fire
+1 Diana, Keen Huntress
+1 Diana, Deadly Duelist
+1 Diana, Duskstalker
+1 Blastshot Pump
+1 Flash Grenade
+1 Plated Bullet
+1 Prototype Pistol
+1 Quickdraw Piercer
+1 Tasershot
+1 Penetrator Round
+1 Shadow's Twin
