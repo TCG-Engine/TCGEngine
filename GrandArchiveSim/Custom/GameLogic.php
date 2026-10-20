@@ -2290,15 +2290,7 @@ function MandatoryActivationCostBlocker($player, $sourceObject) {
             if(count(ZoneSearch("myField", cardSubtypes: ["POWERCELL"])) < 4) return "Overlord Mk III requires four Powercells to sacrifice.";
             break;
         case "f0ymeslfpw": // Slime King: banish three Slime allies with different elements from the graveyard
-            $distinctElements = [];
-            $gy = GetZone("myGraveyard");
-            for($gi = 0; $gi < count($gy); ++$gi) {
-                if($gy[$gi]->removed) continue;
-                if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
-                if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
-                $distinctElements[CardElement($gy[$gi]->CardID)] = true;
-            }
-            if(count($distinctElements) < 3) return "Slime King requires 3 Slime allies with different elements in your graveyard.";
+            if(empty(GASlimeKingEligibleGraveyard([]))) return "Slime King requires 3 Slime allies with different elements in your graveyard.";
             break;
         case "ri955ygd5v": // Devotion's Price: discard two cards
             if(ActivationHandCardsExcludingSource($player, $sourceObject) < 2) return "Devotion's Price requires two cards to discard.";
@@ -3411,17 +3403,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false, $declaredHorticou
     // different elements from the graveyard (SlimeKingCostBanish chains the three picks, then reserve).
     // activateCardPrereqs already refuses the play unless 3 distinct elements are available.
     if($obj->CardID === "f0ymeslfpw" && !$ignoreCost) {
-        $eligible = [];
-        $distinctElements = [];
-        $gy = GetZone("myGraveyard");
-        for($gi = 0; $gi < count($gy); ++$gi) {
-            if($gy[$gi]->removed) continue;
-            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
-            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
-            $eligible[] = "myGraveyard-" . $gi;
-            $distinctElements[CardElement($gy[$gi]->CardID)] = true;
-        }
-        if(count($distinctElements) < 3) {
+        $eligible = GASlimeKingEligibleGraveyard([]);
+        if(empty($eligible)) {
             SetFlashMessage("Slime King requires 3 Slime allies with different elements in your graveyard.");
             return;
         }
@@ -4179,6 +4162,57 @@ function GenericDiscardCostSpec($cardID) {
 
 // "Banish N <element> cards from your graveyard" additional costs handled by GenericGraveyardBanishCost, or null.
 // Fireblooded Oath: three fire element cards.
+// Slime King (f0ymeslfpw): "three Slime ally cards each with different elements". Each card may have several elements (Exalted
+// cards read "EXALTED,FIRE"); the selection is legal when every card can be given its own element that no other card in the
+// selection is given (a system of distinct representatives), so Fire and Exalted/Fire may both be banished.
+function GAElementsOfCard($cardID) {
+    $raw = CardElement($cardID);
+    if($raw === null || $raw === "") return [];
+    return array_values(array_filter(array_map('trim', preg_split('/[,|]/', $raw))));
+}
+
+function GAHasDistinctElementAssignment($elementSets, $index = 0, $used = []) {
+    if($index >= count($elementSets)) return true;
+    foreach($elementSets[$index] as $element) {
+        if(isset($used[$element])) continue;
+        $used[$element] = true;
+        if(GAHasDistinctElementAssignment($elementSets, $index + 1, $used)) return true;
+        unset($used[$element]);
+    }
+    return false;
+}
+
+// True when $chosen (card IDs already banished) plus some $needed more of $pool (card IDs) can form a legal selection.
+function GADistinctElementSelectionPossible($chosen, $pool, $needed) {
+    $sets = array_map('GAElementsOfCard', $chosen);
+    if(!GAHasDistinctElementAssignment($sets)) return false;
+    if($needed <= 0) return true;
+    for($i = 0; $i < count($pool); ++$i) {
+        $rest = array_slice($pool, $i + 1);
+        if(GADistinctElementSelectionPossible(array_merge($chosen, [$pool[$i]]), $rest, $needed - 1)) return true;
+    }
+    return false;
+}
+
+// Graveyard "myGraveyard-N" choices for Slime King's next banish: Slime allies that keep a legal selection of $total reachable.
+function GASlimeKingEligibleGraveyard($chosenCardIDs, $total = 3) {
+    $slimes = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if($gy[$gi]->removed) continue;
+        if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+        if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+        $slimes[$gi] = $gy[$gi]->CardID;
+    }
+    $eligible = [];
+    foreach($slimes as $gi => $cardID) {
+        $pool = [];
+        foreach($slimes as $gj => $otherID) if($gj !== $gi) $pool[] = $otherID;
+        if(GADistinctElementSelectionPossible(array_merge($chosenCardIDs, [$cardID]), $pool, $total - count($chosenCardIDs) - 1)) $eligible[] = "myGraveyard-" . $gi;
+    }
+    return $eligible;
+}
+
 // Ravishing Finale (jlgx72rfgv): two cards with floating memory ("floating" specs ignore "elements").
 function GenericGraveyardBanishCostSpec($cardID) {
     switch($cardID) {
@@ -5336,13 +5370,12 @@ $customDQHandlers["DecomposeActivationCost"] = function($player, $parts, $lastDe
 $customDQHandlers["SlimeKingCostBanish"] = function($player, $parts, $lastDecision) {
     $remainingBefore = intval($parts[0]);
     $reserveCost = intval($parts[1]);
-    $usedElements = empty($parts[2]) ? [] : array_filter(explode(",", $parts[2]));
+    $chosenCardIDs = empty($parts[2]) ? [] : array_values(array_filter(explode(",", $parts[2])));
     if($lastDecision === "-" || $lastDecision === "") return;
 
     $chosenObj = GetZoneObject($lastDecision);
     if($chosenObj === null) return;
-    $chosenElement = CardElement($chosenObj->CardID);
-    if(in_array($chosenElement, $usedElements)) return;
+    if(!in_array($lastDecision, GASlimeKingEligibleGraveyard($chosenCardIDs), true)) return;
 
     $banishedObj = MZMove($player, $lastDecision, "myBanish");
     if($banishedObj !== null) {
@@ -5351,27 +5384,17 @@ $customDQHandlers["SlimeKingCostBanish"] = function($player, $parts, $lastDecisi
     }
     // MZMove only flags the graveyard slot removed. Splice it out NOW so the next pick's candidate
     // list is built against the final graveyard indices -- otherwise the removed slot is spliced out
-    // after the MZCHOOSE below is queued and every listed "myGraveyard-N" is off by one (a
-    // duplicate-element Slime could then be chosen, and a legal one rejected).
+    // after the MZCHOOSE below is queued and every listed "myGraveyard-N" is off by one.
     DecisionQueueController::CleanupRemovedCards();
 
-    $usedElements[] = $chosenElement;
+    $chosenCardIDs[] = $chosenObj->CardID;
     $remaining = $remainingBefore - 1;
     if($remaining > 0) {
-        $eligible = [];
-        $gy = GetZone("myGraveyard");
-        for($gi = 0; $gi < count($gy); ++$gi) {
-            if($gy[$gi]->removed) continue;
-            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
-            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
-            $element = CardElement($gy[$gi]->CardID);
-            if(in_array($element, $usedElements)) continue;
-            $eligible[] = "myGraveyard-" . $gi;
-        }
-        if(count($eligible) < $remaining) return;
+        $eligible = GASlimeKingEligibleGraveyard($chosenCardIDs);
+        if(empty($eligible)) return;
         $pickNumber = 4 - $remaining;
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_Slime_ally_with_a_new_element_(" . $pickNumber . "_of_3)");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingCostBanish|" . $remaining . "|" . $reserveCost . "|" . implode(",", $usedElements), 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingCostBanish|" . $remaining . "|" . $reserveCost . "|" . implode(",", $chosenCardIDs), 100);
         return;
     }
 

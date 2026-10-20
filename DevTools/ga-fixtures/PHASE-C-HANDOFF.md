@@ -53,7 +53,7 @@ limited to GameLogic/CombatLogic/overrides misses.
 | “Non-Norm element” | Do not equate “has an element other than Norm” with “does not have Norm.” For a clause excluding Norm cards, use absence of Norm membership; for a clause requiring Norm-only, use IsNormOnlyElementProperty. Add EXALTED,NORM versus ordinary Norm and a non-Norm control before selecting a predicate for a particular card. |
 | “Non-advanced” | Use the advanced-element classification, not “has any basic element.” Exalted Fire/Norm remain advanced. The retained boundary checks establish this distinction. |
 | Enabled elements and requirements | Preserve CanPlayerUseCardElement/GetPlayerEnabledElements and multi-element requirement semantics. Membership fixes must not let Exalted cards bypass Exalted requirements. |
-| Distinct elements | Decide whether the clause counts individual elements or asks for cards of different elements. A dictionary string is not a general set identity. Slime King and its additional-cost preview/continuations must be reviewed together; overlapping element sets need explicit rules examples. |
+| Distinct elements | **Decided (2026-10-20): each card in the selection needs its own element that no other selected card is counted for (system of distinct representatives); multi-element cards are allowed. Exalted counts as an element.** Implemented for Slime King (`GASlimeKingEligibleGraveyard`, `GADistinctElementSelectionPossible`; `DevTools/test-ga-slime-king-elements.php`). Other cards with distinct-element wording have not been re-audited against this rule.
 
 Concrete remaining batches from the source review:
 
