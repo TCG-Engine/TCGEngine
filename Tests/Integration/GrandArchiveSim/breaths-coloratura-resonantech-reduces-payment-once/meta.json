@@ -1,0 +1,27 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "1ybdJi1VN5",
+            "qalnrTTPal"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "one-shot",
+            "melody"
+        ],
+        "rulesClauses": [
+            "The next Harmony or Melody card you activate this turn costs 1 less to activate."
+        ]
+    },
+    "name": "breaths-coloratura-resonantech-reduces-payment-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-19T21:35:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ybdJi1VN5",
+        "qalnrTTPal"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "1ybdJi1VN5"
+        ],
+        "mechanics": [
+            "reserve-cost",
+            "melody"
+        ],
+        "rulesClauses": [
+            "Breath's Coloratura costs 3 reserve before modifiers."
+        ]
+    },
+    "name": "breaths-coloratura-without-discount-pays-three-reserve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-19T21:35:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1ybdJi1VN5"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

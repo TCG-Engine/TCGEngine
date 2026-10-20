@@ -203,8 +203,7 @@ DECK
     ->seed('myField', 'Fabled Emerald Fatestone')
     ->seed('myField', 'Jinzhuo, Bands of Virtue')
     ->deckTop(['Capricious Lynx'])
-    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->target('myTempZone-5')
-    ->answer(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y')
+    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')
     ->tested('Jinzhuo, Bands of Virtue')
     ->register();
 
@@ -222,7 +221,6 @@ DECK
     ->seed('myField', 'Fabled Emerald Fatestone')
     ->seed('myField', 'Jinzhuo, Bands of Virtue')
     ->action(1, 10001, 'myField-2!CustomInput!Activate:0')
-    ->answer(1, 'Top=;Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,px60u5n1do')
     ->tested('Jinzhuo, Bands of Virtue')
     ->register();
 

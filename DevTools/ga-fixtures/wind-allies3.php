@@ -155,6 +155,22 @@ gaScenario('music-aficionado-costs-three-less-after-a-melody-this-turn')
     ->covers(['melody', 'cost-reduction', 'condition'], 'As long as you\'ve activated a Harmony or Melody card this turn, this card costs 3 less to activate.')
     ->register();
 
+gaScenario('music-aficionado-costs-one-after-breaths-coloratura')
+    ->deckTemplate('quiet', 'Music Aficionado')
+    ->readyFor('Music Aficionado')
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Breath\'s Coloratura')
+    ->seed('myHand', 'Music Aficionado')
+    ->castSpell('Breath\'s Coloratura', pay: 3, window: '')
+    ->play('Music Aficionado')->pay(1)
+    ->expectCardExists('myField', 'Music Aficionado', 'Coloratura is a Melody: Aficionado enters after paying only 1 reserve')
+    ->expectZoneCount('myMemory', 4, 1, 'Three reserve for Coloratura and one for Aficionado')
+    ->expectProperty('p1Field-2', 'Counters', '{"buff":1}', 'Aficionado also receives Coloratura\'s Human-entry buff')
+    ->expectDqEmpty()
+    ->tested('Music Aficionado', 'Breath\'s Coloratura')
+    ->covers(['melody', 'cost-reduction', 'condition'], 'As long as you\'ve activated a Harmony or Melody card this turn, this card costs 3 less to activate.')
+    ->register();
+
 gaScenario('quadrilles-gryphon-gets-a-buff-counter-whenever-you-activate-a-melody')
     ->deckTemplate('quiet', 'Quadrille\'s Gryphon')
     ->readyFor('Quadrille\'s Gryphon')

@@ -1,6 +1,6 @@
 [
     {
-        "step": 2,
+        "step": 1,
         "type": "card_property_equals",
         "mzId": "myField-2",
         "viewerPlayerID": 1,
@@ -10,7 +10,7 @@
         "label": "Jinzhuo returned to the field"
     },
     {
-        "step": 2,
+        "step": 1,
         "type": "card_property_equals",
         "mzId": "myField-2",
         "viewerPlayerID": 1,
@@ -20,7 +20,7 @@
         "label": "...rested"
     },
     {
-        "step": 2,
+        "step": 1,
         "type": "card_property_equals",
         "mzId": "myField-0",
         "viewerPlayerID": 1,
@@ -30,7 +30,7 @@
         "label": "No quest counters: nothing was scavenged"
     },
     {
-        "step": 2,
+        "step": 1,
         "type": "zone_count",
         "zone": "myBanish",
         "viewerPlayerID": 1,

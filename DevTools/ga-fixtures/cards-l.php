@@ -420,9 +420,7 @@ gaScenario('lesser-boon-of-kanaloa-both-discard-3')
     ->register();
 
 // --- Lesser Boon of Territories: scavenge 10 for a Domain card (ZpM7gliLxm) ---
-// The scavenge choice fires immediately once reserve is paid (see the note on
-// astral-seal-negate-activation-banish); a PASS against that pending MZCHOOSE is treated by
-// ScavengeChoose as "decline" and silently skips the scavenge instead of answering it.
+// Scavenge resolves automatically once reserve is paid.
 gaScenario('lesser-boon-of-territories-scavenge-domain')
     ->deck(<<<'DECK'
 # Material
@@ -439,7 +437,7 @@ gaScenario('lesser-boon-of-territories-scavenge-domain')
 DECK
     )
     ->seed('myHand', 'Lesser Boon of Territories')
-    ->castSpell('Lesser Boon of Territories', pay: 3, target: 'myTempZone-0')
+    ->castSpell('Lesser Boon of Territories', pay: 3, window: '')
     ->register();
 
 // --- Lightveil Agent: whenever you recover, put a buff counter on CARDNAME ---

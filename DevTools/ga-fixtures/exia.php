@@ -61,7 +61,7 @@ gaScenario('devils-lifeline-deals-unpreventable-damage-to-your-champion-and-scav
     ->readyFor('Devil\'s Lifeline')
     ->deckTop(['Dungeon Guide', 'Dungeon Guide', 'Dungeon Guide', 'Dungeon Guide', 'Crimson Rupture'])
     ->seed('myHand', 'Devil\'s Lifeline')
-    ->play('Devil\'s Lifeline')->answer(1, '3')->answer(1, 'myTempZone-0')
+    ->play('Devil\'s Lifeline')->answer(1, '3')
     ->expectDamage('p1Field-0', 3, 'Three unpreventable damage to my own champion')
     ->expectCardExists('myHand', 'Crimson Rupture', 'Scavenge 2+3 = 5: the exia card fifth from the top was found')
     ->tested('Devil\'s Lifeline')

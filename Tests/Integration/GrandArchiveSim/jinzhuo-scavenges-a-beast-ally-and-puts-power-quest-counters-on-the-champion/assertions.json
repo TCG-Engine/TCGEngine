@@ -1,6 +1,6 @@
 [
     {
-        "step": 3,
+        "step": 1,
         "type": "card_property_equals",
         "mzId": "myField-0",
         "viewerPlayerID": 1,
@@ -10,7 +10,7 @@
         "label": "Capricious Lynx has power 3: three quest counters on the champion"
     },
     {
-        "step": 3,
+        "step": 1,
         "type": "card_exists",
         "zone": "myHand",
         "viewerPlayerID": 1,
@@ -19,7 +19,7 @@
         "label": "The scavenged Beast ally is in hand"
     },
     {
-        "step": 3,
+        "step": 1,
         "type": "zone_count",
         "zone": "myBanish",
         "viewerPlayerID": 1,
@@ -28,7 +28,7 @@
         "label": "Jinzhuo banished itself as a cost"
     },
     {
-        "step": 3,
+        "step": 1,
         "type": "zone_count",
         "zone": "myField",
         "viewerPlayerID": 1,
@@ -37,16 +37,16 @@
         "label": "Jinzhuo did not return (a card was scavenged)"
     },
     {
-        "step": 3,
+        "step": 1,
         "type": "zone_count",
         "zone": "myDeck",
         "viewerPlayerID": 1,
         "value": 13,
         "semantic": true,
-        "label": "The other five revealed cards went back to the bottom"
+        "label": "First card matches: the other thirteen cards stay in the deck"
     },
     {
-        "step": 3,
+        "step": 1,
         "type": "decision_queue_empty",
         "player": "all"
     }

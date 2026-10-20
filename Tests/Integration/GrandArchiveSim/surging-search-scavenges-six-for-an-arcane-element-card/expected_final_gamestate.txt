@@ -1,8 +1,13 @@
 1
 0
-5
+10
+px60u5n1do
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
 px60u5n1do
 px60u5n1do
+em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
@@ -58,25 +63,13 @@ DpHDGaX2Pn
 m31WVJ9F04
 9gv4vm4kj3
 LeyUk5auEP
-5
-em6eEh9q8y
-em6eEh9q8y
-em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
 0
 0
 0
 0
 0
-7
-MZREARRANGE Bottom=em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,em6eEh9q8y 1 Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order 0
-CUSTOM TempZoneBottomDeckRearrangeApply 1  0
-PASSPARAMETER  99  0
-SYSTEM CardActivated_AfterAction 99  0
-PASSPARAMETER myTempZone-4 99  0
-SYSTEM Reveal_AfterAction 99  0
-CUSTOM PostResolutionCheck 200  0
+0
+0
 0
 1
 0:1<v0>MAIN<v0>1<v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>h0vBIZjzrI<v0><v0><v0>em6eEh9q8y<v1>lOlMDYL2hc<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>WyJ4OXNTcGpwUDNHIl0=<v2>1<v0><v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-0","isImbued":"NO","amount":7}<v0><v0>{}<v0>2<v0>{}<v0>72<v0>{"cards":{"1":{"px60u5n1do":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":6,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}},"2":{"em6eEh9q8y":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":[],"combatEvents":[]}

@@ -1,6 +1,6 @@
 1
 0
-10
+16
 hJ2xh9lNMR
 4hbW1LvBRr
 em6eEh9q8y
@@ -11,6 +11,12 @@ em6eEh9q8y
 4hbW1LvBRr
 n8wyfG9hbY
 px60u5n1do
+vajycopxgf
+vajycopxgf
+vajycopxgf
+vajycopxgf
+vajycopxgf
+vajycopxgf
 9
 px60u5n1do
 em6eEh9q8y
@@ -62,24 +68,13 @@ DpHDGaX2Pn
 m31WVJ9F04
 9gv4vm4kj3
 LeyUk5auEP
-6
-vajycopxgf
-vajycopxgf
-vajycopxgf
-vajycopxgf
-vajycopxgf
-vajycopxgf
 0
 0
 0
 0
 0
-5
-MZREARRANGE Bottom=vajycopxgf,vajycopxgf,vajycopxgf,vajycopxgf,vajycopxgf,vajycopxgf 1 Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order 0
-CUSTOM TempZoneBottomDeckRearrangeApply 1  0
-PASSPARAMETER  99  0
-SYSTEM CardActivated_AfterAction 99  0
-CUSTOM PostResolutionCheck 200  0
+0
+0
 0
 1
 0:1<v0>MAIN<v0>1<v0><v0>px60u5n1do<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>n8wyfG9hbY<v1>4hbW1LvBRr<v0><v0><v0>vajycopxgf<v1>vajycopxgf<v1>vajycopxgf<v1>vajycopxgf<v1>vajycopxgf<v1>vajycopxgf<v1>hJ2xh9lNMR<v1>4hbW1LvBRr<v1>em6eEh9q8y<v1>4hbW1LvBRr<v1>4hbW1LvBRr<v1>px60u5n1do<v1>em6eEh9q8y<v1>4hbW1LvBRr<v1>n8wyfG9hbY<v1>px60u5n1do<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJfb3ZlcnJpZGVzIjp7ImNsYXNzZXMiOiJDTEVSSUMsVEFNRVIifX0=<v2>WyJwTml5YUdsSWU3Il0=<v2>1<v0><v0><v0><v0>n8wyfG9hbY<v1>4hbW1LvBRr<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>4hbW1LvBRr<v1>px60u5n1do<v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>4hbW1LvBRr<v1>px60u5n1do<v1>px60u5n1do<v1>4hbW1LvBRr<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-0","isImbued":"NO","amount":7}<v0><v0>{}<v0>2<v0>{}<v0>72<v0>{"cards":{"1":{"px60u5n1do":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"n8wyfG9hbY":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}},"2":{"n8wyfG9hbY":{"drawn":4,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"4hbW1LvBRr":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":[],"combatEvents":[]}

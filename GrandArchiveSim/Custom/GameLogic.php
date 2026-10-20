@@ -18856,79 +18856,76 @@ function ScavengeForAeneanSpell($player, $amount, $callback = "") {
     ScavengeForProperty($player, $amount, "aeneanSpell", "Aenean_Spell", $callback);
 }
 
+// Resolve immediately: reveal only through the first match, then randomize the misses.
+// No temporary zone or decisions are needed, so consecutive scavenges cannot overwrite one another.
 function ScavengeForProperty($player, $amount, $kind, $value, $callback = "") {
+    $limit = max(0, intval($amount));
+    if($limit === 0) return;
+
     $deck = GetDeck($player);
-    if(empty($deck)) return;
-
-    ClearMyTempZoneCards($player);
-    $revealCount = min(intval($amount), count($deck));
-    if($revealCount <= 0) return;
-
     $revealedIDs = [];
-    for($i = 0; $i < $revealCount; ++$i) {
-        if(!isset($deck[$i]) || $deck[$i]->removed) continue;
-        $revealedIDs[] = $deck[$i]->CardID;
-    }
-    for($i = $revealCount - 1; $i >= 0; --$i) {
-        MZMove($player, "myDeck-" . $i, "myTempZone");
-    }
-    if(!empty($revealedIDs)) {
-        $existing = GetFlashMessage();
-        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
-            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
-        } else {
-            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
+    $misses = [];
+    $chosenCardID = "";
+    foreach($deck as $i => $obj) {
+        if($obj === null || $obj->removed) continue;
+        $revealedIDs[] = $obj->CardID;
+        if(ScavengeCardMatches($obj->CardID, $kind, $value)) {
+            $chosenCardID = $obj->CardID;
+            MZMove($player, "myDeck-" . $i, "myHand");
+            break;
         }
+        $misses[] = $i;
+        if(count($revealedIDs) >= $limit) break;
+    }
+    if(empty($revealedIDs)) return;
+
+    $existing = GetFlashMessage();
+    if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+        SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
+    } else {
+        SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
     }
 
-    $choices = ScavengeTempZoneChoices($player, $kind, $value);
-    if(empty($choices)) {
-        QueueTempZoneBottomDeckRearrange($player);
-        return;
-    }
+    // Native randomness is seeded by GameSeedNativeRandom for reproducible action replay.
+    shuffle($misses);
+    foreach($misses as $i) MZMove($player, "myDeck-" . $i, "myDeck");
+    DecisionQueueController::CleanupRemovedCards();
 
-    $tooltipValue = str_replace([" ", ",", "'", ":"], ["_", "", "", ""], $value);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1,
-        tooltip:"Choose_scavenged_" . $tooltipValue . "_card");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ScavengeChoose|" . $callback, 1);
+    // Callbacks see the completed scavenge and the selected card already in hand.
+    if($chosenCardID !== "" && $callback !== "" && function_exists($callback)) {
+        $callback($player, $chosenCardID);
+    }
 }
 
-function ScavengeTempZoneChoices($player, $kind, $value) {
-    $tempZone = GetTempZone($player);
-    $choices = [];
-    for($i = count($tempZone) - 1; $i >= 0; --$i) {
-        if($tempZone[$i]->removed) continue;
-        $cardID = $tempZone[$i]->CardID;
-        $matches = false;
-        switch($kind) {
-            case "type":
-                $matches = PropertyContains(CardType($cardID), $value);
-                break;
-            case "subtype":
-                $matches = PropertyContains(CardSubtypes($cardID), $value);
-                break;
-            case "element":
-                $matches = CardElement($cardID) === $value;
-                break;
-            case "allySubtype":
-                $matches = PropertyContains(CardType($cardID), "ALLY") && PropertyContains(CardSubtypes($cardID), $value);
-                break;
-            case "aeneanSpell":
-                $matches = IsAeneanSpellCardID($cardID);
-                break;
-            case "allyName":
-                $matches = PropertyContains(CardType($cardID), "ALLY") && CardName($cardID) === $value;
-                break;
-            case "resonatorNonAdvanced3":
-                $matches = PropertyContains(CardType($cardID), "ALLY")
-                    && PropertyContains(CardSubtypes($cardID), "RESONATOR")
-                    && !IsAdvancedElementCard($cardID)
-                    && intval(CardCost_reserve($cardID)) <= 3;
-                break;
-        }
-        if($matches) $choices[] = "myTempZone-" . $i;
+function ScavengeCardMatches($cardID, $kind, $value) {
+    $matches = false;
+    switch($kind) {
+        case "type":
+            $matches = PropertyContains(CardType($cardID), $value);
+            break;
+        case "subtype":
+            $matches = PropertyContains(CardSubtypes($cardID), $value);
+            break;
+        case "element":
+            $matches = CardElement($cardID) === $value;
+            break;
+        case "allySubtype":
+            $matches = PropertyContains(CardType($cardID), "ALLY") && PropertyContains(CardSubtypes($cardID), $value);
+            break;
+        case "aeneanSpell":
+            $matches = IsAeneanSpellCardID($cardID);
+            break;
+        case "allyName":
+            $matches = PropertyContains(CardType($cardID), "ALLY") && CardName($cardID) === $value;
+            break;
+        case "resonatorNonAdvanced3":
+            $matches = PropertyContains(CardType($cardID), "ALLY")
+                && PropertyContains(CardSubtypes($cardID), "RESONATOR")
+                && !IsAdvancedElementCard($cardID)
+                && intval(CardCost_reserve($cardID)) <= 3;
+            break;
     }
-    return $choices;
+    return $matches;
 }
 
 function IsAeneanSpellCardID($cardID) {
@@ -19013,22 +19010,6 @@ function ChampionDamageCounters($player) {
 function GetChampionDamage($player) {
     return ChampionDamageCounters($player);
 }
-
-$customDQHandlers["ScavengeChoose"] = function($player, $parts, $lastDecision) {
-    $callback = $parts[0] ?? "";
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        $chosenObj = GetZoneObjectForPlayerPerspective($player, $lastDecision);
-        if($chosenObj !== null && !$chosenObj->removed) {
-            $chosenCardID = $chosenObj->CardID;
-            Reveal($player, $lastDecision);
-            MZMove($player, $lastDecision, "myHand");
-            if($callback !== "" && function_exists($callback)) {
-                $callback($player, $chosenCardID);
-            }
-        }
-    }
-    QueueTempZoneBottomDeckRearrange($player);
-};
 
 function EdgeOfTommorrowScavenge($player) {
     ScavengeForType($player, 8, "DOMAIN", "EdgeOfTommorrowScavenged");

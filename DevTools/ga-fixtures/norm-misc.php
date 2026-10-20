@@ -91,7 +91,7 @@ if (!function_exists('gaBusinessCard')) {
 }
 
 gaBusinessCard('business-card-sacrifice-scavenges-eight-for-the-chosen-ally-name', 7, false)
-    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)->answer(1, 'myTempZone-0')
+    ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(2)
     ->expectCardExists('myHand', 'Banner Raccoon', 'Scavenged the chosen ally (it is within the top eight cards)')
     ->expectCardExists('myGraveyard', 'Business Card', 'The card was sacrificed')
     ->tested('Business Card')
@@ -99,7 +99,7 @@ gaBusinessCard('business-card-sacrifice-scavenges-eight-for-the-chosen-ally-name
     ->register();
 
 gaBusinessCard('business-card-with-a-phone-item-scavenges-twenty-instead', 9, true)
-    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->pay(2)->answer(1, 'myTempZone-9')
+    ->action(1, 10001, 'myField-2!CustomInput!Activate:0')->pay(2)
     ->expectCardExists('myHand', 'Banner Raccoon', 'The Phone item widens the scavenge to twenty: the Raccoon ten cards down was found')
     ->tested('Business Card')
     ->covers(['activated-ability', 'scavenge', 'condition'], 'If you control a Phone item, **scavenge 20** for an ally card with the chosen name instead.')
@@ -218,7 +218,7 @@ gaScenario('forese-activating-a-melody-rests-it-to-scavenge-a-resonator-onto-the
     ->deckTop(['Performance Enthusiast'])
     ->seed('myField', 'Forese, Fervid Cantor')
     ->seed('myHand', 'Belted Tune')
-    ->play('Belted Tune')->pay(2)->target('myField-1')->answer(1, 'YES')->answer(1, 'myTempZone-4')
+    ->play('Belted Tune')->pay(2)->target('myField-1')->answer(1, 'YES')
     ->expectCardExists('myField', 'Performance Enthusiast', 'The scavenged Resonator ally was put onto the field')
     ->expectProperty('p1Field-1', 'Status', '1', 'Forese rested')
     ->tested('Forese, Fervid Cantor')

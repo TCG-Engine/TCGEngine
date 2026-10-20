@@ -1,8 +1,13 @@
 1
 0
-5
+10
+px60u5n1do
+em6eEh9q8y
+em6eEh9q8y
+em6eEh9q8y
 px60u5n1do
 px60u5n1do
+em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
 em6eEh9q8y
@@ -58,25 +63,13 @@ DpHDGaX2Pn
 m31WVJ9F04
 9gv4vm4kj3
 LeyUk5auEP
-5
-em6eEh9q8y
-em6eEh9q8y
-em6eEh9q8y
-px60u5n1do
-em6eEh9q8y
 0
 0
 0
 0
 0
-7
-MZREARRANGE Bottom=em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,em6eEh9q8y 1 Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order 0
-CUSTOM TempZoneBottomDeckRearrangeApply 1  0
-PASSPARAMETER  99  0
-SYSTEM Enter_AfterAction 99  0
-PASSPARAMETER myTempZone-4 99  0
-SYSTEM Reveal_AfterAction 99  0
-CUSTOM PostResolutionCheck 200  0
+0
+0
 0
 1
 0:Pregame Starting Champion<vname>1<v0>WU<v0>1<v0>-<v0><v0><v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0>MZCHOOSE<v2>myMaterial-0<v2>1<v2>Reveal_your_starting_Lv_0_champion<v2>0<v1>CUSTOM<v2>PREGAME_CHOOSE_STARTING_CHAMPION|2<v2>1<v2><v2>0<v0>0<v0><v0><v0>LMyKyVC2O9<v1>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0><v0><v0><v0><v0><v0><v0><v0>em6eEh9q8y<v1>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>px60u5n1do<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v1>em6eEh9q8y<v0><v0>0<v0><v0><v0>LMyKyVC2O9<v1>DpHDGaX2Pn<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0><v0><v0><v0><v0>-<v0><v0>-<v0>0<v0>-<v0>72<v0>-

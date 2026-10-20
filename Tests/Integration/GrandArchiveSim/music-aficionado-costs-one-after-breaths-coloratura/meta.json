@@ -1,0 +1,27 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "FDWU3lJg0u",
+            "1ybdJi1VN5"
+        ],
+        "mechanics": [
+            "melody",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you've activated a Harmony or Melody card this turn, this card costs 3 less to activate."
+        ]
+    },
+    "name": "music-aficionado-costs-one-after-breaths-coloratura",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-19T21:37:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FDWU3lJg0u",
+        "1ybdJi1VN5"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

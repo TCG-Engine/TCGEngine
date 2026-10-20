@@ -669,8 +669,8 @@ gaScenario('rondo-of-the-wind-scavenge-six-puts-the-ally-in-hand-and-the-rest-on
     ->readyFor('Rondo of the Wind', classBonus: true)
     ->deckTop(['Nascent Blast', 'Nascent Blast', 'Nascent Blast', 'Gray Wolf'])
     ->seed('myHand', 'Rondo of the Wind')
-    ->castSpell('Rondo of the Wind', pay: 3, window: 'me')->answer(1, 'myTempZone-2')
-    ->expectCardExists('myHand', 'Gray Wolf', 'The ally 4th from the top was found within six cards (the revealed cards are offered from a temp zone)')
+    ->castSpell('Rondo of the Wind', pay: 3, window: 'me')
+    ->expectCardExists('myHand', 'Gray Wolf', 'The ally 4th from the top was found within six cards automatically')
     ->tested('Rondo of the Wind')
     ->covers(['scavenge', 'class-bonus', 'cost-reduction', 'melody'], '[Class Bonus] This card costs 1 less to activate.', '**Scavenge 6** for an ally card.')
     ->register();
