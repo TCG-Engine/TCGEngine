@@ -8875,6 +8875,78 @@ $customDQHandlers["AssassinsMantlePrevent"] = function($player, $parts, $lastDec
     $resumeDamage($remainingAmount);
 };
 
+// Forged Scalemail (7lr2jiu66i): the controller's answer to "banish it to prevent 2 of that damage and draw a card?". OnDealDamage stopped before applying
+// anything and recorded the Scalemails it had asked; this banishes (YES, revalidated against the live object), prevents, draws once, and resumes the damage.
+// Payload: scalemailUID|source|target|damagePlayer|amount|targetUID|sourceUID|askedScalemailUIDs.
+$customDQHandlers["ScalemailPrevent"] = function($player, $parts, $lastDecision) {
+    $scalemailUID = intval($parts[0] ?? "0");
+    $source = $parts[1] ?? "";
+    $target = $parts[2] ?? "";
+    $damagePlayer = intval($parts[3] ?? "0");
+    if($damagePlayer <= 0) $damagePlayer = $player;
+    $amount = intval($parts[4] ?? "0");
+    $targetUID = intval($parts[5] ?? "0");
+    $sourceUID = intval($parts[6] ?? "0");
+    $asked = array_values(array_filter(array_map('intval', explode(",", $parts[7] ?? "")), fn($uid) => $uid > 0));
+    if($amount <= 0 || $target === "") return;
+
+    global $playerID;
+    // Resolve the damage participants again from the damaging player's perspective: banishing the armor compacts the field.
+    $resume = function($remaining) use ($damagePlayer, $source, $target, $targetUID, $sourceUID, $asked) {
+        global $playerID;
+        $savedPlayerID = $playerID;
+        $playerID = $damagePlayer;
+        $resumeTarget = $targetUID > 0 ? FindFieldMzByUniqueID($targetUID) : $target;
+        $resumeSource = $sourceUID > 0 ? FindFieldMzByUniqueID($sourceUID) : $source;
+        if($resumeTarget !== "") {
+            $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+            if($combatAttackerPlayer === $damagePlayer) SyncCombatStateToFieldUniqueIDs();
+            OnDealDamage($damagePlayer, $resumeSource, $resumeTarget, $remaining, true, $asked);
+        }
+        $playerID = $savedPlayerID;
+    };
+
+    if($lastDecision !== "YES") {
+        $resume($amount);
+        return;
+    }
+
+    // YES: the same live, unsuppressed, still-linked Scalemail, or nothing is banished and the damage goes on unchanged.
+    $savedPlayerID = $playerID;
+    $playerID = $damagePlayer;
+    $scalemailMZ = FindFieldMzByUniqueID($scalemailUID);
+    $currentTarget = $targetUID > 0 ? FindFieldMzByUniqueID($targetUID) : $target;
+    $valid = false;
+    if($scalemailMZ !== "" && $currentTarget !== "") {
+        $scalemailObj = GetZoneObject($scalemailMZ);
+        $targetObj = GetZoneObject($currentTarget);
+        if($scalemailObj !== null && $targetObj !== null && !HasNoAbilities($scalemailObj)) {
+            foreach(GetLinkedCards($targetObj) as $linkedObj) {
+                if(intval($linkedObj->UniqueID ?? 0) === $scalemailUID) { $valid = true; break; }
+            }
+        }
+    }
+    if(!$valid) {
+        $playerID = $savedPlayerID;
+        $resume($amount);
+        return;
+    }
+    $scalemailController = intval($scalemailObj->Controller);
+    MZMove($scalemailController, NormalizeMZForPlayerPerspective($scalemailController, $scalemailMZ), "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $playerID = $savedPlayerID;
+    Draw($scalemailController, 1);
+    $remaining = $amount - min(2, $amount);
+    if($remaining <= 0) {
+        $playerID = $damagePlayer;
+        $preventedTarget = $targetUID > 0 ? FindFieldMzByUniqueID($targetUID) : $target;
+        if($preventedTarget !== "") QueuePreventedDamageAnimation(ConvertMzIDToAbsolute($preventedTarget, $damagePlayer), 500, true);
+        $playerID = $savedPlayerID;
+        return;
+    }
+    $resume($remaining);
+};
+
 // ============================================================================
 // Spirit Blade: Ensoul (CQ1bxUyi0Q) — iteratively put Sword weapon cards
 // with cost ≤ 1 from banishment or material deck onto the field.

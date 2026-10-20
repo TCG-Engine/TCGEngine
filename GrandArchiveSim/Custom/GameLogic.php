@@ -18900,6 +18900,11 @@ function ScavengeForProperty($player, $amount, $kind, $value, $callback = "") {
 function ScavengeCardMatches($cardID, $kind, $value) {
     $matches = false;
     switch($kind) {
+        case "subtypeAny":
+            foreach(explode(",", $value) as $subtype) {
+                if(PropertyContains(CardSubtypes($cardID), trim($subtype))) return true;
+            }
+            break;
         case "type":
             $matches = PropertyContains(CardType($cardID), $value);
             break;

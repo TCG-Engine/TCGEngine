@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "RWJ0fztQK2"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Scavenge 10 for a Harmony or Melody card."
+        ]
+    },
+    "name": "lesser-boon-virelai-scavenges-harmony",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:16:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "RWJ0fztQK2"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

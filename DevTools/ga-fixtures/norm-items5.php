@@ -43,21 +43,74 @@ gaNormItem('crimson-protective-trinket-banish-banishes-wind-cards-among-two-rand
 
 // ---- Links: Forged Scalemail / Protective Helm / Prototype Shield ----
 
-gaScenario('forged-scalemail-linked-unit-damage-may-banish-it-to-prevent-two-and-draw')
-    ->deckTemplate('quiet', 'Dungeon Guide')
-    ->readyFor('Forged Scalemail')
-    ->seed('myField', 'Giant Tortoise')
-    ->patch('myField-1', ['Subcards' => [GaScenario::id('Forged Scalemail')]])
-    ->seed('myField', 'Forged Scalemail')
-    ->patch('myField-2', ['Counters' => ['linkedToAlly' => GaScenario::id('Giant Tortoise')]])
-    ->seed('myField', 'Lumbering Steed', player: 2, properties: ['Status' => 2])
-    ->endTurn()
-    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, '-')
+const GA_SCALEMAIL_TEXT = 'If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage and draw a card.';
+
+// P1's Giant Tortoise (linked Forged Scalemail) is attacked by P2's Lumbering Steed (3 POWER); P1 declines to retaliate and then answers the Scalemail offer.
+function gaScalemailCombat(string $slug) {
+    return gaScenario($slug)
+        ->deckTemplate('quiet', 'Dungeon Guide')
+        ->readyFor('Forged Scalemail')
+        ->seed('myField', 'Giant Tortoise')
+        ->patch('myField-1', ['Subcards' => [GaScenario::id('Forged Scalemail')]])
+        ->seed('myField', 'Forged Scalemail')
+        ->patch('myField-2', ['Counters' => ['linkedToAlly' => GaScenario::id('Giant Tortoise')]])
+        ->seed('myField', 'Lumbering Steed', player: 2, properties: ['Status' => 2])
+        ->endTurn()
+        ->attack('myField-1', 'theirField-1', player: 2)->answer(1, '-')
+        ->expectProperty('p1Field-1', 'Damage', '0', 'Combat damage waits for the Scalemail answer', step: 4);
+}
+
+gaScalemailCombat('forged-scalemail-linked-unit-damage-may-banish-it-to-prevent-two-and-draw')
+    ->answer(1, 'YES')
     ->expectDamage('p1Field-1', 1, 'The Steed\'s 3 damage was reduced by 2')
     ->expectCardExists('myBanish', 'Forged Scalemail', 'The Scalemail banished itself')
     ->expectZoneCount('myHand', 8, 1, 'A card was drawn')
+    ->expectDqEmpty()
     ->tested('Forged Scalemail')
-    ->covers(['link', 'prevention', 'draw', 'optional-choice', 'banish-self'], 'If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage and draw a card.')
+    ->covers(['link', 'prevention', 'draw', 'optional-choice', 'banish-self'], GA_SCALEMAIL_TEXT)
+    ->register();
+
+gaScalemailCombat('forged-scalemail-declined-keeps-the-armor-and-takes-all-the-damage')
+    ->answer(1, 'NO')
+    ->expectDamage('p1Field-1', 3, 'Declined: the full 3 damage lands')
+    ->expectCardExists('myField', 'Forged Scalemail', 'The Scalemail stays on the field')
+    ->expectZoneCount('myHand', 7, 1, 'Nothing was drawn')
+    ->expectDqEmpty()
+    ->tested('Forged Scalemail')
+    ->covers(['link', 'optional-choice', 'condition'], GA_SCALEMAIL_TEXT)
+    ->register();
+
+// Non-combat damage: P1 sets their own linked Giant Tortoise ablaze (4 damage). Nothing happens until the Scalemail controller answers.
+function gaScalemailSpell(string $slug) {
+    return gaScenario($slug)
+        ->deckTemplate('quiet', 'Dungeon Guide')
+        ->readyFor('Set Ablaze')
+        ->seed('myField', 'Giant Tortoise')
+        ->patch('myField-1', ['Subcards' => [GaScenario::id('Forged Scalemail')]])
+        ->seed('myField', 'Forged Scalemail')
+        ->patch('myField-2', ['Counters' => ['linkedToAlly' => GaScenario::id('Giant Tortoise')]])
+        ->seed('myHand', 'Set Ablaze')
+        ->castSpell('Set Ablaze', pay: 2, target: 'myField-1')
+        ->expectProperty('p1Field-1', 'Damage', '0', 'Nothing is dealt, banished or drawn before the answer', step: 4)
+        ->expectProperty('p1Field-2', 'CardID', GaScenario::id('Forged Scalemail'), 'The Scalemail is still on the field while the offer is open', step: 4);
+}
+
+gaScalemailSpell('forged-scalemail-non-combat-damage-waits-for-the-answer-then-prevents-two')
+    ->answer(1, 'YES')
+    ->expectDamage('p1Field-1', 2, '4 damage, 2 prevented')
+    ->expectCardExists('myBanish', 'Forged Scalemail', 'Banished by the accepted offer')
+    ->expectDqEmpty()
+    ->tested('Forged Scalemail')
+    ->covers(['link', 'prevention', 'draw', 'optional-choice'], GA_SCALEMAIL_TEXT)
+    ->register();
+
+gaScalemailSpell('forged-scalemail-non-combat-damage-declined-deals-all-four')
+    ->answer(1, 'NO')
+    ->expectDamage('p1Field-1', 4, 'Declined: all 4 damage lands')
+    ->expectCardExists('myField', 'Forged Scalemail', 'The Scalemail stays')
+    ->expectDqEmpty()
+    ->tested('Forged Scalemail')
+    ->covers(['link', 'optional-choice', 'condition'], GA_SCALEMAIL_TEXT)
     ->register();
 
 gaScenario('prototype-shield-class-bonus-prevents-three-damage-to-the-linked-unit-while-it-is-attacking')

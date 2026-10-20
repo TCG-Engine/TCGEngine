@@ -1,0 +1,39 @@
+{
+  "root": "GrandArchiveSim",
+  "cards": {
+    "gOus3YnrRq": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "Draw($player, 7);"
+      }
+    ],
+    "RWJ0fztQK2": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "ScavengeForProperty($player, 10, \"subtypeAny\", \"HARMONY,MELODY\");"
+      }
+    ],
+    "j0zgnD8pP5": [
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "GAPutFieldGroup($player, [\"8hqHAU0Xj6\", \"8hqHAU0Xj6\"], true);"
+      },
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj && ($subjectObj->UniqueID ?? null) !== ($sourceObj->UniqueID ?? null)) return 0;\nif($subjectObj->CardID !== \"j0zgnD8pP5\") return 0;\n$count = 0;\nforeach(GetField($player) as $obj) {\n    if($obj !== null && !$obj->removed && PropertyContains(EffectiveCardSubtypes($obj), \"FRACTAL\")) ++$count;\n}\nreturn -3 * $count;"
+      }
+    ],
+    "hiN2g99FLF": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\nif(empty($targets)) return;\n$choices = implode(\"&\", $targets);\n$target = await $player.MZChoose($choices, \"Choose_an_ally_for_Unstable_Voltage\");\n$damage = EngineRandomInt(1, 6) + EngineRandomInt(1, 6);\nDealDamage($player, $mzID, $target, $damage);"
+      }
+    ],
+    "2hlW5LWSTe": [
+      {
+        "macroName": "OnAttack",
+        "abilityCode": "$memory = ZoneSearch(\"myMemory\");\nif(empty($memory)) return;\n$answer = await $player.YesNo(\"Banish_a_random_memory_card_to_scavenge?\");\nif($answer !== \"YES\") return;\n$memory = ZoneSearch(\"myMemory\");\nif(empty($memory)) return;\n$chosen = $memory[EngineRandomInt(0, count($memory) - 1)];\n$card = GetZoneObject($chosen);\n$amount = 2 + max(0, intval(CardCost_reserve($card->CardID)));\n$moved = MZMove($player, $chosen, \"myBanish\");\nif($moved !== null) ScavengeForElement($player, $amount, \"ARCANE\");"
+      }
+    ]
+  }
+}

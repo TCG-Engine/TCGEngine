@@ -4037,7 +4037,7 @@ function IsCombatDamageFrom($source) {
         || $sourceUID === intval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? "0");
 }
 
-function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
+function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false, $scalemailAsked = []) {
     $originalAmount = intval($amount);
     $targetObj = &GetZoneObject($target);
     if($targetObj === null) return; // Target no longer on the field (e.g. stale mzID after redirect)
@@ -4068,6 +4068,25 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 DecisionQueueController::AddDecision($targetController, "CUSTOM", "AssassinsMantlePrevent|$mantleMZ|$source|$target|$player|$amount", 1);
                 return;
             }
+        }
+    }
+
+    // Forged Scalemail (7lr2jiu66i): "If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage
+    // and draw a card." The choice is the Scalemail controller's, so it is asked before any damage is applied (like Assassin's Mantle above) and the
+    // damage resumes from ScalemailPrevent with the Scalemails already asked recorded, so each is offered once. Nothing is banished, prevented or drawn
+    // until the answer.
+    if($amount > 0 && is_array($scalemailAsked)) {
+        foreach(GetLinkedCards($targetObj) as $scalemailObj) {
+            if($scalemailObj->CardID !== "7lr2jiu66i" || HasNoAbilities($scalemailObj)) continue;
+            $scalemailUID = intval($scalemailObj->UniqueID ?? 0);
+            if($scalemailUID <= 0 || in_array($scalemailUID, $scalemailAsked, true)) continue;
+            $scalemailController = intval($scalemailObj->Controller);
+            $targetUID = intval(GetFieldObjectUniqueID($target, $player) ?? 0);
+            $sourceUID = intval(GetFieldObjectUniqueID($source, $player) ?? 0);
+            DecisionQueueController::AddDecision($scalemailController, "YESNO", "-", 1, tooltip:"Banish_Forged_Scalemail_to_prevent_2_damage_and_draw?");
+            DecisionQueueController::AddDecision($scalemailController, "CUSTOM",
+                "ScalemailPrevent|$scalemailUID|$source|$target|$player|$amount|$targetUID|$sourceUID|" . implode(",", array_merge($scalemailAsked, [$scalemailUID])), 1);
+            return;
         }
     }
 
@@ -4691,16 +4710,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                         }
                     }
                     break;
-                case "7lr2jiu66i": // Forged Scalemail: may banish to prevent 2 and draw a card
-                    {
-                        $prevented = min(2, $amount);
-                        $amount -= $prevented;
-                        $smController = $linkedObj->Controller;
-                        $linkedMZ = $linkedObj->GetMzID();
-                        MZMove($smController, NormalizeMZForPlayerPerspective($smController, $linkedMZ), "myBanish");
-                        DecisionQueueController::CleanupRemovedCards();
-                        Draw($smController, 1);
-                    }
+                case "7lr2jiu66i": // Forged Scalemail: the optional banish/prevent/draw is offered before damage (ScalemailPrevent)
                     break;
                 case "labt8hvoww": // Shield of Parvati: prevent 2 and sacrifice
                     {

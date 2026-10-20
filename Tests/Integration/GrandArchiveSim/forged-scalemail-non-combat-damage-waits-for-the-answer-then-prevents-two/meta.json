@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "7lr2jiu66i"
+        ],
+        "mechanics": [
+            "link",
+            "prevention",
+            "draw",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to linked unit, you may banish Forged Scalemail. If you do, prevent 2 of that damage and draw a card."
+        ]
+    },
+    "name": "forged-scalemail-non-combat-damage-waits-for-the-answer-then-prevents-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:12:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7lr2jiu66i"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}
