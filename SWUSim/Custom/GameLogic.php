@@ -21952,6 +21952,7 @@ function SWUComputeActionsData(int $player): array {
         'fourthAvailable'     => false,
         'restoreAmount'       => 0,
         'planScry'            => 0,
+        'extraBaseHp'         => 0,
         'houseRules'          => [],
         'fourthState'         => '',
         'counterTaken'        => false,
@@ -21972,6 +21973,7 @@ function SWUComputeActionsData(int $player): array {
         $data['fourthAvailable'] = !$tookCounter && SWUFourthCounterState() === 'AVAILABLE';
         $data['restoreAmount']   = intval(SWUHouseRule('takeRestore') ?? 0);
         $data['planScry']        = intval(SWUHouseRule('planScry') ?? 0);   // Plan's tooltip: "scry N" instead of draw 1, bottom 1
+        $data['extraBaseHp']     = intval(SWUHouseRule('extraBaseHp') ?? 0);   // > 0: full-size base cards show their max-HP pip
         $data['houseRules']      = SWUHouseRuleRows();                     // the board's House Rules chip
         // Who holds the 4th counter ('AVAILABLE' | 'P{n}' | ''), for EVERY viewer — the chip's list shows it, since only
         // the active seat ever sees the Credit/Restore button.

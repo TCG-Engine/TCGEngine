@@ -382,6 +382,14 @@ body.swu-home .swu-mb-leader .swu-mb-cardicon { width: 13px; height: 13px; }
     color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000;
     font: 800 8px/1 var(--swu-font-label, sans-serif); }
 body.swu-home .swu-mb-basehp { top: -7px; width: 18px; height: 20px; font-size: 11px; }
+/* The same pip on a FULL-SIZE base card, over its printed-HP corner (swuRenderBaseMaxHpPip — Extra Base HP only).
+   Sized as a share of the card (the card element is what the player sees; the <img> is scaled + clipped inside it);
+   the font size is set from the card's width in JS. Above the art, below nothing interactive (click-through). */
+.swu-basehp-pip { position: absolute; left: 1.2%; top: 2.5%; width: 10%; aspect-ratio: 12 / 13; z-index: 3;
+    pointer-events: none; display: flex; align-items: center; justify-content: center;
+    background: url('./Assets/Icons/swusim-hp_v2.png') center / 100% 100% no-repeat;
+    color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000; font-weight: 800; line-height: 1;
+    font-family: var(--swu-font-label, sans-serif); }
 /* ── Base health bar: New Petranaki HUD depth (spec 2026-10-08) ────────────────────────────────────
    The main menu's chamfer primitive (SharedUI/Sites/SWUSim/css/swusim-menu-2.css, .ch / .inwrap):
    corners cut top-left / bottom-right, a 1px WHOLE-PX steel rim (the menu's --rim-hi / --rim-lo), and a
@@ -2471,6 +2479,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); updateHouseRulesChip(); refreshActionGlows();
         swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
         swuRenderBaseHealth('my'); swuRenderBaseHealth('their');
+        swuRenderBaseMaxHpPip('my'); swuRenderBaseMaxHpPip('their');
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
@@ -4658,6 +4667,29 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuHbPlace(box, which, card);   // loaded, or failed (complete with no naturalWidth): place from the card
     }
     window.swuRenderBaseHealth = swuRenderBaseHealth;
+    // Twin Suns house rule "Extra Base HP": the full-size base card's art prints its ORIGINAL HP (27), but the base
+    // really has 37. The same blue HP pip the Home Panel tiles use goes over that printed corner, showing the max
+    // (PrintedHP is already printed + bonus). Only while the rule is on — otherwise the printed number is right and
+    // nothing is drawn, so every other game (and all of 2-player) is unchanged. Re-applied on every data change,
+    // because the zone renderer rebuilds the card element.
+    function swuRenderBaseMaxHpPip(which) {
+        var card = document.getElementById(which + 'Base-0');
+        if (!card) return;
+        var pip = card.querySelector('.swu-basehp-pip');
+        var extra = parseInt(((window.myActionsData || {}).extraBaseHp), 10) || 0;
+        var o = (extra > 0 && typeof swuParseZoneCard === 'function') ? swuParseZoneCard(window[which + 'BaseData'] || '') : null;
+        var hp = o ? parseInt(o.PrintedHP, 10) : NaN;
+        if (!(extra > 0) || !isFinite(hp) || hp <= 0) { if (pip) pip.remove(); return; }
+        if (!pip) {
+            pip = document.createElement('span');
+            pip.className = 'swu-basehp-pip';
+            card.appendChild(pip);
+        }
+        if (pip.textContent !== String(hp)) pip.textContent = String(hp);
+        pip.title = 'Base HP ' + hp;
+        var w = card.getBoundingClientRect().width;
+        if (w > 0) pip.style.fontSize = Math.max(9, Math.round(w * 0.06)) + 'px';
+    }
     function swuHbPlace(box, which, card) {
         var ir = card.getBoundingClientRect();
         if (!ir.width) return;

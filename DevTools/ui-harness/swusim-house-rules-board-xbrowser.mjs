@@ -50,6 +50,14 @@ const state = (page) => page.evaluate(() => {
     // The chip's WRAPPER must take no space in a game without rules (it is a flex item in the round row).
     wrapShown: !!(chip && chip.parentElement && getComputedStyle(chip.parentElement).display !== 'none'),
     fourth: vis(fourth), fourthText: fourth ? fourth.textContent.trim() : '',
+    // The max-HP pip on the full-size base card (Extra Base HP): text, visible, and inside the card's top-left.
+    myPip: (() => {
+      const card = document.getElementById('myBase-0');
+      const pip = card && card.querySelector('.swu-basehp-pip');
+      if (!pip || !vis(pip)) return null;
+      const c = card.getBoundingClientRect(), r = pip.getBoundingClientRect();
+      return { text: pip.textContent.trim(), inCorner: r.left >= c.left - 1 && r.top >= c.top - 1 && r.left < c.left + c.width * 0.2 && r.top < c.top + c.height * 0.3 };
+    })(),
     planTitle: plan ? plan.title : '', hScroll: document.documentElement.scrollWidth > window.innerWidth + 1,
     // The list must be wholly visible. Hit-test its four corners: elementFromPoint honours clip-path (the desktop
     // sidebar is a chamfered clip-path polygon — it ate the first version's left edge, which neither a visibility
@@ -85,6 +93,7 @@ for (const [engine, driver] of ENGINES) {
       await page.waitForTimeout(3000);
       let s = await state(page);
       ok(tag, 'rules: House Rules chip shown', s.chip);
+      ok(tag, 'rules: my base card shows its 40 max HP (30 printed + 10)', s.myPip && s.myPip.text === '40' && s.myPip.inCorner, JSON.stringify(s.myPip));
       ok(tag, 'rules: the 4th counter button shows "Credit"', s.fourth && s.fourthText === 'Credit', JSON.stringify(s));
       ok(tag, 'rules: Plan tooltip describes the scry', /top 2 cards/.test(s.planTitle), s.planTitle);
       ok(tag, 'rules: the list is closed until clicked', !s.pop);
@@ -104,6 +113,7 @@ for (const [engine, driver] of ENGINES) {
       await page.waitForTimeout(3000);
       s = await state(page);
       ok(tag, 'control: no chip', !s.chip);
+      ok(tag, 'control: no max-HP pip on my base (the printed number is already right)', !s.myPip, JSON.stringify(s.myPip));
       ok(tag, 'control: the chip wrapper takes no space', !s.wrapShown);
       ok(tag, 'control: no 4th counter button', !s.fourth);
       ok(tag, 'control: Plan tooltip unchanged', /draw 1, bottom 1/.test(s.planTitle), s.planTitle);
