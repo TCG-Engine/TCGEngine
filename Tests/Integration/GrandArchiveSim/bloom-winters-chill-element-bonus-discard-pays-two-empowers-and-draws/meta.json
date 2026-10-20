@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "b4jvyh23y1"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "discard",
+            "empower",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] (2), **Discard this card from your hand**: **Empower 2**. Draw a card."
+        ]
+    },
+    "name": "bloom-winters-chill-element-bonus-discard-pays-two-empowers-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T00:26:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b4jvyh23y1"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

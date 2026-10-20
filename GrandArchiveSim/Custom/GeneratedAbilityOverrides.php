@@ -3477,13 +3477,16 @@ $activateAbilityAbilities["PIcB5KuuMd:0"] = function($player) { //Spellshroud
 
 // Bloom: Autumn's Fall (pebu7agtcd): "[Element Bonus] (2), Discard this card from your hand: Empower 2. Draw a card."
 // The generated rows had no hand ability for it; the count comes from GAHandActivateAbilityCountOverrides(), the cost from ActivatedAbilityCost().
-$handActivatedAbilityAbilities["pebu7agtcd:0"] = function($player) {
-    Empower($player, 2, "pebu7agtcd");
-    Draw($player, 1);
-};
-$handActivatedAbilityPrereqs["pebu7agtcd:0"] = function($player, $mzID, $abilityIndex) {
-    return IsElementBonusActive($player, "pebu7agtcd");
-};
+// Summer's Glow (a708z5ethq) and Winter's Chill (b4jvyh23y1) print the same hand ability and had no rows either.
+foreach(["pebu7agtcd", "a708z5ethq", "b4jvyh23y1"] as $bloomSeasonID) {
+    $handActivatedAbilityAbilities[$bloomSeasonID . ":0"] = function($player) use ($bloomSeasonID) {
+        Empower($player, 2, $bloomSeasonID);
+        Draw($player, 1);
+    };
+    $handActivatedAbilityPrereqs[$bloomSeasonID . ":0"] = function($player, $mzID, $abilityIndex) use ($bloomSeasonID) {
+        return IsElementBonusActive($player, $bloomSeasonID);
+    };
+}
 
 // Cometary Vantage (y4c89re0bd): "Choose one. If your champion is distant, choose two instead-- Glimpse 4 / Draw a card / If a unit is attacking, each Aethercharge card in that attacker's intent
 // gains 'On Hit: Load this card into an Aetherwing weapon you control.'" The generated body skipped the third mode and picked the first two whenever the champion was distant.

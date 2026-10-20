@@ -22,6 +22,30 @@ gaScenario('bloom-autumns-fall-element-bonus-discard-pays-two-empowers-and-draws
     ->covers(['element-bonus', 'discard', 'empower', 'draw'], GA_AUTUMN_DISCARD_TEXT)
     ->register();
 
+gaScenario('bloom-summers-glow-element-bonus-discard-pays-two-empowers-and-draws')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(cardName: 'Diao Chan, Idyll Corsage')
+    ->seed('myHand', 'Bloom: Summer\'s Glow')
+    ->action(1, 10001, 'myHand-7!CustomInput!Activate:0')->pay(2)
+    ->expectZoneCount('myHand', 6, 1, 'Discarded the card, paid two, drew one: 8 - 1 - 2 + 1')
+    ->expectCardExists('myGraveyard', 'Bloom: Summer\'s Glow', 'The discarded card is in the graveyard')
+    ->expectProperty('p1Field-0', 'TurnEffects', '["a708z5ethq","EMPOWERED","EMPOWER_PLUS_2"]', 'Empower 2 on the champion')
+    ->tested('Bloom: Summer\'s Glow')
+    ->covers(['element-bonus', 'discard', 'empower', 'draw'], GA_AUTUMN_DISCARD_TEXT)
+    ->register();
+
+gaScenario('bloom-winters-chill-element-bonus-discard-pays-two-empowers-and-draws')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(cardName: 'Diao Chan, Idyll Corsage')
+    ->seed('myHand', 'Bloom: Winter\'s Chill')
+    ->action(1, 10001, 'myHand-7!CustomInput!Activate:0')->pay(2)
+    ->expectZoneCount('myHand', 6, 1, 'Discarded the card, paid two, drew one: 8 - 1 - 2 + 1')
+    ->expectCardExists('myGraveyard', 'Bloom: Winter\'s Chill', 'The discarded card is in the graveyard')
+    ->expectProperty('p1Field-0', 'TurnEffects', '["b4jvyh23y1","EMPOWERED","EMPOWER_PLUS_2"]', 'Empower 2 on the champion')
+    ->tested('Bloom: Winter\'s Chill')
+    ->covers(['element-bonus', 'discard', 'empower', 'draw'], GA_AUTUMN_DISCARD_TEXT)
+    ->register();
+
 // ---- Flourishing Restoration ----
 
 // Diao Chan, Enchantress is a NORM champion: without the waiver she cannot activate a TERA spell at all.

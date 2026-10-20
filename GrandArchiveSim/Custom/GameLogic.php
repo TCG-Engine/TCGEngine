@@ -6782,6 +6782,8 @@ function GAActivateAbilityCountOverrides() {
 // cardID => ability names of hand-activated abilities missing from the generated CardHandActivatedAbilityCount rows.
 function GAHandActivateAbilityCountOverrides() {
     return [
+        "a708z5ethq" => ["Discard"], // Bloom: Summer's Glow (same [Element Bonus] (2), Discard this card from your hand: Empower 2, draw)
+        "b4jvyh23y1" => ["Discard"], // Bloom: Winter's Chill (same)
         "pebu7agtcd" => ["Discard"], // Bloom: Autumn's Fall ([Element Bonus] (2), Discard this card from your hand: Empower 2, draw)
     ];
 }
@@ -8344,6 +8346,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::CleanupRemovedCards();
             }
             break;
+        case "a708z5ethq": // Bloom: Summer's Glow
+        case "b4jvyh23y1": // Bloom: Winter's Chill
         case "pebu7agtcd": // Bloom: Autumn's Fall - [Element Bonus] (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
