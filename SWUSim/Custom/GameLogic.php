@@ -16,6 +16,7 @@ global $upgradeWhenDefeatedAbilities, $baseUpgradeAbilities, $baseUpgradeActionA
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
+include_once __DIR__ . '/../HouseRuleDefs.php';  // Twin Suns house-rule menu (SWUApplyHouseRules)
 include_once __DIR__ . '/GameLogEvents.php';  // game-log source context + logged player choices
 include_once __DIR__ . '/UndoStack.php';      // per-game multi-step undo log (player 1's Versions zone)
 include_once __DIR__ . '/BookmarkStore.php';  // gamestate bookmarks + the undo cursor (player 2's Versions zone)
@@ -7422,7 +7423,7 @@ function _SWUHmw004OfferBaseDefeat(int $seat): void {
             $owner = SWUMzOwner($mz, $p);
             $b = GetBase($owner);
             if (empty($b) || !empty($b[0]->removed)) continue;
-            if (intval(CardHp($b[0]->CardID)) <= 0) continue;
+            if (SWUBaseMaxHp($b[0]->CardID) <= 0) continue;
             if (SWUBaseRemainingHp($owner) <= 10) $targets[] = $mz;
         }
         if (empty($targets)) continue;
@@ -8164,6 +8165,7 @@ function ActionPhaseStart() {
     // a counter. Initiative persists via its own holder logic above. (Harmless no-op in premier.)
     SetBlastCounter("AVAILABLE");
     SetPlanCounter("AVAILABLE");
+    if (SWUFourthCounterKind() !== '') SetSWUVar('SWU_FOURTH_COUNTER', 'AVAILABLE');   // house-rule 4th counter
     SetSWUVar('SWU_COUNTER_TAKEN', '');
     SetSWUVar('SWU_REGROUP_NUM', '0'); // LAW_072: reset the per-round regroup-phase counter
 
@@ -9138,6 +9140,7 @@ function SWUEliminateSeat(int $seat, ?int $killer = null, bool $administrative =
     // 2. Release any counter this seat held back to center (CR §11.3.4).
     if (GetBlastCounter() === "P{$seat}") SetBlastCounter("AVAILABLE");
     if (GetPlanCounter()  === "P{$seat}") SetPlanCounter("AVAILABLE");
+    if (SWUFourthCounterState() === "P{$seat}") SetSWUVar('SWU_FOURTH_COUNTER', 'AVAILABLE');
     $ic = GetInitiativeCounter();
     if ($ic === "P{$seat}_CLAIMED" || $ic === "P{$seat}_UNCLAIMED") {
         SetInitiativeCounter("P" . strval($live[0] ?? 1) . "_UNCLAIMED");
@@ -9236,7 +9239,7 @@ function _SWUScoreTwinSunsEndOfPhase(): void {
     foreach ($live as $p) {
         $b = GetBase($p);
         $hp = (empty($b) || !empty($b[0]->removed)) ? -PHP_INT_MAX
-            : intval(CardHp($b[0]->CardID)) - intval($b[0]->Damage ?? 0);
+            : SWUBaseMaxHp($b[0]->CardID) - intval($b[0]->Damage ?? 0);
         $remain[$p] = $hp;
         if ($hp > $best) $best = $hp;
     }
@@ -9646,7 +9649,7 @@ function _SWUSeatTookCounterThisRound(int $seat): bool {
 function _SWUAnyCounterAvailable(): bool {
     if (SeatCountForGame() <= 2) return false;
     if (str_ends_with((string)GetInitiativeCounter(), '_UNCLAIMED')) return true;
-    return GetBlastCounter() === 'AVAILABLE' || GetPlanCounter() === 'AVAILABLE';
+    return GetBlastCounter() === 'AVAILABLE' || GetPlanCounter() === 'AVAILABLE' || SWUFourthCounterState() === 'AVAILABLE';
 }
 
 // May $seat choose the PASS action right now? (CR §12.6.1.a)
@@ -9748,6 +9751,54 @@ function SetSWUVar(string $key, string $value): void {
     $vars = _parseSWUVars();
     $vars[$key] = $value;
     $gDecisionQueueVariables = json_encode($vars);
+}
+
+// ── Twin Suns house rules (docs/superpowers/specs/2026-10-18-twinsuns-house-rules-design.md) ─────────────────────────
+// The waiting room resolves the active set at Start (APIs/Lobbies/Classes/HouseRules.php); SWUSetupGame hands it here.
+// One HR_<ID> variable per rule: the number for an adjustable rule, '1' for an on/off one, '' when the rule is off.
+// Immutable after setup. Every engine hook reads them through SWUHouseRule() and is a no-op when it returns null, so a
+// game without house rules — every Premier game — behaves exactly as before.
+function _SWUHouseRuleVar(string $id): string { return 'HR_' . strtoupper($id); }
+
+function SWUApplyHouseRules(array $active): void {
+    foreach (SWUHouseRuleDefs() as $d) {
+        $id = $d['id'];
+        // An off rule writes NOTHING: the decision-queue variables are RNG material (undo determinism), so a game
+        // without a rule must carry exactly the variables it carried before this feature existed.
+        if (!array_key_exists($id, $active) || $active[$id] === false || $active[$id] === null) continue;
+        SetSWUVar(_SWUHouseRuleVar($id), strval(is_array($d['value'] ?? null) ? intval($active[$id]) : 1));
+    }
+    $parts = SWUHouseRuleSummary();
+    if (!empty($parts)) AddGameLogEntry('PHASE', 'House rules: ' . implode(', ', $parts));
+}
+
+// The game's active house rules as display lines ("Extra Base HP +10", "Plan Scry 2") — the setup log line and the
+// board's House Rules chip. [] without house rules.
+function SWUHouseRuleSummary(): array {
+    return array_map(fn($r) => $r['text'], SWUHouseRuleRows());
+}
+
+// The same lines keyed by rule id: [['id' => 'takeCredit', 'text' => 'Take Credit 4th Action'], …].
+function SWUHouseRuleRows(): array {
+    $rows = [];
+    foreach (SWUHouseRuleDefs() as $d) {
+        $v = SWUHouseRule($d['id']);
+        if ($v === null) continue;
+        $rows[] = ['id' => $d['id'],
+                   'text' => $d['label'] . (is_array($d['value'] ?? null) ? ' ' . ($d['id'] === 'extraBaseHp' ? '+' : '') . $v : '')];
+    }
+    return $rows;
+}
+
+// The rule's value (1 for an on/off rule), or null when the rule is not in play.
+function SWUHouseRule(string $id): ?int {
+    $v = GetSWUVar(_SWUHouseRuleVar($id), '');
+    return $v === '' ? null : intval($v);
+}
+
+function SWUHasHouseRules(): bool {
+    foreach (SWUHouseRuleDefs() as $d) if (SWUHouseRule($d['id']) !== null) return true;
+    return false;
 }
 
 function MarkUndoRequiresConsent(): void {
@@ -9965,6 +10016,20 @@ function SWUTakeCounter(int $player, string $which): void {
     } elseif ($which === 'plan') {
         if (GetPlanCounter() !== 'AVAILABLE') { SetFlashMessage("The plan counter has already been taken."); return; }
         SetPlanCounter("P{$player}");
+        // Twin Suns house rule "Plan Scry": look at the top N and put each on the top or bottom — nothing is drawn.
+        $planScry = SWUHouseRule('planScry');
+        if ($planScry !== null) {
+            AddGameLogEntry('COUNTER', 'P' . $player . ' took the plan counter (scry ' . $planScry . ')');
+            SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
+            if (count(GetDeck($player)) > 0) {
+                DoScry($player, $planScry);
+                // Same deferred pass as the normal Plan: the turn stays here until the scry is answered.
+                DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_PLAN_PASS", 1, dontSkipOnPass: 1);
+                return;
+            }
+            SWUPassAction($player);   // empty deck: nothing to look at, the Plan still ends the round
+            return;
+        }
         AddGameLogEntry('COUNTER', 'P' . $player . ' took the plan counter (draw 1, bottom 1)');
         // Plan: draw 1, then place 1 card from hand on the bottom of the deck (may be the drawn card).
         DoDrawCard($player, 1);
@@ -9980,12 +10045,54 @@ function SWUTakeCounter(int $player, string $which): void {
             DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_PLAN_PASS", 1, dontSkipOnPass: 1);
             return;
         }
+    } elseif ($which === 'credit' || $which === 'restore') {
+        // Twin Suns house rules: the 4th counter. Only the kind the room chose exists; a stale or forged other kind is
+        // refused WITHOUT ending the round (a refused action is not a pass).
+        if (SWUFourthCounterKind() !== $which) return;
+        if (SWUFourthCounterState() !== 'AVAILABLE') { SetFlashMessage("The {$which} counter has already been taken."); return; }
+        SetSWUVar('SWU_FOURTH_COUNTER', "P{$player}");
+        if ($which === 'credit') {
+            AddGameLogEntry('COUNTER', 'P' . $player . ' took the credit counter (gain a Credit token)');
+            SWUCreateCreditToken($player, 1);
+        } else {
+            $heal = intval(SWUHouseRule('takeRestore') ?? 1);
+            AddGameLogEntry('COUNTER', 'P' . $player . ' took the restore counter (heal ' . $heal . ' from your base)');
+            OnHealBase($player, $player, $heal);   // the normal heal path: heal locks and heal triggers apply
+        }
+        // Creating the Credit (ASH_094 Moff Jerjerrod's "defeat to double" offer) or healing the base (heal triggers)
+        // can ask the taker something. The round-ending pass waits behind it, as Initiative's does — passing now
+        // handed the turn on while the taker was still choosing (the 2026-09-22 Plan report).
+        SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
+        if (!(new DecisionQueueController())->AllQueuesEmpty()) {
+            _SWUStampActionClosedForPass();
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_PLAN_PASS", 9, '', 1);
+            return;
+        }
+        SWUPassAction($player);
+        return;
     } else {
         return;
     }
     // Record the seat as a counter-taker (one-per-round guard + the auto-pass in SWUSwapTurnPlayer).
     SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
     SWUPassAction($player); // taking a counter = pass for the rest of the round
+}
+
+// Twin Suns house rules: which 4th counter this game has — 'credit', 'restore', or '' (neither rule; no 4th counter).
+// The waiting room never lets both be active; Credit wins if a hand-built game ever sets both.
+function SWUFourthCounterKind(): string {
+    if (SeatCountForGame() <= 2) return '';
+    if (SWUHouseRule('takeCredit') !== null) return 'credit';
+    if (SWUHouseRule('takeRestore') !== null) return 'restore';
+    return '';
+}
+
+// The 4th counter's state: '' when the game has none, else 'AVAILABLE' or 'P{n}'. An unset variable reads AVAILABLE,
+// so a game needs no setup step to put it in the centre for round 1.
+function SWUFourthCounterState(): string {
+    if (SWUFourthCounterKind() === '') return '';
+    $v = GetSWUVar('SWU_FOURTH_COUNTER', '');
+    return $v === '' ? 'AVAILABLE' : $v;
 }
 
 // Called after any real (non-pass) action: reset consecutive-pass counter and
@@ -21841,6 +21948,12 @@ function SWUComputeActionsData(int $player): array {
         // Twin Suns (Phase 4 counters). Inert in premier (SeatCountForGame() <= 2): all false/[].
         'blastAvailable'      => false,
         'planAvailable'       => false,
+        'fourthKind'          => '',
+        'fourthAvailable'     => false,
+        'restoreAmount'       => 0,
+        'planScry'            => 0,
+        'houseRules'          => [],
+        'fourthState'         => '',
         'counterTaken'        => false,
         // Twin Suns only: may this seat CHOOSE to pass right now (CR §12.6.1.a)? Defaults true so
         // premier / 1P keep the button unconditionally.
@@ -21854,6 +21967,15 @@ function SWUComputeActionsData(int $player): array {
         $data['counterTaken']   = $tookCounter;
         $data['blastAvailable'] = !$tookCounter && (GetBlastCounter() === 'AVAILABLE');
         $data['planAvailable']  = !$tookCounter && (GetPlanCounter() === 'AVAILABLE');
+        // Twin Suns house rules: the 4th counter ('credit' | 'restore' | '' = none) and the Restore amount for its label.
+        $data['fourthKind']      = SWUFourthCounterKind();
+        $data['fourthAvailable'] = !$tookCounter && SWUFourthCounterState() === 'AVAILABLE';
+        $data['restoreAmount']   = intval(SWUHouseRule('takeRestore') ?? 0);
+        $data['planScry']        = intval(SWUHouseRule('planScry') ?? 0);   // Plan's tooltip: "scry N" instead of draw 1, bottom 1
+        $data['houseRules']      = SWUHouseRuleRows();                     // the board's House Rules chip
+        // Who holds the 4th counter ('AVAILABLE' | 'P{n}' | ''), for EVERY viewer — the chip's list shows it, since only
+        // the active seat ever sees the Credit/Restore button.
+        $data['fourthState']     = SWUFourthCounterState();
         // The Pass button's own affordance (CR §12.6.1.a). At three seats this is false for anyone who
         // has not taken a counter — there are exactly as many counters as players, so a Pass CHOICE
         // never becomes legal; at four it turns on once all three are gone. A seat that already took a
@@ -24965,7 +25087,7 @@ function SWUCheckBaseDefeatState(array $killerBySeat = []) {
         if ($p === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') continue;
         $b = GetBase($p);
         if (empty($b) || !empty($b[0]->removed)) continue;
-        $hp = intval(CardHp($b[0]->CardID));
+        $hp = SWUBaseMaxHp($b[0]->CardID);
         if ($hp > 0 && intval($b[0]->Damage ?? 0) >= $hp) {
             if ($twin) {
                 // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal, which
@@ -24985,10 +25107,20 @@ function SWUCheckBaseDefeatState(array $killerBySeat = []) {
 
 // Remaining HP of a player's base = printed HP minus damage on it (never below 0). What a "with N or less
 // remaining HP" base condition reads (HMW_004 Grand Moff Tarkin).
+// A base's MAX HP: printed HP plus the Twin Suns "Extra Base HP" house rule (0 without it). Every read of a base's
+// total HP goes through here — the defeat checks, remaining HP, the health pip, the bots — so they can never disagree.
+// A card with no HP stat (≤ 0) is returned unchanged.
+function SWUBaseMaxHp($baseCardID): int {
+    $hp = intval(CardHp((string)$baseCardID));
+    // House rules are Twin Suns-only: two seats never read the variable — Premier pays nothing on its hot paths.
+    if ($hp <= 0 || SeatCountForGame() <= 2) return $hp;
+    return $hp + (SWUHouseRule('extraBaseHp') ?? 0);
+}
+
 function SWUBaseRemainingHp(int $player): int {
     $b = GetBase($player);
     if (empty($b) || !empty($b[0]->removed)) return 0;
-    $hp = intval(CardHp($b[0]->CardID));
+    $hp = SWUBaseMaxHp($b[0]->CardID);
     return max(0, $hp - intval($b[0]->Damage ?? 0));
 }
 
@@ -25019,7 +25151,7 @@ function SWUSkipNextRegroupReady(string $mzID): void {
 function SWUDefeatBase(int $targetPlayer, ?int $killer = null): bool {
     $b = &GetBase($targetPlayer);
     if (empty($b) || !empty($b[0]->removed)) return false;
-    $hp = intval(CardHp($b[0]->CardID));
+    $hp = SWUBaseMaxHp($b[0]->CardID);
     if ($hp <= 0) return false;
     $b[0]->Damage = $hp;
     AddGameLogEntry('ABILITY', "Player {$targetPlayer}'s base is defeated!");
@@ -28368,10 +28500,11 @@ function BaseHasForce($obj): bool {
 // The base's PRINTED HP, for the Base zone's "PrintedHP" virtual — the Twin Suns Home Panel pip
 // (feature request 2026-10-08). ⚠ STATIC by design: never subtract Damage here. The tile already shows
 // damage as its own token; the request was the card's total, readable at a glance. It is the same
-// CardHp() the base-defeat check reads (CombatLogic), so the pip cannot disagree with when a base dies.
+// SWUBaseMaxHp() the base-defeat check reads (CombatLogic), so the pip cannot disagree with when a base dies — including
+// a Twin Suns Extra Base HP house rule, which raises both together.
 function BasePrintedHP($obj): int {
     $cardID = (string)($obj->CardID ?? '');
-    return ($cardID === '' || $cardID === '-') ? 0 : intval(CardHp($cardID));
+    return ($cardID === '' || $cardID === '-') ? 0 : SWUBaseMaxHp($cardID);
 }
 
 // The base's aspect, for the Base zone's "Aspect" virtual: the base health bar's fill colour

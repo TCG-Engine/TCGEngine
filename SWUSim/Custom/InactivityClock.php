@@ -70,6 +70,8 @@ function SWUProgressFingerprint(): string
     $parts[] = 'ic:' . strval(GetInitiativeCounter());
     if (function_exists('GetBlastCounter')) $parts[] = 'bc:' . strval(GetBlastCounter());
     if (function_exists('GetPlanCounter'))  $parts[] = 'pc:' . strval(GetPlanCounter());
+    // House-rule 4th counter — appended only when the game has one, so every other game's fingerprint is unchanged.
+    if (function_exists('SWUFourthCounterState') && SWUFourthCounterState() !== '') $parts[] = 'fc:' . SWUFourthCounterState();
     $parts[] = 'ls:' . implode('', GetLiveSeatsArray());
 
     for ($s = 1; $s <= SeatCountForGame(); ++$s) {
@@ -118,6 +120,12 @@ function SWUApplyKick(int $target): void
         }
         TriggerGameOver($target);                      // declares the opponent the winner
         return;
+    }
+    // Twin Suns rematch: a seat removed for inactivity has LEFT the table (owner, 2026-10-20).
+    global $gameName;
+    if (is_file(__DIR__ . '/../TableRematch.php')) {
+        require_once __DIR__ . '/../TableRematch.php';
+        if (function_exists('SWUReadMatchRef')) SWUTableRematchMarkLeftForGame(strval($gameName ?? ''), $target, 'kicked');
     }
     if (function_exists('SWUIsTeamGame') && SWUIsTeamGame()) {
         SWUDeclareTwinSunsWinners(SWUVoterSeatsFor($target), "$name was removed for inactivity");

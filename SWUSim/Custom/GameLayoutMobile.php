@@ -581,6 +581,9 @@
     .swu-round-label { font: 700 8px/1 var(--swu-font-label); letter-spacing: 0.14em;
         text-transform: uppercase; color: rgba(255,255,255,0.45); }
     #swuRoundNumber { font: 700 16px/1 var(--swu-font-ui); }
+    /* The phone header sits low with the chip near the screen's LEFT edge: open the list upward and rightward. */
+    .swu-hr-wrap { position: relative; display: inline-flex; flex: 0 0 auto; }
+    .swu-hr-wrap .swu-hr-pop { top: auto; bottom: calc(100% + 6px); left: 0; right: auto; }
     /* Re-shape the SHARED .swu-phase-line rule (GameLayoutShared.php) from its own bordered,
        padded full-width row into a compact inline chip that fits beside Round. Scoped to this
        group only — GameLayoutShared's base rule, and desktop's separate own-row usage of the same
@@ -901,6 +904,10 @@
                     onclick="event.stopPropagation(); window.swuTakeBlastCounter();"><span>Blast</span></button>
             <button id="swuPlanBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Plan counter (draw 1, bottom 1)" hidden
                     onclick="event.stopPropagation(); window.swuTakePlanCounter();"><span>Plan</span></button>
+            <!-- Twin Suns HOUSE RULE 4th counter (Take Credit / Take Restore) — updateInitiative() labels it from fourthKind and
+                 shows it only when fourthAvailable; absent entirely from games without the rule. -->
+            <button id="swuFourthBtn" class="swu-init-pass-btn swu-take-counter" hidden
+                    onclick="event.stopPropagation(); window.swuTakeFourthCounter();"><span>Credit</span></button>
         </div>
     </div>
     </div><!-- /swu-m-footer-stack -->
@@ -937,6 +944,11 @@
             <div class="swu-round-phase-group">
                 <div class="swu-round-condensed"><span class="swu-round-label">Round</span><span id="swuRoundNumber">—</span></div>
                 <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
+                <!-- Twin Suns house rules (see GameLayout.php) — "HR" here, the header is tight on a phone. -->
+                <span class="swu-hr-wrap" hidden><button id="swuHouseRulesChip" class="swu-hr-chip" type="button" hidden
+                    aria-label="House rules" aria-haspopup="true" aria-expanded="false"
+                    onclick="event.stopPropagation(); window.swuToggleHouseRules();">HR</button>
+                    <span id="swuHouseRulesPop" class="swu-hr-pop" role="tooltip" hidden></span></span>
             </div>
             <div class="swu-header-right">
                 <span id="swuUndoSplit">

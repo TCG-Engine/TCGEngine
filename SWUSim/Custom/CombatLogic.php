@@ -424,7 +424,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // LOF_252 The Daughter — "When damage is dealt to your base: may use the Force → heal 2 from your
         // base." Post-damage reaction owned by the base owner (often the non-active player in combat); it
         // sits on their queue and resolves after the damage event. Only while the base survives.
-        if (intval($damage) > 0 && intval($base[$i]->Damage) < intval(CardHp($base[$i]->CardID))) {
+        if (intval($damage) > 0 && intval($base[$i]->Damage) < SWUBaseMaxHp($base[$i]->CardID)) {
             _SWUCollectLof252Reaction(intval($targetPlayer));
         }
         // ASH_204 Blade Three — "When your base is dealt damage: give an Advantage token to this unit."
@@ -539,7 +539,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 AddGlobalEffects($srcCtrl, 'SWU_DMGDBASE_' . $srcUid . '_' . intval($targetPlayer));
             }
         }
-        $baseHP = intval(CardHp($base[$i]->CardID));
+        $baseHP = SWUBaseMaxHp($base[$i]->CardID);
         // Goldfish practice: P2's Echo Base is an infinite damage sponge — never trigger the loss,
         // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
         $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');

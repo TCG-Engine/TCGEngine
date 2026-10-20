@@ -129,6 +129,41 @@ function _WaitingRoomStyles(): string {
                        resize: vertical; font-family: inherit; white-space: pre; overflow-x: auto; }
 .wr-deckbar .btn { flex: 0 0 auto; display: inline-flex; align-items: center; }
 
+/* House Rules (Twin Suns — only rooms whose sim sends `houseRules` show it). A native <details>, so it collapses with
+   no script; ⚠ the marker is hidden with BOTH list-style and ::-webkit-details-marker — Safari ignores the first.
+   Scoped under #wr-root because the site theme gives bare text/number inputs a 10px/20px margin. */
+#wr-root .wr-hr { margin-bottom: 16px; border: 1px solid #ffffff1f; border-radius: 8px; padding: 0 12px; }
+#wr-root .wr-hr > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+                            min-height: 44px; font-weight: 600; }
+#wr-root .wr-hr > summary::-webkit-details-marker { display: none; }
+#wr-root .wr-hr > summary::before { content: ""; width: 7px; height: 7px; flex: none; margin: 0 2px;
+                                    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+                                    transform: rotate(-45deg); transition: transform .15s ease; }
+#wr-root .wr-hr[open] > summary::before { transform: rotate(45deg); }
+#wr-root .wr-hr-count { font-size: 12px; font-weight: 600; color: #3ddc84; }
+#wr-root .wr-hr-note { font-size: 12px; color: #aab6c4; margin: 0 0 8px; }
+#wr-root .wr-hr-rows { display: grid; gap: 6px; padding-bottom: 12px; }
+#wr-root .wr-hr-row { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 10px;
+                      border-radius: 6px; background: #ffffff08; }
+#wr-root .wr-hr-row.is-locked { opacity: .5; }
+#wr-root .wr-hr-main { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; margin: 0;
+                       cursor: pointer; }
+#wr-root .wr-hr-row.is-locked .wr-hr-main, #wr-root .wr-hr-main.is-readonly { cursor: default; }
+#wr-root .wr-hr-main input[type=checkbox] { width: 20px; height: 20px; margin: 0; flex: none; }
+#wr-root .wr-hr-text { display: flex; flex-direction: column; min-width: 0; }
+#wr-root .wr-hr-label { font-size: 14px; font-weight: 600; }
+#wr-root .wr-hr-desc { font-size: 12px; color: #9fadbd; }
+#wr-root .wr-hr-value { width: 64px; height: 32px; flex: none; box-sizing: border-box; margin: 0; padding: 4px 6px;
+                        font-size: 14px; text-align: center; }
+#wr-root .wr-hr-tally { flex: none; min-width: 30px; text-align: right; font-size: 12px; color: #9fadbd;
+                        font-variant-numeric: tabular-nums; }
+/* The light. Dark until the rule is on; then green with a slow glow. */
+#wr-root .wr-hr-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #ffffff24; }
+#wr-root .wr-hr-row.is-active .wr-hr-dot { background: #3ddc84; box-shadow: 0 0 6px 2px rgba(61,220,132,.6);
+                                           animation: wr-hr-glow 2.4s ease-in-out infinite; }
+@keyframes wr-hr-glow { 50% { box-shadow: 0 0 11px 4px rgba(61,220,132,.85); } }
+@media (prefers-reduced-motion: reduce) { #wr-root .wr-hr-row.is-active .wr-hr-dot { animation: none; } }
+
 /* Leave sits away from the two buttons that COMMIT something, so the destructive action is never
    next to Start. Ready is yours (bottom left); Start is the host's (bottom right). */
 .wr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -279,6 +314,11 @@ function _WaitingRoomMarkup(array $cfg): string {
       <div id="wr-state" style="margin-bottom:12px;"></div>
       <div id="wr-invite" style="margin-bottom:16px;"></div>
       <div id="wr-roster" style="margin-bottom:16px;"></div>
+      <details id="wr-hr" class="wr-hr" style="display:none;">
+        <summary class="wr-hr-sum"><span class="wr-hr-title">House Rules</span><span id="wr-hr-count" class="wr-hr-count"></span></summary>
+        <div id="wr-hr-note" class="wr-hr-note"></div>
+        <div id="wr-hr-rows" class="wr-hr-rows"></div>
+      </details>
       <div class="wr-actions">
         <div class="wr-actions-main">
       <div id="wr-removed" style="display:none;margin:8px 0;padding:8px 10px;border-radius:6px;
@@ -952,6 +992,7 @@ function _WaitingRoomScript(array $cfg): string {
     }
     renderInvite(d);
     renderRoster(d);
+    renderHouseRules(d);
     renderControls(d, seated);
   }
 
@@ -1106,6 +1147,109 @@ function _WaitingRoomScript(array $cfg): string {
 
   // Ready is sent as an explicit value rather than a bare toggle, so a double-click cannot leave the
   // button and the seat disagreeing.
+  // ── House Rules ─────────────────────────────────────────────────────────────────────────────────
+  // Drawn from the poll's `houseRules` (Classes/HouseRules.php LobbyHouseRulesView); absent = no panel. The server
+  // does the unreadying and the green lights, so the page only draws what it is told and posts clicks.
+  var HR_OPEN_KEY = 'tcg:wrHouseRulesOpen';
+  // hrEpoch counts house-rule writes that have COMPLETED; hrPending those still in flight. A poll records the epoch it
+  // was sent at — if a write completed (or is still pending) since, its answer predates that write and is stale.
+  var hrEpoch = 0, hrPending = 0, hrLatest = null, hrDeferred = false;
+  function renderHouseRules(d) {
+    var box = el('wr-hr');
+    if (!box) return;
+    var hr = d.houseRules;
+    if (!hr || !hr.rows || !hr.rows.length) { box.style.display = 'none'; return; }
+    box.style.display = '';
+    // Never redraw under the host's cursor: a poll landing mid-edit would wipe the number being typed. Keep the
+    // latest payload and draw it when the box loses focus — NOT by clearing lastSig, which rebuilt the whole room
+    // (roster art and all) on every poll for as long as the cursor sat there.
+    // A poll sent before your own click landed describes the room as it was: drawing it would flip your checkbox back.
+    // Skip it, and clear lastSig so the next (fresh) poll redraws even if it happens to look identical.
+    if (d._hrStale) { lastSig = ''; return; }
+    hrLatest = d;
+    var ae = document.activeElement;
+    if (ae && box.contains(ae) && ae.classList && ae.classList.contains('wr-hr-value')) { hrDeferred = true; return; }
+    hrDeferred = false;
+    var lit = hr.rows.filter(function (r) { return r.active; }).length;
+    el('wr-hr-count').textContent = lit ? (lit + ' active') : '';
+    el('wr-hr-note').textContent = hr.private
+      ? (hr.isHost ? 'You choose the house rules for this room.' : 'The host chooses the house rules for this room.')
+      : ('A rule is on when ' + hr.needed + ' player' + (hr.needed === 1 ? '' : 's') + ' check it. ' +
+         'Checking a rule sets you to not ready.' + (hr.isHost ? ' Changing a number sets everyone else to not ready.' : ''));
+    var html = '';
+    hr.rows.forEach(function (r) {
+      var cls = 'wr-hr-row' + (r.active ? ' is-active' : '') + (r.locked ? ' is-locked' : '');
+      var title = r.locked ? 'Cannot be combined with the active 4th-action rule' : '';
+      html += '<div class="' + cls + '" data-rule="' + esc(r.id) + '"' + (title ? ' title="' + esc(title) + '"' : '') + '>' +
+        '<label class="wr-hr-main' + (r.canVote ? '' : ' is-readonly') + '">' +
+          '<input type="checkbox" class="wr-hr-check"' + ((hr.private ? r.active : r.mine) ? ' checked' : '') +
+            (r.canVote ? '' : ' disabled') + ' aria-label="' + esc(r.label) + '">' +
+          '<span class="wr-hr-text"><span class="wr-hr-label">' + esc(r.label) + '</span>' +
+          '<span class="wr-hr-desc">' + esc(r.desc) + '</span></span>' +
+        '</label>';
+      if (r.value) {
+        html += '<input type="number" class="wr-hr-value" inputmode="numeric" min="' + r.value.min + '" max="' + r.value.max +
+          '" step="' + r.value.step + '" value="' + r.value.cur + '"' + (r.canEditValue ? '' : ' disabled') +
+          ' aria-label="' + esc(r.label) + ' value"' + (r.canEditValue ? '' : ' title="Only the host can change this"') + '>';
+      }
+      if (!hr.private) html += '<span class="wr-hr-tally" title="Votes / needed">' + r.votes + '/' + hr.needed + '</span>';
+      html += '<span class="wr-hr-dot" role="img" aria-label="' + (r.active ? 'Active' : 'Off') + '"></span></div>';
+    });
+    var rows = el('wr-hr-rows');
+    rows.innerHTML = html;
+    Array.prototype.forEach.call(rows.querySelectorAll('.wr-hr-row'), function (rowEl) {
+      var id = rowEl.getAttribute('data-rule');
+      var cb = rowEl.querySelector('.wr-hr-check');
+      if (cb) cb.onchange = function () { doHouseRuleVote(id, cb.checked); };
+      var num = rowEl.querySelector('.wr-hr-value');
+      if (num) {
+        num.onchange = function () {
+          // A cleared (or non-numeric) box is not a value: put the current one back instead of sending 0, which
+          // snapped to the minimum and unreadied everyone.
+          if (isNaN(parseInt(num.value, 10))) { num.value = hrCurrentValue(id, num); return; }
+          doHouseRuleValue(id, num.value);
+        };
+        num.onblur = function () {
+          // WebKit fires no `change` for a number box that was cleared, so put the value back here as well.
+          if (isNaN(parseInt(num.value, 10))) num.value = hrCurrentValue(id, num);
+          setTimeout(function () { if (hrDeferred && hrLatest) renderHouseRules(hrLatest); }, 0);
+        };
+      }
+    });
+  }
+  // The rule's value as the server last said it — hrLatest is kept current even while a redraw is deferred under the
+  // cursor, so it is newer than the box's own default (the value it was last DRAWN with).
+  function hrCurrentValue(id, num) {
+    var rows = (hrLatest && hrLatest.houseRules && hrLatest.houseRules.rows) || [];
+    for (var i = 0; i < rows.length; i++) if (rows[i].id === id && rows[i].value) return String(rows[i].value.cur);
+    return num.defaultValue;
+  }
+  function hrWriteDone() { hrPending = Math.max(0, hrPending - 1); hrEpoch++; }
+  function doHouseRuleVote(id, on) {
+    hrPending++;
+    post('APIs/Lobbies/UpdateHouseRules.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+      '&op=vote&rule=' + encodeURIComponent(id) + '&on=' + (on ? '1' : '0'),
+      function (r) {
+        hrWriteDone();
+        if (!r.success) el('wr-hint').textContent = r.message || 'Could not record your vote.';
+        lastSig = '';   // redraw from the server's answer, not the optimistic click
+      });
+  }
+  function doHouseRuleValue(id, value) {
+    var n = el('wr-hr-rows').querySelector('[data-rule="' + id + '"] .wr-hr-value');
+    if (n) n.blur();
+    hrPending++;
+    post('APIs/Lobbies/UpdateHouseRules.php',
+      'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+      '&op=value&rule=' + encodeURIComponent(id) + '&value=' + encodeURIComponent(String(parseInt(value, 10) || 0)),
+      function (r) {
+        hrWriteDone();
+        if (!r.success) el('wr-hint').textContent = r.message || 'Could not change the value.';
+        lastSig = '';
+      });
+  }
+
   function doSetReady(want) {
     var b = el('wr-ready'); if (b) b.disabled = true;
     post('APIs/Lobbies/SetReady.php',
@@ -1207,8 +1351,11 @@ function _WaitingRoomScript(array $cfg): string {
                  '&inviteCode=' + encodeURIComponent(inviteCode) +
                  '&playerID=' + encodeURIComponent(myPlayerID) +
                  '&authKey=' + encodeURIComponent(key);
+    var sentEpoch = hrEpoch;
     post('APIs/Lobbies/PollLobbyUpdates.php', params, function (r) {
       if (navigating) return;
+      // Stale for the House Rules panel if a rules write finished (or is still in flight) since this poll was sent.
+      if (r && r.houseRules) r._hrStale = (sentEpoch !== hrEpoch) || hrPending > 0;
       if (r.gone) { renderGone(r.message, r); return; }
 
       if (r.lobbyID && r.lobbyID !== lobbyID) { lobbyID = r.lobbyID; rewriteUrl(); }
@@ -1273,7 +1420,7 @@ function _WaitingRoomScript(array $cfg): string {
         noteKickDeadlines(r.roster);
         var bw = Number(r.botAddableIn) || 0;
         botAddDeadline = bw > 0 ? Date.now() + bw * 1000 : 0;
-        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
+        var sig = JSON.stringify([rosterForSig(r.roster), r.seatModel, r.botProfiles, r.houseRules, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed, r.hostVote]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);
@@ -1285,6 +1432,11 @@ function _WaitingRoomScript(array $cfg): string {
     inviteCode = qs('invite');
     if (!lobbyID && !inviteCode) { renderGone('No lobby specified.'); return; }
     myPlayerID = 0;
+    var hrBox = el('wr-hr');
+    if (hrBox) {
+      try { hrBox.open = localStorage.getItem(HR_OPEN_KEY) === '1'; } catch (e) {}
+      hrBox.addEventListener('toggle', function () { try { localStorage.setItem(HR_OPEN_KEY, hrBox.open ? '1' : '0'); } catch (e) {} });
+    }
     var btn = el('wr-deck-btn');
     if (btn) btn.onclick = function () { if (el('wr-root').getAttribute('data-state') === 'seated') doChangeDeck(); else doJoin(); };
     if (lobbyID) rewriteUrl();

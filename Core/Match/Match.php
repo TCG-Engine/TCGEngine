@@ -97,6 +97,13 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
             'deckLink' => strval($p['deckLink'] ?? ''),
             'cosmetics' => $p['cosmetics'] ?? null,
         ];
+        // Table facts a multi-seat rematch rebuilds the table from (the lobby is long gone by then): which seats are
+        // bots (and their names), each seat's display name and team. Multi-seat matches only, and ABSENT when empty,
+        // so a 2-seat record keeps exactly its old shape.
+        if (count($players) > 2) foreach (['botProfile', 'username', 'team'] as $fact) {
+            $v = $p[$fact] ?? null;
+            if ($v !== null && $v !== '') $matchPlayers[$seatKey][$fact] = strval($v);
+        }
         $wins[$seatKey] = 0;
     }
     $match = [

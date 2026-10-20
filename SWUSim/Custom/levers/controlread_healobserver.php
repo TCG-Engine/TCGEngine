@@ -15,7 +15,7 @@ function _SWUBotLvHealObserverHeal(int $victim): int {
         }
         if ($heal <= 0) continue;
         $base = strval((GetBase($o)[0] ?? null)->CardID ?? '');
-        $damage = max(0, intval(CardHp($base)) - SWUBaseRemainingHp($o));
+        $damage = max(0, SWUBaseMaxHp($base) - SWUBaseRemainingHp($o));
         $n += min($heal, $damage);
     }
     return $n;

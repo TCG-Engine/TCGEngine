@@ -1108,6 +1108,16 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 /* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */
 #game-over-buttons #swu-rematch-btn { flex: 1 1 auto !important; }
 #game-over-buttons #swu-bestof-btn  { flex: 0 0 auto !important; }
+/* Twin Suns table rematch: your own vote reads pressed (gold rim); the tally/waiting line spans the row. */
+#game-over-buttons button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px #e9b866 !important; }
+#game-over-buttons .swu-tr-status { flex: 0 0 100%; font: 500 12px/1.4 var(--swu-font-ui, inherit);
+    color: rgba(255,255,255,0.72); }
+#game-over-buttons .swu-tr-status button { flex: 0 0 auto !important; margin-left: 6px; }
+/* A 3-4 seat end screen has no stats table, so the save-replay block lands as a bare overlay child — and the catch-all
+   rule above puts every bare child in the BUTTONS cell, on top of the (now longer) button row. Give it the empty stats
+   cell instead: the right column on desktop, the row under the buttons on a phone. Scoped to .swu-table (set by
+   SWUShowEndGameMenu for seatCount > 2) so the 2-seat layout is untouched. */
+#game-over-overlay.swu-table > .match-replay-stats-actions { grid-area: stats !important; align-self: start !important; }
 
 /* Best-of toggle → WHITE button, black text (SWUSim secondary-button style). MUST be
    scoped under #game-over-buttons: the general `#game-over-buttons button::before/::after`
@@ -1686,6 +1696,47 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         el.textContent = isNaN(n) ? '—' : n;
     }
 
+    // ── Twin Suns house rules chip ────────────────────────────────────────────
+    // Lists the game's house rules (myActionsData.houseRules — fixed at setup). Hidden in every game without any.
+    // A click/tap toggles the list (a title tooltip alone would never show on a phone).
+    function updateHouseRulesChip() {
+        var chip = document.getElementById('swuHouseRulesChip');
+        var pop  = document.getElementById('swuHouseRulesPop');
+        if (!chip || !pop) return;
+        var ad = window.myActionsData || {};
+        // [{id, text}]; the 4th counter's line carries its live state (nothing else on the board shows who took it).
+        var rules = (ad.houseRules || []).map(function (r) {
+            var t = String((r && r.text) || r || '');
+            if (r && (r.id === 'takeCredit' || r.id === 'takeRestore') && ad.fourthState) {
+                t += ad.fourthState === 'AVAILABLE' ? ' · available' : ' · taken by ' + ad.fourthState;
+            }
+            return t;
+        });
+        chip.hidden = rules.length === 0;
+        // The WRAPPER too: it is a flex item in the round row, and an empty one still takes a gap (and can wrap).
+        if (chip.parentElement) chip.parentElement.hidden = rules.length === 0;
+        if (!rules.length) { pop.hidden = true; return; }
+        var text = rules.join('\n');
+        if (pop.getAttribute('data-text') !== text) {
+            pop.setAttribute('data-text', text);
+            pop.innerHTML = '<span class="swu-hr-pop-title">House rules</span>' +
+                rules.map(function (r) { return '<span class="swu-hr-pop-row">' + String(r).replace(/[&<>"]/g, function (c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }) + '</span>'; }).join('');
+            chip.title = 'House rules: ' + rules.join(', ');
+        }
+    }
+    window.swuToggleHouseRules = function () {
+        var chip = document.getElementById('swuHouseRulesChip');
+        var pop  = document.getElementById('swuHouseRulesPop');
+        if (!chip || !pop) return;
+        pop.hidden = !pop.hidden;
+        chip.setAttribute('aria-expanded', pop.hidden ? 'false' : 'true');
+    };
+    document.addEventListener('click', function () {
+        var pop = document.getElementById('swuHouseRulesPop');
+        if (pop && !pop.hidden) window.swuToggleHouseRules();
+    });
+
     // ── Initiative ────────────────────────────────────────────────────────────
     // The hex button lives on whichever side currently controls the initiative
     // counter. InitiativeCounterData encodes that as P<n>_UNCLAIMED (the holder
@@ -1793,6 +1844,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var _planBtn  = document.getElementById('swuPlanBtn');
         if (_blastBtn) _blastBtn.hidden = !(canAct && _ad.blastAvailable);
         if (_planBtn)  _planBtn.hidden  = !(canAct && _ad.planAvailable);
+        // Twin Suns house rule "Plan Scry" changes what Plan does — say so on the button.
+        if (_planBtn) _planBtn.title = _ad.planScry > 0
+            ? 'Take the Plan counter (look at the top ' + _ad.planScry + ' cards of your deck: put each on the top or bottom)'
+            : 'Take the Plan counter (draw 1, bottom 1)';
+        // Twin Suns house rule: the 4th counter. Its label and tooltip follow the game's kind (Credit / Restore N).
+        var _fourthBtn = document.getElementById('swuFourthBtn');
+        if (_fourthBtn) {
+            var _restore = _ad.fourthKind === 'restore';
+            var _fLabel = _restore ? 'Restore' : 'Credit';
+            var _fSpan = _fourthBtn.querySelector('span');
+            if (_fSpan && _fSpan.textContent !== _fLabel) _fSpan.textContent = _fLabel;
+            _fourthBtn.title = _restore
+                ? 'Take the Restore counter (heal ' + (_ad.restoreAmount || 1) + ' from your base)'
+                : 'Take the Credit counter (gain a Credit token)';
+            _fourthBtn.hidden = !(canAct && _ad.fourthAvailable);
+        }
         var _passBtn = document.getElementById('swuPassBtn');
         if (_passBtn) {
             // CR §12.6.1.a — "players may only pass if there are no counters available to take".
@@ -1829,6 +1896,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     };
     window.swuTakePlanCounter = function () {
         SubmitInput('10001', '&cardID=' + encodeURIComponent('PlanCounter-0!CustomInput!TakeCounter'));
+    };
+    // Twin Suns house rule: take the 4th counter (Credit / Restore). CustomInput's FourthCounter case picks the kind.
+    window.swuTakeFourthCounter = function () {
+        SubmitInput('10001', '&cardID=' + encodeURIComponent('FourthCounter-0!CustomInput!TakeCounter'));
     };
     // Twin Suns pass rule (CR §12.6.1.a): a seat may only pass if no counter is available to take.
     // Guards the Pass BUTTON's click handler and the Space-key shortcut, so neither can route around a
@@ -2397,7 +2468,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (typeof window.swuApplyBoardAnimationPref === 'function') window.swuApplyBoardAnimationPref();
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
-        updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); refreshActionGlows();
+        updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); updateHouseRulesChip(); refreshActionGlows();
         swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
         swuRenderBaseHealth('my'); swuRenderBaseHealth('their');
         swuRenderHomeStrips();
@@ -5214,6 +5285,98 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         btn.textContent = cv.label;
         btn.disabled = !!cv.disabled;
     }
+    // ── Twin Suns table rematch ──────────────────────────────────────────────────────────────────────
+    // tr = EndGameInfo.tableRematch: {mine, quick:{votes,needed,blocked}, room:{…}, left, names, starting, result}.
+    function SWUTableRematchButtonState(tr, kind) {
+        var v = tr[kind] || { votes: [], needed: [], blocked: false };
+        var base = kind === 'quick' ? 'Quick Rematch' : 'Rematch';
+        if (tr.starting || tr.result) return { label: (tr.mine === kind || (tr.result && tr.result.kind === kind)) ? 'Starting…' : base, disabled: true };
+        if (v.blocked) {
+            var who = (tr.left || []).map(function (s) { return (tr.names || {})[s] || ('Player ' + s); });
+            return { label: base + (kind === 'quick' && who.length ? ' — ' + who.join(', ') + ' left' : ''), disabled: true };
+        }
+        var tally = ' (' + v.votes.length + '/' + v.needed.length + ')';
+        return { label: (tr.mine === kind ? '✓ ' : '') + base + tally, disabled: false, pressed: tr.mine === kind };
+    }
+    // "Waiting for …" under the buttons: who the vote you are in still needs.
+    function SWUTableRematchStatus(tr) {
+        if (tr.result && tr.result.kind === 'room' && tr.result.joinInvite) return 'Your table started a new room.';
+        if (tr.starting || tr.result) return 'Starting the rematch…';
+        if (!tr.mine) return 'Rematch needs everyone at the table to agree.';
+        var v = tr[tr.mine] || { votes: [], needed: [] };
+        var waiting = v.needed.filter(function (s) { return v.votes.indexOf(s) === -1; })
+                              .map(function (s) { return (tr.names || {})[s] || ('Player ' + s); });
+        return waiting.length ? 'Waiting for ' + waiting.join(', ') : 'Starting the rematch…';
+    }
+    function SWUUpdateTableRematch(info) {
+        var tr = info && info.tableRematch;
+        if (!tr) return;
+        if (tr.result && SWUTableRematchFollow(tr.result)) return;
+        ['quick', 'room'].forEach(function (kind) {
+            var btn = document.getElementById(kind === 'quick' ? 'swu-tr-quick' : 'swu-tr-room');
+            if (!btn) return;
+            var st = SWUTableRematchButtonState(tr, kind);
+            btn.textContent = st.label;
+            btn.disabled = !!st.disabled;
+            btn.setAttribute('aria-pressed', st.pressed ? 'true' : 'false');
+        });
+        var row = document.getElementById('game-over-buttons');
+        var line = document.getElementById('swu-tr-status');
+        if (!line && row) {
+            line = document.createElement('div');
+            line.id = 'swu-tr-status';
+            line.className = 'swu-tr-status';
+            // INSIDE the buttons row: any other overlay child is forced into the buttons grid area (see the
+            // #game-over-overlay > *:not(...) rule) and would sit on top of the buttons.
+            row.appendChild(line);
+        }
+        if (line) {
+            line.textContent = SWUTableRematchStatus(tr);
+            if (tr.result && tr.result.kind === 'room' && tr.result.joinInvite) {
+                var join = document.createElement('button');
+                join.className = 'btn';
+                join.id = 'swu-tr-join';
+                join.textContent = 'Join their room';
+                join.onclick = function () { window.location.href = './SharedUI/WaitingRoom.php?invite=' + encodeURIComponent(tr.result.joinInvite); };
+                line.appendChild(document.createTextNode(' '));
+                line.appendChild(join);
+            }
+        }
+    }
+    // Move this page to the rematch. Returns true when it navigates.
+    function SWUTableRematchFollow(res) {
+        if (window._swuTableRematchGone) return true;
+        var pid = document.getElementById('playerID').value;
+        var ak = document.getElementById('authKey').value;
+        if (res.kind === 'quick' && res.gameName) {
+            window._swuTableRematchGone = true;
+            // Same seat, same key (the rematch match keeps every seat's key) — the cookie keeps a later rejoin working.
+            try { document.cookie = 'lastAuthKey=' + encodeURIComponent(ak) + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax'; } catch (e) {}
+            window.location = './NextTurn.php?gameName=' + encodeURIComponent(res.gameName) + '&playerID=' + encodeURIComponent(pid) + '&folderPath=SWUSim';
+            return true;
+        }
+        if (res.kind === 'room' && res.lobbyID && res.authKey) {
+            window._swuTableRematchGone = true;
+            // The waiting room reads its seat key from localStorage (never the URL) — the same handoff the menu uses.
+            try { localStorage.setItem('tcg:lobbyAuth:' + res.lobbyID, JSON.stringify({ authKey: res.authKey, ts: Date.now() })); } catch (e) {}
+            window.location = './SharedUI/WaitingRoom.php?lobby=' + encodeURIComponent(res.lobbyID);
+            return true;
+        }
+        return false;
+    }
+    function SWUTableRematchVote(kind) {
+        var f = new FormData();
+        f.append('gameName', document.getElementById('gameName').value);
+        f.append('playerID', document.getElementById('playerID').value);
+        f.append('authKey', document.getElementById('authKey').value);
+        f.append('choice', kind);
+        fetch('./SWUSim/TableRematchVote.php', { method: 'POST', body: f })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+                if (j && j.tableRematch) SWUUpdateTableRematch({ tableRematch: j.tableRematch });
+                if (j && !j.success && j.message && typeof StyledAlert === 'function') StyledAlert(j.message);
+            }).catch(function () {});
+    }
     // While the end-game menu is open and the match is still convertible, poll for the opponent's
     // convert request so the button updates without an alert. Once both confirm, the match leaves
     // the convertible state (→ Bo3 sideboarding): rebuild the menu so it shows the Bo3 options.
@@ -5226,6 +5389,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
                 .then(function(r){ return r.json(); }).then(function(info){
                     if (!info || !info.isMatch) return;
+                    if (info.tableRematch) { if (!info.isSpectator) SWUUpdateTableRematch(info); return; }   // Twin Suns: the table vote
                     if (!info.convertible) { // both confirmed → rebuild for the new (Bo3) match shape
                         clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
                         var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
@@ -5298,6 +5462,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // seats, so none of them apply. Every seat still gets Main Menu + Report Bug, in the usual
         // place — losing seats need the exit and the bug button just as much as the winner does.
         if (multiSeat) {
+            // Twin Suns rematch (spec docs/superpowers/specs/2026-10-20-twinsuns-rematch-design.md): a table-wide
+            // unanimous vote, one choice per player. Labels/disabled/tally are filled by SWUUpdateTableRematch from
+            // the same EndGameInfo payload the end-screen poll keeps refreshing.
+            if (info.tableRematch && seriesOver) {
+                var trv = SWUTableRematchButtonState(info.tableRematch, 'quick');
+                var trr = SWUTableRematchButtonState(info.tableRematch, 'room');
+                b.push({id:'swu-tr-quick', label: trv.label, disabled: trv.disabled, onClick:function(){ SWUTableRematchVote('quick'); }});
+                b.push({id:'swu-tr-room',  label: trr.label, disabled: trr.disabled, onClick:function(){ SWUTableRematchVote('room'); }});
+            }
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
@@ -5411,6 +5584,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
                              SWUBuildEndGameButtons(info),
                              SWUWinnersLine(winners, info.winnerNames, info.seatCount));
+                var goOv = document.getElementById('game-over-overlay');
+                if (goOv && info.seatCount > 2) goOv.classList.add('swu-table');   // 3-4 seat layout fixes (CSS above)
                 // Collapsible Block Player, placed below the stats panel.
                 var goStats = document.getElementById('game-over-stats');
                 if (goStats) {
@@ -5466,6 +5641,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     }
                 }
                 if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
+                // Twin Suns: keep the table vote live (tally, Quick blocked, the result) — and the poll IS this seat's
+                // end-screen heartbeat, so a seat that closes the tab goes quiet.
+                // Spectators have no vote and no seat to move: they follow a Quick rematch through MATCHADVANCE like
+                // any game advance, and are never shown a Rematch room.
+                if (info.tableRematch && info.seriesOver && !info.isSpectator) { SWUUpdateTableRematch(info); SWUStartEndGamePoll(gn, pid, ak); }
             }).catch(function(){
                 var ws = SWULocalGameWinners();
                 ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
@@ -6222,6 +6402,19 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     flex: 0 0 auto; padding: 7px 14px; border-bottom: 1px solid var(--swu-border);
     font: 700 10px/1 var(--swu-font-label); letter-spacing: 0.16em; text-transform: uppercase;
     white-space: nowrap; color: rgba(255,255,255,0.55); }
+  /* Twin Suns house rules chip + its tap-to-open list (updateHouseRulesChip). Green like the waiting room's light. */
+  .swu-hr-chip { appearance: none; -webkit-appearance: none; margin: 0; cursor: pointer; white-space: nowrap;
+    padding: 3px 7px; border: 1px solid rgba(61,220,132,0.55); border-radius: 3px;
+    background: rgba(61,220,132,0.12); color: #7fe8ad;
+    font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.14em; text-transform: uppercase; }
+  .swu-hr-chip:hover, .swu-hr-chip[aria-expanded="true"] { background: rgba(61,220,132,0.22); }
+  .swu-hr-pop { position: absolute; z-index: 60; top: calc(100% + 6px); right: 0; min-width: 180px;
+    display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; border-radius: 6px;
+    border: 1px solid rgba(61,220,132,0.45); background: rgba(10,16,24,0.96); box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+    font: 500 12px/1.3 var(--swu-font-ui); color: rgba(255,255,255,0.9); white-space: nowrap; }
+  .swu-hr-pop[hidden], .swu-hr-wrap[hidden] { display: none; }
+  .swu-hr-pop-title { font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.16em; text-transform: uppercase;
+    color: #7fe8ad; margin-bottom: 2px; }
   .swu-phase-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto;
     background: currentColor; box-shadow: 0 0 6px currentColor; }
   .swu-phase-line[data-phase-kind="start"]   { color: rgba(255,255,255,0.62); }

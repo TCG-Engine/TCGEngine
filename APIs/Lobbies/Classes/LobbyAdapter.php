@@ -33,6 +33,12 @@ interface LobbyBotPolicyAdapter {
     public function botDeckInput(object $lobby, string $profile, string $posted): string;
 }
 
+// Optional: a sim's house-rule MENU for this room (APIs/Lobbies/Classes/HouseRules.php runs the vote). [] = no
+// House Rules panel. A sim without it never shows one, and the poll carries no `houseRules` field for it.
+interface LobbyHouseRulesAdapter {
+    public function houseRuleDefs(object $lobby): array;
+}
+
 interface LobbyAdapter {
     // ROUTING. True iff this lobby gets a WaitingRoom page: private, and not a local/solo format.
     public function wantsWaitingRoom(object $lobby): bool;

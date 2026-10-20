@@ -325,7 +325,7 @@ class SchemaTestRunner {
             'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
             'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
-            'WithGameLog', 'WithChat',
+            'WithGameLog', 'WithChat', 'WithHouseRules',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -1450,6 +1450,19 @@ class SchemaTestRunner {
         // localhost (curl …:3400/zzRegressionSWUSim.php): SWUUndoConsentDisabledForLocalDev must stand down, or every
         // consent case (undo/ConsentGating, undo/RequestApprove, core/GameLog_Undo …) silently loses its consent step.
         $GLOBALS['SWU_TEST_SCHEMA_RUN'] = true;
+        // WithHouseRules: extraBaseHp=10,takeCredit,planScry=2 — the SAME SWUApplyHouseRules call SWUSetupGame makes for a
+        // room's agreed rules. Absent = no call at all, so every other section's gamestate is byte-identical (the HR_*
+        // variables share the RNG-material decision-queue slot).
+        if (isset($given['WithHouseRules']) && function_exists('SWUApplyHouseRules')) {
+            $hrActive = [];
+            foreach (explode(',', $given['WithHouseRules']) as $hrPart) {
+                $hrPart = trim($hrPart);
+                if ($hrPart === '') continue;
+                [$hrId, $hrVal] = array_pad(explode('=', $hrPart, 2), 2, null);
+                $hrActive[trim($hrId)] = $hrVal === null ? true : intval($hrVal);
+            }
+            SWUApplyHouseRules($hrActive);
+        }
         for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
@@ -1663,6 +1676,24 @@ class SchemaTestRunner {
                 if ($actual !== $m[2])
                     $failures[] = "{$line}: expected {$m[2]}, got {$actual}";
 
+            } elseif (preg_match('/^FOURTHCOUNTER:(.*)$/', $line, $m)) {
+                // Twin Suns house rules: the 4th counter (Take Credit / Take Restore) — 'AVAILABLE', 'P{n}', or '' when
+                // neither rule is in play.
+                $actual = function_exists('SWUFourthCounterState') ? SWUFourthCounterState() : '(SWUFourthCounterState missing)';
+                if ($actual !== $m[1])
+                    $failures[] = "{$line}: expected '{$m[1]}', got '{$actual}'";
+
+            } elseif (preg_match('/^P(\d+)(FOURTH|PASS)AVAIL:(0|1)$/', $line, $m)) {
+                // What the client is told for seat N — read straight from SWUComputeActionsData, the payload the
+                // buttons are drawn from: 'fourthAvailable' (the Credit/Restore button) and 'passAvailable' (CR §12.6.1.a).
+                // The harness's own Pass does not apply that gate (GameTestAdapter::passAction), so this is how a
+                // section proves a seat may NOT pass.
+                $key = ($m[2] === 'FOURTH') ? 'fourthAvailable' : 'passAvailable';
+                $ad = SWUComputeActionsData(intval($m[1]));
+                $avail = !empty($ad[$key]) ? '1' : '0';
+                if ($avail !== $m[3])
+                    $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
+
             } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
                 // Twin Suns UI: does seat N's actions data report the counter as available to take?
                 // Mirror SWUComputeActionsData: available iff THIS IS A 3+ SEAT GAME, the seat hasn't
@@ -1690,6 +1721,21 @@ class SchemaTestRunner {
                 $actual   = $g->state->player($p)->base->damage;
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected base damage {$expected}, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)BASEREMAINING:(-?\d+)$/', $line, $m)) {
+                // Remaining base HP as the ENGINE reads it (SWUBaseRemainingHp: max HP − damage) — the number
+                // "N or less remaining HP" cards and the bots compare against. Max HP includes Twin Suns house rules.
+                $actual = SWUBaseRemainingHp(intval($m[1]));
+                if ($actual !== intval($m[2]))
+                    $failures[] = "{$line}: expected remaining base HP {$m[2]}, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)BASEMAXHP:(\d+)$/', $line, $m)) {
+                // The base's max HP as the CLIENT shows it (BasePrintedHP → the Base zone's PrintedHP virtual: the
+                // health bar and the Twin Suns Home Panel pip). Must agree with the defeat check.
+                $b = GetBase(intval($m[1]));
+                $actual = empty($b) ? -1 : BasePrintedHP($b[0]);
+                if ($actual !== intval($m[2]))
+                    $failures[] = "{$line}: expected base max HP {$m[2]}, got {$actual}";
 
             } elseif (preg_match('/^P(\d+)BASE(UPGRADE|CAPTIVE)COUNT:(\d+)$/', $line, $m)) {
                 // The base's Subcards array holds Fortify upgrades AND arrest captives together,

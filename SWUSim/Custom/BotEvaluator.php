@@ -365,7 +365,7 @@ const SWU_BOT_DMG_BUDGET_CAP = 0.55;
 function SWUBotBaseDamageFraction(int $seat): float {
     $b = GetBase($seat);
     if (empty($b) || !empty($b[0]->removed)) return 0.0;
-    $hp = intval(CardHp($b[0]->CardID));
+    $hp = SWUBaseMaxHp($b[0]->CardID);
     return $hp > 0 ? min(1.0, intval($b[0]->Damage ?? 0) / $hp) : 0.0;
 }
 

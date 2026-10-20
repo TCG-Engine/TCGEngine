@@ -222,6 +222,10 @@ function SWUSetupGame($lobby, $opts = []) {
     SetSWUVar('GAME_IS_PRIVATE',
         ((is_object($lobby) && !empty($lobby->isPrivate)) || $mode !== '') ? 'true' : 'false');
     SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
+    // Twin Suns house rules the room agreed on (StartRoom resolves them; a rematch re-reads them from the match).
+    if (is_object($lobby) && is_array($lobby->houseRulesActive ?? null) && !empty($lobby->houseRulesActive)) {
+        SWUApplyHouseRules($lobby->houseRulesActive);
+    }
 
     WriteGamestate(__DIR__ . "/");
     $lobby->gameName = $gameName;

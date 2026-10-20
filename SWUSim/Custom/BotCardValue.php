@@ -166,7 +166,7 @@ function _SWUBotCardEffect(int $seat, string $cid, array $tags, array $W, int $H
         $n    = _SWUBotTextNumber($text, '/heal (\d+) damage/i', 1);
         $base = GetBase($seat)[0] ?? null;
         $dmgOn = $base !== null ? intval($base->Damage ?? 0) : 0;
-        $hp    = $base !== null ? max(1, intval(CardHp($base->CardID ?? ''))) : 30;
+        $hp    = $base !== null ? max(1, SWUBaseMaxHp($base->CardID ?? '')) : 30;
         $v += $W['base'] * min($n, $dmgOn) * ($dmgOn / $hp);
     }
     // GRANTED DEFENCE — the same damage-prevented arithmetic as Body, applied to somebody else.

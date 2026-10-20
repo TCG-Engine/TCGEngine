@@ -35,6 +35,11 @@ function SWUResolveLobbyDecks($lobby) {
             'deckIdentity' => SWUComputeDeckIdentity($player->getDeckLink()),
             'deckLink'     => $player->getDeckLink(),
             'cosmetics'    => SWUResolveSeatCosmetics($userId),
+            // Table facts (Twin Suns rematch rebuilds the table from these). Empty for a 2-seat lobby's players, and
+            // MatchCreate stores none of them when empty.
+            'botProfile'   => method_exists($player, 'getBotProfile') ? strval($player->getBotProfile()) : '',
+            'username'     => method_exists($player, 'getUsername') ? strval($player->getUsername()) : '',
+            'team'         => method_exists($player, 'getTeam') ? $player->getTeam() : null,
         ];
         ++$seat;
     }

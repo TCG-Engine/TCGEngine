@@ -7,8 +7,9 @@ require_once __DIR__ . '/../APIs/Lobbies/Classes/LobbyAdapter.php';
 require_once __DIR__ . '/Custom/DeckImport.php';
 require_once __DIR__ . '/../APIs/Lobbies/Classes/TeamRooms.php';
 require_once __DIR__ . '/Custom/SetupPanels.php';   // SWUSetupTwinSunsPreCons
+require_once __DIR__ . '/HouseRuleDefs.php';
 
-class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAdapter {
+class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAdapter, LobbyHouseRulesAdapter {
 
     // ── Twin Suns "Fill Seat with Bot" (SWUSim/docs/todo-twinsuns-fill-bot.md) ──────────────────────────────────
     // A PUBLIC room offers bots only once nobody new has joined for this long (Decision 5); a private room at once.
@@ -109,6 +110,13 @@ class SWULobbyAdapter implements LobbyAdapter, LobbyBotAdapter, LobbyBotPolicyAd
         if ($f === null || !empty($f['localMode'])) return false;   // unknown / goldfish / hotseat -> no page
         if (!empty($lobby->isPrivate)) return true;                 // every private non-local lobby
         return SWUFormatIsRoomFormat($lobby->format ?? '');         // public: Twin Suns family only
+    }
+
+    // House Rules panel: the Twin Suns family only (Twin Suns, Team Suns and their previews), public or private.
+    // docs/superpowers/specs/2026-10-18-twinsuns-house-rules-design.md
+    public function houseRuleDefs(object $lobby): array {
+        if (!$this->wantsWaitingRoom($lobby) || !SWUFormatIsRoomFormat(strval($lobby->format ?? ''))) return [];
+        return SWUHouseRuleDefs();
     }
 
     // RENDERING: how many seats to draw, and whether they split into teams.
