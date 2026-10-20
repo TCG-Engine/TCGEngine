@@ -385,7 +385,7 @@ body.swu-home .swu-mb-basehp { top: -7px; width: 18px; height: 20px; font-size: 
 /* The same pip on a FULL-SIZE base card, over its printed-HP corner (swuRenderBaseMaxHpPip — Extra Base HP only).
    Sized as a share of the card (the card element is what the player sees; the <img> is scaled + clipped inside it);
    the font size is set from the card's width in JS. Above the art, below nothing interactive (click-through). */
-.swu-basehp-pip { position: absolute; left: 1.2%; top: 2.5%; width: 10%; aspect-ratio: 12 / 13; z-index: 3;
+.swu-basehp-pip { position: absolute; left: -0.5%; top: -0.2%; width: 10%; aspect-ratio: 12 / 13; z-index: 3;
     pointer-events: none; display: flex; align-items: center; justify-content: center;
     background: url('./Assets/Icons/swusim-hp_v2.png') center / 100% 100% no-repeat;
     color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000; font-weight: 800; line-height: 1;
