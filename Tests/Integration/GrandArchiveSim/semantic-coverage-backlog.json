@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-19T21:23:34+00:00",
+    "generatedAt": "2026-10-20T02:02:39+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
@@ -10668,10 +10668,12 @@
                 "token"
             ],
             "existingFixtures": [
-                "bloom-summers-glow-class-bonus-flowerbud-split"
+                "bloom-summers-glow-class-bonus-flowerbud-split",
+                "bloom-summers-glow-element-bonus-discard-pays-two-empowers-and-draws"
             ],
             "semanticFixtures": [
-                "bloom-summers-glow-class-bonus-flowerbud-split"
+                "bloom-summers-glow-class-bonus-flowerbud-split",
+                "bloom-summers-glow-element-bonus-discard-pays-two-empowers-and-draws"
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
@@ -10690,10 +10692,12 @@
                 "token"
             ],
             "existingFixtures": [
-                "bloom-winters-chill-class-bonus-flowerbud-split"
+                "bloom-winters-chill-class-bonus-flowerbud-split",
+                "bloom-winters-chill-element-bonus-discard-pays-two-empowers-and-draws"
             ],
             "semanticFixtures": [
-                "bloom-winters-chill-class-bonus-flowerbud-split"
+                "bloom-winters-chill-class-bonus-flowerbud-split",
+                "bloom-winters-chill-element-bonus-discard-pays-two-empowers-and-draws"
             ],
             "starterDecks": [
                 "Diao Chan Re:Collection, Idyll Corsage"
@@ -15182,9 +15186,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "breaths-coloratura-resonantech-reduces-payment-once",
                 "resonantech-module-ability-1-pays-its-printed-cost"
             ],
             "semanticFixtures": [
+                "breaths-coloratura-resonantech-reduces-payment-once",
                 "resonantech-module-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
@@ -28485,9 +28491,11 @@
                 "condition"
             ],
             "existingFixtures": [
+                "forgelight-shieldmaiden-foster-discarding-an-exalted-fire-card-counts-as-fire",
                 "forgelight-shieldmaiden-foster-draws-two-and-discards-one"
             ],
             "semanticFixtures": [
+                "forgelight-shieldmaiden-foster-discarding-an-exalted-fire-card-counts-as-fire",
                 "forgelight-shieldmaiden-foster-draws-two-and-discards-one"
             ],
             "starterDecks": [],
@@ -33305,6 +33313,7 @@
                 "vorpal-sword-on-ally-hit-does-not-trigger-for-an-ally-attacking-without-the-sword",
                 "vorpal-sword-on-ally-hit-needs-a-preparation-counter-on-the-champion",
                 "vorpal-sword-on-ally-hit-needs-the-merlin-bonus",
+                "vorpal-sword-on-ally-hit-triggers-even-when-the-hit-kills-the-ally",
                 "vorpal-sword-specter-allies-cannot-retaliate-against-its-attack",
                 "without-vorpal-sword-the-specter-ally-retaliates"
             ],
@@ -33315,6 +33324,7 @@
                 "vorpal-sword-on-ally-hit-does-not-trigger-for-an-ally-attacking-without-the-sword",
                 "vorpal-sword-on-ally-hit-needs-a-preparation-counter-on-the-champion",
                 "vorpal-sword-on-ally-hit-needs-the-merlin-bonus",
+                "vorpal-sword-on-ally-hit-triggers-even-when-the-hit-kills-the-ally",
                 "vorpal-sword-specter-allies-cannot-retaliate-against-its-attack",
                 "without-vorpal-sword-the-specter-ally-retaliates"
             ],
@@ -44001,10 +44011,16 @@
                 "counter"
             ],
             "existingFixtures": [
-                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one"
+                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one",
+                "breaths-coloratura-resonantech-reduces-payment-once",
+                "breaths-coloratura-without-discount-pays-three-reserve",
+                "music-aficionado-costs-one-after-breaths-coloratura"
             ],
             "semanticFixtures": [
-                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one"
+                "breaths-coloratura-puts-a-buff-counter-on-each-human-ally-and-later-humans-enter-with-one",
+                "breaths-coloratura-resonantech-reduces-payment-once",
+                "breaths-coloratura-without-discount-pays-three-reserve",
+                "music-aficionado-costs-one-after-breaths-coloratura"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -47659,10 +47675,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "music-aficionado-costs-one-after-breaths-coloratura",
                 "music-aficionado-costs-three-less-after-a-melody-this-turn",
                 "music-aficionado-without-a-melody-this-turn-costs-the-printed-four"
             ],
             "semanticFixtures": [
+                "music-aficionado-costs-one-after-breaths-coloratura",
                 "music-aficionado-costs-three-less-after-a-melody-this-turn",
                 "music-aficionado-without-a-melody-this-turn-costs-the-printed-four"
             ],
@@ -51244,10 +51262,12 @@
                 "condition"
             ],
             "existingFixtures": [
+                "whirlwind-reaper-cannot-wake-itself-up-while-held-by-cataleptic-constellation",
                 "whirlwind-reaper-end-phase-declined-stays-rested",
                 "whirlwind-reaper-end-phase-removes-a-preparation-counter-to-wake-up"
             ],
             "semanticFixtures": [
+                "whirlwind-reaper-cannot-wake-itself-up-while-held-by-cataleptic-constellation",
                 "whirlwind-reaper-end-phase-declined-stays-rested",
                 "whirlwind-reaper-end-phase-removes-a-preparation-counter-to-wake-up"
             ],
@@ -55406,10 +55426,14 @@
                 "targeting"
             ],
             "existingFixtures": [
-                "ordained-charisma-gains-control-of-a-weak-ally"
+                "ordained-charisma-cannot-wake-up-an-ally-held-by-cataleptic-constellation",
+                "ordained-charisma-gains-control-of-a-weak-ally",
+                "ordained-charisma-wakes-up-its-target"
             ],
             "semanticFixtures": [
-                "ordained-charisma-gains-control-of-a-weak-ally"
+                "ordained-charisma-cannot-wake-up-an-ally-held-by-cataleptic-constellation",
+                "ordained-charisma-gains-control-of-a-weak-ally",
+                "ordained-charisma-wakes-up-its-target"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

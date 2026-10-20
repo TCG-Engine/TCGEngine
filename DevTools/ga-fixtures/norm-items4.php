@@ -58,7 +58,6 @@ gaScenario('lotor-trinket-class-bonus-raccoons-get-plus-one-power-while-the-oppo
     ->deckTemplate('quiet', 'Dungeon Guide')
     ->readyFor('Lotor Trinket', classBonus: true)
     ->seed('myField', 'Lotor Trinket')
-    ->answer(1, 'PASS')
     ->seed('myField', 'Portly Raccoon')
     ->observe()
     ->expectPower('p1Field-2', 3, '[Class Bonus] The opponent has no graveyard: Raccoon allies get +1, 2 + 1')

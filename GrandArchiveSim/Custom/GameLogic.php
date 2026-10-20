@@ -28072,7 +28072,7 @@ $customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecisi
  * @return string JSON array, or empty string.
  */
 function GAParvatiRegaliaAbilityActive($obj) {
-    if($obj === null || $obj->removed || $obj->Status != 2 || HasNoAbilities($obj) || !PropertyContains(EffectiveCardType($obj), "REGALIA")) return false;
+    if($obj === null || $obj->removed || !isset($obj->Status) || $obj->Status != 2 || HasNoAbilities($obj) || !PropertyContains(EffectiveCardType($obj), "REGALIA")) return false;
     global $playerID;
     $zone = $obj->Controller == $playerID ? "myField" : "theirField";
     foreach(GetZone($zone) as $boon) {

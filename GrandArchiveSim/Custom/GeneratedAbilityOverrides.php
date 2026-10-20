@@ -1189,6 +1189,22 @@ $activateAbilityAbilities["waf8urrqtj:0"] = function($player) { //Draw
       if(GetInfluence($drawingPlayer) < 7) DrawIntoMemory($drawingPlayer, 1);
   }
 };
+// Element words on printed text count Exalted cards too: an Exalted Fire card IS a fire element card (CardElement() reads "EXALTED,FIRE"), so the
+// generated `=== "FIRE"` / `!== "NORM"` comparisons wrongly rejected them. These keep the generated bodies and test element membership instead.
+// (Chamber of Reflections' `non-advanced element` check was already right -- EXALTED is an advanced element -- and no Exalted Suited ally or omen exists, so Four of Hearts and Awaken Ombre cannot misfire.)
+// Forgelight Shieldmaiden (kuz07nk45s): "Class Bonus: If a fire element card was discarded, put a buff counter on CARDNAME."
+if(isset($customDQHandlers["kuz07nk45s:0:OnFoster-1"])) {
+  $customDQHandlers["kuz07nk45s:0:OnFoster-1"] = function($player, $parts, $lastDecision) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DecisionQueueController::StoreVariable("chosen", $lastDecision);
+    if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount($player, $lastDecision);
+    if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution($player, $lastDecision, "kuz07nk45s:0:OnFoster-1")) return;
+    $chosenObj = GetZoneObject($lastDecision);
+    $wasFire = $chosenObj !== null && GAIsElement($chosenObj->CardID, "FIRE");
+    DiscardCard($player, $lastDecision);
+    if(IsClassBonusActive($player, ["GUARDIAN"]) && $wasFire) AddCounters($player, $mzID, "buff", 1);
+  };
+}
 // "Activate this ability only once" (Cardistry): the generated bodies of Two of Spades, Three of Spades, Two of Diamonds, Four of Hearts, Five of Spades, Five of Hearts and Five of Diamonds never recorded the use (every other
 // Cardistry card sets cardistry_used and has the matching prereq), so those abilities could be activated again and again. The original bodies are wrapped to record the use and a prereq refuses a second activation.
 foreach(["e8ygl32jef", "o09csnorqv", "mzwTQzuXZa", "xgax8bbjqj", "i9hf5lhl5f", "idq4ih00rq", "Zq4iWqdjGp"] as $gaCardistryOnceID) {

@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "kuz07nk45s"
+        ],
+        "mechanics": [
+            "foster",
+            "draw-discard",
+            "class-bonus",
+            "exalted"
+        ],
+        "rulesClauses": [
+            "On Foster: Draw two cards, then discard a card. Class Bonus: If a fire element card was discarded, put a buff counter on CARDNAME."
+        ]
+    },
+    "name": "forgelight-shieldmaiden-foster-discarding-an-exalted-fire-card-counts-as-fire",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T02:01:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kuz07nk45s"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

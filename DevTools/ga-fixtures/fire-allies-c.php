@@ -94,6 +94,19 @@ gaScenario('forgelight-shieldmaiden-foster-draws-two-and-discards-one')
     ->covers(['foster', 'draw-discard', 'class-bonus'], 'On Foster: Draw two cards, then discard a card. Class Bonus: If a fire element card was discarded, put a buff counter on CARDNAME.')
     ->register();
 
+// An Exalted Fire card is a fire element card: discarding Alizarin Longbowman (EXALTED, FIRE) still earns the buff counter.
+gaScenario('forgelight-shieldmaiden-foster-discarding-an-exalted-fire-card-counts-as-fire')
+    ->standardDeck('Forgelight Shieldmaiden')
+    ->readyFor('Forgelight Shieldmaiden', classBonus: true)
+    ->seed('myField', 'Forgelight Shieldmaiden')
+    ->seed('myHand', 'Alizarin Longbowman')
+    ->reachTurnThree()->answer(1, 'myHand-7')
+    ->tested('Forgelight Shieldmaiden')
+    ->expectCardExists('myGraveyard', 'Alizarin Longbowman', 'The Exalted Fire card was the discard')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Class Bonus: an Exalted Fire card is a fire element card, so Forgelight Shieldmaiden got a buff counter')
+    ->covers(['foster', 'draw-discard', 'class-bonus', 'exalted'], 'On Foster: Draw two cards, then discard a card. Class Bonus: If a fire element card was discarded, put a buff counter on CARDNAME.')
+    ->register();
+
 gaScenario('sunglory-sentinel-class-bonus-fostered-attacking-a-champion-gets-plus-two-power')
     ->standardDeck('Sunglory Sentinel')
     ->readyFor('Sunglory Sentinel', classBonus: true)
