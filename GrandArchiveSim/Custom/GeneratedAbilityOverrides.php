@@ -3645,3 +3645,23 @@ foreach($CardActivateAbilityCountData as $gaWhiteoutCardID => $gaWhiteoutCount) 
         };
     }
 }
+
+// Slime Party (AJeuUDTPmV): "costs 1 less for each different element Slime ally you control" -- Silvie bonus. Generated body keyed a set on the
+// whole element string, so two Exalted/Fire Slimes counted once; each Slime now counts when it has an element no other counted Slime uses.
+$activationCostModifierAbilities["AJeuUDTPmV:0"] = function($player, $subjectObj, $currentValue, $sourceObj) {
+  if($subjectObj->CardID !== "AJeuUDTPmV") return 0;
+  $isSilvie = ChampionHasInLineage($player, "GKEpAulogu")
+      || ChampionHasInLineage($player, "mdwbkuhtjm")
+      || ChampionHasInLineage($player, "nllCALIXDT")
+      || ChampionHasInLineage($player, "RfPP8h16Wv")
+      || ChampionHasInLineage($player, "ZR8tnLruR6");
+  if(!$isSilvie) return 0;
+  $slimeIDs = [];
+  foreach(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SLIME"]) as $mz) {
+      $obj = GetZoneObject($mz);
+      if($obj === null || $obj->removed) continue;
+      $slimeIDs[] = $obj->CardID;
+  }
+  $discount = GAMaxDistinctElementCount($slimeIDs);
+  return max(0, intval($currentValue) - $discount) - intval($currentValue);
+};

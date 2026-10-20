@@ -4196,6 +4196,25 @@ function GADistinctElementSelectionPossible($chosen, $pool, $needed) {
 
 // Graveyard "myGraveyard-N" choices for Slime King's next banish: Slime allies that keep a legal selection of $total reachable.
 function GASlimeKingEligibleGraveyard($chosenCardIDs, $total = 3) {
+// Largest number of the given cards that can each be counted for an element no other counted card uses ("each different element ... ally").
+function GAMaxDistinctElementCount($cardIDs) {
+    $owner = [];
+    $try = function($i, &$seen) use (&$try, &$owner, $cardIDs) {
+        foreach(GAElementsOfCard($cardIDs[$i]) as $element) {
+            if(isset($seen[$element])) continue;
+            $seen[$element] = true;
+            if(!isset($owner[$element]) || $try($owner[$element], $seen)) { $owner[$element] = $i; return true; }
+        }
+        return false;
+    };
+    $count = 0;
+    for($i = 0; $i < count($cardIDs); ++$i) {
+        $seen = [];
+        if($try($i, $seen)) ++$count;
+    }
+    return $count;
+}
+
     $slimes = [];
     $gy = GetZone("myGraveyard");
     for($gi = 0; $gi < count($gy); ++$gi) {

@@ -25,4 +25,9 @@ slimeCheck(!GADistinctElementSelectionPossible([], [$exFire, $exFire, $fire], 3)
 slimeCheck(!GADistinctElementSelectionPossible([$fire, $arcane], [$fire], 1), 'a second Fire card cannot be the third pick after Fire + Arcane');
 slimeCheck(GADistinctElementSelectionPossible([$fire, $arcane], [$exFire], 1), 'Exalted/Fire is a legal third pick after Fire + Arcane');
 slimeCheck(GADistinctElementSelectionPossible([$exFire, $fire], [$arcane], 1), 'Exalted/Fire + Fire + Arcane is legal in any order');
+slimeCheck(GAMaxDistinctElementCount([$fire, $fire, $arcane, $luxem]) === 3, 'Slime Party count: duplicate Fire counts once');
+slimeCheck(GAMaxDistinctElementCount([$exFire, $exFire]) === 2, 'Slime Party count: two Exalted/Fire cards give Exalted and Fire (2)');
+slimeCheck(GAMaxDistinctElementCount([$exFire, $fire]) === 2, 'Slime Party count: Fire and Exalted/Fire is 2');
+slimeCheck(GAMaxDistinctElementCount([$exFire, $exFire, $fire]) === 2, 'Slime Party count: three cards sharing two elements is 2');
+slimeCheck(GAMaxDistinctElementCount([]) === 0, 'Slime Party count: no Slimes is 0');
 echo "ALL $checks CHECKS PASSED\n";

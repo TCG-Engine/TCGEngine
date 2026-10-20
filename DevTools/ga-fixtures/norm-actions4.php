@@ -136,6 +136,21 @@ gaScenario('slime-party-puts-a-buff-counter-on-each-slime-ally')
     ->covers(['counter'], 'Put a **buff** counter on each Slime ally you control.')
     ->register();
 
+// Silvie bonus: costs 1 less for each Slime ally with a different element (Red Slime FIRE, Storm Slime ARCANE, Simple Slime NORM, second Red Slime repeats FIRE).
+gaScenario('slime-party-silvie-bonus-costs-one-less-per-different-element-slime')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->champion(lineage: ['Silvie, Slime Sovereign'])
+    ->seed('myField', 'Red Slime')
+    ->seed('myField', 'Red Slime')
+    ->seed('myField', 'Storm Slime')
+    ->seed('myField', 'Simple Slime')
+    ->seed('myHand', 'Slime Party')
+    ->castSpell('Slime Party', pay: 1, window: '')
+    ->expectProperty('p1Field-1', 'Counters', '{"buff":1}', 'Paying 1 (4 minus three different elements) resolved Slime Party')
+    ->tested('Slime Party')
+    ->covers(['cost-reduction'], 'This card costs 1 less to activate for each different element Slime ally you control.')
+    ->register();
+
 // ---- Allowance Race ----
 
 gaScenario('allowance-race-resting-a-horse-ally-draws-a-card')
