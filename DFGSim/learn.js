@@ -31,6 +31,7 @@ window.DFGTutorial = (() => {
     queued = false;
     if (!guide) return;
     const target = findTarget();
+    document.body.classList.toggle('dfg-tutorial-target', !!target);
     const gap = 18, edge = 14, width = innerWidth, height = innerHeight;
     panel.style.maxHeight = `${Math.max(160, target ? Math.min(height * 0.55, height - 2 * edge) : height - 2 * edge)}px`;
     panel.classList.toggle('is-centered', !target);
@@ -83,16 +84,23 @@ window.DFGTutorial = (() => {
     if (busy) return;
     busy = true;
     showError('');
+    render();
+    let accepted = false;
     try {
       const data = await request({command, ...extra, matchId: state.matchId, revision: state.revision});
       busy = false;
       selectedMain = null; selectedBonuses.clear(); selectedAdvantages.clear(); browseColor = null;
       accept(data);
+      accepted = true;
       document.getElementById('stepTitle').focus({preventScroll:true});
     } catch (error) {
-      if (error.status === 409) accept(await request());
+      // A failed response may still have advanced the server. Read the saved
+      // checkpoint before allowing another input; never replay a POST blindly.
+      if (error.status === 409 || !error.status) {
+        try { accept(await request()); } catch {}
+      }
       showError(error.message);
-    } finally { busy = false; render(); }
+    } finally { busy = false; if (!accepted) render(); }
   }
   document.addEventListener('click', event => {
     const button = event.target.closest('#tutorialGuide button');
@@ -113,6 +121,8 @@ window.DFGTutorial = (() => {
       const get = id => document.getElementById(id);
       get('lessonTabs').innerHTML = guide.names.map((name,i) => `<button data-lesson="${i}" ${i===guide.lesson?'aria-current="step"':''} ${busy?'disabled':''}>${i+1}. ${esc(name)}</button>`).join('');
       panel.hidden = false;
+      panel.setAttribute('aria-busy', String(busy));
+      get('tutorialLoading').hidden = !busy;
       get('tutorialProgress').textContent = choosingLesson ? 'Learn to play · Lessons' : `${guide.names[guide.lesson]} · ${guide.step+1}/${guide.steps}`;
       const stepKey = `${guide.lesson}:${guide.step}:${guide.complete}`;
       if(lastStep !== stepKey) { lastStep = stepKey; targetKey = null; }
@@ -131,6 +141,7 @@ window.DFGTutorial = (() => {
       get('tutorialText').hidden = choosingLesson;
       get('tutorialTask').hidden = choosingLesson || !get('tutorialTask').textContent;
       get('tutorialRestart').disabled = busy;
+      get('tutorialLessons').disabled = busy;
       get('tutorialPlay').hidden = choosingLesson || !guide.complete;
       ['newMatch','playAgain','resign'].forEach(id => { if(get(id)) get(id).hidden=true; });
       schedulePosition();

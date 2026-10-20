@@ -24,11 +24,14 @@ in-memory data instead of downloading a new cache-busting URL on every hit; the
 ambient video also uses its warmed data when ready, and only plays in the arena.
 Browsers that reject preloaded MP4 playback retry the normal versioned video URL.
 
-`learn.php` offers an introduction and four guided lessons (25 steps) using the normal match page, card renderer,
+`learn.php` offers an introduction and two guided lessons (14 steps) using the normal match page, card renderer,
 arena, hand browser, previews, Commit, Pass reaction, advantage picker, and switch controls.
 The floating guide reuses AzukiSim’s popup and spotlight styles, highlights the next
 card or control, and shows the full explanation and next action in each popup.
-Back, Restart, and Lessons allow replay without collapsible sections. The server
+One opening fight teaches bonus and reaction burns together; the introduction explains all loss conditions.
+Back, Restart, and Lessons allow replay without collapsible sections. Transitions show loading
+feedback and connection errors inside the guide. Requests time out after 12 seconds; failed
+responses trigger a read of saved progress before retrying. The server
 validates the lesson action and runs it through the real engine with a scripted opponent. Tutorial progress is saved in a
 separate session entry and never replaces the regular match. Reload to resume, restart
 or select a lesson, or return to the menu to resume your saved fight.

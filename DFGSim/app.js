@@ -85,12 +85,24 @@ function showPreview(id, anchor, pin = false) {
 function delayClosePreview() {
   if(!previewPinned) { clearTimeout(previewTimer); previewTimer = setTimeout(closePreview, 160); }
 }
-function showError(message) { $('error').textContent = message; $('error').hidden = !message; }
+function showError(message) {
+  const target = $('tutorialError') && !$('gameView').hidden ? $('tutorialError') : $('error');
+  for (const id of ['error', 'tutorialError']) if ($(id)) { $(id).textContent = ''; $(id).hidden = true; }
+  target.textContent = message; target.hidden = !message;
+}
 async function request(body = null) {
-  const response = await fetch($('tutorialGuide') ? 'api.php?tutorial=1' : 'api.php', body ? {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,token})} : {cache:'no-store'});
-  const data = await response.json();
-  if (!data.ok) { const error = new Error(data.error || 'Request failed'); error.status = response.status; throw error; }
-  return data;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  try {
+    const options = body ? {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,token})} : {};
+    const response = await fetch($('tutorialGuide') ? 'api.php?tutorial=1' : 'api.php', {...options, cache:'no-store', signal:controller.signal});
+    const data = await response.json();
+    if (!data.ok) { const error = new Error(data.error || 'Request failed'); error.status = response.status; throw error; }
+    return data;
+  } catch (error) {
+    if (controller.signal.aborted) throw new Error('The connection timed out. Try again; your progress is saved.');
+    throw error;
+  } finally { clearTimeout(timer); }
 }
 function accept(data) {
   if(window.DFGTutorial) DFGTutorial.accept(data.tutorial);
@@ -217,7 +229,7 @@ async function act(action) {
   busy = true; showError(''); render();
   let accepted=false;
   try { const data=await request({command:'action',action,revision:state.revision,matchId:state.matchId});busy=false;accept(data);accepted=true; }
-  catch(error) { if(error.status===409) { try { accept(await request()); } catch {} } showError(error.message); }
+  catch(error) { if(error.status===409 || !error.status) { try { accept(await request()); } catch {} } showError(error.message); }
   finally { busy = false; if(!accepted) render(); }
 }
 function fighter(seat) {

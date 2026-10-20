@@ -18,7 +18,7 @@ try {
     try {
       browser = await engine.launch({headless:true});
       for (const viewport of [{width:1440,height:1000},{width:390,height:844}]) {
-        const page = await browser.newPage({viewport,reducedMotion:'reduce'});
+        const page = await browser.newPage({viewport,reducedMotion:viewport.width>700?'no-preference':'reduce'});
         const errors=[];
         page.on('pageerror',e=>errors.push(e.message));
         await page.goto(base);
@@ -54,6 +54,8 @@ try {
         assert.match(await page.locator('#tutorialText').textContent(),/There’s no randomness/);
         assert.equal(await page.locator('#tutorialGuide details').count(),0,'No dropdown explanations or navigation');
         assert.equal(await page.locator('#tutorialSpotlight').isVisible(),false,'Introduction starts before a card choice');
+        assert.equal(await page.evaluate(()=>parseFloat(getComputedStyle(document.body).paddingBottom)),0,'Centered introduction adds no scroll padding');
+        if(viewport.width>700) assert.equal(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight),false,'Desktop introduction fits without a page scrollbar');
         assert.equal(await page.locator('#tutorialGuide').evaluate(el=>getComputedStyle(el).position),'fixed');
         if(process.env.DFG_SCREENSHOTS) await page.screenshot({path:`${process.env.DFG_SCREENSHOTS}/${name}-${viewport.width}-intro.png`});
         assert.equal(await page.locator('.practice-board').count(),0);
@@ -63,9 +65,44 @@ try {
         });
         assert.equal(rejected.ok,false);
         assert.match(rejected.error,/Continue/);
+        // Slow and failed transitions must give feedback, unlock, and retain progress.
+        let releasePost;
+        const stalledPost = route => route.request().method()==='POST'
+          ? new Promise(resolve => { releasePost = async () => { await route.abort(); resolve(); }; })
+          : route.continue();
+        await page.clock.install();
+        await page.route('**/api.php?tutorial=1', stalledPost);
+        await page.locator('#tutorialContinue').click();
+        await page.locator('#tutorialLoading:visible').waitFor();
+        assert.equal(await page.locator('#tutorialContinue').isDisabled(),true);
+        assert.equal(await page.locator('#tutorialLessons').isDisabled(),true);
+        await page.clock.fastForward(12001);
+        await page.locator('#tutorialError:visible').waitFor();
+        assert.match(await page.locator('#tutorialError').textContent(), /timed out/);
+        await releasePost();
+        await page.clock.resume();
+        await page.locator('#tutorialContinue:enabled').waitFor();
+        assert.equal(await page.locator('#stepTitle').textContent(),'Tired of losing to a bad hand?');
+        await page.unroute('**/api.php?tutorial=1', stalledPost);
+        // The server accepted the action but the response was lost: GET recovers it once.
+        const lostResponse = async route => {
+          if(route.request().method()!=='POST') return route.continue();
+          await route.fetch();
+          await route.abort();
+        };
+        await page.route('**/api.php?tutorial=1', lostResponse);
+        await page.locator('#tutorialContinue').click();
+        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Six hands, secret moves');
+        await page.locator('#tutorialContinue:enabled').waitFor();
+        assert.equal(await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial.step),1);
+        await page.unroute('**/api.php?tutorial=1', lostResponse);
+        await page.locator('#tutorialRestart').click();
+        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Tired of losing to a bad hand?');
+        // Missing art and reaction clips must not prevent completing the tutorial.
+        await page.route('**/DFGSim/assets/**', route=>route.abort());
         let steps=0;
         const total=await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial.totalSteps);
-        assert.equal(total,25);
+        assert.equal(total,14);
         while(steps<total) {
           const guide=await page.evaluate(async()=> (await (await fetch('api.php?tutorial=1')).json()).tutorial);
           assert.equal(guide.complete,false);
@@ -101,14 +138,14 @@ try {
         }
         assert.equal(await page.locator('#stepTitle').textContent(),'You’re ready.');
         await page.locator('#tutorialRestart').click();
-        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Keep an eye on your hands');
+        await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Earn advantage');
         await page.locator('#tutorialLessons').click();
         await page.locator('[data-lesson="0"]').click();
         await page.waitForFunction(()=>document.getElementById('stepTitle').textContent==='Tired of losing to a bad hand?');
         const after=await page.evaluate(async()=> (await (await fetch('api.php')).json()).state);
         assert.deepEqual(after,saved,'Tutorial preserves regular match exactly');
         assert.deepEqual(errors,[]);
-        console.log(`${name} ${viewport.width}: 25 steps, introduction, visible explanations, normal controls, reload, replay, isolation passed`);
+        console.log(`${name} ${viewport.width}: 14 steps, introduction, visible explanations, normal controls, reload, replay, isolation passed`);
         await page.close();
       }
     } catch(error) { failures++; console.error(`${name}: ${error.stack}`); }

@@ -22,6 +22,8 @@ $fighterReactionAssets = is_file($reactionManifest) ? json_decode(file_get_conte
 <section id="tutorialGuide" class="azuki-tutorial-panel dfg-tutorial-panel" role="dialog" aria-modal="false" aria-labelledby="stepTitle" hidden>
 <div class="tutorial-heading"><span id="tutorialProgress" class="azuki-tutorial-kicker"></span><a href="index.php" aria-label="Exit tutorial">Exit</a></div>
 <h2 id="stepTitle" tabindex="-1"></h2>
+<p id="tutorialLoading" role="status" hidden>Loading next step…</p>
+<p id="tutorialError" class="error" role="alert" hidden></p>
 <p id="tutorialText"></p>
 <p id="tutorialTask" role="status" aria-live="polite"></p>
 <div class="tutorial-actions"><button id="tutorialContinue" class="azuki-tutorial-button">Continue</button><a id="tutorialPlay" href="index.php?play" hidden>Play vs bot →</a></div>
