@@ -61,29 +61,40 @@ function restoreLiquidImpacts() {
     });
   });
 }
-let previewId = null, previewPinned = false, previewTimer = null, previewAnchor = null;
+let previewId = null, previewTimer = null, previewAnchor = null;
 function closePreview() {
-  clearTimeout(previewTimer); previewId = null; previewPinned = false; $('cardPreview').hidden = true;
+  clearTimeout(previewTimer); previewId = null; previewAnchor = null; $('cardPreview').hidden = true;
 }
-function cardDetails(c) { return DFGCardRenderer.details(c, styles); }
+function cardDetails(c) { return DFGCardRenderer.details(c, styles, {textOnly:true}); }
 function positionPreview() {
   const preview = $('cardPreview'); if(preview.hidden || !previewAnchor) return;
+  if (!previewAnchor.isConnected) { closePreview(); return; }
+  const rect = previewAnchor.getBoundingClientRect();
   const gap = 12, margin = 12, width = preview.offsetWidth, height = preview.offsetHeight;
-  let x = previewAnchor.right + gap;
-  if(x + width > innerWidth - margin) x = previewAnchor.left - width - gap;
+  // Hand cards read upward from their row instead of jumping between left and
+  // right placement as the pointer crosses the middle of the hand.
+  const hand = !!previewAnchor.closest('#cards');
+  let x = hand ? rect.left + (rect.width-width)/2 : rect.right + gap;
+  if(!hand && x + width > innerWidth - margin) x = rect.left - width - gap;
   x = Math.max(margin, Math.min(x, innerWidth - width - margin));
-  const y = Math.max(margin, Math.min(previewAnchor.top, innerHeight - height - margin));
+  const y = Math.max(margin, Math.min(hand ? rect.top-height-gap : rect.top, innerHeight - height - margin));
   preview.style.left = `${x}px`; preview.style.top = `${y}px`;
 }
-function showPreview(id, anchor, pin = false) {
-  if(!card(id) || (previewPinned && !pin)) return;
+function showPreview(id, anchor) {
+  if(!card(id)) return;
   clearTimeout(previewTimer);
-  previewId = id; previewPinned = pin; previewAnchor = anchor.getBoundingClientRect();
-  $('previewContent').innerHTML = cardDetails(card(id)); $('cardPreview').hidden = false;
-  $('cardPreview').classList.toggle('pinned', pin); positionPreview();
+  // Pointer events bubble from each child. Keep the existing DOM (and scroll
+  // position) when the same card receives another hover or focus event.
+  if (previewId !== id) {
+    $('previewContent').innerHTML = cardDetails(card(id));
+    $('cardPreview').scrollTop = 0;
+  }
+  previewId = id; previewAnchor = anchor;
+  $('cardPreview').hidden = false;
+  positionPreview();
 }
 function delayClosePreview() {
-  if(!previewPinned) { clearTimeout(previewTimer); previewTimer = setTimeout(closePreview, 160); }
+  clearTimeout(previewTimer); previewTimer = setTimeout(closePreview, 100);
 }
 function showError(message) {
   const target = $('tutorialError') && !$('gameView').hidden ? $('tutorialError') : $('error');
@@ -222,7 +233,6 @@ function clickHandCard(id,button) {
     else if(!selectedBonuses.size&&c.bonus&&p.burnLockedRound!==state.round) changeSelection(()=>selectedBonuses.add(id),[{type:'ZONE_MOVE',source:`hand-${id}`,destination:`burn-0-${id}`}]);
     return;
   }
-  if(previewPinned&&previewId===id) closePreview();else showPreview(id,button,true);
 }
 async function act(action) {
   if (busy || !state) return;
@@ -266,7 +276,7 @@ function renderOpponentPopup() {
   const p=state.players[1], color=opponentColor;
   const remaining=p.available.filter(id=>cardHand(p,id)===color), burned=p.discarded.filter(id=>cardHand(p,id)===color);
   const tile=id=>{const c=card(id);return `<button class="tile-face ${classColor(c.color)}" data-opponent-card="${id}" aria-label="Inspect ${esc(c.name)}">${DFGCardRenderer.mini(c, {badge:burned.includes(id)?"BURNED":""})}</button>`;};
-  const html=`<p class="muted">${remaining.length} remaining · starting size 6 · ${burned.length} permanently burned. Hover or focus a card for details; tap to pin.</p><div class="opponent-popup-cards remaining-cards">${remaining.map(tile).join('')||'<p>This hand is exhausted.</p>'}</div>${burned.length?`<h3 class="burned-label">PERMANENTLY BURNED</h3><div class="opponent-popup-cards burned-cards">${burned.map(tile).join('')}</div>`:''}<p class="muted">Face-down commitments stay hidden. Main cards return after damage; Bait and Slip can change their hand.</p>`;
+  const html=`<p class="muted">${remaining.length} remaining · starting size 6 · ${burned.length} permanently burned. Hover or focus a card for details.</p><div class="opponent-popup-cards remaining-cards">${remaining.map(tile).join('')||'<p>This hand is exhausted.</p>'}</div>${burned.length?`<h3 class="burned-label">PERMANENTLY BURNED</h3><div class="opponent-popup-cards burned-cards">${burned.map(tile).join('')}</div>`:''}<p class="muted">Face-down commitments stay hidden. Main cards return after damage; Bait and Slip can change their hand.</p>`;
   $('popupContainer').innerHTML=createPopupHTML('opponentHand','',{titleHTML:`Opponent · ${esc(color)} hand`,contentHTML:html});
   const popup=$('opponentHandPopup'); popup.setAttribute('role','dialog'); popup.setAttribute('aria-label',`Opponent ${color} hand`);
   _openPopup='opponentHand';
@@ -491,7 +501,6 @@ document.addEventListener('click',event=>{
   if(!event.target.closest('#advantagePicker') && $('advantagePicker')) $('advantagePicker').open=false;
   event.target.closest('.commit-prompt.needs-main')?.focus({preventScroll:true});
   const button=event.target.closest('button');if(!button||button.disabled)return;
-  if(button.id==='closePreview'){closePreview();return;}
   if(button.id==='showRules'){showRulesPopup();return;}
   if(button.id==='goHome'){if($('tutorialGuide'))location.href='index.php';else showScreen(false);return;}
   if(button.id==='homePlay'){
@@ -503,11 +512,8 @@ document.addEventListener('click',event=>{
   if(button.id==='closeLog'){$('fightLog').close();return;}
   if(button.closest('#rulesPopup')&&button.getAttribute('onclick')==='ClosePopup()'){closeRulesPopup();return;}
   if(button.dataset.handAction){clickHandCard(Number(button.dataset.handAction),button);return;}
-  if(button.dataset.inspect){const id=Number(button.dataset.inspect);if(previewPinned&&previewId===id)closePreview();else showPreview(id,button,true);return;}
   if(button.dataset.browse){closePreview();browseColor=button.dataset.browse;render();$(`your-orb-${browseColor}`).focus({preventScroll:true});return;}
   if(button.dataset.opponent){closePreview();HideCardDetail(true);opponentColor=button.dataset.opponent;render();renderOpponentPopup();$('opponentHandPopup').querySelector('button').focus();return;}
-  if(button.dataset.opponentCard){HideCardDetail(true);showOpponentDetail(event,button,true);return;}
-  if(button.dataset.closeShared){HideCardDetail(true);return;}
   if(button.closest('#opponentHandPopup') && button.getAttribute('onclick')==='ClosePopup()'){closeOpponentPopup();return;}
   if(button.dataset.relocate){act({type:'relocate',color:button.dataset.relocate});return;}
   if(button.dataset.cut){act({type:'cut',color:button.dataset.cut});return;}
@@ -528,18 +534,18 @@ document.addEventListener('change',event=>{
   if(event.target.id==='extraSwitch')extraSwitch=event.target.value;
   if(['humanColor','botColor'].includes(event.target.id)) DFGAssetPreloader.warmCards([...catalog.values()], [$('humanColor').value, $('botColor').value]);
 });
-function showOpponentDetail(event, button, pin=false) {
+function showOpponentDetail(event, button) {
   const c=card(Number(button.dataset.opponentCard)), rect=button.getBoundingClientRect();
-  ShowHTMLCardDetail({type:event.type,clientX:event.clientX??rect.right,clientY:event.clientY??rect.top},`${pin?'<button class="preview-close" style="display:block" data-close-shared="true" aria-label="Close card details">×</button>':''}${cardDetails(c)}`,button,{skipDelay:pin,allowTouch:pin,pin});
+  ShowHTMLCardDetail({type:event.type,clientX:event.clientX??rect.right,clientY:event.clientY??rect.top},cardDetails(c),button,{skipDelay:true});
 }
-document.addEventListener('pointerover',event=>{const button=event.target.closest('[data-opponent-card]');if(button&&event.pointerType!=='touch')showOpponentDetail(event,button);});
+document.addEventListener('pointerover',event=>{const button=event.target.closest('[data-opponent-card]');if(button&&event.pointerType!=='touch'&&!button.contains(event.relatedTarget))showOpponentDetail(event,button);});
 document.addEventListener('pointerout',event=>{const button=event.target.closest('[data-opponent-card]');if(button&&!button.contains(event.relatedTarget))HideCardDetail();});
 document.addEventListener('focusin',event=>{const button=event.target.closest('[data-opponent-card]');if(button)showOpponentDetail(event,button);});
 document.addEventListener('focusout',event=>{if(event.target.closest('[data-opponent-card]'))HideCardDetail();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(IsCardDetailOpen())HideCardDetail(true);else if(_openPopup==='rules')closeRulesPopup();else if(opponentColor)closeOpponentPopup();}});
 document.addEventListener('pointerover', event => {
   const tile = event.target.closest('[data-inspect]');
-  if(tile && event.pointerType!=='touch') showPreview(Number(tile.dataset.inspect), tile);
+  if(tile && event.pointerType!=='touch' && !tile.contains(event.relatedTarget)) showPreview(Number(tile.dataset.inspect), tile);
   if(event.target.closest('#cardPreview')) clearTimeout(previewTimer);
 });
 document.addEventListener('pointerout', event => {
@@ -554,10 +560,9 @@ document.addEventListener('focusin', event => {
 });
 document.addEventListener('focusout', event => { if(event.target.closest('[data-inspect]')) delayClosePreview(); });
 document.addEventListener('keydown', event => { if(event.key==='Escape') { closePreview(); if($('advantagePicker')?.open) { $('advantagePicker').open=false; $('advantagePicker').querySelector('summary').focus(); } if($('matchMenu').open) { $('matchMenu').open=false; $('matchMenu').querySelector('summary').focus(); } } });
-document.addEventListener('click', event => { if(previewPinned && !event.target.closest('#cardPreview, [data-inspect]')) closePreview(); });
 window.addEventListener('resize', positionPreview);
 $('fightLog').addEventListener('close',()=>{$('showLog').setAttribute('aria-expanded','false');if(fightLogTrigger?.isConnected)fightLogTrigger.focus();});
-window.addEventListener('scroll', () => { if(!previewPinned) closePreview(); }, {passive:true});
+window.addEventListener('scroll', closePreview, {passive:true});
 // Close setup consistently in browsers that do not dispatch native dialog cancellation.
 $('setup').addEventListener('keydown',event=>{
   if(event.key==='Escape') { event.preventDefault();$('setup').close(); }

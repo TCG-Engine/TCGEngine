@@ -82,3 +82,10 @@
   .fight-screen .combat-slots .main-slot .tile-heading .tile-stats>span{font-size:16px}
   .fight-screen .combat-slots .main-slot .tile-stats svg{width:9px;height:9px}
 }
+
+/* Hover expansion adds readable rules while the source tile keeps art and stats. */
+.card-preview .technique-card.rules-preview{min-height:0;border-top:3px solid var(--hand)}
+.card-preview .technique-card.rules-preview .card-text{padding:16px 16px 0;gap:14px}
+.card-preview .technique-card.rules-preview .main-ability{font-size:14px;line-height:1.6}
+.card-preview .technique-card.rules-preview .burn-ability{font-size:13px;line-height:1.5}
+.card-preview .technique-card.rules-preview .card-switches{padding:14px 16px 16px}
