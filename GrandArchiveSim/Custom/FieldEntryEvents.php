@@ -1,14 +1,16 @@
 <?php
 // A group describes one simultaneous instruction, not all entries during an ability.
-function GAPutFieldGroup($player, $cardIDs, $rested = false, $replacementChosen = false) {
+function GAPutFieldGroup($player, $cardIDs, $rested = false, $replacementChosen = false, $summonSourceUID = 0) {
     if(!$replacementChosen && !empty($cardIDs) && !in_array('hkurfp66pv', $cardIDs, true)
         && count(array_filter($cardIDs, 'IsToken')) === count($cardIDs) && TonorisCreationsWillActive($player)) {
-        $data = base64_encode(json_encode(['cards' => array_values($cardIDs), 'rested' => boolval($rested)]));
+        $data = base64_encode(json_encode(['cards' => array_values($cardIDs), 'rested' => boolval($rested), 'summonSourceUID' => intval($summonSourceUID)]));
         DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip:'Replace_this_token_summon_with_Aurousteel_Greatswords?');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'GAFieldGroupTonoris|' . $data, 1);
         return;
     }
-    global $gaFieldEntryGroups, $gaNextFieldEntryGroup, $gaFieldEntryGroupCounter;
+    global $gaFieldEntryGroups, $gaNextFieldEntryGroup, $gaFieldEntryGroupCounter, $gaFieldSummonSourceUID;
+    $previousSourceUID = $gaFieldSummonSourceUID ?? 0;
+    $gaFieldSummonSourceUID = intval($summonSourceUID);
     $id = ++$gaFieldEntryGroupCounter;
     $gaFieldEntryGroups[$id] = [];
     try {
@@ -22,6 +24,7 @@ function GAPutFieldGroup($player, $cardIDs, $rested = false, $replacementChosen 
     } finally {
         $gaNextFieldEntryGroup = null;
         unset($gaFieldEntryGroups[$id]);
+        $gaFieldSummonSourceUID = $previousSourceUID;
     }
 }
 function GAClaimFieldEntryGroup() {
@@ -31,8 +34,8 @@ function GAClaimFieldEntryGroup() {
     return $id;
 }
 function GARecordFieldEntry($player, $obj, $group) {
-    global $gaFieldEntryGroups;
-    $entry = ['cardID' => $obj->CardID, 'type' => EffectiveCardType($obj), 'overrides' => $obj->Counters['_overrides'] ?? []];
+    global $gaFieldEntryGroups, $gaFieldSummonSourceUID;
+    $entry = ['cardID' => $obj->CardID, 'type' => EffectiveCardType($obj), 'subtypes' => EffectiveCardSubtypes($obj), 'summonSourceUID' => intval($gaFieldSummonSourceUID ?? 0), 'overrides' => $obj->Counters['_overrides'] ?? []];
     if($group !== null && isset($gaFieldEntryGroups[$group])) $gaFieldEntryGroups[$group][] = $entry;
     else GAQueueFieldEntryEvent($player, [$entry]);
 }
@@ -50,7 +53,42 @@ function GASummonTokenCopy($player, $entry) {
     $copy->Counters = IsToken($id) && empty($entry['overrides']) ? [] : ['_overrides' => $overrides];
     return MZAddZone($player, 'myField', $id, $copy);
 }
+
+function GASummonTokenCopyGroup($player, $entries, $replacementChosen = false) {
+    global $gaFieldEntryGroups, $gaNextFieldEntryGroup, $gaFieldEntryGroupCounter, $playerID;
+    if(empty($entries)) return;
+    if(!$replacementChosen && TonorisCreationsWillActive($player)) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Replace_this_token_summon_with_Aurousteel_Greatswords?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GACopyGroupTonoris|" . base64_encode(json_encode($entries)), 1);
+        return;
+    }
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $id = ++$gaFieldEntryGroupCounter;
+    $gaFieldEntryGroups[$id] = [];
+    try {
+        foreach($entries as $entry) {
+            $gaNextFieldEntryGroup = $id;
+            GASummonTokenCopy($player, $entry);
+            $gaNextFieldEntryGroup = null;
+        }
+        GAQueueFieldEntryEvent($player, $gaFieldEntryGroups[$id]);
+    } finally {
+        $playerID = $savedPlayerID;
+        $gaNextFieldEntryGroup = null;
+        unset($gaFieldEntryGroups[$id]);
+    }
+}
+$customDQHandlers["GACopyGroupTonoris"] = function($player, $parts, $answer) {
+    $entries = json_decode(base64_decode($parts[0] ?? "", true) ?: "", true);
+    if(!is_array($entries)) return;
+    if($answer === "YES") GAPutFieldGroup($player, array_fill(0, count($entries), "hkurfp66pv"), false, true);
+    else GASummonTokenCopyGroup($player, $entries, true);
+};
 function GAQueueFieldEntryEvent($player, $entries) {
+    foreach($entries as $entry) DispatchMacroListeners("FieldObjectEntered", $player, $entry, ["Field"]);
+    // Existing copy effects snapshot only copiable card characteristics.
+    $entries = array_map(function($entry) { unset($entry["subtypes"], $entry["summonSourceUID"]); return $entry; }, $entries);
     if(empty($entries)) return;
     $opponent = $player === 1 ? 2 : 1;
     $regalia = array_values(array_filter($entries, fn($entry) => PropertyContains($entry['type'], 'REGALIA')));
@@ -98,5 +136,5 @@ $customDQHandlers['GAFieldGroupTonoris'] = function($player, $parts, $answer) {
     $data = json_decode(base64_decode(strval($parts[0] ?? ''), true) ?: '', true);
     if(!is_array($data) || !is_array($data['cards'] ?? null)) return;
     $cards = $answer === 'YES' ? array_fill(0, count($data['cards']), 'hkurfp66pv') : $data['cards'];
-    GAPutFieldGroup($player, $cards, !empty($data['rested']), true);
+    GAPutFieldGroup($player, $cards, !empty($data['rested']), true, intval($data['summonSourceUID'] ?? 0));
 };

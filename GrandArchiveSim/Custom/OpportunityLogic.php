@@ -913,10 +913,12 @@ function GetPlayableFastAbilities($player) {
     $abilityZones = [
         "myField" => GetField($player),
         "myIntent" => GetIntent($player),
+        "theirField" => GetField($player === 1 ? 2 : 1),
     ];
 
     foreach($abilityZones as $zonePrefix => $zone) {
         foreach($zone as $i => $obj) {
+            if($zonePrefix === "theirField" && !GAHasPublicActivatedAbility($obj)) continue;
             if($obj == null) continue;
             if($obj->removed || HasNoAbilities($obj)) continue;
             if($obj->CardID === "uvgflagxbb" && HasOpportunity($player)) continue;
@@ -1116,7 +1118,7 @@ function CanUseFastOpportunityGraveyardCard($player, $mzID, $obj) {
             && !empty(GetAetherwingWeapons($player));
     }
 
-    if(CanPayEphemerate($player, $obj->CardID)) return true;
+    if(CanPayEphemerate($player, $obj->CardID,$obj)) return true;
     return false;
 }
 
@@ -1194,6 +1196,8 @@ function GetPlayableFastCards($player) {
             if($hasHumanDeath && CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
+        } elseif(GAStaticProperty($player, "fastActivation", $obj) > 0) {
+            if(CanAffordCardActivation($player, $obj)) $fastCards[] = $mzID;
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
             if(CanAffordCardActivation($player, $obj)) {
@@ -1418,6 +1422,14 @@ $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDec
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
+    $activation = $effectStack[count($effectStack) - 1];
+    if(in_array($activation->TriggerType ?? "", ["", "-"], true)
+        && empty($activation->Counters["activationDeclared"])) {
+        $dispatched = DispatchMacroListeners("CardActivationDeclared", intval($activation->Controller), [
+            "cardID" => $activation->CardID, "element" => EffectiveCardElement($activation),
+        ], ["Field", "GlobalEffects"]);
+        if($dispatched > 0) $activation->Counters["activationDeclared"] = 1;
+    }
     if(!QueueEffectStackOpportunityRound($player, GetEffectStackWindowId())) {
         ResolveTopOfEffectStack();
     }
@@ -1891,6 +1903,10 @@ function ResolveTopOfEffectStack() {
         if(function_exists("FireWitherTriggeredAbility")) {
             FireWitherTriggeredAbility($cardOwner);
         }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DTR_EVENT") {
+        GADTRFireEvent($cardOwner,$topObj->CardID);
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
     } else if($triggerType === "ALLY_DESTROYED") {

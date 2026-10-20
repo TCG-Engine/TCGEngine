@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "94rrVFUJG4"
+        ],
+        "mechanics": [
+            "summon"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, summon a Fledgling."
+        ]
+    },
+    "name": "lesser-boon-flock-summons-fledgling",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:24:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "94rrVFUJG4"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

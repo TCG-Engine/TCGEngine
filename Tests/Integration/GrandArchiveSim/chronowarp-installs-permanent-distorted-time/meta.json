@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "n2wtz6ql0a"
+        ],
+        "mechanics": [
+            "permanent-effect",
+            "phase"
+        ],
+        "rulesClauses": [
+            "For the rest of the game, time is distorted."
+        ]
+    },
+    "name": "chronowarp-installs-permanent-distorted-time",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:21:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n2wtz6ql0a"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "uSZ7FJwX7M"
+        ],
+        "mechanics": [
+            "prepare",
+            "cost",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Preparing pays three counters and deals three plus twice base level."
+        ]
+    },
+    "name": "dtr-radiating-prepared-uses-base-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:26:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uSZ7FJwX7M"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

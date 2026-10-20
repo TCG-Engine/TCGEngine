@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "OSsRmNoETv"
+        ],
+        "mechanics": [
+            "static",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Swords get +1 power and enter with an extra durability counter."
+        ]
+    },
+    "name": "sword-saint-gives-sword-power-and-entry-durability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:24:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OSsRmNoETv"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

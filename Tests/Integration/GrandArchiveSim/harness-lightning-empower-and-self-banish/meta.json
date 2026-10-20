@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "bzwj7ztr78"
+        ],
+        "mechanics": [
+            "modal",
+            "empower",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Empower four, then banish Harness Lightning."
+        ]
+    },
+    "name": "harness-lightning-empower-and-self-banish",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:35:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bzwj7ztr78"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -29,6 +29,8 @@ Macro: Name=MemoryCostModifier(subjectObj,currentValue,sourceObj); MacroType=Val
 Macro: Name=ReserveCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=ActivationCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=GrantedAbility(mzID); Action={}
+Macro: Name=StaticPropertyModifier(property,subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Toast=Card; ToastCardParam=mzID; ToastLabel=Activated; Action={}
@@ -41,6 +43,11 @@ Macro: Name=Reveal(revealedMZ); ChoiceFunction=DoRevealCard; Action={}
 Macro: Name=OnAttack(mzID); ChoiceFunction=OnAttackTrigger; Action={}
 Macro: Name=OnHit(mzID); ChoiceFunction=OnHitTrigger; Action={}
 Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
+Macro: Name=BecameDistant(mzID); Action={}
+Macro: Name=BeginRecollection(mzID); Action={}
+Macro: Name=BeginEnd(mzID); Action={}
+Macro: Name=EscortHit(mzID); Action={}
+Macro: Name=AlternativeCost(mzID,reserveCost); Action={}
 Macro: Name=OnFoster(mzID); ChoiceFunction=OnFosterTrigger; Action={}
 Deck - CardID:string
 AddReplacement: DeckAddReplacement
@@ -57,6 +64,7 @@ Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Click: FSM()
 Counters: OmenCounterCount=Image(Path=Assets/Icons/omen-counter.webp,Position=Center,ShowZero=false,Size=30,TextColor=White)
 Graveyard - CardID:string
+AfterAdd: GAGraveyardAfterAdd
 BeforeRemove: GAGraveyardIdentityLeaving
 AddReplacement: GraveyardAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
@@ -84,6 +92,7 @@ Virtual: CombatTargetIndicator=CombatTargetIndicator()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
+Virtual: MarkedStatus=GADTRMarkedStatus()
 Virtual: BuffCounterCount=GetBuffCounterCount()
 Virtual: DebuffCounterCount=GetDebuffCounterCount()
 Virtual: RefinementCounterCount=GetRefinementCounterCount()
@@ -132,6 +141,7 @@ Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,S
 Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
 Counters: CurrentHP=Image(Path=Assets/Icons/hp-counter.webp,Position=BottomRight,ShowZero=false,Size=26,TextColor=White)
 Counters: CurrentLevel=Badge(Color=Orange,Position=TopLeft,ShowZero=false)
+Counters: MarkedStatus=Badge(Color=Red,Position=TopRight,ShowZero=false)
 Counters: BuffCounterCount=Image(Path=Assets/Icons/buff-counter.webp,Position=Center,ShowZero=false,Size=26,TextColor=White)
 Counters: DebuffCounterCount=Badge(Color=Red,Position=Center,ShowZero=false)
 Counters: RefinementCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)

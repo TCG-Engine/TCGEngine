@@ -36,6 +36,9 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         // player to also pass Opportunity before the phase actually advances.
         RequestMainPhasePass($playerID);
         break;
+      case "theirField":
+        if(!GAHasPublicActivatedAbility(GetZoneObject($actionCard))) break;
+        // Public card text explicitly permits an opposing player to activate it.
       case "myField":
       case "myIntent":
         // Parse ability index from action (e.g., "Activate:0", "Activate:1")
@@ -90,10 +93,14 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         $targetCardID = $targetObj !== null ? ($targetObj->CardID ?? null) : null;
         global $activateAbilityAbilities;
         $hasRealActivateAbilityEntry = $targetCardID !== null && isset($activateAbilityAbilities[$targetCardID . ":" . $abilityIndex]);
+        $hasGrantedAbilityEntry = false;
+        foreach(json_decode(GetDynamicAbilities($targetObj) ?: "[]", true) ?: [] as $entry) {
+            if(intval($entry["index"]) === $abilityIndex && isset($entry["databaseGrant"])) $hasGrantedAbilityEntry = true;
+        }
         // A champion on the field is never "activated" as a card: its dynamic abilities (Diana, Cursebreaker's Cursebreaker, Enlighten, lineage releases) are indexed from
         // CardActivateAbilityCount() = 0, so Activate:0 used to be mistaken for casting the champion, which never terminated (the effect stack kept re-offering it).
         $targetIsFieldChampion = $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        if($targetCardID !== null && !$hasRealActivateAbilityEntry && !$targetIsFieldChampion
+        if($targetCardID !== null && !$hasRealActivateAbilityEntry && !$hasGrantedAbilityEntry && !$targetIsFieldChampion
             && function_exists("CardActivateAbilityCount") && function_exists("CardCardActivatedCount")
             && CardActivateAbilityCount($targetCardID) === 0 && CardCardActivatedCount($targetCardID) > 0) {
             ActivateCard($playerID, $actionCard, false);

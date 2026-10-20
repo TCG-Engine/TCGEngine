@@ -1,0 +1,2221 @@
+{
+  "source": "FanOfIn.Site/data/card-catalog.json",
+  "sourceGeneratedAt": "2026-10-19T12:51:26.950Z",
+  "cards": [
+    {
+      "uuid": "XigkNI4cqd",
+      "name": "Abiding Figures",
+      "effect": "Deal 2 damage to your champion. Then **glimpse 6**. *(To **glimpse**, look at that many cards from the top of your deck. Put those cards back on the top or on the bottom of your deck in any order.)*",
+      "effect_raw": "Deal 2 damage to your champion. Then glimpse 6. (To glimpse, look at that many cards from the top of your deck. Put those cards back on the top or on the bottom of your deck in any order.)",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SKILL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": false,
+      "slug": "abiding-figures",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "bkvMpzvU54",
+          "card_id": "XigkNI4cqd",
+          "collector_number": "223",
+          "image": "/cards/images/bkvMpzvU54.jpg",
+          "slug": "abiding-figures-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "DPhyM1vu22",
+      "name": "Annealing Flame",
+      "effect": "Remove a **durability** counter from up to one target weapon.\n\n**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*",
+      "effect_raw": "Remove a durability counter from up to one target weapon.\n\nFloating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "WARRIOR"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "WARRIOR",
+        "SKILL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "annealing-flame",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "euOZNFywT8",
+          "card_id": "DPhyM1vu22",
+          "collector_number": "224",
+          "image": "/cards/images/euOZNFywT8.jpg",
+          "slug": "annealing-flame-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "jKjgqe1p4G",
+      "name": "Astute Tracker",
+      "effect": "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2[POWER].)*\n\n[Class Bonus]**On Enter:** As a Spell, target unit becomes **marked**. *(Units stay **marked** until the beginning of their controller's turn.)*\n",
+      "effect_raw": "Ranged 2 (As long as this unit is distant, its attacks get +2POWER.)\n\n[Class Bonus]On Enter: As a Spell, target unit becomes marked. (Units stay marked until the beginning of their controller's turn.)\n",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 2,
+      "power": 2,
+      "durability": null,
+      "speed": null,
+      "slug": "astute-tracker",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "MIH9FFviha",
+          "card_id": "jKjgqe1p4G",
+          "collector_number": "225",
+          "image": "/cards/images/MIH9FFviha.jpg",
+          "slug": "astute-tracker-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "vwy2cASBGX",
+      "name": "Auric Persecution",
+      "effect": "Destroy target non-champion object. Its controller draws a card into their memory.",
+      "effect_raw": "Destroy target non-champion object. Its controller draws a card into their memory.",
+      "element": "EXALTED",
+      "elements": [
+        "EXALTED",
+        "NORM"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "auric-persecution",
+      "rule": [
+        {
+          "title": "",
+          "date_added": "2026-10-10",
+          "description": "Even if the targeted object is not destroyed, its controller still draws a card into their memory."
+        }
+      ],
+      "editions": [
+        {
+          "uuid": "GzVEYTwpsx",
+          "card_id": "vwy2cASBGX",
+          "collector_number": "226",
+          "image": "/cards/images/GzVEYTwpsx.jpg",
+          "slug": "auric-persecution-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "8svNnvvODq",
+      "name": "Briny Polliwog",
+      "effect": "**Foster** *(At the beginning of your recollection phase, if this ally hasn't been dealt damage since the end of your previous turn, it becomes **fostered**.)*\n\n[Class Bonus] As long as CARDNAME is **fostered**, it gets +3[POWER] and has **intercept**.",
+      "effect_raw": "Foster (At the beginning of your recollection phase, if this ally hasn't been dealt damage since the end of your previous turn, it becomes fostered.)\n\n[Class Bonus] As long as Briny Polliwog is fostered, it gets +3POWER and has intercept.",
+      "element": "WATER",
+      "elements": [
+        "WATER"
+      ],
+      "classes": [
+        "GUARDIAN",
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "GUARDIAN",
+        "TAMER",
+        "ANIMAL",
+        "FROG"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 5,
+      "power": 0,
+      "durability": null,
+      "speed": null,
+      "slug": "briny-polliwog",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "uhk3t6kWCp",
+          "card_id": "8svNnvvODq",
+          "collector_number": "227",
+          "image": "/cards/images/uhk3t6kWCp.jpg",
+          "slug": "briny-polliwog-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "33mLTmf6Kz",
+      "name": "Ciel, Astral Projection",
+      "effect": "**Starcalling —** (1)\n\n**Intercept**, **Vigor**\n\nAs long as **time is distorted**, CARDNAME's base power and life are each 7.",
+      "effect_raw": "Starcalling — (1)\n\nIntercept, Vigor\n\nAs long as time is distorted, Ciel's base power and life are each 7.",
+      "element": "ASTRA",
+      "elements": [
+        "ASTRA"
+      ],
+      "classes": [
+        "GUARDIAN"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "GUARDIAN",
+        "DISTORTION",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 4,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "ciel-astral-projection",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "0Wez9WDCEx",
+          "card_id": "33mLTmf6Kz",
+          "collector_number": "229",
+          "image": "/cards/images/0Wez9WDCEx.jpg",
+          "slug": "ciel-astral-projection-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "iykOhxCsEn",
+          "card_id": "33mLTmf6Kz",
+          "collector_number": "229",
+          "image": "/cards/images/iykOhxCsEn.jpg",
+          "slug": "ciel-astral-projection-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "9owQoFU1Tz",
+      "name": "Clover Treehouse",
+      "effect": "Suited allies you control have **stealth**. *(They can't be targeted by attacks unless permitted by **true sight**.)*\n\n**On Enter:** Draw a card into your memory.",
+      "effect_raw": "Suited allies you control have stealth. (They can't be targeted by attacks unless permitted by true sight.)\n\nOn Enter: Draw a card into your memory.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "DOMAIN"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SIEGEABLE",
+        "SUITED",
+        "SETTLEMENT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "4"
+      },
+      "cost_memory": null,
+      "cost_reserve": 4,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": 4,
+      "speed": null,
+      "slug": "clover-treehouse",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "FgM4sPWZOF",
+          "card_id": "9owQoFU1Tz",
+          "collector_number": "230",
+          "image": "/cards/images/FgM4sPWZOF.jpg",
+          "slug": "clover-treehouse-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "x5FICqmSNN",
+      "name": "Club House",
+      "effect": "*(Siegeable — This domain can be attacked. It takes damage in the form of removing **durability** counters.)*\n\n[Class Bonus] [REST]: Put a **buff** counter on target Suited ally. If you do, remove two **durability** counters from CARDNAME.",
+      "effect_raw": "(Siegeable — This domain can be attacked. It takes damage in the form of removing durability counters.)\n\n[Class Bonus] REST: Put a buff counter on target Suited ally. If you do, remove two durability counters from Club House.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "TAMER"
+      ],
+      "types": [
+        "DOMAIN"
+      ],
+      "subtypes": [
+        "TAMER",
+        "SIEGEABLE",
+        "SUITED",
+        "SETTLEMENT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "4"
+      },
+      "cost_memory": null,
+      "cost_reserve": 4,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": 6,
+      "speed": null,
+      "slug": "club-house",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "mxNUlKYwy4",
+          "card_id": "x5FICqmSNN",
+          "collector_number": "231",
+          "image": "/cards/images/mxNUlKYwy4.jpg",
+          "slug": "club-house-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "AMI6WJBmQc",
+      "name": "Coruscation",
+      "effect": "**On Enter:** Put **X** **sheen** counters on target unit. \n\nAt the beginning of your recollection phase, put a **sheen** counter on each object with one or more **sheen** counters on it.\n\n[Merlin Bonus] **(2), Discard this card from your hand: **Put two **sheen** counters on your Fractured Memories. If you do, draw a card into your memory.",
+      "effect_raw": "On Enter: Put X sheen counters on target unit. \n\nAt the beginning of your recollection phase, put a sheen counter on each object with one or more sheen counters on it.\n\n[Merlin Bonus] (2), Discard this card from your hand: Put two sheen counters on your Fractured Memories. If you do, draw a card into your memory.",
+      "element": "CRUX",
+      "elements": [
+        "CRUX"
+      ],
+      "classes": [
+        "ASSASSIN"
+      ],
+      "types": [
+        "PHANTASIA"
+      ],
+      "subtypes": [
+        "ASSASSIN",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "X"
+      },
+      "cost_memory": null,
+      "cost_reserve": -1,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": null,
+      "slug": "coruscation",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "Pt4rHDfGva",
+          "card_id": "AMI6WJBmQc",
+          "collector_number": "233",
+          "image": "/cards/images/Pt4rHDfGva.jpg",
+          "slug": "coruscation-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "1Awcc4Owca",
+      "name": "Countercurrent Raider",
+      "effect": "As long as CARDNAME is **ephemeral**, switch its power and life stats.\n\n**Ephemerate — (3)**. Activate this card this way only if there are three or more **haunt** counters on your Phantasmagoria.",
+      "effect_raw": "As long as Countercurrent Raider is ephemeral, switch its power and life stats.\n\nEphemerate — (3). Activate this card this way only if there are three or more haunt counters on your Phantasmagoria.",
+      "element": "WATER",
+      "elements": [
+        "WATER"
+      ],
+      "classes": [
+        "WARRIOR"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "WARRIOR",
+        "SPECTER"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 4,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "countercurrent-raider",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "XgcxyF9m3C",
+          "card_id": "1Awcc4Owca",
+          "collector_number": "234",
+          "image": "/cards/images/XgcxyF9m3C.jpg",
+          "slug": "countercurrent-raider-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "DKzpxkPlXj",
+      "name": "Diligent Garde",
+      "effect": "[Ciel Bonus] **Vigor**\n\n[Ciel Bonus] CARDNAME gets +1[POWER] for each omen you have with reserve cost 1 or less.",
+      "effect_raw": "[Ciel Bonus] Vigor\n\n[Ciel Bonus] Diligent Garde gets +1POWER for each omen you have with reserve cost 1 or less.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "GUARDIAN"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "GUARDIAN",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 4,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "diligent-garde",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "UTdpm1Wgzy",
+          "card_id": "DKzpxkPlXj",
+          "collector_number": "237",
+          "image": "/cards/images/UTdpm1Wgzy.jpg",
+          "slug": "diligent-garde-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "Kn69AGzKin",
+      "name": "Escort the Pawns",
+      "effect": "Until end of turn, up to two target Chessman Pawn allies you control get +1[POWER] and gain \"**On Champion Hit:** You may sacrifice this ally. If you do, that opponent banishes a card at random from their memory.\"",
+      "effect_raw": "Until end of turn, up to two target Chessman Pawn allies you control get +1POWER and gain \"On Champion Hit: You may sacrifice this ally. If you do, that opponent banishes a card at random from their memory.\"",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "CHESSMAN",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": false,
+      "slug": "escort-the-pawns",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "AHmkZGl9Cr",
+          "card_id": "Kn69AGzKin",
+          "collector_number": "238",
+          "image": "/cards/images/AHmkZGl9Cr.jpg",
+          "slug": "escort-the-pawns-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "KYG9ABDXGR",
+      "name": "Five of Clubs",
+      "effect": "CARDNAME has **ranged X**, where **X** is twice the amount of **buff** counters on it.\n\n***Cardistry —*** (5): Put two **buff** counters on CARDNAME. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "effect_raw": "Five of Clubs has ranged X, where X is twice the amount of buff counters on it.\n\nCardistry — (5): Put two buff counters on Five of Clubs. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SUITED",
+        "ANIMAL",
+        "WOLF"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "5"
+      },
+      "cost_memory": null,
+      "cost_reserve": 5,
+      "level": null,
+      "life": 5,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "five-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "eGIAz98BSK",
+          "card_id": "KYG9ABDXGR",
+          "collector_number": "239",
+          "image": "/cards/images/eGIAz98BSK.jpg",
+          "slug": "five-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "ajkTLXYL5v",
+      "name": "Four of Clubs",
+      "effect": "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2[POWER].)*\n\n***Cardistry —*** (4): Each unit you control becomes **distant**. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "effect_raw": "Ranged 2 (As long as this unit is distant, its attacks get +2POWER.)\n\nCardistry — (4): Each unit you control becomes distant. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SUITED",
+        "ANIMAL",
+        "RABBIT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "4"
+      },
+      "cost_memory": null,
+      "cost_reserve": 4,
+      "level": null,
+      "life": 3,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "four-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "WZBnIKV56E",
+          "card_id": "ajkTLXYL5v",
+          "collector_number": "240",
+          "image": "/cards/images/WZBnIKV56E.jpg",
+          "slug": "four-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "Tv733Lcbxz",
+      "name": "Ghastfire Tormentor",
+      "effect": "[Alice Bonus] This card costs 2 less to activate.\n\n[Class Bonus] This card costs 2 less to activate.\n\n**Sacrifice CARDNAME:** Target fire element Spell card with reserve cost 4 or less in a graveyard becomes a Specter card in addition to its other types and gains \"**Ephemerate —** (X)\" until end of turn, where **X** is that card's reserve cost.",
+      "effect_raw": "[Alice Bonus] This card costs 2 less to activate.\n\n[Class Bonus] This card costs 2 less to activate.\n\nSacrifice Ghastfire Tormentor: Target fire element Spell card with reserve cost 4 or less in a graveyard becomes a Specter card in addition to its other types and gains \"Ephemerate — (X)\" until end of turn, where X is that card's reserve cost.",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "MAGE"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "MAGE",
+        "SPECTER"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "4"
+      },
+      "cost_memory": null,
+      "cost_reserve": 4,
+      "level": null,
+      "life": 1,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "ghastfire-tormentor",
+      "rule": [
+        {
+          "title": "",
+          "date_added": "2026-10-11",
+          "description": "If an effect removes abilities from the same card targeted by Ghastfire Tormentor’s ability, it would be applied in timestamp order. The gain of \"Ephemerate — (X)\" has the timestamp of when Ghastfire Tormentor’s ability resolves. An object that statically removes abilities like Censer of Restful Peace has a timestamp of when that object enters the field. The effect with the later timestamps apply last."
+        }
+      ],
+      "editions": [
+        {
+          "uuid": "oUmtyNmgV1",
+          "card_id": "Tv733Lcbxz",
+          "collector_number": "241",
+          "image": "/cards/images/oUmtyNmgV1.jpg",
+          "slug": "ghastfire-tormentor-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "b9BrhLDSNf",
+      "name": "Hunter's Mark",
+      "effect": "**On Enter:** Target unit becomes **marked**. *(Units stay **marked** until the beginning of their controller's turn.)*\n\n[Class Bonus] If a **marked** object would take damage for the first time each turn, it takes that much damage plus 1 instead.",
+      "effect_raw": "On Enter: Target unit becomes marked. (Units stay marked until the beginning of their controller's turn.)\n\n[Class Bonus] If a marked object would take damage for the first time each turn, it takes that much damage plus 1 instead.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "PHANTASIA"
+      ],
+      "subtypes": [
+        "RANGER",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "1"
+      },
+      "cost_memory": null,
+      "cost_reserve": 1,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": null,
+      "slug": "hunters-mark",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "j91309dZKw",
+          "card_id": "b9BrhLDSNf",
+          "collector_number": "243",
+          "image": "/cards/images/j91309dZKw.jpg",
+          "slug": "hunters-mark-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "kTctEEIIAT",
+      "name": "Macabre Subornation",
+      "effect": "Each opponent may discard a card from their hand or memory with a reserve cost different from the reserve costs among your **omens**. If they don't, deal 8 damage to that opponent's champion, and you draw a card into your memory.",
+      "effect_raw": "Each opponent may discard a card from their hand or memory with a reserve cost different from the reserve costs among your omens. If they don't, deal 8 damage to that opponent's champion, and you draw a card into your memory.",
+      "element": "UMBRA",
+      "elements": [
+        "UMBRA"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": false,
+      "slug": "macabre-subornation",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "3KQyHvxI4S",
+          "card_id": "kTctEEIIAT",
+          "collector_number": "245",
+          "image": "/cards/images/3KQyHvxI4S.jpg",
+          "slug": "macabre-subornation-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "pB4ngDOM6F",
+      "name": "Misty, the Joker",
+      "effect": "**X** must be greater than 0.\n\n**On Enter:** CARDNAME's base reserve cost becomes **X**.\n\n**On Death:** You may put a Suited ally card with  reserve cost **X** or less from your hand or memory onto the field. If you do, draw a card into your memory.",
+      "effect_raw": "X must be greater than 0.\n\nOn Enter: Misty's base reserve cost becomes X.\n\nOn Death: You may put a Suited ally card with  reserve cost X or less from your hand or memory onto the field. If you do, draw a card into your memory.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "ANOMALY"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "ANOMALY",
+        "SUITED",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "X"
+      },
+      "cost_memory": null,
+      "cost_reserve": -1,
+      "level": null,
+      "life": 1,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "misty-the-joker",
+      "rule": [
+        {
+          "title": "",
+          "date_added": "2026-10-10",
+          "description": "If X is not determined, it is treated as 0 for effects that reference Misty's reserve cost. This includes Misty's own on enter ability. "
+        },
+        {
+          "title": "",
+          "date_added": "2026-10-10",
+          "description": "Misty's on enter ability can set Misty's reserve cost to 0, because it is setting her base reserve cost directly, rather than determining a value for X."
+        }
+      ],
+      "editions": [
+        {
+          "uuid": "etZjx3C4pH",
+          "card_id": "pB4ngDOM6F",
+          "collector_number": "248",
+          "image": "/cards/images/etZjx3C4pH.jpg",
+          "slug": "misty-the-joker-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "N1vUCahFdx",
+          "card_id": "pB4ngDOM6F",
+          "collector_number": "248",
+          "image": "/cards/images/N1vUCahFdx.jpg",
+          "slug": "misty-the-joker-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "EcTFUpk8oe",
+      "name": "Pallid Arsonist",
+      "effect": "**On Enter:** Deal 2 damage to each Siegeable domain.\n\n**Ephemerate —** (3). As an additional cost to activate this card this way, banish a Specter card from your graveyard.",
+      "effect_raw": "On Enter: Deal 2 damage to each Siegeable domain.\n\nEphemerate — (3). As an additional cost to activate this card this way, banish a Specter card from your graveyard.",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPECTER"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 3,
+      "power": 2,
+      "durability": null,
+      "speed": null,
+      "slug": "pallid-arsonist",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "ZQZLwCpM0J",
+          "card_id": "EcTFUpk8oe",
+          "collector_number": "252",
+          "image": "/cards/images/ZQZLwCpM0J.jpg",
+          "slug": "pallid-arsonist-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "0LcN8mTQQG",
+      "name": "Poitier, Afterlife's Conductor",
+      "effect": "As long as CARDNAME is **ephemeral**, it gets +1[POWER] and +1[LIFE] for each **haunt** counter on your Phantasmagoria.\n\n**Ephemerate — (10)**. This card costs (1) less to activate this way for each of up to seven **haunt** counters on your Phantasmagoria.",
+      "effect_raw": "As long as Poitier is ephemeral, it gets +1POWER and +1LIFE for each haunt counter on your Phantasmagoria.\n\nEphemerate — (10). This card costs (1) less to activate this way for each of up to seven haunt counters on your Phantasmagoria.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "WARRIOR"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "WARRIOR",
+        "SPECTER"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 3,
+      "power": 2,
+      "durability": null,
+      "speed": null,
+      "slug": "poitier-afterlifes-conductor",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "hrr1RjhEW8",
+          "card_id": "0LcN8mTQQG",
+          "collector_number": "254",
+          "image": "/cards/images/hrr1RjhEW8.jpg",
+          "slug": "poitier-afterlifes-conductor-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "JVjG9lLESI",
+          "card_id": "0LcN8mTQQG",
+          "collector_number": "254",
+          "image": "/cards/images/JVjG9lLESI.jpg",
+          "slug": "poitier-afterlifes-conductor-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "uSZ7FJwX7M",
+      "name": "Radiating Assault",
+      "effect": "**Prepare 3** *(You may remove three **preparation** counters from your champion as you activate this card.)*\n\nDeal 2 damage to target champion. If CARDNAME was **prepared**, deal 3+**X** damage to that champion instead, where **X** is twice that champion's base level.",
+      "effect_raw": "Prepare 3 (You may remove three preparation counters from your champion as you activate this card.)\n\nDeal 2 damage to target champion. If Radiating Assault was prepared, deal 3+X damage to that champion instead, where X is twice that champion's base level.",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "ASSASSIN"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "ASSASSIN",
+        "SKILL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": false,
+      "slug": "radiating-assault",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "AM59EA9Y2E",
+          "card_id": "uSZ7FJwX7M",
+          "collector_number": "255",
+          "image": "/cards/images/AM59EA9Y2E.jpg",
+          "slug": "radiating-assault-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "ZdAWSJpwOz",
+      "name": "Render Turbid",
+      "effect": "[Merlin Bonus] This card costs 1 less to activate.\n\nTarget opponent banishes a card from their memory. Then you put **X** **sheen** counters on your Fractured Memories, where **X** is the reserve cost of the banished card. **X** is capped at 3.\n\n",
+      "effect_raw": "[Merlin Bonus] This card costs 1 less to activate.\n\nTarget opponent banishes a card from their memory. Then you put X sheen counters on your Fractured Memories, where X is the reserve cost of the banished card. X is capped at 3.\n\n",
+      "element": "WATER",
+      "elements": [
+        "WATER"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "render-turbid",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "Di8aJGtw6n",
+          "card_id": "ZdAWSJpwOz",
+          "collector_number": "256",
+          "image": "/cards/images/Di8aJGtw6n.jpg",
+          "slug": "render-turbid-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "68ZcOVfJn6",
+      "name": "Scalding Aethercharge",
+      "effect": "Deal 2 damage to target champion once, then an additional time for each time that champion has leveled up this turn.\n\nYou may load CARDNAME into an Aetherwing weapon you control.",
+      "effect_raw": "Deal 2 damage to target champion once, then an additional time for each time that champion has leveled up this turn.\n\nYou may load Scalding Aethercharge into an Aetherwing weapon you control.",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "RANGER",
+        "AETHERCHARGE",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": 1,
+      "durability": null,
+      "speed": true,
+      "slug": "scalding-aethercharge",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "FgUuQvo5JC",
+          "card_id": "68ZcOVfJn6",
+          "collector_number": "259",
+          "image": "/cards/images/FgUuQvo5JC.jpg",
+          "slug": "scalding-aethercharge-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "w3xggbIoZL",
+      "name": "Scholarly Nettle",
+      "effect": "[Class Bonus] Other allies you control with **floating memory** get +1[POWER] and +1[LIFE].\n\n**Floating Memory**",
+      "effect_raw": "[Class Bonus] Other allies you control with floating memory get +1POWER and +1LIFE.\n\nFloating Memory",
+      "element": "WATER",
+      "elements": [
+        "WATER"
+      ],
+      "classes": [
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "TAMER",
+        "ANIMAL",
+        "JELLYFISH"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 2,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "scholarly-nettle",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "Gr6MOALboS",
+          "card_id": "w3xggbIoZL",
+          "collector_number": "260",
+          "image": "/cards/images/Gr6MOALboS.jpg",
+          "slug": "scholarly-nettle-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "AACH0EPqqL",
+      "name": "Shamrock Forest",
+      "effect": "This card costs 1 less to activate for each Suited object you control with different reserve costs.\n\nAt the beginning of your end phase, **scavenge 3** for a Suited ally or Suited domain card. If a card was **scavenged** this way, remove two **durability** counters from CARDNAME.",
+      "effect_raw": "This card costs 1 less to activate for each Suited object you control with different reserve costs.\n\nAt the beginning of your end phase, scavenge 3 for a Suited ally or Suited domain card. If a card was scavenged this way, remove two durability counters from Shamrock Forest.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "DOMAIN"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SIEGEABLE",
+        "SUITED",
+        "FOREST"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "6"
+      },
+      "cost_memory": null,
+      "cost_reserve": 6,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": 6,
+      "speed": null,
+      "slug": "shamrock-forest",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "q37WfYngpu",
+          "card_id": "AACH0EPqqL",
+          "collector_number": "261",
+          "image": "/cards/images/q37WfYngpu.jpg",
+          "slug": "shamrock-forest-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "7PpyBdi0cb",
+      "name": "Silence the Soul",
+      "effect": "Choose a card in a banishment and remove all **omen** counters from it. Until end of turn, **omen** counters can't be put onto cards in banishments.\n\n**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*",
+      "effect_raw": "Choose a card in a banishment and remove all omen counters from it. Until end of turn, omen counters can't be put onto cards in banishments.\n\nFloating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "silence-the-soul",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "fsk3ahD7iU",
+          "card_id": "7PpyBdi0cb",
+          "collector_number": "263",
+          "image": "/cards/images/fsk3ahD7iU.jpg",
+          "slug": "silence-the-soul-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "IQdxGasatd",
+      "name": "Silent Trade",
+      "effect": "You may materialize a card named Poisonous Apple from your material deck. If you don't, **recover 2**.\n\n[Merlin Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*\n\n",
+      "effect_raw": "You may materialize a card named Poisonous Apple from your material deck. If you don't, recover 2.\n\n[Merlin Bonus] Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)\n\n",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "ASSASSIN",
+        "MAGE"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "ASSASSIN",
+        "MAGE",
+        "SKILL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "silent-trade",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "su9So5LCaj",
+          "card_id": "IQdxGasatd",
+          "collector_number": "264",
+          "image": "/cards/images/su9So5LCaj.jpg",
+          "slug": "silent-trade-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "rAKqUW5gaE",
+      "name": "Six of Clubs",
+      "effect": "**True Sight**, **Vigor**\n\n***Cardistry —*** (6): **Scavenge 6** for a Suited card. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.\n",
+      "effect_raw": "True Sight, Vigor\n\nCardistry — (6): Scavenge 6 for a Suited card. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.\n",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "TAMER",
+        "SUITED",
+        "ANIMAL",
+        "CAT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "6"
+      },
+      "cost_memory": null,
+      "cost_reserve": 6,
+      "level": null,
+      "life": 4,
+      "power": 3,
+      "durability": null,
+      "speed": null,
+      "slug": "six-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "lJ3GIjQUla",
+          "card_id": "rAKqUW5gaE",
+          "collector_number": "266",
+          "image": "/cards/images/lJ3GIjQUla.jpg",
+          "slug": "six-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "lKPOHDtttV",
+      "name": "Three of Clubs",
+      "effect": "**Ranged 2**\n\n***Cardistry —*** (3): CARDNAME' next attack this turn gets +2[POWER]. If Three of Clubs has a **buff** counter on it or is **distant**, that attack gets +4[POWER] instead. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "effect_raw": "Ranged 2\n\nCardistry — (3): Three of Clubs' next attack this turn gets +2POWER. If Three of Clubs has a buff counter on it or is distant, that attack gets +4POWER instead. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SUITED",
+        "ANIMAL",
+        "HUMAN",
+        "BIRD"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 3,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "three-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "zHCKQPUk8A",
+          "card_id": "lKPOHDtttV",
+          "collector_number": "268",
+          "image": "/cards/images/zHCKQPUk8A.jpg",
+          "slug": "three-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "9jiUWCU8dP",
+      "name": "Time Dilation",
+      "effect": "As an additional cost to activate this card, sacrifice an object with one or more **time** counters on it.\n\nTake an extra turn after this one. Banish CARDNAME.",
+      "effect_raw": "As an additional cost to activate this card, sacrifice an object with one or more time counters on it.\n\nTake an extra turn after this one. Banish Time Dilation.",
+      "element": "ASTRA",
+      "elements": [
+        "ASTRA"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "5"
+      },
+      "cost_memory": null,
+      "cost_reserve": 5,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": false,
+      "slug": "time-dilation",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "vg4uJ1KXaQ",
+          "card_id": "9jiUWCU8dP",
+          "collector_number": "269",
+          "image": "/cards/images/vg4uJ1KXaQ.jpg",
+          "slug": "time-dilation-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "OKkRsNIzM8",
+      "name": "Trefle, Queen of Clubs",
+      "effect": "You may banish two or more Suited domain cards with total reserve cost 10 from your graveyard rather than pay this card's reserve cost.\n\n**On Enter:** **Scavenge 10** for a Suited ally card. Until end of turn, each Suited ally that enters the field under your control enters with two additional **buff** counters on them.",
+      "effect_raw": "You may banish two or more Suited domain cards with total reserve cost 10 from your graveyard rather than pay this card's reserve cost.\n\nOn Enter: Scavenge 10 for a Suited ally card. Until end of turn, each Suited ally that enters the field under your control enters with two additional buff counters on them.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "TAMER"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "TAMER",
+        "SUITED",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "10"
+      },
+      "cost_memory": null,
+      "cost_reserve": 10,
+      "level": null,
+      "life": 4,
+      "power": 4,
+      "durability": null,
+      "speed": null,
+      "slug": "trefle-queen-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "Di9ugyS0wE",
+          "card_id": "OKkRsNIzM8",
+          "collector_number": "271",
+          "image": "/cards/images/Di9ugyS0wE.jpg",
+          "slug": "trefle-queen-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "3JNaVOykA0",
+          "card_id": "OKkRsNIzM8",
+          "collector_number": "271",
+          "image": "/cards/images/3JNaVOykA0.jpg",
+          "slug": "trefle-queen-of-clubs-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "RXCLnj5wME",
+      "name": "Trefoil Tower",
+      "effect": "*(Siegeable — This domain can be attacked. It takes damage in the form of removing **durability** counters.)*\n\n[Class Bonus] [REST]: Target Suited ally becomes **distant**. If it does, remove two **durability** counters from CARDNAME.",
+      "effect_raw": "(Siegeable — This domain can be attacked. It takes damage in the form of removing durability counters.)\n\n[Class Bonus] REST: Target Suited ally becomes distant. If it does, remove two durability counters from Trefoil Tower.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "DOMAIN"
+      ],
+      "subtypes": [
+        "RANGER",
+        "SIEGEABLE",
+        "SUITED",
+        "SPIRE"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "4"
+      },
+      "cost_memory": null,
+      "cost_reserve": 4,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": 6,
+      "speed": null,
+      "slug": "trefoil-tower",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "MquJsp1DXN",
+          "card_id": "RXCLnj5wME",
+          "collector_number": "272",
+          "image": "/cards/images/MquJsp1DXN.jpg",
+          "slug": "trefoil-tower-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "IWp4MhdPCs",
+      "name": "Trefoliate Anointment",
+      "effect": "Choose one—\n• Target Suited ally gets +1[LIFE] until end of turn and becomes **distant**.\n• Put three **durability** counters on target Siegeable Suited domain.\n\n**Floating Memory**",
+      "effect_raw": "Choose one—\n• Target Suited ally gets +1LIFE until end of turn and becomes distant.\n• Put three durability counters on target Siegeable Suited domain.\n\nFloating Memory",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SUITED",
+        "SPELL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "trefoliate-anointment",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "as74TwnDG5",
+          "card_id": "IWp4MhdPCs",
+          "collector_number": "273",
+          "image": "/cards/images/as74TwnDG5.jpg",
+          "slug": "trefoliate-anointment-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "uDASjw2XQQ",
+      "name": "Two of Clubs",
+      "effect": "**Ranged 1** *(As long as this unit is **distant**, its attacks get +1[POWER].)*\n\n***Cardistry —*** (2): The next domain card you activate this turn costs 2 less to activate. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "effect_raw": "Ranged 1 (As long as this unit is distant, its attacks get +1POWER.)\n\nCardistry — (2): The next domain card you activate this turn costs 2 less to activate. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER",
+        "TAMER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "TAMER",
+        "SUITED",
+        "ANIMAL",
+        "CAT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": 2,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "two-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "Y4X9eeNIti",
+          "card_id": "uDASjw2XQQ",
+          "collector_number": "274",
+          "image": "/cards/images/Y4X9eeNIti.jpg",
+          "slug": "two-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "5Qtu09P9k0",
+      "name": "Unwound Timepiece",
+      "effect": "**(2), [REST]:** **Cascade—**\n• 1— **Glimpse 3**.\n• 2— **Glimpse 6**.\n• 3— **Glimpse 9**.\n• 4— **Glimpse 12**, then put a **time** counter on CARDNAME.\n*(This ability changes each **cascade**.)*",
+      "effect_raw": "(2), REST: Cascade—\n• 1— Glimpse 3.\n• 2— Glimpse 6.\n• 3— Glimpse 9.\n• 4— Glimpse 12, then put a time counter on Unwound Timepiece.\n(This ability changes each cascade.)",
+      "element": "ASTRA",
+      "elements": [
+        "ASTRA"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ITEM"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "ARTIFACT"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": null,
+      "slug": "unwound-timepiece",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "qSAmzRKRWz",
+          "card_id": "5Qtu09P9k0",
+          "collector_number": "276",
+          "image": "/cards/images/qSAmzRKRWz.jpg",
+          "slug": "unwound-timepiece-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "U3GhfjipKt",
+      "name": "Uplifting Rogation",
+      "effect": "**Empower 1**. If there are exactly six cards in your memory, **empower 4** instead.\n\n[Class Bonus] Draw a card into your memory.",
+      "effect_raw": "Empower 1. If there are exactly six cards in your memory, empower 4 instead.\n\n[Class Bonus] Draw a card into your memory.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "CLERIC"
+      ],
+      "types": [
+        "ACTION"
+      ],
+      "subtypes": [
+        "CLERIC",
+        "SKILL"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": null,
+      "power": null,
+      "durability": null,
+      "speed": true,
+      "slug": "uplifting-rogation",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "ZH7H58Vn5r",
+          "card_id": "U3GhfjipKt",
+          "collector_number": "277",
+          "image": "/cards/images/ZH7H58Vn5r.jpg",
+          "slug": "uplifting-rogation-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "3gNdl3BERA",
+      "name": "Valet, Jack of Hearts",
+      "effect": "You may pay (2) and banish a fire element Suited card from your hand rather than pay this card's reserve cost.\n\n**On Champion Hit:** Deal 1+**X** damage to the hit champion, where **X** is that champion's base level.",
+      "effect_raw": "You may pay (2) and banish a fire element Suited card from your hand rather than pay this card's reserve cost.\n\nOn Champion Hit: Deal 1+X damage to the hit champion, where X is that champion's base level.",
+      "element": "FIRE",
+      "elements": [
+        "FIRE"
+      ],
+      "classes": [
+        "WARRIOR"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "WARRIOR",
+        "SUITED",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "10"
+      },
+      "cost_memory": null,
+      "cost_reserve": 10,
+      "level": null,
+      "life": 4,
+      "power": 2,
+      "durability": null,
+      "speed": null,
+      "slug": "valet-jack-of-hearts",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "9T3pucYpQm",
+          "card_id": "3gNdl3BERA",
+          "collector_number": "278",
+          "image": "/cards/images/9T3pucYpQm.jpg",
+          "slug": "valet-jack-of-hearts-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "c31gVXMdds",
+          "card_id": "3gNdl3BERA",
+          "collector_number": "278",
+          "image": "/cards/images/c31gVXMdds.jpg",
+          "slug": "valet-jack-of-hearts-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "S8NH6UkSNB",
+      "name": "Verte, Ace of Clubs",
+      "effect": "CARDNAME's attacks can't be retaliated.\n\n**On Enter:** Depending on the total reserve cost of Suited objects you control—\n• 6— CARDNAME gains **ranged 3** until end of turn.\n• 10— CARDNAME gains **ranged 6** until end of turn.\n• 21— CARDNAME gains **ranged 12** until end of turn.",
+      "effect_raw": "Verte's attacks can't be retaliated.\n\nOn Enter: Depending on the total reserve cost of Suited objects you control—\n• 6— Verte gains ranged 3 until end of turn.\n• 10— Verte gains ranged 6 until end of turn.\n• 21— Verte gains ranged 12 until end of turn.",
+      "element": "WIND",
+      "elements": [
+        "WIND"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "UNIQUE",
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "SUITED",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "1"
+      },
+      "cost_memory": null,
+      "cost_reserve": 1,
+      "level": null,
+      "life": 1,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "verte-ace-of-clubs",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "ZtKHe3gwTF",
+          "card_id": "S8NH6UkSNB",
+          "collector_number": "279",
+          "image": "/cards/images/ZtKHe3gwTF.jpg",
+          "slug": "verte-ace-of-clubs-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        },
+        {
+          "uuid": "sXQw6Q2P2a",
+          "card_id": "S8NH6UkSNB",
+          "collector_number": "279",
+          "image": "/cards/images/sXQw6Q2P2a.jpg",
+          "slug": "verte-ace-of-clubs-dtr-alter-csr",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "0WgtmLuYpA",
+      "name": "Weiss Pawn",
+      "effect": "**Floating Memory**, **Taunt**\n\n[Alice Bonus] **On Hit:** If 7 or more damage was dealt, you may sacrifice CARDNAME. If you do, **summon** a Queen Piece token.\n\n**On Death**: Other Chessman allies you control get +2[LIFE] until end of turn.",
+      "effect_raw": "Floating Memory, Taunt\n\n[Alice Bonus] On Hit: If 7 or more damage was dealt, you may sacrifice Weiss Pawn. If you do, summon a Queen Piece token.\n\nOn Death: Other Chessman allies you control get +2LIFE until end of turn.",
+      "element": "WATER",
+      "elements": [
+        "WATER"
+      ],
+      "classes": [
+        "GUARDIAN"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "GUARDIAN",
+        "CHESSMAN",
+        "PAWN",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "2"
+      },
+      "cost_memory": null,
+      "cost_reserve": 2,
+      "level": null,
+      "life": 2,
+      "power": 0,
+      "durability": null,
+      "speed": null,
+      "slug": "weiss-pawn",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "zN2ZuHSykQ",
+          "card_id": "0WgtmLuYpA",
+          "collector_number": "281",
+          "image": "/cards/images/zN2ZuHSykQ.jpg",
+          "slug": "weiss-pawn-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "yC1TexeQwH",
+      "name": "Yonder Aetherseeker",
+      "effect": "**Ranged 1**\n\nWhenever CARDNAME becomes **distant**, **scavenge 6** for an Aethercharge card. Trigger this ability only once.",
+      "effect_raw": "Ranged 1\n\nWhenever Yonder Aetherseeker becomes distant, scavenge 6 for an Aethercharge card. Trigger this ability only once.",
+      "element": "NORM",
+      "elements": [
+        "NORM"
+      ],
+      "classes": [
+        "RANGER"
+      ],
+      "types": [
+        "ALLY"
+      ],
+      "subtypes": [
+        "RANGER",
+        "HUMAN"
+      ],
+      "cost": {
+        "type": "reserve",
+        "value": "3"
+      },
+      "cost_memory": null,
+      "cost_reserve": 3,
+      "level": null,
+      "life": 4,
+      "power": 1,
+      "durability": null,
+      "speed": null,
+      "slug": "yonder-aetherseeker",
+      "rule": [],
+      "editions": [
+        {
+          "uuid": "tT670Jxtrv",
+          "card_id": "yC1TexeQwH",
+          "collector_number": "282",
+          "image": "/cards/images/tT670Jxtrv.jpg",
+          "slug": "yonder-aetherseeker-dtr-alter",
+          "set": {
+            "created_at": "2026-10-11T22:00:13.4+00:00",
+            "id": "098afdde72",
+            "language": "EN",
+            "last_update": "2026-10-11T22:00:13.4+00:00",
+            "name": "Distorted Reflections Alter Edition",
+            "prefix": "DTR Alter",
+            "release_date": "2026-10-16T00:00:00"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "vwy2cASBGX"
+        ],
+        "mechanics": [
+            "destroy",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Destroy a non-champion; its controller draws memory."
+        ]
+    },
+    "name": "dtr-auric-persecution-destroys-and-compensates-opponent",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vwy2cASBGX"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

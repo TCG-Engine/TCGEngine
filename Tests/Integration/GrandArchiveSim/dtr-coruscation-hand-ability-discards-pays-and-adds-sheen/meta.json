@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "AMI6WJBmQc"
+        ],
+        "mechanics": [
+            "hand-ability",
+            "named-bonus",
+            "cost",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Merlin discards Coruscation, pays two, adds sheen and draws memory."
+        ]
+    },
+    "name": "dtr-coruscation-hand-ability-discards-pays-and-adds-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:24:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AMI6WJBmQc"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

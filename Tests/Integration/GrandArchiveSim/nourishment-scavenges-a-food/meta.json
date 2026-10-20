@@ -1,0 +1,23 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "TEAB07h5C8"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Scavenge thirteen for Kitchen or Food."
+        ]
+    },
+    "name": "nourishment-scavenges-a-food",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:43:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TEAB07h5C8"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Z1L77xhMcC"
+        ],
+        "mechanics": [
+            "glimpse",
+            "persistent-effect"
+        ],
+        "rulesClauses": [
+            "Diana glimpses eight and champion gains permanent attack trigger."
+        ]
+    },
+    "name": "constellary-predomination-diana-glimpses-eight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:57:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Z1L77xhMcC"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

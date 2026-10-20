@@ -64,6 +64,7 @@ function GetAvailableWeapons($player) {
     $available = [];
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
+        if(GALinkedProperty($obj, "cannotUseInAttack") > 0) continue;
         if(GetCounterCount($obj, "durability") > 0) {
             $weaponSubtypes = EffectiveCardSubtypes($obj);
             // Weapons with 0 or less POWER cannot be chosen to attack with.
@@ -271,6 +272,9 @@ function CombatDamageStat($obj) {
  */
 function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
     $totalPower = CombatDamageStat($attackerObj);
+    foreach($attackerObj->TurnEffects ?? [] as $effect) {
+        if(str_starts_with($effect,"DTR_ATTACK_POWER_")) $totalPower += intval(substr($effect,strlen("DTR_ATTACK_POWER_")));
+    }
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $mzID) {
         if($ignoredIntentMZ !== null && $mzID === $ignoredIntentMZ) continue;
@@ -503,6 +507,7 @@ function AttackerHasCleave($attackerMZ, $player) {
  *   - Taunt: if any remaining opposing awake unit has Taunt, only those may be targeted.
  */
 function GetValidAttackTargets($attackerMZ) {
+    if(GALinkedProperty(GetZoneObject($attackerMZ), "cannotUseInAttack") > 0) return [];
     if(!is_string($attackerMZ) || $attackerMZ === "" || $attackerMZ === "-") return [];
     global $playerID;
     $player = (strpos($attackerMZ, "my") === 0) ? $playerID : (($playerID == 1) ? 2 : 1);
@@ -703,6 +708,7 @@ function ClearCombatAttackerState() {
     foreach([1, 2] as $owner) {
         foreach(GetField($owner) as $obj) {
             if($obj === null) continue;
+            $obj->TurnEffects = array_values(array_filter($obj->TurnEffects ?? [], fn($effect) => !str_starts_with($effect, "DTR_ATTACK_POWER_")));
             $obj->TurnEffects = array_values(array_filter($obj->TurnEffects ?? [], fn($effect) => !str_starts_with($effect, "yakyp6odw3-RANGED_")));
             $obj->TurnEffects = array_values(array_diff($obj->TurnEffects ?? [],
                 ["5v598k3m1w_ATTACK", "5v598k3m1w-SHENJU_ATTACK"]));
@@ -1092,6 +1098,8 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
 
     if($targetObj === null || $targetObj->removed) return null;
 
+    if($attackerObj !== null && GADTRObjectProperty($attackerObj,"noRetaliation") > 0) return null;
+
     // Siegeables can't retaliate
     if(IsSiegeable($targetObj)) return null;
 
@@ -1340,7 +1348,7 @@ function DeclareChampionAttack($player) {
     // First turn restriction: only the player who took the opening turn is blocked.
     $currentTurn = GetTurnNumber();
     $firstPlayer = GetFirstPlayer();
-    if($currentTurn == 1 && $player == $firstPlayer) {
+    if($currentTurn == 1 && $player == $firstPlayer && !GADTRIsExtraTurn()) {
         SetFlashMessage("Cannot attack on the first turn.");
         return false;
     }
@@ -1482,7 +1490,7 @@ $customDQHandlers["CommandAutomatonAttack"] = function($player, $parts, $lastDec
  */
 function FerventLancerMustAttack($player) {
     global $playerID;
-    if(GetTurnNumber() == 1 && $player == GetFirstPlayer()) return false;
+    if(GetTurnNumber() == 1 && $player == GetFirstPlayer() && !GADTRIsExtraTurn()) return false;
     $field = GetField($player);
     for($fi = 0; $fi < count($field); ++$fi) {
         $obj = $field[$fi];
@@ -1502,6 +1510,7 @@ function FerventLancerMustAttack($player) {
 function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
+    if(GALinkedProperty($obj, "cannotUseInAttack") > 0) return false;
     if(function_exists("TotalWhiteoutSuppressesActivatedAbilities") && TotalWhiteoutSuppressesActivatedAbilities($obj)) {
         SetFlashMessage("Total Whiteout prevents that rested object from being used for an attack.");
         return false;
@@ -1553,7 +1562,7 @@ function BeginCombatPhase($actionCard) {
     // Rule 1.h -- Only the player who took the opening turn can't attack on turn 1.
     $currentTurn = GetTurnNumber();
     $firstPlayer = GetFirstPlayer();
-    if($currentTurn == 1 && $turnPlayer == $firstPlayer) {
+    if($currentTurn == 1 && $turnPlayer == $firstPlayer && !GADTRIsExtraTurn()) {
         SetFlashMessage("Cannot attack on the first turn.");
         return false;
     }
@@ -1916,7 +1925,7 @@ function OnAttackTrigger($player, $mzID) {
     ClearProtectedRemovedCardUniqueIDs();
     // Generated "Whenever ... attacks" listeners (Inflamed Bladehand, Brooch X Ultra, AquaTech Shell). Nothing dispatched the
     // OnAttack macro listeners before, so those three abilities never ran.
-    DispatchMacroListeners("OnAttack", $player, ["mzID" => $mzID], ["Field"]);
+    DispatchMacroListeners("OnAttack", $player, ["mzID" => $mzID], ["Field", "GlobalEffects"]);
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
@@ -1965,6 +1974,14 @@ function OnAttackTrigger($player, $mzID) {
             if(!in_array($commandEffect, $obj->TurnEffects)) continue;
             AddTurnEffect($mzID, $commandEffect . "_ATTACK");
             $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, [$commandEffect]));
+        }
+    }
+
+    if($obj !== null) {
+        foreach($obj->TurnEffects ?? [] as $effect) {
+            if(!str_starts_with($effect,"DTR_NEXT_ATTACK_POWER_")) continue;
+            AddTurnEffect($mzID,"DTR_ATTACK_POWER_".substr($effect,strlen("DTR_NEXT_ATTACK_POWER_")));
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects,[$effect]));
         }
     }
 
@@ -2317,6 +2334,18 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         QueueHitTriggeredAbility($player, $obj->CardID, $attackerMZ);
     }
 
+    if($obj !== null && !HasNoAbilities($obj)) {
+        $target = GetZoneObject(GetCombatTargetMZ() ?? "");
+        if($target !== null && PropertyContains(EffectiveCardType($target),"CHAMPION")) {
+            foreach($obj->TurnEffects ?? [] as $effect) if($effect === "Kn69AGzKin") {
+                QueueTriggeredAbility($player,"Kn69AGzKin","DTR_EVENT",[
+                    "dtrEventMacro"=>"EscortHit", "dtrEventUID"=>strval($obj->UniqueID),
+                    "dtrHitOpponent"=>strval($target->Controller), "mzID"=>$attackerMZ,
+                ]);
+            }
+        }
+    }
+
     // Dispatch On Hit for attack cards in intent
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {
@@ -2324,6 +2353,9 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         if($iObj === null) continue;
         if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
             QueueHitTriggeredAbility($player, $iObj->CardID, $iMZ);
+        }
+        if(!HasNoAbilities($iObj)) foreach($iObj->TurnEffects ?? [] as $grant) {
+            if($grant === "BIREFRINGENCE_ON_HIT") QueueHitTriggeredAbility($player, "wuTQLLq5US", $iMZ);
         }
         // Cometary Vantage: the intent card gained "On Hit: Load this card into an Aetherwing weapon you control."
         if(in_array("y4c89re0bd_LOAD_ON_HIT", $iObj->TurnEffects ?? [])) GAQueueIntentAetherwingLoad($player, $iMZ);
@@ -4128,6 +4160,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     $targetObj = &GetZoneObject($target);
     if($targetObj === null) return; // Target no longer on the field (e.g. stale mzID after redirect)
 
+    $amount += GADTRMarkedDamageBonus($targetObj, $amount);
+
     // Bulwark counters prevent the next combat damage to that ally.
     if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
         && GetCounterCount($targetObj, "bulwark") > 0
@@ -5533,6 +5567,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
  */
 function DealUnpreventableDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+    if($targetObj === null) return;
+    $amount += GADTRMarkedDamageBonus($targetObj, $amount);
 
     // Siegeable domains: same handling as OnDealDamage (unpreventable doesn't change the mechanic)
     if(IsSiegeable($targetObj)) {
@@ -5806,6 +5842,30 @@ $customDQHandlers["MechanizedSmasherReveal"] = function($player, $parts, $lastDe
     if($lastDecision !== "-" && $lastDecision !== "") {
         DoRevealCard($player, $lastDecision);
     }
+};
+
+// Additional attacks start after the current combat finishes. Resolve the
+// attacker by identity so deaths and field compaction cannot redirect the attack.
+$customDQHandlers["GAAdditionalCopyAttack"] = function($player, $parts, $lastDecision) {
+    $mz = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
+    $attacker = $mz === "" ? null : GetZoneObject($mz);
+    $cardID = strval($parts[1] ?? "");
+    if($attacker === null || $attacker->removed || intval($attacker->Controller) !== intval($player)
+        || !PropertyContains(CardType($cardID), "ATTACK")) return;
+    if(empty(GetValidAttackTargets($mz))) return;
+    $other = $player === 1 ? 2 : 1;
+    $queue = &GetDecisionQueue($other);
+    foreach($queue as $i => $decision) {
+        if(strpos($decision->Param, "CombatCleanup") === 0) { array_splice($queue, $i, 1); break; }
+    }
+    $copy = MZAddZone($player, "myIntent", $cardID);
+    if($copy === null) return;
+    $copy->TurnEffects[] = "INTENT_COPY";
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    StoreCombatAttackerState($mz, $player);
+    DecisionQueueController::StoreVariable("CombatIsCleave", "0");
+    DecisionQueueController::StoreVariable("CombatWeapon", "-");
+    ChooseAttackTarget($player, $mz);
 };
 
 // Slice and Dice (3jg01o26b4): execute the additional attack

@@ -6,6 +6,12 @@ try {
     $path = $argv[1] ?? '';
     if (!is_file($path)) throw new RuntimeException('Usage: php DevTools/AuthorCardCode.php <definitions.json> [--apply]');
     $input = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+    foreach($argv as $arg) {
+        if(!str_starts_with($arg, '--card=')) continue;
+        $id = substr($arg, 7);
+        if(!isset($input['cards'][$id])) throw new RuntimeException("Unknown card: $id");
+        $input['cards'] = [$id => $input['cards'][$id]];
+    }
     $root = $input['root'];
     $repo = OpenCardAbilityRepository($root);
     $pending = [];

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "qK7Et5ZTeT"
+        ],
+        "mechanics": [
+            "banish",
+            "return-to-hand",
+            "empower"
+        ],
+        "rulesClauses": [
+            "Banish hand and memory, recover eligible Arcane cards, empower ten."
+        ]
+    },
+    "name": "arcane-renunciation-recovers-arcane-and-empowers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:56:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qK7Et5ZTeT"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

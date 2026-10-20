@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "kTctEEIIAT"
+        ],
+        "mechanics": [
+            "optional",
+            "damage",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Declining discard deals eight and draws caster memory."
+        ]
+    },
+    "name": "dtr-macabre-subornation-declined-discard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:09:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kTctEEIIAT"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

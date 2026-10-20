@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Wk4Pc7bj21"
+        ],
+        "mechanics": [
+            "prevention",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Prevent 2+X+Y damage to target object."
+        ]
+    },
+    "name": "lesser-boon-refuge-counts-wind-boons-and-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:21:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Wk4Pc7bj21"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

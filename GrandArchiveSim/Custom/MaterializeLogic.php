@@ -4,9 +4,9 @@
  * This file contains functions that determine how materialization interactions resolve
  */
 
-function MaterializePhase() {
+function MaterializePhase($additional = false) {
     $currentTurn = intval(GetTurnNumber());
-    if($currentTurn === 1) return;
+    if($currentTurn === 1 && !$additional && !GADTRIsExtraTurn()) return;
     
     // Orchestrated Seizure (pwscn0esog): prepare one-turn materialize floating access window.
     while(GlobalEffectCount(GetTurnPlayer(), "pwscn0esog_ACTIVE") > 0) {
@@ -84,7 +84,7 @@ function ShouldQueueCapacitanceMaterialCheck($player) {
     if($arcane < 6) return false;
     foreach(GetMaterial($player) as $obj) {
         if(!$obj->removed && $obj->CardID === "FjklZcbjPV"
-            && CanPlayerUseCardElement($player, $obj->CardID, false, false)) return true;
+            && CanPlayerUseCardElement($player, $obj->CardID, false, false, false)) return true;
     }
     return false;
 }
@@ -183,7 +183,7 @@ function GAMaterialCanLeave($obj, $trigger = "") {
         if($candidate === $obj) { $owner = $seat; break 2; }
     }
     if($owner !== 1 && $owner !== 2) return false;
-    if(GetCurrentPhase() === "MAT" && intval(GetTurnPlayer()) === $owner) return true;
+    if(in_array(GetCurrentPhase(), ["MAT", "AMAT"], true) && intval(GetTurnPlayer()) === $owner) return true;
     foreach(GetField($owner === 1 ? 2 : 1) as $magistrate) {
         if($magistrate === null || $magistrate->removed || $magistrate->CardID !== "taug52u81v" || HasNoAbilities($magistrate)) continue;
         if(in_array("IMBUED", $magistrate->TurnEffects ?? [], true)) return false;
@@ -196,7 +196,7 @@ function GetLegalMaterializeChoices($player) {
     $choices = [];
     for($i = 0; $i < count($material); ++$i) {
         if($material[$i]->removed || !GAMaterialCanLeave($material[$i])) continue;
-        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) continue;
+        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false, false)) continue;
         if(PropertyContains(CardType($material[$i]->CardID), "CHAMPION")
             && !CanMaterializeChampion($player, $material[$i]->CardID)) continue;
         $choices[] = "myMaterial-" . $i;
@@ -235,7 +235,7 @@ $customDQHandlers["EVENTIDE_MATERIAL_CHECK"] = function($player, $parts, $lastDe
     $eventideMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "xjkdokzfd9") {
-            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
+            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false, false)) return;
             $eventideMZ = "myMaterial-" . $i;
             break;
         }
@@ -262,7 +262,7 @@ $customDQHandlers["VARUCKAN_MATERIAL_CHECK"] = function($player, $parts, $lastDe
     $varuckanMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "9ox7u6wzh9") {
-            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
+            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false, false)) return;
             $varuckanMZ = "myMaterial-" . $i;
             break;
         }
@@ -359,7 +359,7 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
 // materialize at the start of the turn (which skips the *_MATERIAL_CHECK offers) can still activate them later. These mirror the conditions of the *_MATERIAL_CHECK handlers.
 function GAEventideSpearMaterialActivatable($player, $obj) {
     if($obj === null || $obj->removed || $obj->CardID !== "xjkdokzfd9") return false;
-    if(!IsClassBonusActive($player, ["WARRIOR"]) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    if(!IsClassBonusActive($player, ["WARRIOR"]) || !CanPlayerUseCardElement($player, $obj->CardID, false, false, false)) return false;
     global $playerID;
     $oppFieldZone = ($player == $playerID) ? "theirField" : "myField";
     $rested = 0;
@@ -371,12 +371,12 @@ function GAEventideSpearMaterialActivatable($player, $obj) {
 function GAVaruckanMaterialActivatable($player, $obj) {
     if($obj === null || $obj->removed || $obj->CardID !== "9ox7u6wzh9") return false;
     if(!IsClassBonusActive($player, ["ASSASSIN"]) || !IsElementBonusActive($player, "9ox7u6wzh9")) return false;
-    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false, false)) return false;
     return count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) >= 3;
 }
 function GACapacitanceMaterialActivatable($player, $obj) {
     if($obj === null || $obj->removed || $obj->CardID !== "FjklZcbjPV") return false;
-    if(!IsLorraineBonusActive($player) || !CanPlayerUseCardElement($player, $obj->CardID, false, false)) return false;
+    if(!IsLorraineBonusActive($player) || !CanPlayerUseCardElement($player, $obj->CardID, false, false, false)) return false;
     $arcane = 0;
     foreach(GetBanish($player) as $bObj) {
         if(!$bObj->removed && PropertyContains(CardElement($bObj->CardID), "ARCANE")) ++$arcane;
@@ -393,7 +393,7 @@ function CanActivateReciprocityFromMaterial($player, $obj) {
         && !$obj->removed
         && $obj->CardID === "mSOHJGjrIu"
         && IsTonorisBonusActive($player)
-        && CanPlayerUseCardElement($player, $obj->CardID, false, false)
+        && CanPlayerUseCardElement($player, $obj->CardID, false, false, false)
         && CountAvailableReservePayments($player) >= ReciprocityMaterialActivationCost($player);
 }
 
@@ -445,7 +445,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     //First pay memory cost (unless cost is being ignored)
     $materializeCard = &GetZoneObject($mzCard);
     if($materializeCard === null || $materializeCard->removed || !GAMaterialCanLeave($materializeCard)) return;
-    if(!CanPlayerUseCardElement($player, $materializeCard->CardID)) return;
+    if(!CanPlayerUseCardElement($player, $materializeCard->CardID, false, true, false)) return;
 
     global $AllyLink_Cards;
     if(isset($AllyLink_Cards[$materializeCard->CardID]) && !$continueMaterialize) {
@@ -991,7 +991,7 @@ $customDQHandlers["CAPACITANCE_MATERIAL_CHECK"] = function($player, $parts, $las
     $material = GetMaterial($player);
     for($i = 0; $i < count($material); ++$i) {
         if($material[$i]->removed || $material[$i]->CardID !== "FjklZcbjPV") continue;
-        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
+        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false, false)) return;
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "myMaterial-" . $i, 1,
             tooltip:"Activate_Capacitance_X_Psycho_from_material_deck?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "CapacitanceMaterialActivate", 1);
@@ -1281,6 +1281,8 @@ function DoMaterialize($player, $mzCard, $wasPlayed = true) {
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+        $dtrChampion = GetZoneObject(FindChampionMZ($player));
+        if($dtrChampion !== null) $dtrChampion->Counters["dtrLevelsThisTurn"] = intval($dtrChampion->Counters["dtrLevelsThisTurn"] ?? 0) + 1;
         foreach(GetField($player) as $levelListenerObj) {
             if($levelListenerObj === null || $levelListenerObj->removed || HasNoAbilities($levelListenerObj)) continue;
             if($levelListenerObj->CardID === "LAfJuHgUbm") RecoverChampion($player, 1);

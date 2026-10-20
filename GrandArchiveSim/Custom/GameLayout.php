@@ -11,6 +11,14 @@ require_once __DIR__ . '/GameLayoutDevice.php';
 if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
+     [data-counter-field="MarkedStatus"] {
+          width: auto !important;
+          min-width: 22px;
+          padding: 0 5px;
+          border-radius: 4px !important;
+          font-size: 9px !important;
+          white-space: nowrap;
+     }
      :root {
           --ga-ink: #13202b;
           --ga-ink-soft: rgba(19, 32, 43, 0.72);
@@ -1846,6 +1854,7 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           WU: 'WU',
           WAKEUP: 'WU',
           MAT: 'MAT',
+          AMAT: 'MAT',
           MATERIALIZE: 'MAT',
           BREC: 'RECOLLECTION',
           REC: 'RECOLLECTION',

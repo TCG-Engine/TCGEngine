@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "pB4ngDOM6F"
+        ],
+        "mechanics": [
+            "death",
+            "variable-cost",
+            "put-onto-field",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Death uses declared X to admit a cheaper Suited ally and draw memory."
+        ]
+    },
+    "name": "dtr-misty-death-puts-cheap-suited-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:24:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pB4ngDOM6F"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

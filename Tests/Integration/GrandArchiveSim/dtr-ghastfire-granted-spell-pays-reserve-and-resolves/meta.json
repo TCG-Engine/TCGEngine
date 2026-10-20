@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Tv733Lcbxz"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "cost",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Granted ephemerate pays two after leaving graveyard and resolves its spell."
+        ]
+    },
+    "name": "dtr-ghastfire-granted-spell-pays-reserve-and-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:22:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tv733Lcbxz"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

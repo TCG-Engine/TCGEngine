@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "b9BrhLDSNf"
+        ],
+        "mechanics": [
+            "enter",
+            "marked"
+        ],
+        "rulesClauses": [
+            "On Enter target unit becomes marked."
+        ]
+    },
+    "name": "dtr-hunters-mark-marks-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b9BrhLDSNf"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

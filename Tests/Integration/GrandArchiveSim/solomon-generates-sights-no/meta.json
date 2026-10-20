@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "q0P2TmYGXs"
+        ],
+        "mechanics": [
+            "on-enter",
+            "discard",
+            "generate",
+            "optional"
+        ],
+        "rulesClauses": [
+            "Optionally discard hand and memory and generate eight Sights into memory."
+        ]
+    },
+    "name": "solomon-generates-sights-no",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:29:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q0P2TmYGXs"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "hiN2g99FLF"
+        ],
+        "mechanics": [
+            "damage",
+            "random"
+        ],
+        "rulesClauses": [
+            "Deal D6+D6 damage to target ally."
+        ]
+    },
+    "name": "unstable-voltage-rolls-two-dice-for-ally-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:18:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hiN2g99FLF"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -3,9 +3,18 @@
 // live ordinal; BeforeRemove invalidates it before a same-name card can reuse it.
 // Live ordinals are unchanged by tombstone cleanup and save/load compaction.
 function GAKilledCardRegistry() {
-    return json_decode(DecisionQueueController::GetVariable('GAKilledCards') ?? '{}', true) ?: [];
+    $pending = json_decode(DecisionQueueController::GetVariable('GAKilledCards') ?? '{}', true) ?: [];
+    $state = json_decode(GetMacroGameIndex() ?: '{}', true) ?: [];
+    return array_merge($pending, $state['dtrGraveyardGrants'] ?? []);
 }
 function GAStoreKilledCardRegistry($cards) {
+    // Temporary grants outlive the decision queue, whose variables clear when idle.
+    $state = json_decode(GetMacroGameIndex() ?: '{}', true) ?: [];
+    $grants = array_filter($cards, fn($record) => !empty($record['dtrEphemerate']));
+    if($grants) $state['dtrGraveyardGrants'] = $grants;
+    else unset($state['dtrGraveyardGrants']);
+    SetMacroGameIndex(json_encode($state));
+    $cards = array_filter($cards, fn($record) => empty($record['dtrEphemerate']));
     if(empty($cards)) DecisionQueueController::ClearVariable('GAKilledCards');
     else DecisionQueueController::StoreVariable('GAKilledCards', json_encode($cards));
 }

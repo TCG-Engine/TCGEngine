@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "TEAB07h5C8"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "control",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Pay two: give Food to opponent and draw into memory."
+        ]
+    },
+    "name": "nourishment-gives-food-and-draws-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:43:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TEAB07h5C8"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

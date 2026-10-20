@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "U3GhfjipKt"
+        ],
+        "mechanics": [
+            "empower",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Empower and class-bonus draw memory."
+        ]
+    },
+    "name": "dtr-uplifting-rogation-draws-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:08:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "U3GhfjipKt"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

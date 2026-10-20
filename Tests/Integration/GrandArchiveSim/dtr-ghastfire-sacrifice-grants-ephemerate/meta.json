@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Tv733Lcbxz"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "ephemerate"
+        ],
+        "rulesClauses": [
+            "Sacrifice resolves a temporary graveyard grant."
+        ]
+    },
+    "name": "dtr-ghastfire-sacrifice-grants-ephemerate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:19:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tv733Lcbxz"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

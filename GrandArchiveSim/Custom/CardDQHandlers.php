@@ -682,6 +682,7 @@ $customDQHandlers["DeclareWeaponLinkTarget"] = function($player, $parts, $lastDe
     $targetObj = GetZoneObject($lastDecision);
     DecisionQueueController::StoreVariable("weaponLinkTargetMZ", $lastDecision);
     DecisionQueueController::StoreVariable("weaponLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+    DecisionQueueController::StoreVariable("weaponLinkTargetUID", strval($targetObj->UniqueID ?? 0));
 };
 
 /**
@@ -6197,7 +6198,9 @@ function IsDianaBonus($player) {
         || ChampionHasInLineage($player, "wiztyu6o24")    // Diana, Judgment's Arrow (L2)
         || ChampionHasInLineage($player, "7ozuj68m69")    // Diana, Deadly Duelist
         || ChampionHasInLineage($player, "o0qtb31x97")    // Diana, Cursebreaker
-        || ChampionHasInLineage($player, "e3z4pyx8bd");   // Diana, Keen Huntress
+        || ChampionHasInLineage($player, "e3z4pyx8bd")    // Diana, Keen Huntress
+        || ChampionHasInLineage($player, "v3vfjtwm7g")    // Diana, Moonpiercer
+        || ChampionHasInLineage($player, "iq4d5vettc");   // Diana, Duskstalker
 }
 
 /**

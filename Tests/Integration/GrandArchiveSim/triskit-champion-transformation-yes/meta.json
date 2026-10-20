@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "ilW4cRlI0C"
+        ],
+        "mechanics": [
+            "on-enter",
+            "transform",
+            "optional"
+        ],
+        "rulesClauses": [
+            "May banish your champion; Triskit becomes a unique champion with base level 3."
+        ]
+    },
+    "name": "triskit-champion-transformation-yes",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:28:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ilW4cRlI0C"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

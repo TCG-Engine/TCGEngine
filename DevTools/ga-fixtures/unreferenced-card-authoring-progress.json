@@ -1,0 +1,196 @@
+{
+  "source": "DevTools/ga-fixtures/unreferenced-cards.tsv",
+  "definitions": "DevTools/card-code-migrations/20261020-new-cards.json",
+  "databaseVerified": true,
+  "authoredCount": 34,
+  "remainingCount": 8,
+  "scopeNote": "Full multiplayer Pantheon work is parked on codex/ga-pantheon-wip. This branch retains authored cards and the existing two-player simulator model. The hosted card database is shared across branches.",
+  "authored": [
+    {
+      "cardID": "wc8IEEJUBL",
+      "name": "Greater Boon of Connection"
+    },
+    {
+      "cardID": "vp83TimzWT",
+      "name": "Greater Boon of Flock"
+    },
+    {
+      "cardID": "dnqUeoEgJi",
+      "name": "Greater Boon of Rosen"
+    },
+    {
+      "cardID": "Ss991TWKR9",
+      "name": "Lesser Boon of Elysian Blood"
+    },
+    {
+      "cardID": "94rrVFUJG4",
+      "name": "Lesser Boon of Flock"
+    },
+    {
+      "cardID": "j0zgnD8pP5",
+      "name": "Lesser Boon of Fractals"
+    },
+    {
+      "cardID": "TEAB07h5C8",
+      "name": "Lesser Boon of Nourishment"
+    },
+    {
+      "cardID": "woez6MYh46",
+      "name": "Lesser Boon of Permeation"
+    },
+    {
+      "cardID": "gOus3YnrRq",
+      "name": "Dinah, Lost Spirit"
+    },
+    {
+      "cardID": "bHMPShtaSt",
+      "name": "Lesser Boon of Proxia"
+    },
+    {
+      "cardID": "Wk4Pc7bj21",
+      "name": "Lesser Boon of Refuge"
+    },
+    {
+      "cardID": "OSsRmNoETv",
+      "name": "Lesser Boon of Sword Saint"
+    },
+    {
+      "cardID": "RWJ0fztQK2",
+      "name": "Lesser Boon of Virelai"
+    },
+    {
+      "cardID": "x3ljhn5iu9",
+      "name": "Prismatic Perseverance"
+    },
+    {
+      "cardID": "d770iLKEKx",
+      "name": "Banner of Ares"
+    },
+    {
+      "cardID": "7wX0tZmhYb",
+      "name": "Lakereaving Chill"
+    },
+    {
+      "cardID": "qtjphZSiO6",
+      "name": "Duality's Convergence"
+    },
+    {
+      "cardID": "Ot9z4Oh3jN",
+      "name": "Tricastles of Lucenia"
+    },
+    {
+      "cardID": "q0P2TmYGXs",
+      "name": "Solomon, Master of Elements"
+    },
+    {
+      "cardID": "3ir1o0qtb3",
+      "name": "Cyclonic Strike"
+    },
+    {
+      "cardID": "C7zFV2K7bL",
+      "name": "Mistbound Cutthroat"
+    },
+    {
+      "cardID": "bzwj7ztr78",
+      "name": "Harness Lightning"
+    },
+    {
+      "cardID": "n2wtz6ql0a",
+      "name": "Chronowarp"
+    },
+    {
+      "cardID": "l61ubi93jx",
+      "name": "Seize Fate"
+    },
+    {
+      "cardID": "ilW4cRlI0C",
+      "name": "Triskit, Guidance Angel"
+    },
+    {
+      "cardID": "8iNWBAkqkS",
+      "name": "Spurred Gallop"
+    },
+    {
+      "cardID": "qK7Et5ZTeT",
+      "name": "Arcane Renunciation"
+    },
+    {
+      "cardID": "foy5mdrVCR",
+      "name": "Auravolt Current"
+    },
+    {
+      "cardID": "2hlW5LWSTe",
+      "name": "Stormblade Squire"
+    },
+    {
+      "cardID": "hiN2g99FLF",
+      "name": "Unstable Voltage"
+    },
+    {
+      "cardID": "Z1L77xhMcC",
+      "name": "Constellary Predomination"
+    },
+    {
+      "cardID": "wuTQLLq5US",
+      "name": "Birefringence"
+    },
+    {
+      "cardID": "Gf33wXPzcg",
+      "name": "Nox, Final Release"
+    },
+    {
+      "cardID": "WKA37tNxtw",
+      "name": "Greater Boon of Proxia"
+    }
+  ],
+  "remaining": [
+    {
+      "cardID": "sSIDPfkmkw",
+      "name": "Tristan, Ascendant Shadow",
+      "status": "unimplemented",
+      "remainingWork": "Needs inherited Ascendant activation, 2025-reserve payment and transfer of the original attack into another attacker’s intent after a hit."
+    },
+    {
+      "cardID": "SyDMB8D78p",
+      "name": "Lesser Boon of Provocation",
+      "status": "unimplemented",
+      "remainingWork": "Targets another opponent in multiplayer Pantheon; current simulator has two player seats."
+    },
+    {
+      "cardID": "mekutzp19y",
+      "name": "Orb of Sealing",
+      "status": "unimplemented",
+      "remainingWork": "Needs face-down banishment visibility, sealing and restoration without revealing hidden card identities."
+    },
+    {
+      "cardID": "y7o97Xbidv",
+      "name": "Regulus Blitz",
+      "status": "unimplemented",
+      "remainingWork": "Needs separate intent and hand abilities, multiple pending-activation payment prompts, and attacker rest-cost replacement."
+    },
+    {
+      "cardID": "1wqqUKG6pD",
+      "name": "Materialize the Soul",
+      "status": "unimplemented",
+      "remainingWork": "Needs permission to inspect and materialize from an opposing material deck and permanent class inheritance."
+    },
+    {
+      "cardID": "l52lVIFvpy",
+      "name": "Nimue, Cursed Touch",
+      "status": "unimplemented",
+      "remainingWork": "Needs activation-time action targeting; existing generated flows generally select targets on resolution."
+    },
+    {
+      "cardID": "NBf2d3iqXp",
+      "name": "Numinous Monk",
+      "status": "unimplemented",
+      "remainingWork": "Needs granted abilities that resolve as Spells, including spell damage attribution and applicable modifiers."
+    },
+    {
+      "cardID": "RBco1DfZ1B",
+      "name": "Lightweaver's Infinite Shaping",
+      "status": "unimplemented",
+      "remainingWork": "Needs general sharing of all abilities among revealed memory cards, with reveal lifecycle tracking."
+    }
+  ]
+}

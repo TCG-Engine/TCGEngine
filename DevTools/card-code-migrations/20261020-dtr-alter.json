@@ -1,0 +1,429 @@
+{
+  "root": "GrandArchiveSim",
+  "cards": {
+    "XigkNI4cqd": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "DealChampionDamage($player, 2, $player);\nGlimpse($player, 6);",
+        "isImplemented": true
+      }
+    ],
+    "DPhyM1vu22": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$targets = array_merge(ZoneSearch(\"myField\", [\"WEAPON\"]), ZoneSearch(\"theirField\", [\"WEAPON\"]));\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZMayChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\nRemoveCounters($player, $chosen, \"durability\", 1);\n}\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "// Floating Memory is supplied by the generated keyword dictionary.",
+        "isImplemented": true
+      }
+    ],
+    "vwy2cASBGX": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$targets = GADTRNonChampionTargets();\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\n$controller = GetZoneObject($chosen)->Controller;\nDestroyObjectSelection($player, $chosen);\nDrawIntoMemory($controller, 1);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "8svNnvvODq": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"foster\") return 1;\nif(!IsFostered($subjectObj) || !IsClassBonusActive($player, CardClasses($sourceObj->CardID))) return 0;\nif($property === \"power\") return 3;\nreturn $property === \"intercept\" ? 1 : 0;",
+        "isImplemented": true
+      }
+    ],
+    "33mLTmf6Kz": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"starcalling\") return 2; // encoded cost + 1; zero means absent\nif($property === \"vigor\" || $property === \"intercept\") return 1;\nif(GlobalEffectCount(1,\"TIME_DISTORTED\") + GlobalEffectCount(2,\"TIME_DISTORTED\") < 1) return 0;\nif($property === \"basePowerDelta\") return 7 - intval(CardPower($sourceObj->CardID));\nif($property === \"baseLifeDelta\") return 7 - intval(CardLife($sourceObj->CardID));\nreturn 0;",
+        "isImplemented": true
+      }
+    ],
+    "9owQoFU1Tz": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return $property === \"stealth\" && $subjectObj !== null && PropertyContains(EffectiveCardType($subjectObj), \"ALLY\") && PropertyContains(EffectiveCardSubtypes($subjectObj), \"SUITED\") ? 1 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Enter",
+        "abilityCode": "DrawIntoMemory($player, 1);",
+        "isImplemented": true
+      }
+    ],
+    "x5FICqmSNN": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "$uid = GetZoneObject($mzID)->UniqueID;\n$choices = implode(\"&\", ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes:[\"SUITED\"]));\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif(GetZoneObject($chosen) !== null) {\nAddCounters($player, $chosen, \"buff\", 1);\n$source = FindFieldMZByUniqueID($uid);\nif($source !== null) RemoveCounters($player, $source, \"durability\", 2);\n}\n}",
+        "isImplemented": true,
+        "prereqCode": "return IsClassBonusActive($player, CardClasses(\"x5FICqmSNN\"));",
+        "abilityName": "REST: Buff Suited ally"
+      }
+    ],
+    "RXCLnj5wME": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "$uid = GetZoneObject($mzID)->UniqueID;\n$choices = implode(\"&\", ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes:[\"SUITED\"]));\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif(GetZoneObject($chosen) !== null) {\n$wasDistant = IsDistant(GetZoneObject($chosen));\nBecomeDistant($player, $chosen);\n$source = FindFieldMZByUniqueID($uid);\nif(!$wasDistant && $source !== null) RemoveCounters($player, $source, \"durability\", 2);\n}\n}",
+        "isImplemented": true,
+        "prereqCode": "return IsClassBonusActive($player, CardClasses(\"RXCLnj5wME\"));",
+        "abilityName": "REST: Distant Suited ally"
+      }
+    ],
+    "DKzpxkPlXj": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif(!IsCielBonusActive($player)) return 0;\nif($property === \"vigor\") return 1;\nif($property !== \"power\") return 0;\nreturn count(array_filter(GetOmens($player), fn($o) => intval(CardCost_reserve($o->CardID)) <= 1));",
+        "isImplemented": true
+      }
+    ],
+    "uDASjw2XQQ": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"cardistry\") return 2;\nif($property === \"ranged\") return 1;\nreturn 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "AddGlobalEffects($player, \"uDASjw2XQQ\");",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && empty($obj->Counters[\"cardistry_used\"]);",
+        "abilityName": "Cardistry"
+      },
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if(($sourceObj->Location ?? \"\") !== \"GlobalEffects\" || !PropertyContains(EffectiveCardType($subjectObj),\"DOMAIN\")) return 0;\nreturn [\"delta\"=>-2,\"consume\"=>true,\"applied\"=>true];",
+        "isImplemented": true
+      }
+    ],
+    "lKPOHDtttV": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"cardistry\") return 3;\nif($property === \"ranged\") return 2;\nreturn 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "$obj = GetZoneObject($mzID);\n$bonus = GetCounterCount($obj,\"buff\") > 0 || IsDistant($obj) ? 4 : 2;\nAddTurnEffect($mzID,\"DTR_NEXT_ATTACK_POWER_\".$bonus);",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && empty($obj->Counters[\"cardistry_used\"]);",
+        "abilityName": "Cardistry"
+      }
+    ],
+    "ajkTLXYL5v": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"cardistry\") return 4;\nif($property === \"ranged\") return 2;\nreturn 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "foreach(ZoneSearch(\"myField\", [\"ALLY\",\"CHAMPION\"]) as $ref) BecomeDistant($player,$ref);",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && empty($obj->Counters[\"cardistry_used\"]);",
+        "abilityName": "Cardistry"
+      }
+    ],
+    "KYG9ABDXGR": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"cardistry\") return 5;\nif($property === \"ranged\") return 2 * GetCounterCount($subjectObj,\"buff\");\nreturn 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "AddCounters($player, $mzID, \"buff\", 2);",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && empty($obj->Counters[\"cardistry_used\"]);",
+        "abilityName": "Cardistry"
+      }
+    ],
+    "rAKqUW5gaE": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"cardistry\") return 6;\nif($property === \"vigor\" || $property === \"trueSight\") return 1;\nreturn 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "ScavengeForSubtype($player, 6, \"SUITED\");",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && empty($obj->Counters[\"cardistry_used\"]);",
+        "abilityName": "Cardistry"
+      }
+    ],
+    "w3xggbIoZL": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"power\" && $property !== \"life\") return 0;\nif($subjectObj === null || $subjectObj === $sourceObj || !IsClassBonusActive($player, CardClasses($sourceObj->CardID))) return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj),\"ALLY\") && HasFloatingMemory($subjectObj) ? 1 : 0;",
+        "isImplemented": true
+      }
+    ],
+    "U3GhfjipKt": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "Empower($player, count(ZoneSearch(\"myMemory\")) === 6 ? 4 : 1, \"U3GhfjipKt\");\nif(IsClassBonusActive($player, CardClasses(\"U3GhfjipKt\"))) DrawIntoMemory($player,1);",
+        "isImplemented": true
+      }
+    ],
+    "5Qtu09P9k0": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "$step = AdvanceCascadeStep($mzID);\nif($step >= 1 && $step <= 4) {\nGlimpse($player, 3 * $step);\nif($step === 4) AddCounters($player,$mzID,\"time\",1);\n}",
+        "isImplemented": true,
+        "prereqCode": "$obj = GetZoneObject($mzID); return $obj !== null && GetCounterCount($obj,\"cascade\") < 4;",
+        "abilityName": "Pay 2, REST: Cascade"
+      }
+    ],
+    "S8NH6UkSNB": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nreturn $property === \"noRetaliation\" ? 1 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Enter",
+        "abilityCode": "$total = 0;\nforeach(ZoneSearch(\"myField\",cardSubtypes:[\"SUITED\"]) as $ref) $total += GADTRReserveCost(GetZoneObject($ref));\n$amount = [6=>3,10=>6,21=>12][$total] ?? 0;\nif($amount > 0) AddTurnEffect($mzID,\"RANGED_\".$amount);",
+        "isImplemented": true
+      }
+    ],
+    "Tv733Lcbxz": [
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj->CardID !== \"Tv733Lcbxz\" || ($sourceObj->Location ?? \"\") === \"Field\") return 0;\nreturn (IsAliceBonusActive($player) ? -2 : 0) + (IsClassBonusActive($player, CardClasses(\"Tv733Lcbxz\")) ? -2 : 0);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ActivateAbility",
+        "abilityCode": "$targets = GADTRGhastfireTargets();\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\nGADTRGrantEphemerate($player,$chosen);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "ZdAWSJpwOz": [
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj->CardID !== \"ZdAWSJpwOz\" || ($sourceObj->Location ?? \"\") === \"Field\") return 0;\nreturn IsMerlinBonusActive($player) ? -1 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$caster = $player;\n$opponent = $player === 1 ? 2 : 1;\n$choices = implode(\"&\", ZoneSearch(\"myMemory\",forPlayer:$opponent));\nif($choices !== \"\") {\n$chosen = await $opponent.MZChoose($choices);\n$obj = GetZoneObject($chosen);\nif($obj !== null) {\n$amount = min(3, max(0, intval(CardCost_reserve($obj->CardID))));\nMZMove($opponent,$chosen,\"myBanish\");\nAddSheenToMastery($caster,$amount);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "AACH0EPqqL": [
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj->CardID !== \"AACH0EPqqL\" || ($sourceObj->Location ?? \"\") === \"Field\") return 0;\nreturn -GetCardistryDiscount($player);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "BeginEnd",
+        "abilityCode": "$uid = intval(DecisionQueueController::GetVariable(\"dtrEventUID\"));\n$before = count(ZoneSearch(\"myHand\"));\nScavengeForProperty($player,3,\"suitedAllyOrDomain\",\"\");\nif(count(ZoneSearch(\"myHand\")) > $before) {\n$source = FindFieldMzByUniqueID($uid);\nif($source !== null && $source !== \"\") RemoveCounters($player,$source,\"durability\",2);\n}",
+        "isImplemented": true
+      }
+    ],
+    "jKjgqe1p4G": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "if(!IsClassBonusActive($player, [\"RANGER\"])) return;\n$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\"]), ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\"])));\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\nGADTRMark($chosen);\n}\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nreturn $property === \"ranged\" ? 2 : 0;",
+        "isImplemented": true
+      }
+    ],
+    "b9BrhLDSNf": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\"]), ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\"])));\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\nGADTRMark($chosen);\n}\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return $property === \"markedDamageBonus\" && IsClassBonusActive($player,[\"RANGER\"]) ? 1 : 0;",
+        "isImplemented": true
+      }
+    ],
+    "1Awcc4Owca": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif($property === \"swapPowerLife\") return IsEphemeral($subjectObj) ? 1 : 0;\nreturn 0;",
+        "isImplemented": true
+      }
+    ],
+    "0LcN8mTQQG": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nif(($property === \"power\" || $property === \"life\") && IsEphemeral($subjectObj)) return GetHauntCount($player);\nreturn 0;",
+        "isImplemented": true
+      }
+    ],
+    "EcTFUpk8oe": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "foreach(array_merge(ZoneSearch(\"myField\"),ZoneSearch(\"theirField\")) as $ref) {\n$obj = GetZoneObject($ref);\nif($obj !== null && IsSiegeable($obj)) DealDamage($player, $mzID, $ref, 2);\n}",
+        "isImplemented": true
+      }
+    ],
+    "yC1TexeQwH": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nreturn $property === \"ranged\" ? 1 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "BecameDistant",
+        "abilityCode": "ScavengeForSubtype($player,6,\"AETHERCHARGE\");",
+        "isImplemented": true
+      }
+    ],
+    "7PpyBdi0cb": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$choices = implode(\"&\", array_merge(ZoneSearch(\"myBanish\"),ZoneSearch(\"theirBanish\")));\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nClearCounters($player,$chosen,\"omen\");\n}\nAddGlobalEffects($player,\"DTR_NO_OMEN\");",
+        "isImplemented": true
+      }
+    ],
+    "uSZ7FJwX7M": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$prepared = DecisionQueueController::GetVariable(\"wasPrepared\") === \"YES\";\n$targets = array_merge(ZoneSearch(\"myField\",[\"CHAMPION\"]), ZoneSearch(\"theirField\",[\"CHAMPION\"]));\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\n$source = GetZoneObject($mzID);\n$amount = $prepared ? 3 + 2 * max(0,intval(CardLevel(GetZoneObject($chosen)->CardID))) : 2;\nDealDamage($player,$mzID,$chosen,$amount);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "kTctEEIIAT": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$caster = $player;\n$opponent = $player === 1 ? 2 : 1;\n$choices = implode(\"&\",GADTRSubornationChoices($caster,$opponent));\n$chosen = \"-\";\nif($choices !== \"\") {\n$chosen = await $opponent.MZMayChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"PASS\" && $chosen !== \"\") {\nDoDiscardCard($opponent,$chosen);\n}\nelse {\nDealChampionDamage($opponent,8,$caster); DrawIntoMemory($caster,1);\n}\n} else {\nDealChampionDamage($opponent,8,$caster); DrawIntoMemory($caster,1);\n}",
+        "isImplemented": true
+      }
+    ],
+    "IWp4MhdPCs": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$mode = await $player.Modal(1,1,\"Ally:_life_and_distant&Domain:_three_durability\",\"Choose_one\");\nif($mode === \"0\") {\n$choices = implode(\"&\",FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\",[\"ALLY\"],cardSubtypes:[\"SUITED\"]),ZoneSearch(\"theirField\",[\"ALLY\"],cardSubtypes:[\"SUITED\"]))));\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nAddTurnEffect($chosen,\"IWp4MhdPCs_LIFE\");\nBecomeDistant($player,$chosen);\n}\n} else {\n$choices = implode(\"&\",GADTRSuitedSiegeableTargets());\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nAddCounters($player,$chosen,\"durability\",3);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "68ZcOVfJn6": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$choices = implode(\"&\",FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\",[\"CHAMPION\"]),ZoneSearch(\"theirField\",[\"CHAMPION\"]))));\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\n$uid = GetZoneObject($chosen)->UniqueID;\n$hits = 1 + GetCounterCount(GetZoneObject($chosen),\"dtrLevelsThisTurn\");\nfor($i=0;$i<$hits;++$i) {\n$ref = FindFieldMzByUniqueID($uid);\nif($ref !== null) DealDamage($player,$mzID,$ref,2);\n}\n}\nMayLoadIntoAetherwing($player,\"68ZcOVfJn6\");",
+        "isImplemented": true
+      }
+    ],
+    "9jiUWCU8dP": [
+      {
+        "macroName": "ActivateCard",
+        "abilityCode": "// The mandatory sacrifice is paid by GenericSacrificeCost.",
+        "isImplemented": true,
+        "prereqCode": "return !empty(GenericSacrificeCostCandidates(\"9jiUWCU8dP\"));"
+      },
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "GADTRGrantExtraTurn($player);\nBanishResolvedSpellFromGraveyard($player, \"9jiUWCU8dP\");",
+        "isImplemented": true
+      }
+    ],
+    "pB4ngDOM6F": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "$obj = GetZoneObject($mzID);\nif($obj !== null) $obj->Counters[\"dtrReserveCost\"] = intval($obj->Counters[\"dtrX\"] ?? 0);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AllyDestroyed",
+        "abilityCode": "$limit = intval(DecisionQueueController::GetVariable(\"dtrMistyCost\"));\n$choices = implode(\"&\",GADTRMistyChoices($limit));\nif($choices !== \"\") {\n$chosen = await $player.MZMayChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"PASS\" && $chosen !== \"\") {\nMZMove($player,$chosen,\"myField\");\nDrawIntoMemory($player,1);\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "AMI6WJBmQc": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\"]), ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\"])));\n$choices = implode(\"&\", $targets);\nif($choices !== \"\") {\n$chosen = await $player.MZChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"\" && $chosen !== \"PASS\") {\nAddCounters($player,$chosen,\"sheen\",intval(GetZoneObject($mzID)->Counters[\"dtrX\"] ?? 0));\n}\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "BeginRecollection",
+        "abilityCode": "foreach(array_merge(ZoneSearch(\"myField\"),ZoneSearch(\"theirField\"),ZoneSearch(\"myMastery\"),ZoneSearch(\"theirMastery\")) as $ref) {\n$obj = GetZoneObject($ref);\nif(GetCounterCount($obj,\"sheen\") > 0) AddCounters($player,$ref,\"sheen\",1);\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "HandActivatedAbility",
+        "abilityCode": "$before = GetSheenCount($player);\nAddSheenToMastery($player,2);\nif(GetSheenCount($player) > $before) DrawIntoMemory($player,1);",
+        "isImplemented": true,
+        "prereqCode": "return IsMerlinBonusActive($player) && CountAvailableReservePayments($player,$mzID)>=2;",
+        "abilityName": "Pay 2, discard: Add two sheen"
+      }
+    ],
+    "IQdxGasatd": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$choices = implode(\"&\",GADTRAppleChoices($player));\nif($choices !== \"\") {\n$chosen = await $player.MZMayChoose($choices);\nif($chosen !== \"-\" && $chosen !== \"PASS\" && $chosen !== \"\") {\nQueueMaterializePayment($player,$chosen,CardMemoryCost(GetZoneObject($chosen)));\n} else {\nRecoverChampion($player,2);\n}\n} else {\nRecoverChampion($player,2);\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($subjectObj !== $sourceObj) return 0;\nreturn $property === \"floatingMemory\" && IsMerlinBonusActive($player) ? 1 : 0;",
+        "isImplemented": true
+      }
+    ],
+    "OKkRsNIzM8": [
+      {
+        "macroName": "Enter",
+        "abilityCode": "ScavengeForAllySubtype($player,10,\"SUITED\");\nAddGlobalEffects($player,\"OKkRsNIzM8\");",
+        "isImplemented": true
+      },
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return $property === \"entryBuff\" && ($sourceObj->_sourceZone ?? \"\") === \"GlobalEffects\" && $subjectObj !== null && PropertyContains(EffectiveCardType($subjectObj),\"ALLY\") && PropertyContains(EffectiveCardSubtypes($subjectObj),\"SUITED\") ? 2 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AlternativeCost",
+        "abilityCode": "$normal = CountAvailableReservePayments($player) >= intval($reserveCost);\n$useAlternative = \"YES\";\nif($normal) {\n$useAlternative = await $player.YesNo(\"Pay_alternative_cost?\");\n}\nif($useAlternative === \"YES\") {\n$valid = false;\nwhile(!$valid) {\n$choices = implode(\"&\",ZoneSearch(\"myGraveyard\",[\"DOMAIN\"],cardSubtypes:[\"SUITED\"]));\n$maximum = count(explode(\"&\",$choices));\n$chosen = await $player.MZMultiChoose($choices,2,$maximum,\"Choose_domains_with_total_reserve_cost_10\");\n$valid = GADTRPayTrefleDomains($player,$chosen);\n}\nGADTRFinishReserveCost($player,0);\n} else {\nGADTRFinishReserveCost($player,intval($reserveCost));\n}",
+        "isImplemented": true
+      }
+    ],
+    "3gNdl3BERA": [
+      {
+        "macroName": "OnHit",
+        "abilityCode": "$target = GADTRHitChampion();\nif($target !== null) DealDamage($player,$mzID,$target,1 + max(0,intval(CardLevel(GetZoneObject($target)->CardID))));",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AlternativeCost",
+        "abilityCode": "$normal = CountAvailableReservePayments($player) >= intval($reserveCost);\n$useAlternative = \"YES\";\nif($normal) {\n$useAlternative = await $player.YesNo(\"Pay_alternative_cost?\");\n}\nif($useAlternative === \"YES\") {\n$choices = implode(\"&\",GADTRValetCandidates($player));\n$chosen = await $player.MZChoose($choices);\nMZMove($player,$chosen,\"myBanish\");\nGADTRFinishReserveCost($player,2);\n} else {\nGADTRFinishReserveCost($player,intval($reserveCost));\n}",
+        "isImplemented": true
+      }
+    ],
+    "Kn69AGzKin": [
+      {
+        "macroName": "CardActivated",
+        "abilityCode": "$choices = implode(\"&\",GADTRPawnTargets());\nif($choices !== \"\") {\n$chosen = await $player.MZMultiChoose($choices,0,2,\"Choose_up_to_two_Pawns\");\nforeach(explode(\"&\",$chosen) as $ref) if($ref !== \"-\" && $ref !== \"\") AddTurnEffect($ref,\"Kn69AGzKin\");\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "EscortHit",
+        "abilityCode": "$ref = FindFieldMzByUniqueID(intval(DecisionQueueController::GetVariable(\"dtrEventUID\")));\nif($ref !== null && $ref !== \"\") {\n$uid = intval(GetZoneObject($ref)->UniqueID);\n$opponent = intval(DecisionQueueController::GetVariable(\"dtrHitOpponent\"));\n$yes = await $player.YesNo(\"Sacrifice_Pawn_to_banish_random_memory?\");\nif($yes === \"YES\") {\n$ref = FindFieldMzByUniqueID($uid);\nif($ref !== null && $ref !== \"\") {\nDoSacrificeFighter($player,$ref);\nGADTRBanishRandomMemory($opponent);\n}\n}\n}",
+        "isImplemented": true
+      }
+    ],
+    "0WgtmLuYpA": [
+      {
+        "macroName": "OnHit",
+        "abilityCode": "if(IsAliceBonusActive($player) && intval(DecisionQueueController::GetVariable(\"CombatDamageAmount\")) >= 7) {\n$uid = intval(DecisionQueueController::GetVariable(\"selfUniqueID\"));\n$yes = await $player.YesNo(\"Sacrifice_Weiss_Pawn_to_summon_Queen_Piece?\");\nif($yes === \"YES\") {\n$ref = FindFieldMzByUniqueID($uid);\nif($ref !== null && $ref !== \"\") {\nDoSacrificeFighter($player,$ref);\nMZAddZone($player,\"myField\",CardNameToID(\"Queen Piece\"));\n}\n}\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AllyDestroyed",
+        "abilityCode": "foreach(ZoneSearch(\"myField\",[\"ALLY\"],cardSubtypes:[\"CHESSMAN\"]) as $ref) AddTurnEffect($ref,\"0WgtmLuYpA_LIFE\");",
+        "isImplemented": true
+      }
+    ]
+  }
+}

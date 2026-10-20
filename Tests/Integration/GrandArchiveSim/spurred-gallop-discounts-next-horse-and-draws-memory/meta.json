@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "8iNWBAkqkS"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Draw memory; next Horse costs two less."
+        ]
+    },
+    "name": "spurred-gallop-discounts-next-horse-and-draws-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:34:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8iNWBAkqkS"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,4 +1,207 @@
 <?php
+// Database-authored abilities granted by continuous effects to other objects.
+function GADatabaseGrantedAbilities($obj) {
+    if($obj === null || $obj->removed || $obj->Location !== 'Field' || $obj->Status != 2 || HasNoAbilities($obj)) return [];
+    $grants = [];
+    if(GAStaticProperty($obj->Controller, 'grantElysianEmpower', $obj) > 0) {
+        $grants[] = ['cardID'=>'Ss991TWKR9', 'name'=>'REST: Empower 1'];
+    }
+    return $grants;
+}
+$customDQHandlers['GADatabaseGrantedAbility'] = function($player, $parts, $lastDecision) {
+    global $grantedAbilityAbilities;
+    $key = ($parts[0] ?? '') . ':0';
+    if(isset($grantedAbilityAbilities[$key])) $grantedAbilityAbilities[$key]($player);
+};
+function GAElysianGraveyardTargets() {
+    return ZoneSearch('myGraveyard', cardSubtypes: ['ELYSIAN']);
+}
+function GAPutGraveyardCardOnDeck($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    $moved = MZMove($player, $mzID, 'myDeck');
+    if($moved === null) return;
+    $deck = &GetDeck($player);
+    foreach($deck as $index => $card) {
+        if($card !== $moved) continue;
+        array_splice($deck, $index, 1);
+        array_unshift($deck, $moved);
+        break;
+    }
+}
+
+
+// Chronowarp's durable effect is authored in the database; the turn engine asks
+// this hook for the two phase boundaries affected by distorted time.
+function EngineTransitionOverride($phase, $input) {
+    if(GlobalEffectCount(1, "TIME_DISTORTED") === 0 && GlobalEffectCount(2, "TIME_DISTORTED") === 0) return null;
+    $input = strtoupper(trim($input));
+    if($phase === "WU" && $input === "AUTO") return "BREC";
+    if($phase === "MAIN" && $input === "PASS") return "AMAT";
+    return null;
+}
+
+function DistortedMaterializePhase() {
+    MaterializePhase(true);
+}
+
+// Continuous card text remains in the card database. Runtime consumers ask for
+// a property, evaluating only live, unsuppressed sources controlled by the seat.
+function GAStaticProperty($player, $property, $subjectObj = null) {
+    if(!in_array(intval($player), [1, 2], true) || !function_exists('EvaluateStaticPropertyModifier')) return 0;
+    $value = 0;
+    foreach(GetField($player) as $source) {
+        if($source === null || $source->removed || HasNoAbilities($source)) continue;
+        $value += EvaluateStaticPropertyModifier($source->CardID, $player, $property, $subjectObj, $source);
+    }
+    foreach(GetGlobalEffects($player) as $effect) {
+        if($effect === null || $effect->removed) continue;
+        $source = clone $effect;
+        $source->Controller = $player;
+        $source->_sourceZone = "GlobalEffects";
+        $value += EvaluateStaticPropertyModifier($source->CardID, $player, $property, $subjectObj, $source);
+    }
+    return $value;
+}
+
+function GATricastlesHandCosts($player) {
+    $refs = [];
+    foreach(GetHand($player) as $i => $obj) {
+        if(!$obj->removed && (PropertyContains(CardElement($obj->CardID), "NORM") || IsAdvancedElementCard($obj->CardID))) $refs[] = "myHand-" . $i;
+    }
+    return $refs;
+}
+function GAHasPublicActivatedAbility($obj) {
+    return $obj !== null && !$obj->removed && !HasNoAbilities($obj)
+        && EvaluateStaticPropertyModifier($obj->CardID, $obj->Controller, "publicActivatedAbility", $obj, $obj) > 0;
+}
+
+function GALinkedProperty($subject, $property) {
+    static $evaluating = [];
+    if($subject === null || !function_exists('EvaluateStaticPropertyModifier')) return 0;
+    $key = intval($subject->UniqueID ?? 0) . ':' . $property;
+    if(isset($evaluating[$key])) return 0;
+    $evaluating[$key] = true;
+    $total = 0;
+    try {
+        foreach(GetLinkedCards($subject) as $source) {
+            if($source->removed || HasNoAbilities($source)) continue;
+            $total += EvaluateStaticPropertyModifier($source->CardID, $source->Controller, $property, $subject, $source);
+        }
+    } finally { unset($evaluating[$key]); }
+    return $total;
+}
+
+function GAGrowingBoonReserve($player, $mzID) {
+    $source = GetZoneObject($mzID);
+    $index = json_decode(GetMacroGameIndex() ?: '{}', true) ?: [];
+    return 2 + intval($index['GrowingBoonUses'][$player][$source->CardID ?? ''] ?? 0);
+}
+function GARecordGrowingBoonActivation($player, $cardID) {
+    $index = json_decode(GetMacroGameIndex() ?: '{}', true) ?: [];
+    $index['GrowingBoonUses'][$player][$cardID] = intval($index['GrowingBoonUses'][$player][$cardID] ?? 0) + 1;
+    SetMacroGameIndex(json_encode($index));
+}
+function GAAllyLinkSacrificeCandidates() {
+    global $AllyLink_Cards;
+    return array_values(array_filter(ZoneSearch("myField"), function($mz) use ($AllyLink_Cards) {
+        $obj = GetZoneObject($mz);
+        return isset($AllyLink_Cards[$obj->CardID]) && !HasNoAbilities($obj);
+    }));
+}
+
+function GABanishResolvedSpellForSeat($seat, $cardID) {
+    global $playerID;
+    $previous = $playerID;
+    $playerID = $seat;
+    try { BanishResolvedSpellFromGraveyard($seat, $cardID); }
+    finally { $playerID = $previous; }
+}
+
+function GALiveHandRefs($seat) {
+    $refs = [];
+    foreach(GetHand($seat) as $i => $card) if(!$card->removed) $refs[] = "p" . $seat . "Hand-" . $i;
+    return $refs;
+}
+function GADiscardHandSelection($seat, $selected) {
+    global $playerID;
+    $cards = array_values(array_intersect(explode("&", $selected), GALiveHandRefs($seat)));
+    usort($cards, fn($a, $b) => intval(explode("-", $b)[1]) <=> intval(explode("-", $a)[1]));
+    $prior = $playerID;
+    $playerID = $seat;
+    try {
+        foreach($cards as $ref) DiscardCard($seat, "myHand-" . intval(explode("-", $ref)[1]));
+        DecisionQueueController::CleanupRemovedCards();
+    } finally { $playerID = $prior; }
+}
+
+function GALiveMemoryRefs($seat) {
+    $refs = [];
+    foreach(GetMemory($seat) as $i => $card) if(!$card->removed) $refs[] = "p" . $seat . "Memory-" . $i;
+    return $refs;
+}
+
+function GABanishMemorySelectionAndReplace($player, $seat, $selected) {
+    $cards = array_values(array_intersect(explode("&", $selected), GALiveMemoryRefs($seat)));
+    usort($cards, fn($a, $b) => intval(explode("-", $b)[1]) <=> intval(explode("-", $a)[1]));
+    $count = 0;
+    foreach($cards as $ref) {
+        $moved = MZMove($seat, "myMemory-" . intval(explode("-", $ref)[1]), "myBanish");
+        if($moved !== null) ++$count;
+    }
+    DrawIntoMemory($seat, $count);
+}
+
+// The source zone is copied by MZMove before this hook runs. A replacement
+// into banishment never reaches this hook, and direct graveyard seeding has no source.
+function GAGraveyardAfterAdd($player, $cardID = "-") {
+    $graveyard = GetGraveyard($player);
+    $added = end($graveyard);
+    if($added === false || $added->removed || !in_array($added->_sourceZone ?? "", ["myDeck", "theirDeck"], true)) return;
+    DispatchMacroListeners("CardMilled", $player, ["cardID"=>$cardID, "type"=>EffectiveCardType($added), "mzID"=>"myGraveyard-" . $added->mzIndex], ["Graveyard"]);
+}
+
+// Damage replaced by Seize Fate is not dealt: do this before damage tracking,
+// on-damage triggers and lethal-damage checks, including unpreventable damage.
+function GAReplaceChampionDamageWithRecovery($player, $target, $amount) {
+    $obj = GetZoneObject($target);
+    if($obj === null || $obj->removed || intval($amount) <= 0) return false;
+    $controller = intval($obj->Controller ?? $player);
+    if(GAStaticProperty($controller, "damageBecomesRecovery", $obj) <= 0) return false;
+    $obj->Damage = max(0, intval($obj->Damage) - intval($amount));
+    if($obj->Damage === 0) {
+        $lineage = $obj->Subcards ?? [];
+        $uid = intval($obj->UniqueID);
+        OnLeaveField($player, $target);
+        $currentMZ = FindFieldMzByUniqueID($uid);
+        if($currentMZ !== "") {
+            $moved = MZMove($controller, NormalizeMZForPlayerPerspective($controller, $currentMZ), "myBanish");
+            if($moved !== null) foreach($lineage as $id) MZAddZone($controller, "myBanish", $id);
+            if(FindChampionMZ($controller) === null) TriggerGameOver($controller);
+        }
+    }
+    return true;
+}
+
+// A change of controller is not a field entry or departure. Preserve identity,
+// owner, counters, links and status while making the object usable by its new seat.
+function GAChangeFieldController($mzID, $controller) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || ($obj->Location ?? "") !== "Field"
+        || !in_array(intval($controller), [1, 2], true)) return false;
+    if(intval($obj->Controller) === intval($controller)) return false;
+    $destination = &GetField($controller);
+    $copy = clone $obj;
+    $obj->Remove();
+    $copy->Controller = intval($controller);
+    $copy->PlayerID = intval($controller);
+    $copy->mzIndex = count($destination);
+    $copy->removed = false;
+    $destination[] = $copy;
+    $copy->BuildIndex();
+    SyncCombatStateToFieldUniqueIDs();
+    return true;
+}
 
 /**
  * Card-specific logic for special abilities and effects
@@ -187,6 +390,7 @@ function SeepIntoTheMind($player) {
  */
 function HasFoster($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(GADTRObjectProperty($obj, "foster") > 0) return true;
     // Unconditional Foster cards
     static $fosterCards = [
         "z4pyx8bd7o" => true, // Young Peacekeeper
@@ -273,7 +477,13 @@ function IsDistant($obj) {
  * @param string $mzID   The mzID of the unit (e.g. "myField-2").
  */
 function BecomeDistant($player, $mzID) {
+    $dtrObject = GetZoneObject($mzID);
+    $dtrBecame = $dtrObject !== null && !IsDistant($dtrObject);
     AddTurnEffect($mzID, "DISTANT");
+    if($dtrBecame && !HasNoAbilities($dtrObject) && empty($dtrObject->Counters['dtrDistantTriggered'])) {
+        if($dtrObject->CardID === 'yC1TexeQwH') $dtrObject->Counters['dtrDistantTriggered'] = 1;
+        GADTRQueueEvent($dtrObject,'BecameDistant');
+    }
     // Imperial Scout (nrow8iopvc): when this becomes distant, may mill 2
     $obj = GetZoneObject($mzID);
     if($obj !== null && $obj->CardID === "nrow8iopvc" && !HasNoAbilities($obj)) {
@@ -518,7 +728,7 @@ function FatestoneOfHeavenEnter($player) {
             if($field[$i]->removed) continue;
             if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
             $memCost = CardCost_memory($field[$i]->CardID);
-            $resCost = CardCost_reserve($field[$i]->CardID);
+            $resCost = EffectiveCardReserveCost($field[$i]);
             $qualifies = false;
             if($memCost !== null && $memCost >= 0 && $memCost <= 1) $qualifies = true;
             if($resCost !== null && $resCost >= 0 && $resCost <= 5) $qualifies = true;

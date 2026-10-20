@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "uDASjw2XQQ"
+        ],
+        "mechanics": [
+            "cardistry",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "Next domain costs two less."
+        ]
+    },
+    "name": "dtr-two-clubs-discounts-next-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uDASjw2XQQ"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

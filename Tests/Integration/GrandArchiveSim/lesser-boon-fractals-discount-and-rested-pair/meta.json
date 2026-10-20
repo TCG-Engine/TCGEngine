@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "j0zgnD8pP5"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "summon"
+        ],
+        "rulesClauses": [
+            "Costs 3 less for each Fractal; summon two Core Fractals rested."
+        ]
+    },
+    "name": "lesser-boon-fractals-discount-and-rested-pair",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:18:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j0zgnD8pP5"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

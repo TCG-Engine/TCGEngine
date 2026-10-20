@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "l61ubi93jx"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "persistent-effect"
+        ],
+        "rulesClauses": [
+            "Jin discount and permanent champion damage replacement."
+        ]
+    },
+    "name": "seize-fate-jin-discount-installs-damage-replacement",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:59:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l61ubi93jx"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

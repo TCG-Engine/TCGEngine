@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "DKzpxkPlXj"
+        ],
+        "mechanics": [
+            "named-bonus",
+            "omens"
+        ],
+        "rulesClauses": [
+            "Ciel bonus counts only omens costing one or less."
+        ]
+    },
+    "name": "dtr-diligent-garde-counts-cheap-omens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:27:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DKzpxkPlXj"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

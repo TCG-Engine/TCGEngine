@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "vp83TimzWT"
+        ],
+        "mechanics": [
+            "cascade",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Cascade five buffs a Bird."
+        ]
+    },
+    "name": "greater-boon-flock-fifth-cascade-buffs-bird",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T14:52:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vp83TimzWT"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

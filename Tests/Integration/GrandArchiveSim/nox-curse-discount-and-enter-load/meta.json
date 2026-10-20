@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Gf33wXPzcg"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "load",
+            "on-enter"
+        ],
+        "rulesClauses": [
+            "Curse discount and mandatory Gun loading."
+        ]
+    },
+    "name": "nox-curse-discount-and-enter-load",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T15:02:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Gf33wXPzcg"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

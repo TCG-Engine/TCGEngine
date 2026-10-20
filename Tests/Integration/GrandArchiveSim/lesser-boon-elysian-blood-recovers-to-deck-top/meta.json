@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Ss991TWKR9"
+        ],
+        "mechanics": [
+            "recover",
+            "increasing-cost"
+        ],
+        "rulesClauses": [
+            "Recover Elysian; reserve cost increases each use."
+        ]
+    },
+    "name": "lesser-boon-elysian-blood-recovers-to-deck-top",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T15:16:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ss991TWKR9"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

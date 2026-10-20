@@ -1,0 +1,272 @@
+{
+  "set": "DTR Alter",
+  "date": "2026-10-20",
+  "status": "authored-and-focused-tests-passing",
+  "catalogSource": "FanOfIn.Site/data/card-catalog.json",
+  "definitions": "DevTools/card-code-migrations/20261020-dtr-alter.json",
+  "database": "Configured hosted GrandArchiveSim card-code repository; all 40 definitions read back and verified.",
+  "cards": [
+    {
+      "id": "XigkNI4cqd",
+      "name": "Abiding Figures",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "DPhyM1vu22",
+      "name": "Annealing Flame",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "jKjgqe1p4G",
+      "name": "Astute Tracker",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "vwy2cASBGX",
+      "name": "Auric Persecution",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "8svNnvvODq",
+      "name": "Briny Polliwog",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "33mLTmf6Kz",
+      "name": "Ciel, Astral Projection",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "9owQoFU1Tz",
+      "name": "Clover Treehouse",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "x5FICqmSNN",
+      "name": "Club House",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "AMI6WJBmQc",
+      "name": "Coruscation",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "1Awcc4Owca",
+      "name": "Countercurrent Raider",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "DKzpxkPlXj",
+      "name": "Diligent Garde",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "Kn69AGzKin",
+      "name": "Escort the Pawns",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "KYG9ABDXGR",
+      "name": "Five of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "ajkTLXYL5v",
+      "name": "Four of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "Tv733Lcbxz",
+      "name": "Ghastfire Tormentor",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "b9BrhLDSNf",
+      "name": "Hunter's Mark",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "kTctEEIIAT",
+      "name": "Macabre Subornation",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "pB4ngDOM6F",
+      "name": "Misty, the Joker",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "EcTFUpk8oe",
+      "name": "Pallid Arsonist",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "0LcN8mTQQG",
+      "name": "Poitier, Afterlife's Conductor",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "uSZ7FJwX7M",
+      "name": "Radiating Assault",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "ZdAWSJpwOz",
+      "name": "Render Turbid",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "68ZcOVfJn6",
+      "name": "Scalding Aethercharge",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "w3xggbIoZL",
+      "name": "Scholarly Nettle",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "AACH0EPqqL",
+      "name": "Shamrock Forest",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "7PpyBdi0cb",
+      "name": "Silence the Soul",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "IQdxGasatd",
+      "name": "Silent Trade",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "rAKqUW5gaE",
+      "name": "Six of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "lKPOHDtttV",
+      "name": "Three of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "9jiUWCU8dP",
+      "name": "Time Dilation",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "OKkRsNIzM8",
+      "name": "Trefle, Queen of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "RXCLnj5wME",
+      "name": "Trefoil Tower",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "IWp4MhdPCs",
+      "name": "Trefoliate Anointment",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "uDASjw2XQQ",
+      "name": "Two of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "5Qtu09P9k0",
+      "name": "Unwound Timepiece",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "U3GhfjipKt",
+      "name": "Uplifting Rogation",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "3gNdl3BERA",
+      "name": "Valet, Jack of Hearts",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "S8NH6UkSNB",
+      "name": "Verte, Ace of Clubs",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "0WgtmLuYpA",
+      "name": "Weiss Pawn",
+      "authored": true,
+      "artImported": true
+    },
+    {
+      "id": "yC1TexeQwH",
+      "name": "Yonder Aetherseeker",
+      "authored": true,
+      "artImported": true
+    }
+  ],
+  "validation": {
+    "dtrGameplayScenariosPassed": 44,
+    "dtrRulesChecksPassed": 97,
+    "previousCardRulesChecksPassed": 73,
+    "phpFilesLinted": 18,
+    "existingRegressionScenariosPassedBeforeStopping": 525,
+    "fullRegressionCompleted": false,
+    "browserVisualVerificationPerformed": false
+  },
+  "scenarioSource": "DevTools/ga-fixtures/dtr-alter.php",
+  "rulesTest": "DevTools/test-ga-dtr-alter.php",
+  "provisioning": [
+    "php DevTools/import-ga-dtr-alter.php",
+    "php zzCardCodeGenerator.php rootName=GrandArchiveSim downloadImages=1",
+    "php Data/ProcessKeywordsGA.php",
+    "php zzGameCodeGenerator.php rootName=GrandArchiveSim"
+  ],
+  "notes": [
+    "Pantheon work remains parked on its separate branch.",
+    "Generated dictionaries, game code, and local card artwork are not committed source files.",
+    "The full Grand Archive regression has more than 4,000 scenarios; the recorded broad run was stopped, not completed."
+  ]
+}

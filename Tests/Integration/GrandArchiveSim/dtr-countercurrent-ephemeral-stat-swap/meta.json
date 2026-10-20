@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "1Awcc4Owca"
+        ],
+        "mechanics": [
+            "ephemeral",
+            "stats"
+        ],
+        "rulesClauses": [
+            "Ephemeral swaps power and life."
+        ]
+    },
+    "name": "dtr-countercurrent-ephemeral-stat-swap",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:16:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1Awcc4Owca"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

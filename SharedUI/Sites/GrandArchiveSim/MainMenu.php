@@ -1264,6 +1264,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var groups = {};
         var order = [];
         GA_OFFICIAL_DECKS.forEach(function(deck) {
+          // Hide these starters until Pantheon multiplayer support is ready.
+          if (deck.group === 'Pantheon') return;
           if (!groups[deck.group]) { groups[deck.group] = []; order.push(deck.group); }
           groups[deck.group].push(deck);
         });

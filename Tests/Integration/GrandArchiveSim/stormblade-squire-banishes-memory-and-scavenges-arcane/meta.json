@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "2hlW5LWSTe"
+        ],
+        "mechanics": [
+            "on-attack",
+            "random",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "Banish random memory; scavenge 2+X for arcane."
+        ]
+    },
+    "name": "stormblade-squire-banishes-memory-and-scavenges-arcane",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:18:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2hlW5LWSTe"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

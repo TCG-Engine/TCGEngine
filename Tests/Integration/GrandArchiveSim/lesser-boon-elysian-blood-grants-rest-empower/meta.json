@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "Ss991TWKR9"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "empower"
+        ],
+        "rulesClauses": [
+            "Elysian objects gain REST: Empower 1."
+        ]
+    },
+    "name": "lesser-boon-elysian-blood-grants-rest-empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T15:16:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Ss991TWKR9"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

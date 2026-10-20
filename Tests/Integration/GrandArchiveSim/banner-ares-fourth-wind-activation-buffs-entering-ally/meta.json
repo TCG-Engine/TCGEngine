@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "d770iLKEKx"
+        ],
+        "mechanics": [
+            "activation-trigger",
+            "counter",
+            "entry-replacement"
+        ],
+        "rulesClauses": [
+            "Wind activation adds refinement; at four, Wind allies enter with buff."
+        ]
+    },
+    "name": "banner-ares-fourth-wind-activation-buffs-entering-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:43:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d770iLKEKx"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

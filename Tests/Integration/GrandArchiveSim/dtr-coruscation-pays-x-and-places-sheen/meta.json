@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "AMI6WJBmQc"
+        ],
+        "mechanics": [
+            "variable-cost",
+            "enter",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Chosen X is paid and puts X sheen on target unit."
+        ]
+    },
+    "name": "dtr-coruscation-pays-x-and-places-sheen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T18:10:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AMI6WJBmQc"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}
