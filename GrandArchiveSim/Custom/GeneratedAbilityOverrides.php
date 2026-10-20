@@ -3322,6 +3322,8 @@ $cardActivatedAbilities["6ilt42sehq:0"] = function($player) {
     if(!in_array($targetMZ, GASlipstreamVaultTargets($player), true)) return;
     if(!AllowGeneratedTargetResolution($player, $targetMZ, "6ilt42sehq:0:CardActivated-1")) return;
     BecomeDistant($player, $targetMZ);
+    // "Negate all card activations targeting it."
+    GASlipstreamVaultNegateTargeting($player, intval(GetZoneObject($targetMZ)->UniqueID ?? 0));
 };
 
 // The Alice discount commits the activation to a Specter before payment.

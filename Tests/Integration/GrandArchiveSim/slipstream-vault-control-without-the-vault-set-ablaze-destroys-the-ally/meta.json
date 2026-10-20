@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "6ilt42sehq"
+        ],
+        "mechanics": [
+            "negate",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target ally you control becomes **distant**. **Negate** all card activations targeting it."
+        ]
+    },
+    "name": "slipstream-vault-control-without-the-vault-set-ablaze-destroys-the-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:24:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6ilt42sehq"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

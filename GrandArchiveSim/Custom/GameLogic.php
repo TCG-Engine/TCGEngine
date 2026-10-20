@@ -22776,6 +22776,8 @@ function ApplyVirgilProgramTargetDiscount($player, $selection) {
 }
 
 function AllowGeneratedTargetResolution($player, $selection, $resumeHandler) {
+    // Slipstream Vault: this activation was on the stack when the Vault resolved and has now picked the shielded ally, so it is negated.
+    if(function_exists("GAVaultShieldNegatesResolvingActivation") && GAVaultShieldNegatesResolvingActivation($selection)) return false;
     $bypass = strval(DecisionQueueController::GetVariable("nightframeProtectionBypass") ?? "");
     if($bypass === $resumeHandler) {
         DecisionQueueController::ClearVariable("nightframeProtectionBypass");

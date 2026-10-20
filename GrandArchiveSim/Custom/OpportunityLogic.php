@@ -354,6 +354,63 @@ function TriggerMoonveilAndroidNegate($player) {
     }
 }
 
+// Slipstream Vault (6ilt42sehq): "Negate all card activations targeting it." Activations on the stack when the Vault resolves are the ones affected.
+// A card that declared its target when activated (Slipstream Vault itself) is negated right away. Every other card chooses its target as it resolves,
+// so each live card activation is tagged with the ally's UniqueID and the Vault's controller; AllowGeneratedTargetResolution() negates it if it then
+// picks that ally. Triggered and activated abilities are not card activations and are left alone.
+function GASlipstreamVaultNegateTargeting($vaultController, $allyUniqueID) {
+    $allyUniqueID = intval($allyUniqueID);
+    if($allyUniqueID <= 0) return;
+    $effectStack = GetEffectStack();
+    for($i = count($effectStack) - 1; $i >= 0; --$i) {
+        $entry = $effectStack[$i] ?? null;
+        if($entry === null || !empty($entry->removed)) continue;
+        if(!in_array($entry->TriggerType ?? "", ["", "-"], true)) continue; // a trigger, not a card activation
+        if(is_array($entry->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $entry->TurnEffects)) continue;
+        if(!is_array($entry->Counters)) $entry->Counters = [];
+        if($entry->CardID === "6ilt42sehq" && intval($entry->Counters["slipstreamTargetUID"] ?? 0) === $allyUniqueID) {
+            NegateCardActivation($vaultController, "EffectStack-" . $i);
+            continue;
+        }
+        $tag = $allyUniqueID . ":" . intval($vaultController) . ":" . $entry->CardID . ":" . intval($entry->Controller);
+        $existing = strval($entry->Counters["vaultShield"] ?? "");
+        $tags = $existing === "" ? [] : explode(";", $existing);
+        if(!in_array($tag, $tags, true)) $tags[] = $tag;
+        $entry->Counters["vaultShield"] = implode(";", $tags);
+    }
+}
+
+// True when the activation resolving right now was tagged by a Slipstream Vault for one of the units in $selection (an "&"-joined mzID list); the
+// activation is then negated (its handler stops, and the usual negation bookkeeping runs).
+function GAVaultShieldNegatesResolvingActivation($selection) {
+    $shield = strval(DecisionQueueController::GetVariable("vaultShield") ?? "");
+    if($shield === "") return false;
+    $shielded = [];
+    foreach(explode(";", $shield) as $tag) {
+        $parts = explode(":", $tag);
+        if(count($parts) === 4) $shielded[intval($parts[0])] = ["vault" => intval($parts[1]), "cardID" => $parts[2], "controller" => intval($parts[3])];
+    }
+    foreach(explode("&", strval($selection)) as $mz) {
+        if($mz === "" || $mz === "-") continue;
+        $obj = GetZoneObject($mz);
+        if($obj === null || !isset($obj->UniqueID)) continue;
+        $info = $shielded[intval($obj->UniqueID)] ?? null;
+        if($info === null) continue;
+        DecisionQueueController::ClearVariable("vaultShield");
+        $vaultController = $info["vault"];
+        $cardID = $info["cardID"];
+        $controller = $info["controller"];
+        if($cardID !== "") {
+            TrackCardActivationNegated($vaultController, $cardID, $controller);
+            TriggerReversalsPolarity($controller, $cardID);
+            QueueConstellatorySpireTrigger($vaultController);
+            if($controller != $vaultController) TriggerMoonveilAndroidNegate($vaultController);
+        }
+        return true;
+    }
+    return false;
+}
+
 function NegateCardActivation($player, $targetMZ, $destinationMode = "default") {
     $target = GetZoneObject($targetMZ);
     if($target === null || $target->removed) return false;
@@ -1789,6 +1846,9 @@ function ResolveTopOfEffectStack() {
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();
+    // Slipstream Vault's shield travels with the card activations it was cast over (Counters["vaultShield"], replayed below); an entry that
+    // carries none must not inherit the previous entry's.
+    DecisionQueueController::ClearVariable("vaultShield");
 
     // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
     // that were captured into this entry's Counters slot when it was queued -- ability

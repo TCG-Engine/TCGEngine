@@ -280,6 +280,38 @@ gaScenario('slipstream-vault-makes-an-ally-distant-and-negates-activations-targe
     ->covers(['distant', 'negate', 'targeting'], 'Target ally you control becomes **distant**. **Negate** all card activations targeting it.')
     ->register();
 
+const GA_VAULT_NEGATE_TEXT = 'Target ally you control becomes **distant**. **Negate** all card activations targeting it.';
+
+// P2 casts Set Ablaze (4 damage to target ally) over P1's Dungeon Guide; P1 responds with Slipstream Vault on that ally. The Vault resolves first: when Set Ablaze
+// then picks the Dungeon Guide it has been negated, so the ally takes no damage.
+function gaVaultOverSetAblaze(string $slug) {
+    return gaScenario($slug)
+        ->deckTemplate('quiet', 'Dungeon Guide')
+        ->readyFor('Slipstream Vault')
+        ->readyFor('Set Ablaze', player: 2)
+        ->seed('myField', 'Dungeon Guide')
+        ->seed('myHand', 'Slipstream Vault')
+        ->seed('myHand', 'Set Ablaze', player: 2)
+        ->endTurn()->pass(1)->pass(1);
+}
+
+gaVaultOverSetAblaze('slipstream-vault-negates-an-opposing-activation-that-targets-the-protected-ally')
+    ->play('Set Ablaze', 2)->pay(2, 2)
+    ->target('myHand-7')->target('myField-1')->pay(2)->pass(1)->answer(2, 'theirField-1')
+    ->expectDamage('p1Field-1', 0, 'Set Ablaze was negated when it chose the protected ally')
+    ->expectCardExists('p1Field-1', 'Dungeon Guide', 'The ally is untouched')
+    ->tested('Slipstream Vault')
+    ->covers(['negate', 'targeting', 'distant'], GA_VAULT_NEGATE_TEXT)
+    ->register();
+
+// Control: nothing protects the Dungeon Guide, so Set Ablaze's 4 damage destroys it.
+gaVaultOverSetAblaze('slipstream-vault-control-without-the-vault-set-ablaze-destroys-the-ally')
+    ->play('Set Ablaze', 2)->pay(2, 2)->pass(1)->answer(2, 'theirField-1')
+    ->expectZoneCount('myGraveyard', 1, 1, 'The unprotected Dungeon Guide was destroyed')
+    ->tested('Slipstream Vault')
+    ->covers(['negate', 'targeting', 'condition'], GA_VAULT_NEGATE_TEXT)
+    ->register();
+
 gaScenario('spectral-diffusion-gives-the-champion-spellshroud')
     ->standardDeck('Spectral Diffusion')
     ->readyFor('Spectral Diffusion')
