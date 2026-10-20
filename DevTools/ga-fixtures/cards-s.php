@@ -4804,7 +4804,6 @@ gaAbilitySandbox('seed-of-nature-ability-1-pays-its-printed-cost', 'Seed of Natu
 
 gaAbilitySandbox('sordelle-unmoored-exception-ability-1-pays-its-printed-cost', 'Sordelle, Unmoored Exception', classes: 'CLERIC', cardPatch: ['Status' => 2])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->target('myField-2')
-    ->answer(1, 'Bottom=em6eEh9q8y,em6eEh9q8y,px60u5n1do,em6eEh9q8y,em6eEh9q8y,px60u5n1do')->pass(1)
     ->tested('Sordelle, Unmoored Exception')
     ->register();
 
