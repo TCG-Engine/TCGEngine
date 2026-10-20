@@ -52,6 +52,70 @@ gaScenario('crosswind-cuts-without-the-class-bonus-pays-the-full-five')
     ->covers(['combat', 'class-bonus', 'cost-reduction'], '[Class Bonus] This card costs 2 less to activate.')
     ->register();
 
+const GA_MULTISTRIKE_TEXT = '**Multistrike 1** *(You may assign up to one additional target as you declare this attack.)*';
+
+// P2 attacks with Crosswind Cuts (2 POWER) while P1 controls a champion and two Dungeon Guides.
+function gaMultistrikeCuts(string $slug) {
+    return gaScenario($slug)
+        ->deckTemplate('quiet', 'Crosswind Cuts')
+        ->readyFor('Crosswind Cuts', classBonus: true, player: 2)
+        ->seed('myHand', 'Crosswind Cuts', player: 2)
+        ->seed('myField', 'Dungeon Guide')
+        ->seed('myField', 'Dungeon Guide')
+        ->endTurn()
+        ->play('Crosswind Cuts', 2)->pay(3, 2)->target('theirField-0', 2);
+}
+
+gaMultistrikeCuts('crosswind-cuts-multistrike-one-assigns-an-additional-target-and-both-take-the-damage')
+    ->answer(2, 'theirField-1')->answer(1, '-')
+    ->expectDqEmpty()
+    ->expectDamage('p1Field-0', 2, 'The primary target took the 2 POWER')
+    ->expectDamage('p1Field-1', 2, 'The additional target took the 2 POWER')
+    ->expectDamage('p1Field-2', 0, 'The unassigned Dungeon Guide was not a defender')
+    ->tested('Crosswind Cuts')
+    ->covers(['keyword', 'multistrike', 'combat'], GA_MULTISTRIKE_TEXT)
+    ->register();
+
+gaMultistrikeCuts('crosswind-cuts-multistrike-zero-additional-targets-is-a-normal-single-target-attack')
+    ->answer(2, '-')
+    ->expectDqEmpty()
+    ->expectDamage('p1Field-0', 2, 'Only the primary target took damage')
+    ->expectDamage('p1Field-1', 0, 'No additional target was assigned')
+    ->expectDamage('p1Field-2', 0, 'No additional target was assigned')
+    ->tested('Crosswind Cuts')
+    ->covers(['keyword', 'multistrike', 'condition'], GA_MULTISTRIKE_TEXT)
+    ->register();
+
+gaMultistrikeCuts('crosswind-cuts-multistrike-cannot-add-the-primary-target-again-or-a-second-extra')
+    ->rejects(2, 'theirField-0', 'The primary target is not an additional target')
+    ->rejects(2, 'theirField-1&theirField-2', 'Multistrike 1 allows only one additional target')
+    ->answer(2, 'theirField-1')->answer(1, '-')
+    ->expectDqEmpty()
+    ->expectDamage('p1Field-1', 2, 'Multistrike 1 assigned the one additional target')
+    ->expectDamage('p1Field-2', 0, 'The second extra was beyond Multistrike 1')
+    ->tested('Crosswind Cuts')
+    ->covers(['keyword', 'multistrike', 'condition'], GA_MULTISTRIKE_TEXT)
+    ->register();
+
+// Windstrike Soldier's granted multistrike 2: an ally attack assigns up to two additional targets (all three opposing units are defenders).
+gaScenario('windstrike-soldier-multistrike-two-assigns-two-additional-targets-and-all-three-take-damage')
+    ->deckTemplate('quiet', 'Windstrike Soldier')
+    ->readyFor('Windstrike Soldier', classBonus: true, player: 2)
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myHand', 'Windstrike Soldier', player: 2)
+    ->endTurn()->pass(2)
+    ->play('Windstrike Soldier', 2)->pay(3, 2)->answer(2, 'YES')->pay(3, 2)
+    ->attack('myField-1', 'theirField-0', player: 2)->answer(2, 'theirField-1&theirField-2')
+    ->answer(1, '-')->answer(1, '-')
+    ->expectDqEmpty()
+    ->expectDamage('p1Field-0', 2, 'The primary target took the Soldier\'s 2 POWER')
+    ->expectDamage('p1Field-1', 2, 'The first additional target took the damage')
+    ->expectDamage('p1Field-2', 2, 'The second additional target took the damage')
+    ->tested('Windstrike Soldier')
+    ->covers(['keyword', 'multistrike', 'combat'], 'You may assign up to two additional targets as you declare an attack with an ally with **multistrike 2**.')
+    ->register();
+
 // ---- Poised Strike ----
 
 gaScenario('poised-strike-prepared-class-bonus-on-hit-wakes-the-champion')

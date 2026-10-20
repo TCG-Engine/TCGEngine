@@ -839,6 +839,7 @@ function ClearCombatStateForMissingAttacker() {
     ClearCombatAttackerState();
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatMultistrikeUIDs");
     DecisionQueueController::ClearVariable("CombatWeapon");
     DecisionQueueController::ClearVariable("CombatDamageAmount");
     DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
@@ -972,6 +973,7 @@ function CancelCombatForMissingTarget($attackerPlayer) {
     ClearCombatAttackerState();
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatMultistrikeUIDs");
     DecisionQueueController::ClearVariable("CombatWeapon");
     DecisionQueueController::ClearVariable("CombatDamageAmount");
     DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
@@ -1206,6 +1208,33 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
 }
 
 /**
+ * Multistrike N ("You may assign up to N additional targets as you declare this attack"): the printed keyword on an attack card in the attacker's
+ * intent (Crosswind Cuts) or a granted MULTISTRIKE_N turn effect on the attacker (Windstrike Soldier). The largest N applies.
+ */
+function GetAttackMultistrike($attackerMZ, $player) {
+    $best = 0;
+    foreach(GetIntentCards($player) as $intentMZ) {
+        $intentObj = GetZoneObject($intentMZ);
+        if($intentObj === null || $intentObj->removed || HasNoAbilities($intentObj)) continue;
+        if(preg_match('/\*\*Multistrike (\d+)\*\*/i', strval(CardEffect($intentObj->CardID)), $m)) $best = max($best, intval($m[1]));
+    }
+    $attacker = GetZoneObject($attackerMZ);
+    if($attacker !== null && !$attacker->removed && !HasNoAbilities($attacker)) {
+        foreach($attacker->TurnEffects ?? [] as $effect) {
+            if(preg_match('/^MULTISTRIKE_(\d+)$/', $effect, $m)) $best = max($best, intval($m[1]));
+        }
+    }
+    return $best;
+}
+
+/** UniqueIDs of the defenders a Multistrike attack declared (primary first), or null when this combat is not a Multistrike with extra targets. */
+function GetMultistrikeDefenderUIDs() {
+    $raw = DecisionQueueController::GetVariable("CombatMultistrikeUIDs");
+    if($raw === null || $raw === "" || $raw === "-") return null;
+    return array_values(array_filter(array_map('intval', explode(",", $raw)), fn($uid) => $uid > 0));
+}
+
+/**
  * Returns an array of mzID strings (from the defender's perspective: "myField-X")
  * for all surviving ALLY/CHAMPION units in the defender's field that are eligible
  * to retaliate after a cleave attack.
@@ -1219,6 +1248,8 @@ function GetCleaveRetaliatorMZs(int $defenderPlayer): array {
     $retaliators = [];
     foreach(GetField($defenderPlayer) as $i => $fieldObj) {
         if($fieldObj === null || $fieldObj->removed) continue;
+        $multistrikeUIDs = GetMultistrikeDefenderUIDs();
+        if($multistrikeUIDs !== null && !in_array(intval($fieldObj->UniqueID ?? 0), $multistrikeUIDs, true)) continue;
         if($fieldObj->Status != 2 && !HasSteadfast($fieldObj)) continue;
         $type = EffectiveCardType($fieldObj);
         if(!PropertyContains($type, "ALLY") && !PropertyContains($type, "CHAMPION")) continue;
@@ -3050,6 +3081,21 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     StoreCombatTargetState($lastDecision, $player);
     MarkCombatTarget($player, $lastDecision);
 
+    // Multistrike: before On Attack, the attacker may assign up to N additional legal targets (zero is valid). The set is frozen by MultistrikeExtrasChosen.
+    if(($parts[1] ?? "") !== "MS") {
+        $multistrike = GetAttackMultistrike($attackerMZ, $player);
+        if($multistrike > 0) {
+            $extraTargets = array_values(array_diff($validTargets, [$lastDecision]));
+            if(!empty($extraTargets)) {
+                DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . min($multistrike, count($extraTargets)) . "|" . implode("&", $extraTargets), 100,
+                    tooltip:"Multistrike:_choose_up_to_" . $multistrike . "_additional_targets");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "MultistrikeExtrasChosen|" . $attackerMZ . "|" . $lastDecision, 100);
+                return;
+            }
+        }
+    }
+    $isMultistrike = GetMultistrikeDefenderUIDs() !== null;
+
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
@@ -3075,8 +3121,9 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         }
     }
 
-    // Store combat state for the damage and retaliation handlers
-    DecisionQueueController::StoreVariable("CombatIsCleave", "0");
+    // Store combat state for the damage and retaliation handlers. A Multistrike attack with extra targets resolves through the Cleave pipeline,
+    // limited to the declared defenders (Atmos Shield / interceptor redirects of the primary target do not apply to it).
+    DecisionQueueController::StoreVariable("CombatIsCleave", $isMultistrike ? "1" : "0");
 
     // Track that the champion was attacked this turn (for Servant's Obligation)
     $wasAttackedObj = GetZoneObject($lastDecision);
@@ -3096,7 +3143,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
        && EffectiveCardElement($asTargetObj) === "NEOS"
        && (PropertyContains(EffectiveCardType($asTargetObj), "ALLY")
            || PropertyContains(EffectiveCardType($asTargetObj), "CHAMPION"))
-       && $asTargetObj->CardID !== "80yu75k0hl") {
+       && $asTargetObj->CardID !== "80yu75k0hl" && !$isMultistrike) {
         $defField = GetField($defPlayer);
         global $playerID;
         $prefix = ($defPlayer == $playerID) ? "myField" : "theirField";
@@ -3114,7 +3161,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         }
     }
 
-    $interceptTargets = GetAvailableInterceptRedirectTargets($attackerMZ, $lastDecision, $player);
+    $interceptTargets = $isMultistrike ? [] : GetAvailableInterceptRedirectTargets($attackerMZ, $lastDecision, $player);
     if(!empty($interceptTargets)) {
         $defenderTargets = [];
         foreach($interceptTargets as $targetMZ) {
@@ -3132,6 +3179,35 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     }
 
     FinalizeAttackDeclaration($player);
+};
+
+/**
+ * Handler: the Multistrike additional-target answer. Freezes the declared defenders by UniqueID (primary first), then finishes the declaration.
+ * $parts[0] = attacker mzID, $parts[1] = primary target mzID, $lastDecision = "&"-joined additional targets (or "-" for none).
+ */
+$customDQHandlers["MultistrikeExtrasChosen"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0] ?? "";
+    $primary = $parts[1] ?? "";
+    if($attackerMZ === "" || $primary === "") return;
+    $uids = [];
+    $primaryUID = GetFieldObjectUniqueID($primary, $player);
+    if($primaryUID !== null) $uids[] = $primaryUID;
+    $maxExtras = GetAttackMultistrike($attackerMZ, $player);
+    $legal = GetValidAttackTargets($attackerMZ);
+    $extras = 0;
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== null) {
+        foreach(array_unique(explode("&", strval($lastDecision))) as $mz) {
+            if($mz === $primary || !in_array($mz, $legal, true) || $extras >= $maxExtras) continue;
+            $uid = GetFieldObjectUniqueID($mz, $player);
+            if($uid === null || in_array($uid, $uids, true)) continue;
+            $uids[] = $uid;
+            ++$extras;
+        }
+    }
+    if($extras > 0) DecisionQueueController::StoreVariable("CombatMultistrikeUIDs", implode(",", $uids));
+    else DecisionQueueController::ClearVariable("CombatMultistrikeUIDs");
+    global $customDQHandlers;
+    $customDQHandlers["AttackTargetChosen"]($player, [$attackerMZ, "MS"], $primary);
 };
 
 /**
@@ -3222,7 +3298,7 @@ function FinalizeAttackDeclaration($attackerPlayer) {
 
     // Grant Opportunity window before damage step (turn player gets priority first)
     $turnPlayer = GetTurnPlayer();
-    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $attackerPlayer, "COMBAT_DAMAGE");
+    GrantOpportunityWindow($turnPlayer, GetMultistrikeDefenderUIDs() !== null ? "CleaveDealDamage" : "CombatDealDamage", $attackerPlayer, "COMBAT_DAMAGE");
 }
 
 $customDQHandlers["FinalizeAttackDeclaration"] = function($player, $parts, $lastDecision) {
@@ -3483,6 +3559,15 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     }
 
     // Cleave does not target, so Stealth does not exempt units from being damaged.
+
+    // Multistrike: only the defenders declared with the attack take damage (the set was frozen at declaration; a unit entering later is excluded).
+    $multistrikeUIDs = GetMultistrikeDefenderUIDs();
+    if($multistrikeUIDs !== null) {
+        $opponents = array_values(array_filter($opponents, function($mz) use ($multistrikeUIDs) {
+            $o = GetZoneObject($mz);
+            return $o !== null && in_array(intval($o->UniqueID ?? 0), $multistrikeUIDs, true);
+        }));
+    }
 
     // Cleave critical: doubles all damage (no per-target discard choice)
     $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
@@ -3763,6 +3848,7 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     ClearCombatTargetState(true);
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatMultistrikeUIDs");
     DecisionQueueController::ClearVariable("CombatWeapon");
     DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
 
@@ -5343,6 +5429,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         QueuePreventedDamageAnimation($absoluteTarget, 500, true);
         return;
     }
+    if(GAReplaceChampionDamageWithRecovery($player, $target, $amount)) return;
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
@@ -5585,6 +5672,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     }
     $amount = ApplyCombatDamageReplacements($player, $source, $amount);
     if($amount <= 0) return;
+    if(GAReplaceChampionDamageWithRecovery($player, $target, $amount)) return;
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;

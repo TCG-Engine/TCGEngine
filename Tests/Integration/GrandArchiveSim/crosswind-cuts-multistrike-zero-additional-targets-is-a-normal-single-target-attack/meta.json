@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "S0YCKJcU5e"
+        ],
+        "mechanics": [
+            "keyword",
+            "multistrike",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Multistrike 1** *(You may assign up to one additional target as you declare this attack.)*"
+        ]
+    },
+    "name": "crosswind-cuts-multistrike-zero-additional-targets-is-a-normal-single-target-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T13:33:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "S0YCKJcU5e"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}
