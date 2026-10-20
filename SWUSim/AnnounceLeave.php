@@ -23,6 +23,11 @@ if ($gameName === '' || $seat < 1 || $seat > SimGameMaxSeats('SWUSim')) { echo '
 if (!is_dir(__DIR__ . '/Games/' . $gameName))                             { echo 'No such game.'; exit; }
 if (!SimGameValidateSeatAuth('SWUSim', $gameName, $seat, $authKey))       { echo 'Invalid auth key.'; exit; }
 
+// Twin Suns rematch: this seat has left the table — Quick Rematch is now impossible, and a Rematch room opens without
+// it. Recorded before the block check below (a blocked pair still leaves) and before the chat de-dupe (idempotent).
+require_once __DIR__ . '/TableRematch.php';
+SWUTableRematchMarkLeftForGame($gameName, $seat, 'announced');
+
 // Blocking is private: a blocked player is never told (BlockedUsers.php), and Block → forfeit → Main Menu
 // is one of the ways out. Chat between a blocked pair is already off (SubmitChat.php) — so is this.
 if (SWUAreGamePlayersBlocked($gameName)) { echo 'OK'; exit; }

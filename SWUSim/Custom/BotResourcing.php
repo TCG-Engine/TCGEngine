@@ -128,6 +128,108 @@ function SWUBotResourceFloorApplies(int $seat): bool {
     return $t > 0 && SWUResourceCount($seat) < $t;
 }
 
+// ── FLIP PACKAGE (PROPOSAL 'flippackage', owner 2026-10-19) ────────────────────────────────────────────────────────────────────
+// A Plot deck's deploy turn plays Plot cards from its resources, so the resourcer should bank the RIGHT ones: the set that fits the
+// deploy threshold and is worth the most on that turn. Owner: "Ahsoka decks ideal flip turn involves using their 6 resources to play both
+// Naboo Royal Starship for 4R and Jar Jar Binks for 2R … prioritize getting them into the resources early. and it is okay to resource
+// multiples … if Naboo ship was not found into flip turn, then make sure there are at least 2 jar jars in resources … even if playing the
+// second one via plot kills the other." The owner table names a leader's packages in preference order; any other Plot deck gets ONE
+// automatic package (the most valuable multiset of its Plot cards that fits the threshold, at most two copies of a card). The old Plot
+// budget banked whatever Plot card came first — three Jar Jars filled Ahsoka's 6 and locked Naboo Royal Starship out.
+const SWU_BOT_FLIP_PACKAGES = [
+    'ASH_009' => [['SEC_099', 'SEC_111'], ['SEC_111', 'SEC_111']],   // Ahsoka Tano (ASH): Naboo Royal Starship + Jar Jar, else 2 Jar Jars
+];
+
+// Printed cost plus this seat's aspect penalty — what the Plot play will cost.
+function _SWUBotPlotCardCost(int $seat, string $cid): int {
+    return intval(CardCost($cid)) + (function_exists('SWUAspectPenalty') ? intval(SWUAspectPenalty($seat, $cid)) : 0);
+}
+
+// Plot CardIDs this seat can still bank or plot (hand, deck, resources) => copies.
+function _SWUBotOwnedPlotCards(int $seat): array {
+    $out = [];
+    foreach ([GetHand($seat), GetDeck($seat), GetResources($seat)] as $zone) {
+        foreach ($zone as $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = strval($o->CardID ?? '');
+            if ($cid !== '' && preg_match('/(^|\n)\s*Plot\b/', strval(CardText($cid)))) $out[$cid] = ($out[$cid] ?? 0) + 1;
+        }
+    }
+    return $out;
+}
+
+// The owner-table packages for $seat's undeployed leader, keeping only those this deck can build. [] = no table entry.
+function _SWUBotOwnerFlipPackages(int $seat): array {
+    if (SWUBotLeaderDeployThreshold($seat) <= 0) return [];
+    $owned = null;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed)) continue;
+        $table = SWU_BOT_FLIP_PACKAGES[strval($l->CardID ?? '')] ?? null;
+        if ($table === null) continue;
+        $owned = $owned ?? _SWUBotOwnedPlotCards($seat);
+        return array_values(array_filter($table, function ($pk) use ($owned) {
+            foreach (array_count_values($pk) as $cid => $n) if (($owned[$cid] ?? 0) < $n) return false;
+            return true;
+        }));
+    }
+    return [];
+}
+
+// The flip packages for $seat while its leader is undeployed: the owner table, else the single best automatic package. [] = none.
+function SWUBotFlipPackages(int $seat, array $W): array {
+    $T = SWUBotLeaderDeployThreshold($seat);
+    if ($T <= 0) return [];
+    $owner = _SWUBotOwnerFlipPackages($seat);
+    if (!empty($owner)) return $owner;
+    $owned = _SWUBotOwnedPlotCards($seat);
+    if (empty($owned)) return [];
+    $ids = array_keys($owned);
+    $best = []; $bestV = 0.0;
+    $walk = function (int $i, array $pk, int $cost, float $v) use (&$walk, &$best, &$bestV, $ids, $owned, $seat, $T, $W) {
+        if ($v > $bestV) { $bestV = $v; $best = $pk; }
+        if ($i >= count($ids)) return;
+        $cid = $ids[$i]; $c = _SWUBotPlotCardCost($seat, $cid); $pv = _SWUBotPlayValue($seat, $cid, $W, 'resources');
+        for ($k = 0; $k <= min(2, $owned[$cid]); $k++) {
+            if ($cost + $k * $c > $T) break;
+            $walk($i + 1, array_merge($pk, array_fill(0, $k, $cid)), $cost + $k * $c, $v + $k * $pv);
+        }
+    };
+    $walk(0, [], 0, 0.0);
+    return empty($best) ? [] : [$best];
+}
+
+// CardID => copies still to bank so EVERY package (owner order: the ideal and its fallback) can be plotted on the flip.
+function SWUBotFlipNeeds(int $seat, array $W): array {
+    $need = [];
+    foreach (SWUBotFlipPackages($seat, $W) as $pk) {
+        foreach (array_count_values($pk) as $cid => $n) $need[$cid] = max($need[$cid] ?? 0, $n);
+    }
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        $cid = strval($r->CardID ?? '');
+        if (isset($need[$cid])) $need[$cid]--;
+    }
+    return array_filter($need, fn($n) => $n > 0);
+}
+
+// The first owner-table package fully banked in $seat's resources and payable from $cap right now, or null.
+function SWUBotAffordableFlipPackage(int $seat, int $cap): ?array {
+    $banked = [];
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        $cid = strval($r->CardID ?? '');
+        $banked[$cid] = ($banked[$cid] ?? 0) + 1;
+    }
+    foreach (_SWUBotOwnerFlipPackages($seat) as $pk) {
+        $cost = 0; $ok = true;
+        foreach (array_count_values($pk) as $cid => $n) { if (($banked[$cid] ?? 0) < $n) { $ok = false; break; } }
+        if (!$ok) continue;
+        foreach ($pk as $cid) $cost += _SWUBotPlotCardCost($seat, $cid);
+        if ($cost <= $cap) return $pk;
+    }
+    return null;
+}
+
 // The $n hand mzIDs ("myHand-i") to resource, lowest keep value first; ties go to the lowest hand index.
 // A Plot card is resourced first while the Plot cards in resources plus it still fit the deploy threshold
 // — the leader's deploy then Plays them out (spec: the Plot budget; the owner's Palpatine + Jar Jar = 5).
@@ -135,6 +237,36 @@ function SWUBotResourceFloorApplies(int $seat): bool {
 function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $seat = intval($ctx['seat']);
     $budget = SWUBotLeaderDeployThreshold($seat);            // 0 once deployed → no Plot priority
+    // PROPOSAL 'flippackage': the package cards still to bank (see SWUBotFlipPackages) replace the first-come Plot budget.
+    // Per hand index: 1 = a copy the IDEAL package still lacks, 2 = a copy only a fallback package lacks. Copies are allocated in hand
+    // order, so with three Jar Jars and a Naboo Royal Starship in hand Ahsoka banks the ship and ONE Jar Jar first, then the second Jar Jar.
+    $flipRank = null;   // null = no package: the old Plot budget applies
+    if (SWUBotProposalOn('flippackage')) {
+        $flipW = SWUBotWeights(strval($ctx['style'] ?? ''), $seat);
+        $pkgs = SWUBotFlipPackages($seat, $flipW);
+        if (!empty($pkgs)) {
+            $banked = [];
+            foreach (GetResources($seat) as $r) if ($r !== null && empty($r->removed)) $banked[strval($r->CardID ?? '')] = ($banked[strval($r->CardID ?? '')] ?? 0) + 1;
+            $missing = function (array $pk) use ($banked) {
+                $m = [];
+                foreach (array_count_values($pk) as $id => $n) if (($left = $n - ($banked[$id] ?? 0)) > 0) $m[$id] = $left;
+                return $m;
+            };
+            $need1 = $missing($pkgs[0]);
+            $needAll = SWUBotFlipNeeds($seat, $flipW);
+            $flipRank = [];
+            foreach (GetHand($seat) as $hi => $ho) {
+                if ($ho === null || !empty($ho->removed)) continue;
+                $id = strval($ho->CardID ?? '');
+                if (($need1[$id] ?? 0) > 0) { $flipRank[$hi] = 1; $need1[$id]--; $needAll[$id] = ($needAll[$id] ?? 0) - 1; }
+            }
+            foreach (GetHand($seat) as $hi => $ho) {
+                if (isset($flipRank[$hi]) || $ho === null || !empty($ho->removed)) continue;
+                $id = strval($ho->CardID ?? '');
+                if (($needAll[$id] ?? 0) > 0) { $flipRank[$hi] = 2; $needAll[$id]--; }
+            }
+        }
+    }
     $plotInResources = 0;
     foreach (GetResources($seat) as $r) {
         if ($r === null || !empty($r->removed)) continue;
@@ -273,7 +405,14 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // a Sentinel loses its keep vs a non-aggro deck, and Hyperspace Disaster goes first unless it has a target.
         if ($rank >= 3 && _SWUBotRampResOn($seat)) $keep = _SWUBotRampResKeep($seat, $cid, $i, $keep);
         // `$budget > 0` states the intent; the sum test alone already refuses every Plot card (all cost ≥ 1).
-        if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        if ($flipRank === null) {
+            if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
+        } elseif (isset($flipRank[$i])) {
+            // A package copy still missing: banked before anything else — the ideal package first, the dearer card first within a rank.
+            // Extra copies past the packages keep their ordinary keep value (owner: resourcing multiples is fine, never forced).
+            $keep = ($flipRank[$i] === 1 ? -3000.0 : -2000.0) - $cost;
+            _SWUBotFired('flippackage', $seat);
+        }
         // FEATURE 'curveresource' (p38; spec 2026-10-05-swusim-curve-value-design.md §4.2): the curve surplus breaks ties in the
         // keep score — the more under-curve of two similar cards goes first. Control's tiers sort first (below), so this only
         // orders cards WITHIN a tier there. An unpriced card adds 0.

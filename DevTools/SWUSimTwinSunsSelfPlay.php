@@ -27,7 +27,7 @@
 
 if (!function_exists('apcu_store')) { fwrite(STDERR, "Needs APCu: run with -d apc.enable_cli=1\n"); exit(2); }
 
-$args = ['seats' => 3, 'games' => 1, 'seed' => 'ts', 'maxSteps' => 8000, 'keep' => false, 'verbose' => false, 'child' => -1, 'teams' => false];
+$args = ['seats' => 3, 'games' => 1, 'seed' => 'ts', 'maxSteps' => 8000, 'keep' => false, 'verbose' => false, 'child' => -1, 'teams' => false, 'houseRules' => ''];
 foreach (array_slice($argv, 1) as $a) {
     if (preg_match('/^--seats=(\d)$/', $a, $m))          $args['seats'] = intval($m[1]);
     elseif (preg_match('/^--games=(\d+)$/', $a, $m))     $args['games'] = max(1, intval($m[1]));
@@ -36,6 +36,7 @@ foreach (array_slice($argv, 1) as $a) {
     elseif (preg_match('/^--child=(\d+)$/', $a, $m))     $args['child'] = intval($m[1]);
     elseif ($a === '--keep')                             $args['keep'] = true;
     elseif ($a === '--teams')                            $args['teams'] = true;
+    elseif (preg_match('/^--house-rules=(.*)$/', $a, $m)) $args['houseRules'] = $m[1];   // e.g. extraBaseHp=10,takeCredit,planScry=2
     elseif ($a === '-v' || $a === '--verbose')           $args['verbose'] = true;
     elseif ($a === '--trace')                            $args['trace'] = true;   // one line per step (child only)
 }
@@ -47,9 +48,10 @@ if ($args['child'] < 0) {
     $done = 0; $failed = []; $rounds = []; $elims = 0; $shared = 0; $ff = 0; $t0 = microtime(true);
     for ($g = 1; $g <= $args['games']; $g++) {
         // `timeout`: a game whose step never returns (an engine loop) fails THAT game instead of hanging the sweep.
-        $cmd = sprintf('timeout 600 php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G %s --child=%d --seats=%d --seed=%s --max-steps=%d%s%s%s 2>&1',
+        $cmd = sprintf('timeout 600 php -d apc.enable_cli=1 -d xdebug.mode=off -d memory_limit=1G %s --child=%d --seats=%d --seed=%s --max-steps=%d%s%s%s%s 2>&1',
             escapeshellarg(__FILE__), $g, $args['seats'], escapeshellarg($args['seed']), $args['maxSteps'],
-            $args['keep'] ? ' --keep' : '', $args['verbose'] ? ' -v' : '', $args['teams'] ? ' --teams' : '');
+            $args['keep'] ? ' --keep' : '', $args['verbose'] ? ' -v' : '', $args['teams'] ? ' --teams' : '',
+            $args['houseRules'] !== '' ? ' ' . escapeshellarg('--house-rules=' . $args['houseRules']) : '');
         $out = shell_exec($cmd) ?? '';
         $line = null;
         foreach (explode("\n", $out) as $l) if (strpos($l, '[TSGAME] ') === 0) $line = $l;
@@ -99,6 +101,14 @@ for ($s = 1; $s <= $args['seats']; $s++) {
     if ($args['teams']) { $p->setTeam($s % 2 === 1 ? 'red' : 'blue'); $p->setSeat($s); }   // seat order = R/B/R/B, as StartRoom sorts it
     $lobby->players[] = $p;
     $decks[$s] = $pc['key'];
+}
+// Twin Suns house rules, exactly as StartRoom hands them to SWUSetupGame ($lobby->houseRulesActive).
+if ($args['houseRules'] !== '') {
+    $lobby->houseRulesActive = [];
+    foreach (explode(',', $args['houseRules']) as $part) {
+        [$id, $val] = array_pad(explode('=', trim($part), 2), 2, null);
+        if ($id !== '') $lobby->houseRulesActive[$id] = $val === null ? true : intval($val);
+    }
 }
 $seed = $args['seed'] . '-' . $g;
 $gameName = SWUSetupGame($lobby, ['rngSeed' => $seed]);
@@ -196,6 +206,12 @@ $res['winners'] = SWUGetGameWinners();
 $res['rounds'] = intval(GetTurnNumber());
 $res['eliminated'] = array_values(array_diff(GetSeatOrderArray(), GetLiveSeatsArray()));
 foreach (GetSeatOrderArray() as $s) $res['baseHp'][$s] = SWUBaseRemainingHp($s);
+// House rules: how often each counter was taken, read off the game log ("P{n} took the <x> counter").
+if ($args['houseRules'] !== '') {
+    global $gGameLog;
+    preg_match_all('/took the (blast|plan|credit|restore) counter/', strval($gGameLog ?? ''), $cm);
+    $res['countersTaken'] = array_count_values($cm[1] ?? []);
+}
 // Twin Suns ends at the end of the phase in which a seat is eliminated, so a finished game has an elimination
 // (or ended by deck-out/other loss that also eliminates). A finish without one would mean the end-game fired early.
 if ($res['finished'] && empty($res['eliminated'])) $fail('game ended with no seat eliminated');

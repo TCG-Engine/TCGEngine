@@ -1257,6 +1257,16 @@ const SWU_BOT_PROPOSALS = [
     // Step 2 measured 2026-10-16 vs baseline v2.3 (archetype Pearson +0.11 / MAE 0.094): lukeaggro null (+0.12 / 0.095, Luke DV rose);
     // indirectprice aggro +29 / control −39 (+0.10 / 0.096) — HOLD, pair with control-side levers; pilotcost soft aggro +109 / soft control −62
     // (+0.09 / 0.100); enginedeploy Piett Colossus −27pp, control −216 (+0.01 / 0.100). ('mullfloor', 'actionbeforeclaim' SHIPPED as p51.)
+    // Bug report game 1647080 (2026-10-19): the bot played a second Blue Leader while the copy in play was READY at 2 damage — the
+    // uniqueness rule defeated the old copy and its attack was thrown away. A second copy of a unique unit I control now waits while
+    // the copy in play is ready with an attack that scores above zero; once it is spent the replacement is priced as before.
+    'uniqueattackfirst',
+    // Owner 2026-10-19 (Ahsoka flip turn; "split it" for every Plot deck). 'flippackage': the resourcer banks the deck's FLIP PACKAGE first (owner
+    // table — Ahsoka: Naboo Royal Starship + Jar Jar, else 2 Jar Jars — or the most valuable Plot set that fits the deploy threshold), every
+    // copy of a missing card; the Plot window plays that package first. 'flipholdhand': flip-dependent Plot cards (a leader-unit grant, an
+    // on-play phase buff) wait in hand for the resources while the leader is undeployed; a banked buff is cast only to clear a Sentinel or
+    // set up lethal next round.
+    'flippackage', 'flipholdhand',
 ];
 
 
@@ -1335,6 +1345,8 @@ const SWU_BOT_PROPOSAL_GROUPS = ['krennicline' => ['creditvalue'],
                                  'krennicws'   => ['krennicdeploy', 'claimspent', 'claimbomb', 'nogideon', 'chimaeraweakest'],
                                  // 2026-10-12 human-game read: the three general rules together.
                                  'leaderwatch' => ['deploysafe', 'leaderhunt'],   // ('handpick' shipped 2026-10-19, p56)
+                                 // 2026-10-19 owner's Plot flip plan (Ahsoka; split for every Plot deck): both halves together.
+                                 'flipplan'    => ['flippackage', 'flipholdhand'],
                                  // ('tempolines' SHIPPED 2026-10-13 as feature group 'p46', without 'softenkill', which was dropped.)
                                  // (the re-read's ten SHIPPED 2026-10-13 as feature group 'p44' / 'controlvalue'.)
                                  // 2026-10-15 Krennic vs Ahsoka canary: the two winners together (popfirst +63, krennicmerc +94 alone).

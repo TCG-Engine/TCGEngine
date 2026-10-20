@@ -35,7 +35,7 @@ function SWUCaptureCurrentGameDetail() {
             $b=GetBase($s);
             if (!empty($b)) {
                 $bid=strval($b[0]->CardID ?? ''); $detail['base'][strval($s)]=$bid;
-                $hp=function_exists('CardHp')?intval(CardHp($bid)):0;
+                $hp=function_exists('SWUBaseMaxHp')?SWUBaseMaxHp($bid):(function_exists('CardHp')?intval(CardHp($bid)):0);   // max HP incl. a Twin Suns Extra Base HP house rule
                 $detail['baseHpLeft'][strval($s)] = max(0, $hp - intval($b[0]->Damage ?? 0));
             }
         }
@@ -177,6 +177,13 @@ function SWUSubmitMatchResults($matchId) {
     // completing at all; before the winner-storage fix they never reached state=complete.)
     if (count($m['players'] ?? []) > 2) {
         SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; $mm['statsStatus']='skipped_multiplayer'; });
+        return;
+    }
+    // A game played under house rules (Twin Suns house rules — extra base HP, a 4th counter, Plan Scry) is not the
+    // format SWUStats records. Today only multiplayer games can carry them, so the check above already skips them; this
+    // guard is what keeps that true if a 2-seat house-rule game ever exists.
+    if (!empty($m['houseRules'])) {
+        SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; $mm['statsStatus']='skipped_house_rules'; });
         return;
     }
     SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; });

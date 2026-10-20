@@ -33,5 +33,31 @@ $missing = [];
 foreach ($expected as $k => $file) if (!isset($customDQHandlers[$k])) $missing[] = "$k ($file)";
 $check(empty($missing), 'every top-level handler survives the runtime loader' . (empty($missing) ? '' : ' — MISSING: ' . implode(', ', $missing)));
 
+// The SAME trap for EVERY registry, not just $customDQHandlers (2026-10-19, game 1647080): TWI_069 Roger Roger's
+// `$upgradeWhenDefeatedAbilities['TWI_069'] = …` is written by cards/_loader.php at GameLogic.php line ~23, but the
+// name was only declared `global` further down — so in a live request the registration landed in the loader
+// function's local and was dropped, and Roger Roger silently stayed in the discard instead of moving to another
+// friendly Battle Droid. The test-bootstrap path loads at top level, so the schema suite passed. Every top-level
+// `$name['KEY'] = …` under SWUSim/Custom is read from source and must be in the GLOBAL $name after the runtime loader.
+$registries = [];
+foreach ($it as $f) {
+    if ($f->getExtension() !== 'php') continue;
+    if (preg_match_all('/^\$(\w+)\[\s*["\']([^"\']+)["\']\s*\]\s*=/m', (string)file_get_contents($f->getPathname()), $m, PREG_SET_ORDER)) {
+        foreach ($m as $hit) {
+            if ($hit[1] === 'GLOBALS') continue;
+            $registries[$hit[1]][$hit[2]] = str_replace('./SWUSim/Custom/', '', $f->getPathname());
+        }
+    }
+}
+$check(isset($registries['upgradeWhenDefeatedAbilities']['TWI_069']), 'the scan sees Roger Roger\'s upgrade When Defeated');
+$lost = [];
+foreach ($registries as $name => $keys) {
+    foreach ($keys as $k => $file) {
+        if (!isset($GLOBALS[$name]) || !is_array($GLOBALS[$name]) || !array_key_exists($k, $GLOBALS[$name])) $lost[] = "\${$name}['{$k}'] ({$file})";
+    }
+}
+$check(empty($lost), 'every top-level registry entry (' . count($registries) . ' registries) survives the runtime loader'
+    . (empty($lost) ? '' : ' — LOST: ' . implode(', ', array_slice($lost, 0, 20)) . (count($lost) > 20 ? ' …+' . (count($lost) - 20) : '')));
+
 echo $fails === 0 ? "ALL PASS\n" : "$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

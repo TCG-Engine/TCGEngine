@@ -693,6 +693,11 @@ function SWUBotFreePlayActions($gameName, $seat) {
         if (GetPlanCounter() === 'AVAILABLE') {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'PlanCounter-0!CustomInput!TakeCounter'];
         }
+        // House-rule 4th counter (Take Credit / Take Restore). Same termination argument: while it is in the centre
+        // Pass is refused, so a bot that could not take it would have no legal way to end its round.
+        if (function_exists('SWUFourthCounterState') && SWUFourthCounterState() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'FourthCounter-0!CustomInput!TakeCounter'];
+        }
     }
 
     // ── Pass / end action ────────────────────────────────────────────────────

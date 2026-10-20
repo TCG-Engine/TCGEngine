@@ -13,7 +13,7 @@ $customDQHandlers["SOR_246#0"] = function($player, $parts, $lastDecision) {
     $bases = GetBase(intval($player));
     $free  = false;
     if (!empty($bases)) {
-        $remaining = intval(CardHp($bases[0]->CardID)) - intval($bases[0]->Damage);
+        $remaining = SWUBaseMaxHp($bases[0]->CardID) - intval($bases[0]->Damage);
         if ($remaining <= 5) $free = true;
     }
     SWUPlayTopDeckCard(intval($player), $free, $free ? 0 : 5);
@@ -35,7 +35,7 @@ $whenPlayedAbilities["SOR_246:0"] = function($player, $mzID = '') {
             // the prompt entirely (the top card just stays put) rather than offer an unplayable "Play".
             $bases = GetBase(intval($player));
             $free  = !empty($bases)
-                     && (intval(CardHp($bases[0]->CardID)) - intval($bases[0]->Damage)) <= 5;
+                     && (SWUBaseMaxHp($bases[0]->CardID) - intval($bases[0]->Damage)) <= 5;
             $canPlay = $free
                        || max(0, SWUComputePlayCost(intval($player), $topObj) - 5)
                           <= SWUTotalPaymentCapacity(intval($player));

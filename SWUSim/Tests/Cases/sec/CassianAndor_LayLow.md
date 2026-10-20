@@ -205,3 +205,49 @@ WithP2GroundArena: SHD_058:1:0
 P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:0
 P2DISCARDCOUNT:3
+
+---
+
+# TwinSuns_P3BattleDroidAttacksP2Cassian_DealsNothing
+#// Checked for a report (2026-10-19, game 1647080: "Cassian's attacker -2 didn't work when a battle droid attacked").
+#// Not reproduced; kept as a guard on the board shape from that game: 4 seats, P3's 1-power Battle Droid token attacks
+#// P2's Cassian, who already has 1 damage (2 HP). The -2 takes the droid to 0, so Cassian survives on 1 damage. Without
+#// the -2 the droid would deal 1 and defeat him.
+## GIVEN
+CommonSetup: yyk/bbk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 3
+WithGamePhase: ActionPhase
+WithP3GroundArena: TS26_T01:1:0
+WithP2GroundArena: SEC_042:1:1
+## WHEN
+- P3>AttackGroundArena:0:P2G0
+## EXPECT
+P3GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SEC_042
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# TwinSuns_AsajjsTokenAttackPlusOne_StillDealsNothing
+#// Same board through P3's TS26_07 Asajj Ventress ("Attack with a token unit. It gets +1/+0 for this attack."):
+#// 1 + 1 - 2 = 0. The -2 must land on an ability-granted attack too; without it the droid deals 2.
+## GIVEN
+CommonSetup: yyk/bbk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 3
+WithGamePhase: ActionPhase
+WithP3Leader: TS26_07
+WithP3GroundArena: TS26_T01:1:0
+WithP2GroundArena: SEC_042:1:1
+## WHEN
+- P3>UseLeaderAbility
+- P3>AnswerDecision:p2GroundArena-0
+## EXPECT
+P3GROUNDARENACOUNT:0
+P3LEADER:EXHAUSTED
+P2GROUNDARENAUNIT:0:DAMAGE:1

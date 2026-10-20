@@ -145,3 +145,25 @@ WithP2GroundArena: SOR_059:1:0
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2BASEDMG:0
+
+---
+
+# EachOtherUnit_TheUnitBehindADefeatedOneIsNotSkipped
+#// Same family as LOF_235 HK-87 (reported 2026-10-19): "each other unit" must reach the unit sitting right behind
+#// one the 3 damage defeats. A 1/1 Battle Droid token on EACH side dies; the SOR_046 behind each takes its 3.
+## GIVEN
+CommonSetup: rrw/ggw
+P1OnlyActions: true
+WithP1GroundArena: LOF_170:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: [TWI_T01:1:0 SOR_046:1:0]
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_046
+P1GROUNDARENAUNIT:1:DAMAGE:3
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3

@@ -213,3 +213,22 @@ P4BASEDMG:5
 P4GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P3GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ForceHost_AOE_TheUnitBehindADefeatedOneIsNotSkipped
+#// Same family as LOF_235 HK-87 (reported 2026-10-19): "each ground unit" must reach the unit sitting right behind
+#// one the AOE defeats. P2's 1/1 Battle Droid token dies to the 1 damage; the SOR_046 behind it must still take its
+#// 1. The Force host attacks P2's BASE so only the AOE touches the units.
+## GIVEN
+CommonSetup: rrk/grw/{}
+P1OnlyActions: true
+WithP1GroundArena: SOR_061:1:0
+WithP1GroundArenaUpgrade: 0:SOR_137
+WithP2GroundArena: [TWI_T01:1:0 SOR_046:1:0]
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:1

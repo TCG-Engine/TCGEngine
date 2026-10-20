@@ -74,6 +74,23 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         SaveUndoVersion($playerID);
         SWUTakeCounter(intval($playerID), $zone === "BlastCounter" ? 'blast' : 'plan');
         break;
+      case "FourthCounter":
+        // Twin Suns house rules: the 4th counter (Take Credit / Take Restore). Same guards as Blast/Plan; the kind is the
+        // game's, never the client's, so a stale button cannot take the other one.
+        if (SeatCountForGame() <= 2 || SWUFourthCounterKind() === '') break;
+        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+            SetFlashMessage("Only the active player can take a counter.");
+            break;
+        }
+        $dqController = new DecisionQueueController();
+        if (!$dqController->AllQueuesEmpty()) {
+            SetFlashMessage("Cannot take a counter while decisions are pending.");
+            break;
+        }
+        if (GetCurrentPhase() !== "MAIN") break;
+        SaveUndoVersion($playerID);
+        SWUTakeCounter(intval($playerID), SWUFourthCounterKind());
+        break;
       case "myField":
       case "myIntent":
         if (intval(GetTurnPlayer()) !== intval($playerID)) {

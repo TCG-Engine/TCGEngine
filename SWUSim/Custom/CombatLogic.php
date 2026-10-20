@@ -424,7 +424,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // LOF_252 The Daughter — "When damage is dealt to your base: may use the Force → heal 2 from your
         // base." Post-damage reaction owned by the base owner (often the non-active player in combat); it
         // sits on their queue and resolves after the damage event. Only while the base survives.
-        if (intval($damage) > 0 && intval($base[$i]->Damage) < intval(CardHp($base[$i]->CardID))) {
+        if (intval($damage) > 0 && intval($base[$i]->Damage) < SWUBaseMaxHp($base[$i]->CardID)) {
             _SWUCollectLof252Reaction(intval($targetPlayer));
         }
         // ASH_204 Blade Three — "When your base is dealt damage: give an Advantage token to this unit."
@@ -539,7 +539,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 AddGlobalEffects($srcCtrl, 'SWU_DMGDBASE_' . $srcUid . '_' . intval($targetPlayer));
             }
         }
-        $baseHP = intval(CardHp($base[$i]->CardID));
+        $baseHP = SWUBaseMaxHp($base[$i]->CardID);
         // Goldfish practice: P2's Echo Base is an infinite damage sponge — never trigger the loss,
         // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
         $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');
@@ -4557,6 +4557,24 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     $d1Gone = (SWUObjGone($def1));
     $d2Gone = (SWUObjGone($def2));
     if ($d1Gone && $d2Gone) {
+        // BOTH defenders died before combat damage — e.g. a Fallen Lightsaber ping finishing two 1-HP units. They
+        // were still attacked AND defeated (RULING 2026-08-07: "at any point during the attack", once per defender),
+        // so the attacks-and-defeats / attack-end observers fire exactly as on the single-defender fizzle path
+        // (SWUCombatDamage). This used to finish silently: unreachable while that ping skipped the unit behind a
+        // defeated one (fixed 2026-10-19), which always left one defender alive for combat.
+        $preKilled = intval(GetSWUVar('SWU_MAUL_DEF_PREKILLED', '0'));
+        SetSWUVar('SWU_MAUL_DEF_UIDS', '');
+        SetSWUVar('SWU_MAUL_DEF_PREKILLED', '0');
+        if ($preKilled > 0) {
+            SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '1');
+            CollectAfterAttackTriggers($player, $attackerMzID, $def1Mz, [
+                'dealtToBase' => false, 'dealtToUnit' => false,
+                'defenderDefeated' => true, 'defendersDefeated' => $preKilled,
+                'defenderCardID' => '', 'defenderOwner' => 0, 'defenderIsLeader' => false,
+                'excess' => 0, 'baseCombatDmg' => 0,
+                'attackerCardID' => $attacker->CardID ?? '', 'attackerUID' => intval($attacker->UniqueID ?? 0),
+            ]);
+        }
         $playerID = $savedPID;
         _SWUCombatFinishAction($player);
         return;

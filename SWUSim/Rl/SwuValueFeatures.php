@@ -72,7 +72,7 @@ function _SWUValueSide(int $p, bool $mine): array {
 
 function SWUValueFeatures(int $seat, array $hand, string $style): array {
     $opp = SWUBotOpponent($seat);
-    $hpMax = function (int $p) { $b = GetBase($p)[0] ?? null; return $b === null ? 1 : max(1, intval(CardHp($b->CardID))); };
+    $hpMax = function (int $p) { $b = GetBase($p)[0] ?? null; return $b === null ? 1 : max(1, SWUBaseMaxHp($b->CardID)); };
     $myHp = SWUBaseRemainingHp($seat); $theirHp = SWUBaseRemainingHp($opp);
     $round = intval(GetTurnNumber());
     $f = ['round' => $round, 'my_hp_left' => $myHp, 'their_hp_left' => $theirHp,

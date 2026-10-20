@@ -3,9 +3,12 @@
 #   v3 replaces v2 (base JTL_020, 18 SWU Forge games on 2026-10-12, 12-6 — owner: "those 18 games are how i think this deck should
 #   play"; logs in docs/superpowers/swuforge-research/, memory `swuforge-three-deck-analysis-2026-10-12`). v3 vs v2: base Dune Sea
 #   HMW_019; +2 Ritual Dragon HMW_234, +2 Sandstorm HMW_240; Pre Vizsla 3 -> 2; sideboard reworked (no ASH_219; +ASH_053, HMW_240).
-#   Filename: maul_hmw_blue_tatooine (Dune Sea is Tatooine and the list cares) + "_by-ninin" — owner 2026-10-13: kept because Star
-#   Wars Dad's list is moving to the same base; Ninin's variant has more hand hate. (v2's file was maul_hmw_blue_by-ninin.txt.)
+#   Filename: maul_hmw_blue_tatooine (Dune Sea is Tatooine and the list cares) + the VARIANT "_v-discard" — owner 2026-10-19: Star
+#   Wars Dad's list moved to the same base (maul_hmw_blue_tatooine_v-combo.txt); "the one by Ninin is the discard variant". The
+#   variant tells the two apart, so the "_by-ninin" author suffix was dropped. (Was maul_hmw_blue_tatooine_by-ninin.txt; v2's file
+#   was maul_hmw_blue_by-ninin.txt.)
 # Author: Ninin
+# Variant: Discard
 # Archetype (owner's label, 2026-10-12): Soft control — "value trades. hand hate. soft control tempo deck." Hand hate: 3 Remnant
 #   Lookouts ASH_220, 3 Intelligence Agency HMW_205, 2 Garindan SEC_186, 2 Beguile SEC_233.
 # Style: softcontrol

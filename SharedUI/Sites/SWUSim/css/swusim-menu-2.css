@@ -4936,6 +4936,90 @@ body:has(#wr-root) .wr-pill {
   clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
 }
 
+/* ---------- House Rules (Twin Suns): a chamfered well like a seat --------- */
+/* The renderer's base rules are #wr-root-scoped (1-1-0); `body:has(#wr-root)` + a class is 1-1-1, so these win
+   without !important. The box is the seat well recipe; the checkbox is the sheet's appearance:none gold tick
+   (same recipe as the Cosmetics toggles); the number is a sunken well. */
+body:has(#wr-root) .wr-hr {
+  --cut: 10px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  padding: 0 var(--s-4);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+body:has(#wr-root) .wr-hr::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e-sunk);
+  clip-path: polygon(var(--ci) 0, 100% 0, 100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%, 0 100%, 0 var(--ci));
+}
+body:has(#wr-root) .wr-hr > summary { min-block-size: var(--tap); }
+body:has(#wr-root) .wr-hr-title {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+body:has(#wr-root) .wr-hr-note { color: var(--ink-3); font-size: var(--t-12); }
+body:has(#wr-root) .wr-hr-row {
+  border-radius: 0;
+  background: color-mix(in oklch, var(--ink) 4%, transparent);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+body:has(#wr-root) .wr-hr-label { font-size: var(--t-14); color: var(--ink); }
+body:has(#wr-root) .wr-hr-desc { font-size: var(--t-12); color: var(--ink-3); }
+body:has(#wr-root) .wr-hr-tally { color: var(--ink-3); font-size: var(--t-12); }
+body:has(#wr-root) .wr-hr-main input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  min-block-size: 0;
+  cursor: pointer;
+  background-color: var(--e-sunk);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+  border: 1px solid var(--edge-strong);
+  border-radius: 3px;
+  transition: background-color 120ms var(--ease), border-color 120ms var(--ease);
+}
+body:has(#wr-root) .wr-hr-main input[type="checkbox"]:checked {
+  background-color: var(--e3);
+  border-color: var(--gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b866' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.5 9.5 17.5 19.5 6.5'/%3E%3C/svg%3E");
+}
+body:has(#wr-root) .wr-hr-main input[type="checkbox"]:disabled { cursor: default; opacity: 0.55; }
+body:has(#wr-root) .wr-hr-main input[type="checkbox"]:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+body:has(#wr-root) .wr-hr-value {
+  border: 1px solid var(--edge-strong);
+  border-radius: 0;
+  background: var(--e-sunk);
+  color: var(--ink);
+  /* Longhands: `inherit` is not allowed inside the `font` shorthand, and an invalid shorthand drops the whole line. */
+  font-family: inherit;
+  font-size: var(--t-14);
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: none;
+  outline: none;
+}
+body:has(#wr-root) .wr-hr-value:focus-visible { border-color: var(--gold); }
+body:has(#wr-root) .wr-hr-value:disabled { color: var(--ink-2); opacity: 1; -webkit-text-fill-color: var(--ink-2); }
+/* A value nobody here may change is a READOUT: no spinner (Firefox and WebKit draw one even when disabled). */
+body:has(#wr-root) .wr-hr-value:disabled { appearance: textfield; -moz-appearance: textfield; }
+body:has(#wr-root) .wr-hr-value:disabled::-webkit-inner-spin-button,
+body:has(#wr-root) .wr-hr-value:disabled::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
 /* ---------- the deck bar: pattern 3 (input + button) --------------------- */
 /* The renderer emits a bare <textarea> with no .inwrap wrapper, so the WELL is drawn on the
    control itself here. That is the one place this page departs from the canonical markup, and it

@@ -31,7 +31,7 @@ SWUBotLeverRegister('controlread', 'enginewatch', [
         if ($v > 0.0 && preg_match('/When an enemy unit is defeated: Heal (\d+) damage from your base/i', strval(CardText($cid)))) {
             $o = intval($def['controller'] ?? 0);
             $base = strval((GetBase($o)[0] ?? null)->CardID ?? '');
-            $v = min($v, (float)max(0, intval(CardHp($base)) - SWUBaseRemainingHp($o)));
+            $v = min($v, (float)max(0, SWUBaseMaxHp($base) - SWUBaseRemainingHp($o)));
         }
         return $v > 0.0 ? $extra + floatval($W['base']) * $v : null;
     },
