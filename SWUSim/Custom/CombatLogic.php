@@ -1722,6 +1722,84 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         SWUDealDamageToBase(2, SWUMzOwner($defenderMzID, $activePlayer));
     }
 
+    // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
+    // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls. Text says
+    // "a base" (a free choice) → Twin Suns: choose which opponent's base per Cassian (2-player → the one).
+    // ⚠ ABOVE the attacker-survival early-return (Bug Report game 1647080, 2026-10-20: "it doesn't trigger when
+    // your unit … dies"). A field observer like the LAW_007 Boba / ASH_005 Luke hooks: the ATTACKER's survival
+    // is no part of it (CR 7.6.16.c), so a TRADE still pays. An attacking Cassian who died in that trade fires
+    // too (Boba's same reading) — found by the ctx's card + UID, since his arena slot may hold another unit now.
+    if (!empty($combatCtx['defenderDefeated'])) {
+        // Thread each Cassian object as the damage SOURCE — the 2 damage is dealt BY that unit, so it must
+        // stamp his per-unit base-damage markers (SEC_012 "has damaged an opponent's base", and LAW_205's
+        // "if that unit damaged a base" when Cassian is himself the attacker). Without a source the damage
+        // was attributed to nobody.
+        $cassianObjs = [];
+        global $playerID; $savedPID056 = $playerID; $playerID = intval($activePlayer);
+        foreach (GetUnitsInPlay(intval($activePlayer)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_056') $cassianObjs[] = $u;
+        }
+        $playerID = $savedPID056;
+        $casUID = intval($combatCtx['attackerUID'] ?? 0);
+        $casAttackerLive = $attacker !== null && !SWUObjGone($attacker) && $casUID !== 0 && intval($attacker->UniqueID ?? 0) === $casUID;
+        if (strval($combatCtx['attackerCardID'] ?? '') === 'LAW_056' && !$casAttackerLive) $cassianObjs[] = null;   // no source: he is gone
+        if (SeatCountForGame() <= 2) {
+            foreach ($cassianObjs as $cas) SWUDealDamageToBase(2, OtherPlayer($activePlayer), $cas);
+        } else {
+            foreach ($cassianObjs as $cas)
+                SWUQueueChooseOpponent($activePlayer, "LAW_056#0", "Cassian:_deal_2_to_which_opponent's_base?");
+        }
+    }
+
+    // ── Base-damage WATCHERS and this attack's granted base-damage abilities (owner 2026-10-20: "fix the other damage watchers
+    // for their Overwhelm pieces even when the unit dies"). An Overwhelm attacker can spill combat damage onto the base and die
+    // to the defender in the SAME combat; none of these needs the attacker alive (CR 7.6.16.c — firing on a dead attacker is the
+    // default), so they sit ABOVE the attacker-survival return, beside the LAW_056 Cassian / LAW_007 Boba watchers. They read the
+    // combat context (dealtToBase, baseCombatDmg, the captured jtl177/ash162 grants), never the attacker object.
+    // SEC_017 Sabé (leader FRONT passive) — "When a friendly unit deals combat damage to a base: you may
+    // exhaust this leader → look at the top 2 of the defending player's deck, discard 1, other on top."
+    // Active only while SEC_017 is the undeployed, ready leader (fires for ANY friendly attacker).
+    if (!empty($combatCtx['dealtToBase']) && _SWULeaderReadyUndeployed($activePlayer, 'SEC_017')) {
+        AddTrigger($activePlayer, 'SEC_017#1', 'SEC_017#1', '');
+    }
+
+    // JTL_177 Stay on Target — granted "When this unit deals damage to a base: Draw a card." (this attack)
+    if (!empty($combatCtx['jtl177BaseDraw']) && !empty($combatCtx['dealtToBase'])) {
+        DoDrawCard(intval($activePlayer), 1);
+    }
+
+    // ASH_162 Rash Action (granted, this attack) — "When Attack Ends: if this unit dealt combat damage to
+    // an opponent's base, THAT opponent discards a card." Non-interactive (they pick which card), and the
+    // seat is DETERMINED by which base was hit — there is no choice to offer.
+    // ⚠ Was an untargeted SWUDiscardCards, i.e. OtherPlayer($activePlayer): at four seats, hitting seat
+    //   3's base made SEAT 2 discard. The owner now rides combatCtx from wherever dealtToBase was set.
+    if (!empty($combatCtx['ash162Discard']) && !empty($combatCtx['dealtToBase'])) {
+        $ash162Owner = intval($combatCtx['baseDmgOwner'] ?? 0);
+        if ($ash162Owner > 0 && $ash162Owner !== intval($activePlayer)) {
+            SWUDiscardCards(intval($activePlayer), 1, $ash162Owner);
+        }
+    }
+    // LOF_025 Temple of Destruction (base) — "When a friendly unit deals 3 or more combat damage to an
+    // enemy base: The Force is with you." Controller-based (any friendly attacker), so it rides this
+    // collection point. baseCombatDmg accumulates both the direct base hit and any overwhelm spill.
+    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3) {
+        $ldBase = GetBase(intval($activePlayer));
+        if (!empty($ldBase) && ($ldBase[0]->CardID ?? '') === 'LOF_025') {
+            TheForceIsWithYou(intval($activePlayer));
+        }
+    }
+
+    // SOR_013 Cassian Andor (deployed Leader Unit) — "When you deal damage to an enemy base: You may
+    // draw a card. Use this ability only once each round." Controller-based (any friendly unit's
+    // base hit counts, not just Cassian's own attack), so it rides this collection point after the
+    // attacker switch. ⚠ The once/round budget is spent in SOR_013#0 on the accepted YES, NOT at
+    // collect time (USER RULING 2026-09-07); cleared at RegroupPhaseStart.
+    if (!empty($combatCtx['dealtToBase'])
+        && _SWUCountUnitsWithCardID(intval($activePlayer), 'SOR_013') > 0
+        && SWUHasUseAvailable(SWUFindLeaderByCardID(intval($activePlayer), 'SOR_013'))) {
+        AddTrigger($activePlayer, 'SOR_013', 'SOR_013', '');
+    }
+
     if (SWUObjGone($attacker)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
@@ -1842,28 +1920,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         }
     }
 
-    // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
-    // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls. Text says
-    // "a base" (a free choice) → Twin Suns: choose which opponent's base per Cassian (2-player → the one).
-    if (!empty($combatCtx['defenderDefeated'])) {
-        // Thread each Cassian object as the damage SOURCE — the 2 damage is dealt BY that unit, so it must
-        // stamp his per-unit base-damage markers (SEC_012 "has damaged an opponent's base", and LAW_205's
-        // "if that unit damaged a base" when Cassian is himself the attacker). Without a source the damage
-        // was attributed to nobody.
-        $cassianObjs = [];
-        global $playerID; $savedPID056 = $playerID; $playerID = intval($activePlayer);
-        foreach (GetUnitsInPlay(intval($activePlayer)) as $u) {
-            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_056') $cassianObjs[] = $u;
-        }
-        $playerID = $savedPID056;
-        if (SeatCountForGame() <= 2) {
-            foreach ($cassianObjs as $cas) SWUDealDamageToBase(2, OtherPlayer($activePlayer), $cas);
-        } else {
-            foreach ($cassianObjs as $cas)
-                SWUQueueChooseOpponent($activePlayer, "LAW_056#0", "Cassian:_deal_2_to_which_opponent's_base?");
-        }
-    }
-
     // LAW_088 Anakin Skywalker (field passive) — "When a friendly unit's attack ends: if no other units
     // have attacked this phase, you may return it to its owner's hand. If you do, heal 2 from your base."
     // The attacker survived (gated at line 665). "No other units" = exactly one attack flag this phase.
@@ -1875,13 +1931,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
             }
         }
         if ($attackers <= 1) AddTrigger($activePlayer, 'LAW_088', 'LAW_088', $attackerMzID);
-    }
-
-    // SEC_017 Sabé (leader FRONT passive) — "When a friendly unit deals combat damage to a base: you may
-    // exhaust this leader → look at the top 2 of the defending player's deck, discard 1, other on top."
-    // Active only while SEC_017 is the undeployed, ready leader (fires for ANY friendly attacker).
-    if (!empty($combatCtx['dealtToBase']) && _SWULeaderReadyUndeployed($activePlayer, 'SEC_017')) {
-        AddTrigger($activePlayer, 'SEC_017#1', 'SEC_017#1', '');
     }
 
     // SOR_150 Heroic Sacrifice — granted "When this unit deals combat damage: Defeat it." The per-attack
@@ -1914,11 +1963,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // the +4/+0 was taken).
     if (!empty($combatCtx['law062SelfDefeat'])) {
         AddTrigger($activePlayer, 'LAW_205', 'LAW_205', $attackerMzID);   // same defeat-the-attacker dispatcher
-    }
-
-    // JTL_177 Stay on Target — granted "When this unit deals damage to a base: Draw a card." (this attack)
-    if (!empty($combatCtx['jtl177BaseDraw']) && !empty($combatCtx['dealtToBase'])) {
-        DoDrawCard(intval($activePlayer), 1);
     }
 
     // LOF_063 Oggdo Bogdo — "When this unit attacks and defeats a unit: heal 2 damage from this unit."
@@ -1992,17 +2036,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         }
         AddTrigger($activePlayer, 'ASH_137', 'ASH_137', $attackerMzID, strval(intval($combatCtx['excess'])));
     }
-    // ASH_162 Rash Action (granted, this attack) — "When Attack Ends: if this unit dealt combat damage to
-    // an opponent's base, THAT opponent discards a card." Non-interactive (they pick which card), and the
-    // seat is DETERMINED by which base was hit — there is no choice to offer.
-    // ⚠ Was an untargeted SWUDiscardCards, i.e. OtherPlayer($activePlayer): at four seats, hitting seat
-    //   3's base made SEAT 2 discard. The owner now rides combatCtx from wherever dealtToBase was set.
-    if (!empty($combatCtx['ash162Discard']) && !empty($combatCtx['dealtToBase'])) {
-        $ash162Owner = intval($combatCtx['baseDmgOwner'] ?? 0);
-        if ($ash162Owner > 0 && $ash162Owner !== intval($activePlayer)) {
-            SWUDiscardCards(intval($activePlayer), 1, $ash162Owner);
-        }
-    }
     // ASH_005 Luke Skywalker (undeployed leader) — "When a friendly unit's attack ends: you may exhaust this
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
     if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005') && empty($combatCtx['baseReplay'])) {
@@ -2011,26 +2044,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // (ASH_013 Ezra + ASH_016 Shin leader-observer hooks moved ABOVE the attacker-survival early-return —
     //  they are field observers on the leader and must fire even when the attacker dies dealing base damage.)
 
-    // LOF_025 Temple of Destruction (base) — "When a friendly unit deals 3 or more combat damage to an
-    // enemy base: The Force is with you." Controller-based (any friendly attacker), so it rides this
-    // collection point. baseCombatDmg accumulates both the direct base hit and any overwhelm spill.
-    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3) {
-        $ldBase = GetBase(intval($activePlayer));
-        if (!empty($ldBase) && ($ldBase[0]->CardID ?? '') === 'LOF_025') {
-            TheForceIsWithYou(intval($activePlayer));
-        }
-    }
-
-    // SOR_013 Cassian Andor (deployed Leader Unit) — "When you deal damage to an enemy base: You may
-    // draw a card. Use this ability only once each round." Controller-based (any friendly unit's
-    // base hit counts, not just Cassian's own attack), so it rides this collection point after the
-    // attacker switch. ⚠ The once/round budget is spent in SOR_013#0 on the accepted YES, NOT at
-    // collect time (USER RULING 2026-09-07); cleared at RegroupPhaseStart.
-    if (!empty($combatCtx['dealtToBase'])
-        && _SWUCountUnitsWithCardID(intval($activePlayer), 'SOR_013') > 0
-        && SWUHasUseAvailable(SWUFindLeaderByCardID(intval($activePlayer), 'SOR_013'))) {
-        AddTrigger($activePlayer, 'SOR_013', 'SOR_013', '');
-    }
 }
 
 // Does this card's attack-end ability require the attacker to SURVIVE the attack?

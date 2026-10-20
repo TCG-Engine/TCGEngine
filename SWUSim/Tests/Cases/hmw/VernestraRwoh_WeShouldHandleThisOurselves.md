@@ -921,8 +921,10 @@ P1NODECISION
 
 # ViaMaulFront_SecondCopy_TheNewOneIsDefeated_TheOldStands
 #// Vernestra is UNIQUE. A second copy played through Maul's front with a donor picked takes the deferred
-#// path AND collides with the copy already in play. Maul's step defeats the NEW copy (found by its
-#// marker, never by position), the old one stays, and the gained heal still resolves (5 -> 4).
+#// path AND collides with the copy already in play. The uniqueness rule comes first (CR 2.x.5.b, the moment
+#// the new copy enters — owner 2026-10-20): P1 defeats the NEW copy (index 1). Maul's "then, defeat it" then
+#// finds it gone (by its marker, never by position), the old one stays, and the gained heal still resolves
+#// (5 -> 4). (Picking the OLD copy would lose both, as with JTL_043 — core/UniquenessRule_ImmediateOnControlChange.)
 
 ## GIVEN
 CommonSetup: gyk/rrk/{myResources:5;myLeader:HMW_016;myBase:JTL_024;myBaseDamage:5}
@@ -936,6 +938,7 @@ WithP1Deck: [SOR_095 SOR_128]
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:myDiscard-0
+- P1>ChooseMyGroundUnit:1
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

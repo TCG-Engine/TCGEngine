@@ -202,9 +202,11 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_038
 #// half of the control axis: a second Dooku played by P1 must see the stolen one as just another unit
 #// — it has 4 printed HP and no damage, so it is inside the "4 or less remaining HP" window and must
 #// be offered, and defeating it must send it to its OWNER's discard pile, not the controller's.
-#// ⚠ SOR_038 is UNIQUE, so the two copies cannot coexist: the uniqueness rule resolves at the end of
-#// the action. The section therefore uses the STOLEN copy as the target of the new copy's trigger,
-#// which is also the only ordering in which both copies are ever on the board at once.
+#// ⚠ SOR_038 is UNIQUE, so the two copies cannot coexist — and since 2026-10-20 the uniqueness rule resolves
+#// BEFORE the new copy's triggers (CR 2.x.5.b; owner ruling), not at the end of the action. So the stolen copy
+#// is now defeated by that rule (P1 picks it, myGroundArena-0), and the When Played can no longer offer it —
+#// it is gone by then, and P1 declines the trigger. What this section still pins is the owner-vs-controller
+#// half: the stolen copy goes to its OWNER's (P2's) discard, not the controller's.
 
 ## GIVEN
 CommonSetup: bbk/bbk/{myResources:7;handCardIds:SOR_038}
@@ -213,8 +215,9 @@ WithP1GroundArenaControlled: SOR_038:2
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:-
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

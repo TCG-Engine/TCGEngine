@@ -1713,9 +1713,15 @@ function SWUAddAttackPowerBonus(string $mzID, int $power): void {
 // exists, so the caller can defer the action-end. Returns false when every unique card the player
 // controls is a singleton. Scope: arena units (ground + space); unique upgrades / pilot upgrades
 // (CR 29.3.a) are not yet covered (see SWUSim/Tests/Cases/core/UniquenessRule_* / TODO).
-function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $closesAction = true): bool {
+// $mode 'R' — the regroup phase's start (_SWURegroupStartContinue): there is no action to close, and UNIQUENESS_DEFEAT resumes
+// the suspended regroup step instead. Implies $closesAction = false.
+// $onlyCardID — the copy that just ENTERED play (CollectEntryTriggers, DoRescueUnit): only ITS name + subtitle is checked, the
+// duplicate that copy made. Empty = every unique the player controls (the action-end backstop, the regroup start).
+function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $closesAction = true, string $mode = '', string $onlyCardID = ''): bool {
     $actingPlayer = $actingPlayer ?? intval($player);
     global $playerID, $titleData, $subtitleData, $uniqueData;
+    $keyOf = fn(string $c): string => ($titleData[$c] ?? $c) . '|' . ($subtitleData[$c] ?? '');
+    $onlyKey = $onlyCardID !== '' ? $keyOf($onlyCardID) : '';
     $saved = $playerID;
     $playerID = intval($player); // ZoneSearch("my…") is relative to $playerID; the chosen mzID is
                                  // answered by $player, so "myGroundArena-N" resolves the same on both ends.
@@ -1732,7 +1738,7 @@ function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $clos
             if (SWUObjGone($o)) continue;
             if (!empty($o->IsClone)) continue;   // TWI_116 Clone copy — not unique (ruling)
             $cid = $o->CardID ?? '';
-            if (!empty($uniqueData[$cid])) $unitCardIDs[$cid] = true;
+            if (!empty($uniqueData[$cid]) && ($onlyKey === '' || $keyOf($cid) === $onlyKey)) $unitCardIDs[$cid] = true;
         }
     }
     foreach (array_keys($unitCardIDs) as $cid) {
@@ -1771,13 +1777,20 @@ function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $clos
             if (!empty($o->IsClone)) continue;   // TWI_116 Clone copy — not unique (ruling)
             $cid = $o->CardID ?? '';
             if (empty($uniqueData[$cid])) continue;
-            $key = ($titleData[$cid] ?? $cid) . '|' . ($subtitleData[$cid] ?? '');
+            $key = $keyOf($cid);
+            if ($onlyKey !== '' && $key !== $onlyKey) continue;
             $groups[$key][] = $mz;
         }
     }
     $playerID = $saved;
     foreach ($groups as $mzIDs) {
         if (count($mzIDs) > 1) {
+            // ONE choice at a time per player. Since the rule is raised where the duplicate APPEARS (CollectEntryTriggers,
+            // DoRescueUnit, a control change), a later caller usually finds the choice already queued — the action-end
+            // backstop, or the regroup start. A second prompt would name mzIDs the first answer is about to shift, so the
+            // later caller waits on the queued one instead, and UPGRADES it when it needs more from the answer: the backstop
+            // makes it own the action's close (it returns waiting for it), the regroup start makes it resume that step.
+            if (_SWUUniquenessChoicePending(intval($player), intval($actingPlayer), $closesAction, $mode)) return true;
             // The continuation carries the ACTING player: the chooser may be the NON-acting seat
             // (an exchange/control-give handed THEM the duplicate), and the post-defeat re-entry
             // must resume the acting player's action-end, not the chooser's.
@@ -1785,9 +1798,22 @@ function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $clos
             // continuation must not attempt the close (see $closesAction on the signature).
             SWUQueueChooseTarget(intval($player), $mzIDs,
                 "Uniqueness_rule_choose_a_copy_to_defeat",
-                "UNIQUENESS_DEFEAT|" . intval($actingPlayer) . ($closesAction ? '' : '|1'));
+                "UNIQUENESS_DEFEAT|" . intval($actingPlayer) . ($mode === 'R' ? '|1|R' : ($closesAction ? '' : '|1')));
             return true;
         }
+    }
+    return false;
+}
+
+// True when $player's queue already holds a uniqueness choice (UNIQUENESS_DEFEAT). Its continuation is rewritten to the
+// strongest form asked for: 'R' (resume the regroup start) > closing (re-enter SWUAfterAction as $actingPlayer) > inline.
+function _SWUUniquenessChoicePending(int $player, int $actingPlayer, bool $closesAction, string $mode): bool {
+    $rank = fn(array $p): int => (($p[3] ?? '') === 'R') ? 3 : (empty($p[2]) ? 2 : 1);
+    $want = ['UNIQUENESS_DEFEAT', (string)$actingPlayer] + ($mode === 'R' ? [2 => '1', 3 => 'R'] : ($closesAction ? [] : [2 => '1']));
+    foreach (GetDecisionQueue($player) as $entry) {
+        if (!empty($entry->removed) || strpos(strval($entry->Param ?? ''), 'UNIQUENESS_DEFEAT') !== 0) continue;
+        if ($rank($want) > $rank(explode('|', strval($entry->Param)))) $entry->Param = implode('|', $want);
+        return true;
     }
     return false;
 }
@@ -5926,7 +5952,7 @@ function _SWURescueBaseCaptives(): void {
             if (strpos($flag, 'SWU_BASECAPTIVE|') !== 0) continue;
             $parts  = explode('|', $flag);
             $cardID = $parts[1] ?? ''; $owner = intval($parts[2] ?? 0);
-            if ($cardID !== '' && $owner > 0) DoRescueUnit((object)['CardID' => $cardID, 'Owner' => $owner], null);
+            if ($cardID !== '' && $owner > 0) DoRescueUnit((object)['CardID' => $cardID, 'Owner' => $owner], null, false);
             array_splice($ge, $i, 1);
         }
     }
@@ -6133,7 +6159,10 @@ function _SWUCardEntersReadyFor(int $player, string $cardID): bool {
     return $entersReady;
 }
 
-function DoRescueUnit($captiveSubcard, $hostObj): void {
+// $enforceUnique — a rescued unit enters play as a NEW copy (CR 8.34.3), so the uniqueness rule is raised right here, before
+// anything else resolves (CR 2.x.5.b): inline, the ability or attack that freed it still owns its close. False only for the
+// regroup start, which raises it itself once every captive is home (_SWURegroupStartContinue).
+function DoRescueUnit($captiveSubcard, $hostObj, bool $enforceUnique = true): void {
     global $playerID;
     $savedPID = $playerID;
 
@@ -6165,6 +6194,7 @@ function DoRescueUnit($captiveSubcard, $hostObj): void {
     }
 
     $playerID = $savedPID;
+    if ($enforceUnique && CardUnique($cardID)) SWUEnforceUniqueness($owner, intval(GetTurnPlayer()) ?: $owner, false, '', $cardID);
 }
 
 // SWURescueCaptivesOf — CR 8.34.4: if $hostObj guards any captured units, rescue all of them
@@ -7675,6 +7705,69 @@ function RegroupPhaseStart(): void {
     for ($_s = 1; $_s <= SeatCountForGame(); $_s++) SetSWUVar('SWU_LAST_ACTION_' . $_s, '');
     SetSWUVar('SWU_ACTION_BASEATK', '');
     _SWURescueBaseCaptives();              // SEC_195 Arrest — base captives' owners rescue them now
+    // HMW_200 Rish Loo's control return is the other start-of-regroup delayed effect that can hand a player a second copy of a
+    // unique unit, so it resolves HERE, beside the rescue and ahead of the uniqueness check below — before any other delayed
+    // effect has defeated a unit (whose When Defeated would be HELD in the bag, which does not survive the request the
+    // uniqueness choice ends) and before the "When the regroup phase starts" abilities (owner 2026-10-20).
+    // HMW_200 Rish Loo — "At the start of the next regroup phase, its owner takes control of it."
+    // CONTROL returns to the owner (contrast JTL_235 Commandeer, later in this step, which bounces to hand). Same PERM
+    // per-UID global shape; consumed here so a re-steal in a later round gets a fresh marker. A unit
+    // already gone (defeated while stolen) simply never matches — the marker dies unconsumed.
+    global $playerID;
+    $savedH200PID = $playerID;
+    $h200Found = true;
+    while ($h200Found) {
+        $h200Found = false;
+        for ($hp = 1; $hp <= SeatCountForGame(); $hp++) {
+            $playerID = $hp;
+            foreach (['myGroundArena', 'mySpaceArena'] as $hz) {
+                foreach (ZoneSearch($hz, AnyUnitFilter) as $hmz) {
+                    $ho = GetZoneObject($hmz);
+                    if (SWUObjGone($ho)) continue;
+                    $huid = intval($ho->UniqueID ?? 0);
+                    $marked = false;
+                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
+                        if (GlobalEffectCount($hs, 'SWU_HMW200_RETURN_' . $huid) > 0) { $marked = true; break; }
+                    }
+                    if (!$marked) continue;
+                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
+                        SWUClearGlobalEffectsByPrefix($hs, 'SWU_HMW200_RETURN_' . $huid);
+                    }
+                    $howner = intval($ho->Owner ?? $hp);
+                    if ($howner !== intval($ho->Controller ?? $hp)) {
+                        $playerID = $howner;
+                        $hbackMz = SWUFindMzByUID($huid);
+                        if ($hbackMz !== null) SWUTakeControlOfUnit($howner, $hbackMz);
+                    }
+                    $h200Found = true;
+                    break 3;
+                }
+            }
+        }
+    }
+    $playerID = $savedH200PID;
+    _SWURegroupStartContinue();
+}
+
+// The uniqueness rule at the START OF THE REGROUP PHASE (Bug Report game 1647080, 2026-10-20). A rescued unit enters play as a
+// new copy, so SEC_195 Arrest's regroup rescue can hand its owner a second copy of a unique unit. CR 2.x.5.b makes that a
+// game-state situation that "takes priority over other waiting triggered abilities or action steps": the owner chooses and
+// defeats a copy BEFORE anything else in the regroup phase — before the other start-of-regroup effects, and before anyone draws.
+// The action-end backstop (SWUAfterAction) never runs here — the regroup phase has no action — so the player kept both copies.
+// The rest of the step is SUSPENDED behind the choice, not run past it: its delayed effects defeat and compact units, which would
+// leave the queued choice naming stale mzIDs. UNIQUENESS_DEFEAT (mode 'R') re-enters here once the defeated copy's When Defeated
+// triggers have resolved, which re-checks every seat (a 3-copy pile, or a second seat) before the step goes on.
+function _SWURegroupStartContinue(): void {
+    // Player order from the initiative holder — the active player while nobody is taking an action (CR 1.x.5).
+    $first = 1;
+    for ($p = 1; $p <= SeatCountForGame(); $p++) { if (PlayerHasIniative($p)) { $first = $p; break; } }
+    foreach (SWUSeatsInPlayerOrder($first) as $seat) {
+        if (SWUEnforceUniqueness(intval($seat), intval($seat), false, 'R')) return;
+    }
+    _SWURegroupStartRest();
+}
+
+function _SWURegroupStartRest(): void {
     _SWUCheckConfidenceWin();              // SEC_145 Confidence in Victory — arena-control win check
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     // ── DELAYED effects first (CR 4.b) — "At the start of the regroup phase, …". They resolve automatically,
@@ -7842,42 +7935,6 @@ function RegroupPhaseStart(): void {
                         $j235Found = true;
                         break 3;
                     }
-                }
-            }
-        }
-    }
-    $playerID = $savedSneakPID;
-
-    // HMW_200 Rish Loo — "At the start of the next regroup phase, its owner takes control of it."
-    // CONTROL returns to the owner (contrast JTL_235 directly above, which bounces to hand). Same PERM
-    // per-UID global shape; consumed here so a re-steal in a later round gets a fresh marker. A unit
-    // already gone (defeated while stolen) simply never matches — the marker dies unconsumed.
-    $h200Found = true;
-    while ($h200Found) {
-        $h200Found = false;
-        for ($hp = 1; $hp <= SeatCountForGame(); $hp++) {
-            $playerID = $hp;
-            foreach (['myGroundArena', 'mySpaceArena'] as $hz) {
-                foreach (ZoneSearch($hz, AnyUnitFilter) as $hmz) {
-                    $ho = GetZoneObject($hmz);
-                    if (SWUObjGone($ho)) continue;
-                    $huid = intval($ho->UniqueID ?? 0);
-                    $marked = false;
-                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
-                        if (GlobalEffectCount($hs, 'SWU_HMW200_RETURN_' . $huid) > 0) { $marked = true; break; }
-                    }
-                    if (!$marked) continue;
-                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
-                        SWUClearGlobalEffectsByPrefix($hs, 'SWU_HMW200_RETURN_' . $huid);
-                    }
-                    $howner = intval($ho->Owner ?? $hp);
-                    if ($howner !== intval($ho->Controller ?? $hp)) {
-                        $playerID = $howner;
-                        $hbackMz = SWUFindMzByUID($huid);
-                        if ($hbackMz !== null) SWUTakeControlOfUnit($howner, $hbackMz);
-                    }
-                    $h200Found = true;
-                    break 3;
                 }
             }
         }
@@ -12154,6 +12211,13 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     }
     // HMW_171 Trap Field — a base-hosted reactive fires when a non-leader ground unit enters play.
     SWUCollectTrapFieldReactions($mzID);
+    // The uniqueness rule BEFORE the entering unit's triggers (CR 2.x.5.b, 8.30.3; owner 2026-10-20, JTL_096 Blue Leader's
+    // Ambush + When Played): the choice is queued here, ahead of the flush below, so it is answered first and those triggers
+    // follow. They carry the unit's UID (see above), so the defeat's compaction cannot retarget them. Inline ($closesAction
+    // false): the play still owns its close — the action-end backstop finds this choice pending and upgrades it to close.
+    if ($entO !== null && !empty($GLOBALS['uniqueData'][$entO->CardID ?? ''])) {
+        SWUEnforceUniqueness(intval($entO->Controller ?? $activePlayer), intval($activePlayer), false, '', strval($entO->CardID));
+    }
     // Deferring caller (multi-unit play inside one resolution): leave everything in the bag for it to
     // flush once, and return a non-zero sentinel so ActivateCard does not finalise the action.
     global $gDeferEntryTriggers;
@@ -14587,12 +14651,16 @@ $customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision
     // still in flight and owns its own close. Closing here would end the action early — the close gate
     // grants exactly one close, so the ability's remaining clauses would resolve after the turn passed.
     $inline = !empty($parts[1]);
+    // $parts[2] = 'R': the start of the regroup phase (_SWURegroupStartContinue) is suspended behind this choice.
+    $regroup = ($parts[2] ?? '') === 'R';
     SWULogWithDefeatNote('uniqueness rule', fn() => SWUDefeatUnit(intval($player), $lastDecision));
     // CR 29.3.3 — "the player still must resolve any abilities that trigger upon either copy being
     // defeated", so the bag is flushed either way. UNIQINLINE is the no-finalise resume tag (cf.
     // REGROUP): the When Defeated triggers resolve, then control returns without closing the action.
-    $flushed = FlushEntryTriggerBag(intval($player), $inline ? '|UNIQINLINE' : '');
+    // UNIQREGROUP: the same, then the suspended regroup step resumes.
+    $flushed = FlushEntryTriggerBag(intval($player), $regroup ? '|UNIQREGROUP' : ($inline ? '|UNIQINLINE' : ''));
     DecisionQueueController::CleanupRemovedCards();
+    if ($regroup) { if ($flushed === 0) _SWURegroupStartContinue(); return; }
     if ($flushed === 0 && !$inline) SWUAfterAction($actingPlayer);
     // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers
     // resolve — unless it carries UNIQINLINE, which returns without finalising.
@@ -14680,6 +14748,9 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         // the duplicate is still running and owns the close. Finalising here would end the action
         // early, exactly as the REGROUP case above would.
         if ($continuation === 'UNIQINLINE') { $playerID = $savedPID; return; }
+        // The regroup-start uniqueness defeat (UNIQUENESS_DEFEAT mode 'R'): its When Defeated triggers have resolved, so the
+        // suspended start of the regroup phase carries on (re-checking uniqueness first).
+        if ($continuation === 'UNIQREGROUP') { $playerID = $savedPID; _SWURegroupStartContinue(); return; }
         // A FIELD OBSERVER's own trigger batch (SEC_002 Jabba's "when another friendly unit is dealt damage
         // and survives"). It is flushed from the damage funnel, not from an action ceremony: the action that
         // dealt the damage owns its own close, and this batch usually resolves on the player who is NOT

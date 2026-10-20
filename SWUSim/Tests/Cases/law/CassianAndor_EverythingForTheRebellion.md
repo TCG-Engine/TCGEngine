@@ -127,3 +127,42 @@ P1GROUNDARENAUNIT:1:DAMAGE:3
 P2GROUNDARENACOUNT:0
 P2BASEDMG:2
 P1NODECISION
+
+---
+
+# FriendlyAttackerDiesInTheTrade_StillDeals2
+#// Bug Report game 1647080 (2026-10-20): "his effect is not always triggering … it doesn't trigger when your unit (I tested
+#// with beasts) dies." Cassian is a FIELD observer — "When a friendly unit's attack ends: If the defending unit was defeated" —
+#// so the attacker's survival is not part of it: the attack ends and the defender died, whether or not the attacker lived.
+#// (CR 7.6.16.c: an attack-end ability fires on a dead attacker by default.) It sat below the "attacker defeated → its OWN
+#// triggers don't fire" return in SWUCollectCombatHitTriggers, so a TRADE dropped it. P1's HMW_T03 Beast (3/3) attacks P2's
+#// Beast (3/3): both die, and Cassian deals 2 to P2's base.
+## GIVEN
+CommonSetup: grk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_056:1:0 HMW_T03:1:0]
+WithP2GroundArena: HMW_T03:1:0
+## WHEN
+- P1>AttackGroundArena:1:0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P2BASEDMG:2
+
+---
+
+# CassianHimselfDiesInTheTrade_StillDeals2
+#// Cassian is a friendly unit too (CassianHimselfDefeatsDealBase), and CR 7.6.16.c lets an attack-end ability fire when its
+#// own unit was defeated by that combat — the same reading the LAW_007 Boba Fett observer takes when Boba himself trades.
+#// Cassian (4/4) attacks a 3/7 SOR_046 with 4 damage already on it: both die, and he still deals 2 to P2's base.
+## GIVEN
+CommonSetup: grk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_056:1:1
+WithP2GroundArena: SOR_046:1:4
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2BASEDMG:2
