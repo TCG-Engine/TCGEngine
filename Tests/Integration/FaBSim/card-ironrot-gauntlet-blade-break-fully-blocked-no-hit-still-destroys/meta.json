@@ -1,0 +1,7 @@
+{
+    "name": "Ironrot Gauntlet / Blade Break fully-blocked-no-hit-still-destroys",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:06:20+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Equipment1 plus Generic Wounding Blow blue hand-defense3 exactly blocks4. Persisted attackHitfalse/damage0/HP20 prove no hit. Blade Break still destroys at chain close; both the ordinary hand blocker and equipment reach owner Graveyard after close, never at link resolution. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#ironrot_gauntlet"
+}

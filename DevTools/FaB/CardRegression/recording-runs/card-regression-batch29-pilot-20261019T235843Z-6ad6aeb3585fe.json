@@ -1,0 +1,166 @@
+{
+    "completed_at_utc": "2026-10-19T23:58:43+00:00",
+    "input_file": "card-regression-batch29-pilot.json",
+    "input_sha256": "88f48f2b232e538beed81994eb6b3a0dcc2ddd156e36130108262edf2d212126",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-healing-balm-red-opponent-response-before-life-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 68
+        },
+        {
+            "slug": "card-cosmic-flare-red-gained-asset-funds-followup-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 64
+        },
+        {
+            "slug": "card-blink-blue-gained-asset-funds-followup-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 64
+        },
+        {
+            "slug": "card-blink-blue-hand-opponent-phase-zero-ap",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p2ActionPoints to equal 0, got 1.",
+            "attempted_actions": [
+                {
+                    "playerID": 2,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p2Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ACTION",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "2": [
+                        {
+                            "type": "PEN_INSTANT_CHAIN",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MST_BLUE_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_LIGHTNING",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_INSTANT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_BLUE_GRAVE",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "1": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "2": [
+                        "blink_blue"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 2,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "mstBluePlayedTurn": 2,
+                        "mstBluePlayedPlayer": 2,
+                        "iarPermission": []
+                    }
+                },
+                "omn": {
+                    "2": {
+                        "2": {
+                            "INSTANT:0": 1,
+                            "DISCOUNT:0": 0,
+                            "PLUTONIC": 1,
+                            "STARFALL": 1
+                        }
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "FROZEN_BOUNDED_CNC074_LIVE_DEFENSE_CORRECTION_PENDING_INDEPENDENT_GATE_AND_ACTUAL_NATIVE_RETRY",
+  "files": {
+    "card-regression-batch74-proposed.json": "7f7796ac1e5d36dca240a156030f886760d95b56c46944f0a17d62bcbaadca3e",
+    "card-regression-batch74-pilot-proposed.json": "98279c3ff9d138d5d1ab5c8f556de521066f6afeaf624682548317403ced9a81",
+    "selected-source-contract.php": "5eb7e621468dee720481c30ad8304ed4cc8e8afacc543dbd6af808f0ed8d9fed",
+    "source-and-model-evidence.json": "d17354aafa635930741d9fd6ae598768ac974a17da5c2a176f8ce26aa994b450"
+  },
+  "predecessors": {
+    "card-regression-batch74-proposed.json": "6ba6da34a3e868a4ca69a9f9e4ea092a807ed21e4a007f4aad7368857a998ba5",
+    "card-regression-batch74-pilot-proposed.json": "7f7fad9fc79e5333dcc77d1e7fe850131e504ef67db829950c2f7863215aa063"
+  },
+  "author_script_sha256": "6c23fe763b8c9d5b02c2c85752c7ba33b3c3020c304f2a4d63c702caa25b774c",
+  "source_hash_at_authoring": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+  "native_actions": 0,
+  "native_writes": 0
+}

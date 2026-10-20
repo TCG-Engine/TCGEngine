@@ -1,0 +1,7 @@
+{
+    "name": "Raging Onslaught / ordinary baseline / pitched-for-exact-2",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:27:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, power6, pitch2, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Primary is pitched, not played: initial1 plus printed pitch2 exactly pays Generic Muscle Mutt yellow cost3, leaving resource0. An under-value would leave payment pending; an over-value leaves resources. Supporting attack6 deals6; primary remains Pitch through Close and no turn-end pitch ordering is claimed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#raging_onslaught_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

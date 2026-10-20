@@ -1,0 +1,29 @@
+{
+  "status": "PASS_AUTHOR_STATIC_SCHEMA_PRESERVATION_AND_PRINTED_ARITHMETIC_ONLY",
+  "reviewer": "/root/wtr_reaction_scenarios (author)",
+  "checks": 6609,
+  "cases": 31,
+  "pilots": 5,
+  "nativeAssertionOccurrences": 4066,
+  "authorOnlyCheckOccurrences": 20,
+  "explicitTargetPairNativeAssertions": 31,
+  "stepKindCounts": {
+    "click": 79,
+    "pass_until": 168,
+    "checks": 206,
+    "answer": 9
+  },
+  "nativeActions": 0,
+  "nativeWrites": 0,
+  "independentReview": "PENDING",
+  "currentNativePassingCoverageClaim": false,
+  "files": {
+    "full31-proposed.json": "d52e40bf904486ee36d79589371cdefce1895531f748090bcf25a272b6036b12",
+    "invalid-answer-native-contracts-proposed.json": "6da79110166a0a7b067e0c91f205c8c50c3fa62034bd6e7f3252d1fa9ed66767",
+    "original21-preservation-audit.json": "0798d94ae95dc646b631c8bade3f621e9601b609504cd7039960dc7ba67df1a0",
+    "pilots5-proposed.json": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898",
+    "revised-original21-proposed.json": "b94d03a1b5f0a25929bbb485b19050d0fc6f695a7a5fe139e5a8227da997739b",
+    "scope-source-audit.json": "1512ae85830e150afe4744dc458fb07c826a8614a4f54d65de813f9715ed5f4d",
+    "target-additive10-proposed.json": "4f3a6697fe56dfb7ed36a465bd5dde73ead265351717bd04b9f32b1de103f8e6"
+  }
+}

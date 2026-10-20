@@ -1,0 +1,41 @@
+{
+  "status": "SOURCE_APPROVED_ROOT_NATIVE_CONTRACT_RESULTS_PASS_CLEAN_REPLAY_PENDING",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "script": "boost-boundary-gates/run_native_contracts.php",
+  "scriptSHA256": "c2b57fbea0a99ce9c43b31230d648d85c7899ec0a2421568c7409abca467b716",
+  "guardsSHA256": "e44f952b32fad1128c92fedec051f86b4eac608e0b2b331a1a851ae065da1c4b",
+  "matchedBeforeReview": {"nativeRawHashes": 9, "specRawHashes": 2},
+  "sourceReview": [
+    "Requires explicit --run; validates reviewed sources/specs before creating either game.",
+    "Only reads the exact immutable Throttle fixture; validates all five raw file hashes before and after each contract.",
+    "Creates cryptographically unique regression_fab_boost_contract_* game directories, checks exact resolved containment, and disables engine recording.",
+    "Runs original two actions, verifies exactly one unpaid accepted Boost and the original controlled Stack source, and pins the actual Versions[0] preannouncement hash.",
+    "Injects only reviewed current Deck-to-Graveyard moves in the disposable state, then Write/Parse proves the next real action reads serialized faults with the same pinned undo snapshot.",
+    "Executes the original next pitch, checks all positive contract assertions, and demands failure of the original passing oracle under changed state.",
+    "Rollback requires entire native Versions gameplay-serializer hash equality with the pinned preannouncement snapshot, not just refunded resources/AP.",
+    "Current-top case requires the same source UID/controller on Stack after payment and same physical source on CombatChain after supported passes; Generic cost card must produce no go-again.",
+    "Cleanup resolves the exact owned game child under Games before clearing its cache and recursive deletion; no card-fixture writes or passing recording persistence."
+  ],
+  "observedRootResults": {
+    "path": "boost-boundary-gates/native-contract-results.json",
+    "resultSHA256": "db6aa75585926ec69758398fa29e432197dca6bdba3db61c05b0da7af11a285b",
+    "status": "PASS",
+    "checks": 182,
+    "rollbackChecks": 62,
+    "currentTopChecks": 120,
+    "pinnedUndoSHA256": "947816f25e29a3be41fa0d5019728c54304e48b9626691aff323b6abf337147c",
+    "restoredGameplaySHA256": "947816f25e29a3be41fa0d5019728c54304e48b9626691aff323b6abf337147c",
+    "sourceUID": 3,
+    "bothOriginalOraclesFailedAsIntended": true,
+    "bothOwnedGamesCleaned": true,
+    "cardFixturesWritten": 0,
+    "recordings": 0,
+    "reviewerOnlyReadResults": true
+  },
+  "gate": "Source review plus root's two native contract PASS results clear the reviewed contract gate. Clean current-runtime replay is the remaining plain213 expansion prerequisite.",
+  "scope": "Two disposable fault contracts, not natural card scenarios or added card coverage.",
+  "reviewerNativePHPExecutions": 0,
+  "reviewerGameActions": 0,
+  "reviewerNativeWrites": 0,
+  "deniedOrUncertainAction": null
+}

@@ -1,0 +1,192 @@
+{
+  "status": "ORDINARY228_RULES_SOURCE_AND_ACTION_MODEL_REVIEW_PASS_PENDING_SEPARATE_SUPPORT_DELTA_GATE",
+  "reviewer": "/root/resume_token_specs",
+  "input": {
+    "full": "record-ready-proposed.json",
+    "full_sha256": "4d86f360a670ff8055a7c375468ecc12ae53c0df926b0ef87d6d4dd7eb15d1be",
+    "pilot": "new-pilot7-proposed.json",
+    "pilot_sha256": "0c36f2b98d5ab4e624e830cff48f502b202d6d80db6df26ac77f7b247aeb3010"
+  },
+  "model": {
+    "path": "review_token75_ordinary228.py",
+    "sha256": "94dd3e0dd326b488f27aec86c5d0ea6b0c5b5ff2b5cd72d91980af5390267c74",
+    "report": "independent-rule-model-results.json",
+    "report_sha256": "5cbcc5343789b7918521053909c988fff538d4f0e20629596662c5cdc7320e60",
+    "independent_checks": 105741,
+    "totals": {
+      "cases": 228,
+      "subjects": 12,
+      "printing_records": 33,
+      "oracles": 68076,
+      "modeled_supported_actions": 3021,
+      "modeled_individual_passes": 2610,
+      "ordinary_requirements": 219,
+      "mapped_requirements": 216,
+      "additional_responses": 12,
+      "held_requirements": [
+        {
+          "card_id": "lightning_form_red",
+          "branch": "repeated-independent-copies",
+          "scenario_slugs": [],
+          "status": "REQUIRED_NOT_YET_AUTHORED"
+        },
+        {
+          "card_id": "lightning_form_yellow",
+          "branch": "repeated-independent-copies",
+          "scenario_slugs": [],
+          "status": "REQUIRED_NOT_YET_AUTHORED"
+        },
+        {
+          "card_id": "lightning_form_blue",
+          "branch": "repeated-independent-copies",
+          "scenario_slugs": [],
+          "status": "REQUIRED_NOT_YET_AUTHORED"
+        }
+      ]
+    },
+    "model_faults": [
+      {
+        "fault": "early-token",
+        "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+        "detected": true,
+        "first_error": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot damage_dealt_hit_trigger_pending_token_not_created {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0} independent=1"
+      },
+      {
+        "fault": "missing-layer",
+        "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+        "detected": true,
+        "first_error": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot damage_dealt_hit_trigger_pending_token_not_created {'type': 'zone_count', 'zone': 'Stack', 'value': 1} independent=0"
+      },
+      {
+        "fault": "wrong-token-controller",
+        "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+        "detected": true,
+        "first_error": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot only_trigger_resolution_creates_exact_owned_token {'type': 'zone_count', 'zone': 'p2Arena', 'value': 0} independent=1"
+      },
+      {
+        "fault": "retroactive-ga",
+        "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+        "detected": true,
+        "first_error": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot only_trigger_resolution_creates_exact_owned_token {'kind': 'go_again', 'value': False} independent=True"
+      },
+      {
+        "fault": "no-ap-cost",
+        "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+        "detected": true,
+        "first_error": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot all_assets_paid_no_early_token {'type': 'scalar_zone_equals', 'zone': 'p1ActionPoints', 'value': 0} independent=1"
+      },
+      {
+        "fault": "trigger-even-no-hit",
+        "slug": "card-strike-gold-blue-token75-exact-block-no-hit",
+        "detected": true,
+        "first_error": "card-strike-gold-blue-token75-exact-block-no-hit real_damage_trigger_layer_token_absent {'kind': 'state', 'key': 'window', 'value': 'DAMAGE'} independent=PRIORITY"
+      },
+      {
+        "fault": "hero-qualifier-ignored",
+        "slug": "card-destructive-deliberation-red-token75-ally-target-qualifier",
+        "detected": true,
+        "first_error": "card-destructive-deliberation-red-token75-ally-target-qualifier real_damage_trigger_layer_token_absent {'kind': 'state', 'key': 'window', 'value': 'DAMAGE'} independent=PRIORITY"
+      },
+      {
+        "fault": "hero-only-all",
+        "slug": "card-earth-form-red-token75-ally-target-qualifier",
+        "detected": true,
+        "first_error": "card-earth-form-red-token75-ally-target-qualifier real_damage_trigger_layer_token_absent {'kind': 'state', 'key': 'window', 'value': 'PRIORITY'} independent=DAMAGE"
+      },
+      {
+        "fault": "response-no-heal",
+        "slug": "card-lightning-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+        "detected": true,
+        "first_error": "card-lightning-form-red-token75-actual-opponent-sigil-response-before-token-resolution actual_sigil_resolved_original_hit_layer_still_pending {'type': 'scalar_zone_equals', 'zone': 'p2Health', 'value': 18} independent=15"
+      },
+      {
+        "fault": "allow-rejected-play",
+        "slug": "card-strike-gold-red-token75-zero-ap-ordinary-play-rejected",
+        "detected": true,
+        "first_error": "card-strike-gold-red-token75-zero-ap-ordinary-play-rejected actual_rejected_click_no_payment_hit_trigger_or_token {'type': 'scalar_zone_equals', 'zone': 'PriorityPlayer', 'value': 1} independent=2"
+      }
+    ]
+  },
+  "authorship_disclosure": "Reviewer authored only the new ten-row support-copy correction. Its exact bounded delta needs a distinct reviewer; this artifact does not self-approve that change. Original228 scenarios and12-row Ash material correction were authored by earlier agents.",
+  "required_distinct_delta_gate": {
+    "manifest": "correction-manifest.json",
+    "manifest_sha256": "387413994d1d551b5f54d311fd28039260c7e4b26cd45ffa3cf2a970e79f0933",
+    "delta": "support-setup-correction-delta.json",
+    "delta_sha256": "4d3c2a1635298596a8cd3fbdec21c17b1d95c867ff736f87b72fb62fe755ee1f",
+    "support_max_two_copy_setup": true
+  },
+  "original_preservation": {
+    "original_full": "e1f5a0ee61f998d84fe87a34eb0558f82234cb71cad7888294a461b23202919e",
+    "material_corrected_full": "8f47052076fce0dfd21369d7355b04b40fd1bb826f35c386552e5159e772e99d",
+    "exact_four_saved_pilot_objects": true
+  },
+  "rules_basis": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1d",
+        "6.6.5",
+        "6.6.5a",
+        "6.6.6"
+      ],
+      "supports": "Positive qualified hit creates a separate triggered layer before next priority. That layer creates the token on resolution. A later-created Lightning token cannot trigger on the earlier attack play."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.3",
+        "7.4",
+        "7.5.2",
+        "7.5.3"
+      ],
+      "supports": "Real defense declarations, reaction window, positive damage and hit, damage priority and link/chain completion. Printed source defense is used when blocking rather than its own hit ability."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.20",
+        "8.6.8",
+        "8.6.14",
+        "8.6.15"
+      ],
+      "supports": "A real Ward1 replaces the exactly-one physical packet and destroys its source. Zero damage produces no hit. Ally damage is a hit but only Deliberation explicitly requires a hero."
+    }
+  ],
+  "source_basis": [
+    "Actual WTRAbilities maps exactly twelve functional identities; its heroOnly flag is true only for Deliberation. Queue guard requires positive damage and functional unsuppressed source; captures original controller and action attribution.",
+    "Existing AddStack contract assigns the virtual hit layer UID and physical source identity separately. The reviewed owner/controller/Kind/source/UID checkpoints describe that bounded native representation, not a rules mandate for those field encodings.",
+    "Resolution uses FaBOUTToken for Ponder and FaBHVYToken for the other three, preserving canonical callbacks and replacement effects. This ordinary batch does not directly assert the capturedAction parameter; the separate real Ripple Away dependency scenarios provide its observable attribution witness.",
+    "Arsenal face variants, free defense, printed pitch, reject boundaries and sequential red payments use ordinary supported card actions. Exact funding follows printed pitch; AP is charged only after full payment. Unfundable setup excludes the announced card from other available pitch funding.",
+    "Dromai ally fixtures include native transform material counters UPR_ASH1/DYN_ASH ash. Ash grants phantasm when that permanent attacks; it does not replace the packet dealt to the attacked Ashwing here. Status2 and life1 are the ordinary ready ally state.",
+    "All source cards and support faces are class/talent compatible with the chosen heroes. Same-name pitch colors remain separate functional faces. Support replacements are never played, so their resolution effects are irrelevant to Hand defense or pitch."
+  ],
+  "source_hashes": {
+    "FaBSim/Custom/WTRAbilities.php": "5babe8457b3ae98d249a70c9c2094c18ca734a850fd7818aad4f13983e2ae59f",
+    "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "FaBSim/Custom/GameLogic.php": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/MultiTargetCombat.php": "19604e6f04575fa5eb4e50a95697a8f5780c3adeaa1498de3404c32553230791",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20"
+  },
+  "acceptance_limits": [
+    "No native game action, recorder execution, fixture save or replay was performed by this reviewer.",
+    "After distinct bounded-delta approval, root should run exact pilot7, independently inspect every saved raw5/action/oracle binding, then the remaining exact228 inputs.",
+    "Current-runtime clean deterministic replay and meaningful native fault controls remain required before verified coverage or finite completion can change.",
+    "Three repeated-Lightning ordinary requirements remain held. Typed consumers, phase transitions, arbitrary control/multipliers/simultaneous ordering are separate dependency gates."
+  ],
+  "finite_complete": false,
+  "accepted_native_coverage": 0,
+  "native_imports": 0,
+  "native_writes": 0,
+  "native_game_actions": 0,
+  "citation_revision": {
+    "prior_report_sha256": "987234420e1f2690a5a41d02fbb5087ce66fb4c31abb2351d325d63dfe407f64",
+    "correction": "Only rule section labels corrected after current official keywords page verification: Ward8.3.20, SpectralShield8.6.8, Ash8.6.14, Ashwing8.6.15. Model inputs/results/scope unchanged."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "status": "applied_and_selectively_regenerated",
+  "patch_sha256": "2815c2fb5734e149a864e1323691a5ebb0df7f8d617b1acb6b49375899209557",
+  "sources": [
+    {
+      "path": "Schemas\\FaBSim\\GameSchema.txt",
+      "sha256": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+    },
+    {
+      "path": "FaBSim\\Custom\\GameLogic.php",
+      "sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56"
+    },
+    {
+      "path": "FaBSim\\Custom\\ROSRuntime.php",
+      "sha256": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1"
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "sha256": "1dc258e06b8f0b03a6f4affa41b7ddd25b7265ccc95aa678de8b488234dabb26"
+    }
+  ],
+  "generated": {
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "zzGameCodeGenerator.php",
+      "rootName=FaBSim",
+      "only=ZoneAccessors",
+      "scalarAdder=ActionPoints",
+      "expectedSHA=4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"path\":\".\\/FaBSim\\/ZoneAccessors.php\",\"scalarAdder\":\"ActionPoints\",\"emittedFunctionSHA\":\"3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5\",\"beforeSHA\":\"4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8\",\"afterSHA\":\"9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7\",\"nonselectedBytesPreserved\":true}\n",
+    "stderr": "",
+    "accessor_before": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8",
+    "accessor_after": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "expected_after": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+  },
+  "unselected_generated_files_unchanged": 26,
+  "lints": [
+    {
+      "path": "FaBSim\\Custom\\GameLogic.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim\\Custom\\ROSRuntime.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSRuntime.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "zzGameCodeGenerator.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\zzGameCodeGenerator.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim\\ZoneAccessors.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\ZoneAccessors.php\n",
+      "stderr": ""
+    }
+  ]
+}

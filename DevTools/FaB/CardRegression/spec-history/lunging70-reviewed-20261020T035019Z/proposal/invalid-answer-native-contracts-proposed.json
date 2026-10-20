@@ -1,0 +1,97 @@
+[
+  {
+    "id": "lp030-answer-wrong-actor",
+    "status": "NATIVE_CONTRACT_PENDING_IMMUTABLE_SAVED_PILOT_BINDINGS",
+    "fixtureSlug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+    "action": {
+      "playerID": 2,
+      "mode": 100,
+      "cardID": "p2CombatChain-0",
+      "inputText": ""
+    },
+    "expectedResult": {
+      "success": false,
+      "message": "Invalid selection."
+    },
+    "retainedOracles": "All exact original pending-source/queue/state/economy/HP/power/blocker/native checks at that checkpoint, before and after a Parse boundary. No LP leaves Hand, no costs/AP, no source Stack/GY, exact original candidate and source/eligibleUID/link pair remain. A subsequent valid p2CombatChain-0 answer by player1 must still produce original Stack4 Params(5,1) and resolve normally.",
+    "snapshotPolicy": "Compare native gameplay serialization with transport UpdateNumber/Flash diagnostics handled explicitly; do not assume rejected requests have zero transport metadata updates. Bind five immutable fixture hashes + reviewed runtime before root execution.",
+    "reasonNotOrdinaryRecorderRecipe": "FCR answer checks actor has a queue and FCRAction throws on success=false. Exact engine rejection is required; no fake successful recording or weaker invalid-click substitute."
+  },
+  {
+    "id": "lp030-answer-pass-not-legal-target",
+    "status": "NATIVE_CONTRACT_PENDING_IMMUTABLE_SAVED_PILOT_BINDINGS",
+    "fixtureSlug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+    "action": {
+      "playerID": 1,
+      "mode": 100,
+      "cardID": "PASS",
+      "inputText": ""
+    },
+    "expectedResult": {
+      "success": false,
+      "message": "Invalid selection."
+    },
+    "retainedOracles": "All exact original pending-source/queue/state/economy/HP/power/blocker/native checks at that checkpoint, before and after a Parse boundary. No LP leaves Hand, no costs/AP, no source Stack/GY, exact original candidate and source/eligibleUID/link pair remain. A subsequent valid p2CombatChain-0 answer by player1 must still produce original Stack4 Params(5,1) and resolve normally.",
+    "snapshotPolicy": "Compare native gameplay serialization with transport UpdateNumber/Flash diagnostics handled explicitly; do not assume rejected requests have zero transport metadata updates. Bind five immutable fixture hashes + reviewed runtime before root execution.",
+    "reasonNotOrdinaryRecorderRecipe": "FCR answer checks actor has a queue and FCRAction throws on success=false. Exact engine rejection is required; no fake successful recording or weaker invalid-click substitute."
+  },
+  {
+    "id": "lp030-answer-unlisted-private-source",
+    "status": "NATIVE_CONTRACT_PENDING_IMMUTABLE_SAVED_PILOT_BINDINGS",
+    "fixtureSlug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+    "action": {
+      "playerID": 1,
+      "mode": 100,
+      "cardID": "p1Hand-0",
+      "inputText": ""
+    },
+    "expectedResult": {
+      "success": false,
+      "message": "Invalid selection."
+    },
+    "retainedOracles": "All exact original pending-source/queue/state/economy/HP/power/blocker/native checks at that checkpoint, before and after a Parse boundary. No LP leaves Hand, no costs/AP, no source Stack/GY, exact original candidate and source/eligibleUID/link pair remain. A subsequent valid p2CombatChain-0 answer by player1 must still produce original Stack4 Params(5,1) and resolve normally.",
+    "snapshotPolicy": "Compare native gameplay serialization with transport UpdateNumber/Flash diagnostics handled explicitly; do not assume rejected requests have zero transport metadata updates. Bind five immutable fixture hashes + reviewed runtime before root execution.",
+    "reasonNotOrdinaryRecorderRecipe": "FCR answer checks actor has a queue and FCRAction throws on success=false. Exact engine rejection is required; no fake successful recording or weaker invalid-click substitute."
+  },
+  {
+    "id": "lp030-answer-out-of-range-target",
+    "status": "NATIVE_CONTRACT_PENDING_IMMUTABLE_SAVED_PILOT_BINDINGS",
+    "fixtureSlug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+    "action": {
+      "playerID": 1,
+      "mode": 100,
+      "cardID": "p2CombatChain-99",
+      "inputText": ""
+    },
+    "expectedResult": {
+      "success": false,
+      "message": "Invalid selection."
+    },
+    "retainedOracles": "All exact original pending-source/queue/state/economy/HP/power/blocker/native checks at that checkpoint, before and after a Parse boundary. No LP leaves Hand, no costs/AP, no source Stack/GY, exact original candidate and source/eligibleUID/link pair remain. A subsequent valid p2CombatChain-0 answer by player1 must still produce original Stack4 Params(5,1) and resolve normally.",
+    "snapshotPolicy": "Compare native gameplay serialization with transport UpdateNumber/Flash diagnostics handled explicitly; do not assume rejected requests have zero transport metadata updates. Bind five immutable fixture hashes + reviewed runtime before root execution.",
+    "reasonNotOrdinaryRecorderRecipe": "FCR answer checks actor has a queue and FCRAction throws on success=false. Exact engine rejection is required; no fake successful recording or weaker invalid-click substitute."
+  },
+  {
+    "id": "lp030-answer-multiple-target-answer",
+    "status": "NATIVE_CONTRACT_PENDING_IMMUTABLE_SAVED_PILOT_BINDINGS",
+    "fixtureSlug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+    "action": {
+      "playerID": 1,
+      "mode": 100,
+      "cardID": "p1CombatChain-0&p2CombatChain-0",
+      "inputText": ""
+    },
+    "expectedResult": {
+      "success": false,
+      "message": "Invalid selection."
+    },
+    "retainedOracles": "All exact original pending-source/queue/state/economy/HP/power/blocker/native checks at that checkpoint, before and after a Parse boundary. No LP leaves Hand, no costs/AP, no source Stack/GY, exact original candidate and source/eligibleUID/link pair remain. A subsequent valid p2CombatChain-0 answer by player1 must still produce original Stack4 Params(5,1) and resolve normally.",
+    "snapshotPolicy": "Compare native gameplay serialization with transport UpdateNumber/Flash diagnostics handled explicitly; do not assume rejected requests have zero transport metadata updates. Bind five immutable fixture hashes + reviewed runtime before root execution.",
+    "reasonNotOrdinaryRecorderRecipe": "FCR answer checks actor has a queue and FCRAction throws on success=false. Exact engine rejection is required; no fake successful recording or weaker invalid-click substitute."
+  }
+]

@@ -70,7 +70,7 @@ function FaBEVODefense(int $p,object $o): int {
  return $n;
 }
 function FaBEVOBlockLegal(int $p,array $f): bool {
- $s=FaBGetState();if($p!==intval($s['defender'])||!in_array($s['window'],['DEFEND_DECLARE','REACTION'],true))return true;$a=FaBFindUID(intval($s['attackUID']));if(!$a)return true;$o=$f['object'];$b=FaBWTRBase($a['object']->CardID);
+ $s=FaBGetState();if($p!==intval($s['defender'])||($s['window']!=='DEFEND_DECLARE'&&!FaBReactionPriorityForState($s)))return true;$a=FaBFindUID(intval($s['attackUID']));if(!$a)return true;$o=$f['object'];$b=FaBWTRBase($a['object']->CardID);
  if(FaBEVOLocked($p,intval($o->UniqueID),'NO_DEFEND'))return false;
  if(FaBHasType($o,'Equipment')&&(in_array($b,['lay_waste','out_pace'],true)||($b==='burn_rubber'&&FaBARCEffect(intval($s['attacker']),'ARC_BOOSTED')>=2)))return false;
  if($b==='heavy_artillery'&&FaBWTRIsAttackAction($o)&&intval(CardCost($o->CardID))<FaBEvoCount(intval($s['attacker'])))return false;return true;

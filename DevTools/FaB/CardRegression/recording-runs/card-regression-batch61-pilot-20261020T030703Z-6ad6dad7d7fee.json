@@ -1,0 +1,624 @@
+{
+    "completed_at_utc": "2026-10-20T03:07:03+00:00",
+    "input_file": "card-regression-batch61-pilot.json",
+    "input_sha256": "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "blocked_or_incorrect",
+            "error": "state turnEffects expected {\"1\":[]} got {\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1}]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MST_BLUE_PITCHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "muscle_mutt_yellow"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "penPitchTypes": [
+                            "Warrior",
+                            "Action"
+                        ],
+                        "dynPitchNAA": true,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false
+                    },
+                    "4": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "blocked_or_incorrect",
+            "error": "state turnEffects expected {\"1\":[],\"2\":[]} got {\"1\":[{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_2\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1}]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p2Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "DEFEND_DECLARE",
+                "combatOpen": true,
+                "combatStep": "DEFEND",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [
+                    4
+                ],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Wounding Blow",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 3,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [
+                    4
+                ],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_wounding_blow",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "wounding_blow_red"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    },
+                    "4": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "wounding_blow_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+            "status": "blocked_or_incorrect",
+            "error": "state turnEffects expected {\"1\":[]} got {\"1\":[{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1}]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "muscle_mutt_yellow"
+                    ]
+                },
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "penPitchTypes": [
+                            "Warrior",
+                            "Action"
+                        ],
+                        "dynPitchNAA": true,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false
+                    },
+                    "4": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+            "status": "blocked_or_incorrect",
+            "error": "state turnEffects expected {\"1\":[],\"2\":[]} got {\"1\":[{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_2\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1}]}",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p2Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "DEFEND_DECLARE",
+                "combatOpen": true,
+                "combatStep": "DEFEND",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [
+                    4
+                ],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Wounding Blow",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 3,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [
+                    4
+                ],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_wounding_blow",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "wounding_blow_red"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true
+                    },
+                    "4": {
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "wounding_blow_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        }
+    ]
+}

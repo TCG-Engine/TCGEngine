@@ -1,0 +1,67 @@
+{
+  "status": "independent_actual_saved_two_pilot_review",
+  "native_writes": 0,
+  "game_actions": 0,
+  "checks": 42,
+  "approved_family_sha256": "a6881ae8d8a2670da2c4477d64b2a9e99ec01155a7322151fc3dfc3417e7c111",
+  "approved_pilot_sha256": "1f4a5825a1edec299de0dae78959199e78e1992fcfc8524a65b46a4e0f372362",
+  "fixtures": [
+    {
+      "slug": "card-muscle-mutt-yellow-hand-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "ccd156176b9e79418e5b99dd44ea6546308b860bfd962bcd238b30cd6b5771c3",
+        "initial_gamestate.txt": "e8bb71d64a8acf419695379d662aa99e2d7e58abc6e0aa0db721f9afa9779188",
+        "expected_final_gamestate.txt": "8cd7423cf5cdfe1d24a14963d9ac6b8a3cc74b87cf7be309d42d823b1ce4c1cb",
+        "meta.json": "7b65fd1d693ffc4263302a04b04277da78205a364249ebb9c939518f65beb36a"
+      },
+      "actions": 15,
+      "native_assertions": 46,
+      "all_persisted_assertions_match_approved_spec": true,
+      "final_health": [
+        20,
+        14
+      ],
+      "same_source_UID_and_owner_preserved": true,
+      "stack_chain_frames_queues_marker_drained": true,
+      "limitation": ""
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-defends-for-two-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "8173feceb2bf71c8416390a0328b01b01833e1b789c8d7622bfbdb69736abade",
+        "initial_gamestate.txt": "fe07c4652430fae183562d06a3825eb4f759e85c587686ccdc782b0b57625580",
+        "expected_final_gamestate.txt": "b606b3be45f70b0bfe1a168f95e76e5ebed85e9f006e5a77e438da7cdec435db",
+        "meta.json": "ba26ddd766f8f1bbd7e1a7e5785dd1c08246b9f8c5875c0d45a1fee1c2aa8988"
+      },
+      "actions": 15,
+      "native_assertions": 16,
+      "all_persisted_assertions_match_approved_spec": true,
+      "final_health": [
+        20,
+        20
+      ],
+      "same_source_UID_and_owner_preserved": true,
+      "stack_chain_frames_queues_marker_drained": true,
+      "limitation": "Exact defense2 was checked at recording only; native nohit proves sufficient block2. Separate partial-damage addendum will pin upper bound."
+    }
+  ],
+  "totals": {
+    "actions": 30,
+    "native_assertions": 62
+  },
+  "printed_source": {
+    "url": "https://judge.fabtcg.com/cards/detail/1486/",
+    "id": "muscle_mutt_yellow",
+    "type": "Generic Action Attack",
+    "cost": 3,
+    "power": 6,
+    "defense": 2,
+    "pitch": 2,
+    "functional_text": ""
+  },
+  "scope": "Two actual card branches semantically reviewed; full15family and new16thcase not recorded or qualified here. Parent clean replay and fault controls remain qualification gates."
+}

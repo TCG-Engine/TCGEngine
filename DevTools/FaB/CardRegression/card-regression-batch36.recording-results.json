@@ -1,0 +1,272 @@
+[
+    {
+        "slug": "card-critical-strike-blue-baseline-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-hand-floating-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-arsenal-facedown-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-arsenal-faceup-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-hand-blue-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 83
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-hand-red-pitch-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 83
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-single-three-defense-block",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 85
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-defends-for-3-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-pitched-for-exact-3",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-hand-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-arsenal-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-blue-baseline-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-hand-floating-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-arsenal-facedown-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-arsenal-faceup-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-hand-blue-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 83
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-single-three-defense-block",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 85
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-fully-blocked-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-defends-for-3-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-defends-exactly-3-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-pitched-for-exact-1",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-hand-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-arsenal-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-red-baseline-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-hand-floating-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-arsenal-facedown-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-arsenal-faceup-floating",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 71
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-hand-blue-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 83
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-hand-red-pitch-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 83
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-single-three-defense-block",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 85
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-fully-blocked-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 87
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-defends-for-3-no-hit",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-defends-exactly-3-partial-damage",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 54
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-pitched-for-exact-2",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 78
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-hand-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-arsenal-insufficient-0-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    },
+    {
+        "slug": "card-critical-strike-yellow-baseline-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 19
+    }
+]

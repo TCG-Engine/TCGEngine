@@ -1,0 +1,232 @@
+{
+  "status": "read_only_actual_saved_pilots_reviewed_after_bounded_source_and_attribution_fixes",
+  "native_writes": 0,
+  "game_actions": 0,
+  "fixtures": [
+    {
+      "slug": "card-aether-dart-red-opponent-hero-floating",
+      "file_sha256": {
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "b0784f04f6085761b5f02bc84bd509f627aa95f1341aad3bcfddbbdd71da86a2",
+        "initial_gamestate.txt": "0035e6e883d63c1408782c11eef7a0cd607e324bf36fa59f582cf7b2a512812f",
+        "expected_final_gamestate.txt": "aac33031dc3b8521f68304169e74084338387ad045aef320a034e1df29abbbaa",
+        "meta.json": "ab83b1ac7d0ba90df6e14451268cb62626ad6e364d0caa330e3f201047203f73"
+      },
+      "actual_review_basis": {
+        "approved_pilot_sha256": "74d8252ed27981abe160aebbf4d0fd6dc069e8a4878405ad1d226ad6a9e6d9d6",
+        "four_actions_exact": true,
+        "canonical_normalization": "decision_queue_empty.player2 serializes as string2; no oracle change.",
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 9
+          },
+          {
+            "checkpoint": "target_declared_before_payment_and_damage",
+            "step": 1,
+            "native_assertions": 13
+          },
+          {
+            "checkpoint": "spell_paid_before_resolution",
+            "step": 2,
+            "native_assertions": 14
+          },
+          {
+            "checkpoint": "resolved_damage_assets_and_source_destination",
+            "step": 4,
+            "native_assertions": 18
+          }
+        ],
+        "printed_oracle": "Cost0,3 arcane damage to chosen opponent hero; one AP spent; both resource pools0; own health20/opponent17 after resolution.",
+        "setup": "Own-turn Iyslander Wizard/Ice; known previously healed20 health; opponent Ira20/AP0; single physical source.",
+        "source": "Source Hand to Stack after announce; live Stack and GY0 while declaring target and after payment; final owner Graveyard1 and Stack0.",
+        "expected_snapshot_review": "Terminal GameState ACTION, no combat/pending payment/resolution marker, arcaneDealt1->2=3; final native terminal asset/damage/source assertions exact.",
+        "meta_oracle_preserved": true,
+        "all57_saved_native_assertions_equal_approved_spec_plus_three_strengthening_oracles": true,
+        "additive_native_state_oracles": [
+          {
+            "step": 4,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "arcaneDealt"
+            ],
+            "comparison": "equals",
+            "valueJson": "{\"1\":{\"2\":3}}"
+          },
+          {
+            "step": 4,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "resolvingReaction"
+            ],
+            "comparison": "missing_or_null"
+          },
+          {
+            "step": 4,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "pendingPayment"
+            ],
+            "comparison": "missing_or_null"
+          }
+        ],
+        "behavior_preservation": "actions/initial/final bytes unchanged from reviewed54assertion fixture; only assertions/meta strengthened."
+      },
+      "coverage_status": "One synchronous opponent-hero terminal branch recorded/semantically checked by parent; this read review does not independently rerun it.",
+      "not_proven": [
+        "Source timing during AB/pitch/Spellvoid: no prevention choice in this branch.",
+        "Postfix lifecycle behavior or deterministic clean replay: parent must qualify under its runtime.",
+        "Other11 identities/225 additional proposed branches."
+      ],
+      "semantically_approved": true,
+      "actions": 4,
+      "native_assertions": 57,
+      "persisted_game_state_field_assertions": 3
+    },
+    {
+      "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+      "file_sha256": {
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "6991c03b9ad5a25d2c18fb2d021dd8b4ceecca32b30cdcf9a08b86b50c3bb275",
+        "initial_gamestate.txt": "5e752b9be5dd96a27097910058c804fa1fae3bacd40844af40a3c928325adefc",
+        "expected_final_gamestate.txt": "029d87ebee550ee5508cea8228154f6c123c6be824812cbb3506cde42c3a4706",
+        "meta.json": "5b0d037367064e415723ba5eda34c8a8a5d8545f7a4de937d3f4d8528d2e18a4"
+      },
+      "semantically_approved": true,
+      "actions": 5,
+      "native_assertions": 70,
+      "persisted_game_state_field_assertions": 3,
+      "actual_review_basis": {
+        "original67_native_oracles_and_all5_actions_unchanged_from_reviewed_case": true,
+        "new_native_state_oracles": [
+          {
+            "step": 5,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "arcaneDealt"
+            ],
+            "comparison": "equals",
+            "valueJson": "{\"1\":{\"2\":4}}"
+          },
+          {
+            "step": 5,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "resolvingReaction"
+            ],
+            "comparison": "missing_or_null"
+          },
+          {
+            "step": 5,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "pendingPayment"
+            ],
+            "comparison": "missing_or_null"
+          }
+        ],
+        "pending_source": "Originalstep4Stack1/exists/KindACTION/GY0/HP20/AP0/MZMAYCHOOSE Gloves checks retained.",
+        "final": "Caster1 credited4 tohero2; HNT sourceheroUID1, ownsourceUID3 inownGY once; Glovespersists; HP[20,16]/resources[2,0]/AP[0,0]/Stack0/DQallEmpty/ACTION/priority1; no live frames/marker/payment.",
+        "regression": "Wrong actor snapshot remains quarantined with original hash evidence. Current native state assertion pins correct nested actor map and marker cleanup."
+      },
+      "coverage_status": "Correct fresh native pilot semantically reviewed; parent clean replay and semantic controls still required for deterministic qualification."
+    }
+  ],
+  "runtime_qualification": "Source may have changed since recording; raw fixture hashes bind this review. No current source hash is represented as original recording runtime.",
+  "historical_incorrect_attempt": {
+    "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+    "status": "pre_fix_unsaved_source_timing_failure",
+    "issue": "021",
+    "failure": "Expected Stack count 1, got 0.",
+    "meaning": "Pending AB decision exposes ordinary early clearing; unchanged intended oracle retained.",
+    "current_issue_status": "source_and_attribution_fixed_in_fresh_pilot_pending_clean_replay_and_controls"
+  },
+  "historical_rejected_fixtures": [
+    {
+      "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+      "file_sha256": {
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "d4b267bf3e93cdd8bb876e7ea9c5c26a72180f7f45d7fa73f023922044da81f9",
+        "initial_gamestate.txt": "5e752b9be5dd96a27097910058c804fa1fae3bacd40844af40a3c928325adefc",
+        "expected_final_gamestate.txt": "88260eabd69a721f72fc069e195a160694d309ae3f8085c911de7fcd25cf815e",
+        "meta.json": "b36392549b0a76a9a98941200084dcd0fea55e8aa7b15312f7a73ad96cdfa33e"
+      },
+      "semantically_approved": false,
+      "coverage_status": "hold_incorrect_damage_attribution_even_though_numeric_source_lifecycle_assertions_pass",
+      "actual_review_basis": {
+        "approved_pilot_sha256": "74d8252ed27981abe160aebbf4d0fd6dc069e8a4878405ad1d226ad6a9e6d9d6",
+        "five_actions_exact": true,
+        "all67_saved_native_assertions_equal_approved_spec": true,
+        "canonical_normalization": "decision_queue_empty.player serializes as string; no oracle change.",
+        "checkpoints": [
+          {
+            "checkpoint": "initial",
+            "step": 0,
+            "native_assertions": 9
+          },
+          {
+            "checkpoint": "target_declared_before_payment_and_damage",
+            "step": 1,
+            "native_assertions": 13
+          },
+          {
+            "checkpoint": "spell_paid_before_resolution",
+            "step": 2,
+            "native_assertions": 14
+          },
+          {
+            "checkpoint": "prevention_before_damage_live_source",
+            "step": 4,
+            "native_assertions": 12
+          },
+          {
+            "checkpoint": "resolved_damage_assets_and_source_destination",
+            "step": 5,
+            "native_assertions": 19
+          }
+        ],
+        "setup": "Own-turn Iyslander1 known healed20, Ira2health20/AP0 with generic Nullrune Gloves; caster resources4/victim1; spellUID3/actorheroUID1/defenderheroUID2.",
+        "correct_lifecycle_result": "Step4 source Stack1/exists/KindACTION, ownerGY0, bothHP20/AP0, victimresource1; canonical p2 MZMAYCHOOSE Param p2Equipment-0. Original pending-source assertions unchanged.",
+        "correct_numeric_result": "Caster pays2 and1AP, retains resources2/AP0. Victim pays1, prevents1 of5, HP16; ownHP20; resources[2,0], bothAP0, no pitch; Gloves persists.",
+        "correct_terminal_clearing": "Final source ownerGY1/Stack0, queues empty, ACTION, no pending payment/resolution marker/nonempty await frames.",
+        "incorrect_attribution": {
+          "expected_arcaneDealt": {
+            "1": {
+              "2": 4
+            }
+          },
+          "actual_arcaneDealt": {
+            "2": {
+              "2": 4
+            }
+          },
+          "actual_HNT_DAMAGED_BY_uid": 2,
+          "expected_source_controller": 1,
+          "actual_damage_credit_seat": 2,
+          "source_UID": 3,
+          "actual_damage_source_hero_UID": 2,
+          "other_wrong_credit": "ROS_DAMAGE, ROS_ARCANE and HNT_ARCANE_DEALT recorded under defender2."
+        },
+        "source_explanation": "Generated ResolveCard continuation handler receives chooser player2. Frame locals do not preserve original caster player1; late FaBUPRDeal($player,packetSource3,packetTarget2,4) therefore credits player2. Core CUSTOM dispatch passes the current queue seat.",
+        "do_not_bless": "Numeric replay PASS is insufficient: saved full snapshot pins incorrect caster/source attribution. Hold outside accepted coverage until corrected with explicit attribution oracle."
+      },
+      "not_proven": [
+        "Clean replay numerical results do not resolve attribution defect.",
+        "AB pitching, Spellvoid, granted go again, nested layers, source replacements/foreign ownership and other catalog branches."
+      ]
+    }
+  ]
+}

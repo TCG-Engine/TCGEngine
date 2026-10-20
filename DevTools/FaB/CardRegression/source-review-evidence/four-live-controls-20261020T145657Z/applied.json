@@ -1,0 +1,18 @@
+{
+  "status": "REVIEWED_OPT_IN_FOUR_CONTROLS_INSTALLED_NATIVE_EXECUTION_PENDING",
+  "changed_paths": [
+    "DevTools\\FaB\\CardRegression\\negative_control_state.php",
+    "DevTools\\FaB\\CardRegression\\card_regression_negative_controls.py",
+    "DevTools\\FaB\\CardRegression\\four_live_control_plan.py"
+  ],
+  "runtime_unchanged": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "preserved_fixture_raw5": 3079,
+  "default77_selection_unchanged": true,
+  "four_ids": [
+    "four_sigil_hold_false",
+    "four_dart_source_lost_during_victim4_choice",
+    "four_dart_wrong_arcane_actor",
+    "four_dart_nonadjacent_offer"
+  ],
+  "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\source-review-evidence\\four-live-controls-20261020T145657Z"
+}

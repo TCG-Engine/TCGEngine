@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / arsenal-defense-nine-full-block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power5, cost2; originArsenal. The arsenal-only intrinsic bonus is1; expected current power6. No extra trigger layer or go again is created. Pay exactly2 floating resources and1AP, leaving0/0. Defense9; damage=max(0,6-9)=0; defender life20->20. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_yellow https://judge.fabtcg.com/cards/detail/1175/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

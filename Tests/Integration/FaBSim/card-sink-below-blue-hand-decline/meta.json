@@ -1,0 +1,7 @@
+{
+    "name": "Sink Below / hand-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play defense reaction from Hand. Printed defense 2 prevents 2 of incoming4. Optional exchange is False; only acceptance bottoms chosen card and draws original deck top. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sink_below_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

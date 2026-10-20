@@ -1,0 +1,1423 @@
+{
+  "status": "REQUIREMENTS_PLANNED_NOT_FULL_RECIPES_OR_COVERAGE",
+  "native_batch_reservation": "B72",
+  "requirements": [
+    {
+      "card_id": "surging_militia_red",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pitch pays printedcost2, resource1/AP0; no early effect before attack becomes active.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "red-then-red-payment",
+      "expectation": "Two red1 payments pay resource2; boundaries while pending and after fullpayment; sourceUID retained.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "unfundable-cost-minus-one-reject",
+      "expectation": "Cost1 floating/no other payment cards cannot fund cost2; unchanged source/assets.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "zero-non-equipment",
+      "expectation": "Zero defenders: Surging no bonus, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "one-normal-hand-card",
+      "expectation": "One normal Hand defender counts1: Surging+1, Stony+1.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "two-normal-hand-cards",
+      "expectation": "Two Hand defenders count2: Surging+2, Stony loses+1 immediately.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "three-normal-hand-cards",
+      "expectation": "Three Hand defenders count3: Surging+3, Stony stillno bonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "equipment-only-excluded",
+      "expectation": "Two real Equipment defenders count0: Surging no bonus, Stony+1. Respect supported movement and printed equipment close rules.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "one-hand-plus-two-equipment",
+      "expectation": "Mixed1Hand+2Equipment stillnonEq1; powerpredicate differs from total number defending.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "defense-reaction-pending-then-resolved",
+      "expectation": "Real cost0 Dodge fromHand onStack doesnot count. When it resolves onto currentlink it counts, includingthreshold crossing1\u21922.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "previous-link-defenders-excluded",
+      "expectation": "Prior resolvedlink defenders remain onCC but must not count against next source on newlink; use legal known-state AP2 and real firstattack/blocks, no seededCC/history.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "ordinary-nonattack-defender-counts",
+      "expectation": "A legal Generic NAA with printeddefense is a non-equipment defender too; do not restrict count to AA.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-defense-no-self-bonus",
+      "expectation": "As a defending source these two have printed2; their self attack-power text doesnot add defense.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-own-aura-present",
+      "expectation": "Own Ponder alreadyArena gives currentattacking source+1power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-no-aura",
+      "expectation": "No Aura gives only printedpower.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Ponders stillgrant exactly+1, not perAura.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-only-opponent-aura-negative",
+      "expectation": "Only opponent controlsAura: no sourcepowerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-own-item-only-negative",
+      "expectation": "Own GoldItem is notAura: no powerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-own-aura-present",
+      "expectation": "OwnAura while primarydefends adds exactly+1DEF2\u21923; real4power attackdamage1/HP19, free/AP0.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Auras stillDEF3, not4.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-opponent-only-aura-negative",
+      "expectation": "Aura belongsattacker only: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-own-item-only-negative",
+      "expectation": "OwnItemnotAura: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-enters-during-reaction-attack",
+      "expectation": "Real own PeaceOfMindInstant cost2 resolves creatingPonder while primaryattacking. Powerprinted\u2192printed+1 only afterresolution; no history/state seeding. Supportspell lifecycle assertions remain bounded.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-enters-during-reaction-defense",
+      "expectation": "Defending primaryinitiallyDEF2; real defenderPeaceOfMind createsPonder beforedamage. Finalfresh cachedDEF3/damage boundary proves liveupdate; do not assume cacheddefenseValue refresh immediatelyonAura creation.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "expectation": "Legal primaryownerPrism controlsShield; opponentKano real3activation/BlueDartinstantpermission targetshero; mandatoryWard destroysShield. Power+1 ends beforephysicaldamage; selfhero arcane0, no fakepermissions, no unsupportedStack0 assertionatgenericKano lookawait.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "expectation": "Legal defenderPrism controlsShield and primaryDEF3; attackerKano realBlueDart/mandatoryWard removesShield duringReaction. FreshphysicalDEF2/damage2pins lostbonus. GenericKano lookup lifecycle remains separatelyheld.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-preserved-through-current-combat",
+      "expectation": "Ponder creation/expiry not crossed. Do not run end-phase cleanup as ifAura requiredtoexpire when primarychaincloses.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-own-aura-present",
+      "expectation": "Own Ponder alreadyArena gives currentattacking source+1power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-no-aura",
+      "expectation": "No Aura gives only printedpower.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Ponders stillgrant exactly+1, not perAura.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-only-opponent-aura-negative",
+      "expectation": "Only opponent controlsAura: no sourcepowerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-own-item-only-negative",
+      "expectation": "Own GoldItem is notAura: no powerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-own-aura-present",
+      "expectation": "OwnAura while primarydefends adds exactly+1DEF2\u21923; real4power attackdamage1/HP19, free/AP0.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Auras stillDEF3, not4.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-opponent-only-aura-negative",
+      "expectation": "Aura belongsattacker only: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-own-item-only-negative",
+      "expectation": "OwnItemnotAura: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-enters-during-reaction-attack",
+      "expectation": "Real own PeaceOfMindInstant cost2 resolves creatingPonder while primaryattacking. Powerprinted\u2192printed+1 only afterresolution; no history/state seeding. Supportspell lifecycle assertions remain bounded.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-enters-during-reaction-defense",
+      "expectation": "Defending primaryinitiallyDEF2; real defenderPeaceOfMind createsPonder beforedamage. Finalfresh cachedDEF3/damage boundary proves liveupdate; do not assume cacheddefenseValue refresh immediatelyonAura creation.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "expectation": "Legal primaryownerPrism controlsShield; opponentKano real3activation/BlueDartinstantpermission targetshero; mandatoryWard destroysShield. Power+1 ends beforephysicaldamage; selfhero arcane0, no fakepermissions, no unsupportedStack0 assertionatgenericKano lookawait.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "expectation": "Legal defenderPrism controlsShield and primaryDEF3; attackerKano realBlueDart/mandatoryWard removesShield duringReaction. FreshphysicalDEF2/damage2pins lostbonus. GenericKano lookup lifecycle remains separatelyheld.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-preserved-through-current-combat",
+      "expectation": "Ponder creation/expiry not crossed. Do not run end-phase cleanup as ifAura requiredtoexpire when primarychaincloses.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "hand-floating-unblocked",
+      "expectation": "Hand source under legal Generic hero, AP1, exact floating cost. Printed attack power evaluated with zero defenders/noAura unless family condition says otherwise, real damage, noGA/APrefund, owner close.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "arsenal-face-down",
+      "expectation": "Own face-down Arsenal played through FSM; exact origin/sourceUID retained and same static behavior.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "arsenal-face-up",
+      "expectation": "Own face-up Arsenal played through FSM; no extra effect arises from this origin.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "overfund-one",
+      "expectation": "Printed resourcecost+1 leaves resource1, exactly AP1 spent.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "zero-ap-reject",
+      "expectation": "Own turn MAIN priority and sufficient resources/AP0; supported click leaves source/assets/zones unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "wrong-priority-reject",
+      "expectation": "Wrong actor priority; source/assets/zones unchanged by actual attempted click.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "nonturn-ordinary-reject",
+      "expectation": "Actor has priority outside their turn/AP0, no real instant permission; ordinary AA cannot play.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "graveyard-origin-reject",
+      "expectation": "Source ownGY with no printed permission; supported click leaves state unchanged.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "printed-pitch",
+      "expectation": "Use primary as legal pitch payment for distinct Generic cost3 AA. Exact assets1/2/3 and sourcePitch UID, no primary effect merely from pitch.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "printed-defense-no-aura",
+      "expectation": "Primary freely declared to block Generic4 attack at defenderAP0, no Aura. All9 printedDEF2\u2192damage2/HP18; owner close and no primary play ability.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "exact-full-block",
+      "expectation": "Legal ordinary defenders sum to exact dynamic power; no negative damage/hit. Solve Surging base+k versus defender sum; do not assume fixed printed attack power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "overblock",
+      "expectation": "Defenders exceed dynamic power; damage0/attackHitfalse and cleanclose.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-own-aura-present",
+      "expectation": "Own Ponder alreadyArena gives currentattacking source+1power.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-no-aura",
+      "expectation": "No Aura gives only printedpower.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Ponders stillgrant exactly+1, not perAura.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-only-opponent-aura-negative",
+      "expectation": "Only opponent controlsAura: no sourcepowerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-own-item-only-negative",
+      "expectation": "Own GoldItem is notAura: no powerbonus.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-own-aura-present",
+      "expectation": "OwnAura while primarydefends adds exactly+1DEF2\u21923; real4power attackdamage1/HP19, free/AP0.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "expectation": "Two controlled Auras stillDEF3, not4.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-opponent-only-aura-negative",
+      "expectation": "Aura belongsattacker only: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-own-item-only-negative",
+      "expectation": "OwnItemnotAura: primaryDEF2.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-enters-during-reaction-attack",
+      "expectation": "Real own PeaceOfMindInstant cost2 resolves creatingPonder while primaryattacking. Powerprinted\u2192printed+1 only afterresolution; no history/state seeding. Supportspell lifecycle assertions remain bounded.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-enters-during-reaction-defense",
+      "expectation": "Defending primaryinitiallyDEF2; real defenderPeaceOfMind createsPonder beforedamage. Finalfresh cachedDEF3/damage boundary proves liveupdate; do not assume cacheddefenseValue refresh immediatelyonAura creation.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "expectation": "Legal primaryownerPrism controlsShield; opponentKano real3activation/BlueDartinstantpermission targetshero; mandatoryWard destroysShield. Power+1 ends beforephysicaldamage; selfhero arcane0, no fakepermissions, no unsupportedStack0 assertionatgenericKano lookawait.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "expectation": "Legal defenderPrism controlsShield and primaryDEF3; attackerKano realBlueDart/mandatoryWard removesShield duringReaction. FreshphysicalDEF2/damage2pins lostbonus. GenericKano lookup lifecycle remains separatelyheld.",
+      "status": "PLANNED_NOT_RECORDED"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-preserved-through-current-combat",
+      "expectation": "Ponder creation/expiry not crossed. Do not run end-phase cleanup as ifAura requiredtoexpire when primarychaincloses.",
+      "status": "PLANNED_NOT_RECORDED"
+    }
+  ],
+  "requirement_count": 228,
+  "card_ids": [
+    "surging_militia_red",
+    "surging_militia_yellow",
+    "surging_militia_blue",
+    "stony_woottonhog_red",
+    "stony_woottonhog_yellow",
+    "stony_woottonhog_blue",
+    "yinti_yanti_red",
+    "yinti_yanti_yellow",
+    "yinti_yanti_blue"
+  ],
+  "pilot_mappings": [
+    {
+      "card_id": "surging_militia_red",
+      "branch": "one-normal-hand-card",
+      "pilot_slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "two-normal-hand-cards",
+      "pilot_slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-own-aura-present",
+      "pilot_slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-own-aura-present",
+      "pilot_slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present"
+    }
+  ],
+  "required_live_response_construction": {
+    "aura_enters": "Own real PeaceOfMind Instant cost2 createsPonder afterresolution during Reaction; sourcecard/permissions not faked. Own prevention effect doesnot replace attack damage to otherhero.",
+    "aura_destroyed": "Prism primaryownercontrolsShield knownstate; otheractorKano has resources3/BlueDart topDeck. Realactivation\u2192toplookmaychoose\u2192Banishinstantpermission\u2192BlueDart targetPrismHero\u2192mandatoryWardchoice destroysShield with arcane0. Yinti attackpower+1 ends or defendingbonus ends beforefreshphysicaldamage. Full source/protocol-derived live recipes required before claiming these branches."
+  },
+  "completion_conditions": [
+    "Independently reviewed exact printed-text branch contract, all9 ownstats/costs/origins/rejections and relevant count/Aura/role/liveness conditions.",
+    "Actual correct recordings and independent raw5/behavior/action/oracle semantic reviews, fresh deterministic2x replay and meaningful semanticcontrols; current suite/runtime qualification.",
+    "No finite-completion declaration from initial4pilots alone; unimplemented/incorrect branches remain precisely held."
+  ],
+  "external_holds": [
+    "Abilityloss/restoration/copy, power/defense gain prohibition/replacement/caps, foreigncontroller/owner/multiplayer, simultaneous arbitrary additional effects.",
+    "Source card gained/lostcardtypes or Aura type effects beyond listed ordinary boolean/ownership cases."
+  ],
+  "native_writes": 0,
+  "game_actions": 0
+}

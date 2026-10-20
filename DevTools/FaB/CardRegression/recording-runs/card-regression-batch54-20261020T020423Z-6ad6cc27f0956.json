@@ -1,0 +1,254 @@
+{
+    "completed_at_utc": "2026-10-20T02:04:23+00:00",
+    "input_file": "card-regression-batch54.json",
+    "input_sha256": "27287f80a25c17fa50599e14853b170fa69a0c00b6cc2e372ea37c0195238860",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 171
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 54
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 171
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 54
+        },
+        {
+            "slug": "card-sic-em-shot-yellow-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 171
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 58
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-hand-arrow-requires-arsenal-even-with-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 54
+        },
+        {
+            "slug": "card-sic-em-shot-blue-innate-ga-arsenal-arrow-arsenal-requires-bow-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        }
+    ]
+}

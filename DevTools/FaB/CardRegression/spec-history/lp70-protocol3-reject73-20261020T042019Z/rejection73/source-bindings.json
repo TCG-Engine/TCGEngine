@@ -1,0 +1,42 @@
+{
+  "frameworkSourceIndependentReview": {
+    "path": "expected-rejection-independent-source-review.json",
+    "SHA256_raw": "b17f6fea7192f544d2b5940ba949dbedb1a817884808fe448c511e46625e37b0"
+  },
+  "nativeCurrentSourceSHA256_raw": {
+    "Core/RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+  },
+  "oldPackageSHA256_raw": {
+    "anchors.json": "00d49635f9aad81e941cc1e0907e03ec3034efdd9bb43bfd7fa1e6aedb2f99c4",
+    "candidate-record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20",
+    "candidate-RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "component-check.php": "a6a579a219ab975e8aeb39161e15808f7c14fc2f2768857519d018d032eba405",
+    "component-extraction.json": "f85c5d13806f88be112249bfafe4a57e288fbdc2932e9ad741f1283a1a9ae3cf",
+    "component-results.json": "ea587763e262c74d72379d2e4ac9fc56999d64dd4a35a4169708152f671736b5",
+    "expected-rejection-proposed.patch": "846f6ab3200e367846117c5878b18ba5a28d3050176aefabc04f921a7dd2168f",
+    "fault-author-allows-success.php": "14ad8cf56c3a4d235a0be7c18dd5d1796c152fe976d17eb254fe6adfd8270c77",
+    "fault-author-ignores-message.php": "e762a5e48e0519152736fe3c8fa3e11388dcaa4f98bf497bda2a3258a8a1cfdd",
+    "fault-author-skips-actual-request.php": "966dfebb82aa52f94f414208a3c6da56574ef8ac7a3b933c132cfe883243da57",
+    "fault-author-skips-postchecks.php": "73df6ef8f7bca8ec699c4203863a7ad45364599dc0c74d6635ccf0accc67ac3a",
+    "fault-normalize-drops-marker.php": "d5f574b426bb738a4574746baf874b801c6f038fc492961d9b21d7c1035887ff",
+    "fault-results.json": "4c93d8276208afa3006e7720dba43d5a5eaa52fef31a9dedcbc69a5487603bd7",
+    "fault-ui-allows-unexpected-success.php": "f811fe86b1bdf1034a3d7185faf382fc8dd3349f219870800dae7777aa9bee55",
+    "fault-ui-ignores-postassertions.php": "666ad82aaaabfbcdd85c4d4f55f7eddc15dbc5940347ab800a6665fb01531afe",
+    "fault-ui-wrong-step.php": "8f6552f840ebc4ff61b2be5212264de30f21a1703eefed4c58af36632ac0c50b",
+    "lint-results.json": "3b21cb8880a30eae81f9857805e3334aa96dbd3369f9cbc2c16ea8233fb1527b",
+    "lunging-rejection5-delta-audit.json": "a2c7bc29691f1cafb53d8283713208bd8f781a1bedc5bd0d1b7313a6a17121f7",
+    "lunging-rejection5-proposed.json": "30b4e7bdc25704114169e1ce53c7ad851ff9203f7282489fb3a15669a58f81ec",
+    "manifest.json": "eb836e07bbb145a6930b685c6065444dfd30cfd9e6ac42d1332cf229c43f7c4f",
+    "README.txt": "146d17d7a98920aaaeef7917ce7918b50de48aed27e52bc02d601cf38cb9a7e6",
+    "source-audit.json": "6d11f6c32fb0c8bc21ec0313bfdb6b4d53a7d18bca49b34b233f2be8ac0914bf",
+    "validation.json": "9831d49d2bfd4be9cf293bb3057be22c586ce446f1457faa1739ed612f1f48f4",
+    "write-contract.json": "8ef0eecc83cb9b06d0beb3fb0bbe480bba8c681da5630414e167e64aeeb82d37",
+    "beforeimages\\Core\\RegressionTestFramework.php": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d",
+    "beforeimages\\DevTools\\FaB\\CardRegression\\record_card_regressions.php": "de2813a1f1d56801361c0b8b393c92bbf97866d1efd48d87182280b184acf268"
+  },
+  "builderSHA256_raw": "a13dc7e8b11e1365199334a7836cb7b3a4a574d54c7033bf9b8065d5930ea5d6",
+  "nativeActions": 0,
+  "nativeWrites": 0
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "step": 7,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 11
+    },
+    {
+        "step": 7,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "cardID": "sigil_of_solace_blue"
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 7
+    }
+]

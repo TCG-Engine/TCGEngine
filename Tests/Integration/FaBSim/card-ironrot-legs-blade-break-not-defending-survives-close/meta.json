@@ -1,0 +1,7 @@
+{
+    "name": "Ironrot Legs / Blade Break not-defending-survives-close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:02:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Leave equipment equipped while taking unblocked4. Since it never defended, Blade Break never triggers, and equipment stays equipped/GY0 after close. Hero damage alone cannot trigger Blade Break. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#ironrot_legs"
+}

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T00:17:00+00:00",
+    "input_file": "card-regression-batch32.json",
+    "input_sha256": "d1c1e66c77fb06f7cf9491680c3519760abbe85121e0cad5ca83f89f25c11e9a",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 328
+        }
+    ]
+}

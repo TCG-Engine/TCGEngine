@@ -1,0 +1,7 @@
+{
+    "name": "Count Your Blessings / conditional heal / empty-graveyard-blue-pays-two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:07:17+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost2 is paid by a real blue3 pitch, leaving1 resource. An Instant keeps1AP. There were zero Count Your Blessings in this player graveyard when its resolution effect counts them; resolving source does not count itself. Red therefore heals exactly3, HP10->13, and then clears to graveyard. Current legacy macro -1 compensates for early source clearing; this scenario does not qualify the internal lifecycle timing. Sources: https://judge.fabtcg.com/cards/detail/3331/ FaBSim/GeneratedCode/cardArrayCache.json#count_your_blessings_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

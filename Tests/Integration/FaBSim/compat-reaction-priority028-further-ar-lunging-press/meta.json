@@ -1,0 +1,7 @@
+{
+    "name": "Issue028 native compatibility / further-ar-lunging-press",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:51:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "After actual Razor resolves above Dodge, attacker has priority during the continuing Reaction Step. Actual Lunging Press blue cost0 must be announced above Dodge, then add its printed1 to power7 for8. Dodge2 leaves6 damage, hero14. Only the first real Razor grants its hit ability; resolve that ability before the single Resolution AP refund and Close. UID5 and6 distinguish duplicate Razor copies. Sources: https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/07-combat/#742b https://rules.fabtcg.com/en/cr/07-combat/#742c https://rules.fabtcg.com/en/cr/07-combat/#743 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537"
+}

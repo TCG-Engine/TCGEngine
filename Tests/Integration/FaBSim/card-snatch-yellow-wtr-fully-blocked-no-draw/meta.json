@@ -1,0 +1,7 @@
+{
+    "name": "Snatch / fully-blocked-no-draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:36+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR1.6.2c: a hit queues the draw layer, which grants a response window before drawing. Printed Snatch yellow: cost 0, power 3, no go again; draw exactly one card only on a hit. Defense 3 gives 0 damage. Full block produces zero damage and no hit, so both distinct deck cards remain and hand stays empty. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snatch_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

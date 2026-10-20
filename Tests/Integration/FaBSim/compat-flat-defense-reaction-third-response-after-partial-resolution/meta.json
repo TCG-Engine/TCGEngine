@@ -1,0 +1,7 @@
+{
+    "name": "Defense Reaction / legal third response after partial two-layer resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:40:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "During the Reaction Step, after Razor resolves above an original pending Dodge, turn-player gets priority. One real pass gives the attacked hero priority; they may play a third reaction, Evasive Leap red, even while Dodge remains on Stack. Expect Stack2 after that actual click, combatStep REACTION unchanged, AP0 and zero early defense. Evasive resolves first for defense3, Dodge second adds2. Razor gives attack power7; damage2 leaves hero18. Real Razor hit ability resolves before its go-again refund gives1AP at Resolution. Close places original source UIDs in owner Graveyards in actual resolution/chain order. Sources: https://rules.fabtcg.com/en/cr/07-combat/#742b https://rules.fabtcg.com/en/cr/07-combat/#743 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#dodge_blue FaBSim/GeneratedCode/cardArrayCache.json#evasive_leap_red FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_red"
+}

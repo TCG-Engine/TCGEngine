@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / rule probe / prior-link AA remains legal during actual weapon attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:56:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "First Surging costs2/1AP and hits for5. Printed go again restores AP1 at its real Resolution, leaving resources1. Activate actual Kodachi during Resolution using resources1/AP1: it creates real second-link weapon attack proxy UID6; earlier SurgingUID3 stays faceup on chain1. With no pitch, current Kodachi has power1/no go again. Only Surging is a public attack action CARD legal for Lunging Press; current weapon attack is ineligible. During the actual second Reaction, source LungingUID4 is legally playable and cannot be rejected merely because current attack is a weapon. Normal source click must put it on Stack as its own original ATTACK_REACTION UID4. The probe stops at that earliest expected native source/Stack checkpoint; no passing fixture or target-power claim is authorized by this proposal. Sources:"
+}

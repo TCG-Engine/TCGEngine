@@ -1,0 +1,7 @@
+{
+    "name": "Enlightened Strike / missing-additional-cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The mandatory extra hand card is absent; cannot announce Enlightened Strike even though printed resource cost is zero. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

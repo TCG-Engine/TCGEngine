@@ -1,0 +1,7 @@
+{
+    "name": "Wounded Bull / lower-grant-persists-after-heal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:38:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources. Sources: https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

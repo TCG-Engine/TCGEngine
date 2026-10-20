@@ -1,0 +1,588 @@
+{
+  "status": "AUTHOR_VISUAL_SOURCE_CHECK_NOT_INDEPENDENT_SCENARIO_REVIEW",
+  "reviewer": "/root/wtr_reaction_scenarios",
+  "cardCount": 27,
+  "checks": 189,
+  "nativeActions": 0,
+  "nativeWrites": 0,
+  "observations": [
+    {
+      "cardID": "dust_runner_outlaw_red",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 1,
+        "power": 4,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_red.webp",
+      "localPrintedFaceRawSHA256": "ed22f7a33ed457649ced477393be7b028448a7da7835e5edabdfee98a9a7898d",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CIN011.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "dust_runner_outlaw_yellow",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 2,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_yellow.webp",
+      "localPrintedFaceRawSHA256": "a99b770caae3312c21ab4f1a1633f04911590ef18ac0db82908f6fa9801c4c49",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR067.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "dust_runner_outlaw_blue",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 3,
+        "power": 2,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\dust_runner_outlaw_blue.webp",
+      "localPrintedFaceRawSHA256": "9122af031b95c46d433f1e7a73986367500d88aae9c035d133a2152e4d17e804",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI024.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "electrolyze_red",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 1,
+        "power": 4,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_red.webp",
+      "localPrintedFaceRawSHA256": "5fafbc3f52e201ae76400eb9fcb3e178a8c3ed6708c0837cb4184713eee17dd6",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM171.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "electrolyze_yellow",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 2,
+        "power": 3,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_yellow.webp",
+      "localPrintedFaceRawSHA256": "f0d3ba5c1ec16159324e252c5019cf0dd10e8f86214e35648582bd5893a845be",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OMN164.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "electrolyze_blue",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 3,
+        "power": 2,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\electrolyze_blue.webp",
+      "localPrintedFaceRawSHA256": "88c7347842dee077160bf3fbaaa43317506534e244990f4a1cba1e4ffde1cb4a",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OMN165.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "fry_red",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 1,
+        "power": 3,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_red.webp",
+      "localPrintedFaceRawSHA256": "0fed30ef2d530d9c6d91822ff201b982f7549de534e935bdce9d34030db74d27",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AUA009.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "fry_yellow",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 2,
+        "power": 2,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_yellow.webp",
+      "localPrintedFaceRawSHA256": "2cc2183b7befd29052b48190dff8779c5d49b9bbd2ca72294876394f90a1ad21",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AUR016.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "fry_blue",
+      "visualObservation": {
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 3,
+        "power": 1,
+        "defense": 0,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\fry_blue.webp",
+      "localPrintedFaceRawSHA256": "276e6378e4a1d4e9702e08fce9a9e852846f4ac82464e0d1a40be683f64571e6",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS094.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "head_jab_red",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 1,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_red.webp",
+      "localPrintedFaceRawSHA256": "f473fe6e3254642be83f73b362bc25b1dc12de91762ff876fe0d6bee24599442",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN010.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "head_jab_yellow",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 2,
+        "power": 2,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_yellow.webp",
+      "localPrintedFaceRawSHA256": "9e7bc163f39f719ba9d5e9572237a904672d3f31083360355307a616cf75e9eb",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN017.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "head_jab_blue",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 3,
+        "power": 1,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\head_jab_blue.webp",
+      "localPrintedFaceRawSHA256": "fd4329d2348dc70bfc53ba314f2bdd3766819afd349544ca11579d8135c2b953",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN024.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "leg_tap_red",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 1,
+        "power": 4,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_red.webp",
+      "localPrintedFaceRawSHA256": "e655fa725e43e0842322aac1a517ee6790b05cee3f4c9775b2ef11eef453f9f6",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP116.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "leg_tap_yellow",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 2,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_yellow.webp",
+      "localPrintedFaceRawSHA256": "69ba826efc5abcdffe08cf189dbd4a0db525bf160a5bc4eb4a4cb0ed10bd59d3",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP117.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "leg_tap_blue",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 3,
+        "power": 2,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\leg_tap_blue.webp",
+      "localPrintedFaceRawSHA256": "85288baceddcff70e8306f0f25c5f8173b6ea392c61e0b64a0ec08f5ff25cf87",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP118.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "rebellious_rush_red",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 1,
+        "power": 5,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_red.webp",
+      "localPrintedFaceRawSHA256": "a7216f01f46fda7bb94a161fbf5524a431c31d3c9f56fd5d1d232731c590559b",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI017.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "rebellious_rush_yellow",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 2,
+        "power": 4,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_yellow.webp",
+      "localPrintedFaceRawSHA256": "d935f70720e8302a34dddfe1ae497470aba695b521de782a3dc4dd4d539b6189",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR073.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "rebellious_rush_blue",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 3,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\rebellious_rush_blue.webp",
+      "localPrintedFaceRawSHA256": "3ae1d6ba11eb1b49b429429fb50f6b5b030c6e7a136616357fc671cb4243e703",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR074.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "ronin_renegade_red",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 1,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_red.webp",
+      "localPrintedFaceRawSHA256": "0a0f097e65d65e506e7921d35e7fafe0dd7f2373969d51cdb88354a593fbe5e8",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CIN018.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "ronin_renegade_yellow",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 2,
+        "power": 2,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_yellow.webp",
+      "localPrintedFaceRawSHA256": "ffde37e48273e3ea4dc0f5658cb6dafe66b98dd7b7dfae1e5e48835c5e057028",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR079.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "ronin_renegade_blue",
+      "visualObservation": {
+        "types": [
+          "Draconic",
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 0,
+        "pitch": 3,
+        "power": 1,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\ronin_renegade_blue.webp",
+      "localPrintedFaceRawSHA256": "eaf82b07d8975bd21377ca63ae117b3b29b97d2d0a5540ed7ff90695a9f7285a",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI023.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "sic_em_shot_red",
+      "visualObservation": {
+        "types": [
+          "Ranger",
+          "Action",
+          "Arrow",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 1,
+        "power": 4,
+        "defense": 3,
+        "functionalText": "Go again",
+        "arrowReminder": true
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_red.webp",
+      "localPrintedFaceRawSHA256": "83161b1fda5b061a95e54b8af8adceded0be9de8f25d50306eb7004f1c31d42a",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP252.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "sic_em_shot_yellow",
+      "visualObservation": {
+        "types": [
+          "Ranger",
+          "Action",
+          "Arrow",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 2,
+        "power": 3,
+        "defense": 3,
+        "functionalText": "Go again",
+        "arrowReminder": true
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_yellow.webp",
+      "localPrintedFaceRawSHA256": "c4abda5d0895939f5b11216e56659c640e6205a7ae1d1b8a626303bf5044dffc",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP253.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "sic_em_shot_blue",
+      "visualObservation": {
+        "types": [
+          "Ranger",
+          "Action",
+          "Arrow",
+          "Attack"
+        ],
+        "cost": 1,
+        "pitch": 3,
+        "power": 2,
+        "defense": 3,
+        "functionalText": "Go again",
+        "arrowReminder": true
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\sic_em_shot_blue.webp",
+      "localPrintedFaceRawSHA256": "72c613ceea8d934c456906f23186c8d9dc127f7f0281b71d192a95f9fa314931",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP254.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "surging_strike_red",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 1,
+        "power": 5,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_red.webp",
+      "localPrintedFaceRawSHA256": "b4064cff5d0916e682964b1d7361709e81b7bc1aa2d687907d85bcdf0b823ed8",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP125.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "surging_strike_yellow",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 2,
+        "power": 4,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_yellow.webp",
+      "localPrintedFaceRawSHA256": "1e53466fff905c688dbe0010041121b4f41228df669d36267663bbb8e023888d",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP126.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    },
+    {
+      "cardID": "surging_strike_blue",
+      "visualObservation": {
+        "types": [
+          "Ninja",
+          "Action",
+          "Attack"
+        ],
+        "cost": 2,
+        "pitch": 3,
+        "power": 3,
+        "defense": 2,
+        "functionalText": "Go again",
+        "arrowReminder": false
+      },
+      "localPrintedFace": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\surging_strike_blue.webp",
+      "localPrintedFaceRawSHA256": "63cd67b649039e3c2c7f065cba636d24c2121373ea1a590aabf762bb804e1699",
+      "catalogSelectedOfficialImageURL": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP127.webp",
+      "printingQualification": "The local face may be an earlier art/edition than the catalog-selected official URL; the observed printed functional values match. No fetch/inspection of that remote URL is claimed."
+    }
+  ],
+  "inspectionSheets": {
+    "red": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\printed-source-review\\red.jpg",
+      "rawSHA256": "173164fed7c0e86ca6651589959b49941669569d1f21600526478af5ead1dc8f"
+    },
+    "yellow": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\printed-source-review\\yellow.jpg",
+      "rawSHA256": "976ad3c2e1023c765b90b4376d3ebe30f72ab25901b622f5b9739016bce9e24f"
+    },
+    "blue": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\printed-source-review\\blue.jpg",
+      "rawSHA256": "a9fe57fef14500726669c692db68195d741216c51e6e8d48df78ad678c55de00"
+    }
+  },
+  "rulesRead": [
+    "CR8.3.5b and CR7.6.2: attack go again gains one AP at beginning of Resolution, with no hit requirement.",
+    "CR8.2.6a: Arrow play from Arsenal while controlling Bow; Hand defense and pitch are not play.",
+    "CR7.3.2a/b: actual hand cards with a numeric defense property, including0, may defend; no play cost or resolution abilities apply.",
+    "CR5.1.5-7 and CR8.1.1c: ordinary action play requires its full printed assets plus one AP; illegal play reverses.",
+    "CR7.5-7.7: ordinary physical damage and final chain-close card clearing."
+  ],
+  "qualifications": [
+    "The printed faces and metadata are inputs; no oracle was copied from live engine results.",
+    "The resulting recipes still require another reviewer and supported native recording/replay.",
+    "Printed-card dynamic modifications/ability removal and trigger/movement replacements remain separate scopes."
+  ]
+}

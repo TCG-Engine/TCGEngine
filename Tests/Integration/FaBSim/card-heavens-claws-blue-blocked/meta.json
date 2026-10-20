@@ -1,0 +1,7 @@
+{
+    "name": "Heaven's Claws / blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 3, cost 1, go again False; pay using 1 blue pitch card(s). Defender has 3 defense; expected damage 0. Hero lexi has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heavens_claws_blue https://rules.fabtcg.com/en/cr/07-combat/"
+}

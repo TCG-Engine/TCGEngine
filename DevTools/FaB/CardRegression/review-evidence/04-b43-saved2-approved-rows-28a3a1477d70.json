@@ -1,0 +1,39 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/wtr_reaction_scenarios",
+  "review_basis": "All actual native actions and individual priority passes, exact335 persisted native oracles, printed card faces and independent printed defense/payment/AP/damage/source-lifetime model, original UID/owner/order, complete declared initial and terminal snapshots. No reliance on PASS output for the oracle.",
+  "original_review": {
+    "path": "b43-saved2-approved-rows.json",
+    "sha256": "6341cd02ee0cb0710828abe31d476bd18c9890c79c0b1d231060cbc662b12bc3"
+  },
+  "fixtures": [
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "45fb4ed163601f27881b8a5bea7a6d868a39b6a229853fa7d914e526dfc0afb7",
+        "expected_final_gamestate.txt": "1cbff9779f98d7f129bc47716808c41b1c6560778a6e47ac638b395df7308391",
+        "meta.json": "be5dc839c39638a72c9caf35c3925bf1bc3562e91f36e682d9c79d61eb181b88"
+      },
+      "fixture_sha256": "36c0fbe055c83e11c96556fcccbf44177b4e9d5ab3c6e74da60f5f4114a3b38c",
+      "actions": 18,
+      "native_assertions": 157
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5341b57b4d0ab7f76d6b17c5cc2c2acef19fbeea25386ca7b3503359666cc566",
+        "actions.json": "2caa57cd09ae0c4c43247a2fb69846c7e156cf16e8db97dcc253923bc65214b1",
+        "assertions.json": "c1ebfc6cf7012cd8e08470dbb7473d7aa496f995221635e9772fb09ae0cf632b",
+        "expected_final_gamestate.txt": "ed763992e644d92dd921545d2a685fd664884855c5e0439e3c09140709dab949",
+        "meta.json": "23bec52a8c8742d0fcf40e38847e22208fa105f2936b51eb4274dd22b3342323"
+      },
+      "fixture_sha256": "4a97e955ca4266148dfa9bbda2dcd981325d9bdb486ac291d716205b65c9040e",
+      "actions": 19,
+      "native_assertions": 178
+    }
+  ]
+}

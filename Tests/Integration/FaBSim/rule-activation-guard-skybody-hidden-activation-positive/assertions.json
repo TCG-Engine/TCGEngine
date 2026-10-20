@@ -1,0 +1,167 @@
+[
+    {
+        "step": 0,
+        "type": "card_exists",
+        "viewerPlayerID": 2,
+        "zone": "p2Hero",
+        "cardID": "enigma"
+    },
+    {
+        "step": 0,
+        "type": "card_exists",
+        "viewerPlayerID": 2,
+        "zone": "p2Equipment",
+        "cardID": "skybody_keikoi"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 2,
+        "mzId": "p2Equipment-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 2,
+        "mzId": "p2Equipment-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 2,
+        "mzId": "p2Equipment-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 2,
+        "mzId": "p2Equipment-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 0
+    },
+    {
+        "step": 5,
+        "type": "card_exists",
+        "viewerPlayerID": 2,
+        "zone": "p2Graveyard",
+        "cardID": "skybody_keikoi"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 5,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 5,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 0
+    },
+    {
+        "step": 7,
+        "type": "card_exists",
+        "viewerPlayerID": 2,
+        "zone": "p2Graveyard",
+        "cardID": "skybody_keikoi"
+    },
+    {
+        "step": 7,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 19
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "card_exists",
+        "viewerPlayerID": 2,
+        "zone": "p2Graveyard",
+        "cardID": "skybody_keikoi"
+    }
+]

@@ -1,0 +1,98 @@
+[
+    {
+        "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    },
+    {
+        "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 138
+    },
+    {
+        "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 143
+    }
+]

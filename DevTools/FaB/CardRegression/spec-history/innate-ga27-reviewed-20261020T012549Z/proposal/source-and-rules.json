@@ -1,0 +1,40 @@
+{
+  "catalogRawSHA256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "researchRawSHA256": "03919a27918a0c45986a4fa01a75e5c03dfd4049e547913678dc7122beb91523",
+  "existingB01RawSHA256": "3cba391f238fc1359a771e774f31cb2a9d3908acebc871916d40e50e106386cb",
+  "nativeSourceRawSHA256": {
+    "FaBSim/Custom/GameLogic.php": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ROSCards.php": "2f6b96bb9d25cc8a40dfb043147367f09a807330badc51d3ddae391e4fc7c339",
+    "FaBSim/Custom/WTRCards.php": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "DevTools/RunIntegrationTests.php": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd"
+  },
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/#835",
+      "oracle": "Attack go again gains one AP at the start of Resolution; it does not depend on hit and is not duplicated."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/#826",
+      "oracle": "Arrow play requires Arsenal and a controlled Bow. Pitching/declaring a Hand card to defend is a different action."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517",
+      "oracle": "An ordinary action has oneAP plus printed resource cost; underfunded asset payment does not commit AP; rejected play restores preannouncement state."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "oracle": "Real Hand declarations contribute numeric printed defense, damage is attack power minus total defense floored0, sources remain through link and clear to owners on close."
+    }
+  ],
+  "heroChoice": {
+    "Ninja": "Fai includes Draconic and has no automatic hit/second attack power modification. No ability/optional PhoenixFlame starts are used.",
+    "Lightning": "Aurora EssenceLightning supplies both Lightning-only bases; no activation or aura starts.",
+    "Arrow": "Azalea legal Ranger+DeathDealer2HBow; ability unused so no dominate grant. Arsenal privacy is ordinary known initial setup."
+  }
+}

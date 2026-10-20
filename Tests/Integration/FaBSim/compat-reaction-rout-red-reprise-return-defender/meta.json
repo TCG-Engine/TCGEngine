@@ -1,0 +1,7 @@
+{
+    "name": "Rout / resolution lifecycle / reprise-return-defender",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:28:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Dawnblade costs1 and has base3; blue pitch3 leaves2, paying Rout2 leaves0. An actual hand block enables reprise. Rout grants+3 immediately during resolution, then pauses for its optional return choice and remains on Stack. Selecting the non-equipment blocker returns it to its owner hand, removing its3 defense. Rout clears to owner graveyard after the chooser and continuation finish, with the same active attack and AP0. Sources: https://judge.fabtcg.com/cards/detail/233/ https://rules.fabtcg.com/en/cr/08-keywords/#812b https://rules.fabtcg.com/en/cr/03-zones/#3012 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#rout_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Yinti Yanti / defend-own-aura-present",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T06:04:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed yinti_yanti_blue: cost0, power1, defense2, pitch3. This is a continuous stat ability, not a triggered effect. Supported moves from Hand to current CombatChain yield attack powers[4, 4]; defending sum3; physicaldamage1, targetHP19; no goagain, finalAP0/resources0. Ponder is a legal known-state Aura and persists because no phase change crosses its end trigger. All source/blocker UIDs/owners/origins/queues and live post-declaration computedpower are pinned; cacheddefense is asserted only where nativeblock/damage refreshes it. Sources: https://judge.fabtcg.com/cards/detail/1022/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

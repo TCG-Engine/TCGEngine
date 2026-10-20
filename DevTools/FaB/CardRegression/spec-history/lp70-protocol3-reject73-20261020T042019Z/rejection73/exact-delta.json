@@ -1,0 +1,198 @@
+{
+  "status": "AUTHOR_EXACT_PROTOCOL_DELTA_CHECKED_NOT_NATIVE_COVERAGE",
+  "checks": 64,
+  "baseSpecSHA256_raw": "cf01263c10f0636a62067ca190d9bc5518500b4259975b1993e12343eb1dcd12",
+  "independentQueueReviewSHA256_raw": "42b1bbaf985a0d01fb3f24266ba033cf0001d07491354471495f73b4954b110a",
+  "originalRejected5SHA256_raw": "30b4e7bdc25704114169e1ce53c7ad851ff9203f7282489fb3a15669a58f81ec",
+  "addedExactQueueAssertions": [
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-0",
+      "property": "Block",
+      "value": "1"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-0",
+      "property": "DontSkipOnPass",
+      "value": "0"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-1",
+      "property": "Block",
+      "value": "1"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-1",
+      "property": "Tooltip",
+      "value": ""
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-1",
+      "property": "DontSkipOnPass",
+      "value": "0"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-2",
+      "property": "Type",
+      "value": "PASSPARAMETER"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-2",
+      "property": "Param",
+      "value": "1"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-2",
+      "property": "Block",
+      "value": "99"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-2",
+      "property": "Tooltip",
+      "value": ""
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-2",
+      "property": "DontSkipOnPass",
+      "value": "0"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-3",
+      "property": "Type",
+      "value": "SYSTEM"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-3",
+      "property": "Param",
+      "value": "PlayCard_AfterAction"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-3",
+      "property": "Block",
+      "value": "99"
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-3",
+      "property": "Tooltip",
+      "value": ""
+    },
+    {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-3",
+      "property": "DontSkipOnPass",
+      "value": "0"
+    }
+  ],
+  "changedQueueCount": {
+    "zone": "p1DecisionQueue",
+    "before": 2,
+    "after": 4
+  },
+  "rows": [
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-wrong-actor",
+      "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+      "checksPerSideBefore": 32,
+      "checksPerSideAfter": 47,
+      "nativeActionUnchanged": {
+        "playerID": 2,
+        "mode": 100,
+        "cardID": "p2CombatChain-0",
+        "inputText": ""
+      },
+      "subsequentValidAnswerUnchanged": {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2CombatChain-0"
+      }
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-pass-not-legal-target",
+      "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+      "checksPerSideBefore": 32,
+      "checksPerSideAfter": 47,
+      "nativeActionUnchanged": {
+        "playerID": 1,
+        "mode": 100,
+        "cardID": "PASS",
+        "inputText": ""
+      },
+      "subsequentValidAnswerUnchanged": {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2CombatChain-0"
+      }
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-unlisted-private-source",
+      "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+      "checksPerSideBefore": 32,
+      "checksPerSideAfter": 47,
+      "nativeActionUnchanged": {
+        "playerID": 1,
+        "mode": 100,
+        "cardID": "p1Hand-0",
+        "inputText": ""
+      },
+      "subsequentValidAnswerUnchanged": {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2CombatChain-0"
+      }
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-out-of-range-target",
+      "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+      "checksPerSideBefore": 32,
+      "checksPerSideAfter": 47,
+      "nativeActionUnchanged": {
+        "playerID": 1,
+        "mode": 100,
+        "cardID": "p2CombatChain-99",
+        "inputText": ""
+      },
+      "subsequentValidAnswerUnchanged": {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2CombatChain-0"
+      }
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-multiple-target-answer",
+      "prefixCheckpoint": "target_choice_preserves_source_hand_assets_and_original_uids",
+      "checksPerSideBefore": 32,
+      "checksPerSideAfter": 47,
+      "nativeActionUnchanged": {
+        "playerID": 1,
+        "mode": 100,
+        "cardID": "p1CombatChain-0&p2CombatChain-0",
+        "inputText": ""
+      },
+      "subsequentValidAnswerUnchanged": {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2CombatChain-0"
+      }
+    }
+  ],
+  "proof": "Per case only prechecks and opt-in unchangedChecks inherit the exact approved47-check native queue prefix. One metadata note and explicit protocolCorrection provenance added. Restoring these fields reconstructs original30b4 complete objects exactly. Invalid payload/message/defaults, actual original supported action sequence and all source/target/Params/cost/AP/power/damage/cleanup observations unchanged.",
+  "pending": "Independent corrected-five gate, parent serial actual EngineRunAction rejection/native append, saved fixture review, clean CLI/UI replay/control gates."
+}

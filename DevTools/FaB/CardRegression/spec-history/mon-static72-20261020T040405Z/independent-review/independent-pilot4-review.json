@@ -1,0 +1,423 @@
+{
+  "status": "INDEPENDENT_SPEC_REVIEW_APPROVED_FOR_PARENT_SERIAL_PILOT_ONLY",
+  "reviewer": "wtr_reaction_scenarios",
+  "review_basis": "Separately transcribed printed faces + primary rules and separate individual-pass physical-card model, no author model import/native action result input.",
+  "inputSHA256_raw": {
+    "pilots4-proposed.json": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+    "catalog9-source-and-rules-audit.json": "634542e421c0b295cbac6443da7fd5ad091f96ffdf5075948df041b61e6da86b",
+    "ordinary-requirements-matrix-proposed.json": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0"
+  },
+  "reviewChecks": 5920,
+  "allNativeExpectedOracleOccurrences": 1400,
+  "propertyOracleOccurrencesValidatedAgainstNativeDeclaredAndSerializedSchema": 412,
+  "oracleTypes": {
+    "scalar_zone_equals": 224,
+    "zone_count": 588,
+    "card_property_equals": 412,
+    "kind:state": 116,
+    "decision_queue_empty": 28,
+    "kind:power": 16,
+    "kind:go_again": 16
+  },
+  "rows": [
+    {
+      "slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+      "nativeOracles": 334,
+      "individualSupportedActionsModeled": 15,
+      "passCount": 13,
+      "damage": 3,
+      "targetHP": 17,
+      "powerDefenseTimeline": [
+        {
+          "step": 4,
+          "window": "ATTACK",
+          "power": 5,
+          "defense": 0
+        },
+        {
+          "step": 7,
+          "window": "DEFEND_DECLARE",
+          "power": 6,
+          "defense": 3
+        },
+        {
+          "step": 9,
+          "window": "DAMAGE",
+          "power": 6,
+          "defense": 3
+        },
+        {
+          "step": 11,
+          "window": "RESOLUTION",
+          "power": 6,
+          "defense": 3
+        }
+      ],
+      "ownerGraveyardUIDs": {
+        "1": [
+          "3"
+        ],
+        "2": [
+          "4"
+        ]
+      },
+      "retainedArenaUIDs": {
+        "1": [],
+        "2": []
+      }
+    },
+    {
+      "slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+      "nativeOracles": 430,
+      "individualSupportedActionsModeled": 16,
+      "passCount": 13,
+      "damage": 0,
+      "targetHP": 20,
+      "powerDefenseTimeline": [
+        {
+          "step": 4,
+          "window": "ATTACK",
+          "power": 7,
+          "defense": 0
+        },
+        {
+          "step": 7,
+          "window": "DEFEND_DECLARE",
+          "power": 7,
+          "defense": 3
+        },
+        {
+          "step": 9,
+          "window": "DEFEND_DECLARE",
+          "power": 6,
+          "defense": 6
+        },
+        {
+          "step": 11,
+          "window": "DAMAGE",
+          "power": 6,
+          "defense": 6
+        },
+        {
+          "step": 13,
+          "window": "RESOLUTION",
+          "power": 6,
+          "defense": 6
+        }
+      ],
+      "ownerGraveyardUIDs": {
+        "1": [
+          "3"
+        ],
+        "2": [
+          "4",
+          "5"
+        ]
+      },
+      "retainedArenaUIDs": {
+        "1": [],
+        "2": []
+      }
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+      "nativeOracles": 274,
+      "individualSupportedActionsModeled": 14,
+      "passCount": 13,
+      "damage": 4,
+      "targetHP": 16,
+      "powerDefenseTimeline": [
+        {
+          "step": 4,
+          "window": "ATTACK",
+          "power": 4,
+          "defense": 0
+        },
+        {
+          "step": 6,
+          "window": "DAMAGE",
+          "power": 4,
+          "defense": 0
+        },
+        {
+          "step": 8,
+          "window": "RESOLUTION",
+          "power": 4,
+          "defense": 0
+        }
+      ],
+      "ownerGraveyardUIDs": {
+        "1": [
+          "3"
+        ],
+        "2": []
+      },
+      "retainedArenaUIDs": {
+        "1": [
+          "4"
+        ],
+        "2": []
+      }
+    },
+    {
+      "slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+      "nativeOracles": 362,
+      "individualSupportedActionsModeled": 15,
+      "passCount": 13,
+      "damage": 1,
+      "targetHP": 19,
+      "powerDefenseTimeline": [
+        {
+          "step": 4,
+          "window": "ATTACK",
+          "power": 4,
+          "defense": 0
+        },
+        {
+          "step": 7,
+          "window": "DEFEND_DECLARE",
+          "power": 4,
+          "defense": 3
+        },
+        {
+          "step": 9,
+          "window": "DAMAGE",
+          "power": 4,
+          "defense": 3
+        },
+        {
+          "step": 11,
+          "window": "RESOLUTION",
+          "power": 4,
+          "defense": 3
+        }
+      ],
+      "ownerGraveyardUIDs": {
+        "1": [
+          "3"
+        ],
+        "2": [
+          "4"
+        ]
+      },
+      "retainedArenaUIDs": {
+        "1": [],
+        "2": [
+          "5"
+        ]
+      }
+    }
+  ],
+  "meaningfulFaults": [
+    {
+      "fault": "surging-no-bonus",
+      "detected": true,
+      "firstFailure": "{'step': 7, 'checkpoint': 'after_1_supported_defending_cards_static_value_live', 'oracle': {'kind': 'power', 'value': 6}, 'actual': 5, 'expected': 6}"
+    },
+    {
+      "fault": "surging-double-bonus",
+      "detected": true,
+      "firstFailure": "{'step': 7, 'checkpoint': 'after_1_supported_defending_cards_static_value_live', 'oracle': {'kind': 'power', 'value': 6}, 'actual': 7, 'expected': 6}"
+    },
+    {
+      "fault": "stony-nonstrict-two",
+      "detected": true,
+      "firstFailure": "{'step': 9, 'checkpoint': 'after_2_supported_defending_cards_static_value_live', 'oracle': {'kind': 'power', 'value': 6}, 'actual': 7, 'expected': 6}"
+    },
+    {
+      "fault": "stony-one-loses-too-early",
+      "detected": true,
+      "firstFailure": "{'step': 7, 'checkpoint': 'after_1_supported_defending_cards_static_value_live', 'oracle': {'kind': 'power', 'value': 7}, 'actual': 6, 'expected': 7}"
+    },
+    {
+      "fault": "yinti-attack-omitted",
+      "detected": true,
+      "firstFailure": "{'step': 4, 'checkpoint': 'static_power_before_any_defending_card', 'oracle': {'kind': 'power', 'value': 4}, 'actual': 3, 'expected': 4}"
+    },
+    {
+      "fault": "yinti-attack-double",
+      "detected": true,
+      "firstFailure": "{'step': 4, 'checkpoint': 'static_power_before_any_defending_card', 'oracle': {'kind': 'power', 'value': 4}, 'actual': 5, 'expected': 4}"
+    },
+    {
+      "fault": "yinti-defense-omitted",
+      "detected": true,
+      "firstFailure": "{'step': 7, 'checkpoint': 'after_1_supported_defending_cards_static_value_live', 'oracle': {'kind': 'state', 'key': 'defenseValue', 'value': 3}, 'actual': 2, 'expected': 3}"
+    },
+    {
+      "fault": "yinti-defense-double",
+      "detected": true,
+      "firstFailure": "{'step': 7, 'checkpoint': 'after_1_supported_defending_cards_static_value_live', 'oracle': {'kind': 'state', 'key': 'defenseValue', 'value': 3}, 'actual': 4, 'expected': 3}"
+    }
+  ],
+  "unsupportedHandSchemaFault": {
+    "detected": true,
+    "firstFailure": "native declared property p2Hand-0.TurnEffects"
+  },
+  "sourceSHA256_raw": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Core/RegressionTestFramework.php": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "de2813a1f1d56801361c0b8b393c92bbf97866d1efd48d87182280b184acf268",
+    "FaBSim/Custom/GameLogic.php": "753cb6804def31c927999239c316d6fa282be9d8b67c28cb087cdfde1bf0b257",
+    "FaBSim/Custom/WTRCards.php": "dc1abf1c8e97641a2a873901ce701bf4028c2e72abefadf262b02c0af4b87518",
+    "FaBSim/Custom/MONCards.php": "0f35f2849029510ce277fc5c016894047e94d5422f9b86ec5d4e631ecfd260b0",
+    "DevTools/FaB/mon_abilities.json": "523f6355914013d9c3962701d594333fbd47a478c1cfc1b0577a48b542de8bba"
+  },
+  "printedImageBindings": {
+    "surging_militia_red": {
+      "path": "FaBSim/WebpImages/surging_militia_red.webp",
+      "SHA256_raw": "a186157f351aab2b3eb41831288a476b01262f0eb0a7ba02f505b3d0d52f4f31",
+      "visuallyViewed": true
+    },
+    "stony_woottonhog_red": {
+      "path": "FaBSim/WebpImages/stony_woottonhog_red.webp",
+      "SHA256_raw": "909a85497354258da7e6a49d20dfb015c7815016b1538d4208f84a53e4a27011",
+      "visuallyViewed": true
+    },
+    "yinti_yanti_red": {
+      "path": "FaBSim/WebpImages/yinti_yanti_red.webp",
+      "SHA256_raw": "1d19be36cfc2ca14e1ef0546044c1a6dbfb987593824a6a147ace59ab55702b5",
+      "visuallyViewed": true
+    },
+    "yinti_yanti_blue": {
+      "path": "FaBSim/WebpImages/yinti_yanti_blue.webp",
+      "SHA256_raw": "f42ebe1a641300d871426ecdd465e1dbf210d595b95e2a5b0f5312280bfe7b22",
+      "visuallyViewed": true
+    },
+    "wounding_blow_red": {
+      "path": "FaBSim/WebpImages/wounding_blow_red.webp",
+      "SHA256_raw": "eeef3533671017d126b9b4e7303e07429cdc2fce84986f95abb2314fd5519dc7",
+      "visuallyViewed": true
+    },
+    "wounding_blow_blue": {
+      "path": "FaBSim/WebpImages/wounding_blow_blue.webp",
+      "SHA256_raw": "0bac5819f4f68f52d7bec10c8acaab4dacc0feaffde26a1cf0a1346dec8fa086",
+      "visuallyViewed": true
+    },
+    "ponder": {
+      "path": "FaBSim/WebpImages/ponder.webp",
+      "SHA256_raw": "f91c242059b4b777dc21359c06c0d7aa12d61029cc3415aba15410e2210209cb",
+      "visuallyViewed": true
+    },
+    "dorinthea": {
+      "path": "FaBSim/WebpImages/dorinthea.webp",
+      "SHA256_raw": "aedab88ebb29c93e3eb634cf835c5cbe51af42c70169f98c9c05198681a58ed1",
+      "visuallyViewed": true
+    }
+  },
+  "primarySources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1017/",
+      "verified": "Current Surging Red text/2cost/5power/2defense; local MON287 face also viewed."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1014/",
+      "verified": "Direct page unavailable in browser tool; exact local official MON284 StonyRed face viewed and hashed. Fewer than2 counts zero/one, ceases at two."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1020/",
+      "verified": "Current YintiRed text, power3/cost0/defense2."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1022/",
+      "verified": "Current YintiBlue text, power1/cost0/defense2."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "verified": "6.2.3 and6.3.5: current conditions/numeric modifications update continuously; no trigger layer needed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "verified": "7.0.5a explicitly uses Surging Militia: +1 applies when a non-equipment card becomes defending before defend-event. Declaration/reaction/damage/normal close used."
+    }
+  ],
+  "compiledCallbackBindings": [
+    {
+      "cardID": "surging_militia_red",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "ed63fb1f2c603b61537b4aac78caf410edc7b7979f7a46e16587ce748234b15d"
+    },
+    {
+      "cardID": "surging_militia_yellow",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "da16996e5a1e182989f5e7da3bd87ef7244478331ddd0b18d966caaf5eee614a"
+    },
+    {
+      "cardID": "surging_militia_blue",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "a1e681d122b029148ffec0b22280eecd6bd46665d0997c85753f5b3e759d5af4"
+    },
+    {
+      "cardID": "stony_woottonhog_red",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "31bdf60515f263066ad012fe1fb9234bb462743fe6cd5563193b58ec4e1a5645"
+    },
+    {
+      "cardID": "stony_woottonhog_yellow",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "1cac075f8373f418b3c5e5bccd2fe102c647817e4ee0d20939ca0eab4478d409"
+    },
+    {
+      "cardID": "stony_woottonhog_blue",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "63f965f27e55c3a0add9eb2558b9a075011065ad9f22a99d3233ab8f2b29efb5"
+    },
+    {
+      "cardID": "yinti_yanti_red",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "7735d2baca6dbdb765170132af1f9df6c7a750ab357f0f6ea7a29e99902b5306"
+    },
+    {
+      "cardID": "yinti_yanti_red",
+      "table": "defenseModifierAbilities",
+      "SHA256_UTF8LF": "94e34464113841875022cbb4f5779e311422e311cf28036efcd8d42daa92f922"
+    },
+    {
+      "cardID": "yinti_yanti_yellow",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "5af7557f8ad955e4d44f66716961fc8633066ed21203606f9d0c37ea6ab66ba2"
+    },
+    {
+      "cardID": "yinti_yanti_yellow",
+      "table": "defenseModifierAbilities",
+      "SHA256_UTF8LF": "75f650cf36dad53b66e4b5a95983dc0bbf2babfc65c03a17100be08b8a2f050c"
+    },
+    {
+      "cardID": "yinti_yanti_blue",
+      "table": "attackPowerModifierAbilities",
+      "SHA256_UTF8LF": "fa4f28a2e1d93c032376646e311ce388f2bae2fd26653d46fea704206be7f34e"
+    },
+    {
+      "cardID": "yinti_yanti_blue",
+      "table": "defenseModifierAbilities",
+      "SHA256_UTF8LF": "468d465d7996bcb39d5e155cf8c47a35229a80856e77dd2e587692771faa9d44"
+    }
+  ],
+  "legality": [
+    "Both heroes young Dorinthea20; all played/blocking cards GenericAA, so class legal and no Warrior weapon-hit trigger occurs.",
+    "TurnP1AP1/nonturnP2AP0; resource2 pays each2cost source, zero-cost sources pay0; all successful attacks consume exactly1AP and never refund.",
+    "Initial known-state Ponder token is an Aura controlled by the stated source player; no combat/history/permission seeds. No phase change crosses its end trigger.",
+    "Actual Hand->Stack->currentCC declaration and actual Hand->CC defender clicks; source/blocker UIDs, owners/controller/origin are independently tracked.",
+    "Surging powers5->6 with one non-equipment Hand defender; Stony7->7->6 across zero/one/two defenders; YintiRed ownAura power4; YintiBlue ownAura defense3 against ordinary4.",
+    "No attack/defense reaction, opt, pitch or triggered choice is expected in these ordinary configurations; both queues empty through normal owner close."
+  ],
+  "persistedOracles": [
+    "kind state recursively records native game_state_field checks; power records current computed_power_equals; go_again records current computed_go_again_equals.",
+    "All412 physical-card property checks use actual declared+serialized fields; no unsupported defending-card computed-power query or Hand fallback-empty oracle.",
+    "Yinti defense is pinned via native refreshed defenseValue after declaration and damage/HP, not an invented computed-defense hook."
+  ],
+  "scopeLimits": [
+    "Approval covers exact four pilots, not all228 planned requirements or all nine cards/full baseline.",
+    "No native run, recorded fixture, clean replay or semantic runtime control is certified here; parent serial execution and actual saved-fixture review remain required.",
+    "Aura entry/departure during combat, two Auras/only opposing Aura/items, Equipment/DR/count exclusions, RGB/boundary/cost/pitch/arbitrary interactions remain planned.",
+    "Initial token is a known legal state witness; this does not certify Ponder creation/end-trigger generation.",
+    "Catalog audit references a historical coverage runtime8ec; current review binds actual source hashes above and makes no current corpus qualification claim.",
+    "Matrix95fc is a requirements plan; some description leaves include escaped U+001A separator artifacts. No numeric pilot executable field is affected; metadata readability repair can be separate."
+  ],
+  "nativeActions": 0,
+  "nativeWrites": 0,
+  "authorArtifactsUnchanged": true,
+  "reviewScriptSHA256_raw": "0f47e9285745a3f25cbb3c86c981b14da1687b31904cb7c0cb997d2577aab68b"
+}

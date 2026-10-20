@@ -1,0 +1,482 @@
+{
+    "completed_at_utc": "2026-10-20T02:08:59+00:00",
+    "input_file": "card-regression-batch60.json",
+    "input_sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lunging-press-blue-rule-probe-previous-aa-remains-legal-during-real-kodachi",
+            "status": "blocked_or_incorrect",
+            "error": "Expected Stack count 1, got 0.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Weapons-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "REACTION",
+                "combatOpen": true,
+                "combatStep": "REACTION",
+                "chainLink": 2,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 6,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "surging_strike_red",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Harmonized Kodachi",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_DAMAGE",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_VALLEY_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PHYSICAL",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_WEAPON_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_WEAPONS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HVY_WEAPON_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_WEAPON_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_harmonized_kodachi",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_SWORD_DAGGER",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_DAMAGE_EVENT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_DAMAGED",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAMAGED_BY",
+                            "amount": 1,
+                            "uses": 1,
+                            "uid": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_LOST",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_DAMAGED",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": {
+                    "1": [
+                        3
+                    ]
+                },
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "surging_strike_red",
+                        "harmonized_kodachi"
+                    ]
+                },
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true,
+                        "dtdPrevention2": true,
+                        "hntHitMarked2": false,
+                        "hvyWagers": []
+                    },
+                    "6": {
+                        "outPreviousNames": [
+                            "Surging Strike"
+                        ],
+                        "mstFree": false,
+                        "mstPreviousPitch": 1,
+                        "mstPreviousAA": true,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": false
+                    }
+                },
+                "arcActions": {
+                    "1": 2
+                },
+                "outPreviousNames": {
+                    "1": [
+                        "Surging Strike"
+                    ]
+                },
+                "lastAttackCardID": "harmonized_kodachi",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "iar": {
+                    "2": {
+                        "1": {
+                            "DAMAGE:2": 1
+                        }
+                    }
+                },
+                "omn": {
+                    "2": {
+                        "2": {
+                            "REPROACH": 1
+                        }
+                    }
+                },
+                "chainHits": 1,
+                "consecutiveHits": 1,
+                "attackActionHits": {
+                    "1": 1
+                },
+                "mstPreviousPitch": 1,
+                "mstPreviousAA": true,
+                "hntPreviousDraconic": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": []
+            }
+        }
+    ]
+}

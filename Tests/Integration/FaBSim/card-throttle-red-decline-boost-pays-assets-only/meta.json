@@ -1,0 +1,7 @@
+{
+    "name": "Throttle / decline Boost pays assets only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:13:36+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Throttle red costs2 and one AP, has power6, and offers optional Boost while Deck is nonempty. Decline with modal1. Nothing is banished at declaration or payment. Pitch Wounding Blow blue for3, pay2 once: resources1/AP0. No go again is granted. Unblocked damage6 leaves opponent14 and AP0; Deck retains both original cards in order. Declining an optional additional cost must not set a boosted result merely because the original top card is Mechanologist. Sources: FaBSim/GeneratedCode/cardArrayCache.json#throttle_red DevTools/FaB/arc_abilities.json#throttle_red/PrepareCard FaBSim/Custom/ARCAbilities.php::FaBARCPayDeferredBoostCosts https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ (5.1.3b, 5.1.7-5.1.10) https://rules.fabtcg.com/en/cr/08-keywords/ (Boost)"
+}

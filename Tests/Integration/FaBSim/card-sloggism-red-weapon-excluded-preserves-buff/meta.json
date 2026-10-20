@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / weapon-excluded-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Kodachi is a weapon attack, not an attack action card, so receives no Sloggism bonus and does not consume it. Pitch Head Jab blue (cost0, pitch3) to pay Kodachi1 and retain2; Kodachi has go again. Cost2 Surging Strike red then consumes Sloggism and gets5+Ira1+6=12, paid using the2 floating resources. Health19 then7. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red https://judge.fabtcg.com/cards/detail/334/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

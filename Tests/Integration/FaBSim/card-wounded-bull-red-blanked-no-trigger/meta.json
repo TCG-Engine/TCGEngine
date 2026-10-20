@@ -1,0 +1,7 @@
+{
+    "name": "Wounded Bull / blanked-no-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:41:20+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources. Start during Guardian Bravo turn under previously resolved Blinding of the Old Ones; coverage is the known suppression interaction, not generation or expiry of Blinding. Sources: https://rules.fabtcg.com/pdf/en-fab-cr.pdf https://judge.fabtcg.com/cards/detail/3761/"
+}

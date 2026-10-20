@@ -240,7 +240,8 @@ function FaBARCCanPlay(int $player,array $found): bool {
     $obj=$found['object'];$id=$obj->CardID;
     if(FaBARCNamedProhibited($id))return false;
     if(FaBARCEffect($player,'ARC_LEDGER')&&FaBHasType($obj,'Action')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
-    if(FaBHasType($obj,'Arrow')&&$found['zone']!=='Arsenal')return false;
+    // CR 8.2.6a: arrows require arsenal origin and a controlled equipped bow.
+    if(FaBHasType($obj,'Arrow')&&($found['zone']!=='Arsenal'||empty(FaBChoiceRefs($player,'Weapons',['type'=>'Bow']))))return false;
     if(FaBARCEffect($player,'ARC_THREE_KIND')&&$found['zone']!=='Arsenal')return false;
     if($id==='maximum_velocity_red'&&FaBARCEffect($player,'ARC_BOOSTED')<3)return false;
     $s=FaBGetState();$attack=FaBFindUID(intval($s['attackUID']));
@@ -253,6 +254,44 @@ function FaBARCCostModifier(int $player,object $obj): int {
     if(FaBWTRIsAttackAction($obj)||FaBWTRIsWeapon($obj))$delta+=FaBARCEffect($player,'ARC_FIRST_ATTACK_COST');
     if(FaBARCCard(intval($obj->UniqueID),'instantTurn')===intval(GetTurnNumber()))$delta-=intval(FaBARCCard(intval($obj->UniqueID),'discount'));
     return $delta;
+}
+
+/** Capture the resolved Lead source while its synchronous ResolveCard context is live. */
+function FaBARCLeadEffectData(int $player, array $data): array {
+    $source = FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
+    $known = $source !== null && in_array((string)$source['object']->CardID,
+        ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);
+    // Metadata is diagnostic identity, not a persistent-source dependency.
+    $data['arcLeadSource'] = ['version'=>1, 'controller'=>$player, 'known'=>$known,
+        'uid'=>$known ? intval($source['object']->UniqueID) : 0,
+        'cardID'=>$known ? (string)$source['object']->CardID : '',
+        'zone'=>$known ? (string)$source['zone'] : ''];
+    return $data;
+}
+
+/** Each matching next-time effect creates its own independently resolving layer. */
+function FaBARCQueueLeadTrigger(int $player, array $effect, object $qualifier, string $fromZone): void {
+    $source = is_array($effect['arcLeadSource'] ?? null) ? $effect['arcLeadSource'] : [];
+    $controller = intval($source['controller'] ?? $player);
+    if (!in_array($controller, FaBSeatOrder(), true)) $controller = $player;
+    if (!FaBSeatIsLive($controller)) return;
+    $known = !empty($source['known']) && intval($source['uid'] ?? 0) > 0
+        && in_array((string)($source['cardID'] ?? ''),
+            ['lead_the_charge_red','lead_the_charge_yellow','lead_the_charge_blue'], true);
+    $threshold = intval($effect['amount'] ?? 0);
+    // Legacy saves have no physical source identity. This ID is a display fallback only.
+    $displayID = $known ? (string)$source['cardID'] : ([0=>'lead_the_charge_red',
+        1=>'lead_the_charge_yellow', 2=>'lead_the_charge_blue'][$threshold] ?? '-');
+    AddStack(CardID:$displayID, Controller:$controller, Kind:'ABILITY',
+        SourceUniqueID:$known ? intval($source['uid']) : 0,
+        SourceZone:$known ? (string)($source['zone'] ?? '') : '',
+        Params:['arcLeadTrigger'=>true, 'arcLeadController'=>$controller,
+            'arcLeadThreshold'=>$threshold, 'arcLeadQualifierUID'=>intval($qualifier->UniqueID),
+            'arcLeadQualifierCardID'=>(string)$qualifier->CardID, 'arcLeadFromZone'=>$fromZone,
+            'arcLeadSourceKnown'=>$known]);
+    $state = FaBGetState();
+    if ($state['pendingPayment'] === null) $state['window'] = 'PRIORITY';
+    FaBSetState($state);
 }
 
 function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
@@ -270,7 +309,10 @@ function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
         if($type==='ARC_NEXT_RANGER')$applies=$aa&&FaBHasType($obj,'Ranger');
         if($type==='ARC_NEXT_RUNEBLADE')$applies=$attack&&FaBHasType($obj,'Runeblade');
         if($type==='ARC_NEXT_ARCANE'&&FaBARCIsArcaneCard($obj->CardID)){$bonus+=intval($e['amount']);continue;}
-        if($type==='ARC_LEAD'&&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount'])){AddActionPoints($player,intval(GetActionPoints($player))+1);continue;}
+        if($type==='ARC_LEAD'&&in_array($fromZone,['Hand','Arsenal','Banish','Deck','Graveyard'],true)
+            &&FaBHasType($obj,'Action')&&intval(CardCost($obj->CardID))>=intval($e['amount']??0)){
+            FaBARCQueueLeadTrigger($player,$e,$obj,$fromZone);continue;
+        }
         if(!$applies){$effects[]=$e;continue;}
         if(intval($e['amount']??0))FaBWTRTag($obj,'WTR_POWER:'.intval($e['amount']));
         if(!empty($e['dominate']))FaBWTRTag($obj,'DOMINATE');

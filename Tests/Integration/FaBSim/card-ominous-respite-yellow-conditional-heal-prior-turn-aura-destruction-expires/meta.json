@@ -1,0 +1,7 @@
+{
+    "name": "Ominous Respite / conditional heal / prior-turn-aura-destruction-expires",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:49:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed ominous_respite_yellow cost1, pitch2, no defense property, no action-point cost or gain as an Instant. Branch prior-turn-aura-destruction-expires. Independent printed-rule model requires terminal health[20, 9], resources[0, 2], AP[0, 1].  Sources: https://judge.fabtcg.com/cards/detail/4855/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,25 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T14:39:01.667416+00:00",
+  "canonical_inventory_at_capture": 3076,
+  "fixtures": [
+    {
+      "slug": "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+      "fixture_sha256": "185e163ade43194509947ff51954232e6571af064e649cb4d41fd2b833799934",
+      "passed": true,
+      "result": "[PASS] Strike Gold red / four live UPF players with manual priority and three real responses"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+      "returncode": 0,
+      "stdout": "[PASS] Strike Gold red / four live UPF players with manual priority and three real responses\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

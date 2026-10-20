@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-come-to-fight-red-cost-3-attack-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 16
+    },
+    {
+        "slug": "card-earthlore-surge-red-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 21
+    }
+]

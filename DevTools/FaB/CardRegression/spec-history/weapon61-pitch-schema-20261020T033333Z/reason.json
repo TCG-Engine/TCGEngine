@@ -1,0 +1,18 @@
+{
+  "status": "AUTHOR_ORACLE_CORRECTION_ONLY",
+  "reason": "Pitch has no serialized TurnEffects field. Remove exactly20 invalid field assertions; preserve actions, all numerical/physical/ledger assertions and the two already approved defense recordings. No game-rule or snapshot change.",
+  "mapping": [
+    [
+      "scenarios-proposed.json",
+      "card-regression-batch61.json",
+      "72af4aac5526ff5b11beef1deb5abf68a830ab7b43c0c32d776fc877fc5d0830",
+      "ae6aba4b9d46a4c01773be4172d49f88807174fd94a1d86b0275afef666597c7"
+    ],
+    [
+      "pilots-proposed.json",
+      "card-regression-batch61-pilot.json",
+      "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13",
+      "7c1dbe96f1cf105790a19eb3a5dd4b77dd629ff2b3ca19fde92a01f3767f31e5"
+    ]
+  ]
+}

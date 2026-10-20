@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / opponent-response-before-quicken-created",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:36:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The attack trigger must offer a real response window. Before it resolves, opponent casts Sigil blue and heals20->21; Quicken remains absent while Sigil resolves above the trigger. Only afterward is one Quicken created. The already-played Flock has no go again; it deals5, leaving life16 and AP0. This pilot distinguishes eager token creation from the required triggered-layer behavior. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red https://judge.fabtcg.com/cards/detail/295/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

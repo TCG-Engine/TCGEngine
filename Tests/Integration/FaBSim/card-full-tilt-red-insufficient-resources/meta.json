@@ -1,0 +1,7 @@
+{
+    "name": "Full Tilt / insufficient-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:56:46+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Full Tilt red is a Mechanologist attack action with cost2, power5, and exactly Boost. CR8.3.9 makes banishing the top deck card optional additional cost; banishing a Mechanologist grants this attack go again, while other top cards do not. Empty deck prevents paying Boost but does not prevent ordinary play. Dash young has only an optional start-game item setup ability, and no item is started in these main-phase fixtures. No Hyper Driver, Teklo Pounder, High Octane, equipment or other boost modifiers exist. Player1 cannot play: available resources exactly one below cost, with no other hand card to pitch. Source remains in hand; no Boost choice, banish, payment or priority-stack mutation may happen. Deck order/count and health are unchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#full_tilt_red https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

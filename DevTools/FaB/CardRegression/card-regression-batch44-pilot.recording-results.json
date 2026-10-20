@@ -1,0 +1,32 @@
+[
+    {
+        "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 85
+    },
+    {
+        "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 344
+    },
+    {
+        "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 130
+    },
+    {
+        "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 43
+    }
+]

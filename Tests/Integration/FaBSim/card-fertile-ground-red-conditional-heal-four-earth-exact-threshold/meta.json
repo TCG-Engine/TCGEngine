@@ -1,0 +1,7 @@
+{
+    "name": "Fertile Ground / conditional heal / four-earth-exact-threshold",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:07:16+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Oldhim Essence permits the Earth Instant and each four distinct Earth cards already banished in this known state. Four meets the printed threshold, so pay exactly2 floating resources and heal5 on resolution: HP10->15. No AP is spent or gained and none of the banished cards moves or changes UID. Sources: https://judge.fabtcg.com/cards/detail/3356/ FaBSim/GeneratedCode/cardArrayCache.json#fertile_ground_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

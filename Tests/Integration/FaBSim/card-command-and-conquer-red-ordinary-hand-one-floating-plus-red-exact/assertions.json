@@ -1,0 +1,2508 @@
+[
+    {
+        "step": 1,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PITCH\""
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "SourceZone",
+        "value": "Hand"
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 20
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 2,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PRIORITY\""
+    },
+    {
+        "step": 2,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"NONE\""
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 2,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "Kind",
+        "value": "ATTACK"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "SourceZone",
+        "value": "Hand"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "Stack-0",
+        "property": "SourceUniqueID",
+        "value": "3"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 0
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 20
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"ATTACK\""
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"ATTACK\""
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 4,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 4,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 4,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 20
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 9,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"REACTION\""
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"REACTION\""
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 9,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 9,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "damageDealt"
+        ],
+        "comparison": "equals",
+        "valueJson": "0"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackHit"
+        ],
+        "comparison": "equals",
+        "valueJson": "false"
+    },
+    {
+        "step": 9,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "defenseValue"
+        ],
+        "comparison": "equals",
+        "valueJson": "0"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 1
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"PRIORITY\""
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"DAMAGE\""
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 11,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 11,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "damageDealt"
+        ],
+        "comparison": "equals",
+        "valueJson": "6"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "defenseValue"
+        ],
+        "comparison": "equals",
+        "valueJson": "0"
+    },
+    {
+        "step": 11,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackHit"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Arsenal-0",
+        "property": "FaceDown",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"DAMAGE\""
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"DAMAGE\""
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 13,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 13,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "damageDealt"
+        ],
+        "comparison": "equals",
+        "valueJson": "6"
+    },
+    {
+        "step": 13,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackHit"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"RESOLUTION\""
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"RESOLUTION\""
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 15,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 15,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 15,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 16,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"RESOLUTION\""
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"RESOLUTION\""
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "Role",
+        "value": "ATTACK"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "FromZone",
+        "value": "Hand"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "property": "ChainLink",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true"
+    },
+    {
+        "step": 16,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "3"
+    },
+    {
+        "step": 16,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 6
+    },
+    {
+        "step": 16,
+        "type": "computed_go_again_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "window"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"ACTION\""
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatStep"
+        ],
+        "comparison": "equals",
+        "valueJson": "\"NONE\""
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "false"
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "attackUID"
+        ],
+        "comparison": "equals",
+        "valueJson": "0"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "pendingPayment"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 17,
+        "type": "game_state_field",
+        "viewerPlayerID": 1,
+        "rootName": "FaBSim",
+        "path": [
+            "resolvingReaction"
+        ],
+        "comparison": "missing_or_null"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "command_and_conquer_red"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "UniqueID",
+        "value": "3"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Graveyard-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "CardID",
+        "value": "wounding_blow_red"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "UniqueID",
+        "value": "5"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Owner",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1Pitch-0",
+        "property": "Controller",
+        "value": "1"
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Arsenal",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "wounding_blow_blue"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 17,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Graveyard-0",
+        "property": "Controller",
+        "value": "2"
+    }
+]

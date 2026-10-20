@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / ordinary reaction / two-original-copies-resolve-lifo-with-additive-power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:50:53+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Lunging Press: cost0, pitch3, defense2. Target attack action card gets exactly+1power only when this reaction resolves. It costs noAP, grants no goagain, clears original reactionUID to ownerGY before physical damage, and never modifies a weapon attack. Normal Hand declaration uses defense2 without playing its resolution effect. Branch: two-original-copies-resolve-lifo-with-additive-power. All oracles derive from printed text/rules; no native output sampled. LP030 postfix: declare a legal target before costs, retain its exact UID and own ChainLink in Stack Params, and resolve only that same legal public CC target. The full-block case explicitly chooses current AA from all three legal options. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lunging_press_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN026.webp https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Harmonized Kodachi / no-cost-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay one resource by pitching a blue card for three; keep two. Kodachi attacks for one and persists. Go again requires an actual cost of zero, not an absent cost; expected False. Once-per-turn limit not independently covered in this branch. Sources: FaBSim/GeneratedCode/cardArrayCache.json#harmonized_kodachi https://rules.fabtcg.com/en/cr/07-combat/"
+}

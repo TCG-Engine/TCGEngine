@@ -1,0 +1,226 @@
+{
+  "status": "PRIMARY_RULE_TARGET_SCOPE_RESOLVED_NATIVE_SOURCE_UI_DEFECT_CANDIDATE_NOT_EXECUTED",
+  "reviewer": "/root/wtr_reaction_scenarios",
+  "cardID": "lunging_press_blue",
+  "conclusion": "A live public AA card on a previous resolved chain link remains legal. A live public defending AA is also legal, including one controlled by the defending player. Current weapon can be ineligible while an older AA remains eligible; this does not prohibit Lunging from being played.",
+  "derivationKind": "Independent inference from exact official card target description and cited primary CR; no special current-attack limitation found.",
+  "primarySources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/720/",
+      "rule": "Official Lunging Press text",
+      "basis": "Targets an attack action card; no current-chain-link, attacking, active-attack, ownership or controller restriction is printed."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rule": "1.2.2c/e,1.8.5,1.8.5a",
+      "basis": "Cards keep type/card object identities; public arena/stack objects matching the stated target description are eligible. A targeted effect fixes its targets as its layer is put on Stack."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "rule": "3.6.1",
+      "basis": "The combat chain is public and in the arena."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rule": "7.0.3f,7.2.2,7.6.2,7.6.3a",
+      "basis": "Chain cards remain in the arena, attacking cards remain until they leave, a resolved chain link does not remove its AA card, and the turn player may attack again during Resolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rule": "8.1.2a/b",
+      "basis": "Attack reaction restriction is who controls the current attack and Reaction timing; it does not restrict the printed targeted-effect description to the current attack. Source clears after resolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rule": "5.1.4a,5.1.5",
+      "basis": "Declare legal targeted parameters before play/cost; if multiple legal cards exist, the player must be able to choose. Resolution cannot silently retarget to global active attack."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rule": "6.2.2a",
+      "basis": "No explicit duration means a layer-continuous property effect lasts to end of turn while still applicable; no already-completed damage is recomputed."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/crucible-of-war/",
+      "rule": "Lunging Press release-note search excerpt",
+      "basis": "Official indexed excerpt excludes weapon attacks. Full page403 was unavailable; no unstated wider limitation is inferred from it.",
+      "qualification": "Search excerpt only; main conclusions rely on current CR and official card text, not unavailable full ruling content."
+    }
+  ],
+  "requiredOrdinaryTargetBranches": [
+    {
+      "branch": "current-attacking-AA",
+      "legal": true,
+      "ordinary": true
+    },
+    {
+      "branch": "previous-resolved-link-AA",
+      "legal": true,
+      "ordinary": true,
+      "effect": "Selected old AA power+1; current attack power/damage unchanged; completed old damage unchanged."
+    },
+    {
+      "branch": "current-defending-AA-opponent-controls",
+      "legal": true,
+      "ordinary": true,
+      "effect": "Selected defending AA power+1 only; defense unchanged, active attack unchanged."
+    },
+    {
+      "branch": "previous-defending-AA-still-public",
+      "legal": true,
+      "ordinary": true,
+      "effect": "Same public-AA target rule; resolved damage not recalculated."
+    },
+    {
+      "branch": "current-weapon-only-no-eligible-AA-anywhere",
+      "legal": false,
+      "ordinary": true
+    },
+    {
+      "branch": "current-weapon-plus-previous-AA",
+      "legal": true,
+      "ordinary": true,
+      "effect": "Lunging targets older AA only; does not modify current weapon attack."
+    },
+    {
+      "branch": "private-Hand-Arsenal-or-Deck-AA",
+      "legal": false,
+      "ordinary": true
+    },
+    {
+      "branch": "GY-Banish-or-Pitch-AA-outside-arena",
+      "legal": false,
+      "ordinary": true
+    },
+    {
+      "branch": "public-AA-layer-on-stack",
+      "legal": true,
+      "ordinary": false,
+      "hold": "Requires supported route to have an AA layer while current Reaction still exists; no synthetic permission/target seed authored."
+    },
+    {
+      "branch": "target-leaves-or-changes-type-before-resolution",
+      "legal": "Reevaluate per declared target; cannot silently redirect",
+      "ordinary": false,
+      "hold": "Requires real source leaving/type-changing card interaction, separate held compatibility."
+    }
+  ],
+  "nativeFindings": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "function": "FaBWTRCanPlay",
+      "line": 351,
+      "observation": "Lunging branch returns FaBWTRIsAttackAction($obj) for the global active attack object; it never enumerates other legal public AA cards."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "line": 4413,
+      "observation": "Only ResolveCard entry lunging_press_blue:0, body tags FaBGetState attackUID with CRU_REACTION_POWER:1; no PrepareCard target chooser and no declared target binding."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "function": "ObjectCurrentPower",
+      "line": 870,
+      "observation": "Regression computed-power hook explicitly supports only current attack. Nonactive target power cannot be independently pinned via that hook without a separate bounded hook/component contract; do not fabricate native oracle support."
+    }
+  ],
+  "impactOnFrozen21": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\standalone-reaction-baselines\\lunging-press-matrix-proposed.json",
+    "sha256": "7a85b4b0b1f8eddd57a9db7085c9f95db876e2c07cf1fc2b8626296c04be8d2e",
+    "qualification": "The frozen21 draft is a bounded current-target subset, not complete finite target coverage. Fullblock and any case with a public defending AA has multiple legal targets and needs declaration choice. Preserve originals, do not bless implicit native current-attack behavior as the target rule."
+  },
+  "nativeSourceRawSHA256": {
+    "FaBSim/Custom/WTRCards.php": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+    "FaBSim/Custom/GameLogic.php": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "supportingPrintedCards": {
+    "lunging_press_blue": {
+      "id": "lunging_press_blue",
+      "types": [
+        "Generic",
+        "Attack Reaction"
+      ],
+      "health": "",
+      "cost": "0",
+      "pitch": "3",
+      "power": "",
+      "defense": "2",
+      "functional_text_plain": "Target attack action card gets +1{p}.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN026.webp"
+    },
+    "surging_strike_red": {
+      "id": "surging_strike_red",
+      "types": [
+        "Ninja",
+        "Action",
+        "Attack"
+      ],
+      "health": "",
+      "cost": "2",
+      "pitch": "1",
+      "power": "5",
+      "defense": "2",
+      "functional_text_plain": "Go again",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP125.webp"
+    },
+    "harmonized_kodachi": {
+      "id": "harmonized_kodachi",
+      "types": [
+        "Ninja",
+        "Weapon",
+        "Dagger",
+        "1H"
+      ],
+      "health": "",
+      "cost": "",
+      "pitch": "",
+      "power": "1",
+      "defense": "",
+      "functional_text_plain": "Once per Turn Action - {r}: Attack\nIf you have a card in your pitch zone with cost 0, this card's attacks get go again.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP091.webp"
+    },
+    "fai": {
+      "id": "fai",
+      "types": [
+        "Draconic",
+        "Ninja",
+        "Hero",
+        "Young"
+      ],
+      "health": "20",
+      "cost": "",
+      "pitch": "",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "You may start the game with a Phoenix Flame in your graveyard.\nOnce per Turn Instant - {r}{r}{r}: Return a Phoenix Flame from your graveyard to your hand. This ability costs {r} less to activate for each Draconic chain link you control.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAI001-RF.webp"
+    },
+    "dorinthea": {
+      "id": "dorinthea",
+      "types": [
+        "Warrior",
+        "Hero",
+        "Young"
+      ],
+      "health": "20",
+      "cost": "",
+      "pitch": "",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "The first time your weapon attack hits each turn, you may attack an additional time with that weapon this turn.",
+      "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP139.webp"
+    }
+  },
+  "probePath": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\lunging-target-scope-audit\\previous-aa-current-weapon-before-probe.json",
+  "nativeGameActions": 0,
+  "nativeWrites": 0,
+  "passingFixturesSaved": 0,
+  "remaining": [
+    "Independent target-rule/probe review.",
+    "Parent isolated actual before-proof; do not record current behavior as passing.",
+    "Bounded supported target declaration/source binding and legal-card enumeration repair if native proof confirms. No source patch authored in this task.",
+    "Actual selectable earlier/current/defending AA targets with unchanged nonselected power/defense/damage and post-partial028 timing before finite completion."
+  ]
+}

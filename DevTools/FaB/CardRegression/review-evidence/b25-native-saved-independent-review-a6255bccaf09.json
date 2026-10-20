@@ -1,0 +1,520 @@
+{
+  "status": "independently_reviewed_actual_five_saved_compatibility_fixtures",
+  "native_writes": 0,
+  "game_actions": 0,
+  "approved_spec_sha256": "70a7eef628e348d4a48962795d1743dcb9970c3fff63268566deaf4edf27fd55",
+  "checks": 222,
+  "fixtures": [
+    {
+      "slug": "compat-plain-spell-aether-dart-red-spellvoid-destroy",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "996467ea3649acce24101674251ad36c7fb2ba56d4abda0d1bea38846da34109",
+        "initial_gamestate.txt": "58ae6646e2db9b32363c949f6d980dc53e688287eddfa87c61bdeb5de6786e16",
+        "expected_final_gamestate.txt": "3e69bb10b209321e2a59e4106ed5ac65d554d923d4db6a2f132541d829fb72ad",
+        "meta.json": "be7d528c0a83d2177dff7d29dcb6f4b3c979aa9025df058e537a1917b78e3384"
+      },
+      "actions": 5,
+      "native_assertions": 68,
+      "game_state_field_assertions": 4,
+      "all_actions_and_assertions_match_reviewed_spec": true,
+      "checkpoints": [
+        {
+          "checkpoint": "target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "spellvoid_choice_keeps_resolving_source_live",
+          "step": 4,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "effects_finished_then_source_cleared",
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "spellvoid_destination_and_no_resource_payment",
+          "step": 5,
+          "native_assertions": 3
+        }
+      ],
+      "native_credit_oracles": [
+        {
+          "1": {
+            "2": 2
+          }
+        }
+      ],
+      "actual_final": {
+        "health": [
+          20,
+          18
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "source_graveyards": [
+          [
+            "aether_dart_red"
+          ],
+          [
+            "spell_fray_cloak"
+          ]
+        ],
+        "arcaneDealt": {
+          "1": {
+            "2": 2
+          }
+        },
+        "window": "ACTION",
+        "priority": 1,
+        "nonempty_await_frames": false,
+        "resolving_marker_present": false
+      },
+      "scope": "Actual saved semantic review; parent clean replay and focused disposable semantic controls remain separate qualification gates."
+    },
+    {
+      "slug": "compat-plain-spell-aether-dart-red-spellvoid-decline",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "56b972ee99295790b7bedb6e68169bdf63c1ceeb0f64dfbe8f8368ff05673955",
+        "initial_gamestate.txt": "58ae6646e2db9b32363c949f6d980dc53e688287eddfa87c61bdeb5de6786e16",
+        "expected_final_gamestate.txt": "5247564fb7cb3b52ef344160160129e52ed2808fe2a6e3c4ba1283248506dc97",
+        "meta.json": "6947811e79fc8d8d121146cd57f0169c99b1be606c85db8300ff74a53780d6af"
+      },
+      "actions": 5,
+      "native_assertions": 68,
+      "game_state_field_assertions": 4,
+      "all_actions_and_assertions_match_reviewed_spec": true,
+      "checkpoints": [
+        {
+          "checkpoint": "target_declared_before_assets",
+          "step": 1,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "spellvoid_choice_keeps_resolving_source_live",
+          "step": 4,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "effects_finished_then_source_cleared",
+          "step": 5,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "spellvoid_destination_and_no_resource_payment",
+          "step": 5,
+          "native_assertions": 3
+        }
+      ],
+      "native_credit_oracles": [
+        {
+          "1": {
+            "2": 3
+          }
+        }
+      ],
+      "actual_final": {
+        "health": [
+          20,
+          17
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "source_graveyards": [
+          [
+            "aether_dart_red"
+          ],
+          []
+        ],
+        "arcaneDealt": {
+          "1": {
+            "2": 3
+          }
+        },
+        "window": "ACTION",
+        "priority": 1,
+        "nonempty_await_frames": false,
+        "resolving_marker_present": false
+      },
+      "scope": "Actual saved semantic review; parent clean replay and focused disposable semantic controls remain separate qualification gates."
+    },
+    {
+      "slug": "compat-plain-spell-aether-dart-red-barrier-pitch-blue-live-source",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "280489166a765b45a2b7dea1f5c0f58fcfc45d53986056acf1117c64aa856f5d",
+        "initial_gamestate.txt": "0cb88f8e375cf548faf19b1dfc929f796335021bda14bfbf9cc715b03fc0e659",
+        "expected_final_gamestate.txt": "5533a95f30c61ef37e559d49153e355365d5629842c504573dc1bdc89de09ff1",
+        "meta.json": "c762a1fc83354ccea7542e951edce9bdc45db72b390109e9f19aced2373333d3"
+      },
+      "actions": 6,
+      "native_assertions": 84,
+      "game_state_field_assertions": 4,
+      "all_actions_and_assertions_match_reviewed_spec": true,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "step": 0,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "target_declared_before_payment_and_damage",
+          "step": 1,
+          "native_assertions": 13
+        },
+        {
+          "checkpoint": "spell_paid_before_resolution",
+          "step": 2,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "prevention_before_damage_live_source",
+          "step": 4,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "prevention_pitch_before_damage_live_source",
+          "step": 5,
+          "native_assertions": 12
+        },
+        {
+          "checkpoint": "resolved_damage_assets_and_source_destination",
+          "step": 6,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "completed_lifecycle_restores_turn_priority_and_caster_credit",
+          "step": 6,
+          "native_assertions": 5
+        }
+      ],
+      "native_credit_oracles": [
+        {
+          "1": {
+            "2": 2
+          }
+        }
+      ],
+      "actual_final": {
+        "health": [
+          20,
+          18
+        ],
+        "resources": [
+          1,
+          2
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "source_graveyards": [
+          [
+            "aether_dart_red"
+          ],
+          []
+        ],
+        "arcaneDealt": {
+          "1": {
+            "2": 2
+          }
+        },
+        "window": "ACTION",
+        "priority": 1,
+        "nonempty_await_frames": false,
+        "resolving_marker_present": false
+      },
+      "scope": "Actual saved semantic review; parent clean replay and focused disposable semantic controls remain separate qualification gates."
+    },
+    {
+      "slug": "compat-plain-spell-aether-dart-red-boots-granted-go-again-once-after-await",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "3f58729b4ef1e7de628ca8a5d523316a50bac2ef931bc15dcb61219ada9d2fdd",
+        "assertions.json": "a9621c15bd0ea41b95edb283c9b33ab8c5a43fcbe6e695c61babcb016d9f4d4a",
+        "initial_gamestate.txt": "73f514034408d3cd0baac4f2f0dc45fcfd08b2560ee7159b5dc25ea8ebb0718b",
+        "expected_final_gamestate.txt": "308f19dad9974951b699e71babccb24e9260258cd22e8f5d49b1e117f5262998",
+        "meta.json": "1c7d5ba3b27be17cfa9908696f9ac87208da232ccd6fb1494f812e1a26298eae"
+      },
+      "actions": 13,
+      "native_assertions": 160,
+      "game_state_field_assertions": 9,
+      "all_actions_and_assertions_match_reviewed_spec": true,
+      "checkpoints": [
+        {
+          "checkpoint": "legal_boots_activation",
+          "step": 0,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": "boots_assets_paid_before_ability",
+          "step": 1,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "boots_own_go_again_and_next_nonattack_grant_resolved",
+          "step": 3,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "target_declared_before_assets",
+          "step": 4,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 5,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "spellvoid_choice_keeps_resolving_source_live",
+          "step": 7,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "granted_go_again_not_yet_an_action_point",
+          "step": 7,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "first_dart_effects_then_go_again_then_clear",
+          "step": 8,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "target_declared_before_assets",
+          "step": 9,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 10,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "spellvoid_choice_keeps_resolving_source_live",
+          "step": 12,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "next_only_grant_consumed_before_second_dart",
+          "step": 12,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "second_dart_has_no_repeat_go_again",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "equipment_unchanged",
+          "step": 13,
+          "native_assertions": 4
+        }
+      ],
+      "native_credit_oracles": [
+        {
+          "1": {
+            "2": 3
+          }
+        },
+        {
+          "1": {
+            "2": 6
+          }
+        }
+      ],
+      "actual_final": {
+        "health": [
+          20,
+          14
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "actionPoints": [
+          0,
+          0
+        ],
+        "source_graveyards": [
+          [
+            "mage_master_boots",
+            "aether_dart_red",
+            "aether_dart_red"
+          ],
+          []
+        ],
+        "arcaneDealt": {
+          "1": {
+            "2": 6
+          }
+        },
+        "window": "ACTION",
+        "priority": 1,
+        "nonempty_await_frames": false,
+        "resolving_marker_present": false
+      },
+      "scope": "Actual saved semantic review; parent clean replay and focused disposable semantic controls remain separate qualification gates."
+    },
+    {
+      "slug": "compat-plain-spell-aether-dart-red-storm-striders-underlying-energy-ability-real-pass",
+      "semantically_approved": true,
+      "file_sha256": {
+        "actions.json": "8dbc9e1ca6111a4030c63fa31d427efb46a49033c156c1deeb615331d86f4cec",
+        "assertions.json": "c7540eb46cc74030ec13a0e1d609d4c23ef09e3e2623c834d6a789106fa164c3",
+        "initial_gamestate.txt": "d7232eb89117c948e9ffeb87a1c0f155efd0b253c0c58bedba7c61c7aa70687d",
+        "expected_final_gamestate.txt": "23bba157388cf862db7c54f4bc1dd955ff6e0234f81cd87d0668c83b9f8809eb",
+        "meta.json": "9e2bf978ab2cd13b6dccc0a4e957ef27e0fe4169abfa73de8b5384a0ce93f979"
+      },
+      "actions": 12,
+      "native_assertions": 131,
+      "game_state_field_assertions": 9,
+      "all_actions_and_assertions_match_reviewed_spec": true,
+      "checkpoints": [
+        {
+          "checkpoint": "striders_instant_pays_no_action_point",
+          "step": 1,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "striders_grant_resolved_before_lower_ability",
+          "step": 3,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "energy_ability_live_resources_not_gained_yet",
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "opponent_passes_once_lower_layer_still_unresolved",
+          "step": 5,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "target_declared_before_assets",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "spellvoid_choice_keeps_resolving_source_live",
+          "step": 9,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "lower_ability_unchanged_while_spell_is_resolving",
+          "step": 9,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "top_spell_complete_lower_layer_receives_real_priority",
+          "step": 10,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_turn_player_pass_preserves_underlying_layer",
+          "step": 11,
+          "native_assertions": 10
+        },
+        {
+          "checkpoint": "lower_ability_resolves_once_after_real_pass",
+          "step": 12,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "lower_source_not_resurrected_or_double_cleared",
+          "step": 12,
+          "native_assertions": 5
+        }
+      ],
+      "native_credit_oracles": [
+        {
+          "1": {
+            "2": 3
+          }
+        },
+        {
+          "1": {
+            "2": 3
+          }
+        }
+      ],
+      "actual_final": {
+        "health": [
+          20,
+          17
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "actionPoints": [
+          1,
+          0
+        ],
+        "source_graveyards": [
+          [
+            "storm_striders",
+            "energy_potion_blue",
+            "aether_dart_red"
+          ],
+          []
+        ],
+        "arcaneDealt": {
+          "1": {
+            "2": 3
+          }
+        },
+        "window": "ACTION",
+        "priority": 1,
+        "nonempty_await_frames": false,
+        "resolving_marker_present": false
+      },
+      "scope": "Actual saved semantic review; parent clean replay and focused disposable semantic controls remain separate qualification gates."
+    }
+  ],
+  "totals": {
+    "fixtures": 5,
+    "actions": 41,
+    "native_assertions": 511,
+    "persisted_game_state_field_assertions": 30
+  },
+  "remaining": [
+    "Parent frozen-runtime clean replay and disposable semantic controls required before deterministic qualification/expansion.",
+    "No general24/524 spell, foreignowner, true source departure/LKI, FlashBolt, suppression or elimination coverage claimed."
+  ]
+}

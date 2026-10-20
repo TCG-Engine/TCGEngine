@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / hand-hammer-weapon-no-discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "anothos is a legal Hammer weapon attack under the correct hero. Printed power4 gets +4; life12. Weapon mode grants no discard even when the attack hits a hero, so hand2 and graveyard0 remain unchanged. All pitch cards are cost0 or3 with at most one printed cost>=3, so Anothos passive +2 is absent. Resources1, final AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_red https://judge.fabtcg.com/cards/detail/319/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

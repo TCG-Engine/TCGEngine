@@ -1,0 +1,7 @@
+{
+    "name": "Felling Swing / two-buffs-additive-single-next-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:46:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +6 power. It does not grant that attack go again. Both independent copies add their printed+6 to the same next matching attack; power14, not8. Each source spends and refunds its own1AP; the weapon gets no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

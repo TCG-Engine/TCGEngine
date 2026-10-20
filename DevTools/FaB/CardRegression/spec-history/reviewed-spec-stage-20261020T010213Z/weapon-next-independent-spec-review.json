@@ -1,0 +1,7835 @@
+{
+  "status": "independently_approved_corrected_weapon_next_specs_for_parent_pilots",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "scenario_sha256": "ddcf55effb622bf62727b7476bbf200bde6289dfb8c40a06e6fd45a4c5b06e9f",
+  "pilot_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+  "scenarios": 198,
+  "identities": 10,
+  "independent_model_checks": 19180,
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0,
+  "countsByIdentity": {
+    "sharpen_steel_red": 19,
+    "sharpen_steel_yellow": 19,
+    "sharpen_steel_blue": 19,
+    "cut_deep_red": 19,
+    "cut_deep_yellow": 19,
+    "cut_deep_blue": 19,
+    "felling_swing_red": 21,
+    "felling_swing_yellow": 21,
+    "felling_swing_blue": 21,
+    "en_garde_red": 21
+  },
+  "correction": {
+    "changedCases": 19,
+    "removedPrematureTagAbsenceChecks": 19,
+    "unmodifiedCases": 179,
+    "allSetupsActionsAndNumericOraclesPreserved": true
+  },
+  "primary_sources": [
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/#143e",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#522a",
+    "https://rules.fabtcg.com/en/cr/08-keywords/#831"
+  ],
+  "scope": [
+    "Printed matching weapon/dagger/axe bonuses independently applied to attack proxies; original weapon objects remain unmodified, no attack GA granted.",
+    "Action cost/AP and own source go again, blue pitch funding, response order, additive independent buffs, subtype/nonattack/attack-action exclusions, per-source next-only consumption, physical duplicate1H weapons, NAA fullblock, ally target and normal turn expiry modeled for all198.",
+    "Boltyn no charge/Soul, Cintari only NAA defenders, HatchetBody withoutMind predecessor, Quicksilver with no otherweaponGA avoid incidental conditions.",
+    "Prepayment raw empty-tag absences removed before execution, consistent CR1.4.3e/5.2.2a/8.3.1; earliest Stack-proxy application remains held because current native computedpower hook is active-combat-only.",
+    "EnGarde correct printed+3 oracle must expose missing native effect; never save an unbuffed attack as passing."
+  ],
+  "required_parent_gates": [
+    "Serial correct native four pilots after exact spec approval; do not weaken failed correct oracles.",
+    "Saved action/native assertion/snapshot review followed by clean deterministic replay and semantic controls before bounded expansion.",
+    "No full keyword/weapon/hero coverage or gain/modifier/suppression/LKI/foreignowner/multiplayer combinations claimed."
+  ],
+  "scenarios_review": [
+    {
+      "slug": "card-sharpen-steel-red-hand-floating",
+      "cardID": "sharpen_steel_red",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-arsenal-face-down-floating",
+      "cardID": "sharpen_steel_red",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-arsenal-face-up-floating",
+      "cardID": "sharpen_steel_red",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-blue-pitch-payments",
+      "cardID": "sharpen_steel_red",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-axe-also-qualifies",
+      "cardID": "sharpen_steel_red",
+      "branch": "axe-also-qualifies",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-dagger-also-qualifies",
+      "cardID": "sharpen_steel_red",
+      "branch": "dagger-also-qualifies",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-fully-blocked-still-increases-power",
+      "cardID": "sharpen_steel_red",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-ally-target-still-qualifies",
+      "cardID": "sharpen_steel_red",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-next-matching-attack-only",
+      "cardID": "sharpen_steel_red",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-two-buffs-additive-single-next-attack",
+      "cardID": "sharpen_steel_red",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-nonattack-action-preserves-buff",
+      "cardID": "sharpen_steel_red",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-attack-action-excluded-and-preserves-buff",
+      "cardID": "sharpen_steel_red",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "cardID": "sharpen_steel_red",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_red",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_red",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-turn-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_red",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_red",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-hand-without-priority-reject",
+      "cardID": "sharpen_steel_red",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-red-unused-effect-expires-this-turn",
+      "cardID": "sharpen_steel_red",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-hand-floating",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-arsenal-face-down-floating",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-arsenal-face-up-floating",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-blue-pitch-payments",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-axe-also-qualifies",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "axe-also-qualifies",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-dagger-also-qualifies",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "dagger-also-qualifies",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-fully-blocked-still-increases-power",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-ally-target-still-qualifies",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-next-matching-attack-only",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-two-buffs-additive-single-next-attack",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-nonattack-action-preserves-buff",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-attack-action-excluded-and-preserves-buff",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-opponent-response-before-buff-resolves",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-opponent-turn-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-hand-without-priority-reject",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-unused-effect-expires-this-turn",
+      "cardID": "sharpen_steel_yellow",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-hand-floating",
+      "cardID": "sharpen_steel_blue",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-arsenal-face-down-floating",
+      "cardID": "sharpen_steel_blue",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-arsenal-face-up-floating",
+      "cardID": "sharpen_steel_blue",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-blue-pitch-payments",
+      "cardID": "sharpen_steel_blue",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-axe-also-qualifies",
+      "cardID": "sharpen_steel_blue",
+      "branch": "axe-also-qualifies",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-dagger-also-qualifies",
+      "cardID": "sharpen_steel_blue",
+      "branch": "dagger-also-qualifies",
+      "finalHealth": [
+        20,
+        18
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-fully-blocked-still-increases-power",
+      "cardID": "sharpen_steel_blue",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-ally-target-still-qualifies",
+      "cardID": "sharpen_steel_blue",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-next-matching-attack-only",
+      "cardID": "sharpen_steel_blue",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-two-buffs-additive-single-next-attack",
+      "cardID": "sharpen_steel_blue",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-nonattack-action-preserves-buff",
+      "cardID": "sharpen_steel_blue",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-attack-action-excluded-and-preserves-buff",
+      "cardID": "sharpen_steel_blue",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-opponent-response-before-buff-resolves",
+      "cardID": "sharpen_steel_blue",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        18
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_blue",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_blue",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-opponent-turn-hand-zero-ap-reject",
+      "cardID": "sharpen_steel_blue",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "sharpen_steel_blue",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-hand-without-priority-reject",
+      "cardID": "sharpen_steel_blue",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-sharpen-steel-blue-unused-effect-expires-this-turn",
+      "cardID": "sharpen_steel_blue",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "sharpen_steel_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-hand-floating",
+      "cardID": "cut_deep_red",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-arsenal-face-down-floating",
+      "cardID": "cut_deep_red",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-arsenal-face-up-floating",
+      "cardID": "cut_deep_red",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-blue-pitch-payments",
+      "cardID": "cut_deep_red",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "cut_deep_red",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-nonmatching-hatchet-of-body-preserves-buff",
+      "cardID": "cut_deep_red",
+      "branch": "nonmatching-hatchet-of-body-preserves-buff",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-fully-blocked-still-increases-power",
+      "cardID": "cut_deep_red",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-ally-target-still-qualifies",
+      "cardID": "cut_deep_red",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-next-matching-attack-only",
+      "cardID": "cut_deep_red",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-two-buffs-additive-single-next-attack",
+      "cardID": "cut_deep_red",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 9,
+          "defense": 0,
+          "heroDamage": 9,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-nonattack-action-preserves-buff",
+      "cardID": "cut_deep_red",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+      "cardID": "cut_deep_red",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-opponent-response-before-buff-resolves",
+      "cardID": "cut_deep_red",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-hand-zero-ap-reject",
+      "cardID": "cut_deep_red",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_red",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-opponent-turn-hand-zero-ap-reject",
+      "cardID": "cut_deep_red",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_red",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-hand-without-priority-reject",
+      "cardID": "cut_deep_red",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-red-unused-effect-expires-this-turn",
+      "cardID": "cut_deep_red",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        19
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-hand-floating",
+      "cardID": "cut_deep_yellow",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-arsenal-face-down-floating",
+      "cardID": "cut_deep_yellow",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-arsenal-face-up-floating",
+      "cardID": "cut_deep_yellow",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-blue-pitch-payments",
+      "cardID": "cut_deep_yellow",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "cut_deep_yellow",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonmatching-hatchet-of-body-preserves-buff",
+      "cardID": "cut_deep_yellow",
+      "branch": "nonmatching-hatchet-of-body-preserves-buff",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-fully-blocked-still-increases-power",
+      "cardID": "cut_deep_yellow",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-ally-target-still-qualifies",
+      "cardID": "cut_deep_yellow",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-next-matching-attack-only",
+      "cardID": "cut_deep_yellow",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-two-buffs-additive-single-next-attack",
+      "cardID": "cut_deep_yellow",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonattack-action-preserves-buff",
+      "cardID": "cut_deep_yellow",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-attack-action-excluded-and-preserves-buff",
+      "cardID": "cut_deep_yellow",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-opponent-response-before-buff-resolves",
+      "cardID": "cut_deep_yellow",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-hand-zero-ap-reject",
+      "cardID": "cut_deep_yellow",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_yellow",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-opponent-turn-hand-zero-ap-reject",
+      "cardID": "cut_deep_yellow",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_yellow",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-hand-without-priority-reject",
+      "cardID": "cut_deep_yellow",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-yellow-unused-effect-expires-this-turn",
+      "cardID": "cut_deep_yellow",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        19
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_yellow",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-hand-floating",
+      "cardID": "cut_deep_blue",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-arsenal-face-down-floating",
+      "cardID": "cut_deep_blue",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-arsenal-face-up-floating",
+      "cardID": "cut_deep_blue",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-blue-pitch-payments",
+      "cardID": "cut_deep_blue",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        17
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "cut_deep_blue",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-nonmatching-hatchet-of-body-preserves-buff",
+      "cardID": "cut_deep_blue",
+      "branch": "nonmatching-hatchet-of-body-preserves-buff",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-fully-blocked-still-increases-power",
+      "cardID": "cut_deep_blue",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-ally-target-still-qualifies",
+      "cardID": "cut_deep_blue",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-next-matching-attack-only",
+      "cardID": "cut_deep_blue",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-two-buffs-additive-single-next-attack",
+      "cardID": "cut_deep_blue",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 5,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-nonattack-action-preserves-buff",
+      "cardID": "cut_deep_blue",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        17
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-attack-action-excluded-and-preserves-buff",
+      "cardID": "cut_deep_blue",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-opponent-response-before-buff-resolves",
+      "cardID": "cut_deep_blue",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        18
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 3,
+          "defense": 0,
+          "heroDamage": 3,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-hand-zero-ap-reject",
+      "cardID": "cut_deep_blue",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_blue",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-opponent-turn-hand-zero-ap-reject",
+      "cardID": "cut_deep_blue",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "cut_deep_blue",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-hand-without-priority-reject",
+      "cardID": "cut_deep_blue",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-cut-deep-blue-unused-effect-expires-this-turn",
+      "cardID": "cut_deep_blue",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        19
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "cut_deep_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-hand-floating",
+      "cardID": "felling_swing_red",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-face-down-floating",
+      "cardID": "felling_swing_red",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-face-up-floating",
+      "cardID": "felling_swing_red",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "cardID": "felling_swing_red",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "felling_swing_red",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        10
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-nonmatching-quicksilver-dagger-preserves-buff",
+      "cardID": "felling_swing_red",
+      "branch": "nonmatching-quicksilver-dagger-preserves-buff",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-fully-blocked-still-increases-power",
+      "cardID": "felling_swing_red",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-ally-target-still-qualifies",
+      "cardID": "felling_swing_red",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-next-matching-attack-only",
+      "cardID": "felling_swing_red",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        10
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-two-buffs-additive-single-next-attack",
+      "cardID": "felling_swing_red",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        6
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 14,
+          "defense": 0,
+          "heroDamage": 14,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+      "cardID": "felling_swing_red",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-attack-action-excluded-and-preserves-buff",
+      "cardID": "felling_swing_red",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        8
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+      "cardID": "felling_swing_red",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-hand-zero-ap-reject",
+      "cardID": "felling_swing_red",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_red",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-turn-hand-zero-ap-reject",
+      "cardID": "felling_swing_red",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_red",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-hand-without-priority-reject",
+      "cardID": "felling_swing_red",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-hand-insufficient-assets-reject",
+      "cardID": "felling_swing_red",
+      "branch": "hand-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-insufficient-assets-reject",
+      "cardID": "felling_swing_red",
+      "branch": "arsenal-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-red-unused-effect-expires-this-turn",
+      "cardID": "felling_swing_red",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_red",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-hand-floating",
+      "cardID": "felling_swing_yellow",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-face-down-floating",
+      "cardID": "felling_swing_yellow",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-face-up-floating",
+      "cardID": "felling_swing_yellow",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-blue-pitch-payments",
+      "cardID": "felling_swing_yellow",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "felling_swing_yellow",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonmatching-quicksilver-dagger-preserves-buff",
+      "cardID": "felling_swing_yellow",
+      "branch": "nonmatching-quicksilver-dagger-preserves-buff",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-fully-blocked-still-increases-power",
+      "cardID": "felling_swing_yellow",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-ally-target-still-qualifies",
+      "cardID": "felling_swing_yellow",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-next-matching-attack-only",
+      "cardID": "felling_swing_yellow",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-two-buffs-additive-single-next-attack",
+      "cardID": "felling_swing_yellow",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        8
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 12,
+          "defense": 0,
+          "heroDamage": 12,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+      "cardID": "felling_swing_yellow",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-attack-action-excluded-and-preserves-buff",
+      "cardID": "felling_swing_yellow",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        9
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+      "cardID": "felling_swing_yellow",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 7,
+          "defense": 0,
+          "heroDamage": 7,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-hand-zero-ap-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-turn-hand-zero-ap-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-hand-without-priority-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-hand-insufficient-assets-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "hand-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-insufficient-assets-reject",
+      "cardID": "felling_swing_yellow",
+      "branch": "arsenal-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-yellow-unused-effect-expires-this-turn",
+      "cardID": "felling_swing_yellow",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_yellow",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-floating",
+      "cardID": "felling_swing_blue",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-face-down-floating",
+      "cardID": "felling_swing_blue",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-face-up-floating",
+      "cardID": "felling_swing_blue",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-blue-pitch-payments",
+      "cardID": "felling_swing_blue",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        14
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-nonmatching-cintari-saber-preserves-buff",
+      "cardID": "felling_swing_blue",
+      "branch": "nonmatching-cintari-saber-preserves-buff",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-nonmatching-quicksilver-dagger-preserves-buff",
+      "cardID": "felling_swing_blue",
+      "branch": "nonmatching-quicksilver-dagger-preserves-buff",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 1,
+          "defense": 0,
+          "heroDamage": 1,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-fully-blocked-still-increases-power",
+      "cardID": "felling_swing_blue",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-ally-target-still-qualifies",
+      "cardID": "felling_swing_blue",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-next-matching-attack-only",
+      "cardID": "felling_swing_blue",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-two-buffs-additive-single-next-attack",
+      "cardID": "felling_swing_blue",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        10
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 5,
+          "power": 10,
+          "defense": 0,
+          "heroDamage": 10,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+      "cardID": "felling_swing_blue",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        14
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-attack-action-excluded-and-preserves-buff",
+      "cardID": "felling_swing_blue",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        10
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+      "cardID": "felling_swing_blue",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 6,
+          "defense": 0,
+          "heroDamage": 6,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-zero-ap-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-turn-hand-zero-ap-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        4
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-without-priority-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        4,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-hand-insufficient-assets-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "hand-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-insufficient-assets-reject",
+      "cardID": "felling_swing_blue",
+      "branch": "arsenal-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-felling-swing-blue-unused-effect-expires-this-turn",
+      "cardID": "felling_swing_blue",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "felling_swing_blue",
+          "resources": 3,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": false
+    },
+    {
+      "slug": "card-en-garde-red-hand-floating",
+      "cardID": "en_garde_red",
+      "branch": "hand-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-arsenal-face-down-floating",
+      "cardID": "en_garde_red",
+      "branch": "arsenal-face-down-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-arsenal-face-up-floating",
+      "cardID": "en_garde_red",
+      "branch": "arsenal-face-up-floating",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-blue-pitch-payments",
+      "cardID": "en_garde_red",
+      "branch": "blue-pitch-payments",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-axe-also-qualifies",
+      "cardID": "en_garde_red",
+      "branch": "axe-also-qualifies",
+      "finalHealth": [
+        20,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "hatchet_of_body",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "hatchet_of_body",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-dagger-also-qualifies",
+      "cardID": "en_garde_red",
+      "branch": "dagger-also-qualifies",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "quicksilver_dagger",
+          "sourceUID": 4,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "quicksilver_dagger",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-fully-blocked-still-increases-power",
+      "cardID": "en_garde_red",
+      "branch": "fully-blocked-still-increases-power",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 9,
+          "heroDamage": 0,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-ally-target-still-qualifies",
+      "cardID": "en_garde_red",
+      "branch": "ally-target-still-qualifies",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 0,
+          "ally": true,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-next-matching-attack-only",
+      "cardID": "en_garde_red",
+      "branch": "next-matching-attack-only",
+      "finalHealth": [
+        20,
+        13
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-two-buffs-additive-single-next-attack",
+      "cardID": "en_garde_red",
+      "branch": "two-buffs-additive-single-next-attack",
+      "finalHealth": [
+        20,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 5,
+          "power": 8,
+          "defense": 0,
+          "heroDamage": 8,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-nonattack-action-preserves-buff",
+      "cardID": "en_garde_red",
+      "branch": "nonattack-action-preserves-buff",
+      "finalHealth": [
+        21,
+        15
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "healing_balm_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-attack-action-excluded-and-preserves-buff",
+      "cardID": "en_garde_red",
+      "branch": "attack-action-excluded-and-preserves-buff",
+      "finalHealth": [
+        20,
+        11
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_red",
+          "sourceUID": 5,
+          "power": 4,
+          "defense": 0,
+          "heroDamage": 4,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-opponent-response-before-buff-resolves",
+      "cardID": "en_garde_red",
+      "branch": "opponent-response-before-buff-resolves",
+      "finalHealth": [
+        20,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 5,
+          "defense": 0,
+          "heroDamage": 5,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-hand-zero-ap-reject",
+      "cardID": "en_garde_red",
+      "branch": "hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-arsenal-zero-ap-reject",
+      "cardID": "en_garde_red",
+      "branch": "arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-opponent-turn-hand-zero-ap-reject",
+      "cardID": "en_garde_red",
+      "branch": "opponent-turn-hand-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        2
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-opponent-turn-arsenal-zero-ap-reject",
+      "cardID": "en_garde_red",
+      "branch": "opponent-turn-arsenal-zero-ap-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        2
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-hand-without-priority-reject",
+      "cardID": "en_garde_red",
+      "branch": "hand-without-priority-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-hand-insufficient-assets-reject",
+      "cardID": "en_garde_red",
+      "branch": "hand-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-arsenal-insufficient-assets-reject",
+      "cardID": "en_garde_red",
+      "branch": "arsenal-insufficient-assets-reject",
+      "finalHealth": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalAP": [
+        1,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [],
+      "costPayments": [],
+      "correct_missing_effect_fail_if_incorrect": true
+    },
+    {
+      "slug": "card-en-garde-red-unused-effect-expires-this-turn",
+      "cardID": "en_garde_red",
+      "branch": "unused-effect-expires-this-turn",
+      "finalHealth": [
+        18,
+        18
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalTurn": 1,
+      "combatOracles": [
+        {
+          "cardID": "wounding_blow_blue",
+          "sourceUID": 7,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        },
+        {
+          "cardID": "cintari_saber",
+          "sourceUID": 4,
+          "power": 2,
+          "defense": 0,
+          "heroDamage": 2,
+          "ally": false,
+          "go_again": false
+        }
+      ],
+      "costPayments": [
+        {
+          "cardID": "en_garde_red",
+          "resources": 1,
+          "AP": 1
+        },
+        {
+          "cardID": "wounding_blow_blue",
+          "resources": 0,
+          "AP": 1
+        },
+        {
+          "cardID": "cintari_saber",
+          "resources": 1,
+          "AP": 1
+        }
+      ],
+      "correct_missing_effect_fail_if_incorrect": true
+    }
+  ]
+}

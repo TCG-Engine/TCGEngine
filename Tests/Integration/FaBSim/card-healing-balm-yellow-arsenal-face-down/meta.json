@@ -1,0 +1,7 @@
+{
+    "name": "Healing Balm / arsenal-face-down",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:13:59+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain 2{h}. Pay exactly1AP when played; no printed go again. Health increases by printed amount only when the card resolves, with no starting-life cap.  Sources: FaBSim/GeneratedCode/cardArrayCache.json#healing_balm_yellow https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

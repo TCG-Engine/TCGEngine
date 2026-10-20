@@ -1,0 +1,7 @@
+{
+    "name": "Wounded Bull / bonus-persists-after-own-heal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Wounded Bull red is played at 18 versus 20 and gains +1 power. After ATTACK with empty stack, own Sigil red heals to 21. Granted +1 remains, so damage is 8; blue pitch paid exactly cost 3. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wounded_bull_red https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

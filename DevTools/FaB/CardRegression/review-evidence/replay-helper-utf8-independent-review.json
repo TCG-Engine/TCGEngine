@@ -1,0 +1,58 @@
+{
+  "status": "INDEPENDENT_REPLAY_HELPER_FOUR_ANCHOR_UTF8_ONLY_COPY_APPROVED",
+  "approved": true,
+  "reviewer": "/root/resume_cnc_triage",
+  "captured_utc": "2026-10-20T15:37:34.991181+00:00",
+  "checks": 17,
+  "native_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\run_card_regression_replays.py",
+  "native_before_sha256": "76e8a794e2c806782f84ae5fd6fd4539344e49501cd55697b6cc0bf4cd545c8f",
+  "candidate_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\run_card_regression_replays.py",
+  "candidate_sha256": "64ce6cf27321fb1988ca58803fd365590183ce1e026f104db9adcf006969266f",
+  "encoding_anchors": 4,
+  "nonencoding_AST_identical": true,
+  "exact_edits": [
+    {
+      "before": "(p/'meta.json').read_text()",
+      "after": "(p/'meta.json').read_text(encoding='utf-8-sig')"
+    },
+    {
+      "before": "cwd=repo,text=True,capture_output=True)",
+      "after": "cwd=repo,text=True,encoding='utf-8',capture_output=True)"
+    },
+    {
+      "before": "(fixtures/slug/'meta.json').read_text()",
+      "after": "(fixtures/slug/'meta.json').read_text(encoding='utf-8-sig')"
+    },
+    {
+      "before": ".write_text(json.dumps(report,indent=2)+'\\n')",
+      "after": ".write_text(json.dumps(report,indent=2)+'\\n',encoding='utf-8')"
+    }
+  ],
+  "existing_native_full_run_evidence": [
+    {
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\full3079-561899-run1-guard-receipt.json",
+      "receipt_sha256": "f87a39f2e9b393a799d328d815c71c69c35758916e8527bafa7f8316c6d71e4d",
+      "report_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-full3079-561899-run1.json",
+      "report_sha256": "2f253c0b0c6eccaa79ca68ae6bd8aa813f3fa96c635bf476a8275fd9466fdbb4",
+      "native_passes": 3079
+    },
+    {
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\full3079-561899-run2-guard-receipt.json",
+      "receipt_sha256": "ae0743fefd14675717c2d753105ca9ff4be49dc3c1af2b484b30c83bc36d9c3f",
+      "report_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-replay-full3079-561899-run2.json",
+      "report_sha256": "f1bc7eb1c4c813939f5c1f7426c1930f2d3b5ce9c7a83d619a5219a671a9beec",
+      "native_passes": 3079
+    }
+  ],
+  "guard_wrapper_sha256": "3c071cfcd4353c80291f914affed8095a6c3e0388892d68b71da0bfb66448875",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "effect": "MakebothmetaJSONreadsUTF8withoptionalBOM, decodeexistingPHPstdout/stderrstrictUTF8, and writeexistingJSONreportUTF8. Samefixturehashbytes, nativecommand, assertions, resultcount/order and reportfields. No testoracles/expectedstates/fixturefiles changed.",
+  "approval_scope": "Parentmayguardedlycopyexact64ce candidateoverexact76e8 nativehelper. Nootherfilechanges authorizedbythisreview. Toolnotpartofgameplayruntimefingerprint.",
+  "execution_provenance_limit": "Parent conversation states this exactworkspacecandidate was usedforbothsuccessfulguarded3079runs; currentwrapper directlyinvokesit and bothreceipts/reporthashes arechecked. Receipts do notintrinsically embed helperSHA; thisreview doesnotinvent that field.",
+  "reexecution_required": false,
+  "reexecution_reason": "Onlyfourencodingkeywords differ; candidate alreadyusedinbothcompletedguardedruns pertrustedparenthistory. No newfullrun/gameaction performed byreviewer.",
+  "native_actions": 0,
+  "native_imports": 0,
+  "native_writes": 0,
+  "review_script_sha256": "b3c66d7a8f6773b3b3363c082ad081a818097d01929f7d5fa1d737a6742d5ee9"
+}

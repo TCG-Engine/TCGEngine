@@ -1,0 +1,74 @@
+{
+  "status": "PROPOSAL_ONLY",
+  "path": "FaBSim/Custom/WTRAbilities.php",
+  "raw_before_sha256": "0238a9cd883811c95e30eb59ba78e2689ed75e241bf352ffe14d616894a52d10",
+  "normalized_candidate_sha256": "7ba3715001ed25a7d6cb5556139bddf1456f346fd576aa9962274e1c14a72151",
+  "anchor": {
+    "before": "        if (FaBSeatIsLive($controller)) AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);\n",
+    "after": "        // CR 1.13.2b / 8.5.7b: the trigger still resolves, but AP gain can fail.\n        if (FaBSeatIsLive($controller) && $controller === intval(GetTurnPlayer()) && GetCurrentPhase() === 'MAIN')\n            AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);\n",
+    "occurrences_required": 1,
+    "line_at_freeze": 157
+  },
+  "patch_sha256": "2ee372dd9f2eb2c312ed669e7839a1019e69751a42ac011256ddad8c4c1d97cb",
+  "components": {
+    "status": "PASS",
+    "checks": 462,
+    "scope": "isolated extracted-function components; not native replay",
+    "lints": [
+      {
+        "path": "lead-action-phase-ap-guard-candidate-WTRAbilities.php",
+        "status": "PASS"
+      },
+      {
+        "path": "lead-action-phase-ap-guard-component-check.php",
+        "status": "PASS"
+      }
+    ],
+    "native_game_imports": false,
+    "fault_controls": [
+      {
+        "name": "missing-both-guards",
+        "status": "DETECTED",
+        "first_failure": "non-turn Action INSTANT trigger resolves but cannot gain AP actual=1 expected=0"
+      },
+      {
+        "name": "missing-phase-guard",
+        "status": "DETECTED",
+        "first_failure": "only own MAIN phase gains AP actual=1 expected=0"
+      },
+      {
+        "name": "missing-turn-guard",
+        "status": "DETECTED",
+        "first_failure": "non-turn Action INSTANT trigger resolves but cannot gain AP actual=1 expected=0"
+      }
+    ]
+  },
+  "phase_sources": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "raw_sha256": "7dfb6d866dd04f62ed0b953168ddc0108281960b1904c8767afb277301753ff5"
+    },
+    {
+      "path": "FaBSim/TurnStates.php",
+      "raw_sha256": "0388558dff2672dbdc35f9407c8ed2e7a6779d75b4f421fd2d8edcb2269bf3ea"
+    },
+    {
+      "path": "FaBSim/TurnController.php",
+      "raw_sha256": "d79b53d9ad3498bce851c0c2b708b85374facc2418d6e49feaf7ee9bbd3abfd8"
+    }
+  ],
+  "commands": [
+    "python .\\build_lead_action_phase_guard_proposal.py",
+    "& C:\\xampp\\php\\php.exe -n .\\lead-action-phase-ap-guard-component-check.php"
+  ],
+  "deliverables": {
+    "lead-action-phase-ap-guard-candidate-WTRAbilities.php": "7ba3715001ed25a7d6cb5556139bddf1456f346fd576aa9962274e1c14a72151",
+    "lead-action-phase-ap-guard-component-check.php": "8dc37f79adce1348158fae3041f31ef87fe51f4b07015c09799c90b6ac42c5c4",
+    "lead-action-phase-ap-guard-component-results.json": "f773a2e9676b800f86dd92fd93c0af909bd1b585bc17d959352dc1af77282f55",
+    "lead-action-phase-ap-guard-fault-missing-both-guards.php": "8d22e3d62c26e41d46a861bc7cd8cb991d6cde575676993fa64edda882549cb0",
+    "lead-action-phase-ap-guard-fault-missing-phase-guard.php": "62df1dba2a3002561b1ab3fa2d9896464ae01f667658992ff0636d605abb407e",
+    "lead-action-phase-ap-guard-fault-missing-turn-guard.php": "cae778b8a73becf83834c484d1555eac88cc51713608056785950fa0444167cd",
+    "lead-action-phase-ap-guard-proposed.patch": "2ee372dd9f2eb2c312ed669e7839a1019e69751a42ac011256ddad8c4c1d97cb",
+    "lead-action-phase-ap-guard-review-notes.json": "89c7ca4e688c4db4e85d67f85539d389b43d1f017711b5528ee9a563661b0b55"
+  }
+}

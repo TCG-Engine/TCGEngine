@@ -1,0 +1,7 @@
+{
+    "name": "Rebellious Rush / unblocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 4, cost 2, go again True; pay using 1 blue pitch card(s). Defender has 0 defense; expected damage 4. Hero fai has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rebellious_rush_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

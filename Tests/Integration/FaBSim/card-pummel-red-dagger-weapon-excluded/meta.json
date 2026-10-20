@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / dagger-weapon-excluded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "harmonized_kodachi is a Dagger weapon, not Club/Hammer. The weapon activated resource cost does not make it an attack action card for the second mode. Reject without spending resources or moving reaction. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_red https://judge.fabtcg.com/cards/detail/319/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

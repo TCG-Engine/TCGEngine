@@ -1,0 +1,1114 @@
+[
+  {
+    "slug": "rule-activation-guard-sledge-blind-rejected",
+    "name": "Activation guard / Sledge under Blind rejects",
+    "cardIDs": [
+      "sledge_of_anvilheim"
+    ],
+    "branches": [
+      "native-weapon-activation-rejected-while-owned-abilities-lost"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "rule_probe",
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "sledge_of_anvilheim",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {
+          "TurnEffects": []
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hero",
+            "cardID": "bravo",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "sledge_of_anvilheim",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "TurnEffects",
+            "value": "[]",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "mpgDurations",
+            "value": [
+              {
+                "player": 1,
+                "kind": "BLIND",
+                "active": true,
+                "started": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "sledge_of_anvilheim",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "TurnEffects",
+            "value": "[]",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "oracle": "Start during Guardian Bravo turn with the active/started Blinding of the Old Ones duration from a prior turn. The owned Sledge has lost its Action attack ability. Clicking it must leave the weapon, hand, pitch, stack, resources, AP and both health totals unchanged, despite sufficient blue3+red1 available to pay printed activation4. This fixture begins after suppression resolved; it does not test generation or expiry of Blinding.",
+    "printedCard": {
+      "id": "sledge_of_anvilheim",
+      "name": "Sledge of Anvilheim",
+      "types": [
+        "Guardian",
+        "Weapon",
+        "Hammer",
+        "2H"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "6",
+      "defense": "",
+      "functional_text_plain": "Action - {r}{r}{r}{r}: Attack"
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sledge_of_anvilheim",
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/Custom/WTRCards.php::FaBWTRCanActivate",
+      "FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal",
+      "https://judge.fabtcg.com/cards/detail/3761/",
+      "FaBSim/Custom/MPGCards.php::FaBMPGSuppressed"
+    ],
+    "reviewGate": "Independent semantic review before native recording; inspect persisted native assertions, negative controls and clean replay before coverage claims.",
+    "authoringNotes": [
+      "Workspace proposal only; no engine execution, recording, saved fixture, or replay was performed by this author.",
+      "Initial FaceDown and TurnEffects are asserted natively where relevant, after framework serialization. No UniqueID overrides.",
+      "This is a bounded activation guard compatibility control; it does not claim comprehensive coverage of the support card or suppression generation."
+    ],
+    "negativeControls": [
+      "Without the new native fallback guard this click wrongly creates an attack/payment layer, so persisted Stack=0 and Hand=2 must fail."
+    ],
+    "remainingBranches": [
+      "General ARC hidden-ability suppression interactions and other exceptional source-zone abilities require separate review."
+    ],
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    }
+  },
+  {
+    "slug": "rule-activation-guard-sledge-four-resource-positive",
+    "name": "Activation guard / Sledge ordinary activation pays four",
+    "cardIDs": [
+      "sledge_of_anvilheim"
+    ],
+    "branches": [
+      "native-weapon-positive-pitch-three-plus-one-pays-four"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "engine_rule_control",
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "sledge_of_anvilheim",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {
+          "TurnEffects": []
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hero",
+            "cardID": "bravo",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "sledge_of_anvilheim",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Weapons-0",
+            "property": "TurnEffects",
+            "value": "[]",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "PITCH"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_red",
+            "viewerPlayerID": 1
+          },
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "sledge_of_anvilheim",
+            "viewerPlayerID": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Weapons",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Without suppression, Bravo can activate Sledge for four resources and one AP. Blue3 alone is insufficient: payment stays pending with resources3/AP1. Red1 pays the remainder: resources0/AP0, pitch contains both cards. Unblocked printed weapon6 deals6 to the opponent, leaving14; no go again is printed, so AP remains0. Weapon stays equipped.",
+    "printedCard": {
+      "id": "sledge_of_anvilheim",
+      "name": "Sledge of Anvilheim",
+      "types": [
+        "Guardian",
+        "Weapon",
+        "Hammer",
+        "2H"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "6",
+      "defense": "",
+      "functional_text_plain": "Action - {r}{r}{r}{r}: Attack"
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sledge_of_anvilheim",
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/Custom/WTRCards.php::FaBWTRCanActivate",
+      "FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal"
+    ],
+    "reviewGate": "Independent semantic review before native recording; inspect persisted native assertions, negative controls and clean replay before coverage claims.",
+    "authoringNotes": [
+      "Workspace proposal only; no engine execution, recording, saved fixture, or replay was performed by this author.",
+      "Initial FaceDown and TurnEffects are asserted natively where relevant, after framework serialization. No UniqueID overrides.",
+      "This is a bounded activation guard compatibility control; it does not claim comprehensive coverage of the support card or suppression generation."
+    ],
+    "negativeControls": [
+      "Rejecting all native activations fails Stack=1; incorrectly costing3 fails intermediate pending payment or final resources0; power changed from6 fails health14."
+    ],
+    "remainingBranches": [
+      "General ARC hidden-ability suppression interactions and other exceptional source-zone abilities require separate review."
+    ]
+  },
+  {
+    "slug": "rule-activation-guard-skybody-hidden-activation-positive",
+    "name": "Activation guard / face-down Skybody Keikoi still activates",
+    "cardIDs": [
+      "skybody_keikoi"
+    ],
+    "branches": [
+      "hidden-activation-positive"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "engine_rule_control",
+    "heroes": [
+      "ira_crimson_haze",
+      "enigma"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "skybody_keikoi",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {
+          "FaceDown": 1,
+          "TurnEffects": []
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Hero",
+            "cardID": "enigma",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "FaceDown",
+            "value": "1",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "TurnEffects",
+            "value": "[]",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "FaceDown",
+            "value": "1",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "TurnEffects",
+            "value": "[]",
+            "viewerPlayerID": 2
+          },
+          {
+            "kind": "can_activate",
+            "player": 2,
+            "mzID": "p2Equipment-0",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          }
+        ]
+      }
+    ],
+    "oracle": "Enigma legally equips Mystic Skybody Keikoi face-down via Cloaked. Its printed instant can be activated while face-down under CR1.7.4b/5.2.4. At non-turn AP0 during ATTACK, destruction is paid before the layer resolves; no resources/AP are paid. The resolved effect prevents the next1 damage this turn, so unblocked first Wounding Blow blue2 deals1, leaving19. This preserves the ARC hidden-ability exception despite HasNoAbilities treating hidden equipment specially.",
+    "printedCard": {
+      "id": "skybody_keikoi",
+      "name": "Skybody Keikoi",
+      "types": [
+        "Mystic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Cloaked\nInstant - Destroy this: Prevent the next 1 damage that would be dealt to you this turn. Activate this only while this is face-down."
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#skybody_keikoi",
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/Custom/WTRCards.php::FaBWTRCanActivate",
+      "FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal",
+      "FaBSim/Custom/MSTCards.php::FaBMSTCloakAbility",
+      "FaBSim/Custom/MSTRuntime.php::FaBMSTAbilityLegal",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Independent semantic review before native recording; inspect persisted native assertions, negative controls and clean replay before coverage claims.",
+    "authoringNotes": [
+      "Workspace proposal only; no engine execution, recording, saved fixture, or replay was performed by this author.",
+      "Initial FaceDown and TurnEffects are asserted natively where relevant, after framework serialization. No UniqueID overrides.",
+      "This is a bounded activation guard compatibility control; it does not claim comprehensive coverage of the support card or suppression generation."
+    ],
+    "negativeControls": [
+      "An unconditional early HasNoAbilities guard rejects the hidden activation; source destruction/Stack1 assertions catch it. Missing prevention produces health18 instead of19."
+    ],
+    "remainingBranches": [
+      "General ARC hidden-ability suppression interactions and other exceptional source-zone abilities require separate review."
+    ]
+  },
+  {
+    "slug": "rule-activation-guard-skybody-explicit-no-abilities-rejected",
+    "name": "Activation guard / face-down Skybody Keikoi explicit suppression rejects",
+    "cardIDs": [
+      "skybody_keikoi"
+    ],
+    "branches": [
+      "explicit-no-abilities-rejected"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "rule_probe",
+    "heroes": [
+      "ira_crimson_haze",
+      "enigma"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "skybody_keikoi",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {
+          "FaceDown": 1,
+          "TurnEffects": [
+            "NO_ABILITIES"
+          ]
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Hero",
+            "cardID": "enigma",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "FaceDown",
+            "value": "1",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "TurnEffects",
+            "value": "[\"NO_ABILITIES\"]",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "FaceDown",
+            "value": "1",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "TurnEffects",
+            "value": "[\"NO_ABILITIES\"]",
+            "viewerPlayerID": 2
+          },
+          {
+            "kind": "can_activate",
+            "player": 2,
+            "mzID": "p2Equipment-0",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "FaceDown",
+            "value": "1",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "TurnEffects",
+            "value": "[\"NO_ABILITIES\"]",
+            "viewerPlayerID": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "skybody_keikoi",
+            "viewerPlayerID": 2
+          }
+        ]
+      }
+    ],
+    "oracle": "Abstract rule-state compatibility case: Enigma owns legitimately equipped face-down Mystic Skybody Keikoi, with explicit NO_ABILITIES suppression injected. This does not claim a legal card sequence generating that tag. Its hidden activation exception cannot bypass explicit loss of abilities: at defender priority during ATTACK, clicking preserves FaceDown1/source and creates no layer/prevention; unblocked first Wounding Blow blue2 deals2, leaving18.",
+    "printedCard": {
+      "id": "skybody_keikoi",
+      "name": "Skybody Keikoi",
+      "types": [
+        "Mystic",
+        "Equipment",
+        "Chest"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "",
+      "functional_text_plain": "Cloaked\nInstant - Destroy this: Prevent the next 1 damage that would be dealt to you this turn. Activate this only while this is face-down."
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#skybody_keikoi",
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/Custom/WTRCards.php::FaBWTRCanActivate",
+      "FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal",
+      "FaBSim/Custom/MSTCards.php::FaBMSTCloakAbility",
+      "FaBSim/Custom/MSTRuntime.php::FaBMSTAbilityLegal",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Independent semantic review before native recording; inspect persisted native assertions, negative controls and clean replay before coverage claims.",
+    "authoringNotes": [
+      "Workspace proposal only; no engine execution, recording, saved fixture, or replay was performed by this author.",
+      "Initial FaceDown and TurnEffects are asserted natively where relevant, after framework serialization. No UniqueID overrides.",
+      "This is a bounded activation guard compatibility control; it does not claim comprehensive coverage of the support card or suppression generation."
+    ],
+    "negativeControls": [
+      "Removing the explicit NO_ABILITIES tag permits destruction/layer creation and changes final damage to1; persisted source/Stack/health assertions catch that."
+    ],
+    "remainingBranches": [
+      "General ARC hidden-ability suppression interactions and other exceptional source-zone abilities require separate review."
+    ]
+  }
+]

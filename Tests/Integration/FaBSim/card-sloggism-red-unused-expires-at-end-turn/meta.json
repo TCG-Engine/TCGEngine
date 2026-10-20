@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / unused-expires-at-end-turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve Sloggism red by pitching Wounding Blow blue. Make no attack this turn. One pitched card returns to deck without a reorder decision and is drawn during the first end phase. Player2 spends their AP on Wounding Blow blue for2 with no go again. After both turns pass, play cost2 Brutal Assault red from Arsenal and repitch the recovered blue3, leaving1. It attacks for printed6 rather than12 because the unused this-turn buff expired. No second-attack Ira bonus applies. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red https://judge.fabtcg.com/cards/detail/334/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

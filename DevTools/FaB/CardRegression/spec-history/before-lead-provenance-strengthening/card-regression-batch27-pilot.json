@@ -1,0 +1,454 @@
+[
+  {
+    "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+    "name": "Lead the Charge / equal-threshold-attack",
+    "cardIDs": [
+      "lead_the_charge_blue"
+    ],
+    "branches": [
+      "equal-threshold-attack"
+    ],
+    "heroes": [
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "lead_the_charge_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "lead_the_charge_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ],
+        "checkpoint": "lead_resolved_and_own_go_again_finished"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "brutal_assault_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": "PRIORITY",
+            "key": "window"
+          }
+        ],
+        "checkpoint": "trigger_pending_before_any_ap_gain"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "brutal_assault_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ],
+        "checkpoint": "lead_trigger_resolved_underlying_card_still_pending"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ],
+        "checkpoint": "qualifying_attack_got_ap_not_go_again"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ],
+        "checkpoint": "link_resolved"
+      }
+    ],
+    "oracle": "Printed source cost0, own go again, next played ACTION CARD with cost at least2 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Play brutal_assault_red, printed cost2, paying from2 floating resources. Spent AP becomes0 while trigger waits above the attack (Stack2). Trigger resolution returnsAP1 while attack remains Stack1; printed power6 is unchanged and no go again was granted. Damage6, AP1 remains after link.",
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/550/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#663",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_blue"
+    ],
+    "proposal_status": "unrecorded_correct_oracle_native_trigger_timing_expected_to_fail"
+  },
+  {
+    "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+    "name": "Lead the Charge / nonattack-action-qualifies",
+    "cardIDs": [
+      "lead_the_charge_red"
+    ],
+    "branches": [
+      "nonattack-action-qualifies"
+    ],
+    "heroes": [
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "lead_the_charge_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "energy_potion_blue",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "lead_the_charge_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ],
+        "checkpoint": "lead_resolved_and_own_go_again_finished"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": "PRIORITY",
+            "key": "window"
+          }
+        ],
+        "checkpoint": "trigger_pending_before_any_ap_gain"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "energy_potion_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ],
+        "checkpoint": "lead_trigger_resolved_underlying_card_still_pending"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "energy_potion_blue"
+          }
+        ],
+        "checkpoint": "nonattack_action_completed"
+      }
+    ],
+    "oracle": "Printed source cost0, own go again, next played ACTION CARD with cost at least0 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. energy_potion_blue is a Generic nonattack Action with cost0, meeting threshold. It creates the trigger before its own resolution; the trigger returnsAP1. Energy Potion enters Arena with no own go again, leavesAP1.",
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/548/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#663",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_red"
+    ],
+    "proposal_status": "unrecorded_correct_oracle_native_trigger_timing_expected_to_fail"
+  }
+]

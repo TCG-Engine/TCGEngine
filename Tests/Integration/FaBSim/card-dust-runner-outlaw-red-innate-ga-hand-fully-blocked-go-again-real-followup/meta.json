@@ -1,0 +1,7 @@
+{
+    "name": "Dust Runner Outlaw / innate go again / red / hand-fully-blocked-go-again-real-followup",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:00:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "dust_runner_outlaw_red: printed cost1, pitch1, power4, defense2; exact printed text Go again. Two actual Generic3-defense hand cards defend6, enough for printedpower4; damage0/nohit. Printed go again is not conditional on hit: AP0 through Reaction becomes1 atResolution. Close original attack and blockers, then play actual EnergyPotionUID6 cost0/oneAP from Hand; AP0 before/after its resolution to ownerArena. No attack go again leaks onto that followup. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dust_runner_outlaw_red https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CIN011.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

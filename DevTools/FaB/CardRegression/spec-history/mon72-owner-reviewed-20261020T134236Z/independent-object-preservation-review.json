@@ -1,0 +1,55 @@
+{
+  "status": "INDEPENDENT_EXACT_MON210_FAMILY_SPLIT_APPROVED_FOR_SERIAL_NATIVE_GATES",
+  "reviewer": "/root/catalog_effect_map",
+  "manifest_sha256": "6ed4a5f3142ee4b85c2b9f22eca29acb4836b78446bfb8ed11e454e78dee0c8f",
+  "source_full_sha256": "467c0bf09bffc16143a9cbf87e94ea73ba179ba393bc7cdc4db24dc7f4a32b20",
+  "independent_full_spec_sha256": "bbfc6576879077015a144abce43b9ef1db397e50625bf592d3b25e95826ddfdc",
+  "checks": 1327,
+  "files": [
+    {
+      "filename": "card-regression-batch72-surging.json",
+      "sha256": "38d0c4c7bbf0a986336e332b5385c23f39c198f00209e58ce50cb8e95c675788",
+      "cases": 69,
+      "requirements": 75,
+      "old_pilots": 1,
+      "expected_new": 68
+    },
+    {
+      "filename": "card-regression-batch72-stony.json",
+      "sha256": "f02e4f22e78d65c4ed597ebfe05f585fe4165ebd2dbfcede241363e4367886b0",
+      "cases": 69,
+      "requirements": 75,
+      "old_pilots": 1,
+      "expected_new": 68
+    },
+    {
+      "filename": "card-regression-batch72-yinti.json",
+      "sha256": "c7640d06336e4208487bcd23f3d6bcb081c015bf229217c56494067e5f8a9232",
+      "cases": 72,
+      "requirements": 78,
+      "old_pilots": 2,
+      "expected_new": 70
+    }
+  ],
+  "source_objects": 210,
+  "requirements": 228,
+  "original4_preserved": true,
+  "live12_preserved": true,
+  "all4_actual_raw5_and_behavior_current": true,
+  "expected_new": 206,
+  "in_memory_faults_detected": [
+    "modified_native_oracle",
+    "omitted_recipe",
+    "omitted_requirement",
+    "wrong_family"
+  ],
+  "approval_scope": "Exact-object serial partition only. No new expected values/actions/targets/stat model or scope definition is introduced. Parent may stage/run serially with four existing fixtures skipped and all future failure evidence preserved.",
+  "holds": [
+    "No new saved coverage/completion or final-runtime qualification is asserted.",
+    "The approved full printed-rule model remains the semantic gate; this review only proves partition preservation.",
+    "Native actual saves, independent saved semantics, current-runtime two clean replays/controls/native suites remain mandatory."
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "script_sha256": "e4a16eb8dfc94de00d76dc5f241a88050725324cd66b3bc4677b815c596308fc"
+}

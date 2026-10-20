@@ -1,0 +1,7 @@
+{
+    "name": "Aether Dart / opponent-ally-target-no-hero-barrier",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Any target includes opponent Aether Ashwing, a1health ally. Cast cost0/1AP and deal printed1 to that ally. Hero Arcane Barrier on the Ashwing/Nullrune does not protect an ally, so no hero prevention chooser despite victim resources1. Ashwing is destroyed by1>=1 and token ceases outside arena: Arena0 and Graveyard0 for player2. Both hero HP20; Nullrune and resources1 persist. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_blue https://judge.fabtcg.com/cards/detail/1674/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

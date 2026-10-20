@@ -1,0 +1,7 @@
+{
+    "name": "Cosmic Flare / two-copies-stacked-resolve-one-at-a-time",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:19:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain {r}{r}{r}. Instant: pay no AP; resources increase by3 only on resolution. Two pending copies do not grant assets early. The top copy resolves once before the lower copy. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cosmic_flare_red https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

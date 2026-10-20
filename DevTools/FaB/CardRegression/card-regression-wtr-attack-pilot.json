@@ -1,0 +1,1308 @@
+[
+  {
+    "slug": "card-snatch-red-wtr-hit-unblocked-draw-exactly-one",
+    "name": "Snatch / hit-unblocked-draw-exactly-one",
+    "cardIDs": [
+      "snatch_red"
+    ],
+    "branches": [
+      "hit-unblocked-draw-exactly-one"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snatch_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "DAMAGE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "snatch_red"
+          },
+          {
+            "kind": "state",
+            "value": true,
+            "key": "attackHit"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "head_jab_blue"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Deck",
+            "cardID": "raging_onslaught_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR1.6.2c: a hit queues the draw layer, which grants a response window before drawing. Printed Snatch red: cost 0, power 4, no go again; draw exactly one card only on a hit. Defense 0 gives 4 damage. Any positive hit, including one damage, draws only the original top Head Jab blue; Raging Onslaught yellow remains in deck. No hand refill occurs before this checkpoint.",
+    "printedCard": {
+      "id": "snatch_red",
+      "name": "Snatch",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this hits, draw a card.",
+      "wtrPrintings": [
+        "WTR167"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snatch_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "snatch_red",
+        "to": "wounding_blow_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p1Hand count 1, got 0",
+      "why": "Wounding Blow of the same color has equal cost and power and no draw ability. Damage and action-point checkpoints should pass; draw checkpoint must fail before any snapshot comparison.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "damage fully prevented by a real card effect",
+      "attack targeting an ally where legal",
+      "multiple on-hit triggers and interactions"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  },
+  {
+    "slug": "card-snatch-red-wtr-fully-blocked-no-draw",
+    "name": "Snatch / fully-blocked-no-draw",
+    "cardIDs": [
+      "snatch_red"
+    ],
+    "branches": [
+      "fully-blocked-no-draw"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snatch_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "ironrot_helm",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "DAMAGE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "snatch_red"
+          },
+          {
+            "kind": "state",
+            "value": false,
+            "key": "attackHit"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Deck",
+            "cardID": "head_jab_blue"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Deck",
+            "cardID": "raging_onslaught_yellow"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR1.6.2c: a hit queues the draw layer, which grants a response window before drawing. Printed Snatch red: cost 0, power 4, no go again; draw exactly one card only on a hit. Defense 4 gives 0 damage. Full block produces zero damage and no hit, so both distinct deck cards remain and hand stays empty.",
+    "printedCard": {
+      "id": "snatch_red",
+      "name": "Snatch",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this hits, draw a card.",
+      "wtrPrintings": [
+        "WTR167"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#snatch_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "remainingBranches": [
+      "damage fully prevented by a real card effect",
+      "attack targeting an ally where legal",
+      "multiple on-hit triggers and interactions"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-wtr-life-one-lower",
+    "name": "Scar for a Scar / life-one-lower",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "life-one-lower"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      19,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "scar_for_a_scar_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "scar_for_a_scar_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Scar red checks strictly less life when its play trigger resolves. 19 versus 20 makes condition True. Attack deals 4, and resolution returns exactly 1 action point. The lower-life case crosses the life comparison after damage: go again persists because it was granted when its play trigger resolves.",
+    "printedCard": {
+      "id": "scar_for_a_scar_red",
+      "name": "Scar for a Scar",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets go again.",
+      "wtrPrintings": [
+        "WTR191"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scar_for_a_scar_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "scar_for_a_scar_red",
+        "to": "wounding_blow_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p1ActionPoints to equal 1, got 0",
+      "why": "Equal power/cost without the life-conditioned go-again ability must fail the persisted action-point checkpoint.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "UPF any-opponent life comparison",
+      "life change in response before the on-play trigger resolves",
+      "go-again suppression and repeated plays"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-wtr-life-equal-boundary",
+    "name": "Scar for a Scar / life-equal-boundary",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "life-equal-boundary"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "scar_for_a_scar_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "scar_for_a_scar_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Scar red checks strictly less life when its play trigger resolves. 20 versus 20 makes condition False. Attack deals 4, and resolution returns exactly 0 action point. The lower-life case crosses the life comparison after damage: go again persists because it was granted when its play trigger resolves.",
+    "printedCard": {
+      "id": "scar_for_a_scar_red",
+      "name": "Scar for a Scar",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets go again.",
+      "wtrPrintings": [
+        "WTR191"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#scar_for_a_scar_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "remainingBranches": [
+      "UPF any-opponent life comparison",
+      "life change in response before the on-play trigger resolves",
+      "go-again suppression and repeated plays"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  },
+  {
+    "slug": "card-wounded-bull-red-wtr-life-one-lower",
+    "name": "Wounded Bull / life-one-lower",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "life-one-lower"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      19,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounded_bull_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "wounded_bull_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Wounded Bull red: cost 3, base power 7; strictly lower life when its play trigger resolves adds exactly 1 power. At 19 versus 20, attack power is 8. Pitch one blue for exactly three resources; no floating resource and no go again.",
+    "printedCard": {
+      "id": "wounded_bull_red",
+      "name": "Wounded Bull",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "3",
+      "power": "7",
+      "defense": "2",
+      "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets +1{p}.",
+      "wtrPrintings": [
+        "WTR200"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#wounded_bull_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "wounded_bull_red",
+        "to": "raging_onslaught_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p2Health to equal 12, got 13",
+      "why": "Equal base power/cost generic Raging Onslaught has no conditional +1. Blue pitch and resource/AP checkpoints should still pass; one-point combat-health discrepancy detects the missing effect.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "UPF any-opponent life comparison",
+      "life change in response before the on-play trigger resolves",
+      "power-modifier prevention and blocked damage"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  },
+  {
+    "slug": "card-wounded-bull-red-wtr-life-equal-boundary",
+    "name": "Wounded Bull / life-equal-boundary",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "life-equal-boundary"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounded_bull_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "wounded_bull_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Wounded Bull red: cost 3, base power 7; strictly lower life when its play trigger resolves adds exactly 1 power. At 20 versus 20, attack power is 7. Pitch one blue for exactly three resources; no floating resource and no go again.",
+    "printedCard": {
+      "id": "wounded_bull_red",
+      "name": "Wounded Bull",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "3",
+      "power": "7",
+      "defense": "2",
+      "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets +1{p}.",
+      "wtrPrintings": [
+        "WTR200"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#wounded_bull_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "remainingBranches": [
+      "UPF any-opponent life comparison",
+      "life change in response before the on-play trigger resolves",
+      "power-modifier prevention and blocked damage"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "timingRefined": true
+  }
+]

@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / only-cost-two-reveal-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:47:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact excluded boundary: the only other hand card has printed cost2, above the reveal maximum1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue https://judge.fabtcg.com/cards/detail/297/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+}

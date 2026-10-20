@@ -1,0 +1,579 @@
+[
+  {
+    "slug": "rule-battleworn-close-first-counter-then-second-chain",
+    "name": "Battleworn close / exact first and second counter timing",
+    "cardIDs": [
+      "breaking_scales"
+    ],
+    "branches": [
+      "battleworn-return-and-zero-defense"
+    ],
+    "status": "proposed_unrecorded_timing_only",
+    "coverage_kind": "card_passive",
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      2,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "breaking_scales",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {
+          "Counters": [],
+          "FaceDown": 0,
+          "TurnEffects": []
+        }
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "{\"DEFENSE\":1}"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Counters",
+            "value": "{\"DEFENSE\":1}"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "breaking_scales"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "{\"DEFENSE\":2}"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "First red Wounding Blow4 minus Breaking Scales defense1 deals3: health17. Counter stays empty in first RESOLUTION; after close equipment returns with exactly DEFENSE1. Second blue Wounding Blow2+Ira second-attack1 deals3 through now-zero defense: health14. During second RESOLUTION the old counter remains exactly1; second close makes exactly2. Battleworn never destroys zero-defense equipment and gives no extra AP or player response window.",
+    "printedCard": {
+      "id": "breaking_scales",
+      "name": "Breaking Scales",
+      "types": [
+        "Ninja",
+        "Equipment",
+        "Arms"
+      ],
+      "pitch": "",
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Attack Reaction - Destroy this: Target attack action card with combo gets +1{p}.\nBattleworn",
+      "wtrPrintings": [
+        "WTR080"
+      ]
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ],
+    "reviewGate": "Primary review exact patch747e3e8b...d6bb089 and bounded no-Nerves two pilots before native application/recording. No game execution by this author.",
+    "authoringNotes": [
+      "Fresh no-Nerves fixture; ordinary Battleworn counter timing only. No eligibility-changing effect between resolution and close.",
+      "All native assertions must persist. Recorder/replay naturally writes and reloads between supported actions; component test separately verifies scalar JSON persistence.",
+      "Final actual priority1-to2 pass proves ordinary engine progression after Close. No direct repeated-Close action is fabricated; component test covers repeat-call idempotence.",
+      "Source patch preserves old per-link Nerves eligibility outside this subset; that is compatibility behavior, not a valid Nerves oracle. Those branches remain held."
+    ],
+    "remainingBranches": [
+      "Early Close before resolved-link cleanup (phantasm/early attack departure): no pending row, existing incorrect behavior held",
+      "Dynamic Nerves aura/power changes before close",
+      "Battleworn lost/gained after resolution",
+      "Competing close effects/choices/order",
+      "Same-arena relocation/source transformation",
+      "Temper/Blade Break",
+      "UPF controller/target combinations"
+    ],
+    "negativeControls": [
+      "Old eager link increment fails the first/second pre-close property checkpoints; absent close increment fails post-close DEFENSE1/2."
+    ]
+  },
+  {
+    "slug": "rule-battleworn-close-nondefending-equipment-unchanged",
+    "name": "Battleworn close / nondefending-equipment-unchanged",
+    "cardIDs": [
+      "helm_of_isens_peak"
+    ],
+    "branches": [
+      "nondefending-equipment-unchanged"
+    ],
+    "coverage_kind": "card_passive",
+    "status": "proposed_unrecorded_timing_only",
+    "heroes": [
+      "ira_crimson_haze",
+      "bravo"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "helm_of_isens_peak",
+        "player": 2,
+        "zone": "Equipment",
+        "properties": {
+          "Counters": [],
+          "FaceDown": 0,
+          "TurnEffects": []
+        }
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "helm_of_isens_peak"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Counters",
+            "value": "[]"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Helm was never declared defending. Unblocked first Wounding Blow red4 deals4, leaving16. Closing that chain leaves Helm equipped with empty Counters; no Battleworn condition was met.",
+    "printedCard": {
+      "id": "helm_of_isens_peak",
+      "name": "Helm of Isen's Peak",
+      "types": [
+        "Guardian",
+        "Equipment",
+        "Head"
+      ],
+      "cost": "",
+      "power": "",
+      "defense": "1",
+      "functional_text_plain": "Action - {r}, destroy this: Your hero gets +1{i} until end of turn.\nBattleworn"
+    },
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#helm_of_isens_peak",
+      "https://rules.fabtcg.com/en/cr/07-combat/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "https://judge.fabtcg.com/cards/detail/1299/",
+      "https://fabtcg.com/rules-and-policy-center/release-notes/everfest/"
+    ],
+    "reviewGate": "Primary review exact patch747e3e8b...d6bb089 and bounded no-Nerves two pilots before native application/recording. No game execution by this author.",
+    "authoringNotes": [
+      "Fresh no-Nerves fixture; ordinary Battleworn counter timing only. No eligibility-changing effect between resolution and close.",
+      "All native assertions must persist. Recorder/replay naturally writes and reloads between supported actions; component test separately verifies scalar JSON persistence.",
+      "Final actual priority1-to2 pass proves ordinary engine progression after Close. No direct repeated-Close action is fabricated; component test covers repeat-call idempotence.",
+      "Source patch preserves old per-link Nerves eligibility outside this subset; that is compatibility behavior, not a valid Nerves oracle. Those branches remain held."
+    ],
+    "remainingBranches": [
+      "Early Close before resolved-link cleanup (phantasm/early attack departure): no pending row, existing incorrect behavior held",
+      "Dynamic Nerves aura/power changes before close",
+      "Battleworn lost/gained after resolution",
+      "Competing close effects/choices/order",
+      "Same-arena relocation/source transformation",
+      "Temper/Blade Break",
+      "UPF controller/target combinations"
+    ]
+  }
+]

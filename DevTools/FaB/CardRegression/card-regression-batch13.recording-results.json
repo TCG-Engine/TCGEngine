@@ -1,0 +1,812 @@
+[
+    {
+        "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-red-hand-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 78
+    },
+    {
+        "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-pummel-blue-ally-hit-does-not-discard-hero-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-blue-arsenal-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-blue-arsenal-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-blue-arsenal-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-blue-arsenal-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-blue-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 25
+    },
+    {
+        "slug": "card-pummel-blue-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-blue-cost-one-boundary-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-blue-cost-three-qualifies-hit-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-blue-cost-zero-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 28
+    },
+    {
+        "slug": "card-pummel-blue-dagger-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-blue-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-blue-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 33
+    },
+    {
+        "slug": "card-pummel-blue-fully-blocked-no-hit-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-blue-hand-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-blue-hand-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-blue-hand-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-blue-hand-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-blue-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-pummel-blue-hero-hit-empty-hand-trigger-resolves-without-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-blue-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-pummel-blue-one-damage-hit-still-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-blue-sword-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-blue-two-reactions-two-hit-triggers-two-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 78
+    },
+    {
+        "slug": "card-pummel-red-arsenal-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-red-arsenal-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-red-arsenal-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-red-arsenal-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-red-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 25
+    },
+    {
+        "slug": "card-pummel-red-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-red-cost-one-boundary-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-red-cost-three-qualifies-hit-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-red-cost-zero-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 28
+    },
+    {
+        "slug": "card-pummel-red-dagger-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-red-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-red-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 33
+    },
+    {
+        "slug": "card-pummel-red-fully-blocked-no-hit-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-red-hand-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-red-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-pummel-red-hero-hit-empty-hand-trigger-resolves-without-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-red-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-pummel-red-one-damage-hit-still-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-red-sword-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-ally-hit-does-not-discard-hero-hand",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-yellow-arsenal-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-yellow-arsenal-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-yellow-arsenal-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-yellow-arsenal-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-yellow-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 25
+    },
+    {
+        "slug": "card-pummel-yellow-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-cost-one-boundary-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-cost-three-qualifies-hit-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-yellow-cost-zero-attack-action-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 28
+    },
+    {
+        "slug": "card-pummel-yellow-dagger-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 33
+    },
+    {
+        "slug": "card-pummel-yellow-fully-blocked-no-hit-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-yellow-hand-club-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-yellow-hand-cost-two-hit-defender-chooses-0",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-yellow-hand-cost-two-hit-defender-chooses-1",
+        "status": "recorded_semantically_checked",
+        "actions": 21,
+        "assertions": 54
+    },
+    {
+        "slug": "card-pummel-yellow-hand-hammer-weapon-no-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 35
+    },
+    {
+        "slug": "card-pummel-yellow-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-pummel-yellow-hero-hit-empty-hand-trigger-resolves-without-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 37
+    },
+    {
+        "slug": "card-pummel-yellow-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-pummel-yellow-one-damage-hit-still-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 52
+    },
+    {
+        "slug": "card-pummel-yellow-sword-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-pummel-yellow-two-reactions-two-hit-triggers-two-discards",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 78
+    },
+    {
+        "slug": "card-razor-reflex-blue-ally-hit-still-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 35
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 25
+    },
+    {
+        "slug": "card-razor-reflex-blue-arsenal-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-blue-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-blue-club-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-blue-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-blue-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-blue-fully-blocked-no-hit-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-blue-hammer-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-blue-hand-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-blue-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-razor-reflex-blue-two-reactions-two-triggers-one-go-again-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 43
+    },
+    {
+        "slug": "card-razor-reflex-red-ally-hit-still-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 35
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 25
+    },
+    {
+        "slug": "card-razor-reflex-red-arsenal-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-red-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-red-club-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-red-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-red-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-red-hammer-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-red-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-red-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 43
+    },
+    {
+        "slug": "card-razor-reflex-yellow-ally-hit-still-grants-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 35
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 25
+    },
+    {
+        "slug": "card-razor-reflex-yellow-arsenal-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-yellow-attack-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-yellow-club-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-yellow-damage-step-timing-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 28
+    },
+    {
+        "slug": "card-razor-reflex-yellow-defender-cannot-play-attacker-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-yellow-fully-blocked-no-hit-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 33
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hammer-weapon-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-cost-one-boundary-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-cost-two-excluded",
+        "status": "recorded_semantically_checked",
+        "actions": 11,
+        "assertions": 27
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-cost-zero-hit-trigger-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 36
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-dagger-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-insufficient-reaction-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 10,
+        "assertions": 26
+    },
+    {
+        "slug": "card-razor-reflex-yellow-hand-sword-weapon-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 32
+    },
+    {
+        "slug": "card-razor-reflex-yellow-no-attack-action-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 2,
+        "assertions": 21
+    },
+    {
+        "slug": "card-razor-reflex-yellow-two-reactions-two-triggers-one-go-again-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 24,
+        "assertions": 43
+    }
+]

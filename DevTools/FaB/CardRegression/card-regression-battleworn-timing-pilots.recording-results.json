@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "rule-battleworn-close-first-counter-then-second-chain",
+        "status": "recorded_semantically_checked",
+        "actions": 31,
+        "assertions": 32
+    },
+    {
+        "slug": "rule-battleworn-close-nondefending-equipment-unchanged",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    }
+]

@@ -292,6 +292,223 @@ function FaBCRUOwnPower(int $p,object $o): int {
     if($base==='fluster_fist'&&FaBWTRBase($s['previousAttackCardID'])==='open_the_center')$n+=intval($s['chainHits']??0);
     return $n+max(0,FaBProfessorPower($p,$o));
 }
+
+// Lunging Press (blue): declare its printed target before the normal play/cost
+// path. UIDs survive serialization; rendered combat-chain indices do not.
+function FaBCRULungingTarget(?array $found): bool {
+    if ($found === null || $found['zone'] !== 'CombatChain') return false;
+    $object = $found['object'];
+    return empty($object->removed) && FaBWTRIsAttackAction($object)
+        && empty(FaBObjectCounters($object)['WEAPON_UID'])
+        && empty(FaBObjectCounters($object)['MON_ARENA_ATTACK']);
+}
+
+function FaBCRULungingTargets(): array {
+    $targets = [];
+    foreach (FaBLiveSeats() as $seat) {
+        foreach (FaBChoiceRefs($seat, 'CombatChain') as $ref) {
+            $found = FaBIdentityFromMZ($ref);
+            if (FaBCRULungingTarget($found)) $targets[intval($found['object']->UniqueID)] = $found;
+        }
+    }
+    return $targets;
+}
+
+// A later-link return keeps the physical UID but is a different declared target.
+// Same-link departure/re-entry is not distinguished by this bounded identity pair.
+function FaBCRULungingTargetMatches(?array $found, int $declaredLink): bool {
+    return FaBCRULungingTarget($found) && $declaredLink >= 0
+        && intval($found['object']->ChainLink ?? -1) === $declaredLink;
+}
+
+/** Validate the source and unchanged pre-play window without consuming a choice. */
+function FaBCRULungingPendingSource(int $player, array $pending): ?array {
+    $state = FaBGetState();
+    if (intval($pending['player'] ?? 0) !== $player || !FaBSeatIsLive($player)
+        || intval(GetPriorityPlayer()) !== $player || GetCurrentPhase() !== 'MAIN'
+        || intval(GetTurnNumber()) !== intval($pending['turnNumber'] ?? -1)
+        || intval(GetTurnPlayer()) !== intval($pending['turnPlayer'] ?? 0)
+        || empty($state['combatOpen']) || ($state['combatStep'] ?? '') !== 'REACTION'
+        || ($state['window'] ?? '') !== ($pending['window'] ?? '')
+        || !in_array($state['window'] ?? '', ['REACTION', 'PRIORITY'], true)
+        || intval($state['attacker'] ?? 0) !== $player
+        || intval($state['attackUID'] ?? 0) !== intval($pending['attackUID'] ?? 0)
+        || intval($state['chainLink'] ?? 0) !== intval($pending['chainLink'] ?? 0)
+        || ($state['pendingPayment'] ?? null) !== null
+        || ($state['pendingAttackTarget'] ?? null) !== null
+        || FaBReactionResolutionIsPending()) return null;
+    $active = FaBFindUID(intval($pending['attackUID'] ?? 0));
+    if ($active === null || $active['zone'] !== 'CombatChain'
+        || ($active['object']->Role ?? '') !== 'ATTACK'
+        || intval($active['object']->Controller ?? 0) !== $player
+        || intval($active['object']->ChainLink ?? 0) !== intval($pending['chainLink'] ?? 0)) return null;
+    $source = FaBFindUID(intval($pending['sourceUID'] ?? 0));
+    if ($source === null || $source['object']->CardID !== 'lunging_press_blue'
+        || $source['zone'] !== ($pending['sourceZone'] ?? '')
+        || intval($source['player']) !== intval($pending['sourcePlayer'] ?? 0)
+        || intval($source['object']->Owner ?? 0) !== intval($pending['sourceOwner'] ?? 0)
+        || intval($source['object']->Controller ?? 0) !== intval($pending['sourceController'] ?? 0)
+        || HasNoAbilities($source['object'])) return null;
+    return $source;
+}
+
+/** A target UID, null while a choice is pending, or false for invalid targets. */
+function FaBCRULungingClaimOrRequestTarget(int $player, array $source) {
+    $state = FaBGetState(); $pending = $state['pendingLungingTarget'] ?? null;
+    if (is_array($pending)) {
+        if (FaBCRULungingPendingSource($player, $pending) === null
+            || intval($pending['sourceUID'] ?? 0) !== intval($source['object']->UniqueID)) return false;
+        $targetUID = intval($pending['selectedUID'] ?? 0);
+        if ($targetUID <= 0) return null;
+        $valid = in_array($targetUID, (array)($pending['eligibleUIDs'] ?? []), true)
+            && FaBCRULungingTargetMatches(FaBFindUID($targetUID), intval($pending['eligibleLinks'][(string)$targetUID] ?? -1));
+        unset($state['pendingLungingTarget']); FaBSetState($state);
+        return $valid ? $targetUID : false;
+    }
+    $targets = FaBCRULungingTargets();
+    if (count($targets) === 0) return false;
+    if (count($targets) === 1) return intval(array_key_first($targets));
+    $eligibleLinks = [];
+    foreach ($targets as $uid => $target) $eligibleLinks[(string)$uid] = intval($target['object']->ChainLink ?? -1);
+    $state['pendingLungingTarget'] = [
+        'player'=>$player, 'sourceUID'=>intval($source['object']->UniqueID),
+        'sourceZone'=>$source['zone'], 'sourcePlayer'=>intval($source['player']),
+        'sourceOwner'=>intval($source['object']->Owner ?? 0),
+        'sourceController'=>intval($source['object']->Controller ?? 0),
+        'turnNumber'=>intval(GetTurnNumber()), 'turnPlayer'=>intval(GetTurnPlayer()),
+        'window'=>(string)$state['window'], 'attackUID'=>intval($state['attackUID']),
+        'chainLink'=>intval($state['chainLink']), 'eligibleUIDs'=>array_keys($targets), 'eligibleLinks'=>$eligibleLinks,
+    ];
+    FaBSetState($state);
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE',
+        implode('&', array_column($targets, 'mzID')), 1, 'Choose_Lunging_Press_target');
+    DecisionQueueController::AddDecision($player, 'CUSTOM',
+        'FAB_LUNGING_TARGET|' . intval($source['object']->UniqueID), 1);
+    return null;
+}
+
+function FaBCRULungingAnswerIsValid(int $player, string $answer): bool {
+    $pending = FaBGetState()['pendingLungingTarget'] ?? null;
+    if (!is_array($pending) || FaBCRULungingPendingSource($player, $pending) === null) return false;
+    $queue = GetDecisionQueue($player); $choice = $queue[0] ?? null; $resume = $queue[1] ?? null;
+    if (!is_object($choice) || ($choice->Type ?? '') !== 'MZCHOOSE'
+        || ($choice->Tooltip ?? '') !== 'Choose_Lunging_Press_target'
+        || !is_object($resume) || ($resume->Type ?? '') !== 'CUSTOM'
+        || ($resume->Param ?? '') !== 'FAB_LUNGING_TARGET|' . intval($pending['sourceUID'])
+        || !in_array($answer, explode('&', (string)$choice->Param), true)) return false;
+    $found = FaBIdentityFromMZ($answer);
+    return FaBCRULungingTarget($found)
+        && in_array(intval($found['object']->UniqueID), (array)$pending['eligibleUIDs'], true)
+        && FaBCRULungingTargetMatches($found, intval($pending['eligibleLinks'][(string)intval($found['object']->UniqueID)] ?? -1));
+}
+
+/** Only the generated outer PlayCard bookkeeping may precede this resume. */
+function FaBCRULungingHasOwnPlayTails(int $player): bool {
+    if (DecisionQueueController::ExecutingSeat() !== $player) return false;
+    $queue = GetDecisionQueue($player);
+    if (count($queue) !== 2) return false;
+    foreach ([['PASSPARAMETER', '1'], ['SYSTEM', 'PlayCard_AfterAction']] as $i => $expected) {
+        $row = $queue[$i] ?? null;
+        if (!is_object($row) || ($row->Type ?? '') !== $expected[0]
+            || (string)($row->Param ?? '') !== $expected[1]
+            || intval($row->Block ?? -1) !== 99
+            || (string)($row->Tooltip ?? '') !== ''
+            || intval($row->DontSkipOnPass ?? 0) !== 0 || !empty($row->removed)) return false;
+    }
+    foreach (FaBSeatOrder() as $seat) {
+        if (intval($seat) !== $player && count(GetDecisionQueue($seat)) > 0) return false;
+    }
+    $variables = json_decode((string)GetDecisionQueueVariables(), true);
+    return is_array($variables) && empty($variables['__awaitFrames']);
+}
+
+function FaBCRULungingContinue(int $player, array $parts, string $answer): void {
+    $state = FaBGetState(); $pending = $state['pendingLungingTarget'] ?? null;
+    if (!is_array($pending) || count($parts) !== 1
+        || (string)$parts[0] !== (string)intval($pending['sourceUID'])
+        || intval($pending['selectedUID'] ?? 0) > 0
+        || FaBCRULungingPendingSource($player, $pending) === null
+        || !FaBCRULungingHasOwnPlayTails($player)) return;
+    $target = FaBIdentityFromMZ($answer);
+    if (!FaBCRULungingTarget($target)
+        || !in_array(intval($target['object']->UniqueID), (array)$pending['eligibleUIDs'], true)
+        || !FaBCRULungingTargetMatches($target, intval($pending['eligibleLinks'][(string)intval($target['object']->UniqueID)] ?? -1))) return;
+    $uid = intval($target['object']->UniqueID);
+    $link = intval($pending['eligibleLinks'][(string)$uid]);
+    $state['pendingLungingTarget']['selectedUID'] = $uid;
+    FaBSetState($state);
+    // Reaction timing must see all work drained. The outer macro's two Block99
+    // tails still exist during this CUSTOM, so resume behind them without
+    // weakening FaBReactionResolutionHasWork or bypassing normal CanPlayCard.
+    DecisionQueueController::AddDecision($player, 'CUSTOM',
+        'FAB_LUNGING_PLAY|' . intval($pending['sourceUID']) . '|' . $uid . '|' . $link, 100);
+}
+
+/** Revalidate the bound selection after its outer macro has completely drained. */
+function FaBCRULungingPlaySelected(int $player, array $parts): void {
+    $pending = FaBGetState()['pendingLungingTarget'] ?? null;
+    if (!is_array($pending) || count($parts) !== 3
+        || (string)$parts[0] !== (string)intval($pending['sourceUID'])
+        || (string)$parts[1] !== (string)intval($pending['selectedUID'] ?? 0)
+        || intval($parts[1]) <= 0
+        || (string)$parts[2] !== (string)intval($pending['eligibleLinks'][(string)intval($parts[1])] ?? -1)) return;
+    try {
+        $source = FaBCRULungingPendingSource($player, $pending);
+        $target = FaBFindUID(intval($parts[1]));
+        if (DecisionQueueController::ExecutingSeat() !== $player || $source === null
+            || FaBReactionResolutionHasWork()
+            || !in_array(intval($parts[1]), (array)$pending['eligibleUIDs'], true)
+            || !FaBCRULungingTargetMatches($target, intval($parts[2]))) return;
+        DoPlayCard($player, $source['mzID']);
+    } finally {
+        // Read fresh state: normal play, payment and listeners may have changed it.
+        $state = FaBGetState();
+        if (intval($state['pendingLungingTarget']['sourceUID'] ?? 0) === intval($pending['sourceUID'])) {
+            unset($state['pendingLungingTarget']); FaBSetState($state);
+        }
+    }
+}
+
+/** Writer-only index projection, retaining only the originally listed live UIDs. */
+function FaBCRULungingChoicesForSave(array $zone, int $player): array {
+    $pending = FaBGetState()['pendingLungingTarget'] ?? null;
+    if (!is_array($pending) || FaBCRULungingPendingSource($player, $pending) === null) return $zone;
+    $choice = $zone[0] ?? null; $resume = $zone[1] ?? null;
+    if (!is_object($choice) || ($choice->Type ?? '') !== 'MZCHOOSE'
+        || ($choice->Tooltip ?? '') !== 'Choose_Lunging_Press_target'
+        || !is_object($resume) || ($resume->Type ?? '') !== 'CUSTOM'
+        || ($resume->Param ?? '') !== 'FAB_LUNGING_TARGET|' . intval($pending['sourceUID'])) return $zone;
+    $bound = array_fill_keys(array_map('intval', (array)$pending['eligibleUIDs']), true);
+    $listed = [];
+    foreach (explode('&', (string)$choice->Param) as $ref) {
+        $found = FaBIdentityFromMZ($ref);
+        // Mixed or stale original coordinates are not safe to reinterpret.
+        if (!FaBCRULungingTarget($found) || !isset($bound[intval($found['object']->UniqueID)])
+            || !FaBCRULungingTargetMatches($found, intval($pending['eligibleLinks'][(string)intval($found['object']->UniqueID)] ?? -1))) return $zone;
+        $listed[intval($found['object']->UniqueID)] = true;
+    }
+    $refs = [];
+    foreach (FaBLiveSeats() as $seat) {
+        $next = 0;
+        foreach (GetCombatChain($seat) as $object) {
+            if ($object == null || $object->Removed()) continue;
+            if (isset($listed[intval($object->UniqueID ?? 0)])) $refs[] = 'p' . $seat . 'CombatChain-' . $next;
+            ++$next;
+        }
+    }
+    $copy = clone $choice; $copy->Param = implode('&', $refs); $zone[0] = $copy;
+    return $zone;
+}
+
+function FaBCRUResolveLunging(int $player, object $source): void {
+    if ($source->CardID !== 'lunging_press_blue' || HasNoAbilities($source)) return;
+    $targetUID = intval($source->Params['cruLungingTargetUID'] ?? 0);
+    $targetLink = intval($source->Params['cruLungingTargetChainLink'] ?? -1);
+    if (!FaBCRULungingTargetMatches(FaBFindUID($targetUID), $targetLink)) return;
+    // Preserve the native tag/CRU/Snag pipeline and the wrapper's source actor.
+    FaBTagUID($targetUID, 'CRU_REACTION_POWER:1');
+}
+
 function FaBCRUApplySnag(): void {
     foreach(FaBLiveSeats() as $p){
         if(!FaBCRUCount($p,'SNAG'))foreach(['CombatChain','Stack'] as $zone)foreach(FaBZoneGet($zone,$p) as $o)if(is_object($o)&&empty($o->removed)&&intval($o->Controller??$o->Owner??0)===$p&&FaBWTRIsAttackAction($o))FaBARCSetCard(intval($o->UniqueID),'snagRetained',FaBCRUOwnPower($p,$o));

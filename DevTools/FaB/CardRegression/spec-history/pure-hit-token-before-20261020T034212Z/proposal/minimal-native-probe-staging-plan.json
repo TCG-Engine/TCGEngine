@@ -1,0 +1,100 @@
+{
+  "status": "PENDING_INDEPENDENT_EXACT_SPEC_GATE_PARENT_ONLY_NATIVE_PROBES",
+  "research_status": {
+    "identities": 12,
+    "printing_records": 33,
+    "planned_ordinary_requirements": 219,
+    "concrete_pilot_recipes": 4,
+    "full219_recipes_authored": false,
+    "native_recorded_or_verified_for_this_family": 0
+  },
+  "inputs": {
+    "pilot4": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\pilot4-correct-rule-proposed.json",
+      "sha256": "477e175d50eaaa312da8db92675622a8149a040a5f45a3a7af15a3f932143856"
+    },
+    "first_exact_subset": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\first-strike-gold-probe-exact-subset.json",
+      "sha256": "f0412ef9f2f170b27401187431d21eced1f9d5516aee3676048261c1cd4e842d"
+    },
+    "branch_matrix": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\ordinary-branch-matrix-proposed.json",
+      "sha256": "ddcccdd8d516ee7b873fac646ebe557af7e1d37310d179e9fa42873d61a95cc4"
+    },
+    "author_model": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\pilot4-author-rule-model-validation.json",
+      "sha256": "4bb8b5e320c89cca72f7cd568648854a29ae02c42e5efdb7878d15640dbc1423"
+    },
+    "current_source_context": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\current-source-probe-context.json",
+      "sha256": "24c1d51be2f8ed49f7061efd80c4a3ed4e4ceaaf7395b1dad6677ab2414d5121"
+    }
+  },
+  "required_independent_gate": [
+    "Review exact477e pilot4 and source context supplement, printed12 faces/text, legal Dorinthea/Oldhim/Lexi hero pools, supported native FSM/pass-until and persisted assertions.",
+    "Confirm damage then queued hit ability before next priority, no token until ability resolution, correct source/controller/owner/UID allocation, no retroactive self-goagain. Do not approve native eager token creation simply because final token/damage is correct.",
+    "Any required recipe correction must be additive and re-frozen. Do not silently modify477e,219matrix or existing saved coverage."
+  ],
+  "serial_probe_order": [
+    {
+      "order": 1,
+      "card_id": "strike_gold_red",
+      "reason": "Generic cost0, no hero-only qualifier, direct shared FaBHVYToken path; sole ordinary source UID3 means unambiguous first new trigger4/token5."
+    },
+    {
+      "order": 2,
+      "card_id": "destructive_deliberation_red",
+      "reason": "Cost2 and explicit hero-hit guard plus FaBOUTToken wrapper; confirms the Hero-only family while main target is hero."
+    },
+    {
+      "order": 3,
+      "card_id": "earth_form_red",
+      "reason": "Earth talent and cost3 under Oldhim; same token creator with Elemental aura output."
+    },
+    {
+      "order": 4,
+      "card_id": "lightning_form_red",
+      "reason": "Lightning talent under Lexi and cost1; token created after play must not give current attack goagain."
+    }
+  ],
+  "first_probe_parent_command": {
+    "cwd": "C:\\xampp\\htdocs\\TCGEngine",
+    "powershell": "& 'C:\\xampp\\php\\php.exe' 'DevTools/FaB/CardRegression/record_card_regressions.php' 'C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\pure-hit-token-attacks\\pilot4-correct-rule-proposed.json' 'card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot'",
+    "run_by_this_lane": false,
+    "precondition": "Parent confirms no conflicting native run and exact independent gate approval. The existing recorder creates only isolated owned regression game and saves only after every correct oracle passes. No rerecord flag is proposed."
+  },
+  "expected_discriminating_boundary": {
+    "checkpoint": "damage_dealt_hit_trigger_pending_token_not_created",
+    "printed_rule": {
+      "target_hp": 16,
+      "source_cc_uid": 3,
+      "pending_ability_count": 1,
+      "pending_ability_uid": 4,
+      "pending_ability_controller": 1,
+      "pending_ability_source_zone": "CombatChain",
+      "pending_ability_source_uid": 3,
+      "attacker_arena_count": 0,
+      "attacker_ap": 0,
+      "attacker_resources": 0
+    },
+    "source_predicted_mismatch": "Generic compiled Hit immediately invokes token creator. Current source is expected to show Arena1/tokenUID4 and Stack0, so earliest correct oracle may fail p1Arena expected0 got1. No actual runtime failure is claimed by this plan."
+  },
+  "failure_handling": [
+    "Retain immutable recorder run/input exact hashes, attempted native actions, first incorrect expected/actual boundary and actual source context. A failed correct-rule attempt must remain unsaved; check fixture absence and owned-game cleanup.",
+    "Do not proceed to broad219 recording, relax pending-layer/token/priority oracles, or apply any source repair under this staging plan. Parent may collect the other three independently approved bounded before-proofs serially if they add source-path evidence.",
+    "Any engine repair requires its own bounded proposal, independent gate and actual validation; generated macros remain untouched by this authoring lane."
+  ],
+  "passing_handling": [
+    "If all correct pilot oracles pass, independently review actual saved raw5/behavior4/actions/checkpoints against477e and printed rules.",
+    "Run fresh isolated clean replay2x and meaningful disposable semantic controls, then author all219 requirements in manageable source-equivalent batches, resolving planned token dependency contracts explicitly. A pilot pass does not close a card/family."
+  ],
+  "source_scope_notes": [
+    "Current-CNC raw sources differ from historical8ec as documented; recompute parent runtime stamp at actual execution. Do not inherit historical2743 qualification automatically.",
+    "Artifacts are workspace-only; no copy into native batch paths is performed here. Parent chooses repository-native batch numbers if adopting the input.",
+    "Three held Fertile/ArtOfWar drafts remain outside approvedheal187; declaration-before-payment and ordinary lifecycle are unresolved. They are not correct-rule probes or passing coverage."
+  ],
+  "native_game_actions": 0,
+  "native_source_writes": 0,
+  "fixture_writes": 0,
+  "script_sha256": "ce76305363392e9ae967572794c8f741de6d0da79e464c06215565dadebbea4d"
+}

@@ -1,0 +1,40 @@
+{
+  "status": "REVIEWED_INPUTS_ONLY_UNRECORDED",
+  "mapping": [
+    [
+      "weapon-intrinsic-addendum/scenarios-proposed.json",
+      "card-regression-batch61.json",
+      "e45ae88cb7d27274e37f66cf998df86908fb43a13f44f09d55d9a7e4d2a70418",
+      20
+    ],
+    [
+      "weapon-intrinsic-addendum/pilots-proposed.json",
+      "card-regression-batch61-pilot.json",
+      "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+      4
+    ],
+    [
+      "standalone-reaction-baselines/springboard-matrix-proposed.json",
+      "card-regression-batch62.json",
+      "baa389810963522cdd9ab47cdf5824f6ed988403a70240bcc46d19eff6e97666",
+      21
+    ],
+    [
+      "standalone-reaction-baselines/springboard-pilots2-proposed.json",
+      "card-regression-batch62-pilot.json",
+      "35e1d59e5744122efb639052d5c3f4ba3b8d45f0dd0ae54b87c8411abd19e507",
+      2
+    ],
+    [
+      "conditional-heal-instants/pilot4-proposed.json",
+      "card-regression-batch63.json",
+      "dfd9707e12490376bb4eb593764e8c9fc6f593f5cf1f67c7e3bc3388669a0ae2",
+      4
+    ]
+  ],
+  "reviews": {
+    "weapon-intrinsic20-independent-spec-review.json": "90a69ca9a2a9874fb6ddf6fade70714ded6720f02c0f3f0b92105aff972b648d",
+    "springboard21-independent-spec-review.json": "260dca512ca08bb7d91fb509dc271d134b5082e32f2f9590e68d0b188ed2fce3",
+    "conditional-heal-instants/independent-pilot4-spec-review.json": "6cedcad13626a366a0438afe4f7311e673ff49e752ed9aa313cda9ec812dc7c2"
+  }
+}

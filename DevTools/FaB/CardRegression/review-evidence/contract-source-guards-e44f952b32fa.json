@@ -1,0 +1,20 @@
+{
+  "hashEncoding": "SHA256 raw bytes",
+  "status": "SOURCE_GUARD_ONLY_NO_GAME_EXECUTION",
+  "rawByteSHA256": {
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "Core/RegressionTestFramework.php": "a47bc3b221807b511a70d992bd1b350000b2c4c26ce9c4f9727891947652d26f",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/GameLogic.php": "e7eefd8bb7605f94bd2de20d296534040cba3deda86df62956aad6662374942b",
+    "FaBSim/Custom/WTRCards.php": "5c579e418b48b9de107b875e4c5b83676b3d02737256d8d2538d8b36e44c374f",
+    "FaBSim/Custom/MSTCards.php": "d8abcf502b260e220956b9b9edac336293792180afd9a8bff18f7020af2d48d1"
+  },
+  "specRawByteSHA256": {
+    "disposable-controls-proposed.json": "3f714127a8222f4e21260eae36bc270f3c54636d78202f44d4a504cdfb9e6162",
+    "pilots-proposed.json": "b9b6d9fc8b999cf95378e7f7a3ba626decb042e967e30a61c33c9b7afeaa6b79"
+  },
+  "scope": "Fail closed before creating games if any reviewed source/spec changes. Source guards must be re-reviewed rather than bypassed."
+}

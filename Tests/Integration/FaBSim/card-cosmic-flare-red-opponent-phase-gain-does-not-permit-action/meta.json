@@ -1,0 +1,7 @@
+{
+    "name": "Cosmic Flare / opponent-phase-gain-does-not-permit-action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:19:23+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain {r}{r}{r}. Instant: pay no AP; resources increase by3 only on resolution. Even after resolving this instant, player2 cannot play an action during player1's action phase. Blink specifically grants0AP off-turn. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cosmic_flare_red https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

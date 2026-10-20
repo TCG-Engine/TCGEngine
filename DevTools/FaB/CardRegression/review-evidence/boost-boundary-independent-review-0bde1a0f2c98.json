@@ -1,0 +1,59 @@
+{
+  "status": "FOUR_SAVED_FIXTURES_APPROVED_FAULT_CONTRACTS_PASS_CLEAN_REPLAY_PENDING",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "pilots": "boost-boundary-gates/pilots-proposed.json",
+  "pilotsSHA256": "b9b6d9fc8b999cf95378e7f7a3ba626decb042e967e30a61c33c9b7afeaa6b79",
+  "disposableControls": "boost-boundary-gates/disposable-controls-proposed.json",
+  "disposableControlsSHA256": "3f714127a8222f4e21260eae36bc270f3c54636d78202f44d4a504cdfb9e6162",
+  "matchingNativeCanonicalSourceHashes": 8,
+  "matchingSourceFixtureRawFileHashes": 5,
+  "actualSavedFixtureReview": {
+    "all186PersistedAssertionsExactlyMatchReviewedSpecs": true,
+    "totalActions": 56,
+    "fixtures": [
+      {"slug": "card-throttle-red-decline-boost-pays-assets-only", "actions": 14, "assertions": 49, "fixtureSHA256": "b37dd121cbd91b687b89a6c678706328aa927afa46b55f342da19771cb12f0f4"},
+      {"slug": "card-heart-wrencher-red-empty-deck-no-boost-choice", "actions": 12, "assertions": 25, "fixtureSHA256": "2b79aad4193a6a9709d6f29a88a4d9237dd848bc8ff5fbbd01991d6ae9f35b0a"},
+      {"slug": "card-throttle-red-boost-last-deck-card-after-assets", "actions": 14, "assertions": 44, "fixtureSHA256": "5ce1040469b048cd1f4cbb62eb39338d740d4e15e48ab087cd6050a6d1501712"},
+      {"slug": "card-flock-of-the-feather-walkers-red-known-speedslip-boost-cost-seam", "actions": 16, "assertions": 68, "fixtureSHA256": "553ff0c904b93edfc9ffd6af77d858f28ae5e5686b14021be5befdd78c550961"}
+    ],
+    "flockStages": "Step2 resources0/AP0/Banish1/Arena0 and exact chooser Param p1Hand-0; step3 no second payment; step5 pending trigger Stack1/Arena0; step7 Quicken1; final retained Wounding UID4, exactly one RevealCard macro witness, power5/go-again/AP1 and HP15.",
+    "cleanup": "All four final snapshots have null pendingPayment and empty decision queues. Initial known MST_NEXT grant is consumed; no Evo trigger-generation coverage is claimed."
+  },
+  "ordinaryScenarios": [
+    {
+      "slug": "card-throttle-red-decline-boost-pays-assets-only",
+      "approved": "Optional declaration before assets; modal1 declines; no banish/boost/go-again; blue3 pays cost2 and AP1; power6 leaves HP14/resources1/AP0."
+    },
+    {
+      "slug": "card-heart-wrencher-red-empty-deck-no-boost-choice",
+      "approved": "Actual Heart Wrencher identity/cost0 fallback; empty Deck offers no unpayable Boost; no banish/go-again; power3 leaves HP17/resources0/AP0."
+    },
+    {
+      "slug": "card-throttle-red-boost-last-deck-card-after-assets",
+      "approved": "The sole Mech top card remains after accepted declaration until assets are paid; then Banish1/Deck0 succeeds; power6/go-again leaves HP14/resources1/AP1."
+    }
+  ],
+  "knownEffectInteraction": {
+    "slug": "card-flock-of-the-feather-walkers-red-known-speedslip-boost-cost-seam",
+    "classification": "Previously resolved MST_NEXT grant; excludes Evo equip/trigger generation.",
+    "setup": "MST_NEXT record exactly matches native helper; equipped Evo Speedslip with cogwerx_base_legs SUBCARDS matches native transformation. Dash controls legal Generic/Mechanologist cards, active AP1/nonturn AP0.",
+    "approved": "Declare one granted Boost, pay floating resource1/AP1, banish Mech, then pay Flock mandatory reveal in this chosen effect-cost order. At chooser: resources0/AP0, Banish1, Param p1Hand-0, retained Wounding Blow blue. Reveal never pays again. Power5/go-again; separate Flock attack trigger remains pending before creating Quicken. Token stays because it was created after this attack was played. Final HP15/resources0/AP1.",
+    "limits": "No suppression, additional Boost copies, awaiting Boost listeners or Speedslip generation coverage."
+  },
+  "faultContracts": [
+    "Prefix2 accepted declaration, remove current Deck in disposable state only, then pitch: whole preannouncement snapshot restores both Hand cards, original Deck order, empty Pitch/Banish/Graveyard, resources0/AP1, ACTION/pending null/queues empty.",
+    "Prefix2 accepted declaration, move original Mech top to Graveyard in disposable state only, then pitch: current Generic Raging Onslaught pays Boost, remains Banish, no go-again, printed6 damage/AP0/resources1; original Mech is not resurrected."
+  ],
+  "expansionGate": "Four supported saved scenarios are independently reviewed and root's two disposable contracts PASS182 checks (see boost-contract-probe-independent-review.json). Clean current-runtime replay is the remaining prerequisite before plain213 scenarios across24 exact plain-Boost IDs expand within reviewed scope. This review does not itself add verified coverage.",
+  "held": [
+    "Eye of Ophidia is a triggered Opt after costs/play completion, not a legal way to alter current top before Boost payment. Eager native Opt is a separate timing defect.",
+    "Evo Speedslip equip trigger generation must be respondable; no eager grant oracle approved.",
+    "Ordinary BLIND currently hides external GO_AGAIN in FaBAttackHasGoAgain. The intended retained-grant oracle remains go-again true; this is a source-only observation until reproduced with a valid persisted setup.",
+    "Functional printed Boost plus extra grant multiplicity, awaiting Boost listeners and other explicit gain prevention remain held."
+  ],
+  "reviewerNativeWrites": 0,
+  "reviewerGameActions": 0,
+  "reviewerNativePHPExecutions": 0,
+  "verifiedCoverageAdded": 0,
+  "deniedOrUncertainAction": null
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / two-sources-two-independent-triggers",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:44+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least2 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. A second cost0 Lead is below threshold2, so it does not consume first effect. Both resolve with own go again, leavingAP1. Next eligible action creates two trigger-layers (Stack3), AP0 before either; after both resolve AP2, then ordinary attack resolves without go again. Sources: https://judge.fabtcg.com/cards/detail/550/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_blue"
+}

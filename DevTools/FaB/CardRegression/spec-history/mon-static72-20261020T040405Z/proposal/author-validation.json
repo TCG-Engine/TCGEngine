@@ -1,0 +1,19 @@
+{
+  "status": "AUTHOR_STRUCTURAL_VALIDATION_ONLY",
+  "card_ids": 9,
+  "printings": 36,
+  "compiled_callbacks": 12,
+  "requirements": 228,
+  "concrete_pilots": 4,
+  "native_intended_oracles": 1400,
+  "no_initial_combat_history_permission_state": true,
+  "outputs": {
+    "catalog9-source-and-rules-audit.json": "634542e421c0b295cbac6443da7fd5ad091f96ffdf5075948df041b61e6da86b",
+    "ordinary-requirements-matrix-proposed.json": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0",
+    "pilots4-proposed.json": "aa169be595ed6811c4ce14d06a7b7b47e84e8c3b8ceaa1bcea4098f6e5adf235",
+    "semantic-control-plans.json": "f96a3096b7f878bbc2313dc56bec8270aebd077f83cc8f847ddfc41053a16019"
+  },
+  "native_writes": 0,
+  "game_actions": 0,
+  "script_sha256": "4da110247248c9bec8e5267fda578bce099bf83952bf46ace3f8d2b5eca1efcd"
+}

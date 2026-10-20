@@ -1,0 +1,290 @@
+{
+    "completed_at_utc": "2026-10-20T01:21:55+00:00",
+    "input_file": "card-regression-batch35.json",
+    "input_sha256": "a3c0c597a73f4288fbc677fcd7ca5fc69b7c57bf42850044420a580cfa7e3f41",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-brutal-assault-blue-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-pitched-for-exact-3",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-blue-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-pitched-for-exact-1",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-pitched-for-exact-2",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-brutal-assault-yellow-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        }
+    ]
+}

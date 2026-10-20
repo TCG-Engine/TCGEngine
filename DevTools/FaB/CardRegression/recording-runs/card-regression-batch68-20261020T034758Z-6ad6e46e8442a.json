@@ -1,0 +1,362 @@
+{
+    "completed_at_utc": "2026-10-20T03:47:58+00:00",
+    "input_file": "card-regression-batch68.json",
+    "input_sha256": "28e2f12df009753ee25adfb1fdd23648c7d86d7649b95366fa261b65896607fa",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 308
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-blue-pitch-overfunding",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 187
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-insufficient-total-assets-no-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-red-then-red-two-stage-payment",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 254
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 308
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-blue-pitch-overfunding",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 187
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-red-then-red-two-stage-payment",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 254
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-hand-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-hand-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 128
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-up",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-down",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 129
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-nonturn-instant-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 291
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-no-defense-property-real-block-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 241
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-pitch-primary-real-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 237
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 238
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-blue-pitch-overfunding",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 187
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-insufficient-total-assets-no-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 84
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-red-then-red-two-stage-payment",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 254
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count3",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 173
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count5",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 203
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-only-opponent-four-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-four-earth-in-graveyard-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 176
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count3",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 173
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count4",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count5",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 203
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-only-opponent-four-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-yellow-conditional-heal-four-earth-in-graveyard-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 176
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count3",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 173
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count4",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count5",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 203
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-only-opponent-four-earth-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 188
+        },
+        {
+            "slug": "card-fertile-ground-blue-conditional-heal-four-earth-in-graveyard-negative",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 176
+        }
+    ]
+}

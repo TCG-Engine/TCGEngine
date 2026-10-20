@@ -1,0 +1,16 @@
+{
+  "status": "TOKEN031_SOURCE_APPLIED_UNCHANGED_NATIVE_AFTER_PILOTS_PENDING",
+  "before_runtime": "f1f1c070c936c2e3c9da5bdcb53032416d42f37da8832cd2929c618411996826",
+  "after_runtime": "2b2544474195f4c626892dcf1df5bfcddf91681a3f9a9a5168efee30de1d8114",
+  "proposal_four_source_context_runtime": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+  "core_only_context_bridge": "Independentb17 opt-in recording extension; all4 gameplay preimages equal718-approved proposal.",
+  "changed_files": [
+    "FaBSim/Custom/WTRAbilities.php",
+    "FaBSim/Custom/WTRCards.php",
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/OUTRuntime.php"
+  ],
+  "native_line_endings_preserved": true,
+  "generated_files_changed": false,
+  "new_fixtures_added": 0
+}

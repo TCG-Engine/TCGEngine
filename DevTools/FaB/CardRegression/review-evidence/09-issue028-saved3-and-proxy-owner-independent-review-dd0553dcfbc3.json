@@ -1,0 +1,423 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/pilot_review",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "issue028-saved3-and-proxy-owner-independent-review.json",
+    "sha256": "0e69852073cbe4c4ab6331f820c8e24dd125595bd4beda896bcd21cad581ec5e"
+  },
+  "fixtures": [
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "631efc38fbc1eaf76510a50b7608d861d0dcb7f3444024a761f3cf4645d1503b",
+        "actions.json": "f1ec8719751517530786dc5966c32104812de827931af6bb6f732c02ba9e3679",
+        "assertions.json": "3f74a4f0df1cc624f475e8174b6087decaec857e4848d353ca17a0cb02c7fd2a",
+        "expected_final_gamestate.txt": "90c33884fb58dba5beef526beef19375158339c6852a275c51037cf42b2528f7",
+        "meta.json": "5e8efa77fb9ba15817b6bd8caeaf287748b37d0e843cac2e08bf8b393561df17"
+      },
+      "fixture_sha256": "50146734ab15d6fb47b7123d96e2e3386a18840eff24fa35ef57512fd054191c",
+      "actions": 26,
+      "native_assertions": 273,
+      "native_game_state_fields": 53,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "actual_further_ar_click_first_native_stack_two",
+          "step": 14,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "further_ar_resolves_before_lower_dr",
+          "step": 16,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 18,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "printed_damage_and_one_real_razor_hit_layer",
+          "step": 20,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_hit_layer_grants_ga_without_early_ap",
+          "step": 22,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "one_go_again_ap_only",
+          "step": 24,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_final_priority_pass",
+          "step": 25,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "close_exact_uid_owner_and_retained_rejected_source",
+          "step": 26,
+          "native_assertions": 35
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "actual_further_ar_click_first_native_stack_two",
+          "step": 14,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "further_ar_resolves_before_lower_dr",
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_power": 4,
+        "first_razor_bonus": 3,
+        "further_lunging_bonus": 1,
+        "real_dodge_defense": 2,
+        "damage": 6,
+        "health": 14,
+        "remaining_resources": 0,
+        "resolution_action_points": 1,
+        "rejected_subject": null
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-wrong-target-funded-pummel-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "14d42d3250a31b1850fec11cd76598734f9cc4fc07e4571ef5eb47d7b583cb86",
+        "actions.json": "1d71428a843fed5334c4eace98abf879d45fd4508a996f33c63951f368f8b154",
+        "assertions.json": "e92520752fd22b4c13ac2de9a720816b835d918e1ecfa83c1f3e8e3d2085cbc9",
+        "expected_final_gamestate.txt": "91382a4b69804c98da2402452180476876e14afcc31732b1ec005bf318924122",
+        "meta.json": "4059246b7acc905358c48c38760f1612df45e913ddc2674ab28733a49afc3269"
+      },
+      "fixture_sha256": "b716e8163c70edb03343df74384be2025941c08065c27cb2c69c3decf8c2ceb0",
+      "actions": 24,
+      "native_assertions": 245,
+      "native_game_state_fields": 49,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "actual_rejected_click_preserves_lower_layer_and_exact_subject",
+          "step": 14,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 16,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "printed_damage_and_one_real_razor_hit_layer",
+          "step": 18,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_hit_layer_grants_ga_without_early_ap",
+          "step": 20,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "one_go_again_ap_only",
+          "step": 22,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_final_priority_pass",
+          "step": 23,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "close_exact_uid_owner_and_retained_rejected_source",
+          "step": 24,
+          "native_assertions": 35
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "actual_rejected_click_preserves_lower_layer_and_exact_subject",
+          "step": 14,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_power": 4,
+        "first_razor_bonus": 3,
+        "further_lunging_bonus": 0,
+        "real_dodge_defense": 2,
+        "damage": 5,
+        "health": 15,
+        "remaining_resources": 2,
+        "resolution_action_points": 1,
+        "rejected_subject": "pummel_red"
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-insufficient-cost-valid-razor-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ef0a8f93a6ce595fe8b734e2065c5dd74f276629c7dae957369bf4150d8dda8a",
+        "actions.json": "1d71428a843fed5334c4eace98abf879d45fd4508a996f33c63951f368f8b154",
+        "assertions.json": "df1e172f01f1b253745d50740e1c7d8bcdd12d0a176c4c8266caa46253563d2b",
+        "expected_final_gamestate.txt": "4af7c657abb8a30d53621a3a66a26a33bda361ebbb105a40ad9b13021a649d84",
+        "meta.json": "3e67c29c7627ade5c64900ce468b17ac44f7c77949e0784781483dca6e6b67dd"
+      },
+      "fixture_sha256": "087a2e264f87ee027893885f879442612b84045051bb91b1a68f1acd319b2fc0",
+      "actions": 24,
+      "native_assertions": 245,
+      "native_game_state_fields": 49,
+      "checkpoints": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "native_assertions": 22
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "actual_rejected_click_preserves_lower_layer_and_exact_subject",
+          "step": 14,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 16,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "printed_damage_and_one_real_razor_hit_layer",
+          "step": 18,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "real_hit_layer_grants_ga_without_early_ap",
+          "step": 20,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "one_go_again_ap_only",
+          "step": 22,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "real_final_priority_pass",
+          "step": 23,
+          "native_assertions": 14
+        },
+        {
+          "checkpoint": "close_exact_uid_owner_and_retained_rejected_source",
+          "step": 24,
+          "native_assertions": 35
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "printed_attack_ready_at_zero_defender_ap",
+          "step": 9,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "first_defense_reaction_waits",
+          "step": 10,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "real_razor_above_pending_dodge",
+          "step": 11,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "top_razor_resolved_with_lower_layer_pending",
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "actual_rejected_click_preserves_lower_layer_and_exact_subject",
+          "step": 14,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "checkpoint": "lower_dodge_resolves_only_after_response",
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_power": 4,
+        "first_razor_bonus": 3,
+        "further_lunging_bonus": 0,
+        "real_dodge_defense": 2,
+        "damage": 5,
+        "health": 15,
+        "remaining_resources": 0,
+        "resolution_action_points": 1,
+        "rejected_subject": "razor_reflex_red"
+      }
+    }
+  ]
+}

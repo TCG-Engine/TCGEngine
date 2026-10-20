@@ -164,10 +164,152 @@ function FaBARCEnterItem(int $player,object $o,bool $triggerStasis=true): void {
     if($n)FaBSetObjectCounter($o,'STEAM',intval(FaBObjectCounters($o)['STEAM']??0)+$n);
     FaBDYNEnterItem($player,$o);FaBAMXEnter($player,$o);FaBEVOEnter($player,$o,$triggerStasis);
 }
+function FaBARCBoostPaymentSource(array $pending): ?array {
+    $found=FaBFindUID(intval($pending['uid']??0));
+    return $found!==null && $found['zone']==='Stack' && empty($pending['isAbility'])
+        && intval($found['object']->Controller??0)===intval($pending['player']??0)
+        && ($pending['kind']??'')==='ATTACK' ? $found : null;
+}
+
+// Ordinary ability loss removes base Boost, not the separate MST grant. The
+// implemented Good Clean Fight suppression expressly prevents gains as well.
+function FaBARCBoostIsFunctional(object $source): bool {
+    if(FaBSUPSuppressed($source))return false;
+    if(in_array('MST_BOOST',(array)($source->TurnEffects??[]),true))return true;
+    return !HasNoAbilities($source)&&FaBHasKeyword($source,'Boost');
+}
+
+function FaBARCGrantedBoostMacro(object $source,string $macroName,int $player,string $cardID,array $params): bool {
+    if(!in_array('MST_BOOST',(array)($source->TurnEffects??[]),true)||FaBSUPSuppressed($source))return false;
+    $pending=FaBGetState()['pendingPayment'];
+    if(!is_array($pending)||intval($pending['uid']??0)!==intval($source->UniqueID)||intval($pending['player']??0)!==$player
+        ||FaBARCBoostPaymentSource($pending)===null)return false;
+    return ($macroName==='ResolveAbility'&&$cardID==='evo_speedslip_blue'&&($params['mstEvent']??'')==='boost')
+        ||($macroName==='PrepareCard'&&$cardID==='zero_to_sixty_red');
+}
+
+function FaBARCBoostUndoHash(int $player): string {
+    $versions=GetVersions($player);$undo=$versions[0]??null;
+    return is_object($undo)?hash('sha256',(string)$undo->Version):'';
+}
+
+function FaBARCRollbackBoostPayment(array $pending,string $reason): bool {
+    $player=intval($pending['player']??0);$versions=GetVersions($player);$undo=$versions[0]??null;
+    $expected=(string)($pending['arcBoostUndoHash']??'');
+    if($expected!==''&&is_object($undo)&&hash_equals($expected,hash('sha256',(string)$undo->Version))){
+        LoadVersion($player,0);
+        if(function_exists('SetFlashMessage'))SetFlashMessage('Boost play reversed: '.$reason);
+        return false;
+    }
+    $state=FaBGetState();
+    if(intval($state['pendingPayment']['uid']??0)===intval($pending['uid']??0)){
+        $state['pendingPayment']['arcBoostError']=$reason.' (preannouncement snapshot unavailable)';FaBSetState($state);
+    }
+    if(function_exists('SetFlashMessage'))SetFlashMessage('Boost payment stopped: preannouncement snapshot unavailable.');
+    return false;
+}
+
+// Reuse the existing canonical declaration macro only for a missing Boost Prepare.
+// It reads actual-source mzID/UID and calls Finish for that UID; it never plays a
+// Zero to Sixty object or substitutes its printed resource cost.
+function FaBARCPrepareMissingBoost(int $player,object $source): bool {
+    $printed=FaBHasKeyword((string)$source->CardID,'Boost');
+    $functional=FaBARCBoostIsFunctional($source);
+    if(!$printed&&!$functional)return false;
+    if(HasNoAbilities($source)&&!$functional){
+        // Audited printed-Boost Prepares only declare Boost, and every printed
+        // Boost source has a fixed numeric asset cost. Do not bypass unrelated
+        // X/mode declarations on a suppressed non-Boost card with a grant tag.
+        if($printed){FaBFinishPreparedCard(intval($source->UniqueID));return true;}
+        return false;
+    }
+    // A lost printed Boost with a retained independent MST grant has exactly the
+    // one granted declaration; do not reuse Twin Drive's two lost base copies.
+    $lostBaseWithGrant=$printed&&HasNoAbilities($source)&&$functional;
+    if(!$lostBaseWithGrant&&function_exists('CardPrepareCardCount')&&intval(CardPrepareCardCount((string)$source->CardID))>0)return false;
+    $pending=FaBGetState()['pendingPayment'];
+    if(!is_array($pending)||intval($pending['uid']??0)!==intval($source->UniqueID))return false;
+    $found=FaBARCBoostPaymentSource($pending);if($found===null)return false;
+    $pending['arcBoostUndoHash']=FaBARCBoostUndoHash($player);
+    $state=FaBGetState();$state['pendingPayment']=$pending;FaBSetState($state);
+    if(FaBRunSourceMacro('PrepareCard',$player,'zero_to_sixty_red',['mzID'=>$found['mzID']])<1){
+        FaBARCRollbackBoostPayment($pending,'canonical Boost declaration macro unavailable');
+    }
+    return true;
+}
+
+// The canonical Prepare macros call this when the player DECLARES Boost.
 function FaBARCBoost(int $player,int $uid): void {
+    $state=FaBGetState();$pending=$state['pendingPayment'];$source=FaBFindUID($uid);
+    if(is_array($pending)&&intval($pending['player']??0)===$player&&intval($pending['uid']??0)===$uid){
+        if(FaBARCBoostPaymentSource($pending)===null){
+            $state['pendingPayment']['arcBoostDeclaredCount']=intval($pending['arcBoostDeclaredCount']??0)+1;
+            $state['pendingPayment']['arcBoostUndoHash']=$pending['arcBoostUndoHash']??FaBARCBoostUndoHash($player);
+            $state['pendingPayment']['arcBoostError']='Boost declaration source is not controlled on Stack';FaBSetState($state);return;
+        }
+        if(!FaBARCBoostIsFunctional($source['object']))return;
+        if(!empty($pending['arcBoostAssetsPaid'])||!empty($pending['arcBoostCostsPaid'])){
+            $state['pendingPayment']['arcBoostError']='Boost was declared after its asset/effect payment stage';FaBSetState($state);return;
+        }
+        $state['pendingPayment']['arcBoostDeclaredCount']=intval($pending['arcBoostDeclaredCount']??0)+1;
+        $state['pendingPayment']['arcBoostUndoHash']=$pending['arcBoostUndoHash']??FaBARCBoostUndoHash($player);
+        FaBSetState($state);
+        return;
+    }
+    // Preserve callers outside the card-announcement payment route. The audited
+    // canonical ARC/CRU/EVO/MST callers all take the deferred branch above.
+    if($source!==null&&FaBARCBoostIsFunctional($source['object']))FaBARCBoostImmediately($player,$uid);
+}
+
+// Only called after fixed resource/AP assets are paid. No card is selected at
+// declaration time: reserve the current top N identities at effect-cost payment.
+function FaBARCPayDeferredBoostCosts(): bool {
+    $state=FaBGetState();$pending=$state['pendingPayment'];
+    if(!is_array($pending)||intval($pending['arcBoostDeclaredCount']??0)<1)return true;
+    if(!empty($pending['arcBoostError']))return FaBARCRollbackBoostPayment($pending,(string)$pending['arcBoostError']);
+    if(FaBARCBoostPaymentSource($pending)===null)return FaBARCRollbackBoostPayment($pending,'announced source is no longer controlled on Stack');
+    if(empty($pending['arcBoostAssetsPaid'])||intval($pending['arcBoostChargedCost']??-1)!==max(0,intval($pending['cost'])))
+        return FaBARCRollbackBoostPayment($pending,'fixed assets were not paid consistently');
+    if(!empty($pending['arcBoostCostsPaid']))return true;
+    $player=intval($pending['player']);$uid=intval($pending['uid']);$count=intval($pending['arcBoostDeclaredCount']);
+    $refs=FaBChoiceRefs($player,'Deck');
+    if(count($refs)<$count)return FaBARCRollbackBoostPayment($pending,'accepted Boost cost cannot be paid from the current deck');
+    $reserved=[];
+    foreach(array_slice($refs,0,$count)as$ref){$found=FaBIdentityFromMZ($ref);$reserved[]=['uid'=>intval($found['object']->UniqueID),'mech'=>FaBHasType($found['object'],'Mechanologist')];}
+    $depth=intval($GLOBALS['fabBoostCostDepth']??0);$GLOBALS['fabBoostCostDepth']=$depth+1;
+    try{
+        // Pay every accepted banish before the existing per-Boost callbacks can
+        // draw/reorder the deck for a later payment (notably Twin Drive).
+        foreach($reserved as$costCard){
+            $top=FaBChoiceRefs($player,'Deck');$top=$top?FaBIdentityFromMZ($top[0]):null;
+            if($top===null||intval($top['object']->UniqueID)!==$costCard['uid'])
+                return FaBARCRollbackBoostPayment($pending,'a move hook changed a remaining Boost cost during payment');
+            if(FaBMoveUID($costCard['uid'],'Banish',$player)===null)
+                return FaBARCRollbackBoostPayment($pending,'Boost banish cost failed');
+        }
+        $state=FaBGetState();
+        if(intval($state['pendingPayment']['uid']??0)!==$uid)return FaBARCRollbackBoostPayment($pending,'payment identity changed during banish');
+        if(!empty($state['pendingPayment']['arcBoostError']))return FaBARCRollbackBoostPayment($pending,(string)$state['pendingPayment']['arcBoostError']);
+        if(FaBARCBoostPaymentSource($state['pendingPayment'])===null)return FaBARCRollbackBoostPayment($pending,'announced source departed during banish');
+        $state['pendingPayment']['arcBoostCostsPaid']=true;
+        $state['pendingPayment']['arcBoostBanishUIDs']=array_column($reserved,'uid');FaBSetState($state);
+        foreach($reserved as$costCard)FaBARCApplyBoostConsequences($player,$uid,$costCard['uid'],$costCard['mech']);
+        $state=FaBGetState();$current=$state['pendingPayment'];
+        if(!is_array($current)||intval($current['uid']??0)!==$uid)return FaBARCRollbackBoostPayment($pending,'payment identity changed during Boost callbacks');
+        if(!empty($current['arcBoostError']))return FaBARCRollbackBoostPayment($pending,(string)$current['arcBoostError']);
+        if(FaBARCBoostPaymentSource($current)===null)return FaBARCRollbackBoostPayment($pending,'announced source departed during Boost callbacks');
+        if(intval($current['arcBoostChargedCost']??-1)!==max(0,intval($current['cost'])))return FaBARCRollbackBoostPayment($pending,'asset cost changed after payment');
+        return true;
+    }finally{$GLOBALS['fabBoostCostDepth']=$depth;}
+}
+
+function FaBARCBoostImmediately(int $player,int $uid): void {
     $refs=FaBChoiceRefs($player,'Deck');if(!$refs)return;
-    $f=FaBIdentityFromMZ($refs[0]);$mech=FaBHasType($f['object'],'Mechanologist');
-    $banishedUID=intval($f['object']->UniqueID);FaBMoveUID($banishedUID,'Banish',$player);
+    $found=FaBIdentityFromMZ($refs[0]);$banishedUID=intval($found['object']->UniqueID);$mech=FaBHasType($found['object'],'Mechanologist');
+    if(FaBMoveUID($banishedUID,'Banish',$player)!==null)FaBARCApplyBoostConsequences($player,$uid,$banishedUID,$mech);
+}
+
+function FaBARCApplyBoostConsequences(int $player,int $uid,int $banishedUID,bool $mech): void {
     if($mech)FaBTagUID($uid,'GO_AGAIN');
     FaBWTRAddEffect($player,'ARC_BOOSTED',1);
     FaBCRUBoost($player,$uid);

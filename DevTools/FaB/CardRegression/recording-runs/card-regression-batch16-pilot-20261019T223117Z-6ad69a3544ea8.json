@@ -1,0 +1,93 @@
+{
+    "completed_at_utc": "2026-10-19T22:31:17+00:00",
+    "input_file": "card-regression-batch16-pilot.json",
+    "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+    "filter": "card-flock",
+    "results": [
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+            "status": "blocked_or_incorrect",
+            "error": "Invalid selection.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PITCH",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": {
+                    "player": 1,
+                    "uid": 3,
+                    "cost": 1,
+                    "fromZone": "Hand",
+                    "kind": "ATTACK",
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE",
+                    "wtrFlockStage": "REVEAL",
+                    "wtrFlockUndoHash": "e93ec8cb9ff7191b907e16c92b920de6978761f75ad01642ec3d4fc9abe6f54f",
+                    "wtrFlockAssetsPaid": true,
+                    "wtrFlockChargedCost": 1,
+                    "wtrFlockRevealRequired": true
+                },
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": [],
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false
+                    }
+                }
+            }
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 10
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 10
+        }
+    ]
+}

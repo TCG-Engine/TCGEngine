@@ -1,0 +1,7 @@
+{
+    "name": "Earth Form / created-earth-real-next-turn-naa-defense-plus-one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:39:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost3/power7/pitch1/defense2. Physical damage max(0,7-0)=7. Hero target; printed any-hit condition produces 1 independent layer(s) and no earlier token. Creation preserves original canonical token helper/controller. Current attack has no go again, no AP refund. Real Close moves physical cards to their owners; destroyed Ward/ally tokens cease outsideArena. Normal bookkeeping fields are not asserted empty. Real EndPhase/nextTurn draws known defenderUID4; createdEarth persists during opponent turn. Opponent actually plays WBred4; source-controller1 defends free fromHand with come_to_fight_blue printeddefense3. CreatedEarth copies1 add1 only for NAA, total4; damage0, owner1HP20. ActualClose owner cards and tokens pinned. No token or modifier is initially seeded. Sources: https://judge.fabtcg.com/cards/detail/3021/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

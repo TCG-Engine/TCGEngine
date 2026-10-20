@@ -1,0 +1,98 @@
+[
+    {
+        "step": 0,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "cardID": "burgeoning_yellow"
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "cardID": "burgeoning_yellow"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Arsenal",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Pitch",
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 1,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 20
+    },
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    }
+]

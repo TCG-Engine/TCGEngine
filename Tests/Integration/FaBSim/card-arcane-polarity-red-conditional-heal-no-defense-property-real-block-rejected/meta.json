@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Polarity / conditional heal / no-defense-property-real-block-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:39:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed arcane_polarity_red cost0, pitch1, no defense property, no action-point cost or gain as an Instant. Branch no-defense-property-real-block-rejected. Independent printed-rule model requires terminal health[20, 6], resources[0, 0], AP[0, 0].  Sources: https://judge.fabtcg.com/cards/detail/3297/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

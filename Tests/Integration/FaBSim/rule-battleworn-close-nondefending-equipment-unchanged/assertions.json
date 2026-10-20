@@ -1,0 +1,96 @@
+[
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 16
+    },
+    {
+        "step": 12,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "cardID": "helm_of_isens_peak"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 16
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    }
+]

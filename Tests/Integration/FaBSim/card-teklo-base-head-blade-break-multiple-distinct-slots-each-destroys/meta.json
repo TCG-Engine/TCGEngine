@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Base Head / Blade Break multiple-distinct-slots-each-destroys",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:03:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Class-matching young teklovossen, no talents, no weapons and distinct equipment slots. Each of 4 equipment contributes defense1, total4, so plain4attack deals0. All remain live through Resolution; each independently destroys during automatic Close. No duplicate physical card is inferred from membership: every cardID is distinct and count pins multiplicity. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#teklo_base_head"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / current weapon with sole opposing AA target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:57:56+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Uncharged Boltyn legally wields Dawnblade and plays generic LP. Dawnblade costs1/AP1 and attacks for3. Opponent actually defends with Blue Wounding3. That defending AA UID5/link1 is the sole LP target despite current weapon UID6. LP adds1 to defender power only; defense3/current weapon3 stay fixed, fully blocks/damage0, no GA/AP. No Dori attacking-hero trigger is involved. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

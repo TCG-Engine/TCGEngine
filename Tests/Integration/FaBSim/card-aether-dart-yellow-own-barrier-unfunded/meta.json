@@ -1,0 +1,7 @@
+{
+    "name": "Aether Dart / own-barrier-unfunded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0 and 2 arcane damage to any target. Choose player1's hero. Pay0 from the caster pool and1AP, leaving0. Victim1 has Barrier1 but resources0 and no pitchable hand; other player's floating resources cannot fund it. No affordable prevention chooser. Deal the full2 only on resolution: hero120->18, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_yellow https://judge.fabtcg.com/cards/detail/1673/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

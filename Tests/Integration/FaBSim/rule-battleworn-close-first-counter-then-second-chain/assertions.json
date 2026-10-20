@@ -1,0 +1,231 @@
+[
+    {
+        "step": 0,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 13,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 17
+    },
+    {
+        "step": 13,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "cardID": "breaking_scales"
+    },
+    {
+        "step": 13,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2CombatChain-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 15,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "cardID": "breaking_scales"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "{\"DEFENSE\":1}"
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 15,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 15,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 28,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 28,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "cardID": "breaking_scales"
+    },
+    {
+        "step": 28,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 28,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2CombatChain-0",
+        "property": "Counters",
+        "value": "{\"DEFENSE\":1}"
+    },
+    {
+        "step": 30,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "cardID": "breaking_scales"
+    },
+    {
+        "step": 30,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Counters",
+        "value": "{\"DEFENSE\":2}"
+    },
+    {
+        "step": 30,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 14
+    },
+    {
+        "step": 30,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 30,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 30,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 30,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "value": 2
+    },
+    {
+        "step": 30,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 30,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 30,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    },
+    {
+        "step": 31,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "PriorityPlayer",
+        "value": 2
+    },
+    {
+        "step": 31,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "ConsecutivePasses",
+        "value": 1
+    },
+    {
+        "step": 31,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 31,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1CombatChain",
+        "value": 0
+    },
+    {
+        "step": 31,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2CombatChain",
+        "value": 0
+    },
+    {
+        "step": 31,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    }
+]

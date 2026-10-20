@@ -1,0 +1,1386 @@
+{
+  "status": "PLANNED_CONCRETE_RECIPES_NOT_COVERAGE",
+  "matrix_sha256": "95fcf0bbdf1d5bad37dc2b6da119dc715b92d1cc5eb3ee28e395a089609367d0",
+  "required_branch_count": 228,
+  "concrete_scenario_count": 210,
+  "requirements": [
+    {
+      "card_id": "surging_militia_red",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-surging-militia-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-surging-militia-red-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-surging-militia-red-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "overfund-one",
+      "scenario_slug": "card-surging-militia-red-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-surging-militia-red-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-surging-militia-red-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-surging-militia-red-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-surging-militia-red-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-surging-militia-red-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-surging-militia-red-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-surging-militia-red-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "overblock",
+      "scenario_slug": "card-surging-militia-red-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-surging-militia-red-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-surging-militia-red-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-surging-militia-red-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-surging-militia-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-surging-militia-red-mon-continuous-one-normal-hand-card",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-red-mon-static-two-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-red-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-surging-militia-red-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-surging-militia-red-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-surging-militia-red-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-surging-militia-red-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-surging-militia-red-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_red",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-surging-militia-red-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "overfund-one",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "overblock",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-one-normal-hand-card",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-two-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-surging-militia-yellow-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-surging-militia-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-surging-militia-blue-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-surging-militia-blue-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "overfund-one",
+      "scenario_slug": "card-surging-militia-blue-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-surging-militia-blue-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-surging-militia-blue-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-surging-militia-blue-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-surging-militia-blue-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-surging-militia-blue-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-surging-militia-blue-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-surging-militia-blue-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "overblock",
+      "scenario_slug": "card-surging-militia-blue-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-surging-militia-blue-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-surging-militia-blue-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-surging-militia-blue-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-surging-militia-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-surging-militia-blue-mon-static-one-normal-hand-card",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-blue-mon-static-two-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-surging-militia-blue-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-surging-militia-blue-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-surging-militia-blue-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-surging-militia-blue-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-surging-militia-blue-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-surging-militia-blue-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-surging-militia-blue-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "overfund-one",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "overblock",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-one-normal-hand-card",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-red-mon-continuous-two-normal-hand-cards",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-stony-woottonhog-red-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "overfund-one",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "overblock",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-one-normal-hand-card",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-two-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-stony-woottonhog-yellow-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "overfund-one",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "overblock",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "blue-three-payment",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-blue-three-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "red-then-red-payment",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-red-then-red-payment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "unfundable-cost-minus-one-reject",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-unfundable-cost-minus-one-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "zero-non-equipment",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "one-normal-hand-card",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-one-normal-hand-card",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "two-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-two-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "three-normal-hand-cards",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-three-normal-hand-cards",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "equipment-only-excluded",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-equipment-only-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "one-hand-plus-two-equipment",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-one-hand-plus-two-equipment",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "defense-reaction-pending-then-resolved",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-defense-reaction-pending-then-resolved",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "previous-link-defenders-excluded",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-previous-link-defenders-excluded",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "ordinary-nonattack-defender-counts",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-ordinary-nonattack-defender-counts",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "branch": "printed-defense-no-self-bonus",
+      "scenario_slug": "card-stony-woottonhog-blue-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "overfund-one",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "overblock",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-no-aura",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-attack-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-only-opponent-aura-negative",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-attack-only-opponent-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "attack-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-attack-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-defend-own-aura-present",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-defend-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-opponent-only-aura-negative",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-defend-opponent-only-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "defend-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-red-mon-static-defend-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-enters-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-red-mon-live-enters-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-enters-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-red-mon-live-enters-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-red-mon-live-destroyed-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "branch": "aura-preserved-through-current-combat",
+      "scenario_slug": "card-yinti-yanti-red-mon-continuous-attack-own-aura-present",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "overfund-one",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "overblock",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-attack-own-aura-present",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-no-aura",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-attack-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-only-opponent-aura-negative",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-attack-only-opponent-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "attack-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-attack-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-defend-own-aura-present",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-defend-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-opponent-only-aura-negative",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-defend-opponent-only-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "defend-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-defend-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-enters-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-live-enters-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-enters-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-live-enters-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "branch": "aura-preserved-through-current-combat",
+      "scenario_slug": "card-yinti-yanti-yellow-mon-static-attack-own-aura-present",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "hand-floating-unblocked",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "arsenal-face-down",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-arsenal-face-down",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "arsenal-face-up",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-arsenal-face-up",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "overfund-one",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-overfund-one",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "zero-ap-reject",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-zero-ap-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "wrong-priority-reject",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-wrong-priority-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "nonturn-ordinary-reject",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-nonturn-ordinary-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "graveyard-origin-reject",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-graveyard-origin-reject",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "printed-pitch",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-printed-pitch",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "printed-defense-no-aura",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-printed-defense-no-aura",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "exact-full-block",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-exact-full-block",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "overblock",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-overblock",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-attack-own-aura-present",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-no-aura",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-hand-floating-unblocked",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-attack-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-only-opponent-aura-negative",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-attack-only-opponent-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "attack-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-attack-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-own-aura-present",
+      "scenario_slug": "card-yinti-yanti-blue-mon-continuous-defend-own-aura-present",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-two-own-auras-not-plus-two",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-defend-two-own-auras-not-plus-two",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-opponent-only-aura-negative",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-defend-opponent-only-aura-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "defend-own-item-only-negative",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-defend-own-item-only-negative",
+      "fulfillment": "EXPLICIT_NEW_SUPPORTED_ACTION_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-enters-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-blue-mon-live-enters-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-enters-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-destroyed-during-reaction-attack",
+      "scenario_slug": "card-yinti-yanti-blue-mon-live-destroyed-attack",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-destroyed-during-reaction-defense",
+      "scenario_slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+      "fulfillment": "EXACT_PRESERVED_FROZEN_PILOT_OR_LIVE_RECIPE"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "branch": "aura-preserved-through-current-combat",
+      "scenario_slug": "card-yinti-yanti-blue-mon-static-attack-own-aura-present",
+      "fulfillment": "EXPLICIT_SHARED_IDENTICAL_ORDINARY_ACTION_CONTEXT"
+    }
+  ],
+  "shared_context_policy": "Only explicit identical ordinary contexts share a scenario; source branch expectations remain immutable. Zero non-equipment or noAura aliases hand unblocked; primary printed defense aliases no-self-defense-gain; Aura persistence aliases ownAura current combat. No cardplay-only substitution for functional behavior.",
+  "external_holds": [
+    "Abilityloss/restoration/copy, power/defense gain prohibition/replacement/caps, foreigncontroller/owner/multiplayer, simultaneous arbitrary additional effects.",
+    "Source card gained/lostcardtypes or Aura type effects beyond listed ordinary boolean/ownership cases."
+  ],
+  "qualification_gates": [
+    "Independently reviewed exact printed-text branch contract, all9 ownstats/costs/origins/rejections and relevant count/Aura/role/liveness conditions.",
+    "Actual correct recordings and independent raw5/behavior/action/oracle semantic reviews, fresh deterministic2x replay and meaningful semanticcontrols; current suite/runtime qualification.",
+    "No finite-completion declaration from initial4pilots alone; unimplemented/incorrect branches remain precisely held."
+  ]
+}

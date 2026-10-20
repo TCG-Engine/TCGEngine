@@ -1,0 +1,85 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "en-garde-proposal/saved-after-independent-review.json",
+    "sha256": "91c152d0c7d04298b967e01aa59c1010aca6d4e4761b4e37fda09b9a55818db6"
+  },
+  "fixtures": [
+    {
+      "slug": "card-en-garde-red-hand-floating",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6f308023356340d6d03d853720e0016ce837163bf9b2cbfc284bb135929e5288",
+        "actions.json": "fbeb8abce8eb8cc16afbd2cf43b429b25e91676124d354da24b8f0154daff8bf",
+        "assertions.json": "bda381d3e90ccb5526a1e5ba37b0622d450a6040c1414d66ce24cc411f3e9a56",
+        "expected_final_gamestate.txt": "18e3a173515eb791fb726bc06f1ce25696652ea2580995225280d52137552d85",
+        "meta.json": "0d45f8d8d484e5ffc753f2fd96c4cc6fc68135ec320c0e0be1a1b0b3dc6930f9"
+      },
+      "fixture_sha256": "d73974e45032bb36f65facf5f43a8c7eea8793dd76f93a466dc5fb22a12f0f4b",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 78,
+      "input_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+      "recording_archive_sha256": "232e3dfe7e4dab3aa8ee1d57b19e04d77e4bf58dd53b55cc3bb181c405142306",
+      "printed_power": 2,
+      "printed_buff": 3,
+      "actual_attack_power": 5,
+      "actual_damage": 5,
+      "final_hp": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "attack_go_again": false,
+      "sourceUID": 3,
+      "physical_weaponUID": 4,
+      "attack_proxyUID": 5
+    },
+    {
+      "slug": "diagnostic-en-garde-red-hand-floating-printed-power",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6f308023356340d6d03d853720e0016ce837163bf9b2cbfc284bb135929e5288",
+        "actions.json": "fbeb8abce8eb8cc16afbd2cf43b429b25e91676124d354da24b8f0154daff8bf",
+        "assertions.json": "ed8975d4dde9d2dd60acfc4187778a030932c07bbf3cd68060bc1deaa34c978c",
+        "expected_final_gamestate.txt": "18e3a173515eb791fb726bc06f1ce25696652ea2580995225280d52137552d85",
+        "meta.json": "c530461fa9f3c07cf37774cef28e357b8a4b69e606aadf20a1e6c05fd41886d7"
+      },
+      "fixture_sha256": "759d739b4175c7ae0bfaa6d17d550e6603f4cc4bfc172ffc2cad3f85536527e6",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "input_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+      "recording_archive_sha256": "b180956e519640cd4109d6180154548658edb666e5df7986e2d239e35c8ca308",
+      "printed_power": 2,
+      "printed_buff": 3,
+      "actual_attack_power": 5,
+      "actual_damage": 5,
+      "final_hp": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "attack_go_again": false,
+      "sourceUID": 3,
+      "physical_weaponUID": 4,
+      "attack_proxyUID": 5
+    }
+  ]
+}

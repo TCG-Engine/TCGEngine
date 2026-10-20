@@ -327,6 +327,18 @@ function FaBMONAffordableHand(int $p,string $kind='',bool $charge=false): string
 function GameValidateDecisionAnswer($player,$answer): bool {
     if(function_exists('SWUValidateDecisionAnswer')&&!SWUValidateDecisionAnswer($player,$answer))return false;
     $d=GetDecisionQueue(intval($player))[0]??null;$s=FaBGetState();
+    if (isset($s['pendingLungingTarget']) || ($d->Tooltip ?? '') === 'Choose_Lunging_Press_target') {
+        return FaBCRULungingAnswerIsValid(intval($player), (string)$answer);
+    }
+    if (FaBIsDiscardRequestDecision(intval($player))) return FaBDiscardRequestAnswerIsValid(intval($player), (string)$answer);
+    if ($d && isset($s['pendingPayment']['wtrFlockStage'])
+        && ($s['pendingPayment']['wtrFlockStage'] ?? '') === 'REVEAL'
+        && intval($s['pendingPayment']['player'] ?? 0) === intval($player)
+        && $d->Tooltip === 'Reveal_a_card_for_the_additional_cost') {
+        return $d->Type === 'MZCHOOSE'
+            && in_array((string)$answer, explode('&', (string)$d->Param), true)
+            && FaBWTRFlockRevealAnswerIsValid(intval($player), (string)$answer);
+    }
     if($d&&$d->Tooltip==='Choose_two_Earth_cards')return count(FaBUPRUIDs((string)$answer))===2&&FaBROSActionExcept(intval($player),(string)$answer)!=='';
     if(!$d||!$s['pendingPayment']||intval($s['pendingPayment']['player'])!==intval($player))return true;
     if($d->Tooltip==='Choose_three_different_names'){ $refs=explode('&',(string)$answer);$names=[];foreach($refs as $r){$f=FaBIdentityFromMZ($r);if(!$f)return false;$names[]=CardName($f['object']->CardID);}return count($refs)===3&&count(array_unique($names))===3;}

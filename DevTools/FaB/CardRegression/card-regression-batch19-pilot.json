@@ -1,0 +1,510 @@
+[
+  {
+    "slug": "card-burgeoning-red-arsenal-face-down-unblocked-float",
+    "name": "Burgeoning / arsenal-face-down-unblocked-float",
+    "cardIDs": [
+      "burgeoning_red"
+    ],
+    "branches": [
+      "arsenal-face-down-unblocked-float"
+    ],
+    "status": "proposed_unrecorded",
+    "heroes": [
+      "oldhim",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "burgeoning_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "burgeoning_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "initial"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Arsenal"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "attack_paid_single_layer"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "FromZone",
+            "value": "Arsenal"
+          }
+        ],
+        "checkpoint": "attack_power_after_stack_to_chain"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "burgeoning_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "damage_and_resolution"
+      }
+    ],
+    "oracle": "Printed power6, cost2; originArsenal. The arsenal-only intrinsic bonus is1; expected current power7. No extra trigger layer or go again is created. Pay exactly2 floating resources and1AP, leaving0/0. Defense0; damage=max(0,7-0)=7; defender life20->13. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_red",
+      "https://judge.fabtcg.com/cards/detail/1174/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "printedCard": {
+      "id": "burgeoning_red",
+      "name": "Burgeoning",
+      "types": [
+        "Earth",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "2",
+      "power": "6",
+      "defense": "2",
+      "functional_text_plain": "If this was played from arsenal, it gets +1{p}."
+    },
+    "fixtureConstraints": {
+      "actor_hero": "oldhim",
+      "hero_reason": "Oldhim is a Guardian with Earth Essence, allowing Earth Burgeoning and the known Guardian-targeted Blinding interaction.",
+      "hero_passives": "No hero activation occurs. Neither Oldhim nor Bravo adds attack power passively.",
+      "duel_state": "Turn1/current turn number2, MAIN/ACTION, isolated live seats12; one arsenal card maximum per player."
+    },
+    "authoringNotes": [
+      "Scratch proposal only: no PHP, recording, replay or game actions executed by this author.",
+      "Use the existing recorder's clicks, priority passes and native assertions; never set explicit UniqueID.",
+      "Derived power/defense checks are author-time diagnostics. Persisted HP, resources, AP, counts, origin properties and go-again assertions pin the named outcomes.",
+      "The intrinsic bonus is a conditional static effect, not a hit/play trigger and not a consumable next-attack effect. No extra triggered layer is expected."
+    ],
+    "reviewGate": "Review both exact family specifications and2 representative saved pilots, execute semantic origin controls on disposable copies, then scale only correct branches.",
+    "remainingBranches": [
+      "Abilities lost/restored dynamically after this attack has entered the combat chain.",
+      "Source leave/reenter, copied characteristics, off-zone play permissions and alternate controllers.",
+      "Power-modifier prohibition/prevention and replacement effects, UPF targets and full turn/reset lifecycle.",
+      "Complete card/deck/format legality audit is outside this bounded family; all six identities remain partial."
+    ]
+  },
+  {
+    "slug": "card-power-play-red-arsenal-face-down-unblocked-float",
+    "name": "Power Play / arsenal-face-down-unblocked-float",
+    "cardIDs": [
+      "power_play_red"
+    ],
+    "branches": [
+      "arsenal-face-down-unblocked-float"
+    ],
+    "status": "proposed_unrecorded",
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "power_play_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "power_play_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "initial"
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Arsenal"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "attack_paid_single_layer"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1CombatChain-0",
+            "property": "FromZone",
+            "value": "Arsenal"
+          }
+        ],
+        "checkpoint": "attack_power_after_stack_to_chain"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "power_play_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ],
+        "checkpoint": "damage_and_resolution"
+      }
+    ],
+    "oracle": "Printed power3, cost3; originArsenal. The arsenal-only intrinsic bonus is5; expected current power8. No extra trigger layer or go again is created. Pay exactly3 floating resources and1AP, leaving0/0. Defense0; damage=max(0,8-0)=8; defender life20->12. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#power_play_red",
+      "https://judge.fabtcg.com/cards/detail/4274/",
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ],
+    "printedCard": {
+      "id": "power_play_red",
+      "name": "Power Play",
+      "types": [
+        "Guardian",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "3",
+      "power": "3",
+      "defense": "3",
+      "functional_text_plain": "If this was played from arsenal, it gets +5{p}."
+    },
+    "fixtureConstraints": {
+      "actor_hero": "bravo",
+      "hero_reason": "Bravo is Guardian, allowing Power Play and the known Guardian-targeted Blinding interaction.",
+      "hero_passives": "No hero activation occurs. Neither Oldhim nor Bravo adds attack power passively.",
+      "duel_state": "Turn1/current turn number2, MAIN/ACTION, isolated live seats12; one arsenal card maximum per player."
+    },
+    "authoringNotes": [
+      "Scratch proposal only: no PHP, recording, replay or game actions executed by this author.",
+      "Use the existing recorder's clicks, priority passes and native assertions; never set explicit UniqueID.",
+      "Derived power/defense checks are author-time diagnostics. Persisted HP, resources, AP, counts, origin properties and go-again assertions pin the named outcomes.",
+      "The intrinsic bonus is a conditional static effect, not a hit/play trigger and not a consumable next-attack effect. No extra triggered layer is expected."
+    ],
+    "reviewGate": "Review both exact family specifications and2 representative saved pilots, execute semantic origin controls on disposable copies, then scale only correct branches.",
+    "remainingBranches": [
+      "Abilities lost/restored dynamically after this attack has entered the combat chain.",
+      "Source leave/reenter, copied characteristics, off-zone play permissions and alternate controllers.",
+      "Power-modifier prohibition/prevention and replacement effects, UPF targets and full turn/reset lifecycle.",
+      "Complete card/deck/format legality audit is outside this bounded family; all six identities remain partial."
+    ]
+  }
+]

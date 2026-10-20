@@ -1,0 +1,134 @@
+{
+  "status": "INDEPENDENT_ACTUAL_FOUR_LIVE_SIGIL_CORRECT_AFTER_RECORDING_VERIFIED_REPLAY_QUALIFICATION_PENDING",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T14:31:12.571609+00:00",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "archive_sha256": "4f38da20d7ec0f9755d5e94dbe24247c944279d97628872bfc8b385e6b47a18c",
+  "input_sha256": "6454182ce3fd0c2ecddb2f372ebfe939f12bed4211581c6cd6f86550a2a392ca",
+  "checks": 15905,
+  "slug": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
+  "actual_actions": [
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "native_oracles": 331,
+  "checkpoints": [
+    {
+      "name": "four_live_young_heroes_no_passive_seats_and_manual_priority_configuration",
+      "actual_step": 0,
+      "oracles": 55
+    },
+    {
+      "name": "real_clockwise_pass_reaches_player2",
+      "actual_step": 1,
+      "oracles": 54
+    },
+    {
+      "name": "real_clockwise_pass_reaches_player3",
+      "actual_step": 2,
+      "oracles": 54
+    },
+    {
+      "name": "real_clockwise_pass_reaches_player4",
+      "actual_step": 3,
+      "oracles": 54
+    },
+    {
+      "name": "correct_rule_hold_priority_retains_actual_player4_after_zero_cost_instant",
+      "actual_step": 4,
+      "oracles": 58
+    },
+    {
+      "name": "four_players_pass_then_printed_three_life_resolves_for_player4",
+      "actual_step": 8,
+      "oracles": 56
+    }
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    23
+  ],
+  "actual_initial_sha256": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+  "raw5": {
+    "initial_gamestate.txt": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+    "actions.json": "46f52a911b52e5dd9ba5001f62869e6a7ede2618717f4117f01c2681f229811e",
+    "assertions.json": "5d234e6c97a5a80a0c18e9f867c90ef396d40a9671653a365a80bf05dcb95470",
+    "expected_final_gamestate.txt": "6d6cf85e59fb4a721651f90b2c64a57e482f1ab390b3aeaab274eb5f012468de",
+    "meta.json": "2d8fde6036184540e0075402ff2d5dc14cbb26579af7e9e2beef5dc305be1e86"
+  },
+  "old3074_raw5_exact": true,
+  "actual_before_prefix_exact": true,
+  "initial_before_after_bytes_exact": true,
+  "limits": [
+    "Intermediate physical facts are pinned by actual persisted native assertions at exact boundaries, not separate full snapshots.",
+    "Two clean deterministic native replays, meaningful native controls and existing-suite checks remain parent qualification gates.",
+    "No new catalog completion or public checkpoint promotion by this read-only review."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_imports": 0
+}

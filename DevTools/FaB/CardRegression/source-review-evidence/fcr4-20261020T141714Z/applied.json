@@ -1,0 +1,10 @@
+{
+  "status": "FOUR_LIVE_OPT_IN_RECORDER_APPLIED_NATIVE_PILOT_PENDING",
+  "driver_before": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20",
+  "driver_after": "f40e2a840e66a927c888957341e6b3e3bc1e63db9c461fc25487bdb55cc90dca",
+  "runtime_unchanged": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "only_native_code_changed": "DevTools/FaB/CardRegression/record_card_regressions.php",
+  "new_fixture_count": 0,
+  "pilot_input": "card-regression-batch77-four-live-sigil.json",
+  "old_fixtures_not_edited": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / fully blocked6 no hit trigger or Arsenal destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:25:05+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play printedcost2/power6 CnC, then actually declare two distinct WoundingBlue defense3 cards from defenderHand. Defense6 fully blocks6: actual DAMAGE has0damage/hitfalse/Stack0, health20 and the facedown ArsenalUID4 stays untouched. It is ordinary Hand defense, allowed by CnC prohibition of defense reactions. NoAP/goagain. Actual Resolution/Close moves attackUID3 to owner1GY and two blockersUID5/6 to owner2GY; original ArsenalUID4 remains exactly once. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/06-effects/#665 https://rules.fabtcg.com/en/cr/06-effects/#666 https://rules.fabtcg.com/en/cr/07-combat/#752 FaBSim/WebpImages/sigil_of_solace_red.webp FaBSim/WebpImages/wounding_blow_blue.webp"
+}

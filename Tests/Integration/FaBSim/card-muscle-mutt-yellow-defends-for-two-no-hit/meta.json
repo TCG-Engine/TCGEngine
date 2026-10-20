@@ -1,0 +1,7 @@
+{
+    "name": "Muscle Mutt / defends-for-two-no-hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:43:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Opponent-turn Muscle Mutt defends from Hand without paying its play cost or spending an action point. Its printed defense is2, exactly preventing Wounding Blow blue2; owner/controller remain seat2. Sources: https://judge.fabtcg.com/cards/detail/1486/ FaBSim/GeneratedCode/cardArrayCache.json#muscle_mutt_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,74 @@
+[
+    {
+        "slug": "card-sic-em-shot-red-no-bow-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-non-bow-weapon-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-bow-in-inventory-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-bow-in-graveyard-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-opponent-bow-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-removed-bow-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-hand-with-bow-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-banish-permission-with-bow-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 5
+    },
+    {
+        "slug": "card-sic-em-shot-red-equipped-bow-facedown-allowed",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 9
+    },
+    {
+        "slug": "card-sic-em-shot-red-equipped-bow-faceup-allowed",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 9
+    },
+    {
+        "slug": "card-sic-em-shot-red-exhausted-bow-allowed",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 9
+    },
+    {
+        "slug": "card-sic-em-shot-red-ability-blanked-bow-allowed",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 9
+    }
+]

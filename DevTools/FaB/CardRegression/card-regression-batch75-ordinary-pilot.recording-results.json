@@ -1,0 +1,44 @@
+[
+    {
+        "slug": "card-destructive-deliberation-red-token75-actual-opponent-sigil-response-before-token-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 459
+    },
+    {
+        "slug": "card-strike-gold-red-token75-actual-opponent-sigil-response-before-token-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 459
+    },
+    {
+        "slug": "card-earth-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 459
+    },
+    {
+        "slug": "card-lightning-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+        "status": "recorded_semantically_checked",
+        "actions": 20,
+        "assertions": 459
+    },
+    {
+        "slug": "card-strike-gold-blue-token75-one-damage-hit-still-one-token",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 446
+    },
+    {
+        "slug": "card-destructive-deliberation-red-token75-fully-prevented-hit-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 492
+    },
+    {
+        "slug": "card-destructive-deliberation-red-token75-ally-target-qualifier",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 264
+    }
+]

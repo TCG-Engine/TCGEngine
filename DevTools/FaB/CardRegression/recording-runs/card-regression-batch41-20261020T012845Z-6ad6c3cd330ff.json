@@ -1,0 +1,284 @@
+{
+    "completed_at_utc": "2026-10-20T01:28:45+00:00",
+    "input_file": "card-regression-batch41.json",
+    "input_sha256": "0c67127cc6d4fd65585b6944fff98a222dc24e79b034bbc7ce562e6fea8d3fe7",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-winters-grasp-blue-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-pitched-for-exact-3",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-defends-for-3-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-pitched-for-exact-2",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-winters-grasp-yellow-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        }
+    ]
+}

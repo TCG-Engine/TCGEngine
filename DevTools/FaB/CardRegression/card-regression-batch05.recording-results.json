@@ -1,0 +1,218 @@
+[
+    {
+        "slug": "card-snatch-red-wtr-hit-one-damage-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-red-wtr-hit-empty-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 16
+    },
+    {
+        "slug": "card-snatch-yellow-wtr-hit-unblocked-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-yellow-wtr-hit-one-damage-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-yellow-wtr-fully-blocked-no-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-yellow-wtr-hit-empty-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 16
+    },
+    {
+        "slug": "card-snatch-blue-wtr-hit-unblocked-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-blue-wtr-hit-one-damage-draw-exactly-one",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-blue-wtr-fully-blocked-no-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 18
+    },
+    {
+        "slug": "card-snatch-blue-wtr-hit-empty-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 16
+    },
+    {
+        "slug": "card-scar-for-a-scar-red-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-red-wtr-grant-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-red-wtr-equal-play-not-retroactive-after-opponent-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-yellow-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-yellow-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-yellow-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-yellow-wtr-grant-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-yellow-wtr-equal-play-not-retroactive-after-opponent-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-blue-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-blue-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-blue-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-blue-wtr-grant-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 11
+    },
+    {
+        "slug": "card-scar-for-a-scar-blue-wtr-equal-play-not-retroactive-after-opponent-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-wounded-bull-red-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-red-wtr-bonus-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-wounded-bull-red-wtr-cost-three-unpayable",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-wounded-bull-yellow-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-yellow-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-yellow-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-yellow-wtr-bonus-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-wounded-bull-yellow-wtr-cost-three-unpayable",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-wounded-bull-blue-wtr-life-one-lower",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-blue-wtr-life-equal-boundary",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-blue-wtr-life-one-higher",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 13
+    },
+    {
+        "slug": "card-wounded-bull-blue-wtr-bonus-persists-after-own-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 11
+    },
+    {
+        "slug": "card-wounded-bull-blue-wtr-cost-three-unpayable",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    }
+]

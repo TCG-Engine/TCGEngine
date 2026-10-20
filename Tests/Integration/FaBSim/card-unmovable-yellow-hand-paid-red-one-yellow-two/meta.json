@@ -1,0 +1,7 @@
+{
+    "name": "Unmovable / hand-paid-red-one-yellow-two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Unmovable printed defense is 6; Hand origin adds 0, for exact defense 6. Pay cost3 with red-one-yellow-two; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 3 and defender life is 17. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unmovable_yellow https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+}

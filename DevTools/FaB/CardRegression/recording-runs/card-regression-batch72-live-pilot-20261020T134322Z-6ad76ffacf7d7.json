@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T13:43:22+00:00",
+    "input_file": "card-regression-batch72-live-pilot.json",
+    "input_sha256": "e6a8018cb20e3130fa543d5876c9bf424c425d8b08036110f43344c54c15dea1",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 488
+        },
+        {
+            "slug": "card-yinti-yanti-blue-mon-live-enters-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 592
+        },
+        {
+            "slug": "card-yinti-yanti-red-mon-live-destroyed-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 25,
+            "assertions": 853
+        },
+        {
+            "slug": "card-yinti-yanti-blue-mon-live-destroyed-defense",
+            "status": "recorded_semantically_checked",
+            "actions": 24,
+            "assertions": 1031
+        }
+    ]
+}

@@ -267,6 +267,8 @@ if ($targets !== '') {
  $o = FaBIdentityFromMZ($chosen);
  if ($o !== null) { FaBWTRTag($o['object'], 'CRU_EXTRA_ATTACK'); }
 }"""
+  elif base=='lunging_press':
+   code="$targetSource = FaBIdentityFromMZ($mzID);\nif ($targetSource !== null) { FaBCRUResolveLunging($player, $targetSource['object']); }"
   else:
    code=f"FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:{1 if base=='lunging_press' else 3 if base=='unified_decree' else v}');"
    if base=='out_for_blood':code+="\nif (FaBWTRDefendedFromHand(FaBGetState())) { FaBWTRAddEffect($player, 'NEXT_ATTACK', 1); }"

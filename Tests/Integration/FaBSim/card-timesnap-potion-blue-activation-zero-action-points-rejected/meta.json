@@ -1,0 +1,7 @@
+{
+    "name": "Timesnap Potion / zero-action-points-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action activation requires paying one AP. At AP0 it must not bootstrap its own AP gain; item remains, stack0, resources0, AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#timesnap_potion_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

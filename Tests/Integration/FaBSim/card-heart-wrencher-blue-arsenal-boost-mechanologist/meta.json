@@ -1,0 +1,7 @@
+{
+    "name": "Heart Wrencher / arsenal-boost-mechanologist",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:57:04+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Heart Wrencher blue is a Mechanologist attack action with cost0, power1, and exactly Boost. CR8.3.9 makes banishing the top deck card optional additional cost; banishing a Mechanologist grants this attack go again, while other top cards do not. Empty deck prevents paying Boost but does not prevent ordinary play. Dash young has only an optional start-game item setup ability, and no item is started in these main-phase fixtures. No Hyper Driver, Teklo Pounder, High Octane, equipment or other boost modifiers exist. Deck begins ['zero_to_sixty_blue', 'raging_onslaught_red']; after choice it must be ['raging_onslaught_red'], with banish count1. Before opponent priority, banish/payment are complete, source is still Stack, AP0/resources0. Printed power1 deals1; no extra hit/on-play abilities are printed. Resulting defender life19; source go again=True; AP after resolution1.  Sources: FaBSim/GeneratedCode/cardArrayCache.json#heart_wrencher_blue https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

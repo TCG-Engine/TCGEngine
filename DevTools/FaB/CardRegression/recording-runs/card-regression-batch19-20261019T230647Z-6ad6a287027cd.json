@@ -1,0 +1,44 @@
+{
+    "completed_at_utc": "2026-10-19T23:06:47+00:00",
+    "input_file": "card-regression-batch19.json",
+    "input_sha256": "07e2523c83f566ba581a9f0c0b9459cd746d88a5623d1a32fdf05ce754b29928",
+    "filter": "arsenal-known-blinding-no-intrinsic-bonus",
+    "results": [
+        {
+            "slug": "card-burgeoning-red-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-burgeoning-blue-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-red-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        },
+        {
+            "slug": "card-power-play-blue-arsenal-known-blinding-no-intrinsic-bonus",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+        }
+    ]
+}

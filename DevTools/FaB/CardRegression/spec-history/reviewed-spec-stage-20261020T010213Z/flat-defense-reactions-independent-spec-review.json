@@ -1,0 +1,3774 @@
+{
+  "status": "INDEPENDENT_ALL108_PRINTED_ACTION_AND_PRIORITY_MODEL_APPROVED_NOT_NATIVE_RUN",
+  "semantically_approved": true,
+  "spec_sha256": "07893dee7d19ce795eb7d905a3643000680a18004ec37600bc3b2f4b69430554",
+  "pilot_sha256": "f3a5463c3ab421c8b9195becbbc9b1752eebe4a11a8c7251cf7e21638aba66d3",
+  "case_count": 108,
+  "identity_count": 5,
+  "pilot_count": 2,
+  "independent_checks": 12793,
+  "native_persisted_assertion_count": 12462,
+  "native_actions_simulated": 1631,
+  "individual_priority_passes": 1397,
+  "primary_printed_numbers": {
+    "dodge_blue": {
+      "cost": 0,
+      "pitch": 3,
+      "defense": 2
+    },
+    "evasive_leap_red": {
+      "cost": 0,
+      "pitch": 1,
+      "defense": 3
+    },
+    "evasive_leap_yellow": {
+      "cost": 0,
+      "pitch": 2,
+      "defense": 2
+    },
+    "evasive_leap_blue": {
+      "cost": 0,
+      "pitch": 3,
+      "defense": 1
+    },
+    "toughen_up_blue": {
+      "cost": 2,
+      "pitch": 3,
+      "defense": 4
+    }
+  },
+  "rows": [
+    {
+      "slug": "card-dodge-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-arsenal-face-down-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-arsenal-face-up-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "semantically_approved": true,
+      "checks": 174,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "critical_strike_red",
+          "resources": 1,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "semantically_approved": true,
+      "checks": 214,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "semantically_approved": true,
+      "checks": 228,
+      "actual_pass_model_actions": 23,
+      "priority_passes": 20,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+      "semantically_approved": true,
+      "checks": 226,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "semantically_approved": true,
+      "checks": 67,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "dodge_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-own-action-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attack-window-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "semantically_approved": true,
+      "checks": 80,
+      "actual_pass_model_actions": 16,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-arsenal-face-down-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-arsenal-face-up-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "semantically_approved": true,
+      "checks": 174,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "brutal_assault_red",
+          "resources": 2,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-two-distinct-reactions-sum-defense",
+      "semantically_approved": true,
+      "checks": 214,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "semantically_approved": true,
+      "checks": 228,
+      "actual_pass_model_actions": 23,
+      "priority_passes": 20,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+      "semantically_approved": true,
+      "checks": 226,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "semantically_approved": true,
+      "checks": 67,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_red",
+          "value": 1,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-own-action-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-nonturn-action-priority-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attack-window-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-ally-target-cannot-use-defense-reaction",
+      "semantically_approved": true,
+      "checks": 80,
+      "actual_pass_model_actions": 16,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-down-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-up-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "semantically_approved": true,
+      "checks": 174,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "critical_strike_red",
+          "resources": 1,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-two-distinct-reactions-sum-defense",
+      "semantically_approved": true,
+      "checks": 214,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "semantically_approved": true,
+      "checks": 228,
+      "actual_pass_model_actions": 23,
+      "priority_passes": 20,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+      "semantically_approved": true,
+      "checks": 226,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "semantically_approved": true,
+      "checks": 67,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_yellow",
+          "value": 2,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-own-action-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-nonturn-action-priority-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attack-window-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-ally-target-cannot-use-defense-reaction",
+      "semantically_approved": true,
+      "checks": 80,
+      "actual_pass_model_actions": 16,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-down-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-up-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "semantically_approved": true,
+      "checks": 174,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "semantically_approved": true,
+      "checks": 214,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "semantically_approved": true,
+      "checks": 228,
+      "actual_pass_model_actions": 23,
+      "priority_passes": 20,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+      "semantically_approved": true,
+      "checks": 226,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "semantically_approved": true,
+      "checks": 67,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-own-action-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attack-window-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "semantically_approved": true,
+      "checks": 80,
+      "actual_pass_model_actions": 16,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-floating-exact",
+      "semantically_approved": true,
+      "checks": 161,
+      "actual_pass_model_actions": 18,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "semantically_approved": true,
+      "checks": 174,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "semantically_approved": true,
+      "checks": 214,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "semantically_approved": true,
+      "checks": 228,
+      "actual_pass_model_actions": 23,
+      "priority_passes": 20,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+      "semantically_approved": true,
+      "checks": 226,
+      "actual_pass_model_actions": 22,
+      "priority_passes": 19,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "semantically_approved": true,
+      "checks": 67,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "toughen_up_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-own-action-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-own-action-arsenal-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "semantically_approved": true,
+      "checks": 40,
+      "actual_pass_model_actions": 1,
+      "priority_passes": 0,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attack-window-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-reaction-wrong-priority-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-damage-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-resolution-window-too-late-rejected",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "semantically_approved": true,
+      "checks": 80,
+      "actual_pass_model_actions": 16,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "semantically_approved": true,
+      "checks": 183,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-yellow-pitch-pays-exactly-two",
+      "semantically_approved": true,
+      "checks": 183,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_yellow",
+          "value": 2,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-two-red-pitches-use-current-hand-zero",
+      "semantically_approved": true,
+      "checks": 205,
+      "actual_pass_model_actions": 20,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 6
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-one-floating-plus-red-pays-exactly-two",
+      "semantically_approved": true,
+      "checks": 183,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-blue-pitch",
+      "semantically_approved": true,
+      "checks": 183,
+      "actual_pass_model_actions": 19,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-two-red-pitches",
+      "semantically_approved": true,
+      "checks": 205,
+      "actual_pass_model_actions": 20,
+      "priority_passes": 16,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 6
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_health": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 0
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-insufficient-one-resource-source-cannot-fund-itself",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-insufficient-one-resource",
+      "semantically_approved": true,
+      "checks": 78,
+      "actual_pass_model_actions": 15,
+      "priority_passes": 13,
+      "numeric_oracle_failures": [],
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_health": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "rejected_clicks": 1
+    }
+  ],
+  "corrections": [],
+  "source_files_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/GameLogic.php": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+    "FaBSim/Custom/WTRCards.php": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+    "FaBSim/Custom/WTRAbilities.php": "7ba3715001ed25a7d6cb5556139bddf1456f346fd576aa9962274e1c14a72151",
+    "FaBSim/Custom/MultiTargetCombat.php": "19604e6f04575fa5eb4e50a95697a8f5780c3adeaa1498de3404c32553230791",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "review_script_sha256": "d5a7d3e54a91a9e00202173223632d9dde97ae9080cca798a4a129c64e031139",
+  "native_games": 0,
+  "native_source_or_fixture_writes": 0,
+  "accepted_coverage": 0,
+  "scope": "Ordinary Generic printed-stat Defense Reactions and explicit two Razor-order cases, exact5 identities only. Native attempts/actual saved review/replays/controls required; no complete external interaction claim.",
+  "primary_sources": [
+    "https://judge.fabtcg.com/cards/detail/1488/",
+    "https://judge.fabtcg.com/cards/detail/3032/",
+    "https://judge.fabtcg.com/cards/detail/3033/",
+    "https://judge.fabtcg.com/cards/detail/3034/",
+    "https://judge.fabtcg.com/cards/detail/1478/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+  ],
+  "source_review": [
+    "CR8.1.3a/b: only attacked hero controller in Reaction, adds defense upon resolution, then remains that link until Close. No AP cost for DR. CR8.2.8d excludes ally target.",
+    "Current CanPlayCard uses windowREACTION; FaBCanBlock explicitly excludes DR from normal Hand declaration. AvailablePitch excludes proposed source; PITCH supports real current Hand0 after each serialized compaction.",
+    "Native DoResolveCard sets DEFENSE_REACTION Role, FromZone and ChainLink on owner CombatChain; no card-local abilities needed for blank cards. Close moves these original UIDs to ownerGraveyard.",
+    "FCR defense diagnostics are author-only, but every effect is pinned by durable Damage/Resolution defenseValue, exactHP/damage, sourceUID/Role/link/zone, AP/resources and cleanup. All CanPlay diagnostics paired with actual attemptedclick and durable unchanged-state checks.",
+    "Razor +3 only after its layer resolves; its AA hit ability queues separate response layer. No earlyGA; actual GA at trigger resolution, +1AP at Resolution. Both LIFO orders modeled separately."
+  ],
+  "bounded_correction": {
+    "original_rejected_spec_sha256": "a5b3ca3d7e6dcbc6f315848c845a114ed9c849a600debd3bd8d69be7cad1b1db",
+    "changed_checkpoints": [
+      [
+        "card-dodge-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "attack_reaction_resolved_defense_reaction_still_pending"
+      ],
+      [
+        "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+        "defense_reaction_resolved_earlier_than_underlying_attack_reaction"
+      ],
+      [
+        "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "attack_reaction_resolved_defense_reaction_still_pending"
+      ],
+      [
+        "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+        "defense_reaction_resolved_earlier_than_underlying_attack_reaction"
+      ],
+      [
+        "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "attack_reaction_resolved_defense_reaction_still_pending"
+      ],
+      [
+        "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+        "defense_reaction_resolved_earlier_than_underlying_attack_reaction"
+      ],
+      [
+        "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "attack_reaction_resolved_defense_reaction_still_pending"
+      ],
+      [
+        "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+        "defense_reaction_resolved_earlier_than_underlying_attack_reaction"
+      ],
+      [
+        "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+        "attack_reaction_resolved_defense_reaction_still_pending"
+      ],
+      [
+        "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+        "defense_reaction_resolved_earlier_than_underlying_attack_reaction"
+      ]
+    ],
+    "window_replacements": 10,
+    "added_native_combatStep_assertions": 10,
+    "other98_cases_unchanged": true,
+    "all_setups_actions_numeric_oracles_unchanged": true,
+    "reverse_delta_restores_original_objects": true
+  },
+  "required_finite_reaction_timing_obligation": "After one of multiple reactions resolves while another layer remains during Reaction, legal further reactions must still be playable. Current CanPlayCard window-only check is a source-derived suspected defect. Separate legal native reproducer required; matrix108 does not close this obligation. No native reproduction/engine failure claimed. Do not mark finite baseline complete merely from108 passes.",
+  "remaining_holds": [
+    "External cost/defense changes, replacement/prevention/suppression/grants, Dominate/late eligibility, UPF/multiple targets, foreign cards/cancellation/selfmovement and endturn ordering remain outside bounded baseline."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "status": "EXACT_INDEPENDENT_GA27_399_SCOPE_AND_SAVED_EVIDENCE_CONDITIONAL_NOT_CURRENT_COMPLETION",
+  "definition": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-ga27-finite-scope-proposal\\definition-v2-proposed.json",
+    "sha256": "f29cf1fe40aa4e7ed4ba87c9f8ae7f48ea942ab2a1d2391896c03c4eb0644e58"
+  },
+  "independentScopeDefinition": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-ga27-finite-scope-proposal\\definition-v2-independent-review.json",
+    "sha256": "8735cc9b9d2931c6ce353610c0a250d60738cf785977330b017e8bb3ff84bf39"
+  },
+  "independentActualSaved399": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-review\\saved-full399-independent-review.json",
+    "sha256": "22a228463515c311734650a546aa30464cc09574b6c8dda880b70c1162398b09"
+  },
+  "native70ControlArchive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative-control-runs\\20261020T015429Z-3a29eb31-after.json",
+    "sha256": "01137efddaba0a7bf0a4ca51f3de15f3279b55b0d481ae9ba5b0ea6bb359bd66",
+    "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+    "qualification": "Historical actual70 detection evidence. Reconciler must use current final-runtime controls, including these exact4 fields/output, for completion."
+  },
+  "originalB01Preservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\existing-fixture-bindings.json",
+    "sha256": "b5d7b0a704f69edac1b8d44b12ea6b1b20746de05e05c0b5609ccd9efeee11b9",
+    "fixtures": 72,
+    "raw_files": 360,
+    "all_current_raw_unchanged": true
+  },
+  "frozen399Spec": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\scenarios-proposed.json",
+    "sha256": "0e0368b5317708da42c0be3cf08e3d0ea26cd4bf46954d81306be9277bbe3a11"
+  },
+  "direct_cases": 399,
+  "card_ids": 27,
+  "native_assertions": 33732,
+  "actions": 3711,
+  "qualification": "Independent actual399 and finite-definition proofs are mandatory exact inputs. This adapter requires separate independent registration review and future/current final-runtime two distinct full-corpus replay passes, current controls and suites; no current completion is inferred.",
+  "native_writes": 0,
+  "game_actions": 0,
+  "current_complete_claim": false
+}

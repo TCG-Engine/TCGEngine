@@ -1,0 +1,17 @@
+{
+  "status": "AUTHOR_CORRECTION_REQUIRES_SEPARATE_INDEPENDENT_DELTA_GATE",
+  "old_full_sha256": "8f47052076fce0dfd21369d7355b04b40fd1bb826f35c386552e5159e772e99d",
+  "old_pilot_sha256": "0c36f2b98d5ab4e624e830cff48f502b202d6d80db6df26ac77f7b247aeb3010",
+  "new_full_sha256": "4d86f360a670ff8055a7c375468ecc12ae53c0df926b0ef87d6d4dd7eb15d1be",
+  "new_pilot_sha256": "0c36f2b98d5ab4e624e830cff48f502b202d6d80db6df26ac77f7b247aeb3010",
+  "changed_scenarios": 10,
+  "unchanged_scenarios": 218,
+  "original_four_pilots_exact": true,
+  "all_actions_and_numeric_uid_target_cost_hero_oracles_unchanged": true,
+  "maximum_initial_copies_per_player_face": 2,
+  "basis": "Use distinct Generic printed DEF2 blockers and red pitch1 support. Support cards are never played, so their resolution abilities cannot change the tested event.",
+  "catalog_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "delta_sha256": "4d3c2a1635298596a8cd3fbdec21c17b1d95c867ff736f87b72fb62fe755ee1f",
+  "native_writes": 0,
+  "native_game_actions": 0
+}

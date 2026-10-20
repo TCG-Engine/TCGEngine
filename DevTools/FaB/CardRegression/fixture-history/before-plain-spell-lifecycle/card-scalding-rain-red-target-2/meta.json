@@ -1,0 +1,7 @@
+{
+    "name": "Scalding Rain / target-2",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Target hero may be own or opposing. Pay printed1 by pitching blue3; deal exactly4 arcane to selected hero, leave2resources, no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

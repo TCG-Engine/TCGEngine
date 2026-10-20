@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / own-hero-blue-pitch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1 and 2 arcane damage to any target. Choose player1's hero. Blue pitch generates3, pays1, leaves2; AP stays1 pending payment then0. Deal the full2 only on resolution: hero120->18, other hero20. No printed go again, Frostbite or extra layer. Source leaves Stack for its owner's graveyard after resolution. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_blue https://judge.fabtcg.com/cards/detail/1629/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

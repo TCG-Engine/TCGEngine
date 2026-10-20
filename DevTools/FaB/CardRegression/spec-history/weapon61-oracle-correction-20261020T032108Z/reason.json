@@ -1,0 +1,18 @@
+{
+  "status": "REJECTED_DRAFT_ORACLE_CORRECTED_NOT_CARD_BUG",
+  "reason": "Normal paid attacks and pitching legitimately populate global turnEffects bookkeeping. The original whole-map-empty oracle was invalid; focused played-card ledgers plus unchanged physical/numeric/card-effect oracles replace it. Original failed attempts remain in recording-runs.",
+  "mapping": [
+    [
+      "scenarios-proposed.json",
+      "card-regression-batch61.json",
+      "e45ae88cb7d27274e37f66cf998df86908fb43a13f44f09d55d9a7e4d2a70418",
+      "72af4aac5526ff5b11beef1deb5abf68a830ab7b43c0c32d776fc877fc5d0830"
+    ],
+    [
+      "pilots-proposed.json",
+      "card-regression-batch61-pilot.json",
+      "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+      "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13"
+    ]
+  ]
+}

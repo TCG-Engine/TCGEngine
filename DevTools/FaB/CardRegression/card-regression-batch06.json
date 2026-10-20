@@ -1,0 +1,6298 @@
+[
+  {
+    "slug": "card-nimblism-red-cost-zero-no-granted-go-again",
+    "name": "Nimblism / cost-zero-no-granted-go-again",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "cost-zero-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nimblism costs0 and its own go again returns the spent action point. Wounding Blow red is the first attack, printed cost0/power4. It receives +3, deals 7, and does not gain go again from Nimblism. Defender starts20, finishes13; active player AP0. This is ability coverage, not merely play/pitch smoke.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red",
+      "https://judge.fabtcg.com/cards/detail/331/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-red-cost-one-boundary-next-only",
+    "name": "Nimblism / cost-one-boundary-next-only",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "cost-one-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact inclusive boundary: printed-cost1 Leg Tap red gets4+3; blue pitch3 leaves2. Its printed go again permits a second attack. Next-only consumption: Head Jab blue then gets printed1 plus Ira second-attack1 =2, with no remaining Nimblism bonus. Health checkpoints13 then11 persist these effects. No combo card follows Leg Tap.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red",
+      "https://judge.fabtcg.com/cards/detail/331/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-red-cost-two-excluded-preserves-buff",
+    "name": "Nimblism / cost-two-excluded-preserves-buff",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "cost-two-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: printed-cost2 Surging Strike red remains5, and must not consume the pending cost<=1 buff. Head Jab red then costs0 and gets3+Ira second-attack1+Nimblism3=7. Health15 then8. Blue pitch for Surging leaves1.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red",
+      "https://judge.fabtcg.com/cards/detail/331/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-yellow-cost-zero-no-granted-go-again",
+    "name": "Nimblism / cost-zero-no-granted-go-again",
+    "cardIDs": [
+      "nimblism_yellow"
+    ],
+    "branches": [
+      "cost-zero-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nimblism costs0 and its own go again returns the spent action point. Wounding Blow red is the first attack, printed cost0/power4. It receives +2, deals 6, and does not gain go again from Nimblism. Defender starts20, finishes14; active player AP0. This is ability coverage, not merely play/pitch smoke.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_yellow",
+      "https://judge.fabtcg.com/cards/detail/332/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-yellow-cost-one-boundary-next-only",
+    "name": "Nimblism / cost-one-boundary-next-only",
+    "cardIDs": [
+      "nimblism_yellow"
+    ],
+    "branches": [
+      "cost-one-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact inclusive boundary: printed-cost1 Leg Tap red gets4+2; blue pitch3 leaves2. Its printed go again permits a second attack. Next-only consumption: Head Jab blue then gets printed1 plus Ira second-attack1 =2, with no remaining Nimblism bonus. Health checkpoints14 then12 persist these effects. No combo card follows Leg Tap.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_yellow",
+      "https://judge.fabtcg.com/cards/detail/332/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-yellow-cost-two-excluded-preserves-buff",
+    "name": "Nimblism / cost-two-excluded-preserves-buff",
+    "cardIDs": [
+      "nimblism_yellow"
+    ],
+    "branches": [
+      "cost-two-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: printed-cost2 Surging Strike red remains5, and must not consume the pending cost<=1 buff. Head Jab red then costs0 and gets3+Ira second-attack1+Nimblism2=6. Health15 then9. Blue pitch for Surging leaves1.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_yellow",
+      "https://judge.fabtcg.com/cards/detail/332/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-blue-cost-zero-no-granted-go-again",
+    "name": "Nimblism / cost-zero-no-granted-go-again",
+    "cardIDs": [
+      "nimblism_blue"
+    ],
+    "branches": [
+      "cost-zero-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nimblism costs0 and its own go again returns the spent action point. Wounding Blow red is the first attack, printed cost0/power4. It receives +1, deals 5, and does not gain go again from Nimblism. Defender starts20, finishes15; active player AP0. This is ability coverage, not merely play/pitch smoke.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_blue",
+      "https://judge.fabtcg.com/cards/detail/333/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-blue-cost-one-boundary-next-only",
+    "name": "Nimblism / cost-one-boundary-next-only",
+    "cardIDs": [
+      "nimblism_blue"
+    ],
+    "branches": [
+      "cost-one-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact inclusive boundary: printed-cost1 Leg Tap red gets4+1; blue pitch3 leaves2. Its printed go again permits a second attack. Next-only consumption: Head Jab blue then gets printed1 plus Ira second-attack1 =2, with no remaining Nimblism bonus. Health checkpoints15 then13 persist these effects. No combo card follows Leg Tap.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_blue",
+      "https://judge.fabtcg.com/cards/detail/333/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-blue-cost-two-excluded-preserves-buff",
+    "name": "Nimblism / cost-two-excluded-preserves-buff",
+    "cardIDs": [
+      "nimblism_blue"
+    ],
+    "branches": [
+      "cost-two-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: printed-cost2 Surging Strike red remains5, and must not consume the pending cost<=1 buff. Head Jab red then costs0 and gets3+Ira second-attack1+Nimblism1=5. Health15 then10. Blue pitch for Surging leaves1.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_blue",
+      "https://judge.fabtcg.com/cards/detail/333/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-red-weapon-excluded-preserves-buff",
+    "name": "Nimblism / weapon-excluded-preserves-buff",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "weapon-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 1
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "A weapon attack is not an attack action card even though its activation costs1. Kodachi stays1 and retains Nimblism; blue Wounding Blow has cost0, so Kodachi has go again. Next Head Jab red receives3+Ira1+Nimblism3=7. Health19 then12. Tests type filter and preservation through an ineligible attack.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red",
+      "https://judge.fabtcg.com/cards/detail/331/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-nimblism-red-unused-expires-at-end-turn",
+    "name": "Nimblism / unused-expires-at-end-turn",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "unused-expires-at-end-turn"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arsenal-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Resolve Nimblism red and make no attack this turn. Pass normally to player2, who plays a cost0 Wounding Blow blue for2 without go again, spending their AP; pass back to player1. On the controller next turn the Arsenal Wounding Blow red attacks for printed4, not7. No draw or pitch-order choices occur. The this-turn modifier must expire unused.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red",
+      "https://judge.fabtcg.com/cards/detail/331/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-cost-two-boundary-next-only",
+    "name": "Sloggism / cost-two-boundary-next-only",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "cost-two-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 11
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 5
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay Sloggism printed3 with blue3: resources0 and go again restores AP1. Exact inclusive boundary: cost2 Surging Strike red gets5+6; another blue3 leaves1. Next Surging Strike blue costs2, paid from1 plus blue3 leaving2, and gets printed3+Ira second-attack1=4 only. Next-only consumption pinned by health9 then5, pitch counts2 then3.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-cost-one-excluded-preserves-buff",
+    "name": "Sloggism / cost-one-excluded-preserves-buff",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "cost-one-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 12
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: cost1 Leg Tap red remains4 and preserves Sloggism. Its blue3 payment leaves2, then cost2 Surging Strike red uses those2 and receives5+Ira second-attack1+Sloggism6=12. Health16 then4. Both attacks have printed go again; the buff itself does not grant attack go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-cost-three-no-granted-go-again",
+    "name": "Sloggism / cost-three-no-granted-go-again",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "cost-three-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 13
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 7
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism costs3, paid with blue3, and restores AP1. Cost3 is above the cost2 threshold and must qualify: Raging Onslaught red receives7+6. Pay its3 using a second blue3. The attack has no printed go again and ends at AP0 despite Sloggism own go again. Health7.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-insufficient-resources",
+    "name": "Sloggism / insufficient-resources",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "insufficient-resources"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "sloggism_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism has printed resource cost3. With no floating resources and no other hand card to pitch, announcement must be rejected; the card stays in hand, no stack object is created, and AP/resources stay1/0. This pins a failure branch, not successful ability effect coverage.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-yellow-cost-two-boundary-next-only",
+    "name": "Sloggism / cost-two-boundary-next-only",
+    "cardIDs": [
+      "sloggism_yellow"
+    ],
+    "branches": [
+      "cost-two-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 10
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay Sloggism printed3 with blue3: resources0 and go again restores AP1. Exact inclusive boundary: cost2 Surging Strike red gets5+5; another blue3 leaves1. Next Surging Strike blue costs2, paid from1 plus blue3 leaving2, and gets printed3+Ira second-attack1=4 only. Next-only consumption pinned by health10 then6, pitch counts2 then3.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_yellow",
+      "https://judge.fabtcg.com/cards/detail/335/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-yellow-cost-one-excluded-preserves-buff",
+    "name": "Sloggism / cost-one-excluded-preserves-buff",
+    "cardIDs": [
+      "sloggism_yellow"
+    ],
+    "branches": [
+      "cost-one-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 11
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 5
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: cost1 Leg Tap red remains4 and preserves Sloggism. Its blue3 payment leaves2, then cost2 Surging Strike red uses those2 and receives5+Ira second-attack1+Sloggism5=11. Health16 then5. Both attacks have printed go again; the buff itself does not grant attack go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_yellow",
+      "https://judge.fabtcg.com/cards/detail/335/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-yellow-cost-three-no-granted-go-again",
+    "name": "Sloggism / cost-three-no-granted-go-again",
+    "cardIDs": [
+      "sloggism_yellow"
+    ],
+    "branches": [
+      "cost-three-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_yellow"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 12
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism costs3, paid with blue3, and restores AP1. Cost3 is above the cost2 threshold and must qualify: Raging Onslaught red receives7+5. Pay its3 using a second blue3. The attack has no printed go again and ends at AP0 despite Sloggism own go again. Health8.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_yellow",
+      "https://judge.fabtcg.com/cards/detail/335/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-yellow-insufficient-resources",
+    "name": "Sloggism / insufficient-resources",
+    "cardIDs": [
+      "sloggism_yellow"
+    ],
+    "branches": [
+      "insufficient-resources"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "sloggism_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism has printed resource cost3. With no floating resources and no other hand card to pitch, announcement must be rejected; the card stays in hand, no stack object is created, and AP/resources stay1/0. This pins a failure branch, not successful ability effect coverage.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_yellow",
+      "https://judge.fabtcg.com/cards/detail/335/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-blue-cost-two-boundary-next-only",
+    "name": "Sloggism / cost-two-boundary-next-only",
+    "cardIDs": [
+      "sloggism_blue"
+    ],
+    "branches": [
+      "cost-two-boundary-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 7
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay Sloggism printed3 with blue3: resources0 and go again restores AP1. Exact inclusive boundary: cost2 Surging Strike red gets5+4; another blue3 leaves1. Next Surging Strike blue costs2, paid from1 plus blue3 leaving2, and gets printed3+Ira second-attack1=4 only. Next-only consumption pinned by health11 then7, pitch counts2 then3.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_blue",
+      "https://judge.fabtcg.com/cards/detail/336/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-blue-cost-one-excluded-preserves-buff",
+    "name": "Sloggism / cost-one-excluded-preserves-buff",
+    "cardIDs": [
+      "sloggism_blue"
+    ],
+    "branches": [
+      "cost-one-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 10
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 6
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: cost1 Leg Tap red remains4 and preserves Sloggism. Its blue3 payment leaves2, then cost2 Surging Strike red uses those2 and receives5+Ira second-attack1+Sloggism4=10. Health16 then6. Both attacks have printed go again; the buff itself does not grant attack go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_blue",
+      "https://judge.fabtcg.com/cards/detail/336/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-blue-cost-three-no-granted-go-again",
+    "name": "Sloggism / cost-three-no-granted-go-again",
+    "cardIDs": [
+      "sloggism_blue"
+    ],
+    "branches": [
+      "cost-three-no-granted-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 11
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism costs3, paid with blue3, and restores AP1. Cost3 is above the cost2 threshold and must qualify: Raging Onslaught red receives7+4. Pay its3 using a second blue3. The attack has no printed go again and ends at AP0 despite Sloggism own go again. Health9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_blue",
+      "https://judge.fabtcg.com/cards/detail/336/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-blue-insufficient-resources",
+    "name": "Sloggism / insufficient-resources",
+    "cardIDs": [
+      "sloggism_blue"
+    ],
+    "branches": [
+      "insufficient-resources"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "sloggism_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Sloggism has printed resource cost3. With no floating resources and no other hand card to pitch, announcement must be rejected; the card stays in hand, no stack object is created, and AP/resources stay1/0. This pins a failure branch, not successful ability effect coverage.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_blue",
+      "https://judge.fabtcg.com/cards/detail/336/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-weapon-excluded-preserves-buff",
+    "name": "Sloggism / weapon-excluded-preserves-buff",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "weapon-excluded-preserves-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "surging_strike_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 1
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 12
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 7
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Kodachi is a weapon attack, not an attack action card, so receives no Sloggism bonus and does not consume it. Pitch Head Jab blue (cost0, pitch3) to pay Kodachi1 and retain2; Kodachi has go again. Cost2 Surging Strike red then consumes Sloggism and gets5+Ira1+6=12, paid using the2 floating resources. Health19 then7.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sloggism-red-unused-expires-at-end-turn",
+    "name": "Sloggism / unused-expires-at-end-turn",
+    "cardIDs": [
+      "sloggism_red"
+    ],
+    "branches": [
+      "unused-expires-at-end-turn"
+    ],
+    "zones": [
+      {
+        "cardID": "sloggism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sloggism_red"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arsenal-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Resolve Sloggism red by pitching Wounding Blow blue. Make no attack this turn. One pitched card returns to deck without a reorder decision and is drawn during the first end phase. Player2 spends their AP on Wounding Blow blue for2 with no go again. After both turns pass, play cost2 Brutal Assault red from Arsenal and repitch the recovered blue3, leaving1. It attacks for printed6 rather than12 because the unused this-turn buff expired. No second-attack Ira bonus applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sloggism_red",
+      "https://judge.fabtcg.com/cards/detail/334/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-play-item-no-go-again",
+    "name": "Potion of Strength / play-item-no-go-again",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "play-item-no-go-again"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Arena-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Playing the cost0 Item is an action without go again; it enters Arena and spends the only AP. The words Go again belong to its activated Action ability and do not let the Item play refund AP. With AP0, immediate activation must be rejected, preserving the Item.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-destroy-cost-attack-action",
+    "name": "Potion of Strength / destroy-cost-attack-action",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "destroy-cost-attack-action"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Activate a Potion already in Arena. Destroy it as an announcement cost: it is gone before the ability resolves and the stack has1. Resolution has go again, returning AP1. Next Wounding Blow red attacks for4+2=6, with no attack go again, and deals6. This separately pins destruction timing, buff amount, and activated-ability go again.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-weapon-included-next-only",
+    "name": "Potion of Strength / weapon-included-next-only",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "weapon-included-next-only"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Potion next attack includes weapons: first Kodachi is1+2=3. Blue Wounding Blow costs0, so pitching it pays Kodachi1 and gives printed conditional go again; resources2. The following Head Jab red is3+Ira second-attack1=4 and receives no consumed Potion bonus. Health17 then13. One-use scope is next attack, without attack-action restriction.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-nonattack-action-preserves-stacks",
+    "name": "Potion of Strength / nonattack-action-preserves-stacks",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "nonattack-action-preserves-stacks"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "nimblism_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_blue"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 6
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "After Potion activation resolves, play nonattack action Nimblism blue for0 with its own go again. It must not consume the pending next-attack Potion modifier. First Head Jab red then receives printed3+Potion2+Nimblism1=6, has its printed go again, and deals6. This tests preservation through a nonattack and stacking independent applicable buffs.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/333/",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-nonturn-activation-rejected",
+    "name": "Potion of Strength / nonturn-activation-rejected",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "nonturn-activation-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 2,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 2,
+            "mzID": "p2Arena-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arena-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Arena",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Give player2 priority during player1 ACTION window, with player2 AP0. The Potion ability is an Action, so the non-turn player cannot activate it. Clicking must preserve the Item, leave no stack ability, and preserve both action-point totals.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "priority": 2
+  },
+  {
+    "slug": "card-potion-of-strength-blue-zero-action-points-rejected",
+    "name": "Potion of Strength / zero-action-points-rejected",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "zero-action-points-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Arena-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "The turn player has priority but AP0. Even a resource-cost0 activated Action requires an action point. Reject activation before its destruction cost, leaving the Potion in Arena and stack empty.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      0,
+      0
+    ]
+  },
+  {
+    "slug": "card-potion-of-strength-blue-unused-expires-at-end-turn",
+    "name": "Potion of Strength / unused-expires-at-end-turn",
+    "cardIDs": [
+      "potion_of_strength_blue"
+    ],
+    "branches": [
+      "unused-expires-at-end-turn"
+    ],
+    "zones": [
+      {
+        "cardID": "potion_of_strength_blue",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arena-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "potion_of_strength_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Arsenal-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Activate and destroy Potion, resolve its go again, then pass without attacking. Player2 plays Wounding Blow blue for2 and spends their AP; pass back normally. On the controller next turn, Arsenal Wounding Blow red must attack for printed4, not6. No draw or pitch-order choices occur. The modifier says this turn and expires unused at the first end phase.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue",
+      "https://judge.fabtcg.com/cards/detail/284/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  }
+]

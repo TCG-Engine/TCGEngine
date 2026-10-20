@@ -1,0 +1,1522 @@
+{
+  "status": "READ_ONLY_ACTUAL_IMPLEMENTATION_AUDIT_NOT_COVERAGE",
+  "catalog_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "compiled_macro_file_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+  "coverage_basis": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-coverage.json",
+    "sha256": "722b57ae80582678af7b8140d386ae06552f5b5382cc8570a373ff48bc89a5e3",
+    "runtime": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+    "summary": {
+      "identities_inventoried": 5196,
+      "printing_records": 17188,
+      "implemented_or_shared_hook_candidates": 4811,
+      "fully_covered_identities": 75,
+      "identities_with_partial_verified_coverage": 139,
+      "identities_without_semantically_verified_branches": 4982
+    }
+  },
+  "identities": [
+    {
+      "card_id": "destructive_deliberation_red",
+      "printed": {
+        "name": "Destructive Deliberation",
+        "pitch": "1",
+        "cost": "2",
+        "power": "5",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits a hero, create a Ponder token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "Dqgq7mJNjtQfCKTQQdFjb",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT204",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT204.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488476",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488476?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "KMwPtPBJpqFRJ9qH9kCBp",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT204",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT204-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488476",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488476?Language=English&Printing=Rainbow+Foil"
+        },
+        {
+          "unique_id": "TTKnzPBftH7nCKqWcpgcT",
+          "set_printing_unique_id": "6NGWpLQ6bGfKLrghCJD9m",
+          "id": "UZU011",
+          "set_id": "UZU",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UZU011.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "489242",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/489242?Language=English&Printing=Normal"
+        }
+      ],
+      "printing_record_count": 3,
+      "printing_ids": [
+        "OUT204",
+        "UZU011"
+      ],
+      "sets": [
+        "OUT",
+        "UZU"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/2146/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\out_abilities.json",
+          "sha256": "6633cd940905d729c7baebe929685919106586a2c0a2433c3fc275b8421701f5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "if (FaBFaiHeroHit()) {\n $victim = intval(FaBGetState()['defender']);\nFaBOUTToken($player, 'ponder');\n \n}\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27668,
+          "sha256": "b97214588c49cf0bbe58b0cc7edf81cc6c8042a39064a5495eea3ef065d79f49",
+          "body": "$hitAbilities[\"destructive_deliberation_red:0\"] = function($player) { //destructive_deliberation_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  if (FaBFaiHeroHit()) {\n   $victim = intval(FaBGetState()['defender']);\n  FaBOUTToken($player, 'ponder');\n   \n  }\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "ponder",
+      "hit_qualifier": "hero"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "printed": {
+        "name": "Destructive Deliberation",
+        "pitch": "2",
+        "cost": "2",
+        "power": "4",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits a hero, create a Ponder token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "jhQWtJfP7GCWtMChwffLH",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT205",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT205.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488478",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488478?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "gwjpjTpqcBDbmrBdPHFcN",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT205",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT205-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488478",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488478?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "OUT205"
+      ],
+      "sets": [
+        "OUT"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/2147/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\out_abilities.json",
+          "sha256": "6633cd940905d729c7baebe929685919106586a2c0a2433c3fc275b8421701f5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "if (FaBFaiHeroHit()) {\n $victim = intval(FaBGetState()['defender']);\nFaBOUTToken($player, 'ponder');\n \n}\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27678,
+          "sha256": "90ca169a8d62feb40fce8f3d92e6cf24061efc872087db0f33ca940b3ccfde2a",
+          "body": "$hitAbilities[\"destructive_deliberation_yellow:0\"] = function($player) { //destructive_deliberation_yellow\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  if (FaBFaiHeroHit()) {\n   $victim = intval(FaBGetState()['defender']);\n  FaBOUTToken($player, 'ponder');\n   \n  }\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "ponder",
+      "hit_qualifier": "hero"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "printed": {
+        "name": "Destructive Deliberation",
+        "pitch": "3",
+        "cost": "2",
+        "power": "3",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits a hero, create a Ponder token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "7hpPnBzhj9fGpKKj7qqtz",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT206",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT206.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488482",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488482?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "m9PMztntPfQJbPTrCgkNg",
+          "set_printing_unique_id": "zd6wBL7zcQR7zrJhwCjrh",
+          "id": "OUT206",
+          "set_id": "OUT",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "flavor_text_plain": "\"Dis will blow your MIND!\" - Suraj the Oracle",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OUT206-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "488482",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/488482?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "OUT206"
+      ],
+      "sets": [
+        "OUT"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/2148/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\out_abilities.json",
+          "sha256": "6633cd940905d729c7baebe929685919106586a2c0a2433c3fc275b8421701f5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "if (FaBFaiHeroHit()) {\n $victim = intval(FaBGetState()['defender']);\nFaBOUTToken($player, 'ponder');\n \n}\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27658,
+          "sha256": "1be29479335937927ae46a5c20fcfd325cea4a398688199aa5f6d533c061a6c9",
+          "body": "$hitAbilities[\"destructive_deliberation_blue:0\"] = function($player) { //destructive_deliberation_blue\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  if (FaBFaiHeroHit()) {\n   $victim = intval(FaBGetState()['defender']);\n  FaBOUTToken($player, 'ponder');\n   \n  }\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "ponder",
+      "hit_qualifier": "hero"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "printed": {
+        "name": "Strike Gold",
+        "pitch": "1",
+        "cost": "0",
+        "power": "4",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create a Gold token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "kMbRPn7PrzbkLKHQpNb7m",
+          "set_printing_unique_id": "cWmBzGKHW8GwtJddbDhLJ",
+          "id": "GEM064",
+          "set_id": "GEM",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "P",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [
+            "EA"
+          ],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM064.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "634082",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/634082?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "qMzqb7HqcBk7CQLPp6CDq",
+          "set_printing_unique_id": "cWmBzGKHW8GwtJddbDhLJ",
+          "id": "GEM064",
+          "set_id": "GEM",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "P",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [
+            "EA"
+          ],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/GEM064-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "634082",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/634082?Language=English&Printing=Rainbow+Foil"
+        },
+        {
+          "unique_id": "nPWF86N7ctpwF9z7zGpjF",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA229",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA229.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633354",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633354?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "hzdcBpnPkMffz9TKWjBDg",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA229",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA229-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633354",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633354?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 4,
+      "printing_ids": [
+        "GEM064",
+        "SEA229"
+      ],
+      "sets": [
+        "GEM",
+        "SEA"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3990/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\sea_abilities.json",
+          "sha256": "b097bc5daa0e1c81b45dacd1b5cf4c2aa1d86ffb9504fdec9885bd978878b45f",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "$seaPlayer = $player;\nFaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 30924,
+          "sha256": "87103085c3038b07e36edcbf0d0e2971f1a24ffdcaeb411c60bf69884d09868e",
+          "body": "$hitAbilities[\"strike_gold_red:0\"] = function($player) { //strike_gold_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  $seaPlayer = $player;\n  FaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "gold",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "printed": {
+        "name": "Strike Gold",
+        "pitch": "2",
+        "cost": "0",
+        "power": "3",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create a Gold token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "RcptnbjbwJtHrNJcRtcrd",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA230",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA230.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633355",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633355?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "qMW68Hkn9g7nBwrRg6zr7",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA230",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA230-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633355",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633355?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "SEA230"
+      ],
+      "sets": [
+        "SEA"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3991/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\sea_abilities.json",
+          "sha256": "b097bc5daa0e1c81b45dacd1b5cf4c2aa1d86ffb9504fdec9885bd978878b45f",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "$seaPlayer = $player;\nFaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 30931,
+          "sha256": "f757757833c62939220ae9c1c7bbeef092f7e24d05af392e374bfc983dfeeeeb",
+          "body": "$hitAbilities[\"strike_gold_yellow:0\"] = function($player) { //strike_gold_yellow\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  $seaPlayer = $player;\n  FaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "gold",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "printed": {
+        "name": "Strike Gold",
+        "pitch": "3",
+        "cost": "0",
+        "power": "2",
+        "defense": "2",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create a Gold token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "GFwDW8jzBDDK9RCc98D79",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA231",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA231.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633356",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633356?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "czkQJCMPn7rKhRMctzkFW",
+          "set_printing_unique_id": "7BqWG8Lr8FRNHwWtP8GN6",
+          "id": "SEA231",
+          "set_id": "SEA",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/SEA231-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "633356",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/633356?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "SEA231"
+      ],
+      "sets": [
+        "SEA"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3992/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\sea_abilities.json",
+          "sha256": "b097bc5daa0e1c81b45dacd1b5cf4c2aa1d86ffb9504fdec9885bd978878b45f",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "$seaPlayer = $player;\nFaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 30917,
+          "sha256": "fd903e91259fd8fff2500d6f477fa0244d8df6f6a99ea09f3b3dc93e9a5f7dc2",
+          "body": "$hitAbilities[\"strike_gold_blue:0\"] = function($player) { //strike_gold_blue\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  $seaPlayer = $player;\n  FaBHVYToken($seaPlayer, 'gold', 1, $seaPlayer);\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "dorinthea",
+      "token": "gold",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "earth_form_red",
+      "printed": {
+        "name": "Earth Form",
+        "pitch": "1",
+        "cost": "3",
+        "power": "7",
+        "defense": "2",
+        "types": [
+          "Earth",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Earth token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "q8tMHccm7Km8gP6gWdHm8",
+          "set_printing_unique_id": "cD8qW6NqpwjRqpNRrht6D",
+          "id": "AJV009",
+          "set_id": "AJV",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AJV009.webp",
+          "image_rotation_degrees": 0
+        },
+        {
+          "unique_id": "Jz7Jqc8KGNmGkFgGwgPfm",
+          "set_printing_unique_id": "Cbc6mFhKFNdqtCTJ9wwGJ",
+          "id": "LGS307",
+          "set_id": "LGS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "P",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [
+            "EA"
+          ],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS307-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "585024",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/585024?Language=English&Printing=Rainbow+Foil"
+        },
+        {
+          "unique_id": "q7DPcbJNdqrDFBD9tFbRB",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS036",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS036.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561283",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561283?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "W6BzRkjMwT8m7cmLQpQnF",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS036",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS036-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561283",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561283?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 4,
+      "printing_ids": [
+        "AJV009",
+        "LGS307",
+        "ROS036"
+      ],
+      "sets": [
+        "AJV",
+        "LGS",
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3021/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_earth');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27931,
+          "sha256": "d4b69967c59d3b812b568bcc5232554d9c96081283d50661fc7fd16fe4f6f0b3",
+          "body": "$hitAbilities[\"earth_form_red:0\"] = function($player) { //earth_form_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_earth');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "oldhim",
+      "token": "embodiment_of_earth",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "printed": {
+        "name": "Earth Form",
+        "pitch": "2",
+        "cost": "3",
+        "power": "6",
+        "defense": "2",
+        "types": [
+          "Earth",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Earth token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "JCfmRTWPPGHhHMtrQThJq",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS037",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS037.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561284",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561284?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "w7HgkLDcBwmzt7ccWHWdg",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS037",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS037-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561284",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561284?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "ROS037"
+      ],
+      "sets": [
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3247/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_earth');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27937,
+          "sha256": "32f8fa1a48f7b901f2b97d5b271646286979777baa3372ca235205555ac7e300",
+          "body": "$hitAbilities[\"earth_form_yellow:0\"] = function($player) { //earth_form_yellow\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_earth');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "oldhim",
+      "token": "embodiment_of_earth",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "printed": {
+        "name": "Earth Form",
+        "pitch": "3",
+        "cost": "3",
+        "power": "5",
+        "defense": "2",
+        "types": [
+          "Earth",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Earth token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "nDDn8QNJWPnPh7jzmBTRW",
+          "set_printing_unique_id": "rnL6JdWNFJgfCwh9JF7Kq",
+          "id": "FLR021",
+          "set_id": "FLR",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FLR021.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "577222",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/577222?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "9hrQFQzBNddzBCMNnQgjj",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS038",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS038.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561285",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561285?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "crrcWJBrMMkrpdMGQN6HN",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS038",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Saad Irfan"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "flavor_text_plain": "\"The mighty Ollin once fought alongside the Kin of Davnir, their combined strength keeping the Old Ones at bay.\" - Oldhim",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS038-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561285",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561285?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 3,
+      "printing_ids": [
+        "FLR021",
+        "ROS038"
+      ],
+      "sets": [
+        "FLR",
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3248/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_earth');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 27925,
+          "sha256": "d7727cfd5bf4732eb630a1daa224c901f6a6cbd0f34314b4f354e48fb5bb5ce7",
+          "body": "$hitAbilities[\"earth_form_blue:0\"] = function($player) { //earth_form_blue\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_earth');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "oldhim",
+      "token": "embodiment_of_earth",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "printed": {
+        "name": "Lightning Form",
+        "pitch": "1",
+        "cost": "1",
+        "power": "5",
+        "defense": "2",
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Lightning token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "dt6TtcrfzzQmj6cbbLDtP",
+          "set_printing_unique_id": "KfNpJDJFqpJnzhPRBWqJr",
+          "id": "AUA012",
+          "set_id": "AUA",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AUA012.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "577185",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/577185?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "QFNBNb9MJnrrhnhqzFhcL",
+          "set_printing_unique_id": "Cbc6mFhKFNdqtCTJ9wwGJ",
+          "id": "LGS308",
+          "set_id": "LGS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "P",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [
+            "EA"
+          ],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/LGS308-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "585025",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/585025?Language=English&Printing=Rainbow+Foil"
+        },
+        {
+          "unique_id": "PggNPd6qwrhrmhwGt7gDF",
+          "set_printing_unique_id": "8GLr9TQr8WMWCm8k8RRMC",
+          "id": "OMN150",
+          "set_id": "OMN",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/OMN150.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "695210",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/695210?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "m9mhhHPgjLQgkLRNwHMWM",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS082",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS082.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561287",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561287?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "kPrWKzQPH6Nrdc6dGPJnT",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS082",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS082-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561287",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561287?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 5,
+      "printing_ids": [
+        "AUA012",
+        "LGS308",
+        "OMN150",
+        "ROS082"
+      ],
+      "sets": [
+        "AUA",
+        "LGS",
+        "OMN",
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3083/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\omn_abilities.json",
+          "sha256": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_lightning');\n",
+              "isImplemented": true
+            }
+          ]
+        },
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_lightning');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 29145,
+          "sha256": "72791624336f79d50e1426b98d6789fee3573d3675f5f6d8aa638773a9ed0711",
+          "body": "$hitAbilities[\"lightning_form_red:0\"] = function($player) { //lightning_form_red\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_lightning');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "lexi",
+      "token": "embodiment_of_lightning",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "printed": {
+        "name": "Lightning Form",
+        "pitch": "2",
+        "cost": "1",
+        "power": "4",
+        "defense": "2",
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Lightning token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "HFw7h7BGL9GwKnWkNwdN9",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS083",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS083.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561288",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561288?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "Mk8p8GPfgQf7d7f8qFhzq",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS083",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS083-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561288",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561288?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "ROS083"
+      ],
+      "sets": [
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3264/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_lightning');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 29151,
+          "sha256": "59787b078881e56179a963946512df78c6f1e917e25026c807bb05bbc9493c93",
+          "body": "$hitAbilities[\"lightning_form_yellow:0\"] = function($player) { //lightning_form_yellow\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_lightning');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "lexi",
+      "token": "embodiment_of_lightning",
+      "hit_qualifier": "any_attack_target"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "printed": {
+        "name": "Lightning Form",
+        "pitch": "3",
+        "cost": "1",
+        "power": "3",
+        "defense": "2",
+        "types": [
+          "Lightning",
+          "Action",
+          "Attack"
+        ],
+        "functional_text_plain": "When this hits, create an Embodiment of Lightning token."
+      },
+      "printing_records": [
+        {
+          "unique_id": "h9KBb9JpBzpDNLMFJB6dG",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS084",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "S",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS084.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561290",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561290?Language=English&Printing=Normal"
+        },
+        {
+          "unique_id": "mzgNwnw97mPHjLqf6fcLN",
+          "set_printing_unique_id": "fH8hKWnpHw9MWq7jFhkKT",
+          "id": "ROS084",
+          "set_id": "ROS",
+          "edition": "N",
+          "foiling": "R",
+          "rarity": "R",
+          "expansion_slot": false,
+          "artists": [
+            "Edward Chee"
+          ],
+          "art_variations": [],
+          "flavor_text": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "flavor_text_plain": "\"To wield lightning is to channel the raw energy of Yvor through your very veins.\" - Seraphina",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/ROS084-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "561290",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/561290?Language=English&Printing=Rainbow+Foil"
+        }
+      ],
+      "printing_record_count": 2,
+      "printing_ids": [
+        "ROS084"
+      ],
+      "sets": [
+        "ROS"
+      ],
+      "official_text": "https://judge.fabtcg.com/cards/detail/3265/",
+      "source_snapshots": [
+        {
+          "path": "DevTools\\FaB\\ros_abilities.json",
+          "sha256": "ac1b46058b8a68f47f33fe089c11b3f773e696478b6a8f7978c8a7a24a59b0a5",
+          "abilities": [
+            {
+              "macroName": "Hit",
+              "abilityCode": "FaBHVYToken($player, 'embodiment_of_lightning');\n",
+              "isImplemented": true
+            }
+          ]
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "hitAbilities",
+          "index": 0,
+          "start_line": 29139,
+          "sha256": "da39a8c19470ae4bd99aff6135700676ce64aadc8792acf255ff58512892e66c",
+          "body": "$hitAbilities[\"lightning_form_blue:0\"] = function($player) { //lightning_form_blue\n  // Retrieve macro parameters\n  $mzID = DecisionQueueController::GetVariable(\"mzID\");\n  $amount = DecisionQueueController::GetVariable(\"amount\");\n  FaBHVYToken($player, 'embodiment_of_lightning');\n};"
+        }
+      ],
+      "implementation_verdict": "EXPLICIT_IMPLEMENTED_COMPILED_HIT_CALLBACK_AND_NONBLANK_CANONICAL_SNAPSHOT",
+      "current_reviewed_branches": 0,
+      "hero": "lexi",
+      "token": "embodiment_of_lightning",
+      "hit_qualifier": "any_attack_target"
+    }
+  ],
+  "identity_count": 12,
+  "printing_record_count": 33,
+  "native_functions": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+      "function": "OnHit",
+      "start_line": 1072,
+      "body_sha256": "36e505a6277e33082747ef853a2e612a5b542304bae1c9b4ec6794fecd1bc403",
+      "body": "function OnHit($player, $mzID, $amount) {\n    if(FaBSUPGallowStops(intval($player)))return 0;\n    $params = compact('mzID', 'amount'); $found = FaBIdentityFromMZ((string)$mzID);\n    if($found!==null&&FaBHasType($found['object'],'Dagger')){$s=FaBGetState();$s['daggerHits']=intval($s['daggerHits']??0)+1;FaBSetState($s);}\n    if($found!==null&&FaBFaiHeroHit())FaBHNTBeforeHit(intval($player),$found['object'],intval(FaBGetState()['defender']));\n    if($found!==null)FaBHNTAnyHit(intval($player),$found['object']);\n    if($found!==null)FaBOUTSuppressHit($found['object']);\n    if ($found !== null && function_exists('FaBWTRHit')) FaBWTRHit(intval($player), $found['object'], intval($amount));\n    if($found!==null&&FaBCRUHitSuppressed($found['object'],true))return 0;\n    if($found!==null){FaBIARHit(intval($player),$found['object']);FaBOMNHit(intval($player),$found['object']);FaBSUPHit(intval($player),$found['object']);FaBPENHit(intval($player));FaBMPGHit(intval($player),$found['object'],intval($amount));FaBSEAHit(intval($player),$found['object'],intval($amount));FaBCRUHit(intval($player),$found['object'],intval($amount));FaBMONHit(intval($player),$found['object']);FaBELEHit(intval($player),$found['object'],intval($amount));FaBEVRHit(intval($player),$found['object'],intval($amount));FaBDYNHit(intval($player),$found['object'],intval($amount));FaBOUTHit(intval($player),$found['object'],intval($amount));FaBDTDHit(intval($player),$found['object'],intval($amount));FaBEVOHit(intval($player),$found['object'],intval($amount));FaBHVYHit(intval($player),$found['object'],intval($amount));FaBMSTHit(intval($player),$found['object']);FaBROSHit(intval($player),$found['object']);if(FaBFaiHeroHit())FaBHNTHit(intval($player),$found['object'],intval(FaBGetState()['defender']));FaBEVRFractalDispatch(intval($player),$found['object'],'Hit',['mzID'=>$mzID,'amount'=>$amount]);if(intval($amount)>0)FaBBoltynHit(intval($player));}\n    // Effects such as Seek Enlightenment can move the attack before its own hit ability.\n    if($found!==null){$live=FaBFindUID(intval($found['object']->UniqueID));if($live!==null)$params['mzID']=$live['mzID'];}\n    $count = $found === null || FaBCRUHitSuppressed($found['object']) ? 0 : FaBRunSourceMacro('Hit', intval($player), $found['object']->CardID, $params);\n    $count += function_exists('DispatchMacroListeners') ? DispatchMacroListeners('Hit', intval($player), $params) : 0;\n    if ($found !== null) FaBARCAfterHit(intval($player), $found['object'], intval($amount));\n    if($found!==null&&in_array('WTR_RETURN_HAND',(array)$found['object']->TurnEffects,true)){\n        $state=FaBGetState();$state['attackGoAgain']=FaBAttackHasGoAgain($state,$found['object']);FaBSetState($state);\n        FaBMoveUID(intval($found['object']->UniqueID),'Hand',intval($player));\n    }\n    return $count;\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+      "function": "FaBRunSourceMacro",
+      "start_line": 1106,
+      "body_sha256": "9ae6e5b3cb122382137f98f6079fda159c8fe81d635034a11e9c6ffffcd8b643",
+      "body": "function FaBRunSourceMacro(string $macroName, int $player, string $cardID, array $params): int {\n    $sourceRef=FaBIdentityFromMZ((string)($params['mzID']??''));\n    $grantedBoost=$sourceRef&&FaBARCGrantedBoostMacro($sourceRef['object'],$macroName,$player,$cardID,$params);\n    if($sourceRef&&!$grantedBoost&&(FaBMPGSuppressed($sourceRef['object'])||FaBSUPSuppressed($sourceRef['object']))){if($macroName==='PrepareCard'){FaBFinishPreparedCard(intval($sourceRef['object']->UniqueID));return 1;}if(!str_ends_with($macroName,'Modifier'))return 1;}\n    $countFn = 'Card' . $macroName . 'Count';\n    $base = lcfirst($macroName);\n    $abilities = $GLOBALS[$base . 'Abilities'] ?? [];\n    $prereqs = $GLOBALS[$base . 'Prereqs'] ?? [];\n    if (!function_exists($countFn) || !is_array($abilities)) return 0;\n    foreach ($params as $name => $value) DecisionQueueController::StoreVariable($name, $value);\n    $ran = 0;\n    for ($i = 0; $i < intval($countFn($cardID)); ++$i) {\n        $key = $cardID . ':' . $i;\n        if (!isset($abilities[$key])) continue;\n        if (isset($prereqs[$key]) && !$prereqs[$key](...array_merge([$player], array_values($params)))) continue;\n        $previousEffect=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$player;\n        try {$abilities[$key]($player); ++$ran;} finally {$GLOBALS['fabEffectController']=$previousEffect;}\n    }\n    return $ran;\n}\n\n/** Generated await continuations must receive PASS as a return value. */"
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "file_sha256": "58347c63bfec8f12090883bae6fb092928660c02da19f8b698588a5ebf823a7c",
+      "function": "FaBHVYToken",
+      "start_line": 20,
+      "body_sha256": "279d3bd08216a6879330f0fef40b23cdfa24cf9b31e83c39384f97ea5e657fbe",
+      "body": "function FaBHVYToken(int $p,string $id,int $n=1,?int $controller=null,?bool $action=null,bool $wager=false): ?object {\n    if(!FaBSeatIsLive($p)||$n<1)return null;$controller??=intval($GLOBALS['fabEffectController']??0)?:$p;$action??=FaBHVYActionSource();\n    if(FaBPENReplaceFrost($p,$id,$n,$controller,$action,$wager))return null;\n    $n=FaBMPGTokenCount($p,$id,$n);if(FaBHasType($id,'Aura') && (FaBHasType($id,'Elemental')||FaBHasType($id,'Runeblade')))$n+=FaBARCEffect($p,'PEN_VERDANT');if($n<1)return null;\n    if(FaBHasType($id,'Aura')&&FaBROSActive($p,'florian'))++$n;\n    if($wager)foreach(FaBLiveSeats() as $s)$n+=FaBHVYCount($s,'DOUBLE_DOWN');\n    if($action)foreach(FaBLiveSeats() as $s)$n-=FaBHVYCount($s,'RIPPLE');\n    $first=null;for($i=0;$i<max(0,$n);++$i){$o=FaBWTRCreateArena($p,$id,true);$first??=$o;}\n    if($n>0&&$id==='runechant')FaBIARCreatedRunes($p,$n);\n    if($n>0&&in_array($id,['agility','confidence','toughness','might','vigor'],true))FaBHVYAdd($p,'CONTROLLED_'.$id);\n    if($n>0&&$id==='gold'&&$controller===$p&&FaBHVYHero($p,'victor_goldmane')&&!FaBHVYCount($p,'VICTOR_DRAW')&&in_array(GetCurrentPhase(),['MAIN','END'],true)) {\n        FaBHVYAdd($p,'VICTOR_DRAW');DoDrawCard($p,1);\n    }\n    return $first;\n}"
+    },
+    {
+      "path": "FaBSim/Custom/OUTRuntime.php",
+      "file_sha256": "328acd2b4fa25c65e1f1691f75573456004057002415f9601f5d861064000564",
+      "function": "FaBOUTToken",
+      "start_line": 26,
+      "body_sha256": "34d0d0b242ed062f2ca22c7bc6679eb7ec1d6e3decdbb9b7abca9a74233921ef",
+      "body": "function FaBOUTToken(int $p,string $token,int $n=1): void {FaBHVYToken($p,$token,$n);}"
+    },
+    {
+      "path": "FaBSim/Custom/FaiCards.php",
+      "file_sha256": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+      "function": "FaBFaiHeroHit",
+      "start_line": 68,
+      "body_sha256": "2b9844d346e31db7993ec7a633ba18c25c19fe3698f402c93ca48bcbd9e3dba1",
+      "body": "function FaBFaiHeroHit(): bool {return (FaBGetState()['attackTarget']['type']??'HERO')==='HERO';}"
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "file_sha256": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+      "function": "FaBWTRCreateArena",
+      "start_line": 654,
+      "body_sha256": "d1928b311c2c33f4bde57d7ff464aaa8337447a63c9437bb6b5e00ef58c6f79c",
+      "body": "function FaBWTRCreateArena(int $player,string $cardID,bool $raw=false):?object { if(!$raw&&FaBHasType($cardID,'Token'))return FaBHVYToken($player,$cardID); $o=AddArena($player,CardID:$cardID,Owner:$player,Controller:$player,Status:2);if($o!==null)FaBEVRAfterMove($player,$o,'','Arena');if($o!==null)FaBROSAfterMove($player,$o,'','Arena');if($o!==null)FaBHNTAfterMove($player,$o,'','Arena');if($o!==null)FaBSEAAfterMove($player,$o,'','Arena');if($o!==null)FaBMPGAfterMove($player,$o,'','Arena');if($o!==null)FaBSUPAfterMove($player,$o,'','Arena');if($o!==null)FaBPENAfterMove($player,$o,'','Arena');if($o!==null)FaBOMNAfterMove($player,$o,'','Arena');if($o!==null)FaBIARAfterMove($player,$o,'','Arena');if($o!==null&&$cardID==='zen_state')FaBSetObjectCounter($o,'BALANCE',1);if($o!==null&&$cardID==='spectral_shield')FaBPrismShieldCreated($player);return $o; }\n"
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "file_sha256": "7ba3715001ed25a7d6cb5556139bddf1456f346fd576aa9962274e1c14a72151",
+      "function": "FaBWTRQueueDrawOnHit",
+      "start_line": 94,
+      "body_sha256": "a17048540a3b3de545e3910d11206ad2cd83bd055c712552de555e39a8e2b459",
+      "body": "function FaBWTRQueueDrawOnHit(int $player, object $attack): void {\n    if (!FaBSeatIsLive($player) || HasNoAbilities($attack)) return;\n    $state = FaBGetState();\n    AddStack(CardID:$attack->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',\n        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),\n        Params:['wtrDrawTrigger'=>true, 'returnWindow'=>(string)$state['window'],\n            'returnCombatStep'=>(string)$state['combatStep']]);\n    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);\n}\n\n/** Queue the play trigger; its conditional grant is evaluated on resolution. */"
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEPlayed",
+      "start_line": 67,
+      "body_sha256": "3722b2d3a2805d614e5cdef72db4d0d7a4f94d01e6e529e43c99b82aaa50d0d2",
+      "body": "function FaBELEPlayed(int $p,object $o,string $from): void {\n    if(!FaBWTRIsWeapon($o))foreach(FaBMONArena($p,'frostbite') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));\n    if(!FaBHasType($o,'Action')&&!FaBWTRIsWeapon($o))return;\n    $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$aa=FaBWTRIsAttackAction($o);$attack=$aa||FaBWTRIsWeapon($o);\n    if(FaBHasType($o,'Action')){if(FaBELECount($p,'NEXT_ACTION_GO')){FaBWTRTag($o,'GO_AGAIN');FaBELEClear($p,'NEXT_ACTION_GO');}\n        if(!$aa)FaBELEClear($p,'NEXT_INSTANT');\n        foreach(FaBMONArena($p,'channel_thunder_steppe') as $r)FaBRunSourceMacro('ResolveAbility',$p,'channel_thunder_steppe_yellow',['mzID'=>$r,'eleActionUID'=>$uid]);\n    }\n    if($aa){foreach(FaBMONArena($p,'embodiment_of_lightning') as $r){FaBWTRTag($o,'GO_AGAIN');FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));}}\n    if(FaBWTRHeroActive($p)&&in_array((GetHero($p)[0]->CardID??''),['briar','briar_warden_of_thorns'],true)&&!$aa&&FaBHasType($o,'Action')&&count(FaBARCPlayed($p,true))===2)FaBWTRCreateArena($p,'embodiment_of_lightning');\n    $left=[];foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';$use=false;$v=intval($e['amount']??0);\n        if($attack&&$k==='ELE_NEXT_ATTACK')$use=true;\n        if($aa&&$k==='ELE_NEXT_AA')$use=true;\n        if($attack&&$k==='ELE_NEXT_ELEMENT'&&FaBELEElement($o,'Earth|Ice|Lightning|Elemental'))$use=true;\n        if($attack&&$k==='ELE_NEXT_GUARDIAN'&&FaBHasType($o,'Guardian'))$use=true;\n        if($attack&&$k==='ELE_NEXT_ARROW'&&FaBHasType($o,'Arrow'))$use=true;\n        if($attack&&$k==='ELE_NEXT_FUSED'&&FaBELEFused($uid))$use=true;\n        if($aa&&str_starts_with($k,'ELE_WEAVE_')&&FaBELEElement($o,substr($k,10).'|Elemental')){$use=true;if(FaBELEFused($uid)){if($k==='ELE_WEAVE_Earth')++$v;if($k==='ELE_WEAVE_Ice')FaBWTRTag($o,'DOMINATE');if($k==='ELE_WEAVE_Lightning')FaBWTRTag($o,'GO_AGAIN');}}\n        if(!$use){$left[]=$e;continue;}if($v)FaBWTRTag($o,'WTR_POWER:'.$v);foreach($e['tags']??[] as $tag)FaBWTRTag($o,$tag);\n    }FaBWTRSetEffects($p,$left);\n    if($from==='Arsenal'){if($b==='burgeoning'&&!HasNoAbilities($o))FaBWTRTag($o,'WTR_POWER:1');if($b==='lightning_surge')FaBWTRTag($o,'GO_AGAIN');if($b==='evergreen')FaBWTRTag($o,'ELE_BOTTOM_CLOSE');}\n    if($attack&&FaBELECount($p,'ENTANGLE')){FaBWTRTag($o,'WTR_POWER:-2');FaBELEClear($p,'ENTANGLE');}\n}"
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEDefense",
+      "start_line": 55,
+      "body_sha256": "061fce698c37ca19dc19fd5063f399a5d89419e6b66799211ef0c0dac123b2dd",
+      "body": "function FaBELEDefense(int $p,object $o): int {\n    $n=0;if(FaBHasType($o,'Action')&&!FaBWTRIsAttackAction($o))$n+=count(FaBMONArena($p,'embodiment_of_earth'));\n    if(FaBWTRIsAttackAction($o))$n+=FaBELECount($p,'AA_DEFENSE');\n    if(FaBHasType($o,'Action')&&FaBELEElement($o,'Earth|Ice|Elemental'))$n+=FaBELECount($p,'PULSE_DEFENSE');\n    if(FaBWTRBase($o->CardID)==='sigil_of_suffering'&&FaBCRUArcane($p))++$n;return $n;\n}"
+    },
+    {
+      "path": "FaBSim/Custom/ELECards.php",
+      "file_sha256": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+      "function": "FaBELEStart",
+      "start_line": 107,
+      "body_sha256": "2e5e422d3cb8206e02236b6484c3fe315e4463f0aaae60358c1c02dd5334e842",
+      "body": "function FaBELEStart(int $p): void {\n    foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);\n        if(in_array($b,['embodiment_of_earth','embolden','emerging_avalanche','strength_of_sequoia'],true)){\n            if($b!=='embodiment_of_earth')FaBWTRAddEffect($p,$b==='embolden'?'NEXT_GUARDIAN':'NEXT_ATTACK',FaBWTRPitchValue($o->CardID,$b==='embolden'?[5,4,3]:[3,2,1]));\n            FaBMONDestroy(intval($o->UniqueID));\n        }\n    }\n}"
+    }
+  ],
+  "tokens": [
+    {
+      "id": "ponder",
+      "types": [
+        "Generic",
+        "Token",
+        "Aura"
+      ],
+      "functional_text_plain": "At the beginning of your end phase, destroy this and draw a card."
+    },
+    {
+      "id": "gold",
+      "types": [
+        "Generic",
+        "Token",
+        "Item"
+      ],
+      "functional_text_plain": "Action - {r}{r}, destroy this: Draw a card. Go again"
+    },
+    {
+      "id": "embodiment_of_earth",
+      "types": [
+        "Elemental",
+        "Token",
+        "Aura"
+      ],
+      "functional_text_plain": "Non-attack action cards you control get +1{d} while defending.\nAt the beginning of your action phase, destroy this."
+    },
+    {
+      "id": "embodiment_of_lightning",
+      "types": [
+        "Elemental",
+        "Token",
+        "Aura"
+      ],
+      "functional_text_plain": "When you play an attack action card, destroy this and the attack gets go again."
+    }
+  ],
+  "legal_hero_derivation": {
+    "generic": "Dorinthea has no intrinsic AA hit/draw/token trigger; weapon-specific ability cannot affect these AA attacks.",
+    "earth": "Oldhim Essence of Earth/Ice permits Earth and Generic cards. No defense reaction ability is activated.",
+    "lightning": "Lexi Essence of Ice/Lightning permits Lightning and Generic cards. No hero ability/Arsenal flip is activated."
+  },
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "interpretation": "A when-hit effect creates a triggered layer, with creation of its token deferred to layer resolution; it must be present before next priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.5.2",
+        "7.5.3",
+        "7.5.5",
+        "7.5.5b",
+        "7.6.2",
+        "7.7"
+      ],
+      "interpretation": "Positive hit-event damage triggers; full prevention/no damage does not. Damage-step priority occurs before resolution of pending layers. Printed no-goagain attacks do not refund AP."
+    }
+  ],
+  "source_predicted_holds": [
+    {
+      "kind": "GENERIC_HIT_TRIGGER_TIMING",
+      "evidence": "OnHit directly invokes FaBRunSourceMacro Hit; all12 actual compiled Hit callbacks call token helper synchronously. Token helper AddArena creates immediately and does not AddStack. No bounded queue exception names these12. Native before-proof required; no executed bug claim."
+    },
+    {
+      "kind": "EMBODIMENT_LIGHTNING_DEPENDENCY_TRIGGER_TIMING",
+      "evidence": "FaBELEPlayed destroys every Embodiment of Lightning and tags new AA with GO_AGAIN directly. Correct-rule token consumer case must retain queued trigger timing, even if current native code does not."
+    }
+  ],
+  "candidate_classification_delta": {
+    "old_map_path": "catalog-effect-map.json",
+    "old_candidates": 4810,
+    "current_candidates": 4811,
+    "added_exactly": [
+      "en_garde_red"
+    ],
+    "removed": [],
+    "interpretation": "Native NEXT_WEAPON EnGarde literal map entry supplies new evidence. Candidate labels remain broader than proven implemented behavior; this12 requires explicit compiled callbacks."
+  },
+  "native_writes": 0,
+  "game_actions": 0
+}

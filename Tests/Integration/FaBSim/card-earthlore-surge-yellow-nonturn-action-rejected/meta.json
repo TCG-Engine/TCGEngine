@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / nonturn-action-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:05:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 2, next attack action this turn +4 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. Actor2 has exactly2 floating resources and no other card to pitch. Turn belongs to player1; player2 has priority but fresh nonturn AP0. Both heroes are Oldhim, allowing Earth class/talent independently of timing. A click must preserve source, resources, AP, health and empty Stack/Graveyard; no partial payment or modifier creation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_yellow https://judge.fabtcg.com/cards/detail/1178/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

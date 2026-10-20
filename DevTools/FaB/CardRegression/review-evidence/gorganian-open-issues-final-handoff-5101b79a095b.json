@@ -1,0 +1,77 @@
+{
+  "status": "OPEN_FROZEN_FOR_FINAL_CONSOLIDATION_NO_MORE_INVESTIGATION_OR_APPLY",
+  "reviewer": "/root/resume_catalog",
+  "stop_instruction": "Root relayed the user's finish/consolidate priority. Stop Tome investigation, new candidate review, native probes and coverage expansion. Preserve all existing evidence; no source application.",
+  "current_native_source": {
+    "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+    "generated_macro_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "candidate_applied": false,
+    "native_tome_fixture_created": false,
+    "native_tome_passing_record": false
+  },
+  "open_issues": [
+    {
+      "id": "TOME_CURRENT_PAIRED_DEFECTS_CANCEL_NUMERICALLY",
+      "target": "FaBSim/Custom/GameLogic.php::DoResolveCard unmanaged ordinary source branch and current Gorganian ResolveCard callback",
+      "root_cause": "Generic resolution moves the source into its owner's Graveyard before its effect. The compiled Tome callback starts its draw count at zero rather than the printed one. With three pre-existing Tome copies in other graveyards, the wrongly cleared source supplies a fourth copy, so two defects cancel into a misleading draw-four endpoint.",
+      "correct_behavior": "While the source remains on Stack, draw 1 plus the three existing Graveyard copies = 4, then gain one action point from Go again, then clear the physical source to its owner's Graveyard.",
+      "evidence_limit": "Source inspection and isolated exact-source components only. No native Tome game or fixture was executed. An endpoint draw-four pass would not demonstrate either repair.",
+      "state": "OPEN_SOURCE_CONFIRMED_NOT_NATIVE_GAME_REPRODUCED"
+    },
+    {
+      "id": "TOME_CANDIDATE_FUTURE_FOREIGN_REGEN_REGRESSION",
+      "target": "Held candidate 0b02d212 managed-source ownership guard together with future canonical helper callback",
+      "root_cause": "Candidate corrects the callback to 1 + all Graveyard copies, but foreign-owned sources remain excluded from managed resolution. A later normal regeneration would call the corrected helper after that unmanaged source has already entered its owner's Graveyard, producing five instead of four.",
+      "independent_component_result": "12 foreign owner/controller combinations in current/future x four-controller/four-owner profiles expose the future draw-five and early-clear route. Same-owner paired paths correctly draw four while source remains on Stack.",
+      "evidence_limit": "In-memory exact candidate resolver/dispatch/helper/completion with mocked accessors and draw boundary, not an engine game, database operation or regeneration run.",
+      "state": "HELD_CANDIDATE_NOT_APPROVED_NOT_APPLIED"
+    },
+    {
+      "id": "SUPPRESSED_PRINTED_GO_AGAIN_PREEXISTING_GUARD_GAP",
+      "target": "FaBSim/Custom/GameLogic.php::FaBFinishPlainSpellGoAgain and corresponding generic printed-Go-again condition",
+      "root_cause": "HasNoAbilities includes SUP suppression and NO_ABILITIES, but the printed Go again calculation explicitly checks MPG suppression only. The candidate helper correctly skips suppressed drawing while the existing completion calculation can still grant one AP.",
+      "independent_component_result": "MPG suppression: draw zero/AP zero. SUP and NO_ABILITIES: candidate helper draws zero but existing completion grants AP one.",
+      "evidence_limit": "Source and isolated component evidence only. No native suppression scenario was executed. This does not claim the old compiled callback correctly suppresses every NO_ABILITIES draw path.",
+      "state": "OPEN_PREEXISTING_SOURCE_GUARD_ISSUE_NOT_NATIVE_GAME_REPRODUCED"
+    }
+  ],
+  "frozen_evidence": [
+    {
+      "path": "gorganian-existing-macro-hook-proposal/manifest.json",
+      "sha256": "0b02d21297017d978380b8a690e3358803b65e28e8eac2bfc70c2c1a08677736",
+      "scope": "Held four-source/five-anchor candidate; predicted runtime 118900 was never installed. Existing LP dispatch seam is policy-compatible in principle, but future-foreign semantics prevent approval. Generated/Core/DB unchanged."
+    },
+    {
+      "path": "gorganian-existing-macro-hook-component-addendum/manifest.json",
+      "sha256": "5a2396ca1b0c46247982725211f0ddf3fbd0e049d9ef77606fcf8619e4f77cd0",
+      "scope": "Author component recipient controls and legacy36 dispatch parity, not native suite or game coverage."
+    },
+    {
+      "path": "gorganian-independent-source-review-v1-rerun/independent-source-and-future-component-review.json",
+      "sha256": "135a39e442262c6a521e30df5b9f36d3ecf239f5e730d0233476c5a35c8aec6e",
+      "scope": "Independent exact five-anchor reconstruction and source binding, 99 component checks, 32 current/future owner/controller profiles, foreign-regeneration and suppression findings. Also checks third-seat queue/await retention, prerequisites, index1 handling and effect-controller restoration on exceptions."
+    },
+    {
+      "path": "gorganian-independent-spec100-review/independent-spec100-review.json",
+      "sha256": "c6ce89a069151dbb307218cec5ecc14df0cdd40ec4211eb226b527310dc56301",
+      "scope": "Conditional printed specification review only: 100 oracles, five intended actions, 16 paper-model fault controls. Source repair and all native gates remain held."
+    },
+    {
+      "path": "four-live-gorganian-tome-held-proposed/scenario-proposed.json",
+      "sha256": "c4e754a425371ab9f399bf0762743b7026c2edc6d67a0ec0dd2a44827161a742",
+      "scope": "Unexecuted correct four-live proposal: four young Dorinthea at20, one Legendary copy per owner, three other Graveyard copies, five distinct legal Generic Deck cards so draw-three/five cannot hide. First four known UIDs9..12 draw; UID13 remains."
+    }
+  ],
+  "preservation_notes": [
+    "No source candidate or fixture was applied, staged or executed by this reviewer.",
+    "The first independent scratch component had a local/global callback-registration harness mistake; its incomplete directory is preserved. Only the separately corrected v1-rerun report above is valid evidence.",
+    "Any later author successor must remain unreviewed and held under the stop instruction.",
+    "No card, pitch-cycle or branch completion is claimed. Native Tome recorded/replayed/qualified coverage remains zero."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_imports": 0,
+  "db_access": false,
+  "accepted_tome_coverage": 0,
+  "remaining_action": "None during final consolidation. Future resumption requires an explicit new instruction and fresh review; current candidate remains held."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / hand-no-action-point",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:02+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The acting turn player has0AP, so an action cannot be played despite enough resources. Reject the supported click fromHand: preserve source card, HP, resources and AP; no stack layer, pitch or decision. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_red https://judge.fabtcg.com/cards/detail/1174/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Nimblism / weapon-excluded-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "A weapon attack is not an attack action card even though its activation costs1. Kodachi stays1 and retains Nimblism; blue Wounding Blow has cost0, so Kodachi has go again. Next Head Jab red receives3+Ira1+Nimblism3=7. Health19 then12. Tests type filter and preservation through an ineligible attack. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red https://judge.fabtcg.com/cards/detail/331/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

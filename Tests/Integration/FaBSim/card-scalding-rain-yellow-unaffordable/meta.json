@@ -1,0 +1,7 @@
+{
+    "name": "Scalding Rain / unaffordable",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action spell cost1 cannot be paid with no floating resource or other hand card to pitch. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

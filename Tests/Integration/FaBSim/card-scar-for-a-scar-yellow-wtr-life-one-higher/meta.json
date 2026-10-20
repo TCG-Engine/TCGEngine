@@ -1,0 +1,7 @@
+{
+    "name": "Scar for a Scar / life-one-higher",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Printed Scar yellow checks strictly less life when its play trigger resolves. 20 versus 19 makes condition False. Attack deals 3, and resolution returns exactly 0 action point. The lower-life case crosses the life comparison after damage: go again persists because it was granted when its play trigger resolves. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scar_for_a_scar_yellow https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

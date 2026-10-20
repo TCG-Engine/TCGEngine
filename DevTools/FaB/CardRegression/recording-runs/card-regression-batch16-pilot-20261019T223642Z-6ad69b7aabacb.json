@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-19T22:36:42+00:00",
+    "input_file": "card-regression-batch16-pilot.json",
+    "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+    "filter": "opponent-response-before-quicken-created",
+    "results": [
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 30
+        }
+    ]
+}

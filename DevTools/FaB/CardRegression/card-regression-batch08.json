@@ -1,0 +1,1075 @@
+[
+  {
+    "slug": "card-sic-em-shot-red-no-bow-rejected",
+    "name": "Sic Em Shot / no-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "no-bow-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-non-bow-weapon-rejected",
+    "name": "Sic Em Shot / non-bow-weapon-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "non-bow-weapon-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      },
+      {
+        "cardID": "talishar_the_lost_prince",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-bow-in-inventory-rejected",
+    "name": "Sic Em Shot / bow-in-inventory-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "bow-in-inventory-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Inventory",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-bow-in-graveyard-rejected",
+    "name": "Sic Em Shot / bow-in-graveyard-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "bow-in-graveyard-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Graveyard",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-opponent-bow-rejected",
+    "name": "Sic Em Shot / opponent-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "opponent-bow-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 2,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-removed-bow-rejected",
+    "name": "Sic Em Shot / removed-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "absent-bow-after-initial-serialization"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {}
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {
+          "removed": true
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed. The initial writer removes the requested removed bow before recording. This is an absent-bow duplicate and does not verify in-memory removed-object filtering.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "coverage_kind": "terminal_state_compatibility"
+  },
+  {
+    "slug": "card-sic-em-shot-red-hand-with-bow-rejected",
+    "name": "Sic Em Shot / hand-with-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "hand-with-bow-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-banish-permission-with-bow-rejected",
+    "name": "Sic Em Shot / banish-permission-with-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "banish-permission-with-bow-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Banish",
+        "properties": {
+          "PlayableFromBanish": 1
+        }
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Banish-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Banish",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. This setup does not satisfy both arrow play restrictions; no card movement, stack, cost or AP mutation is allowed.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-equipped-bow-facedown-allowed",
+    "name": "Sic Em Shot / equipped-bow-facedown-allowed",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "equipped-bow-facedown-allowed"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "death_dealer"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. Status, ability suppression, and face-down arsenal do not remove the bow subtype or control requirement.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-equipped-bow-faceup-allowed",
+    "name": "Sic Em Shot / equipped-bow-faceup-allowed",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "equipped-bow-faceup-allowed"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 0
+        }
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "death_dealer"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. Status, ability suppression, and face-down arsenal do not remove the bow subtype or control requirement.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-exhausted-bow-allowed",
+    "name": "Sic Em Shot / exhausted-bow-allowed",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "exhausted-bow-allowed"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {
+          "Status": 1
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "death_dealer"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. Status, ability suppression, and face-down arsenal do not remove the bow subtype or control requirement.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  },
+  {
+    "slug": "card-sic-em-shot-red-ability-blanked-bow-allowed",
+    "name": "Sic Em Shot / ability-blanked-bow-allowed",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "ability-blanked-bow-allowed"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "death_dealer",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {
+          "TurnEffects": [
+            "NO_ABILITIES"
+          ]
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "death_dealer"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: arrow requires arsenal and a controlled bow. Status, ability suppression, and face-down arsenal do not remove the bow subtype or control requirement.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#826a",
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red"
+    ],
+    "heroes": [
+      "azalea",
+      "azalea"
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ]
+  }
+]

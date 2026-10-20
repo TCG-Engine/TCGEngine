@@ -1,0 +1,810 @@
+[
+  {
+    "slug": "card-lunging-press-blue-ordinary-reaction-full-block-does-not-create-hit-or-go-again",
+    "case_index": 5,
+    "step_index": 7,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-current",
+    "case_index": 22,
+    "step_index": 7,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-two-real-aa-links-choose-previous",
+    "case_index": 23,
+    "step_index": 7,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-opponent",
+    "case_index": 24,
+    "step_index": 6,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-current-and-opponent-defender-choose-attacker",
+    "case_index": 25,
+    "step_index": 6,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-1",
+    "case_index": 26,
+    "step_index": 7,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-three-targets-choose-identical-defender-2",
+    "case_index": 27,
+    "step_index": 7,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  },
+  {
+    "slug": "card-lunging-press-blue-target-scope-previous-opponent-defender-remains-public-on-next-real-link",
+    "case_index": 30,
+    "step_index": 8,
+    "count_check_index": 1,
+    "added_check_index": 8,
+    "added_checks": [
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Block",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-1",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Type",
+        "value": "PASSPARAMETER"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Param",
+        "value": "1"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-2",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Type",
+        "value": "SYSTEM"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Param",
+        "value": "PlayCard_AfterAction"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Block",
+        "value": "99"
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "Tooltip",
+        "value": ""
+      },
+      {
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-3",
+        "property": "DontSkipOnPass",
+        "value": "0"
+      }
+    ],
+    "original_count": 2,
+    "corrected_count": 4
+  }
+]

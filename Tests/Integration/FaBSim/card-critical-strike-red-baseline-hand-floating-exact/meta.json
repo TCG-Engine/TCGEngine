@@ -1,0 +1,7 @@
+{
+    "name": "Critical Strike / ordinary baseline / hand-floating-exact",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:22:48+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, power5, pitch1, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual play from Hand spends one AP and exactly1 resources; initial1 plus pitches[] leaves0. Printed attack5 against defense0 causes5 damage; no go again. Source stays on chain through resolution, then clears at Close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#critical_strike_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

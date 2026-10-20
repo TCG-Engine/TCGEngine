@@ -1,0 +1,58 @@
+[
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Temp",
+        "value": 1
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "value": 1
+    },
+    {
+        "step": 13,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "cardID": "wounding_blow_yellow"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Temp",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Hand",
+        "value": 0
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 20
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    }
+]

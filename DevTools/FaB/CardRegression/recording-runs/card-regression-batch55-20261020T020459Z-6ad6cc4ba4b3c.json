@@ -1,0 +1,290 @@
+{
+    "completed_at_utc": "2026-10-20T02:04:59+00:00",
+    "input_file": "card-regression-batch55.json",
+    "input_sha256": "8bda7d6d0fe0c2d6b717895c1e25f6add2cc2b932499613e6f3fd97bf14b8119",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-two-red-partial-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 142
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-two-red-partial-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 142
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-yellow-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-two-red-partial-funding",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 142
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-surging-strike-blue-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PROPOSED_DISPOSABLE_CONTROLS_NOT_EXECUTED_NOT_CARD_COMPATIBILITY_COVERAGE",
+  "controls": [
+    {
+      "id": "INNATE-GA-RESOLUTION-AP",
+      "source": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+      "prefixCheckpoint": "reaction_window_has_no_early_go_again_ap",
+      "mutation": "After exact Reaction prefix in a uniquely owned disposable game, use the existing object_effect fault primitive to append PEN_BLANK_ATTACK to original p1CombatChain-0 UID3 TurnEffects. Pin original attackGoAgain=false and source UID3 before mutation; preserve original ResolutionAP1 and real followup oracles. This tag is an abstract fault injection, not claimed generation by any legitimate card.",
+      "expected": "Current actual FaBAttackHasGoAgain query becomes false, so ResolutionAP1 becomes0; first intended failure is p1ActionPoints expected1 got0. Prefix original damage0/HP20 still passes; no setup/transport failure counts. Dynamic loss/prohibition gameplay remains held."
+    },
+    {
+      "id": "INNATE-GA-POWER",
+      "source": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+      "prefixCheckpoint": "reaction_window_has_no_early_go_again_ap",
+      "mutation": "Disposable original attack gets existing WTR_POWER:+1 object effect; retain original power/damage/AP assertions.",
+      "expected": "Printed1 expected damage becomes2 and victimHP19 becomes18; no canonical rule/source changes."
+    },
+    {
+      "id": "INNATE-GA-EXACT-DEFENSE",
+      "source": "card-fry-blue-innate-ga-printed-defense-exact-partial-damage",
+      "prefixCheckpoint": "actual_subject_hand_defense_uses_printed_value_without_cost",
+      "mutation": "Disposable defending subject gets WTR_DEFENSE:1; original exact defense0/damage4/HP16 oracles remain.",
+      "expected": "Actual dynamic defense query1 yields3damage/HP17, detecting exact upper bound and zero-defense declaration. Cached state defenseValue may remain0 until refresh; the positive damage/HP witnesses are the required detection."
+    },
+    {
+      "id": "INNATE-GA-ASSET-FUNDING",
+      "source": "card-surging-strike-red-innate-ga-hand-blue-pitch",
+      "prefixCheckpoint": "await_assets_without_ap_charge",
+      "mutation": "Disposable remaining funding card blueWoundingBlow is replaced by legal yellowWoundingBlow (pitch2), retaining UID and original expected economy after prefix.",
+      "expected": "Cost2 still pays legally; residual expected1 becomes0. Detection must be economy after actual pitch, not an initial CardID/setup failure."
+    }
+  ]
+}

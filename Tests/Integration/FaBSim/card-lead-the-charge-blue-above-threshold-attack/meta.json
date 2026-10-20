@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / above-threshold-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least2 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Play raging_onslaught_red, printed cost3, paying from3 floating resources. Spent AP becomes0 while trigger waits above the attack (Stack2). Trigger resolution returnsAP1 while attack remains Stack1; printed power7 is unchanged and no go again was granted. Damage7, AP1 remains after link. Sources: https://judge.fabtcg.com/cards/detail/550/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_blue"
+}

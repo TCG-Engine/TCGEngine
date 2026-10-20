@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / ordinary / arsenal-source-cannot-declare-ordinary-block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:40:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Ordinary defense is declared from Hand (or eligible equipment), not Arsenal. Actual attempted ArsenalCnC block leaves defense0 and original card in Arsenal; WoundingRed4 hits hero16 with no CnC trigger, normal Close preserves exactowner2source. Sources: https://judge.fabtcg.com/cards/detail/498/ https://rules.fabtcg.com/en/cr/03-zones/#334 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

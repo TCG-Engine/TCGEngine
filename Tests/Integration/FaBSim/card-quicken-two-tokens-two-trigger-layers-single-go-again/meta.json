@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / two-tokens-two-trigger-layers-single-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:33:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Both existing Quicken tokens trigger independently from the same attack play. Initially Stack3/Arena2 and no grant. Resolve one: Stack2/Arena1 and grantGO_AGAIN. Resolve second: Stack1/Arena0, still only one effective go again. Wounding Blow deals4, life16 and only one AP is returned, because multiple instances of go again do not grant multiple action points. Token boundary CR8.1.8a: destroyed Quicken is removed from the game, so it never remains in Graveyard; explicit graveyard counts verify this. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

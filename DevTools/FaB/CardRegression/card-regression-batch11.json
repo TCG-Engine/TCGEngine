@@ -1,0 +1,1740 @@
+[
+  {
+    "slug": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+    "name": "Scar For A Scar / lower-own-heal-removes-condition",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "lower-own-heal-removes-condition",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "scar_for_a_scar_red",
+        "properties": {}
+      },
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-equal-opponent-heal-enables-condition",
+    "name": "Scar For A Scar / equal-opponent-heal-enables-condition",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "equal-opponent-heal-enables-condition",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "scar_for_a_scar_red",
+        "properties": {}
+      },
+      {
+        "player": 2,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_blue",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-lower-grant-persists-after-heal",
+    "name": "Scar For A Scar / lower-grant-persists-after-heal",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "lower-grant-persists-after-heal",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "scar_for_a_scar_red",
+        "properties": {}
+      },
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-equal-no-retroactive-grant",
+    "name": "Scar For A Scar / equal-no-retroactive-grant",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "equal-no-retroactive-grant",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "scar_for_a_scar_red",
+        "properties": {}
+      },
+      {
+        "player": 2,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_blue",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-scar-for-a-scar-red-blanked-no-trigger",
+    "name": "Scar For A Scar / blanked-no-trigger",
+    "cardIDs": [
+      "scar_for_a_scar_red"
+    ],
+    "branches": [
+      "blanked-no-trigger",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "scar_for_a_scar_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources. Start during Guardian Bravo turn under previously resolved Blinding of the Old Ones; coverage is the known suppression interaction, not generation or expiry of Blinding.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "https://judge.fabtcg.com/cards/detail/3761/"
+    ],
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    }
+  },
+  {
+    "slug": "card-wounded-bull-red-lower-own-heal-removes-condition",
+    "name": "Wounded Bull / lower-own-heal-removes-condition",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "lower-own-heal-removes-condition",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "wounded_bull_red",
+        "properties": {}
+      },
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-wounded-bull-red-equal-opponent-heal-enables-condition",
+    "name": "Wounded Bull / equal-opponent-heal-enables-condition",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "equal-opponent-heal-enables-condition",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "wounded_bull_red",
+        "properties": {}
+      },
+      {
+        "player": 2,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_blue",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_WOUNDED_BULL\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-wounded-bull-red-lower-grant-persists-after-heal",
+    "name": "Wounded Bull / lower-grant-persists-after-heal",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "lower-grant-persists-after-heal",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "wounded_bull_red",
+        "properties": {}
+      },
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_WOUNDED_BULL\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_WOUNDED_BULL\"]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 8
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-wounded-bull-red-equal-no-retroactive-grant",
+    "name": "Wounded Bull / equal-no-retroactive-grant",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "equal-no-retroactive-grant",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "wounded_bull_red",
+        "properties": {}
+      },
+      {
+        "player": 2,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_blue",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 21
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 14
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+    ]
+  },
+  {
+    "slug": "card-wounded-bull-red-blanked-no-trigger",
+    "name": "Wounded Bull / blanked-no-trigger",
+    "cardIDs": [
+      "wounded_bull_red"
+    ],
+    "branches": [
+      "blanked-no-trigger",
+      "trigger-layer-response-window"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      18,
+      20
+    ],
+    "resources": [
+      3,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "player": 1,
+        "zone": "Hand",
+        "cardID": "wounded_bull_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 7
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR6.6.1c-d: life condition is evaluated on triggered-layer resolution; a later life change does not revoke or retroactively add the granted effect. Source blanked before play has no trigger. No trigger pays additional AP/resources. Start during Guardian Bravo turn under previously resolved Blinding of the Old Ones; coverage is the known suppression interaction, not generation or expiry of Blinding.",
+    "sources": [
+      "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "https://judge.fabtcg.com/cards/detail/3761/"
+    ],
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    }
+  }
+]

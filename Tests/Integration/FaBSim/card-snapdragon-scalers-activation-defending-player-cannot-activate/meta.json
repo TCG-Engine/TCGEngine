@@ -1,0 +1,7 @@
+{
+    "name": "Snapdragon Scalers / defending-player-cannot-activate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Defender has priority but does not control the attack. Its Attack Reaction ability cannot target the opposing attack; no destruction or go again is granted. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

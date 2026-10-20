@@ -1,0 +1,1249 @@
+{
+  "status": "READ_ONLY_IMPLEMENTED_COHORT_RESEARCH_NOT_COVERAGE",
+  "identities": [
+    {
+      "card_id": "surging_militia_red",
+      "printed": {
+        "name": "Surging Militia",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "1",
+        "power": "5",
+        "defense": "2",
+        "functional_text_plain": "This gets +1{p} for each non-equipment card defending it."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1017/",
+      "printing_records": [
+        {
+          "unique_id": "9zpHfkCRBpgR7P8KCL6fT",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON287",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON287.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237772",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237772?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "pBBdpWGgHq68HcCrjTHp7",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON287",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON287-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237772",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237772?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "6jLjmBtQqhwLHKDrChGR8",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON287",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON287.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237772",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237772?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "Cfm9gnGLDJNcpfKwrwbQQ",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON287",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villages of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON287-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237772",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237772?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON287"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31902,
+          "body_sha256": "ed63fb1f2c603b61537b4aac78caf410edc7b7979f7a46e16587ce748234b15d",
+          "body": "$attackPowerModifierAbilities[\"surging_militia_red:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //surging_militia_red\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "surging_militia_yellow",
+      "printed": {
+        "name": "Surging Militia",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "2",
+        "power": "4",
+        "defense": "2",
+        "functional_text_plain": "This gets +1{p} for each non-equipment card defending it."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1018/",
+      "printing_records": [
+        {
+          "unique_id": "fbtFwmQmQ7G8PRBNMHhGQ",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON288",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON288.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237770",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237770?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "jfK8zKQLhkBkkgkbmbmJP",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON288",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON288-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237770",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237770?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "zTMnQhPpGjDWJNcTKrkmR",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON288",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON288.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237770",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237770?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "FhPkBmC7LwF98K7PkDBkH",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON288",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON288-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237770",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237770?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON288"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31905,
+          "body_sha256": "da16996e5a1e182989f5e7da3bd87ef7244478331ddd0b18d966caaf5eee614a",
+          "body": "$attackPowerModifierAbilities[\"surging_militia_yellow:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //surging_militia_yellow\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "surging_militia_blue",
+      "printed": {
+        "name": "Surging Militia",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "3",
+        "power": "3",
+        "defense": "2",
+        "functional_text_plain": "This gets +1{p} for each non-equipment card defending it."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1019/",
+      "printing_records": [
+        {
+          "unique_id": "Q6bG7qzDTPNMq6njKmTbC",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON289",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON289.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237769",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237769?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "PJFkNcpQHHDGcLNMg9hmM",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON289",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON289-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237769",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237769?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "zJTQbLk9rb8mGRWfWGLGj",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON289",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON289.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237769",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237769?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "qJL9cH8zpHbmLn9hdprTk",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON289",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Kyxarie Peralta"
+          ],
+          "art_variations": [],
+          "flavor_text": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "flavor_text_plain": "The villagers of the golden fields are just as noble and brave as the Solanians who live within the city.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON289-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237769",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237769?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON289"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31899,
+          "body_sha256": "a1e681d122b029148ffec0b22280eecd6bd46665d0997c85753f5b3e759d5af4",
+          "body": "$attackPowerModifierAbilities[\"surging_militia_blue:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //surging_militia_blue\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "stony_woottonhog_red",
+      "printed": {
+        "name": "Stony Woottonhog",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "1",
+        "power": "6",
+        "defense": "2",
+        "functional_text_plain": "If this is defended by fewer than 2 non-equipment cards, this gets +1{p}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1014/",
+      "printing_records": [
+        {
+          "unique_id": "pzNKCG8GFHtQcprqhL76B",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON284",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON284.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237775",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237775?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "h8TJdPtLRNBrqRqRbwgdm",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON284",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON284-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237775",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237775?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "mQ9fkgcctpRjcKGMNTPKB",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON284",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON284.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237775",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237775?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "WCLjjpgMRNTGBdWH7Nqdm",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON284",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON284-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237775",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237775?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON284"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31893,
+          "body_sha256": "31bdf60515f263066ad012fe1fb9234bb462743fe6cd5563193b58ec4e1a5645",
+          "body": "$attackPowerModifierAbilities[\"stony_woottonhog_red:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //stony_woottonhog_red\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "stony_woottonhog_yellow",
+      "printed": {
+        "name": "Stony Woottonhog",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "2",
+        "power": "5",
+        "defense": "2",
+        "functional_text_plain": "If this is defended by fewer than 2 non-equipment cards, this gets +1{p}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1015/",
+      "printing_records": [
+        {
+          "unique_id": "897PGrtTWHPFRTfFjHJcM",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON285",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON285.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237774",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237774?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "79mz9qTpMBnB8wcK8zgWN",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON285",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON285-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237774",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237774?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "cwchbf8mdctPCLGh9kpNW",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON285",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON285.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237774",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237774?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "KCwz6RcBkR7kbFthqzzgr",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON285",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON285-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237774",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237774?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON285"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31896,
+          "body_sha256": "1cac075f8373f418b3c5e5bccd2fe102c647817e4ee0d20939ca0eab4478d409",
+          "body": "$attackPowerModifierAbilities[\"stony_woottonhog_yellow:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //stony_woottonhog_yellow\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "stony_woottonhog_blue",
+      "printed": {
+        "name": "Stony Woottonhog",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "2",
+        "pitch": "3",
+        "power": "4",
+        "defense": "2",
+        "functional_text_plain": "If this is defended by fewer than 2 non-equipment cards, this gets +1{p}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1016/",
+      "printing_records": [
+        {
+          "unique_id": "KKc6CmPLfDgLQm9jJrrKk",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON286",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON286.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237773",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237773?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "kCTfdqFN98mHtFwbJkpDJ",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON286",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON286-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237773",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237773?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "rjjLtqqq9J9TkQwTwbkch",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON286",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON286.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237773",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237773?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "KRLwT9JzjtzzzPGJ8zrhc",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON286",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Jessada Sutthi"
+          ],
+          "art_variations": [],
+          "flavor_text": "Grandad Warthog leads the way.",
+          "flavor_text_plain": "Grandad Warthog leads the way.",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON286-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237773",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237773?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON286"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31890,
+          "body_sha256": "63f965f27e55c3a0add9eb2558b9a075011065ad9f22a99d3233ab8f2b29efb5",
+          "body": "$attackPowerModifierAbilities[\"stony_woottonhog_blue:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //stony_woottonhog_blue\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "yinti_yanti_red",
+      "printed": {
+        "name": "Yinti Yanti",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "0",
+        "pitch": "1",
+        "power": "3",
+        "defense": "2",
+        "functional_text_plain": "While this is attacking and you control an aura, this gets +1{p}.\nWhile this is defending and you control an aura, this gets +1{d}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1020/",
+      "printing_records": [
+        {
+          "unique_id": "pLgtn8DBbwqW7Qtw9KLNC",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON290",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON290.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237768",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237768?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "89RLkgfmWbkQCPznrTzHT",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON290",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON290-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237768",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237768?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "kJR7CT77gg6rKjRQHhChK",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON290",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON290.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237768",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237768?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "9LMdnjmHfT9rc8hq9Thrb",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON290",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON290-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237768",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237768?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON290"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        },
+        {
+          "macroName": "DefenseModifier",
+          "abilityCode": "return FaBMONDefense($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31983,
+          "body_sha256": "7735d2baca6dbdb765170132af1f9df6c7a750ab357f0f6ea7a29e99902b5306",
+          "body": "$attackPowerModifierAbilities[\"yinti_yanti_red:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_red\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        },
+        {
+          "table": "defenseModifierAbilities",
+          "index": 0,
+          "line": 32047,
+          "body_sha256": "94e34464113841875022cbb4f5779e311422e311cf28036efcd8d42daa92f922",
+          "body": "$defenseModifierAbilities[\"yinti_yanti_red:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_red\n  return FaBMONDefense($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "yinti_yanti_yellow",
+      "printed": {
+        "name": "Yinti Yanti",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "0",
+        "pitch": "2",
+        "power": "2",
+        "defense": "2",
+        "functional_text_plain": "While this is attacking and you control an aura, this gets +1{p}.\nWhile this is defending and you control an aura, this gets +1{d}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1021/",
+      "printing_records": [
+        {
+          "unique_id": "JpzrmbqCJtFdTjPGjCtJp",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON291",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON291.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237767",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237767?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "KML8cLCWbn8HzJkr7QH6K",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON291",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON291-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237767",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237767?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "6Kj6DTJkkPQmGBHr8nTK6",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON291",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON291.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237767",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237767?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "DKFLMHfF8jzNtk7T8tFGW",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON291",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON291-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237767",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237767?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON291"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        },
+        {
+          "macroName": "DefenseModifier",
+          "abilityCode": "return FaBMONDefense($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31986,
+          "body_sha256": "5af7557f8ad955e4d44f66716961fc8633066ed21203606f9d0c37ea6ab66ba2",
+          "body": "$attackPowerModifierAbilities[\"yinti_yanti_yellow:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_yellow\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        },
+        {
+          "table": "defenseModifierAbilities",
+          "index": 0,
+          "line": 32050,
+          "body_sha256": "75f650cf36dad53b66e4b5a95983dc0bbf2babfc65c03a17100be08b8a2f050c",
+          "body": "$defenseModifierAbilities[\"yinti_yanti_yellow:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_yellow\n  return FaBMONDefense($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    },
+    {
+      "card_id": "yinti_yanti_blue",
+      "printed": {
+        "name": "Yinti Yanti",
+        "types": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "cost": "0",
+        "pitch": "3",
+        "power": "1",
+        "defense": "2",
+        "functional_text_plain": "While this is attacking and you control an aura, this gets +1{p}.\nWhile this is defending and you control an aura, this gets +1{d}."
+      },
+      "official": "https://judge.fabtcg.com/cards/detail/1022/",
+      "printing_records": [
+        {
+          "unique_id": "FGjbzTMTrCwQkw6bPQPpJ",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON292",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON292.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237740",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237740?Language=English&Printing=1st+Edition+Normal"
+        },
+        {
+          "unique_id": "KL9tPNrHDMRMjBfGGwQNk",
+          "set_printing_unique_id": "dbdr7LtkJqHKPRthwCfhq",
+          "id": "MON292",
+          "set_id": "MON",
+          "edition": "F",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/MON292-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237740",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237740?Language=English&Printing=1st+Edition+Rainbow+Foil"
+        },
+        {
+          "unique_id": "QCq7pbWWpKCrBTpPfzdGN",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON292",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "S",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON292.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237740",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237740?Language=English&Printing=Unlimited+Edition+Normal"
+        },
+        {
+          "unique_id": "jFKj6THhJkDknWCcCgcrD",
+          "set_printing_unique_id": "GbmNLthWjCHfML9thPbbt",
+          "id": "MON292",
+          "set_id": "MON",
+          "edition": "U",
+          "foiling": "R",
+          "rarity": "C",
+          "expansion_slot": false,
+          "artists": [
+            "Faizal Fikri"
+          ],
+          "art_variations": [],
+          "flavor_text": "",
+          "flavor_text_plain": "",
+          "image_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/U-MON292-RF.webp",
+          "image_rotation_degrees": 0,
+          "tcgplayer_product_id": "237740",
+          "tcgplayer_url": "https://www.tcgplayer.com/product/237740?Language=English&Printing=Unlimited+Edition+Rainbow+Foil"
+        }
+      ],
+      "printing_ids": [
+        "MON292"
+      ],
+      "printing_count": 4,
+      "canonical_abilities": [
+        {
+          "macroName": "AttackPowerModifier",
+          "abilityCode": "return FaBMONOwnPower($player, $subjectObj);\n",
+          "isImplemented": true
+        },
+        {
+          "macroName": "DefenseModifier",
+          "abilityCode": "return FaBMONDefense($player, $subjectObj);\n",
+          "isImplemented": true
+        }
+      ],
+      "actual_compiled_callbacks": [
+        {
+          "table": "attackPowerModifierAbilities",
+          "index": 0,
+          "line": 31980,
+          "body_sha256": "fa4f28a2e1d93c032376646e311ce388f2bae2fd26653d46fea704206be7f34e",
+          "body": "$attackPowerModifierAbilities[\"yinti_yanti_blue:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_blue\n  return FaBMONOwnPower($player, $subjectObj);\n};"
+        },
+        {
+          "table": "defenseModifierAbilities",
+          "index": 0,
+          "line": 32044,
+          "body_sha256": "468d465d7996bcb39d5e155cf8c47a35229a80856e77dd2e587692771faa9d44",
+          "body": "$defenseModifierAbilities[\"yinti_yanti_blue:0\"] = function($player, $subjectObj, $currentValue, $sourceObj) { //yinti_yanti_blue\n  return FaBMONDefense($player, $subjectObj);\n};"
+        }
+      ],
+      "current_reviewed_branches": 0,
+      "implementation": "EXPLICIT_COMPILED_MODIFIER_CALLBACK_WITH_NATIVE_SHARED_QUERY"
+    }
+  ],
+  "identities_count": 9,
+  "printing_count": 36,
+  "source": {
+    "card_cache_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "canonical_macro_sha256": "523f6355914013d9c3962701d594333fbd47a478c1cfc1b0577a48b542de8bba",
+    "compiled_macro_sha256": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "coverage_sha256": "722b57ae80582678af7b8140d386ae06552f5b5382cc8570a373ff48bc89a5e3",
+    "coverage_runtime": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330"
+  },
+  "native_functions": [
+    {
+      "path": "FaBSim/Custom/MONCards.php",
+      "file_sha256": "28f112a3672f30e220e4cfa4574384bd16455bcef2cdb0a2d6656ed38e4fc3f7",
+      "function": "FaBMONOwnPower",
+      "body_sha256": "1e9443341995182e53ca2bbced9b3abfb6922495fb4430cb0ca3141e100c5f00",
+      "body": "function FaBMONOwnPower(int $p,object $o): int {\n    $b=FaBWTRBase($o->CardID);$s=FaBGetState();$n=0;\n    if($b==='valiant_thrust'&&FaBMONCount($p,'CHARGED'))$n+=3;\n    if($b==='raydn_duskbane'&&FaBMONCount($p,'CHARGED'))$n+=3;\n    if($b==='galaxxi_black'&&FaBMONCount($p,'BANISH_PLAYED'))$n+=2;\n    if($b==='piercing_shadow_vise'&&FaBCRUArcane($p,true))$n+=2;\n    if($b==='tremor_of_iarathael'&&FaBMONCount($p,'BANISHED'))$n+=2;\n    if($b==='yinti_yanti'&&FaBChoiceRefs($p,'Arena',['type'=>'Aura']))$n+=1;\n    if($b==='stony_woottonhog'&&FaBWTRNonEquipmentBlockCount($s)<2)$n+=1;\n    if($b==='surging_militia')$n+=FaBWTRNonEquipmentBlockCount($s);\n    return $n;\n}"
+    },
+    {
+      "path": "FaBSim/Custom/MONCards.php",
+      "file_sha256": "28f112a3672f30e220e4cfa4574384bd16455bcef2cdb0a2d6656ed38e4fc3f7",
+      "function": "FaBMONDefense",
+      "body_sha256": "84d3d95dd43603af3f87217fdd4407a9906beef328efd4638adad383d48e32f4",
+      "body": "function FaBMONDefense(int $p,object $o): int {\n    $b=FaBWTRBase($o->CardID);$n=0;\n    if($b==='yinti_yanti'&&FaBChoiceRefs($p,'Arena',['type'=>'Aura']))++$n;\n    if($b==='impenetrable_belief')foreach(FaBOpponents($p) as $other)if(FaBMONCount($other,'BANISHED')>=3){$n+=2;break;}\n    if($b==='mutated_mass')$n+=FaBMONMass($p);\n    return $n;\n}"
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "file_sha256": "427c3a85b6ea1eb11cce2f561adc6b733d5af3b5b963d72cf5821ef5395ec240",
+      "function": "FaBWTRNonEquipmentBlockCount",
+      "body_sha256": "76f6d3939d61f32c320e60d46a712078cdfc82d1defd0f1388f725628a9f26fc",
+      "body": "function FaBWTRNonEquipmentBlockCount(array $state): int {\n    $n=0;foreach(FaBSeatOrder() as $seat)foreach(GetCombatChain($seat) as $obj)if(is_object($obj)&&empty($obj->removed)&&intval($obj->ChainLink??0)===intval($state['chainLink'])&&in_array($obj->Role??'',['DEFENSE','DEFENSE_REACTION'],true)&&($obj->FromZone??'')!=='Equipment')++$n;return $n;\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "FaBAttackPower",
+      "body_sha256": "8cc3a5fe3e0b860d4acd68b3e0d5878ef1ffbd961b9418fd4e40fe1dac1a34a2",
+      "body": "function FaBAttackPower(array $state): int {\n    $attack = FaBFindUID(intval($state['attackUID']));\n    if ($attack === null) return 0;\n    $base = max(0, intval(CardPower($attack['object']->CardID)));\n    if(!empty(FaBObjectCounters($attack['object'])['MON_ARENA_ATTACK']))$base=FaBMSTAuraBase(intval($state['attacker']),$attack['object'])??intval(FaBObjectCounters($attack['object'])['MON_ARENA_POWER']??0);\n    if($attack['object']->CardID==='fractal_replication_red')$base=FaBEVRFractalValue($attack['object'],'POWER');\n    if(in_array('EVR_HALF_BASE',(array)$attack['object']->TurnEffects,true))$base=intval(ceil($base/2));\n    if(FaBWTRBase($attack['object']->CardID)==='numbskull')return intval(CardPower($attack['object']->CardID));\n    if($attack['object']->CardID==='mutated_mass_blue')$base=FaBMONMass(intval($state['attacker']));\n    $delta = function_exists('EvaluateAttackPowerModifier') ? intval(EvaluateAttackPowerModifier($attack['object']->CardID, intval($state['attacker']), $attack['object'], $base, $attack['object'])) : 0;\n    if (function_exists('FaBWTRAttackPowerModifier')) $delta += FaBWTRAttackPowerModifier(intval($state['attacker']), $attack['object'], $state);\n    if(FaBWTRIsAttackAction($attack['object'])&&FaBCRUCount(intval($state['attacker']),'SNAG'))$delta-=max(0,intval(EvaluateAttackPowerModifier($attack['object']->CardID,intval($state['attacker']),$attack['object'],$base,$attack['object'])));\n    $base=FaBSUPBase(intval($state['attacker']),$attack['object'],FaBPENBase(intval($state['attacker']),$attack['object'],FaBCRUBasePower($attack['object'],$base)));\n    if(FaBCRUCount(intval($state['attacker']),'CHOKESLAM')&&FaBWTRIsAttackAction($attack['object']))$delta=min(0,$delta);\n    $delta+=FaBEVRPower(intval($state['attacker']),$attack['object'])+FaBUPRPower(intval($state['attacker']),$attack['object'])+FaBDYNPower(intval($state['attacker']),$attack['object'])+FaBOUTPower(intval($state['attacker']),$attack['object'])+FaBDTDPower(intval($state['attacker']),$attack['object'])+FaBEVOPower(intval($state['attacker']),$attack['object'])+FaBAMXPower(intval($state['attacker']),$attack['object'])+FaBHVYPower(intval($state['attacker']),$attack['object'])+FaBMSTPower(intval($state['attacker']),$attack['object'])+FaBROSPower(intval($state['attacker']),$attack['object'])+FaBHNTPower(intval($state['attacker']),$attack['object'])+FaBSEAPower(intval($state['attacker']),$attack['object'])+FaBMPGPower(intval($state['attacker']),$attack['object']);\n    foreach((array)$attack['object']->TurnEffects as $tag)if(str_starts_with($tag,'UPR_BASE:'))$base=intval(substr($tag,9));\n    $delta+=FaBCRUPower(intval($state['attacker']),$attack['object'])+FaBMONPower(intval($state['attacker']),$attack['object'])+FaBELEPower(intval($state['attacker']),$attack['object']);\n    $result=max(0,$base+$delta+(FaBWTRIsAttackAction($attack['object'])&&FaBCRUCount(intval($state['attacker']),'SNAG')?0:FaBProfessorPower(intval($state['attacker']),$attack['object'])));\n    if(FaBWTRIsAttackAction($attack['object'])&&FaBCRUCount(intval($state['attacker']),'CHOKESLAM'))$result=min($base,$result);\n    $result+=(in_array('OMN_QUICK_POWER',(array)($attack['object']->TurnEffects??[]),true)&&FaBOMNQuick($attack['object'])?1:0);\n    $result+=FaBIARPower(intval($state['attacker']),$attack['object']);\n    $result+=FaBSUPPower(intval($state['attacker']),$attack['object'],$result)+FaBPENPower(intval($state['attacker']),$attack['object']);\n    return max(0,FaBOMNFinalPower($attack['object'],FaBPENFinalPower(intval($state['attacker']),$attack['object'],$base,$result)));\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "FaBCurrentDefense",
+      "body_sha256": "c24b63991e837fb605e1d431e595d66f933e7b4451a003b843e197bc3af56674",
+      "body": "function FaBCurrentDefense(object $obj, int $player): int {\n    if(FaBMSTHidden($obj))return 0;\n    $omnDefense=in_array('OMN_RAZOR_DEFENSE',(array)($obj->TurnEffects??[]),true)?-1:0;\n    if(FaBWTRBase($obj->CardID)==='numbskull')return max(0,intval(CardDefense($obj->CardID)));\n    $base = $obj->CardID==='fractal_replication_red'?FaBEVRFractalValue($obj,'DEFENSE'):max(0, intval(CardDefense($obj->CardID)));\n    $base=FaBSUPBase($player,$obj,$base,false);\n    foreach((array)($obj->TurnEffects??[]) as $tag)if($tag==='DTD_HALF_BASE')$base=intval(ceil($base/2));\n    if(in_array('MON_FOOT_DEFENSE',(array)($obj->TurnEffects??[]),true))$base=1;\n    if(FaBPENShoesActive($player)&&FaBWTRIsAttackAction($obj))$base=intval(ceil($base/2));\n    if (FaBHasType($obj, 'Equipment')) $base -= intval(FaBObjectCounters($obj)['DEFENSE'] ?? 0);\n    $delta = $omnDefense + (function_exists('EvaluateDefenseModifier') ? intval(EvaluateDefenseModifier($obj->CardID, $player, $obj, $base, $obj)) : 0);\n    if (function_exists('FaBWTRDefenseModifier')) $delta += FaBWTRDefenseModifier($player, $obj);\n    if ($obj->CardID==='arcanite_skullcap'&&FaBARCLowerLife($player)) ++$delta;\n    $delta+=FaBMPGDefense($player,$obj);\n    if($obj->CardID==='gloves_of_azure_waves' && !HasNoAbilities($obj) && FaBPENHighTide($player))$delta+=3;\n    if(in_array($obj->Role??'', ['DEFENSE','DEFENSE_REACTION'],true)&&FaBSUPNoDefenseGain())$delta=min(0,$delta);\n    return max(0, $base + $delta);\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "FaBDefenseValue",
+      "body_sha256": "606b99a90d8960c43e183fba7a782d34b14fd1a4c2ba28ef60171961616aa4f7",
+      "body": "function FaBDefenseValue(array $state, ?int $defender=null): int {\n    $defender ??= intval($state['defender']);\n    $total = 0;\n    foreach (FaBSeatOrder() as $seat) foreach (GetCombatChain($seat) as $obj) {\n        if (!is_object($obj) || !empty($obj->removed) || intval($obj->ChainLink ?? 0) !== intval($state['chainLink'])) continue;\n        if (!in_array((string)($obj->Role ?? ''), ['DEFENSE', 'DEFENSE_REACTION'], true)) continue;\n        if($seat===$defender||intval(FaBObjectCounters($obj)['DEFENDING_HERO']??0)===$defender)$total += FaBCurrentDefense($obj, $defender);\n    }\n    return $total;\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "FaBDeclareBlock",
+      "body_sha256": "e131ddd339bfb96e40c6159c0fd42c16cba7e7d079038d96f1b457479fb2e97e",
+      "body": "function FaBDeclareBlock(int $player, string $mzID): bool {\n    if (!FaBCanBlock($player, $mzID)) return false;\n    $found = FaBIdentityFromMZ($mzID); if ($found === null) return false;\n    SaveUndoVersion($player, 'Before blocking with ' . (CardName($found['object']->CardID) ?: $found['object']->CardID));\n    $uid = intval($found['object']->UniqueID); $from = $found['zone'];\n    $chain = $from==='Hero'?FaBEVOHeroDefend($player,$found['object']):FaBMoveUID($uid, 'CombatChain', $player);\n    if($chain)$uid=intval($chain->UniqueID);\n    if ($chain === null) return false;\n    $state = FaBGetState(); $chain->Role = 'DEFENSE'; $chain->ChainLink = intval($state['chainLink']); $chain->FromZone = $from;\n    FaBWTRApplyNextDefense($player,$chain); $state=FaBGetState();\n    if ($from === 'Hand') {\n        $state['handBlockUIDs'][] = $uid;\n        $state['handBlockUIDs'] = array_values(array_unique(array_map('intval', $state['handBlockUIDs'])));\n    }\n    $state['declaredBlockUIDs'][] = $uid;\n    $state['declaredBlockUIDs'] = array_values(array_unique(array_map('intval', $state['declaredBlockUIDs'])));\n    $state['defenseValue'] = FaBDefenseValue($state);\n    FaBSetState($state);\n    return true;\n}\n"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "file_sha256": "6dad79ced6fcf485226e887c4ac4cf709982fb1b8086c0cd5ea4e8817bb91af1",
+      "function": "ObjectCurrentPower",
+      "body_sha256": "9af60056a68860a14ee16b10147e13be20738708c2b003d3608b373cb621c343",
+      "body": "function ObjectCurrentPower($obj): ?int {\n    if (!is_object($obj) || !empty($obj->removed)) return null;\n    $state = FaBGetState();\n    if (empty($state['combatOpen']) || ($obj->Role ?? '') !== 'ATTACK'\n        || intval($obj->UniqueID ?? 0) !== intval($state['attackUID'] ?? 0)) return null;\n    return FaBAttackPower($state);\n}\n\n/** Optional regression hook: only the current attack has a go-again value. */"
+    }
+  ],
+  "printed_verification": "Official JudgeHub texts corroborated all three families and eight directly/indexedly available variants. StonyRed direct page unavailable; local official cardface stony_woottonhog_red.webp visually inspected and hash bound. Old self-name/while wording is equivalent current static phrasing. No sampled game output is an oracle input.",
+  "stony_red_face": {
+    "path": "FaBSim/WebpImages/stony_woottonhog_red.webp",
+    "sha256": "909a85497354258da7e6a49d20dfb015c7815016b1538d4208f84a53e4a27011",
+    "visually_viewed": true
+  },
+  "rule_interpretation": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.2.3",
+        "6.3.5"
+      ],
+      "expected": "Static abilities update current numeric properties as their conditions change; no trigger layer is created for these stat modifications. External gain-replacement event handling remains a separate interaction hold."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.0.5",
+        "7.3.2",
+        "7.4.2d",
+        "7.5.2"
+      ],
+      "expected": "Normal defenders and resolved defense reactions on current chainlink count; pending Stack cards do not. Equipment excluded. Fresh current power and defense determine damage; declaration is free and not play."
+    }
+  ],
+  "native_risks": [
+    "NonEquipmentBlockCount filters FromZoneEquipment rather than HasTypeEquipment; ordinary equipment and native logicalOffHand storage must be respected. Unsupported fabricatedWeapons fixtures are excluded.",
+    "Yinti helper performs boolean Aura check. Current attack-power hook only accepts active attack; no unsupported computedpower query on Hand/defending card. Pin defense through durable defenseValue+damage/HP.",
+    "Live Aura response support spells must use current compiled declaration/await protocol. No fake history, permission, Stack, CombatChain or ability flags. GenericKano lookawait lifecycle is independently held; do not assert nonexistent emptyStack there.",
+    "Snag/Chokeslam/power caps/replacements/copy/ability loss are explicit separate interactions, not assumed certified by these ordinary pilots."
+  ],
+  "excluded_candidates": [
+    {
+      "ids": [
+        "rough_up_red",
+        "rough_up_yellow",
+        "rough_up_blue"
+      ],
+      "reason": "Printed static predicate but actual source uses AttackDeclared WTR_POWER tag; would introduce another timing/liveness correctness investigation."
+    },
+    {
+      "ids": [
+        "spring_load_red",
+        "spring_load_yellow",
+        "spring_load_blue"
+      ],
+      "reason": "Printed triggered attack text, distinct queue obligations; not a member of pure modifier cohort."
+    }
+  ],
+  "native_writes": 0,
+  "game_actions": 0
+}

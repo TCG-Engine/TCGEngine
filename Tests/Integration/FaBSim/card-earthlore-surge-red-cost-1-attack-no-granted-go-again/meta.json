@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / cost-1-attack-no-granted-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:04:53+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 2, next attack action this turn +5 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. Pitch Wounding Blow blue for3 to pay the buff (2), leaving1. Critical Strike red costs1, printed power5; it must attack for10, deal10, leave opponent10, float0, AP0. This source's go again returned the spent AP, while the vanilla attack has no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_red https://judge.fabtcg.com/cards/detail/1177/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

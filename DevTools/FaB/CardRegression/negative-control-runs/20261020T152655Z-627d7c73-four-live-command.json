@@ -1,0 +1,12 @@
+{
+  "command": "FAB_FOUR_LIVE_CONTROLS=four_sigil_hold_false,four_dart_source_lost_during_victim4_choice,four_dart_wrong_arcane_actor,four_dart_nonadjacent_offer python DevTools/FaB/CardRegression/card_regression_negative_controls.py",
+  "completed_utc": "2026-10-20T15:27:03.933439+00:00",
+  "exit_code": 0,
+  "stdout": "[DETECTED] card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe [FAIL] Sigil of Solace / four live players and explicit held priority: Step 1 assertion failed: Expected PriorityPlayer to equal 4, got 1.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1\n[DETECTED] card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4 [FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected Stack count 1, got 0.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1\n[DETECTED] card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4 [FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected FaBSim state [\"arcaneDealt\"] to equal JSON {\"1\":{\"4\":2}}, got {\"4\":{\"4\":2}}.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1\n[DETECTED] card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4 [FAIL] Aether Dart / four live players, player3 response and player4 Spellvoid: Initial assertion failed: Expected p1DecisionQueue-0.Param to equal 'p2Hero-0&p4Hero-0', got 'p2Hero-0&p3Hero-0&p4Hero-0'.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1\n",
+  "stderr": "",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "canonical_raw5_preserved": 3079,
+  "legacy77_report_unchanged": true,
+  "four_live_report": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative-control-runs\\20261020T152655Z-627d7c73-four-live-after.json",
+  "four_live_report_sha256": "afd43c92acc906706b811038e704e335240357a568ba7d59fb136dbe98b81d16"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "REVIEWED_LP_CONTINUATION_REPAIR_APPLIED_NATIVE_GATES_PENDING",
+  "before_runtime": "2b2544474195f4c626892dcf1df5bfcddf91681a3f9a9a5168efee30de1d8114",
+  "after_runtime": "096d7d4fbea2b87fe6c5e1d5c67d5ab83ff4ebb526ac5609748c6a2e5fb43f6f",
+  "changed_files": [
+    "FaBSim/Custom/CRUCards.php",
+    "FaBSim/Custom/GameLogic.php"
+  ],
+  "generated_or_core_changes": false,
+  "native_line_endings_preserved": true,
+  "new_fixtures_added": 0
+}

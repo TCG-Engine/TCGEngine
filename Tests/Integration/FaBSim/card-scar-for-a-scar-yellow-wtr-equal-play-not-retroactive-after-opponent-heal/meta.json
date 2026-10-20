@@ -1,0 +1,7 @@
+{
+    "name": "Scar for a Scar / equal-play-not-retroactive-after-opponent-heal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR6.6.1c-d: on play, queue a separate layer; life is checked on that layer resolution. No response changes life in this case before that layer resolves. Scar yellow was played at equal 20 life, so its condition is false. After reaching ATTACK with empty stack, opponent Sigil blue heals to 21; condition does not trigger retroactively, and no action point returns. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scar_for_a_scar_yellow https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

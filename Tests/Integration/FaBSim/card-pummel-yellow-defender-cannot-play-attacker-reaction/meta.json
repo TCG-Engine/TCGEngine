@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / defender-cannot-play-attacker-reaction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Right Reaction Step and defender priority, with a blue3 available to pay the printed reaction cost. Only the player controlling the attack may play an attack reaction. Reject without moving either hand card or changing AP/resources. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_yellow https://judge.fabtcg.com/cards/detail/320/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

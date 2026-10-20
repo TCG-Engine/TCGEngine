@@ -1,0 +1,44 @@
+{
+    "completed_at_utc": "2026-10-20T03:18:01+00:00",
+    "input_file": "card-regression-batch65.json",
+    "input_sha256": "f53cd374fe2b6e127c0325ea0c7d0c4af99617a9d10ff15df0c5fcfbbf02556f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-savage-swing-red-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        },
+        {
+            "slug": "card-savage-swing-yellow-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        },
+        {
+            "slug": "card-savage-swing-blue-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        },
+        {
+            "slug": "card-wrecker-romp-red-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        },
+        {
+            "slug": "card-wrecker-romp-yellow-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        },
+        {
+            "slug": "card-wrecker-romp-blue-mandatory-discard-distinct-candidates-preselection-bound",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 125
+        }
+    ]
+}

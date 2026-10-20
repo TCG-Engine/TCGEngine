@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / weapon-excluded-preserves-effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:35+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Actor Rhinar legally uses Brute Romping Club and Generic cards. No discard occurs, so Club stays4 and Rhinar never intimidates. Start2AP; weapon activation costs2resources/1AP but is not playing an Action CARD. Fully block4 with6 defense, then play qualifying critical_strike_red; only that later card creates the preserved trigger. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

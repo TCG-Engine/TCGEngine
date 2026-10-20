@@ -1,0 +1,1364 @@
+{
+    "completed_at_utc": "2026-10-20T00:01:23+00:00",
+    "input_file": "card-regression-batch21.json",
+    "input_sha256": "66cf5abc69982180ff64318a08d7a2136e35bd46c63a1afbbc99d37752cfa8e9",
+    "filter": "card-",
+    "results": [
+        {
+            "slug": "card-aether-dart-red-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-red-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-red-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-red-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-red-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-red-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-red-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-red-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-red-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-aether-dart-yellow-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-yellow-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-yellow-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-yellow-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-yellow-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-yellow-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-yellow-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-yellow-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-yellow-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-aether-dart-blue-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-blue-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-blue-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-dart-blue-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-blue-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-blue-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-blue-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-dart-blue-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-dart-blue-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-red-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-red-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-red-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-red-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-red-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-red-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-red-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-red-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-aether-hail-yellow-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-yellow-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-yellow-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-yellow-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-yellow-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-yellow-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-yellow-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-yellow-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-yellow-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-yellow-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-yellow-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-yellow-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-aether-hail-blue-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-blue-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-blue-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-blue-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-blue-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-blue-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-blue-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-aether-hail-blue-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-aether-hail-blue-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-aether-hail-blue-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-blue-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-aether-hail-blue-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-frosting-red-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-red-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-red-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-red-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-red-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-red-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-red-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-red-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-frosting-red-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-red-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-red-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-red-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-red-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-red-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-frosting-red-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-red-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-frosting-yellow-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-yellow-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-yellow-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-yellow-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-yellow-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-yellow-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-yellow-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-yellow-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-yellow-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-frosting-blue-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-blue-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-blue-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-blue-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-frosting-blue-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-blue-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-frosting-blue-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-blue-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-blue-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-frosting-blue-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-blue-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-blue-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-frosting-blue-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-blue-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-frosting-blue-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-frosting-blue-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-red-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-red-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-red-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-red-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-red-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-red-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-red-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-ice-bolt-yellow-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-yellow-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-yellow-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-yellow-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-yellow-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-yellow-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-yellow-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-yellow-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-yellow-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-yellow-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-yellow-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-yellow-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "card-ice-bolt-blue-own-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-blue-arsenal-face-down-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-blue-arsenal-face-up-opponent",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-blue-hand-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-blue-arsenal-zero-ap-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-barrier-pitch-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 83
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-blue-own-barrier-pay-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-blue-own-barrier-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 71
+        },
+        {
+            "slug": "card-ice-bolt-blue-own-barrier-unfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-cannot-use-caster-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 59
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-sigil-response-before-arcane",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 74
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-ally-target-no-hero-barrier",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 58
+        },
+        {
+            "slug": "card-ice-bolt-blue-own-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-hero-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 67
+        },
+        {
+            "slug": "card-ice-bolt-blue-hand-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-blue-arsenal-insufficient-payment-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 24
+        },
+        {
+            "slug": "card-ice-bolt-blue-opponent-two-barriers-once-each",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        }
+    ]
+}

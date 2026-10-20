@@ -1,0 +1,7 @@
+{
+    "name": "Snapdragon Scalers / discount-does-not-change-target-cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:32+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cross Strap reduces the payment for printed-cost2 Brutal Assault to0. It does not change the attack card cost property: Snapdragon still has no legal target, so legs remain and attack has no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snapdragon_scalers https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T04:12:02+00:00",
+    "input_file": "card-regression-batch71.json",
+    "input_sha256": "477e175d50eaaa312da8db92675622a8149a040a5f45a3a7af15a3f932143856",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 258
+        },
+        {
+            "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 258
+        },
+        {
+            "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 258
+        },
+        {
+            "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 258
+        }
+    ]
+}

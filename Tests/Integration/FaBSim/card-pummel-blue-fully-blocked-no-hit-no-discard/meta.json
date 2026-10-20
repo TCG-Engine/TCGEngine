@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / fully-blocked-no-hit-no-discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:21+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Defense9 fully blocks attack6; no hero hit means no granted discard trigger. A deliberate distinct card remains in hand, so retaining it proves absence of discard rather than an empty-hand no-op. Final life20/AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_blue https://judge.fabtcg.com/cards/detail/321/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

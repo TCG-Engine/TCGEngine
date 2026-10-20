@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / cost-one-floors-at-zero",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed-cost1 Blackout Kick is the first attack and has no active combo bonus. Reduction2 floors payable resource cost at0; it does not create a resource. Attack deals4 with no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

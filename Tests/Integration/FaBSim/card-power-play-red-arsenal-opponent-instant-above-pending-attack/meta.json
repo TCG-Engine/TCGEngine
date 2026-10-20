@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / arsenal-opponent-instant-above-pending-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power3, cost3; originArsenal. The arsenal-only intrinsic bonus is5; expected current power8. No extra trigger layer or go again is created. Pay exactly3 floating resources and1AP, leaving0/0. Opponent Sigil blue resolves above the attack, life20->21; the attack remains pending without dealing damage. Defense0; damage=max(0,8-0)=8; defender life21->13. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_red https://judge.fabtcg.com/cards/detail/4274/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_blue"
+}

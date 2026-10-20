@@ -1,0 +1,269 @@
+{
+  "id": "FAB-REG-027",
+  "status": "NATIVE_REPRODUCED_MISSING_EN_GARDE_PRINTED_POWER",
+  "cardIDs": [
+    "en_garde_red"
+  ],
+  "scope": "One exact ordinary own-turn EnGardeRedHandfloat + CintariSaber native attempt; no broader family or modifier inference.",
+  "original_internal_tag_proof_sha256": "101a6642e5048bc3c0e86fc79ca6269def8fce189596187eb66157ebac9924c2",
+  "independently_reviewed_derivative_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+  "independent_probe_review": {
+    "path": "numeric-probe-independent-review.json",
+    "sha256": "e68c72618e4d2f66b14990f5fe453ed9e55d94cd621486e48e8160fc76597c02"
+  },
+  "immutable_native_before_run": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch46-20261020T010923Z-6ad6bf43a09c2.json",
+    "sha256": "c8d9d153cec7833b9cc67e23ab052bb4609be46de14356185677996f26cebe15",
+    "input_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+    "row": {
+      "slug": "diagnostic-en-garde-red-hand-floating-printed-power",
+      "status": "blocked_or_incorrect",
+      "error": "power  expected 5 got 2",
+      "attempted_actions": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 2,
+          "mode": 10001,
+          "buttonInput": "",
+          "cardID": "!CustomInput!Pass",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 10001,
+          "buttonInput": "",
+          "cardID": "!CustomInput!Pass",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Weapons-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 2,
+          "mode": 10001,
+          "buttonInput": "",
+          "cardID": "!CustomInput!Pass",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 10001,
+          "buttonInput": "",
+          "cardID": "!CustomInput!Pass",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "observed_state": {
+        "window": "ATTACK",
+        "combatOpen": true,
+        "combatStep": "ATTACK",
+        "chainLink": 1,
+        "attacker": 1,
+        "defender": 2,
+        "attackUID": 5,
+        "attackTarget": {
+          "type": "HERO",
+          "player": 2,
+          "uid": 2,
+          "zone": "Hero"
+        },
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": null,
+        "lastAttackName": "Cintari Saber",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "",
+        "turnEffects": {
+          "1": [
+            {
+              "type": "SUP_COST_ONE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_PLAYED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "PEN_WEAPON_ACTIVATED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "CRU_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "CRU_WEAPONS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "CRU_SWORDS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_PLAYED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HVY_WEAPON_ATTACKED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_WEAPON_ATTACK",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "HNT_ATTACKED_2",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_ATTACKED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SUP_ATTACKS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "MON_LAST_cintari_saber",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_SWORD_DAGGER",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "2": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_ATTACKED_HERO",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": {
+          "1": [
+            "en_garde_red",
+            "cintari_saber"
+          ]
+        },
+        "eleKorshemActiveTurn": 2,
+        "arcCards": {
+          "3": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false,
+            "omnFirstDamage": false,
+            "iarPlayedFrom": "Hand",
+            "mstFree": false,
+            "rosLastLightning": false,
+            "iarPermission": []
+          },
+          "5": {
+            "outPreviousNames": [],
+            "mstFree": false,
+            "mstPreviousPitch": 0,
+            "mstPreviousAA": false,
+            "iarPermission": [],
+            "mstReactions": 0,
+            "mstBanished": [],
+            "supFirst": true
+          }
+        },
+        "arcActions": {
+          "1": 2
+        },
+        "outPreviousNames": {
+          "1": []
+        },
+        "lastAttackCardID": "cintari_saber",
+        "attackTargets": [
+          {
+            "type": "HERO",
+            "player": 2,
+            "uid": 2,
+            "zone": "Hero"
+          }
+        ],
+        "defendIndex": 0,
+        "attackGoAgain": false
+      },
+      "observed_decisions": {
+        "1": [],
+        "2": []
+      },
+      "observed_hand_refs": {
+        "1": [],
+        "2": []
+      }
+    }
+  },
+  "observed_computed_power": 2,
+  "expected_printed_power": 5,
+  "independent_math": "Cintari Saber printed2 plus EnGarde printed3 =5. No AA blocker, Boltyn charge/Soul, other modifier or target condition. Cost1+weapon1 funded by2; sourceownGA refund preserves legal nextweapon activation.",
+  "damage_checkpoint_reached": false,
+  "expected_later_damage": 5,
+  "expected_later_opponent_hp": 15,
+  "passing_fixture_saved": false,
+  "source_pin": "Current source unchanged from parent reported8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87; WTRraw8474. Immutable author attempt has no embeddedruntime hash, bound separately by parent source freeze and current file hashes.",
+  "source_fix_gate": "Numeric-before gate satisfied. One-entry patch still requires independent source review and guarded root apply; no after-fix outcome or passing coverage claimed.",
+  "source_patch_sha256": "0571a046af491fd59140166a5523e14fa118a63de389c187f7314f3179a996be",
+  "anchor_manifest_sha256": "69c0afbfae43f7d64235cbfc91a25366f9c97886d0aab67a8f008c46753186df",
+  "native_writes_by_author": 0,
+  "native_games_by_author": 0
+}

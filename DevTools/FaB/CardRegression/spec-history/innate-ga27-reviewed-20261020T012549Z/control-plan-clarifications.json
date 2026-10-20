@@ -1,0 +1,31 @@
+{
+  "status": "AUTHOR_CONTROL_PLAN_CLARIFICATION_NOT_EXECUTED",
+  "original_control_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\innate-go-again-baseline\\negative-control-plans.json",
+    "rawSHA256": "3b52255af2c04c79c671471082d127d369d83ddfda7ff45e9f93da12d54c5065"
+  },
+  "frozen_scenarios_unchanged": true,
+  "frozen_scenarios_SHA256": "0e0368b5317708da42c0be3cf08e3d0ea26cd4bf46954d81306be9277bbe3a11",
+  "principle": "Retain every native checkpoint. A control may first detect its mutation at the same original action boundary whose assertions are evaluated after injection. Report the first actual failure honestly; never drop or relocate an earlier oracle to force a later failure.",
+  "clarifications": [
+    {
+      "id": "INNATE-GA-RESOLUTION-AP",
+      "earliest_permitted_detection": "At the retained Reaction action boundary, computed_go_again_equals expected1 can fail got0 before the later ResolutionAP1 oracle. Missing AP refund remains a secondary expected consequence, not guaranteed first failure."
+    },
+    {
+      "id": "INNATE-GA-POWER",
+      "earliest_permitted_detection": "Retained computed_power_equals expected1 can fail got2 at the Reaction action boundary, before later victimHP19 vs18. Both are meaningful detections; record the actual earliest one."
+    },
+    {
+      "id": "INNATE-GA-EXACT-DEFENSE",
+      "earliest_permitted_detection": "Retained exact defense0 can fail at a Reaction boundary if the engine refreshes cached state defenseValue. If it remains cached0, actual damage3/HP17 later detects the fault. The precise first failure requires current native control execution and cannot be claimed from this plan."
+    },
+    {
+      "id": "INNATE-GA-ASSET-FUNDING",
+      "earliest_permitted_detection": "The source remains an affordable cost2 action after blue3 funding is changed to yellow2. Retain all identity/economy assertions; report the first actual oracle failure after real pitch, expected economy residual1 vs0 if it precedes funding identity."
+    }
+  ],
+  "native_game_actions": 0,
+  "native_writes": 0,
+  "accepted_control_detections": 0
+}

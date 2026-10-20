@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 83
+    },
+    {
+        "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+        "status": "recorded_semantically_checked",
+        "actions": 8,
+        "assertions": 68
+    }
+]

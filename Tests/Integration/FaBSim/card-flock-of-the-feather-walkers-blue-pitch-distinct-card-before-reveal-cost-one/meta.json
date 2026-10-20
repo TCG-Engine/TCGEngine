@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / pitch-distinct-card-before-reveal-cost-one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:47:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR5.1.7 pays all asset-costs before the CR5.1.8-9 reveal effect-cost. Start with Flock, Wounding Blow blue, and Leg Tap blue in hand and no resources. Announce Flock, then pitch Wounding Blow blue for3 to pay printed1. At the reveal chooser, resources2 and AP0 must already be paid; Wounding Blow blue is in Pitch and Leg Tap blue remains in Hand. Reveal the distinct Leg Tap blue (printed cost1), which remains in hand. Flock attacks for printed3; before its attack trigger resolves, Stack1/Arena0; afterward exactly one Quicken. Deal3, opponent life17, resources2/AP0, no go again. The pitched card is never revealed afterward. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue https://judge.fabtcg.com/cards/detail/297/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

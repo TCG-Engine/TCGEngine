@@ -1,0 +1,5919 @@
+[
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal wounding_blow_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed5; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage5, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-reveal-cost-one-boundary-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-one-boundary-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "reveal-cost-one-boundary-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal leg_tap_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed5; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage5, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-arsenal-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / arsenal-reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "arsenal-reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Play Flock from face-down Arsenal; reveal a cost0 card from hand, retain it, and pay printed1. Source zone does not change attack power5 or token trigger. Exactly one pending attack trigger must resolve before Quicken exists. Flock itself has no go again, so final AP0 and life15. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-pitch-distinct-card-before-reveal-cost-one",
+    "name": "Flock of the Feather Walkers / pitch-distinct-card-before-reveal-cost-one",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "pitch-distinct-card-before-reveal-cost-one"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "distinct_reveal_retained_after_effect_cost"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR5.1.7 pays all asset-costs before the CR5.1.8-9 reveal effect-cost. Start with Flock, Wounding Blow blue, and Leg Tap blue in hand and no resources. Announce Flock, then pitch Wounding Blow blue for3 to pay printed1. At the reveal chooser, resources2 and AP0 must already be paid; Wounding Blow blue is in Pitch and Leg Tap blue remains in Hand. Reveal the distinct Leg Tap blue (printed cost1), which remains in hand. Flock attacks for printed5; before its attack trigger resolves, Stack1/Arena0; afterward exactly one Quicken. Deal5, opponent life15, resources2/AP0, no go again. The pitched card is never revealed afterward.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-only-cost-two-reveal-rejected",
+    "name": "Flock of the Feather Walkers / only-cost-two-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "only-cost-two-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: the only other hand card has printed cost2, above the reveal maximum1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-absent-cost-reveal-rejected",
+    "name": "Flock of the Feather Walkers / absent-cost-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "absent-cost-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "heart_of_fyendal_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Heart of Fyendal has no resource-cost property; an absent cost does not count as numeric0 or satisfy cost<=1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-cannot-reveal-played-card-itself",
+    "name": "Flock of the Feather Walkers / cannot-reveal-played-card-itself",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "cannot-reveal-played-card-itself"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "No other hand card exists. The Flock being announced moves to the stack and cannot reveal itself from hand as its additional cost. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal wounding_blow_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed4; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage4, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-reveal-cost-one-boundary-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-one-boundary-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "reveal-cost-one-boundary-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal leg_tap_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed4; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage4, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-arsenal-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / arsenal-reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "arsenal-reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Play Flock from face-down Arsenal; reveal a cost0 card from hand, retain it, and pay printed1. Source zone does not change attack power4 or token trigger. Exactly one pending attack trigger must resolve before Quicken exists. Flock itself has no go again, so final AP0 and life16. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-pitch-distinct-card-before-reveal-cost-one",
+    "name": "Flock of the Feather Walkers / pitch-distinct-card-before-reveal-cost-one",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "pitch-distinct-card-before-reveal-cost-one"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "distinct_reveal_retained_after_effect_cost"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR5.1.7 pays all asset-costs before the CR5.1.8-9 reveal effect-cost. Start with Flock, Wounding Blow blue, and Leg Tap blue in hand and no resources. Announce Flock, then pitch Wounding Blow blue for3 to pay printed1. At the reveal chooser, resources2 and AP0 must already be paid; Wounding Blow blue is in Pitch and Leg Tap blue remains in Hand. Reveal the distinct Leg Tap blue (printed cost1), which remains in hand. Flock attacks for printed4; before its attack trigger resolves, Stack1/Arena0; afterward exactly one Quicken. Deal4, opponent life16, resources2/AP0, no go again. The pitched card is never revealed afterward.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-only-cost-two-reveal-rejected",
+    "name": "Flock of the Feather Walkers / only-cost-two-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "only-cost-two-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: the only other hand card has printed cost2, above the reveal maximum1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-absent-cost-reveal-rejected",
+    "name": "Flock of the Feather Walkers / absent-cost-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "absent-cost-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "heart_of_fyendal_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Heart of Fyendal has no resource-cost property; an absent cost does not count as numeric0 or satisfy cost<=1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-yellow-cannot-reveal-played-card-itself",
+    "name": "Flock of the Feather Walkers / cannot-reveal-played-card-itself",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_yellow"
+    ],
+    "branches": [
+      "cannot-reveal-played-card-itself"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "No other hand card exists. The Flock being announced moves to the stack and cannot reveal itself from hand as its additional cost. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow",
+      "https://judge.fabtcg.com/cards/detail/296/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal wounding_blow_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed3; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage3, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-reveal-cost-one-boundary-attack-trigger",
+    "name": "Flock of the Feather Walkers / reveal-cost-one-boundary-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "reveal-cost-one-boundary-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay printed1 from floating1 and reveal leg_tap_blue, which remains in hand. Printed reveal threshold includes costs0 and1. Flock becomes an attack for printed3; its attack trigger is a separate layer: before resolution, Arena0/Stack1; afterward exactly one Quicken. The newly created Quicken cannot grant go again to the already-played Flock. Unblocked damage3, AP0; token remains. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-arsenal-reveal-cost-zero-attack-trigger",
+    "name": "Flock of the Feather Walkers / arsenal-reveal-cost-zero-attack-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "arsenal-reveal-cost-zero-attack-trigger"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Arsenal-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arsenal-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Play Flock from face-down Arsenal; reveal a cost0 card from hand, retain it, and pay printed1. Source zone does not change attack power3 or token trigger. Exactly one pending attack trigger must resolve before Quicken exists. Flock itself has no go again, so final AP0 and life17. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-pitch-distinct-card-before-reveal-cost-one",
+    "name": "Flock of the Feather Walkers / pitch-distinct-card-before-reveal-cost-one",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "pitch-distinct-card-before-reveal-cost-one"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "leg_tap_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "leg_tap_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "distinct_reveal_retained_after_effect_cost"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR5.1.7 pays all asset-costs before the CR5.1.8-9 reveal effect-cost. Start with Flock, Wounding Blow blue, and Leg Tap blue in hand and no resources. Announce Flock, then pitch Wounding Blow blue for3 to pay printed1. At the reveal chooser, resources2 and AP0 must already be paid; Wounding Blow blue is in Pitch and Leg Tap blue remains in Hand. Reveal the distinct Leg Tap blue (printed cost1), which remains in hand. Flock attacks for printed3; before its attack trigger resolves, Stack1/Arena0; afterward exactly one Quicken. Deal3, opponent life17, resources2/AP0, no go again. The pitched card is never revealed afterward.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-only-cost-two-reveal-rejected",
+    "name": "Flock of the Feather Walkers / only-cost-two-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "only-cost-two-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "brutal_assault_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Exact excluded boundary: the only other hand card has printed cost2, above the reveal maximum1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-absent-cost-reveal-rejected",
+    "name": "Flock of the Feather Walkers / absent-cost-reveal-rejected",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "absent-cost-reveal-rejected"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "heart_of_fyendal_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Heart of Fyendal has no resource-cost property; an absent cost does not count as numeric0 or satisfy cost<=1. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-blue-cannot-reveal-played-card-itself",
+    "name": "Flock of the Feather Walkers / cannot-reveal-played-card-itself",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_blue"
+    ],
+    "branches": [
+      "cannot-reveal-played-card-itself"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "flock_of_the_feather_walkers_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "No other hand card exists. The Flock being announced moves to the stack and cannot reveal itself from hand as its additional cost. With one floating resource, the printed cost is affordable; failure is specifically the mandatory reveal. Reject without announcing, paying, creating a token, or consuming AP.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_blue",
+      "https://judge.fabtcg.com/cards/detail/297/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "No fixture or game action was run by this author. Positive attack-trigger branches are expected to expose the current eager token-creation implementation.",
+      "The additional cost reveals an eligible remaining hand card. It does not discard or bottom it. The played Flock cannot reveal itself.",
+      "Public reveal publication is recorded in the existing event/macro snapshot. Native card/zone assertions pin choice eligibility and retention; they do not alone prove a missing reveal event was published.",
+      "Do not save expected eager behavior. Review one trigger-response representative plus isolated negative controls before scaling."
+    ],
+    "independentReviewStatus": "approved_unchanged_rejection_spec_not_executed"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+    "name": "Flock of the Feather Walkers / opponent-response-before-quicken-created",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "opponent-response-before-quicken-created"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sigil_of_solace_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 21
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "The attack trigger must offer a real response window. Before it resolves, opponent casts Sigil blue and heals20->21; Quicken remains absent while Sigil resolves above the trigger. Only afterward is one Quicken created. The already-played Flock has no go again; it deals5, leaving life16 and AP0. This pilot distinguishes eager token creation from the required triggered-layer behavior. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-quicken-next-attack-trigger-and-consumption",
+    "name": "Flock of the Feather Walkers / quicken-next-attack-trigger-and-consumption",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "quicken-next-attack-trigger-and-consumption"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      2,
+      0
+    ],
+    "actionPoints": [
+      2,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ],
+        "checkpoint": "assets_paid_before_reveal_effect_cost"
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "wounding_blow_red"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_POWER:1\"]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"WTR_POWER:1\",\"GO_AGAIN\"]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 10
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 2
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "Start with AP2 as a valid isolated state after an earlier action-point effect; that effect itself is outside this test. Flock spends1 and has no go again, so AP1 remains. Its newly created Quicken triggers when next Wounding Blow red is played: before trigger resolution the token still exists, two stack layers exist, and the attack has no granted ability. Trigger resolution destroys Quicken and grants GO_AGAIN without refunding an AP yet. Second attack power4+Ira1=5 deals5 and only resolution returns AP1. Third Wounding Blow blue has printed2 with no Ira bonus, no Quicken and no go again; total defender life8, AP0. This pins Quicken trigger timing and one-use consumption, not the earlier AP effect. Before the reveal answer, CR5.1.7 asset payment is already complete: resources1, AP1. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence.",
+      "Independently reviewed bookkeeping correction: Ira second-attack WTR_POWER:1 exists before Quicken; it must not be mistaken for an early go-again grant. Consumed Quicken is removed, never retained in Graveyard."
+    ],
+    "secondaryCardIDs": [
+      "quicken"
+    ],
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+    "name": "Flock of the Feather Walkers / known-blinding-no-reveal-cost-no-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "known-blinding-no-reveal-cost-no-trigger"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://judge.fabtcg.com/cards/detail/3761/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    },
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+    "name": "Flock of the Feather Walkers / known-blinding-spare-card-no-chooser-no-trigger",
+    "cardIDs": [
+      "flock_of_the_feather_walkers_red"
+    ],
+    "branches": [
+      "known-blinding-spare-card-no-chooser-no-trigger"
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "flock_of_the_feather_walkers_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 1,
+            "mzID": "p1Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "ATTACK"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "kind": "power",
+            "value": 5
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_red",
+      "https://judge.fabtcg.com/cards/detail/295/",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://judge.fabtcg.com/cards/detail/3761/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "authoringNotes": [
+      "Workspace proposal only. No game action, recording, fixture, or native source write was performed by this author.",
+      "CR5.1.7 pays resource and action assets before the reveal effect-cost in CR5.1.8-9. A card already pitched cannot subsequently be revealed from hand.",
+      "A played Flock cannot reveal itself. Reveal retains the chosen eligible card in hand; it does not discard, pitch, or bottom that card.",
+      "Triggered layers must be observed before resolution. Do not save eager token creation or eager Quicken consumption as intended behavior.",
+      "Native card and zone assertions alone do not prove public reveal publication. The existing reveal event/macro snapshot remains a separate witness.",
+      "Every corrected positive must receive independent review and runtime semantic validation before fixture persistence."
+    ],
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    },
+    "independentReviewStatus": "pending_review_of_corrected_positive_spec"
+  },
+  {
+    "slug": "card-quicken-attack-action-trigger-timing",
+    "name": "Quicken / attack-action-trigger-timing",
+    "cardIDs": [
+      "quicken"
+    ],
+    "secondaryCardIDs": [
+      "wounding_blow_red"
+    ],
+    "branches": [
+      "attack-action-trigger-timing"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "quicken",
+        "player": 1,
+        "zone": "Arena",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "quicken"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          }
+        ],
+        "checkpoint": "quicken_trigger_pending_source_unchanged"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          }
+        ],
+        "checkpoint": "quicken_trigger_resolved_ap_not_refunded"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          }
+        ],
+        "checkpoint": "attack_deals_four_then_go_again_returns_ap"
+      }
+    ],
+    "oracle": "Start with one existing Quicken token and Wounding Blow red in hand. The first attack receives no Ira second-attack bonus. Pay its zero resources and one AP to play the attack. Quicken triggers and is a separate layer: Stack2/Arena1, and the attacking Stack-0 has no granted TurnEffects yet. Resolving the trigger destroys Quicken and grants GO_AGAIN to the still-pending attack: Stack1/Arena0, AP remains0. The attack then resolves to the combat chain with power4 and go again. After unblocked damage4, opponent life16 and AP1. This isolates Quicken timing independently of Flock creation or payment. Token boundary CR8.1.8a: destroyed Quicken is removed from the game, so it never remains in Graveyard; explicit graveyard counts verify this.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#quicken",
+      "FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+    ],
+    "validationStatus": "proposed_unrecorded",
+    "independentReviewStatus": "pending_review_of_new_positive_spec",
+    "authoringNotes": [
+      "Workspace proposal only; no game actions, recording, fixture, or native write.",
+      "Existing Quicken is an isolated known state; this scenario does not cover its creation.",
+      "This scenario must fail eager destruction or eager granting before triggered-layer resolution."
+    ]
+  }
+]

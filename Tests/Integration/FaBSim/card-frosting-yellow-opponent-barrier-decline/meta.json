@@ -1,0 +1,7 @@
+{
+    "name": "Frosting / opponent-barrier-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost0 and1AP, then resolve printed2 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 explicitly declines Barrier1 with PASS, preserving its resource. Prevent0; damage=max(0,2-0)=2, victim life18, other hero20. Final resources[0, 1]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frosting_yellow https://judge.fabtcg.com/cards/detail/1631/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

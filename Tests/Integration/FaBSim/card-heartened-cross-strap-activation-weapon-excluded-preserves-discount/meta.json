@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / weapon-excluded-preserves-discount",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Zephyr Needle is a weapon activation, not an attack action card: pay full1 using blue3, keep2, attack for2 with go again. Discount remains for next Surging Strike red, which costs0, keeps2 resources and deals printed5+Ira1=6. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

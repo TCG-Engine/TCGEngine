@@ -65,6 +65,10 @@ function FaBActionGraveChoices(int $player, int $excludedUID): string {
 }
 
 function FaBRevealChoices(int $player, string $choices): void {
+    $pending = FaBGetState()['pendingPayment'];
+    $flockCost = is_array($pending) && ($pending['wtrFlockStage'] ?? '') === 'REVEAL'
+        && intval($pending['player'] ?? 0) === $player && empty($pending['wtrFlockRevealPaid']);
+    if ($flockCost && !FaBWTRFlockRevealAnswerIsValid($player, $choices)) return;
     if(FaBUPRBleak())return;
     $revealed=false;
     foreach (explode('&',$choices) as $ref) {
@@ -72,6 +76,13 @@ function FaBRevealChoices(int $player, string $choices): void {
         // Publish through the shared Events feed without starting a decision or
         // replacing the source parameters of the card currently resolving.
         if ($found !== null) {$revealed=true;IncrementMacroGameIndexCard('RevealCard', $player, $found['object']->CardID);}
+    }
+    if ($revealed && $flockCost) {
+        $state = FaBGetState();
+        if (intval($state['pendingPayment']['uid'] ?? 0) === intval($pending['uid'])) {
+            $state['pendingPayment']['wtrFlockRevealPaid'] = true;
+            FaBSetState($state);
+        }
     }
     if($revealed)FaBELEKorshemReveal($player);
 }
@@ -87,6 +98,18 @@ function FaBSetPreparedMode(int $uid, int $mode): void {
 function FaBFinishPreparedCard(int $uid, int $extraCost = 0): void {
     $state = FaBGetState();
     if (intval($state['pendingPayment']['uid'] ?? 0) !== $uid) return;
+    if (isset($state['pendingPayment']['wtrFlockStage'])) {
+        $pending = $state['pendingPayment'];
+        if (($pending['wtrFlockStage'] ?? '') !== 'REVEAL' || empty($pending['wtrFlockAssetsPaid'])
+            || empty($pending['wtrFlockRevealPaid']) || $extraCost !== 0 || FaBWTRFlockSource($pending) === null) {
+            FaBWTRRollbackFlockPayment($pending, 'mandatory reveal was not completed correctly');
+            return;
+        }
+        $state['pendingPayment']['wtrFlockStage'] = 'COMPLETE';
+        FaBSetState($state);
+        FaBTryCompletePayment();
+        return;
+    }
     $state['pendingPayment']['cost'] += max(0,$extraCost); FaBSetState($state);
     FaBTryCompletePayment();
 }
@@ -108,6 +131,33 @@ function FaBGrantBanishPlay(int $player, string $chosen, int $chainLink = 0): vo
     FaBRevealChoices($player,$chosen);
     $moved=FaBMoveChoice($player,$chosen,'Temp','Banish');
     if($moved!==null){$moved->PlayableFromBanish=1;$moved->PlayableChainLink=$chainLink;$moved->FaceDown=0;}
+}
+
+/** Shared mandatory discard flow; whole-zone refs survive writer compaction. */
+function FaBRequestDiscard(int $player): void {
+    if (!FaBSeatIsLive($player) || !FaBChoiceRefs($player, 'Hand')) return;
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', 'p'.$player.'Hand', 1, 'Choose_a_card_to_discard');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FAB_DISCARD_CHOICE|'.$player, 1);
+}
+
+/** Scope answer validation to the exact native request/apply pair. */
+function FaBIsDiscardRequestDecision(int $player): bool {
+    $queue = GetDecisionQueue($player); $choice = $queue[0] ?? null; $apply = $queue[1] ?? null;
+    return is_object($choice) && is_object($apply)
+        && ($choice->Type ?? '') === 'MZCHOOSE' && ($choice->Param ?? '') === 'p'.$player.'Hand'
+        && intval($choice->Block ?? 0) === 1 && intval($apply->Block ?? 0) === 1
+        && ($apply->Type ?? '') === 'CUSTOM' && ($apply->Param ?? '') === 'FAB_DISCARD_CHOICE|'.$player;
+}
+
+function FaBDiscardRequestAnswerIsValid(int $player, string $answer): bool {
+    if (!FaBSeatIsLive($player) || !preg_match('/^(?:p[1-4]|my|their)Hand-[0-9]+$/D', $answer)) return false;
+    $found = FaBIdentityFromMZ($answer);
+    return $found !== null && $found['player'] === $player && $found['zone'] === 'Hand';
+}
+
+/** CUSTOM is non-interactive; EngineActionRunner validates before popping the choice. */
+function FaBApplyDiscardRequest(int $player, string $answer): void {
+    if (FaBDiscardRequestAnswerIsValid($player, $answer)) FaBDiscardChoice($player, $answer);
 }
 
 function FaBDiscardChoice(int $player, string $chosen): bool {

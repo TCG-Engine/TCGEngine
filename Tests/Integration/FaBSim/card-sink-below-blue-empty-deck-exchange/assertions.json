@@ -1,0 +1,30 @@
+[
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Deck",
+        "value": 0
+    },
+    {
+        "step": 13,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Hand",
+        "cardID": "head_jab_blue"
+    },
+    {
+        "step": 13,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Hand",
+        "value": 1
+    },
+    {
+        "step": 17,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 18
+    }
+]

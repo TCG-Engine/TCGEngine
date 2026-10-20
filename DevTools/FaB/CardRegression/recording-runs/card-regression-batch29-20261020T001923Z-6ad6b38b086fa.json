@@ -1,0 +1,158 @@
+{
+    "completed_at_utc": "2026-10-20T00:19:23+00:00",
+    "input_file": "card-regression-batch29.json",
+    "input_sha256": "347b4729dd59a46cb2c3cf974ed3afd12cce8607767089af227d35fad9fb6a3b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-blink-blue-hand-own-phase",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-hand-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-arsenal-face-down-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-arsenal-face-up-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-arsenal-face-down-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-arsenal-face-up-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-hand-existing-assets-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-blink-blue-two-copies-sequential-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 59
+        },
+        {
+            "slug": "card-blink-blue-two-copies-stacked-resolve-one-at-a-time",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 68
+        },
+        {
+            "slug": "card-blink-blue-opponent-response-before-scalar-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 68
+        },
+        {
+            "slug": "card-blink-blue-hand-without-priority-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 26
+        },
+        {
+            "slug": "card-blink-blue-opponent-phase-gain-does-not-permit-action",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 57
+        },
+        {
+            "slug": "card-cosmic-flare-red-hand-own-phase",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-hand-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-arsenal-face-down-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-arsenal-face-up-own-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-hand-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-arsenal-face-down-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-arsenal-face-up-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-hand-existing-assets-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+        },
+        {
+            "slug": "card-cosmic-flare-red-two-copies-sequential-additive",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 59
+        },
+        {
+            "slug": "card-cosmic-flare-red-two-copies-stacked-resolve-one-at-a-time",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 68
+        },
+        {
+            "slug": "card-cosmic-flare-red-opponent-response-before-scalar-gain",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 68
+        },
+        {
+            "slug": "card-cosmic-flare-red-hand-without-priority-reject",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 26
+        },
+        {
+            "slug": "card-cosmic-flare-red-opponent-phase-gain-does-not-permit-action",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 57
+        }
+    ]
+}

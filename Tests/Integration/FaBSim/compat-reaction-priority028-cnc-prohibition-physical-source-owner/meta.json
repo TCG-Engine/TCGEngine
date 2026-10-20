@@ -1,0 +1,7 @@
+{
+    "name": "Issue028 native compatibility / real-command-and-conquer-prohibition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:58:51+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Command and Conquer is a real cost2 attack with printed prohibition against defense reaction cards this chain link. Activate real Energy Potion as an instant, then play real Lunging Press blue above its pending ability. After Lunging resolves to power7, one actual attacker pass gives attacked hero priority with Potion still pending. Actual affordable Dodge cost0 click must reject and preserve its UID/Hand, with no defense. Resolve Potion for2 resources once, then one real turn-player priority pass proves continuation drain. End during Reaction before Damage: HP20, AP0, source UID3 active on CombatChain, PotionUID4 and LungingUID5 in owner Graveyard, prohibited DodgeUID6 still in Hand. This bounded compatibility probe makes no CnC hit-trigger/lifecycle/Close claim; its real printed hit trigger is required even with empty Arsenal and is a separate held obligation. Sources: https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/07-combat/#742b https://rules.fabtcg.com/en/cr/07-combat/#742c https://rules.fabtcg.com/en/cr/07-combat/#743 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537"
+}

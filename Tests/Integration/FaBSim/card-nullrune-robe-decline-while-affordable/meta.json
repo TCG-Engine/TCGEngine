@@ -1,0 +1,7 @@
+{
+    "name": "Nullrune Robe / decline-while-affordable",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:11:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Nullrune Robe has fixed Arcane Barrier1. Against one printed3-arcane Dart packet, decline although1 resources are available: prevent0, take3; resources remain1. No equipment destruction, exhaustion, AP expense or delayed destruction. Same source cannot be used again on that original packet even when resources remain. Caster credit1\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u21222, live source during chooser, owner graveyard only after resolution and turn-player priority are pinned. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nullrune_robe https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP347.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "rule-end-turn-clears-unused-action-points",
+    "name": "Rule / end turn clears unused action points",
+    "cardIDs": [
+      "nimblism_red"
+    ],
+    "branches": [
+      "end-turn-clears-all-action-points"
+    ],
+    "zones": [
+      {
+        "cardID": "nimblism_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "nimblism_red"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "END_PHASE"
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "turn_player_is",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "CR4.4.3e clears all action points at end of turn. P1 finishes with one unused AP; when P2 begins, P1 must have0 and P2 receives1.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/04-game-structure/#443e"
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "coverage_kind": "system_rule"
+  }
+]

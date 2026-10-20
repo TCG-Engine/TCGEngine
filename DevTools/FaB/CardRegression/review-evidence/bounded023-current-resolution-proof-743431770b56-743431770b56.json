@@ -1,0 +1,256 @@
+{
+  "status": "EXACT_PRIOR_BOUNDED023_RESOLUTION_REBOUND_TO_CURRENT2743_QUALIFIED_GATES_FOR_ROOT_REVIEW",
+  "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+  "prior_public_issue_list_sha256": "93c99099d45b7561cf7811d4859b80b361aff6d3b3c7dda614cfe03a47f6262c",
+  "prior_approved023_issue": {
+    "id": "FAB-REG-023",
+    "status": "fixed_verified_partial_scope",
+    "card_ids": [
+      "lead_the_charge_blue",
+      "lead_the_charge_red"
+    ],
+    "individually_reproduced_card_ids": [
+      "lead_the_charge_blue",
+      "lead_the_charge_red"
+    ],
+    "expected": "After a qualifying committed action play, Lead the Charge creates a separate responseable delayed-trigger layer above the underlying action. AP gain waits until that trigger resolves.",
+    "observed": "Both native pilot attempts fail expected Stack2 versus actualStack1; no passing recording saved. Later AP/response assertions were not reached.",
+    "evidence": "recording-runs/card-regression-batch27-pilot-20261019T234355Z-6ad6ab3b120da.json",
+    "input_sha256": "05d7702930f106abbc4fc455de9d50d1dc6c60424efba16d210a31fd516d799e",
+    "reproducers": [
+      {
+        "scenario": "card-lead-the-charge-blue-equal-threshold-attack",
+        "archive": "recording-runs/card-regression-batch27-pilot-20261019T234355Z-6ad6ab3b120da.json",
+        "error": "Expected Stack count 2, got 1."
+      },
+      {
+        "scenario": "card-lead-the-charge-red-nonattack-action-qualifies",
+        "archive": "recording-runs/card-regression-batch27-pilot-20261019T234355Z-6ad6ab3b120da.json",
+        "error": "Expected Stack count 2, got 1."
+      }
+    ],
+    "passing_fixture": null,
+    "qualification": "Only the two exact native attempts establish before-fix failures. Proposed/component-checked repair is not native passing coverage, and source remains frozen for the659 checkpoint.",
+    "before_fix_evidence_resolution": {
+      "file": "recording-runs/card-regression-batch27-pilot-20261019T234355Z-6ad6ab3b120da.json",
+      "sha256": "f16ab440a1bff44b749fec163ee1c41ffa867c366736f7df6d253c95f9fa7363",
+      "input_sha256": "05d7702930f106abbc4fc455de9d50d1dc6c60424efba16d210a31fd516d799e",
+      "matching_preserved_input_paths": [
+        "spec-history/before-lead-provenance-strengthening/card-regression-batch27-pilot.json"
+      ],
+      "qualification": "A current source input need not match a before-fix input. Preserve the original archived attempt/dedicated proof; unresolved input paths do not manufacture an original file or turn an audited summary into a full trace."
+    },
+    "current_runtime_validation": {
+      "status": "qualified_current_partial_evidence",
+      "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+      "full_clean_reports": [
+        "card-regression-replay-expanded1452-persisted-run1.json",
+        "card-regression-replay-expanded1452-persisted-run2.json"
+      ],
+      "exact_current_fixtures": 1452,
+      "semantic_controls_detected": 57,
+      "native_suites": "card-regression-native-suite-expanded1452-persisted-results.json",
+      "qualification": "Named partial card branches only; no unqualified all-interaction or all-family correctness claim."
+    },
+    "validation_history": [
+      {
+        "status": "qualified_current_partial_evidence",
+        "runtime_sha256": "d85229659e75730de2649374a6182852fc19b0a2f5e080c4b1fa7c00bbf02062",
+        "full_clean_reports": [
+          "card-regression-replay-spell-lifecycle-state-pilots-run1.json",
+          "card-regression-replay-spell-lifecycle-state-pilots-run2.json"
+        ],
+        "exact_current_fixtures": 659,
+        "semantic_controls_detected": 52,
+        "native_suites": "card-regression-native-suite-spell-lifecycle-state-pilots-results.json",
+        "qualification": "Named partial card branches only; no unqualified all-interaction or all-family correctness claim."
+      }
+    ],
+    "ordinary_own_turn_pilot_attempts": [
+      {
+        "path": "Tests/Integration/FaBSim/card-lead-the-charge-blue-equal-threshold-attack",
+        "fixture_sha256": "6b46b2cbe021070e50ed641af83ad929a3f523f6fd1f3b748e6e13113fb83857",
+        "actions": 19,
+        "assertions": 83,
+        "authoring_evidence": {
+          "recording_archive": "recording-runs/card-regression-batch27-pilot-20261020T000211Z-6ad6af8307913.json",
+          "archive_sha256": "69838bc9b02d814293cda9217d47f4e5161c003330f5a0584902060859644e68",
+          "completed_at_utc": "2026-10-20T00:02:11+00:00",
+          "input_file": "card-regression-batch27-pilot.json",
+          "input_sha256": "edbd727b3940368309ab8384f72b2c1887f653c2656714bba2b8e62508cedd57",
+          "row": {
+            "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 83
+          },
+          "qualification": "Immutable author-time attempt; no runtime/fixture hash in archive. Current fixture hash must be captured separately and clean replay qualified separately."
+        },
+        "archive_counts_match_current": true,
+        "exact_review_present": true,
+        "current_clean_replay_reports": [
+          "card-regression-replay-expanded1452-persisted-run1.json",
+          "card-regression-replay-expanded1452-persisted-run2.json"
+        ]
+      },
+      {
+        "path": "Tests/Integration/FaBSim/card-lead-the-charge-red-nonattack-action-qualifies",
+        "fixture_sha256": "2997faa79f936df5933edf283a47ce060921cd034a15cdfff2ceec70acc07c4d",
+        "actions": 8,
+        "assertions": 68,
+        "authoring_evidence": {
+          "recording_archive": "recording-runs/card-regression-batch27-pilot-20261020T000211Z-6ad6af8307913.json",
+          "archive_sha256": "69838bc9b02d814293cda9217d47f4e5161c003330f5a0584902060859644e68",
+          "completed_at_utc": "2026-10-20T00:02:11+00:00",
+          "input_file": "card-regression-batch27-pilot.json",
+          "input_sha256": "edbd727b3940368309ab8384f72b2c1887f653c2656714bba2b8e62508cedd57",
+          "row": {
+            "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+            "status": "recorded_semantically_checked",
+            "actions": 8,
+            "assertions": 68
+          },
+          "qualification": "Immutable author-time attempt; no runtime/fixture hash in archive. Current fixture hash must be captured separately and clean replay qualified separately."
+        },
+        "archive_counts_match_current": true,
+        "exact_review_present": true,
+        "current_clean_replay_reports": [
+          "card-regression-replay-expanded1452-persisted-run1.json",
+          "card-regression-replay-expanded1452-persisted-run2.json"
+        ]
+      }
+    ],
+    "remaining_work": "Generic awaited ABILITY lifetime, legacy UID0/SourceZone migration, alternate ownership, source departure/reentry, elimination/UPF/dead chooser and unrelated dynamic/expiry interactions remain held.",
+    "reviewed_resolution": "Lead delayed trigger is responseable and its gain resolves under the recipient own MAIN restriction in the independently checked49 ordinary matrix plus actual nonturn real-Kano witness. Current exact two full1452 runs,57 semantic controls and WTR/ARC qualify only these bounded branches.",
+    "resolution_review": "review-evidence/bounded-resolution-evidence-proposed-c3ed3ffb42c6.json",
+    "resolution_review_sha256": "c3ed3ffb42c69a64c35704e027ba09158e6b9e3f2ffa941943708766109ca047"
+  },
+  "prior_resolution_proof": {
+    "path": "review-evidence/bounded-resolution-evidence-proposed-c3ed3ffb42c6.json",
+    "sha256": "c3ed3ffb42c69a64c35704e027ba09158e6b9e3f2ffa941943708766109ca047"
+  },
+  "prior023_scope_evidence": {
+    "superseded_prior_source_approval": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-delayed-trigger-independent-review-supersession.json",
+      "sha256": "69de688c5aca302ffc7ceda6c1bac40e287e9de2c3683ea2242ca80ad8e727ca"
+    },
+    "renewed_own_action_phase_source_gate": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-action-phase-ap-guard-independent-review.json",
+      "sha256": "624cb5964b7e704150a42627393ec356d56d2a79e2ef96d73d59baa5f810cb40"
+    },
+    "all49_exact_saved_independent_review": {
+      "path": "source-review-evidence/issues023-026-resolution-60e6f94a7401/b27-saved49-independent-review.json",
+      "sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80"
+    },
+    "actual_nonturn_Kano20actions328assertions_review": {
+      "path": "source-review-evidence/checkpoint-20261020T004017Z-c5ce7206/lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+      "sha256": "0b66da19ed23dda8fcb6a95fca14c15baae2764aef98b1a8f1d0bd257d9f9914"
+    },
+    "review_basis": "Independent printed/source/component review plus all49 exact saved action/oracle/snapshot model verification and separate actual real nonturn Kano witness. No claim every intermediate frame was manually inspected.",
+    "remaining_holds": [
+      "Generic awaited ABILITY source lifetime or destination beyond the named Lead layers",
+      "SourceZone provenance/legacy UID0 saves, source departure or reentry, elimination/UPF/dead chooser",
+      "Unrelated cost/ability-loss/copy/expiry/trigger interactions outside the49 matrix and actual Kano witness"
+    ]
+  },
+  "required_exact_current_fixtures": {
+    "card-lead-the-charge-red-equal-threshold-attack": "886ad4c6d1217f7bd1bc9fc6d6400841ee4830bbd08e324be7571e4b8021c61f",
+    "card-lead-the-charge-red-above-threshold-attack": "da721acb5028c3b61c7a4c74ae64245b67670cb704d692590523e2cebe65503b",
+    "card-lead-the-charge-red-first-qualifier-only": "bedbd8bb274520f6118dbd645375c40ee68234fe732f28d0b4fb83027c813c88",
+    "card-lead-the-charge-red-fully-blocked-first-still-consumes": "53310a85860e2ab394f307b0f1d833b383966864986159fa7000ccd33905c799",
+    "card-lead-the-charge-red-nonattack-action-qualifies": "2997faa79f936df5933edf283a47ce060921cd034a15cdfff2ceec70acc07c4d",
+    "card-lead-the-charge-red-weapon-excluded-preserves-effect": "04044de2ef032344ea7014aec7e4a45dae1e908c329e856eb739aa52ae8a93fc",
+    "card-lead-the-charge-red-instant-excluded-preserves-effect": "20ac34a50474f277211de31000eb67f6070f3f2fa76c1e32c0a43fddc03fb253",
+    "card-lead-the-charge-red-arsenal-source": "c6ab3838723aa6e5087bb0aaa314eb45b415863fcf1cd9c7203ff84082b41d67",
+    "card-lead-the-charge-red-opponent-response-before-ap-gain": "c0f8b4b988c9ed3055a18efe15ff303c3b4a2fc1fb53fe4cdc889f402755e4b7",
+    "card-lead-the-charge-red-rejected-action-does-not-consume": "88f889a47eac1596e3dd65b049dd149b4bc588065336b36ab1ba1946a77ee211",
+    "card-lead-the-charge-red-unused-expires-this-turn": "259991eb760038443d1ae6d511379f65375ad50ff8bf7dde43ac7f7c873e82bf",
+    "card-lead-the-charge-red-pitched-no-effect-no-go-again": "21a8fe7f6ef5408156dc846baad3d84e44b7e74967878f56041304c13d216653",
+    "card-lead-the-charge-red-zero-action-points-rejected": "6a38cceb28029aaf52b6531333fa08cdee0f2acc2590b41811f33f98bfe51990",
+    "card-lead-the-charge-red-nonturn-action-rejected": "3c620915733127d2620d3ace34156782af24fad4628dd1ad5836115351fcb27d",
+    "card-lead-the-charge-red-second-source-qualifies-old-effect-not-itself": "cdcef30d9641d058977c8172ec5870bdc5993cc91bcafb875ece6bc40a5bf265",
+    "card-lead-the-charge-yellow-equal-threshold-attack": "3549913539b97a2c5f247fa34df16661129c97a3606e5bcda660b29cc058ce6e",
+    "card-lead-the-charge-yellow-above-threshold-attack": "ec3e16fa2db69ed1e17e432dc4748ea02fa284239298dce7be7d2a50c66c4c2c",
+    "card-lead-the-charge-yellow-first-qualifier-only": "660df808bfd59fadba4dca34af617115be6aed47b24c3f80df2be475766e5c97",
+    "card-lead-the-charge-yellow-fully-blocked-first-still-consumes": "96319c03e9b33ac2a6691528531bbeb99c0164f7becb8c9252fb11ca0656ddff",
+    "card-lead-the-charge-yellow-below-threshold-action-preserves": "acf740968c0131fe8ad1e7097d182d14f5d1e9aa7ef8a1fb6863d5d4ca866948",
+    "card-lead-the-charge-yellow-qualifying-play-trigger-after-blue-payment": "98b469e292e3ca36781dde7e23f1aae5cce7352664d6331285c965178a883bf9",
+    "card-lead-the-charge-yellow-nonattack-action-qualifies": "0b56f8030b00fe0df3902c21560bb3c1013f8c4332e7dafb7f350bbbddec87b9",
+    "card-lead-the-charge-yellow-weapon-excluded-preserves-effect": "31798c35d9307fdade42caea61bf4358489747870198d200594e752c651e21e5",
+    "card-lead-the-charge-yellow-instant-excluded-preserves-effect": "19c4c8418fb410ca42344cd00805a3ba4e109094a9c3d7ec080d01669408530c",
+    "card-lead-the-charge-yellow-arsenal-source": "e565ba2ece249953fd7c92e2c2265ad6d5e99628af7bc24866cad9568b8cc2b9",
+    "card-lead-the-charge-yellow-opponent-response-before-ap-gain": "b66b61a4f90adee9c5b1dde3bf56cb0c2a2e2e589d60e7256274ada967f8b36e",
+    "card-lead-the-charge-yellow-rejected-action-does-not-consume": "f98e322e929e48b313e8d56af09f7970ab26a7dab7749660a1df97f0d2047822",
+    "card-lead-the-charge-yellow-unused-expires-this-turn": "0fb82f034d1a8433a5fe8009ad9053f35257d9ac51de859d71607318398f2f8d",
+    "card-lead-the-charge-yellow-pitched-no-effect-no-go-again": "8184ffb1cbc53c55f4a80e4f46c0149058ad15c004e3950b4936f363af1cb025",
+    "card-lead-the-charge-yellow-zero-action-points-rejected": "5f040e52c967dc73d4e2117ee60e1ae102d70e65b307c2d94dace62203f69900",
+    "card-lead-the-charge-yellow-nonturn-action-rejected": "e976df66caa37a90583f9041215b2d9aa8db03f505e69c12c485aad1c83714fd",
+    "card-lead-the-charge-yellow-two-sources-two-independent-triggers": "5f561c1a040067ea55ef3c9e580d9014d286e68c236376a4f570a1cc6ffe0951",
+    "card-lead-the-charge-blue-equal-threshold-attack": "6b46b2cbe021070e50ed641af83ad929a3f523f6fd1f3b748e6e13113fb83857",
+    "card-lead-the-charge-blue-above-threshold-attack": "4451764464fae6e418b75ff6551386937334766da77e854e9a534b37988a4730",
+    "card-lead-the-charge-blue-first-qualifier-only": "6b463120555bad3fced9b3c428b4ab3b4e4ef674f86196d0c91269cad2cc348c",
+    "card-lead-the-charge-blue-fully-blocked-first-still-consumes": "ea5d8368c2c765cd3131e9c94c6a6c45b2cffd379f59a21bcd69e94f8032c83e",
+    "card-lead-the-charge-blue-below-threshold-action-preserves": "ccbf4dd2ea584886ae787ebda7bd4754198c7e0e2819880248bda3888d789ba3",
+    "card-lead-the-charge-blue-qualifying-play-trigger-after-blue-payment": "c7755fa117d18e1fe35c820ed858fb53be4d2bc9d29e5d794ab5fff54202d69c",
+    "card-lead-the-charge-blue-nonattack-action-qualifies": "d3fcf18c674157e3acf1c4b587e725cb90ea617d4276f1bc6cc053319d3592d6",
+    "card-lead-the-charge-blue-weapon-excluded-preserves-effect": "b244e084a04e103a0b50abb4dfdde463aa1aac5b7965ad03ac73022c91eee3de",
+    "card-lead-the-charge-blue-instant-excluded-preserves-effect": "bfe35021d35038eb5f6846ffa5d6a7a06ff774f3ccad72145a5424aecac566ef",
+    "card-lead-the-charge-blue-arsenal-source": "cbc4127f7ba7c082087833f530a770b0058e7fed0a21f64170517bf10253df42",
+    "card-lead-the-charge-blue-opponent-response-before-ap-gain": "41bc841fce7b728a05ba245e4675fc9152a2e29cf7445e1a267fc57a8e74ea72",
+    "card-lead-the-charge-blue-rejected-action-does-not-consume": "76f97e22fe0ee3edbc1732de0ac02890abfe51b2dc7c189081af0d4a76a0cec6",
+    "card-lead-the-charge-blue-unused-expires-this-turn": "d008940a5385f358d45ea149d8a4f23aa21db2cb621968dbaf6e81589674a17f",
+    "card-lead-the-charge-blue-pitched-no-effect-no-go-again": "34912af8d5232430a3ce41773d74c82162221396ec3de500e51a128c6d5b217c",
+    "card-lead-the-charge-blue-zero-action-points-rejected": "1a82f889930f3311283dcc5cf430898311a158d9e328d813e269ba8a8f34a58a",
+    "card-lead-the-charge-blue-nonturn-action-rejected": "6aace6b72cb89fa6367fae6332abeac16479226035a3d2c82418c0cfa9f8fbfb",
+    "card-lead-the-charge-blue-two-sources-two-independent-triggers": "c9e796e037c83b6e571c7de1c9586306ff2009c9835bb24b4adc46dd609dc2cb",
+    "card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain": "9ddf78580d4ea1570ae1631ea416a4d733f242730896ff018bc60b63c1a58451"
+  },
+  "current_saved_semantic_reviews": [
+    {
+      "path": "review-evidence/b27-saved49-independent-review-e919b7a61151.json",
+      "sha256": "e919b7a6115115af140ae9f65cba0f3ae4510566f768da84ad7bc4d3c87e6f80"
+    },
+    {
+      "path": "review-evidence/lead-nonturn-kano-ap-witness-saved-review-approved-rows-0f485d70df96.json",
+      "sha256": "0f485d70df969dd4155f12859b49ff5a67410de0ccd231badc2cfd7d98add494"
+    }
+  ],
+  "current_qualified_gate_proof": {
+    "path": "source-review-evidence/checkpoint2743-final-gates/bounded027-028-current-resolution-proof.json",
+    "sha256": "ae82b2a0835a1c212b80fbe02210dbf5b4ec26f5050a30155e7de0e10586bd7b"
+  },
+  "qualified_runtime_gates": {
+    "full_clean_reports": [
+      {
+        "path": "card-regression-replay-full2743-8ec-run1.json",
+        "sha256": "52e8988950d3d8f2c0e7c15759d883c2ce0749c34a9340d7cc1695f43df34380",
+        "fixtures": 2743,
+        "passed": 2743
+      },
+      {
+        "path": "card-regression-replay-full2743-8ec-run2.json",
+        "sha256": "1960292de60881da015fde9294ca44a9cd6986b1af138051fe9ce3a0cc80a485",
+        "fixtures": 2743,
+        "passed": 2743
+      }
+    ],
+    "same_ordered_fixture_arrays": true,
+    "current_intended_controls": {
+      "path": "card-regression-negative-control-results.json",
+      "sha256": "e71bf98a62195c3135e0617602cb5634b96505dbebcbaf9056b1f0d7ecdfa62f",
+      "count": 71,
+      "all_pure_qualified_control_checks_pass": true
+    },
+    "native_suites": {
+      "path": "card-regression-native-suite-checkpoint2743-8ec-final-results.json",
+      "sha256": "06955be5c0f2ec2859cbbce2ecd6cf177e9b992e006ea0fca68798ccda72acf7",
+      "WTR_exit": 0,
+      "ARC_exit": 0
+    }
+  },
+  "scope": "Exactly the previously approved49 Lead ordinary matrix and actual real nonturn Kano witness; the recipient own MAIN gain restriction and responseable delayed-trigger layers remain bounded to these cases.",
+  "remaining_work": "Generic awaited ABILITY lifetime, legacy UID0/SourceZone migration, alternate ownership, source departure/reentry, elimination/UPF/dead chooser and unrelated dynamic/expiry interactions remain held.",
+  "reason_for_explicit_decision": "The reconciler unconditionally reconstructs the older two-pilot suspension before explicit decisions. Current source/exact saved reviews/two full replays qualify the already-approved bounded50, so restore that explicit bounded status without approving the earlier broader repair.",
+  "native_writes": 0,
+  "games_or_php": 0
+}

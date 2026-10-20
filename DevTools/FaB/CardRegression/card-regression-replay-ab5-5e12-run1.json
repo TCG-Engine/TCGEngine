@@ -1,0 +1,77 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "5e12e58ae987f75a33f9e6c3c96c4baa0237368c20a7e5df4b137ab69e1da4ae",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T01:35:51.093971+00:00",
+  "canonical_inventory_at_capture": 2020,
+  "fixtures": [
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "fixture_sha256": "8594b5f4d9c79407f654a2f13ccbc942813871354ae07191cf54b07096ab85e9",
+      "passed": true,
+      "result": "[PASS] Aetherstorm Wellingtons / intrinsic closure / barrier-while-defending-real-kano-instant"
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "fixture_sha256": "9b9e9bf1cc9e97c34390bef76d1409201a3fdfd178e70051a66c1ff48709482e",
+      "passed": true,
+      "result": "[PASS] Aetherstorm Wellingtons / intrinsic closure / two-sources-second-listed-first"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "fixture_sha256": "234eac60f33f4335347f3d1911f6ee04b16cfee8d69bb6f058a87bef21694ea7",
+      "passed": true,
+      "result": "[PASS] Arcane Lantern / intrinsic closure / missing-defense-real-block-rejected"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "fixture_sha256": "eea5372bdc253554e73d16e7231d0e7addaf3b1dba3a6f9dfdfc7bc1c596e1a9",
+      "passed": true,
+      "result": "[PASS] Arcane Lantern / intrinsic closure / static-no-manual-activation-own-main"
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "fixture_sha256": "ff16094165d03d60e4c844e86da32618a83d2c0c1ebf47a91fd91c69233ea395",
+      "passed": true,
+      "result": "[PASS] Nullrune Gloves / intrinsic closure / barrier-while-defending-real-kano-instant"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "returncode": 0,
+      "stdout": "[PASS] Aetherstorm Wellingtons / intrinsic closure / barrier-while-defending-real-kano-instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "returncode": 0,
+      "stdout": "[PASS] Aetherstorm Wellingtons / intrinsic closure / two-sources-second-listed-first\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "returncode": 0,
+      "stdout": "[PASS] Arcane Lantern / intrinsic closure / missing-defense-real-block-rejected\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "returncode": 0,
+      "stdout": "[PASS] Arcane Lantern / intrinsic closure / static-no-manual-activation-own-main\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "returncode": 0,
+      "stdout": "[PASS] Nullrune Gloves / intrinsic closure / barrier-while-defending-real-kano-instant\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

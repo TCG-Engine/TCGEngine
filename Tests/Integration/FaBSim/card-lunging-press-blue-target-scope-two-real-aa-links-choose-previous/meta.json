@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / two real AA links / choose previous",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:51:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Surging costs2/AP1, deals5 and grants exactly one AP at real Resolution. Actual Wounding0 spends that AP to form link2. LP target chooser offers both original AA UIDs with own links1/2; choose 3/1. Current power becomes4 and second damage4 leaves11. Older damage5 stays unchanged; selected modifier is attached only to its own physical card. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

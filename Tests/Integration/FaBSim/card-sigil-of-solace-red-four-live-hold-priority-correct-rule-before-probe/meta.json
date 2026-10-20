@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Solace / four live players and explicit held priority",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T16:30:20+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "All four healthy young heroes are active, with explicit holdPriority true and every shortcut window false in the four-seat recorder profile. Three real consecutive clockwise passes move priority1\u21922\u21923\u21924 without changing HP/assets. Player4 plays actual zero-cost Sigil of Solace as an Instant. CR1.11.5 requires that actor4 retain priority with the real source on Stack, before life is gained. Four subsequent actual passes4\u21921\u21922\u21923 resolve the printed own three life, HP4 20\u219223, with no AP/resource change. No observation-derived oracles are used. Sources: https://rules.fabtcg.com/en/cr/01-game-concepts/#111-priority https://rules.fabtcg.com/en/trp/09-special-formats/#93-ultimate-pit-fight FaBSim/WebpImages/sigil_of_solace_red.webp FaBSim/Custom/GameLogic.php::FaBTryCompletePayment/FaBPassPriority Core/ShortcutPreferences.php::ShouldAutoPassShortcutWindow FaBSim/Custom/GameUI.js::holdPriority"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Snatch / hit-unblocked-draw-exactly-one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:43:36+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR1.6.2c: a hit queues the draw layer, which grants a response window before drawing. Printed Snatch yellow: cost 0, power 3, no go again; draw exactly one card only on a hit. Defense 0 gives 3 damage. Any positive hit, including one damage, draws only the original top Head Jab blue; Raging Onslaught yellow remains in deck. No hand refill occurs before this checkpoint. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snatch_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

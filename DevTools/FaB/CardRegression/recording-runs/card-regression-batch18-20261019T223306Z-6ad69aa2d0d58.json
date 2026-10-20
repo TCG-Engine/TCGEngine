@@ -1,0 +1,38 @@
+{
+    "completed_at_utc": "2026-10-19T22:33:06+00:00",
+    "input_file": "card-regression-batch18.json",
+    "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-quicken-opponent-response-before-destroy-and-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 37
+        },
+        {
+            "slug": "card-quicken-two-tokens-two-trigger-layers-single-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 29
+        },
+        {
+            "slug": "card-quicken-known-blinding-suppresses-existing-token-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 12
+        },
+        {
+            "slug": "card-quicken-nonattack-instant-does-not-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 10
+        },
+        {
+            "slug": "card-quicken-weapon-activation-trigger-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 27
+        }
+    ]
+}

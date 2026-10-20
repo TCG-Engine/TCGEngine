@@ -1,0 +1,7 @@
+{
+    "name": "Scalding Rain / barrier-pay",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Arcane Barrier1 may pay1 to prevent1 of the 4 arcane damage, or decline. Equipment persists; payer is target seat2, not caster. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scalding_rain_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

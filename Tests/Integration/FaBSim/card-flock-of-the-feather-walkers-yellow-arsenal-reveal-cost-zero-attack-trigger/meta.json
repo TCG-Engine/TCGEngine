@@ -1,0 +1,7 @@
+{
+    "name": "Flock of the Feather Walkers / arsenal-reveal-cost-zero-attack-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:47:22+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play Flock from face-down Arsenal; reveal a cost0 card from hand, retain it, and pay printed1. Source zone does not change attack power4 or token trigger. Exactly one pending attack trigger must resolve before Quicken exists. Flock itself has no go again, so final AP0 and life16. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flock_of_the_feather_walkers_yellow https://judge.fabtcg.com/cards/detail/296/ https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

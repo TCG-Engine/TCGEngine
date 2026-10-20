@@ -1,0 +1,7 @@
+{
+    "name": "Activation guard / Sledge ordinary activation pays four",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Without suppression, Bravo can activate Sledge for four resources and one AP. Blue3 alone is insufficient: payment stays pending with resources3/AP1. Red1 pays the remainder: resources0/AP0, pitch contains both cards. Unblocked printed weapon6 deals6 to the opponent, leaving14; no go again is printed, so AP remains0. Weapon stays equipped. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sledge_of_anvilheim https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/Custom/WTRCards.php::FaBWTRCanActivate FaBSim/Custom/ARCAbilities.php::FaBARCAbilityLegal"
+}

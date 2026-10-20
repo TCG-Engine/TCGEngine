@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / play-item-no-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Playing the cost0 Item is an action without go again; it enters Arena and spends the only AP. The words Go again belong to its activated Action ability and do not let the Item play refund AP. With AP0, immediate activation must be rejected, preserving the Item. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

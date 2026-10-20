@@ -1,0 +1,7 @@
+{
+    "name": "Heaven's Claws / ordinary baseline / hand-floating-overfunded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:24:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, power4, pitch2, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual play from Hand spends one AP and exactly1 resources; initial2 plus pitches[] leaves1. Printed attack4 against defense0 causes4 damage; no go again. Source stays on chain through resolution, then clears at Close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heavens_claws_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

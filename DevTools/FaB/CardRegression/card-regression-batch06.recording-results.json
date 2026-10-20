@@ -1,0 +1,176 @@
+[
+    {
+        "slug": "card-nimblism-red-cost-zero-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 9
+    },
+    {
+        "slug": "card-nimblism-red-cost-one-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-yellow-cost-zero-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 9
+    },
+    {
+        "slug": "card-nimblism-yellow-cost-one-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-yellow-cost-two-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-blue-cost-zero-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 9
+    },
+    {
+        "slug": "card-nimblism-blue-cost-one-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-blue-cost-two-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-red-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 28,
+        "assertions": 16
+    },
+    {
+        "slug": "card-nimblism-red-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 17
+    },
+    {
+        "slug": "card-sloggism-red-cost-one-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-red-cost-three-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 10
+    },
+    {
+        "slug": "card-sloggism-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sloggism-yellow-cost-two-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-yellow-cost-one-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-yellow-cost-three-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 10
+    },
+    {
+        "slug": "card-sloggism-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sloggism-blue-cost-two-boundary-next-only",
+        "status": "recorded_semantically_checked",
+        "actions": 30,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-blue-cost-one-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-blue-cost-three-no-granted-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 10
+    },
+    {
+        "slug": "card-sloggism-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-sloggism-red-weapon-excluded-preserves-buff",
+        "status": "recorded_semantically_checked",
+        "actions": 29,
+        "assertions": 16
+    },
+    {
+        "slug": "card-sloggism-red-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 39,
+        "assertions": 20
+    },
+    {
+        "slug": "card-potion-of-strength-blue-play-item-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 10
+    },
+    {
+        "slug": "card-potion-of-strength-blue-destroy-cost-attack-action",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 14
+    },
+    {
+        "slug": "card-potion-of-strength-blue-nonattack-action-preserves-stacks",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 16
+    },
+    {
+        "slug": "card-potion-of-strength-blue-nonturn-activation-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-potion-of-strength-blue-zero-action-points-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 6
+    },
+    {
+        "slug": "card-potion-of-strength-blue-unused-expires-at-end-turn",
+        "status": "recorded_semantically_checked",
+        "actions": 37,
+        "assertions": 22
+    }
+]

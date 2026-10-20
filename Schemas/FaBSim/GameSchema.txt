@@ -170,6 +170,7 @@ Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=ResourcesSlot
 Chi - Value:number=0
 Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=ChiSlot
 ActionPoints - Value:number=1
+BeforeAdd: FaBBeforeActionPoints
 Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=ActionPointsSlot
 Widgets: CustomInput=Pass
 

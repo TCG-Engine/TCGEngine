@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T01:19:58+00:00",
+    "input_file": "card-regression-batch33-pilot.json",
+    "input_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+    "filter": "en-garde",
+    "results": [
+        {
+            "slug": "card-en-garde-red-hand-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        }
+    ]
+}

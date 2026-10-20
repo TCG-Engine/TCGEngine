@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / nonattack-action-preserves-stacks",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "After Potion activation resolves, play nonattack action Nimblism blue for0 with its own go again. It must not consume the pending next-attack Potion modifier. First Head Jab red then receives printed3+Potion2+Nimblism1=6, has its printed go again, and deals6. This tests preservation through a nonattack and stacking independent applicable buffs. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/333/ https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

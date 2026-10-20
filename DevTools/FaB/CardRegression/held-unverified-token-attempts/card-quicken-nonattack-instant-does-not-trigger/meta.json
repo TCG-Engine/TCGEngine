@@ -1,0 +1,7 @@
+{
+    "name": "Quicken / nonattack-instant-does-not-trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:24:19+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Playing Sigil of Solace blue is neither an attack action play nor a weapon attack activation. Only Sigil enters Stack; Quicken remains throughout and the turn player gains1life on resolution. No AP was spent or generated, and no attack grant is created. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quicken FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/06-effects/#66-triggered-effects https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

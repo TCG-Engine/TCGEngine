@@ -1,0 +1,296 @@
+{
+    "completed_at_utc": "2026-10-20T02:01:11+00:00",
+    "input_file": "card-regression-batch48.json",
+    "input_sha256": "7dfc9964dd36dabc62c4762c756cb4f28b925816b105bf5e8f9692eb6235c61b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-red-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-yellow-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-electrolyze-blue-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        }
+    ]
+}

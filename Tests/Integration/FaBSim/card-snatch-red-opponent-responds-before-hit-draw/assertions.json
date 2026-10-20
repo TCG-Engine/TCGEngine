@@ -1,0 +1,114 @@
+[
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 1
+    },
+    {
+        "step": 0,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 16
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 0
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 2
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 19
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 2
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p1Deck",
+        "value": 1
+    },
+    {
+        "step": 16,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p1Hand",
+        "cardID": "head_jab_blue"
+    }
+]

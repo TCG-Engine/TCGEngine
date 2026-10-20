@@ -1,0 +1,93 @@
+{
+  "status": "EXACT_HISTORICAL_RUNTIME_AND_659_FIXTURE_BYTES_RECONSTRUCTED",
+  "captured_utc": "2026-10-20T00:24:42.124094+00:00",
+  "base_captured_runtime": "42e0320acb8775664c82fb103aae2a4bad0ea6b70fbfb2ae2962aec04b700436",
+  "historical_runtime_sha256": "d85229659e75730de2649374a6182852fc19b0a2f5e080c4b1fa7c00bbf02062",
+  "historical_two_clean_report_rows_identical": true,
+  "source_overlay_files": 7,
+  "source_overlay_proofs": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "historical_raw_sha256": "7dfb6d866dd04f62ed0b953168ddc0108281960b1904c8767afb277301753ff5",
+      "basis": "Exact native before-image from AP framework archive, checked against raw-before manifest",
+      "source": "source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/before/FaBSim/Custom/GameLogic.php"
+    },
+    {
+      "path": "FaBSim/Custom/ROSRuntime.php",
+      "historical_raw_sha256": "d374fc17f7919350adc02c35c2c745c2d64431cc934dcaa13946f3f06d50b63f",
+      "basis": "Exact native before-image from AP framework archive, checked against raw-before manifest",
+      "source": "source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/before/FaBSim/Custom/ROSRuntime.php"
+    },
+    {
+      "path": "Schemas/FaBSim/GameSchema.txt",
+      "historical_raw_sha256": "86126c903e2a823f001834bfc84a0dbc2dffa0153ea421d0ad5a20ec4e920b63",
+      "basis": "Exact native before-image from AP framework archive, checked against raw-before manifest",
+      "source": "source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/before/Schemas/FaBSim/GameSchema.txt"
+    },
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "historical_raw_sha256": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8",
+      "basis": "Exact native before-image from AP framework archive, checked against raw-before manifest",
+      "source": "source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/before/FaBSim/ZoneAccessors.php"
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "historical_raw_sha256": "5c579e418b48b9de107b875e4c5b83676b3d02737256d8d2538d8b36e44c374f",
+      "basis": "Reverse exact reviewed anchors in scratch, with original line endings selected solely by raw-before SHA",
+      "original_line_endings": "LF",
+      "steps": [
+        {
+          "reverse_patch": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+          "anchor": "capture Lead provenance at new duration creation only",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "historical_raw_sha256": "8a9a03a997e751d6aba95cc04ba1f8c27251388fd48dbd27acf034030823b350",
+      "basis": "Reverse exact reviewed anchors in scratch, with original line endings selected solely by raw-before SHA",
+      "original_line_endings": "CRLF",
+      "steps": [
+        {
+          "reverse_patch": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+          "anchor": "queue after completed qualifying card play; retain all other ARC branches",
+          "occurrences": 1
+        },
+        {
+          "reverse_patch": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+          "anchor": "native Lead creation/queue helpers; no generated macro changes",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "historical_raw_sha256": "d6ff0d407b444e9e82bab94b63949da6d0485669bdf4cffd38cc3bd3d2e4fe51",
+      "basis": "Reverse exact reviewed anchors in scratch, with original line endings selected solely by raw-before SHA",
+      "original_line_endings": "LF",
+      "steps": [
+        {
+          "reverse_patch": "2ee372dd9f2eb2c312ed669e7839a1019e69751a42ac011256ddad8c4c1d97cb",
+          "occurrences": 1,
+          "intermediate_raw_sha256": "0238a9cd883811c95e30eb59ba78e2689ed75e241bf352ffe14d616894a52d10"
+        },
+        {
+          "reverse_patch": "9e4f510101f78a740e0b5cd6b53830765df19f6be4fd18d8ec89ba0250eba351",
+          "anchor": "resolve captured AP payload without rechecking source or qualifying card",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "historical_fixture_behaviors_matched": 659,
+  "fixture_overlay_folders": 14,
+  "base_current_fixture_behaviors_reused": 645,
+  "source_inventory_files": 123,
+  "base_source_stable": true,
+  "native_writes": 0,
+  "games_or_php_executions": 0,
+  "user_games_or_save_data_copied": false,
+  "qualification": "Byte reconstruction only. The original two captured clean659 reports provide historical replay evidence. This script did not execute or requalify gameplay. Seven historical source files plus14 fixture beforeimages overlay the exact captured42e base;645 other qualified fixtures already match byte-exact behavior. No newly expanded fixture or current-runtime pass is inferred.",
+  "reproducibility_limit": "The delta requires the matching base-source and645 base-fixture bytes recorded in manifests. Future source/fixture changes need their own preserved beforeimages; do not overlay onto a different base without exact per-file checks."
+}

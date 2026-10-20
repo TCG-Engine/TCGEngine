@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T03:07:18+00:00",
+    "input_file": "card-regression-batch63.json",
+    "input_sha256": "dfd9707e12490376bb4eb593764e8c9fc6f593f5cf1f67c7e3bc3388669a0ae2",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 7,
+            "assertions": 102
+        },
+        {
+            "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 85
+        },
+        {
+            "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 81
+        },
+        {
+            "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 116
+        }
+    ]
+}

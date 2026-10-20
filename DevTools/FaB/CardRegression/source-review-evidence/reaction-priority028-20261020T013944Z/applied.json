@@ -1,0 +1,58 @@
+{
+  "status": "APPLIED_BOUNDED_REACTION_CARD_PRIORITY_REPAIR",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+      "after_sha256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+      "anchors": [
+        {
+          "before": "$isAttackReaction && $state['window'] === 'REACTION'",
+          "after": "$isAttackReaction && FaBReactionPriorityForState($state)"
+        },
+        {
+          "before": "$isDefenseReaction && $state['window'] === 'REACTION'",
+          "after": "$isDefenseReaction && FaBReactionPriorityForState($state)"
+        },
+        {
+          "before": "function FaBReactionWindowForState(array $state): bool { return !empty($state['combatOpen']) && $state['combatStep'] === 'REACTION'; }\n\n",
+          "after": "function FaBReactionWindowForState(array $state): bool { return !empty($state['combatOpen']) && $state['combatStep'] === 'REACTION'; }\n\n/** A reaction may be announced after a higher layer resolves (CR 7.4.2-3).\n * PRIORITY is the stack-window label; combatStep retains the Reaction Step.\n * Require the live active attack and completed continuations before exposing it.\n */\nfunction FaBReactionPriorityForState(array $state): bool {\n    if (!FaBReactionWindowForState($state) || GetCurrentPhase() !== 'MAIN'\n        || !in_array($state['window'] ?? '', ['REACTION', 'PRIORITY'], true)\n        || ($state['pendingPayment'] ?? null) !== null\n        || ($state['pendingAttackTarget'] ?? null) !== null\n        || FaBReactionResolutionIsPending() || FaBReactionResolutionHasWork()) return false;\n    $attacker = intval($state['attacker'] ?? 0);\n    $uid = intval($state['attackUID'] ?? 0); $link = intval($state['chainLink'] ?? 0);\n    if (!FaBSeatIsLive($attacker) || $uid <= 0 || $link <= 0) return false;\n    $attack = FaBFindUID($uid);\n    if ($attack === null || $attack['zone'] !== 'CombatChain'\n        || !empty($attack['object']->removed) || ($attack['object']->Role ?? '') !== 'ATTACK'\n        || intval($attack['object']->Controller ?? 0) !== $attacker\n        || intval($attack['object']->ChainLink ?? 0) !== $link) return false;\n    // Empty-stack reaction priority uses the existing REACTION window.\n    return $state['window'] === 'REACTION' || FaBStackTop() !== null;\n}\n\n"
+        }
+      ]
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "before_sha256": "f31e69d203e85fc98d389be95b9216d56397c2c016fea318f80026d9bf7fef9d",
+      "after_sha256": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+      "anchors": [
+        {
+          "before": "FaBHasType($id, 'Attack Reaction') && $state['window'] === 'REACTION'",
+          "after": "FaBHasType($id, 'Attack Reaction') && FaBReactionPriorityForState($state)"
+        },
+        {
+          "before": "FaBHasType($id, 'Defense Reaction') && $state['window'] === 'REACTION'",
+          "after": "FaBHasType($id, 'Defense Reaction') && FaBReactionPriorityForState($state)"
+        }
+      ]
+    },
+    {
+      "path": "FaBSim/Custom/EVORuntime.php",
+      "before_sha256": "3b574e2b6ed7acce35861267b5a3945064b48c4526dced889dd46ea9d5ab631a",
+      "after_sha256": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+      "anchors": [
+        {
+          "before": "!in_array($s['window'],['DEFEND_DECLARE','REACTION'],true)",
+          "after": "($s['window']!=='DEFEND_DECLARE'&&!FaBReactionPriorityForState($s))"
+        }
+      ]
+    }
+  ],
+  "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+  "review_sha256": "fbdfe2a8117f3f3052cd4757e440de9c601c97bf60b74abff20edc709443048a",
+  "lints": [
+    "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+    "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php",
+    "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\EVORuntime.php"
+  ],
+  "scope": "Card play only; native afterproof/compatibility/replays remain. Activation/event/autopass consumers are held explicitly."
+}

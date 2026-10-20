@@ -1,0 +1,180 @@
+{
+  "reviewer": "/root/wtr_attack_scenarios",
+  "status": "APPROVED_EXACT_FIVE_CORRECTED_RECIPES_FOR_NATIVE_RECORDING_GATES",
+  "spec_sha256": "92721e6c37ad0d8ba9b6153f9073385046b2e404e64696ff52abd6dcd8302758",
+  "manifest_sha256": "45ac8419c3afd02e3fee05aad88ea4d2d7dd24c0feed421d486efc73a141e7fa",
+  "independent_delta_guards": 86,
+  "independent_oracles": 1430,
+  "modeled_actions": 100,
+  "modeled_individual_passes": 75,
+  "valid-answer-substitution_faults_detected": [
+    "card-lunging-press-blue-rejected-target-answer-wrong-actor",
+    "card-lunging-press-blue-rejected-target-answer-pass-not-legal-target",
+    "card-lunging-press-blue-rejected-target-answer-unlisted-private-source",
+    "card-lunging-press-blue-rejected-target-answer-out-of-range-target",
+    "card-lunging-press-blue-rejected-target-answer-multiple-target-answer"
+  ],
+  "rows": [
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-wrong-actor",
+      "oracles": 286,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "rejected": 1,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-pass-not-legal-target",
+      "oracles": 286,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "rejected": 1,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-unlisted-private-source",
+      "oracles": 286,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "rejected": 1,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-out-of-range-target",
+      "oracles": 286,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "rejected": 1,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    },
+    {
+      "slug": "card-lunging-press-blue-rejected-target-answer-multiple-target-answer",
+      "oracles": 286,
+      "modeled_actions": 20,
+      "modeled_passes": 15,
+      "rejected": 1,
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalAP": [
+        0,
+        0
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "declared_target_pairs": [
+        [
+          4,
+          5,
+          1
+        ]
+      ],
+      "unsupported_skipped": []
+    }
+  ],
+  "source_review": {
+    "path": "expected-rejection-independent-source-review.json",
+    "SHA256_raw": "b17f6fea7192f544d2b5940ba949dbedb1a817884808fe448c511e46625e37b0"
+  },
+  "source_hashes_current": {
+    "Core/RegressionTestFramework.php": "269a1c52d9442f7ffa1d4a73f27eae6f0d17862cc7134f5e7093fec235dd9c99",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "86a8e4224a83233fe8c5d3a1fd092963bc6ebc485d21c22ea1a561b36710bf20",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+  },
+  "base_protocol_review": {
+    "path": "lunging031-protocol-v3-independent-review.json",
+    "sha256": "42b1bbaf985a0d01fb3f24266ba033cf0001d07491354471495f73b4954b110a"
+  },
+  "delta": "Exactly five ordinary precheck lists and five expect_rejection unchangedChecks lists now inherit approved47-check four-row canonical queue prefix. Actual invalid payloads, author exact message, strict opt-in, subsequent original valid choice and all other executable fields/observations unchanged. Full reverse restoration to original30b4 objects proven; old packet and author scripts preserved.",
+  "limits": [
+    "Paper model is not actual observed EngineRunAction failure; parent must execute each actual request before recorder appends once.",
+    "Exact rejection message is author-only; CLI/UI replay requires explicit rejection plus postconditions; hidden/transport byte equivalence not claimed."
+  ],
+  "remaining_gates": [
+    "Parent actual five requests, exact strict expectFailure stored once after observed false and author message; identical persisted pre/post47 native checks at N and N+1.",
+    "Actual saved actions/assertions/initial/final/meta raw5+behavior independent review.",
+    "Fresh clean CLI replay twice, both actual UI replay-all and next paths, genuine unexpected-success/postcondition failure checks, final current corpus/suites."
+  ],
+  "native_actions": 0,
+  "native_writes": 0,
+  "coverage_added": 0
+}

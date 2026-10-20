@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T13:45:11+00:00",
+    "input_file": "card-regression-batch74-pilot.json",
+    "input_sha256": "98279c3ff9d138d5d1ab5c8f556de521066f6afeaf624682548317403ced9a81",
+    "filter": "arsenal-dr-prohibition-ends-at-next-real-chain-link",
+    "results": [
+        {
+            "slug": "card-command-and-conquer-red-ordinary-arsenal-dr-prohibition-ends-at-next-real-chain-link",
+            "status": "recorded_semantically_checked",
+            "actions": 36,
+            "assertions": 539
+        }
+    ]
+}

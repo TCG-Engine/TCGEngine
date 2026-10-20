@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press: rejected target answer multiple-target-answer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:54:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Wounding Red power4 is defended from Hand by opposing Wounding Blue defense3. Both are legal LP targets. Choose 5/link1: defender printed power2 gets+1 but defense stays3 and current attack stays4; damage1 leaves19. LP source clears before damage; both physical chain cards clear only at Close. Before the original valid target choice, the actual multiple-target-answer mode100 request must return explicit success=false and exact Invalid selection. at authoring. The recorder appends only that observed rejected payload with expectFailure=true; the same original native pending-source, queue, target identity/link, economy, HP and power oracles are recorded before and after it. A subsequent real valid opponent-defender choice still resolves the original effect. Message matching is authoring-only; native CLI/UI replay requires rejection and retained post-action assertions. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

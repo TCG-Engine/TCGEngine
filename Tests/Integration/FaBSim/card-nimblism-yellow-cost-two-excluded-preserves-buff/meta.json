@@ -1,0 +1,7 @@
+{
+    "name": "Nimblism / cost-two-excluded-preserves-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:05+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact excluded boundary: printed-cost2 Surging Strike red remains5, and must not consume the pending cost<=1 buff. Head Jab red then costs0 and gets3+Ira second-attack1+Nimblism2=6. Health15 then9. Blue pitch for Surging leaves1. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nimblism_yellow https://judge.fabtcg.com/cards/detail/332/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

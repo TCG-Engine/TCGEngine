@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T01:40:02+00:00",
+    "input_file": "card-regression-batch45.json",
+    "input_sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f",
+    "filter": "",
+    "results": [
+        {
+            "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 332
+        }
+    ]
+}

@@ -1,0 +1,290 @@
+{
+    "completed_at_utc": "2026-10-20T02:00:35+00:00",
+    "input_file": "card-regression-batch47.json",
+    "input_sha256": "f6757524bae88b96320c4c98628fc60a71ca7620492072943b6e16d8fd02ae31",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-red-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-facedown-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-faceup-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-overfunded-retains-one",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 114
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-red-exact-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 119
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-printed-defense-exact-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 72
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 44
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-arsenal-insufficient-resources-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 48
+        },
+        {
+            "slug": "card-dust-runner-outlaw-blue-innate-ga-hand-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 2,
+            "assertions": 44
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Come to Fight / unused-expires-at-end-turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:04:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 1, next attack action this turn +2 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. Pay buff from1 floating resources and make no attack. Pass normally. At player2's turn, p1AP must be0 and p2AP1. Player2 spends AP on Wounding Blow blue for2. After the next ordinary turn transition, player1 plays Arsenal Wounding Blow red for its printed4, not4+buff; opponent16. Both decks are empty, the occupied Arsenal prevents arsenal placement decisions, and there are no pitch-order decisions. This-turn effect expired unused. Sources: FaBSim/GeneratedCode/cardArrayCache.json#come_to_fight_yellow https://judge.fabtcg.com/cards/detail/543/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

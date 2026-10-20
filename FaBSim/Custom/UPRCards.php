@@ -25,7 +25,41 @@ function FaBUPRAnyTargets(int $p,bool $heroOnly=false,bool $multiple=false): str
 function FaBUPRStoreTarget(int $uid,string $r): void {$f=FaBIdentityFromMZ($r);if($f){FaBARCSetCard($uid,'uprTargetUID',intval($f['object']->UniqueID));FaBARCSetCard($uid,'target',$f['player']);}}
 function FaBUPRTarget(int $uid): ?array {return FaBFindUID(intval(FaBARCCard($uid,'uprTargetUID')));}
 function FaBUPRHealth(object $o): int {return max(0,intval(FaBObjectCounters($o)['UPR_GHOST_HP']??CardHealth($o->CardID))-intval(FaBObjectCounters($o)['UPR_LOST_HP']??0));}
+/** Recover only the audited plain UPR spell's actor after an opposing await. */
+function FaBUPRPlainSpellActor(int $sourceUID, int $fallback, string $type): int {
+ if ($type !== 'ARCANE' || $sourceUID < 1) return $fallback;
+ $pending = FaBGetState()['resolvingReaction'] ?? null;
+ if (!is_array($pending) || ($pending['resolutionClass'] ?? '') !== 'PLAIN_SPELL'
+     || intval($pending['uid'] ?? 0) !== $sourceUID) return $fallback;
+ $id = (string)($pending['cardID'] ?? '');
+ if (!in_array($id, [
+  'aether_dart_red',
+  'aether_dart_yellow',
+  'aether_dart_blue',
+  'aether_hail_red',
+  'aether_hail_yellow',
+  'aether_hail_blue',
+  'frosting_red',
+  'frosting_yellow',
+  'frosting_blue',
+  'ice_bolt_red',
+  'ice_bolt_yellow',
+  'ice_bolt_blue',
+ ], true)) return $fallback;
+ $actor = intval($pending['controller'] ?? 0);
+ if (!FaBSeatIsLive($actor) || intval($pending['owner'] ?? 0) !== $actor) return $fallback;
+ $found = FaBFindUID($sourceUID);
+ if ($found === null || $found['zone'] !== 'Stack') return $fallback;
+ $source = $found['object'];
+ $owner = intval($source->Owner ?? 0); if ($owner < 1) $owner = $actor;
+ if (!empty($source->removed) || intval($source->UniqueID ?? 0) !== $sourceUID
+     || (string)$source->CardID !== $id || intval($source->Controller ?? 0) !== $actor
+     || $owner !== $actor || !in_array((string)($source->Kind ?? ''), ['ACTION','INSTANT'], true)) return $fallback;
+ return $actor;
+}
+
 function FaBUPRDeal(int $p,int $sourceUID,int $targetUID,int $n,string $type='ARCANE',int $payment=0): int {
+ $p=FaBUPRPlainSpellActor($sourceUID,$p,$type);
  $f=FaBFindUID($targetUID);$source=FaBFindUID($sourceUID);if(!FaBDTDUnpreventable($p,$sourceUID,$type))$n=FaBIARConsecrateDamage($sourceUID,$n);if(!$f||!FaBSeatIsLive($f['player']))return 0;
  if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID):DoDamage($p,$source['mzID']??'',$f['player'],$n,$type);
  $o=$f['object'];if(!in_array($f['zone'],['Arena','Equipment'],true)||!FaBHasType($o,'Ally'))return 0;if(!FaBUPRUnpreventable($sourceUID)){$n=FaBSEAPrevent($f['player'],$n,$o);if($type==='ARCANE')$n=FaBSUPArcanePrevent($f['player'],$n,$sourceUID,false);}

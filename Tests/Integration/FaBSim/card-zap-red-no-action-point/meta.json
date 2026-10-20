@@ -1,0 +1,7 @@
+{
+    "name": "Zap / no-action-point",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:23:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action card requires an AP even with printed resource cost0 available; announcement must be rejected. Sources: FaBSim/GeneratedCode/cardArrayCache.json#zap_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

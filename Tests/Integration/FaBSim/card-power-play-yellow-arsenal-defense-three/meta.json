@@ -1,0 +1,7 @@
+{
+    "name": "Power Play / arsenal-defense-three",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:28+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power2, cost3; originArsenal. The arsenal-only intrinsic bonus is5; expected current power7. No extra trigger layer or go again is created. Pay exactly3 floating resources and1AP, leaving0/0. Defense3; damage=max(0,7-3)=4; defender life20->16. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#power_play_yellow https://judge.fabtcg.com/cards/detail/4275/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

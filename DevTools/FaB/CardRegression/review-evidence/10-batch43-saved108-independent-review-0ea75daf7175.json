@@ -1,0 +1,5901 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "batch43-saved108-independent-review.json",
+    "sha256": "bdd5f0582ae9350d311ebabc08715cde6de5a7163cc3521819dfc4cadee7292f"
+  },
+  "fixtures": [
+    {
+      "slug": "card-dodge-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "bea79803daa6ac0e06245888a3510c0d71926b82967ed1dbf750d5c236a54a3c",
+        "expected_final_gamestate.txt": "479ac6b6714c6a0a4377ee57b884d57a36400b6c459646cc95bd3a10e4870426",
+        "meta.json": "29567b0202756af51d9c602ec52a19298b074d81d6ef5518becb62527ead3675"
+      },
+      "fixture_sha256": "d33be078c24a30fc34784ce2b383c2869ce94ebdb878a8c888bef917a9335aa2",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1798d4888a2108147c4451d2b2f560ef2b6610ebddf83749892ea14e28cf4c52",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "37a68d7876e8c342828d83f189967e45f028c2736fcb4d027294bb311346025b",
+        "expected_final_gamestate.txt": "9d76b2ca7259d9ef1399e65adb0fd3095ca85fffa092f858be1b5403d5a6b057",
+        "meta.json": "b61aab8b492b8b6279c70035a0c30bbd320147165d264d39ac4297f8621f3180"
+      },
+      "fixture_sha256": "a5e661e14121699722e8b8166fddc3eecc9da91627607efca640c738be575655",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-arsenal-face-down-floating-exact",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ba920f69932944ccab780be115f0776791e8dafaa1c08a5ec1a21c5dea89fa07",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "9fff5f7ddeba11ed271d0e379d1020d9962dcd7f2d8a8b505086658623e91307",
+        "expected_final_gamestate.txt": "2cdae0c11dc91dfc7dbf0018873265deaa4cb94997b6ecd07101793b99aacb0d",
+        "meta.json": "5337bdbab35cf8edbefe3714bc45aa36e5583d0f726bf2596781031e1275123e"
+      },
+      "fixture_sha256": "3d1433e291dd1d0b53e4186c0d0885bfcdbc34759641d6fad051893084ecc5c2",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-arsenal-face-up-floating-exact",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3b1c778b0d856cb0c7a97a4401ef1a4f894fcc233dc44f83c56e8fb4228bf357",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "9fff5f7ddeba11ed271d0e379d1020d9962dcd7f2d8a8b505086658623e91307",
+        "expected_final_gamestate.txt": "ca2f458b18e689e5513f41117596c5a0f311269a84b5e136046643d2fa2405c9",
+        "meta.json": "5d3439d4e7d9fa9cf828dec3b49ae75c4720cecb68f9c19f29c0ba6dd4795cda"
+      },
+      "fixture_sha256": "2ca683673f0156fc71607c4449a4f467e5ea381d7c2b0002ce14116d58a7dc54",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5e1793de92ef51d1766907c5fb7d6d98ae462dd1d00ddfe093cfae29f9acec7b",
+        "actions.json": "97b1042f4af9354d763736691af93442391035f4a76a714394f80d3d837f06bc",
+        "assertions.json": "527b624cd4d624cfcbb9bfaabe0a089ff7d0e18f7e326afc8d140c159f151757",
+        "expected_final_gamestate.txt": "a5131cf93697e7eaff70baa90dd368efd7942c0b7b03cda8381671e142746a73",
+        "meta.json": "a6a67313aaeb141e5d6e4ae40bc3782a08417e971dc3d18dc3495b3920b68409"
+      },
+      "fixture_sha256": "7958ba5b1e6dd0d098f7358cbd0336562b7561be6ac0a19cbe5e43ffc86bd39b",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 170,
+      "independent_model_checks": 174,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "critical_strike_red",
+          "resources": 1,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          5,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c54b7ed05e00e37c4c4808c59e5758353c15c67793a43488f4ff1c396cbef57f",
+        "actions.json": "78f9a775aa56b11f6e6d5b19cd74263542de449e3fadd8006c1575c730070c4e",
+        "assertions.json": "e81da15d1bf498ab5db56dbb7cc692ddb447c7868b8579cbe1da8b047d57f344",
+        "expected_final_gamestate.txt": "7adefe34ff261cb5f9489f58ff50acda3c4249a8f8d107585d005518fbf26524",
+        "meta.json": "aad0de2e2a92d5f32a57b422d670ec28d71f16ae3c8821202d9960c8b90ec40c"
+      },
+      "fixture_sha256": "a41356820c5aafb6e1157fa2e53ebf818dba02f7e0ca3ace5f5e6009b0da5d55",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 208,
+      "independent_model_checks": 214,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4,
+          5
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "356e64108f8d460deca057dd34d201c252b49623387a4d98ad29c2ba9c7a370e",
+        "actions.json": "42bd5f5dcb9393ea57d997551aeed37ecd9cc42bac818553ef92cfe83d1788cd",
+        "assertions.json": "1efe6c5abcd7576de9d8a30b64359da5450f5934c4f7b5726cd9a481fcd4ec71",
+        "expected_final_gamestate.txt": "faefe34530cfb0f45721b897f40c545bcff730167c5ccaa730f2cf00f234c885",
+        "meta.json": "6d03ec58e250e5d1fa65be26820b6d37e9e93cbc527055d96659c9ae7e7fba01"
+      },
+      "fixture_sha256": "7d07abd0bbed41390f072ab916b9e477027109007dbe1bbd7e7db2da03ab1b9d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 23,
+      "native_assertions": 222,
+      "independent_model_checks": 228,
+      "actual_priority_passes": 20,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "356e64108f8d460deca057dd34d201c252b49623387a4d98ad29c2ba9c7a370e",
+        "actions.json": "7755e6357cc4b013bec0e678bef56d5b0b2fed0ec124b6864b2fdd4702668b3f",
+        "assertions.json": "c34596a657397b721c7804ce944b65564a2e3b5c53efd0f1c0cf40a6f2d0873e",
+        "expected_final_gamestate.txt": "b1cf331a55b93a61f06a0c4bd015665e146c8f7b9ffef361defad1e192c46343",
+        "meta.json": "22001ae3943301415fc835bb332893ed7fc1b026ee4f9abed19d749c168cb4d6"
+      },
+      "fixture_sha256": "26ca1d3e41eac7c441ad89b3af16095b0b0ec9749290d0be9002dfa3786268b5",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 221,
+      "independent_model_checks": 226,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "dodge_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "15c4e4795a003f455de85c5daa1b777837bed01c49694cf608f4da8f338a2f31",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "0e29f3fc84ae1f4faad36d169c307b872efea7f28bc7f43a863a7da745d7e3d5",
+        "expected_final_gamestate.txt": "e3b62aa31ec4be9b27e6fe8ac2b0e05d6b6198f0bd87decd48e936a3e7b56894",
+        "meta.json": "880460d65f9eb371f89c53ca38c525efaefd1708de4c59ef04686a153622a884"
+      },
+      "fixture_sha256": "b3fadbc2967af080391bb83c45c1f9e6bd3021922c0d4f8d466c8e537195d161",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 67,
+      "independent_model_checks": 67,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "dodge_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-own-action-hand-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "69ed82a1911474515c3b1e982eca3d3f3c5485241292e6f94094d2714527a484",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "4e9126ad4f273bb546a0b6cf15e2cbdf614e93a78aeaa22adf5cc676a69e5e62",
+        "expected_final_gamestate.txt": "79849dd27a40a730c65fdbdd26f787f06e949893b547f0d2133a5ea5fcf79a12",
+        "meta.json": "8da58f9c5bb361ad33b4c2898cf2950369c06209c92f16f62b28d04c4572c920"
+      },
+      "fixture_sha256": "f948c4b5c7d9069732bfb75809368bd588c9b9e1e37062b8e8d44e09dcb7139f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-own-action-arsenal-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d317ac88f5884321b9e8a2540d8dfdeca1cf9c3572831e651b69ca0ce77d3684",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "1513fe95410040fd88efb759aa41a35b8b55089dce6cdb6ddf6b209db6fc0738",
+        "expected_final_gamestate.txt": "064377fa4739948ffc60f8d5be51cb82ec82f71b68d9b3682007135b007dfd50",
+        "meta.json": "13e7881828110b1cade540b22d00b178c511a5d920496ed58493a91be5ce835a"
+      },
+      "fixture_sha256": "310eaf8856c3de62a90109c6aabd800f0e9d03f2c66b63d93894d01eb643266d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "819fa3d4a719e6ad8a9b1a8b9e4ffaf68a27215efd0cd96964a44204bbbc0ddf",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "44ab4140b3c0260b0d7a3cd768461e90a39f9d781f8353fcaa86e6ff3e998a16",
+        "expected_final_gamestate.txt": "401a93194ae62cb63b7364454203933e85b66957307c06cb078fc89723b5476b",
+        "meta.json": "3b93b46470a2a62f6daadbdc5b3472e4d65f30620b2705f670ef7f848459c462"
+      },
+      "fixture_sha256": "9eebf194c2e84b1bddb62fa8a35e56a60755f3a6637671b663ff7b88d03dd2c0",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "8f53779dfecff303747fd65915d79b8cf25f96c7935b21e888fb5e41e84b35f2",
+        "assertions.json": "29b4f4c4eec8848104a49ceba71e814c58274e2d0085224ff1a9d66c5bd61fdb",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "4b3224403580173971adf6797d59eeeab5d30f73e0ca822048ddfcf8644dceaf"
+      },
+      "fixture_sha256": "01946c5af4b5e648fec2215799c67d03ae7b412bf57f441a26639c71936a34fd",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attack-window-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "943a3213033e905c588cd6588e7d767681b2dcf069fc0127f647d29c09ec84a8",
+        "assertions.json": "7f0b556e27c32a254d52f80e11d10fd24a827541bf398e37578addfb44984b83",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "f7d0f1cfcf68af4a0870c107ee56c5ce89e508a37db0ffb285f32ac6abbae836"
+      },
+      "fixture_sha256": "7fffd391b4252a5f31a8ccec70145a85817283792559f5edbd4a647baff69ad0",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "6db700aafb42e90144105db9d3fac030eb1cf2883712a5d6e42a08c21aeea72e",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "4142fbfd21e2922bc0c36e3561f0662d60393411b928c840d603a8e6ed27b1fe"
+      },
+      "fixture_sha256": "8546f2cac09a7368a303a3fea14695f3ae7332e8a3c0b22fd84b34ad7c231f52",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-reaction-wrong-priority-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "e5cc22a78e3d9ea36cac0426bac713968724221b2594bbd45c9aacd7857861a5",
+        "assertions.json": "12b40ad0c0a66cd4e8f7265830d823fc4408374bf7a38c98666d4e665f43dfce",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "3a031fe106a3ffe974f6caaf01609ee8e83f0d00165f0f0fc389484215c93d15"
+      },
+      "fixture_sha256": "c54548f71e2699c1bceff68e5a453775c35b0ed025601747f3f164ff4d431c70",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2c43447053ee7906543d5f701c2094d20e3043011235a60406371f78f5374795",
+        "actions.json": "d0032286865056cbaad4c8e2d5fc304f72f29745eaab16d0aa56032cff63cc79",
+        "assertions.json": "3ae0d209725d1cf0b6dc2f03adc4c0e47bc0288e33551da06216a5897fc3984f",
+        "expected_final_gamestate.txt": "cce46bffe1ee2fe403bd231fdeada7fdd4f76ea24e31c27f32e3f7490c951125",
+        "meta.json": "559af546a611a499cf8bdd56d5437d424a378b60d4a4281b8dc913ef5e890e69"
+      },
+      "fixture_sha256": "515f33cf9ab0e4f22e286304e4e731c6c4c2e44a93cfa10b62ae87b14f7d618d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-damage-window-too-late-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "6e698a49e25bafa3ef28e53eb7ca48d46222ab7e1db7b5989589fc19cc02d064",
+        "assertions.json": "419b8713035009e439593d55fde1cd9abf8ac66540db7bba003d8bfd3bb92bc5",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "11ce8796002a2471d9d229f92c7b111f501830de29a35daf77f0c51bbc62541f"
+      },
+      "fixture_sha256": "df3beef5214421edee19e4d145e029297ebc2a80ecc675b859db161820bdb00a",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-resolution-window-too-late-rejected",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f30797e9b4d43ecaf40f6b251c3a893c9802df0030f58460165301936fb2041",
+        "actions.json": "38ecaf628bb0b811110fa687641f6a449112bec862822118fcf0a079c6860235",
+        "assertions.json": "d81eb29c158f4002a07f1c02a612302550d2292d3c7a4824d36954e328480e3e",
+        "expected_final_gamestate.txt": "c8bf35c04534d4f04a90455cbbcf6a67356263dcf0c1dd7c4a4b72907407cc4e",
+        "meta.json": "fc59cfb84b70404292609411c43d9e9bfd531ba872b98349fe60e5920fc802b8"
+      },
+      "fixture_sha256": "c9912536f690b6948be32bfeb9036d5cd41f3a01de56985674b4c346694406d0",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "card_ids": [
+        "dodge_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "27f2b3787b10e598fdc6ccc2159f8518dde2e6f6cc803c0eaf85ce387b89ee73",
+        "actions.json": "02eb91dc740c428e28ec792d6ca9c244eb5773b54c89ff9e55bcb1d6a3d3bb46",
+        "assertions.json": "4cc96bc8164f8cd34df00b6a1ce6f4647c0180688677bf752cbcfe85746c4660",
+        "expected_final_gamestate.txt": "c4154265aadb15fa12eb5a6019acb22bb17b560e063d40a5faa3bb26fb0931a9",
+        "meta.json": "a901564532d1437bc87456de251d34f72ee92b0cfbac9b8e15b99dcf6470e64e"
+      },
+      "fixture_sha256": "d73dadaa54146e59ac736f1e686bd3ee701d9088e115aa328ff6b0a2da18d793",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 16,
+      "native_assertions": 78,
+      "independent_model_checks": 80,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "45fb4ed163601f27881b8a5bea7a6d868a39b6a229853fa7d914e526dfc0afb7",
+        "expected_final_gamestate.txt": "1cbff9779f98d7f129bc47716808c41b1c6560778a6e47ac638b395df7308391",
+        "meta.json": "be5dc839c39638a72c9caf35c3925bf1bc3562e91f36e682d9c79d61eb181b88"
+      },
+      "fixture_sha256": "36c0fbe055c83e11c96556fcccbf44177b4e9d5ab3c6e74da60f5f4114a3b38c",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "51cda77be5d1f4c81f474d556866f57009a4fed1577965e00d28b591fdacc48c",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4cdfb5f1bd91b644081ba22a27cc95a84e019bd56951f9e871b0bcd8bb95cd78",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "605bb53f081b6c8c0696dd80e5585059360f0a58b494db08a72633ff3d93bd15",
+        "expected_final_gamestate.txt": "84ec2c64cbcbe9f38b102efa5827b80aa8b7fea9c719d93dcdb4ff0e1109ae43",
+        "meta.json": "656b472d9c4da1aba8db54c622b124cc7a0b4188ae02ee463797eca3ddff9c8a"
+      },
+      "fixture_sha256": "91b512bc406c79ade88b34eca02f3673c491bd2425ae50363a4e9adb8d10b6ea",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-arsenal-face-down-floating-exact",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "879971aa841a83f271f381ca982fc24fd8dc2f4d2d66d94813134221005a8b88",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "2978fcee841209fef51be2d7b3d34561fde7b6b046e2319e83d14598f8fd3928",
+        "expected_final_gamestate.txt": "a8e97740f34e7041c4d28e26763d0f19fc9b0cb742c40f96bd01d1205ea14dde",
+        "meta.json": "81a8922270b40cf5febebb93f66df56e6dc9f09b52125cc3d63f51dae394b9da"
+      },
+      "fixture_sha256": "2ac6fc75bff156e60994572cdeae301f8a0516e833c2dea4454d79f621093c2a",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-arsenal-face-up-floating-exact",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c3dda6bff891a9a765706c2000e9f92bdfb9ee553c5a9884299a84f0c877de25",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "2978fcee841209fef51be2d7b3d34561fde7b6b046e2319e83d14598f8fd3928",
+        "expected_final_gamestate.txt": "6eed30b7158d62c4b8396b5573c37f0f525a5c310c1cb1604aa22103313fed16",
+        "meta.json": "15c5c78be9ec32400211dfe0d13ef956979c38cb2ca52f39cc592244d0e21fd0"
+      },
+      "fixture_sha256": "0c5881bd851ce493a10034ead3a4b677a4e63197642d114704581e37307af119",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3083fc3bb2eb5b9d042e4a1695c8b7a9cb5cac767b1d65ca23f96640ff9b6b24",
+        "actions.json": "97b1042f4af9354d763736691af93442391035f4a76a714394f80d3d837f06bc",
+        "assertions.json": "f559916218aff49c054b2e015a40f61e6cc399f9df1a79851b1c32c4dcb79059",
+        "expected_final_gamestate.txt": "b4d8f0befafb710584fba4ef540deee494a69cd6b547b02a4f8e02555c9ffda4",
+        "meta.json": "55b08748c6d5f8791836e3b0e95f5e6141ca6afd64ef1829de7498dceedb8517"
+      },
+      "fixture_sha256": "14832ef26a279fbddda171f43bc27c6a50c928ee10d3ab14f70867fba46dc2e3",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 170,
+      "independent_model_checks": 174,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "brutal_assault_red",
+          "resources": 2,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          5,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-two-distinct-reactions-sum-defense",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "529849cc91f9a4e6228613a0a62e83787a3f1a0aa61a88abb89f1e4d63b4ada7",
+        "actions.json": "78f9a775aa56b11f6e6d5b19cd74263542de449e3fadd8006c1575c730070c4e",
+        "assertions.json": "773b46840478a7eb3dfc24faf4170020f6a459919c74796ca02430f03cea03b3",
+        "expected_final_gamestate.txt": "af2c84a2cefac05ca4f67136904c69e45ecd181f06a8594f0ec161f64968f179",
+        "meta.json": "9d2a607dd16c466e6633a6b21928a463a5fba7392bcf4115b101c542f2d6c966"
+      },
+      "fixture_sha256": "635663a39bfae4cd82081b32041a29609761884c9c6b9d372edce24a9efed9eb",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 208,
+      "independent_model_checks": 214,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4,
+          5
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2711644fa4802beb4e9ca438e3899a06cc8a615f75afc3c41d532d2508eb4d2e",
+        "actions.json": "42bd5f5dcb9393ea57d997551aeed37ecd9cc42bac818553ef92cfe83d1788cd",
+        "assertions.json": "7ad34abb66751d2356e6279de5bfabecef42b676d6ef83a72af7261ca357de4a",
+        "expected_final_gamestate.txt": "471bce340ff73639e4dfba03cd56b9491994612727dfe954ebf5e6423024dd91",
+        "meta.json": "9ff69fb4e5e5c21b3fb929921911f36416794b4e6d790a5a568346631bac5467"
+      },
+      "fixture_sha256": "61137ef2abf41adf9bbe65d11b01b15d0ce4e3a0cdf0a1e4d0cb1a4973729af1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 23,
+      "native_assertions": 222,
+      "independent_model_checks": 228,
+      "actual_priority_passes": 20,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2711644fa4802beb4e9ca438e3899a06cc8a615f75afc3c41d532d2508eb4d2e",
+        "actions.json": "7755e6357cc4b013bec0e678bef56d5b0b2fed0ec124b6864b2fdd4702668b3f",
+        "assertions.json": "4386288694f3990ef1c46ddc48c5706f09fe078eda7bce549ea4285e85c17106",
+        "expected_final_gamestate.txt": "f188fd33a8cf650fc457654c0edba35930ede2b72fc4c67cdba45f52f55c3e68",
+        "meta.json": "3a83b1fec0596848f72322c005b211a3c8283d3f1f0daf1558b0c20c8f7750af"
+      },
+      "fixture_sha256": "37c4e67adc920588faccc873eecdc5d228f1da8e6ea7165be6f3e96e93760f9f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 221,
+      "independent_model_checks": 226,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_red",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8143ec0f57d82eefcd8c116922f14f83e3204b753b014529548d21b63c553545",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "abf4de6c292f196e381d63b66ad0106e90a3e059f4f7b7c12330fa2c92ea27a3",
+        "expected_final_gamestate.txt": "4f67aecd37d86e90724f3b65e9db34a2ec1d59c612d7ae165d21f5dbf41e8163",
+        "meta.json": "2bf45092ec4e1aaa09bf805e8ce2e0130f0844f03f578db06676c91cd779a56f"
+      },
+      "fixture_sha256": "33a6f63cc50e828377d82772ff48e94224db39b53065b9065ada27a9b5118753",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 67,
+      "independent_model_checks": 67,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_red",
+          "value": 1,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-own-action-hand-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f680e6ad4d61feaa8a5cdb8972570c62c9952e26b17056e008a1c298d478c682",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "b0fba4262bafa655d6398cf3018d5eb3a4048326a6bd074fb3038838d7d1d246",
+        "expected_final_gamestate.txt": "dbb7fc01f9c4cc1b02955035cf638fb2abdc19e5ca09eb6d9c1b696a89213250",
+        "meta.json": "79f2eb1563604fe760ea48975e04df41eeea7121089430e3797a05add87105bd"
+      },
+      "fixture_sha256": "421e8dde235779ee641572a256afc8fa4658da85d4cd3c5c4a0d34610d5dd9f2",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-own-action-arsenal-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "81cf8b93c148936f183dc10211bfc27ea03deb86a457b737579a59fa2ca77e5e",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "9dcabece307c0115cc861f81e8d1f787ae6f58fdacde6678808093b41db527ce",
+        "expected_final_gamestate.txt": "494ffb308b3ed7edd5e8e799954d6a7c0e77270b90b94fdfd3c76cd9ca5bd161",
+        "meta.json": "5e21314d8d99ab3cda2b1d38258bf600271de325ef394517c69e9644f04de437"
+      },
+      "fixture_sha256": "0ec5870632ce4784fafc1ec35705b107dfbc2545cf7d05a3c0121a99f961662c",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-nonturn-action-priority-hand-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3ffebd58a32e7db514a9cdc5841761377680729500da5dd5390dab8e57a13022",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "0a196fe4742a042738ab3eafe46486a023920a2554b6dd8b7c21a4f1177eee66",
+        "expected_final_gamestate.txt": "9c0624163d638490364b1c5346caed08023784844875a9a93ad411d14938188e",
+        "meta.json": "a415efa3a99018b692bcb4b2cb39cb3b45849ae2a3e5e89961936a271738a73b"
+      },
+      "fixture_sha256": "a07c1d08ecd9dfb7901a617113191e1308dbdc25da30d56506b84c600efff639",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-before-attack-layer-resolves-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "8f53779dfecff303747fd65915d79b8cf25f96c7935b21e888fb5e41e84b35f2",
+        "assertions.json": "1cf7cee72dc6a2d2a2910d9ae7bcfe9d72e9a78904c6ffbbb3d0e2d2fc9198d4",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "78ce26c44be4b217a200b61db0934df284771728a1a73a59c6ba070b0f196c22"
+      },
+      "fixture_sha256": "49a9622ab0f57bdd559704cc7df4432bdf49e9bec378a0338de812b07ec811aa",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attack-window-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "943a3213033e905c588cd6588e7d767681b2dcf069fc0127f647d29c09ec84a8",
+        "assertions.json": "48debb64737d371f470886329db5a3efb2c68160e5fc14a265966d8d6845e479",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "d44889f86a80034d25048444248aae334f850cfe150580839fefcc7f99de65bb"
+      },
+      "fixture_sha256": "87b14fa221f87b18680dce33bb752d76f0c6f1d36dfe4d1e71c10ebedc3054c1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "f8c8b92ad71505fafb600021aadf8f86603e4ae81a9e648b2c2af8243888d732",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "80cc28700d0d7cdd9237765fcb26e595633b9d806b8108c8d6007d5b3d32c942"
+      },
+      "fixture_sha256": "b78de3fb535a42b07e19ab0a0feb34725883668d8d6227ac749071f2661d0749",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-reaction-wrong-priority-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "e5cc22a78e3d9ea36cac0426bac713968724221b2594bbd45c9aacd7857861a5",
+        "assertions.json": "e6422eae332980095c53cab575c8040cb1d660fcd0df28cd974f633ed2c6ed79",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "89ce88ddcc1d7f90082009f56a3990c16191d1daf37b8379fdba1e8f67d2f6c8"
+      },
+      "fixture_sha256": "3a891d024ca9fee59ff9ec17d2c1a43a77b04b7f3bf24b28a47a6f78d4e583cd",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7b7cf46fca88a0da0a59c55857bc9ee395fa9ef7451c7739cb1c08bb0ebba9df",
+        "actions.json": "d0032286865056cbaad4c8e2d5fc304f72f29745eaab16d0aa56032cff63cc79",
+        "assertions.json": "c18cfa5cebe50c401604d154496214c9e405dffcaadd943217dc6071601795b6",
+        "expected_final_gamestate.txt": "e740df463b24b6396c44d102e26b42705af9e756af20b8767f8cfbe9a665e114",
+        "meta.json": "0c88628a6f46bdc120f588ac178a9af41a6dbad29813e65669678c2531113c7a"
+      },
+      "fixture_sha256": "ad2f18453323bb3a76560b90a0194edd49d2f561fc6bdd2d7b3a8b191a4c8660",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-damage-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "6e698a49e25bafa3ef28e53eb7ca48d46222ab7e1db7b5989589fc19cc02d064",
+        "assertions.json": "197de0a80d92bcff5139336e2ef4edf79a84ede3202d4e58509cf473f0b8b7ca",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "4bd3fa7932d76f2fde91d0baad408ba7eec6134391f1447d6eece2e62e780199"
+      },
+      "fixture_sha256": "8f4a8c015d593e0aea087acfc3d789df5c6938f000be8badb8fc800c51a52bd7",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-resolution-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e88b22f4681f14001229b0a8c06cfdfc533a74bda52da76496896efca864ee0",
+        "actions.json": "38ecaf628bb0b811110fa687641f6a449112bec862822118fcf0a079c6860235",
+        "assertions.json": "8a273678951008288d3c86abbb9ebc5e725a5c667f0b4c31eab69ab87dc44423",
+        "expected_final_gamestate.txt": "1590104de007159cb3f1dfc04243a86cc795a8a6f6c820d4b252c40ee9ff2ee7",
+        "meta.json": "34b9f9451342d1612343392f4b611607a25295f993020438ed45005fbae4eb86"
+      },
+      "fixture_sha256": "74a50ad93bf8cc5f2c3e487b9422d34437ffa316893673ed3bd20f72ec3483b2",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-ally-target-cannot-use-defense-reaction",
+      "card_ids": [
+        "evasive_leap_red"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4ca238e04185460f87bbe68ea9329e8fa8ebad80df53034f1587f710c2026b78",
+        "actions.json": "02eb91dc740c428e28ec792d6ca9c244eb5773b54c89ff9e55bcb1d6a3d3bb46",
+        "assertions.json": "18f79647bdb03fdd5199256e15089b0e9b3c828361b430f449f50f47745d408a",
+        "expected_final_gamestate.txt": "efeb99a106d1b5dc646e0b58082b8963e443f486ff6069a0011a43b1609aacdc",
+        "meta.json": "b2df6705bdea3c06346ca559d705cefaadd34f69cec80ee5492db9e5e5ad2ec3"
+      },
+      "fixture_sha256": "6b0ce09f3a0d0d0082b4742ca2e05fe297e9165c7a45b07ee0b929b91c397f0b",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 16,
+      "native_assertions": 78,
+      "independent_model_checks": 80,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-exact-at-zero-ap",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "d167116194dc1ac8bb73a7c26b3364b99f7ac79926f97f980955cdc4c41c0a01",
+        "expected_final_gamestate.txt": "b459d4fa21acd75b2a8b0f083f20168858ba2c4597a8d05f077a673e167d59a4",
+        "meta.json": "d46f8c75baff249f2570b8ef77a512ed05cc412ee5e709a2088a773beaf557d1"
+      },
+      "fixture_sha256": "37d613c9797ac0fcb6ab2679e0e4d5b19b2d067819eb86c34517ea9e0241dbc1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "af1a784295b4244f4454e903d8e1b1afb472cc88a75f73c06d61c60f889b639f",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "05c223b898064d27c92e877db09fdffed64b46607b2411804d681cb88b24f3fd",
+        "expected_final_gamestate.txt": "4142ba7c8349386ca6107bc2e6f0d66c9d4f85426c08d593b6d110fa75407248",
+        "meta.json": "4a24d5398940986970389df7e1439fe8717bcc5c86eb2a20f14b617e5dbfbee9"
+      },
+      "fixture_sha256": "725143a371d47def3a6f5ec419de1acf525bd8472e39428820cea7901cdc290c",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-down-floating-exact",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c9f3d7e182761404967c43c01c2c229a22f36702b2366f2010fa176d0fb9d687",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "89e62c67c128dc55e699dcd682f8c92996d57ee7fb43d9228c96f689d50070f5",
+        "expected_final_gamestate.txt": "74e4684f06dbc8154b348adabd56f341b34ebd2f4107e7af7e84017f34ab4b91",
+        "meta.json": "54e788e4848310254954f6b5d47cc18c3f389a9b67c9239c6014f51488e6883a"
+      },
+      "fixture_sha256": "8966cf25000733fa6dc35f053c655de657f101b32dda3f2a48df857da6a8d4ca",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-arsenal-face-up-floating-exact",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b01dd5ce3b8ad80c9d9370a82595f3a4144eeda515cc2f5c86aadfc2fba55274",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "89e62c67c128dc55e699dcd682f8c92996d57ee7fb43d9228c96f689d50070f5",
+        "expected_final_gamestate.txt": "9610c3ff85526b5f91ac1d18b924c0694c86be2850f5dbdfe974f725f2da13f6",
+        "meta.json": "253f406c15b7af92cfd37398a252fffe35d2e91be959d8f0c594c0af2ec89d8e"
+      },
+      "fixture_sha256": "5e7ee5f5a31c41e2aff102f5ba74aefc667429fc45faf33479b73bc27431c5e5",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "262c718cae57861ac836f40c30eb147d226d2827771b678a969701f5ec12a163",
+        "actions.json": "97b1042f4af9354d763736691af93442391035f4a76a714394f80d3d837f06bc",
+        "assertions.json": "20fcea68e73d18b082601502b306fc6354db6ba13691c4cee2557070a3696e48",
+        "expected_final_gamestate.txt": "ea23c84c5c4414c2e60fbe9e6b098175841439453ef7930f12037150832fe0df",
+        "meta.json": "7fc7d40b507e7f6f67e9ba42d29401243b880549a54ad03e4fdcbcbf66328b3d"
+      },
+      "fixture_sha256": "b532c2a1fb8694e0ef4accbbaaf6f4b83ef16809718e0ba34ba9eb3d391b81c9",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 170,
+      "independent_model_checks": 174,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "critical_strike_red",
+          "resources": 1,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          5,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-two-distinct-reactions-sum-defense",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8d3e0b117dad296c186517d9d97423ffc292d95453e593ae96070054e4bf4936",
+        "actions.json": "78f9a775aa56b11f6e6d5b19cd74263542de449e3fadd8006c1575c730070c4e",
+        "assertions.json": "c844928acab1eec2fb2c3ea0aa826af0a6272166c173563803831177819b4c05",
+        "expected_final_gamestate.txt": "cd59a189fa100d36968c485d113f01f43fd97d2df41c43128fc4a51e454158af",
+        "meta.json": "877eaffb4a8d1c6ead55fd1482979cfc686bb22519698f46600bfa35e5ac8c48"
+      },
+      "fixture_sha256": "93306c8c0eefc5c0b325a462a2d30cfb62ca81e181b5f7bc59c0b1a4dbc11422",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 208,
+      "independent_model_checks": 214,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4,
+          5
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e99dcf9f10746330fc2d1ca07dfafcc5ede5048638c4226f2797807c9d03e99a",
+        "actions.json": "42bd5f5dcb9393ea57d997551aeed37ecd9cc42bac818553ef92cfe83d1788cd",
+        "assertions.json": "d871c8c14337d49a25a1fac610a5f0bef6a6166af4a1ba96dc9a73c4af04b2c8",
+        "expected_final_gamestate.txt": "6386a446c54fa7bfa3d5e37c30e1b8ef828cc91a357a61e24b005a8bedca0f64",
+        "meta.json": "1f64a3ba910999fe9cea561360bb1b60828d5c48fd0cad1fa39e70d8bc52a81c"
+      },
+      "fixture_sha256": "a827b4a325beb8e2a891de150ac7da90ae2fc4d90a50238d972f4294167ba42f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 23,
+      "native_assertions": 222,
+      "independent_model_checks": 228,
+      "actual_priority_passes": 20,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e99dcf9f10746330fc2d1ca07dfafcc5ede5048638c4226f2797807c9d03e99a",
+        "actions.json": "7755e6357cc4b013bec0e678bef56d5b0b2fed0ec124b6864b2fdd4702668b3f",
+        "assertions.json": "e0f0db343ad8c022975350a65af268b5cf7facfcdda5e2c337b962081573136f",
+        "expected_final_gamestate.txt": "4bd005da9f9257b2978cb3440074370a2d4a7d0236d63fc5d429c5acc437b00e",
+        "meta.json": "c8e01ceb6aa91a9edf44803c4c2678537460eb85a5d7b91eb38360a5388a7323"
+      },
+      "fixture_sha256": "a66730a95989ba065c11d0e7c4f560e9e7fb50990ec1f23cd96a3fa1365ef18d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 221,
+      "independent_model_checks": 226,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_yellow",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1e8ea25a816005b946366dc8b972c80699b4e619919e40f9482128762c38ff0a",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "b76c93f3ee63b9665ea0d6c20881d29f2d8bfb106fd3b04660a0d5b6d23d7a08",
+        "expected_final_gamestate.txt": "d46a3fa58d5a74c963632f1da25e0035475e8c9f9f27b9bd9b29211bb4b5194b",
+        "meta.json": "8afbade5dd3046e0f4cde752bddb83429cdf6bcf63339565c5665367c422d8c1"
+      },
+      "fixture_sha256": "575621e7cc5e8169a6df170a564c7b45b3df0601032ad05e256aaead27409611",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 67,
+      "independent_model_checks": 67,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_yellow",
+          "value": 2,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-own-action-hand-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a97f687c551c208da68137de321f78af948452de841407029904fc93e2d92cbc",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "56a6347a713be57c26231182058bfdaa79784fe5b77fee964d600a666f5a7775",
+        "expected_final_gamestate.txt": "1aefe50efdb13377c5a8ca2a4ac88cc125ca256b82a882f378c7dfbefea6c166",
+        "meta.json": "2e0aac5ba0b73bb179e5a0d1151fd7a7c35e4a318f38f22f631bec1c78c24147"
+      },
+      "fixture_sha256": "c4b1050719d44f7c3114938b9b812ef80bf94888365936bc714a4d40246c5e6d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-own-action-arsenal-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e93e64b45e146973951334c6e11f61d2627b39ae4d75549cd6fefbf9ff51ede7",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "c62a35d8bb2f2b6b08bdb51739624976bf736a74e71df0a54d700b8d8d7f525a",
+        "expected_final_gamestate.txt": "1a81a5a0ccdffad08639c2063c1de9c569f3fa4364d3db14ae21ca126b6a5dde",
+        "meta.json": "9cba779b3400e734b6b5386e0920f637d9f502bd01c34b2fb771ccb8c28f1507"
+      },
+      "fixture_sha256": "13dc920a7dc9b0c9bc5a8a7be96a01ab88a9407fc9e77036544996c75436aa97",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-nonturn-action-priority-hand-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a656891e01bcade7b3fa42b48a3b0d0dd654962652239040065fcb09cac4eda3",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "47fce5b705ca9c1ce7899052a4d9db2745b3ff2dc86e76146fcf85ec5856ca9e",
+        "expected_final_gamestate.txt": "528ee2029a8dbc5417006a7d3586e9581fb8c6c9ff8f2e3c48bcbb82206ce2dd",
+        "meta.json": "6fa28383dcf36291aa82bbc7500f7607eabede0f65c5ea903f7ccd7dcf91fa3b"
+      },
+      "fixture_sha256": "fdc954fd11d528420acd0e9bdf61a0ad672ca040f251479df2bbd6d15386a75a",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-before-attack-layer-resolves-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "8f53779dfecff303747fd65915d79b8cf25f96c7935b21e888fb5e41e84b35f2",
+        "assertions.json": "58f6f30958cc81ee6478e396cb17c74f5037bd7018ad06a125e23cf27c6866c3",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "7e5667b9c2d763992d55d81553861c1f27031688cd9a02ccc6748a61ead46d0e"
+      },
+      "fixture_sha256": "07862eafd420eb912cf16299eb8f654a5e99c8674c3404602f3eacc9c6211b26",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attack-window-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "943a3213033e905c588cd6588e7d767681b2dcf069fc0127f647d29c09ec84a8",
+        "assertions.json": "f4d789ba8cdb68cc03a9486daa41cf2e94682d98ff0c413e18558802617adf22",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "e25751d01ff8f242fcb736f66b9ea678ea3166813905be38c899dc5d33490ff1"
+      },
+      "fixture_sha256": "54b1a2b75ef30972d3337c1cc1e705f46e20d395f5f82fe54f2d2403bb0baf67",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "5501e94c14ca197001bf91beee818cc685f878dda5ee84ca92d321244571ca94",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "74bb3867a180b700850cc896db7e0dea004aea5d335adc10713fcbc605afb16d"
+      },
+      "fixture_sha256": "54852f1ba2c25a30de12cb8a549f20794f49893f5d2180379ec35b57b4ffc498",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-reaction-wrong-priority-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "e5cc22a78e3d9ea36cac0426bac713968724221b2594bbd45c9aacd7857861a5",
+        "assertions.json": "b4896082e9db6bf3a8dd69cd4bd49d8355f30c2867c5715eee1d89e845616de9",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "06f0c3c90630750275303737ab7999d6cd6d7fbca363f61f380593a3b2a3e47b"
+      },
+      "fixture_sha256": "f9d7364792a1a3617d3376ee7adc6997254ff09a4a9cb2b132c1a215c11f35e6",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9c6e0b3c588e69ff0d3f08608330dc661f4ce82c73f1825c96bb50cadd06c898",
+        "actions.json": "d0032286865056cbaad4c8e2d5fc304f72f29745eaab16d0aa56032cff63cc79",
+        "assertions.json": "655e957e7570a9c78008cc459bba2d45930c24d1dd5bbeaf6d562c9360ed1034",
+        "expected_final_gamestate.txt": "3da716805ae4773d16810b5c6dbf0e6d192393cf6fd60fc7bf0d0f1aae6f443b",
+        "meta.json": "9861a37cdf7bfecfcf139a6d8f6ee6b23b6ef412b218335e356a5bfa637c90f9"
+      },
+      "fixture_sha256": "562c80226529bd8e687df4ce76d2315346718c0941a963dd5854f84084c0712f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-damage-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "6e698a49e25bafa3ef28e53eb7ca48d46222ab7e1db7b5989589fc19cc02d064",
+        "assertions.json": "37904264b3819ec6a47faa9a54aef27e3b895c36ff7146e189f5b4820880d5f2",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "a4be853517a4aba407d852565fab8e679281737d42395c73b3a6cd498e6164b5"
+      },
+      "fixture_sha256": "6401dfb848a975eadd589082cc5e17f1217ac37fad1e9bb4286652f168fc2e7d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-resolution-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90e7e814540a348f958a0b9cdcd2eea8165ba5abda5b8e3ecf51f65a582a2bc5",
+        "actions.json": "38ecaf628bb0b811110fa687641f6a449112bec862822118fcf0a079c6860235",
+        "assertions.json": "42a2d92d128b840b1c9f0047375ed786eb5c93804497464883f4b9ba7c0b2e6f",
+        "expected_final_gamestate.txt": "14412cb2b7e7d14bb8e79727914aa568fa83a5700c3a1901c3ea048a66f83e7d",
+        "meta.json": "254cb6a49f69b83b3f5d5c849946d18cd0bca07475d197417b1be3e998e4c855"
+      },
+      "fixture_sha256": "f582ee88ca1ae58dce43456805928e2dff7d2e8f493fd3cd24534050fd9418ed",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-ally-target-cannot-use-defense-reaction",
+      "card_ids": [
+        "evasive_leap_yellow"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f936539da29a253c6c91c968451ee76a1433870c58ee0cc95ccad788c80a1f58",
+        "actions.json": "02eb91dc740c428e28ec792d6ca9c244eb5773b54c89ff9e55bcb1d6a3d3bb46",
+        "assertions.json": "281b178f2e2f6afe53932e0d46fe30c737817a19e163bdfe2bccbb16e7d9eabd",
+        "expected_final_gamestate.txt": "0c3a5cafab87d37be60b4d7ecf39c924b62511ab4027d007f1db238844fd5e17",
+        "meta.json": "5386f97ca3dc3deea5ea0a87b327ee9f1d5a43f6c3e0a88622896baccfd71195"
+      },
+      "fixture_sha256": "4b55bf152aa1a366aa6b8240a3543cef45d854b5b3beab21cee1121a21261026",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 16,
+      "native_assertions": 78,
+      "independent_model_checks": 80,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "171a98e05ad531c97a2db98e1dc004fc676ba1234dce6ee1f186d5da74e20d44",
+        "expected_final_gamestate.txt": "4b94bc00a2c81617d8b22ed40d1c7e7fe092ba0a1b89eac7b2ec1ba468f8d92f",
+        "meta.json": "19b9f70f59e858c4904298bb20787da6c593c80e936121074ac5c15376bf2858"
+      },
+      "fixture_sha256": "b0b8da6867f0cce4cb57143d746281edc464ed5548eedfc59c873d2689f577a1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ec47925d8d2e4afd35c788402dcc47f2a1292aa91824ce1f4348dc5aa1702887",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "0623b2019f6d5303f5f555dfde6e55a11e963ddfb58938486fbb4c07dc589f17",
+        "expected_final_gamestate.txt": "81bbcc9cfe5b919689db1f266e6d09b09ca8c85dbbb8ec01893301cf9a5ffaa1",
+        "meta.json": "fd4c1fba18f2d050347b3412cbe738c22bbbea045fa027a7ac4328338d295456"
+      },
+      "fixture_sha256": "b71f11d3c23bb49480548a8fda449c48a1aad084c8664eea1a38fc2cc73a721d",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-down-floating-exact",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "86cf0ee612ccccd19e62726559d434755c4fad7cfff99d2a2e9387e177c530e6",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "e55b0af2f8be503b6ec37f0b5d7ce0777f6cff20f73444011abf9e59f2ccc676",
+        "expected_final_gamestate.txt": "0d4125b972539ebe4e326e6586a29fd7891b19173915375031ca1f97a9414ecf",
+        "meta.json": "a4d7bebae3b9eb4461989f7951e65d6d2cf94d5ef6299602f5c88406f0d4260d"
+      },
+      "fixture_sha256": "9f0a19332828ac4eb08d3e12da826b37654f8000d2e5f0545c342e9f42eca962",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-arsenal-face-up-floating-exact",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4bf526ae8ff1cbcf0670d798833295ce15ba572230003bd2b3c1562d4adc0772",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "e55b0af2f8be503b6ec37f0b5d7ce0777f6cff20f73444011abf9e59f2ccc676",
+        "expected_final_gamestate.txt": "4eaa92b3290f424d2dd30b70444165bbf835805bd78324a7be76c79f873d90b0",
+        "meta.json": "69fd28022e02e024db895113b25c398939dc54b28ec0212f102c5fbec6591809"
+      },
+      "fixture_sha256": "1836c3ed158db6a90968dcd4ce61c02bd340611d78f2e2d4a840a55bf2566108",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "dcf8bb3a4c9974d0b67cc8f2e87292e3eca1f61383c760a1e327e0b7b7efed62",
+        "actions.json": "97b1042f4af9354d763736691af93442391035f4a76a714394f80d3d837f06bc",
+        "assertions.json": "5e8bc001d524ff03f2c0b5a66042a26772ebfc992a3a2f7b52febf396e52a3e2",
+        "expected_final_gamestate.txt": "c3349ef39739bff06dadf45ae431ec71aceb6fa426dbdfcd6da1a3d1c2c8afaf",
+        "meta.json": "d0cd5b9322f8a081a7d551b236e3ced23f58d8c486d4835225e5d4b8f05d764a"
+      },
+      "fixture_sha256": "2d429692023c55e69c75c07e3b9f662e019a939643b536f3c132a20e2d2b12ea",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 170,
+      "independent_model_checks": 174,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          5,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b5f5f748ea1f6bd933069b031c2bfba70d1ba911eafe092f5c69cf32aaafb0a2",
+        "actions.json": "78f9a775aa56b11f6e6d5b19cd74263542de449e3fadd8006c1575c730070c4e",
+        "assertions.json": "12b8fb67788df26b2e8a48cfeae0798245ab9676b7f0f549cae4229adf837727",
+        "expected_final_gamestate.txt": "12a43a86368213a6685b91e0598784416974571bce2e1c8486ce580003c39d4a",
+        "meta.json": "5522580438063a98531d16328c0069980e76a9c50e9fc25716f0d72b36d25feb"
+      },
+      "fixture_sha256": "20426ebca836529f16c8824eebb5f88327258ae5f1eb4652dfaa044e6c4fb10f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 208,
+      "independent_model_checks": 214,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4,
+          5
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2874fd5dfcb668fe12e451c185b685f9ab73333ddef265ecd28ffc95afb42fd7",
+        "actions.json": "42bd5f5dcb9393ea57d997551aeed37ecd9cc42bac818553ef92cfe83d1788cd",
+        "assertions.json": "dcf4c9e07e0c2d680f9b6fc070d9f88a22bec54ec22cbd711512f72a2204c74a",
+        "expected_final_gamestate.txt": "815399ae1254fcbfccd2fa87ef8253b0756d4cbf72b528aa89e3e542394a15f2",
+        "meta.json": "5f82ee392fcd1b7690fc29335be4247680b36f8b2a592ae0a7232609c6534d2b"
+      },
+      "fixture_sha256": "0369ae1861a6895c6443c29b1bbae6a447405fc6234e7b82c5adcc2151775bcf",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 23,
+      "native_assertions": 222,
+      "independent_model_checks": 228,
+      "actual_priority_passes": 20,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2874fd5dfcb668fe12e451c185b685f9ab73333ddef265ecd28ffc95afb42fd7",
+        "actions.json": "7755e6357cc4b013bec0e678bef56d5b0b2fed0ec124b6864b2fdd4702668b3f",
+        "assertions.json": "e9c459a7897e29d92308c11551b368f9fcf5b4ba9001a02a146d80cd70896854",
+        "expected_final_gamestate.txt": "cc3c56caca522f9af20ca4fd3189f15188dee4cfb1cfca2b31324411c6540b0c",
+        "meta.json": "cf35fe3047cedd3f08d40896a89518d5093629ba6ab60c7ef0dd17f9ded818ab"
+      },
+      "fixture_sha256": "40971a7d84207f3c394b4b2f3211fa1b9400fc0fb3f55176577f833ec42e9342",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 221,
+      "independent_model_checks": 226,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "evasive_leap_blue",
+          "resources": 0,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4bccbeda03211e435cadb20c0f4bd35410a503fe3dbef4893275a4d199fa4f7b",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "868eeee04a40788570ff1b8019b9e8835f656523ba757dd43e87ce244bb9aefe",
+        "expected_final_gamestate.txt": "dbd6f75e93e5fe665f58aaa0253432557062314aee21ac3d1975f7ebfc22b21f",
+        "meta.json": "cc2decc5a4a332814c3510b03bb21eba0890e153cc350395d76cebe5abda3760"
+      },
+      "fixture_sha256": "4b9d2411084159bbb44c5475abe192f06647656890118da9396e1d5dd0f79049",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 67,
+      "independent_model_checks": 67,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "evasive_leap_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-own-action-hand-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "905aa9a23f9ec474ebf66ab842f40dd2bddbb1171b042f09f76ea458dd48e684",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "9eb1aad6b6222e5fcc5c0cfc2f5f120ec650ddd930d4336fd223f8d78ce483c1",
+        "expected_final_gamestate.txt": "16870bf147f5b3e089c7c55e506e2e0622cd45e04925df82878414be68825d56",
+        "meta.json": "3a66c24e45b64a6d168753c308132aff0c908e776c776a5a15a1d4edb9b67345"
+      },
+      "fixture_sha256": "956472031979e218323fe1ba325da8a854271146ed17060868376e690757c351",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-own-action-arsenal-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5619da0a45180bd6f832b946b7345cf1e1590730be48f6d59e2029c5919adfee",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "b0725348a31bfb5939cca770a570b61729be745439b1c5b29f4747a83934afa3",
+        "expected_final_gamestate.txt": "8037b6eb2761c83092a7b693378f9b5be22530992acac14c723d20840d2fc320",
+        "meta.json": "63f51c69353367c07706510a5433f0e7bd799ebb2f38d9ad32cbf1d092469073"
+      },
+      "fixture_sha256": "7ede1f7ef5c9dcc207593c75dbd0c3d96317deb90ff27f523edd3a90db76602f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b6ede5dec9b65b49d56409f4776b032d4ca84e371ca1a64f2851494c4302dfa8",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "53c4ae9180e73277812ddb3ad223f0de19441d7273c3113825bf160862b727db",
+        "expected_final_gamestate.txt": "d7b74eb9c96948b9ee4ab20d34a76de93aabb4b07ec493f3a3587b9eb135defa",
+        "meta.json": "5467a9650399ce058ab52dfad726de6bf0d240aee2298285e5495a3d3cb406ee"
+      },
+      "fixture_sha256": "5dc5eb9245cb0ea4d2278b19781fb1c6412fa6f0926a9eaba250430b948843e1",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "8f53779dfecff303747fd65915d79b8cf25f96c7935b21e888fb5e41e84b35f2",
+        "assertions.json": "9acfc08ab907ffed4a7f048891662dd39b4af60a89124b313a4a5e36a94ac624",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "24a83a9bbde4889d9391528deccb2f99025d15475918a57e3300c7a331e1b8e7"
+      },
+      "fixture_sha256": "ba2b6a4dc52e751b3aaf7a88e53143f7f5a6d6433393d733a1845de0fc94980a",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attack-window-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "943a3213033e905c588cd6588e7d767681b2dcf069fc0127f647d29c09ec84a8",
+        "assertions.json": "a9705bcd45106a9c0f646a43544c624032c95f1dd9e26411e626d185d371b7a5",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "a97644a5bb85e710ac8648e0ebed3b4636c9dadd5e639ae918f5352c8d0329f1"
+      },
+      "fixture_sha256": "2deac89dd9731f763493255d3f5653db727c6fe661c61fd7366ff50672090f19",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "d7504f611f0458562220359972a4edf6ccde5fda67606f0fd4991158e5ca0d4a",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "fd48091828ded80c6c864d95495f5b8fb70395d3de1cc64bc1a63bf055d83b7c"
+      },
+      "fixture_sha256": "efa3bc7426e3173f00a518f23acb21a9cf109865c551e8f18c006e1beb2c763f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-reaction-wrong-priority-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "e5cc22a78e3d9ea36cac0426bac713968724221b2594bbd45c9aacd7857861a5",
+        "assertions.json": "5b27051ff10565698cf7910af87ad08a6220e08a296532e08dbbd3a3f2b0838b",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "5a46190589b5003343d0e353aac900e53e2f89cc405a59e095466442caa1809b"
+      },
+      "fixture_sha256": "c17f283e2c5f6dcf74707c44d0c42922d6dc449f1e8e316e7c80d6c2d20f689e",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fdd0a015635acc5a777d9259bf19ecd55924aabb1fe21bb662db0aee4a574258",
+        "actions.json": "d0032286865056cbaad4c8e2d5fc304f72f29745eaab16d0aa56032cff63cc79",
+        "assertions.json": "5ef4c408b05c3dfda6be340a1da0f6875061f6dbc5647ec30b076bd4a7a7e1e4",
+        "expected_final_gamestate.txt": "28cd737e24f992f755ccf9edd93363b07e60d5bca90615782c9a5f06a32b26a0",
+        "meta.json": "74a17613a7e1ccf73db13212330e5048a55b8a5778816d2440693b8c93140257"
+      },
+      "fixture_sha256": "fd2bb6f228151142d36a1bc741d4ff5e40df3b0d78a1ca638673a254c09cc4a0",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-damage-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "6e698a49e25bafa3ef28e53eb7ca48d46222ab7e1db7b5989589fc19cc02d064",
+        "assertions.json": "094f9dd5bcd798e0689c35dfde859ff5e0f2d5b635956d723707e34888395b88",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "8455e2e5752644bfc3edd164b4b4e5da035c43bff8853a56ac06fda8218f3cda"
+      },
+      "fixture_sha256": "d0e5a860931bebe93e4d4e1dd490e26af95870a2de36f6ffaf084e49475fed37",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-resolution-window-too-late-rejected",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17f6e2f2776fe0fb0a7e1bd3aa231a60e481aeb38fc111bae0748f419ca715d5",
+        "actions.json": "38ecaf628bb0b811110fa687641f6a449112bec862822118fcf0a079c6860235",
+        "assertions.json": "ad99612170a03280445670ef119e24888985d14b6aab287d0df85a54c0bf8d61",
+        "expected_final_gamestate.txt": "8f3fd221efb806128358aecec715b7f6de346e5cead59de14af52dc094c0eb18",
+        "meta.json": "ebc282ab99a34163fa622ea7be71f7bcf3bd419f60ed1399d4634e0b8e770207"
+      },
+      "fixture_sha256": "b50dc61ff5be3b9bfbbf40ec11bd1ccdf29f18d3cca7b211d3493983d27a469f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "card_ids": [
+        "evasive_leap_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a8bec8974ede851e0cf2173f869e81af9e2fff20585adb727d139e0522ec1f6b",
+        "actions.json": "02eb91dc740c428e28ec792d6ca9c244eb5773b54c89ff9e55bcb1d6a3d3bb46",
+        "assertions.json": "ba35130496b1f4ad087640a77fe13cc72ee1786a6e148a2b355846e2544fc6ea",
+        "expected_final_gamestate.txt": "e6386da92a046dd9ff3da6a325f83ff0057fd61333f485aaa8b095329b9492b7",
+        "meta.json": "c88783d885c6bcef905267be748fe6f64e0e18ef3c88bed0861da08069ba01b0"
+      },
+      "fixture_sha256": "3746c5862a1cdd409d162e4008f8aefe8a31367d82490a5607d3ff44f2ff97f6",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 16,
+      "native_assertions": 78,
+      "independent_model_checks": 80,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-floating-exact-at-zero-ap",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "e1def5664857e91a17147a99e2111652fbc8a2bd647412f5fccd5d05bcf28680",
+        "expected_final_gamestate.txt": "fa61d221213f7c1b7d2e04f56c191d048a655a57a0f31dca5a23660dedaf470a",
+        "meta.json": "6f7c9742d642e1fbbd3a629fde84926a9233a3e7deda416ece2cbc6bc5ff6473"
+      },
+      "fixture_sha256": "1c86be8dda39fd3c55a54c6366bc2400ffa3b3c6d56d1bb9522b09be1a01414f",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-floating-overfunded-preserves-surplus",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1108c86afda7060163d4238d3861ebe37373d424dabfab4ddddc3cf35f4b6cf2",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "042b34b5b4ce842cd60df8633dd4da11ce43a8aad997274fdce23765ba6759b2",
+        "expected_final_gamestate.txt": "03e0c060ab28748b3c9bf9f5e45151311e624c266fdb5b74fb660f2c2d149633",
+        "meta.json": "c43c7347c5972adf71a36bf19254e8f591e7ff64c000567df6b5a5f432946dc9"
+      },
+      "fixture_sha256": "00bb2fb94f72109b525d307bf7b3d501956ba41ec9d6da1020e30a88c8696476",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-floating-exact",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c85a32dd7d59843afa756ad9e51746584428eaea757f648c78496e2b95add6a6",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "bcfc99aa6bf3662e24dc9c462602cb46c927786fe75b7050658246f56fba2945",
+        "expected_final_gamestate.txt": "9b90ae87e90a9fa438ecd8b7eb5188017014e22d8d48019e5536d6f6b006f9df",
+        "meta.json": "1d2f87d1532df2eaa7e34388142e0a205717d848da9af528b26ade6e724b0466"
+      },
+      "fixture_sha256": "88ce684a21689f83f22c22a4102fb021292d8e8a12fa71425feff9a6b0893351",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-floating-exact",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "64c580f72f797f13427918f1922aeca619fc888d0d4af950d1b93267c5b6cd68",
+        "actions.json": "216763cd66263c24aaa3b6eff0b73030b589971dbdce7caab4b79fbe7fb2c84b",
+        "assertions.json": "bcfc99aa6bf3662e24dc9c462602cb46c927786fe75b7050658246f56fba2945",
+        "expected_final_gamestate.txt": "ea3fdbdcae9a093fdef208f474fe8b8e61e3b4c90957b93a7eca6ba67d3ebf7a",
+        "meta.json": "873e6012ac475ebad266db8b0ce29682813a2313de330a1a70d390b64d163be3"
+      },
+      "fixture_sha256": "c548ba946f4c039eed2b8d202f864f8b4bd4cb1b0fe4443bd26144b4f8ddedda",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 18,
+      "native_assertions": 157,
+      "independent_model_checks": 161,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-normal-three-defense-plus-reaction-exactly-full-blocks",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ee6ed461c7f35e633350e9d342efeabcedaaf855c66f89b19adc83e3b014f62c",
+        "actions.json": "97b1042f4af9354d763736691af93442391035f4a76a714394f80d3d837f06bc",
+        "assertions.json": "60a7b11048b85a7b316c15a21b276d4917c7aea3568442ec90fc4393090ea21a",
+        "expected_final_gamestate.txt": "7ca78345b8d5c9176f511bf31dd2311b35adb9f2c7f533f26f8c664d3cc42f83",
+        "meta.json": "ff5d65ae9261027498dadbfd8a7b3a8bcaeea6f4333fd0e5fe0f0572ba050ba6"
+      },
+      "fixture_sha256": "d1f1c49b2603cdaef7bedb508f5f0536ef63d5259301e7a5687a5de97c9354f7",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 170,
+      "independent_model_checks": 174,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          5,
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-two-distinct-reactions-sum-defense",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "009d818ff74b047d85f54d17965c5396fefe65759a1beaa17b41afc3c62a2065",
+        "actions.json": "78f9a775aa56b11f6e6d5b19cd74263542de449e3fadd8006c1575c730070c4e",
+        "assertions.json": "a314f3ac56dcc4777bca7f86d05794015ec7721a857239f9c59d2cba94c8e1eb",
+        "expected_final_gamestate.txt": "4c64a864e2643eb21a09980febd239c933b6f15c45f74df0cfaff090ad44fa47",
+        "meta.json": "87e6f3eb548822ccf2a59e202878e0ca01e37601c0208585f9827a57530c91e7"
+      },
+      "fixture_sha256": "28ccb70c1125004264f527f508c0ac422b90b4a8c24ca31193332cce6771d111",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 208,
+      "independent_model_checks": 214,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4,
+          5
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "12d3902d0e48ec5b6cac266ae1c9375f357f54578a9ac8de76b689ebc1a8223a",
+        "actions.json": "42bd5f5dcb9393ea57d997551aeed37ecd9cc42bac818553ef92cfe83d1788cd",
+        "assertions.json": "00557429b238ee67cc52b82d42d13cbd4bc1559ed59256c2e8b1f504930cc96a",
+        "expected_final_gamestate.txt": "4758264afbd82798c74cb0eb09f4336d9ae8027bbf6483cd8e5b5dba8fba9cda",
+        "meta.json": "f60b8d3a2b9ea8a4b5d384872006648dfa6bf4e7fe821fac216e8d0416a9d35e"
+      },
+      "fixture_sha256": "d39021a06f15e4ba95a0d3fc69778a8fbdb2d59f7a64d326c7041b9068ed4a14",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 23,
+      "native_assertions": 222,
+      "independent_model_checks": 228,
+      "actual_priority_passes": 20,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "RAZOR",
+        "DEFENSE_REACTION",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "12d3902d0e48ec5b6cac266ae1c9375f357f54578a9ac8de76b689ebc1a8223a",
+        "actions.json": "7755e6357cc4b013bec0e678bef56d5b0b2fed0ec124b6864b2fdd4702668b3f",
+        "assertions.json": "3f14cfc82b92aa0af84fbdb4efbf031aa32196b83b4fbff2657352e517dc468d",
+        "expected_final_gamestate.txt": "bb3fa8e3583c8e65f6747844bc791cbbc5bc5eea4c1f623b2222e23060782555",
+        "meta.json": "af7b5d4063b5b86f38f3155e8a3ea72af84baceb8fedf031b4e59a4d6ab68237"
+      },
+      "fixture_sha256": "b6d8cdd49bb38cf7fd66ac854c2aaaeac1db572a268138dbe5c3c05110393f97",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 22,
+      "native_assertions": 221,
+      "independent_model_checks": 226,
+      "actual_priority_passes": 19,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "resources": 0,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "razor_reflex_red",
+          "resources": 1,
+          "actionPoints": 0
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION",
+        "RAZOR",
+        "HIT_GO_AGAIN"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-printed-pitch-funds-distinct-cost-three-attack",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c154e6fd450281b3208058c421c5f1f574d589319fca306dc4812f31a969186e",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "ee996356c0dcc0b0bcd36e88493bf6ff74f648f227f3018ab73c1a84536a2344",
+        "expected_final_gamestate.txt": "97899bb5529b99b72c37a407c6ac348770f751568fbcaa949541330eccff52e6",
+        "meta.json": "78c5f228c37015d36999192fe5477d5e8538e04a35923a6ede09f7827c254e27"
+      },
+      "fixture_sha256": "00e9338b8f1d274f8a865b0e1cb667c5a8de6bb77e97082a89e2287f1bbb8143",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 67,
+      "independent_model_checks": 67,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "muscle_mutt_yellow",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "toughen_up_blue",
+          "value": 3,
+          "uid": 4
+        }
+      ],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-own-action-hand-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "db419c3155cd5767888f49a004fb6dc482e4765cd2a3bc88a075832ee1f13522",
+        "actions.json": "552f566dbb3f92cd5ba073367ebc69489d64068f7398d09f17f8cf93f0e2025d",
+        "assertions.json": "3bee1821d3d455685b134da8edb0b672f5a1bf15b2f083cdbf3fa2dc7bb78243",
+        "expected_final_gamestate.txt": "11185123f1a5e1658ea9160edb2a73c4843ca655485058712cda8cdc45c97296",
+        "meta.json": "3dafbc43968068435f6fd12bd3186e9cf3af8ed7cd5515d66cf537b27490f9c9"
+      },
+      "fixture_sha256": "862a254e8409e524b5b661e1ce72224bc61e715eec1296deb20d25aa3dd25eca",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-own-action-arsenal-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4738ea42a5f408c6c3f556effd1ce984cf922da5539318916b29d220e05b070b",
+        "actions.json": "2e026749e693d5022c4f6e88007acffd99666f09dbec6db454522331fdd0d2ce",
+        "assertions.json": "1e979ac42eab64e1f9cad0aa0a74bfba78f1a36fba595706da935b693dd473fe",
+        "expected_final_gamestate.txt": "96898b95e9742b162104db36bcd17b3081b8bd64a3c678e26dde75fbe5a95039",
+        "meta.json": "5b3bea9d8616f032b6a2b6cd1cd29595505f5169665e26624495cb7d9529afa2"
+      },
+      "fixture_sha256": "6295819ae39a9014ab1fa0a77f78b98c82fa9e3c50c036906780f848e3d345e5",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-nonturn-action-priority-hand-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b749da9af8fc12862ac3bc20c255b478b4b711e257c151992ede1d008d4fcaf4",
+        "actions.json": "f09dd53c2a5c5d163b4a2920873daf59040048dd0668994dee1a686156268dd3",
+        "assertions.json": "122b1deb84f31085d27166eacbdb1148dc31a6c8c36dff5ff85b471761008651",
+        "expected_final_gamestate.txt": "8f9f1e5bcce1874eabfb2af6439e3e72c08b395277f09c8ca9331f55361021e5",
+        "meta.json": "7460718d07c3b29b9409159432017fb6bfd5a066e9cafff75bbc1a0428113f66"
+      },
+      "fixture_sha256": "8ed460fd9cd36f157ed8002deb41289b4a62a5ee023278d4de22b9d932e3cd48",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 1,
+      "native_assertions": 38,
+      "independent_model_checks": 40,
+      "actual_priority_passes": 0,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-before-attack-layer-resolves-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "8f53779dfecff303747fd65915d79b8cf25f96c7935b21e888fb5e41e84b35f2",
+        "assertions.json": "6db07a4ff84b460c899299eba8f8af41e7a473e5e354036e3482aa5f933da23c",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "fad04e9dc4d7b051317d2f14c7914c6d9a2bd88f4992c2d7565a43798aa3e46b"
+      },
+      "fixture_sha256": "e01d505169753a21cbe21bc56ae401d89cb3be4bd24d709311bfa3b63fef9fd0",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attack-window-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "943a3213033e905c588cd6588e7d767681b2dcf069fc0127f647d29c09ec84a8",
+        "assertions.json": "fb0c7560bd8075aff58d16d810b87db53506190eedab6741140982fb1466646c",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "d9e7b78b1bf188d76e78c13697083120a2df9121db6b625eaab8a5ada35b82a8"
+      },
+      "fixture_sha256": "e15a9072083cf5824fbeb88d0325472cfba558ceb96c582383bfc5671580637a",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-normal-defend-declaration-hand-click-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "611834e9c121d6005e88afa253ff02e755ee848ba492a936a738328464edd025",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "efdc1f4978e9984621edbde8a97b95abede73e38e92839a34e5bd43d9bee40f2"
+      },
+      "fixture_sha256": "d155b97b182606861500b6338a85ddba4c157ebd0e967f98464a0bd464b28dda",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-reaction-wrong-priority-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "e5cc22a78e3d9ea36cac0426bac713968724221b2594bbd45c9aacd7857861a5",
+        "assertions.json": "76ad45800dd591e53258d3c2a997db330e76feacf40d187486caf3348e8aa26c",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "86d538f2c93fc5b0f5d901e0c5df2647d3720f38b97ef1bba08d9a7170b8dfc4"
+      },
+      "fixture_sha256": "824c3a378a278d450c53d7ff229893c3506f0f06f368cdd394cad65fe0282a12",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacking-hero-cannot-play-defense-reaction",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9302373d11ecea0728327080538111d4859e7f4514fd1ebe4031cada7e2261dd",
+        "actions.json": "d0032286865056cbaad4c8e2d5fc304f72f29745eaab16d0aa56032cff63cc79",
+        "assertions.json": "e92ec2de105ffe556d035e5fc1271e46ea3cbecf4eb175317d870c28499524d8",
+        "expected_final_gamestate.txt": "f4fa756a7718126c3f264d32dd26aad515ac9aad7c9790db9eeda421bc0f327f",
+        "meta.json": "76debdd48a36a4a43127d6de7ac09967ce688e8fd21f4f404be044418a653a0b"
+      },
+      "fixture_sha256": "a61efc8befe94600601396debeca30f57879d1c31834c597d19e62f59822afd3",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-damage-window-too-late-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "6e698a49e25bafa3ef28e53eb7ca48d46222ab7e1db7b5989589fc19cc02d064",
+        "assertions.json": "fc57bc8f40a4bb9a9d516180ff465d583550b12fcebd774f28f33c0b174ff17b",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "326d3aa1e6c0fc7ff8c2bba824983cce5f71c8525fa42b54057b31cf323fb878"
+      },
+      "fixture_sha256": "dc63414e0147c6c804298d509ac719ba25d5023001041de93152af3f958457e9",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-resolution-window-too-late-rejected",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "19351c5ca602d55a9ff88d03803df6aba029c4720cb2209bc173069bdb763d3a",
+        "actions.json": "38ecaf628bb0b811110fa687641f6a449112bec862822118fcf0a079c6860235",
+        "assertions.json": "397173c2440f49cd0d50649ab50aa7de252395587f82afa1e1ac80124817cde0",
+        "expected_final_gamestate.txt": "d6dbf85ebed2849f56500694cb872e57bfb8efdd6df4ed85d84bff8618f88337",
+        "meta.json": "a19622a09dedc0d1a9e119ff99c3fa7be76e2428ee58b33f3cfe69d244538424"
+      },
+      "fixture_sha256": "557978ba34382573b4188dc5e14a9e319f34494c5c1a90b7781f8e427505018b",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-ally-target-cannot-use-defense-reaction",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7f3ea3e8e46a3d62feaba18e6ec475f3f768946019404af19e38946ef464f2a1",
+        "actions.json": "02eb91dc740c428e28ec792d6ca9c244eb5773b54c89ff9e55bcb1d6a3d3bb46",
+        "assertions.json": "2e555b805a7cb504d9c0961e7b95859577b1ef98196547812e39e6ef6e74ee7c",
+        "expected_final_gamestate.txt": "28e4aea2e2e432dc008fb3e52b2d230352fddd5acefd285a72c8c2e39f150f5c",
+        "meta.json": "c98691bdfcb32b52d87c19e124254603fe51bba7555faa17f9d0b7493381ca1a"
+      },
+      "fixture_sha256": "0e07bb1b6432b1a7b0a678693a4d08809c8811fd28e458c8a3d660c30012f2d2",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 16,
+      "native_assertions": 78,
+      "independent_model_checks": 80,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5341b57b4d0ab7f76d6b17c5cc2c2acef19fbeea25386ca7b3503359666cc566",
+        "actions.json": "2caa57cd09ae0c4c43247a2fb69846c7e156cf16e8db97dcc253923bc65214b1",
+        "assertions.json": "c1ebfc6cf7012cd8e08470dbb7473d7aa496f995221635e9772fb09ae0cf632b",
+        "expected_final_gamestate.txt": "ed763992e644d92dd921545d2a685fd664884855c5e0439e3c09140709dab949",
+        "meta.json": "23bec52a8c8742d0fcf40e38847e22208fa105f2936b51eb4274dd22b3342323"
+      },
+      "fixture_sha256": "4a97e955ca4266148dfa9bbda2dcd981325d9bdb486ac291d716205b65c9040e",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 178,
+      "independent_model_checks": 183,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "51cda77be5d1f4c81f474d556866f57009a4fed1577965e00d28b591fdacc48c",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-yellow-pitch-pays-exactly-two",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d4dc20725e3477a5413af6d27f74906b3f986a2b4a21e44ca0265049a11459e6",
+        "actions.json": "2caa57cd09ae0c4c43247a2fb69846c7e156cf16e8db97dcc253923bc65214b1",
+        "assertions.json": "1f7b46d31b219ac1559f106506cae3d670dd03527ccaf721794d25716c8391b3",
+        "expected_final_gamestate.txt": "d218cb5afca160b565b374817450b45688f97ca955e7b71dbda20d9ffecb984e",
+        "meta.json": "ed895189d03b574fb8dda97367b1d10c4acefda4e0ee57f453b969065de65a92"
+      },
+      "fixture_sha256": "0af48c9a4bb964eb619c072343827522fbabaa608fe8edfef8b6785fb36a7217",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 178,
+      "independent_model_checks": 183,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_yellow",
+          "value": 2,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-two-red-pitches-use-current-hand-zero",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4e7a1ad29a7e4fab295bd8805f4114f180954f75ec8c81cb36fe01ed9bdc15f3",
+        "actions.json": "a307216900f44114157b7c608df5d1d3de656a41bdd64023a1aeab9cc41cf70e",
+        "assertions.json": "6ece8158e2a3eab62261620df80be7f3ed935f71c198d46f55144552466c2890",
+        "expected_final_gamestate.txt": "cf849c9668b82678884b98463e240ee36c0bd068b295030121997c5d29a14b02",
+        "meta.json": "de7645d6933d31d7a1c95047bbec627ba185c6c628b967f70567bf36231d642a"
+      },
+      "fixture_sha256": "7b0d6649eeaf23765708f59dd144856edf6ded62f0fbb5b448aaee97c9b739de",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 20,
+      "native_assertions": 199,
+      "independent_model_checks": 205,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 6
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-one-floating-plus-red-pays-exactly-two",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "47f336c0840e6b6a3113b06c52d0598785db6357ffa84947a3aafc400791f590",
+        "actions.json": "2caa57cd09ae0c4c43247a2fb69846c7e156cf16e8db97dcc253923bc65214b1",
+        "assertions.json": "2b36b3fab2729d6b35c2ab9d0f5377fd8ef9ee33f1c16c2bf6426c77829a65f1",
+        "expected_final_gamestate.txt": "4b15889172bc85878168645259c2876f936e1f5186e7c2f6e37a0dbe85953457",
+        "meta.json": "4f87d2f81003f5966dc88e5e5c2004ea84a4d0fa40e65ea309ce6888cf3714dc"
+      },
+      "fixture_sha256": "d636294af7c14536f1220a9a549cc09fdb142f88ef68b26dd3facdca4f1ee82c",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 178,
+      "independent_model_checks": 183,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-down-blue-pitch",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3cc19bc378244b7f27bb3fa4172c964bc0d403fdb1e3af305432c382f1d209fc",
+        "actions.json": "925c03637ba003fda60a7b7d9b239ce27a5e532870455800027c4abe8374874d",
+        "assertions.json": "ebca5b1311b4d7d8e924e915da8a7fda174d17159e8b7b07e901fff0e76307c4",
+        "expected_final_gamestate.txt": "d5c51856c7556b2012de914f2cff6766d5a928d9b337e8505fe84d058902c0a1",
+        "meta.json": "f046e9ddb531d020473649203941541070be4735c6ca8d2f435c2eaee66cd499"
+      },
+      "fixture_sha256": "6d453ea3aa3c95c706eaac5d52aec1a7f585eda642a14bd98d65a5ba8cafb519",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 19,
+      "native_assertions": 178,
+      "independent_model_checks": 183,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_blue",
+          "value": 3,
+          "uid": 5
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-face-up-two-red-pitches",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "29b0b6ea2da9b274790ac337a1da1c18ecfe92ee889bb1b7e8ce68b99ee0a9a8",
+        "actions.json": "760bceb52c1373b395eb0fcea090dbabd309ca6a582da24e8bdd129ad4ecf894",
+        "assertions.json": "67d3de072fe80dcd10bbb723c94d43ecd97f36024da6af03fd6b1910b2468e40",
+        "expected_final_gamestate.txt": "0327a7d8d5e42caaee11ca3c6998ba97f4b347cec8c41557db826c2ee16233d8",
+        "meta.json": "b7cac6ae622ca7c0fdf8af150f4817839c9944eef089acd2b1cf961e4494f8cf"
+      },
+      "fixture_sha256": "0bcb03f0d0ca4b264fc7885df16c87e52bb97bbc0db80581ea95a7bb9ee0ccdb",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 20,
+      "native_assertions": 199,
+      "independent_model_checks": 205,
+      "actual_priority_passes": 16,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        },
+        {
+          "cardID": "toughen_up_blue",
+          "resources": 2,
+          "actionPoints": 0
+        }
+      ],
+      "printed_pitch_payments": [
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 5
+        },
+        {
+          "cardID": "wounding_blow_red",
+          "value": 1,
+          "uid": 6
+        }
+      ],
+      "reaction_resolution_order": [
+        "DEFENSE_REACTION"
+      ],
+      "final_HP": [
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": [
+          4
+        ]
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-hand-insufficient-one-resource-source-cannot-fund-itself",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7a0bfe6f2a6e50978f907f923184ba2b5e34a3be1a545332bdea869f0e15f484",
+        "actions.json": "d232411c6937f1330e4ec89f178eba869de44286fc20e47722d0466b7d66b698",
+        "assertions.json": "86d7c5054474ebe2c8d0016ceb183fe82e5e5c81ffc6729057942b3bafdcb879",
+        "expected_final_gamestate.txt": "2d676ae6e6c2dd8daf5969106ce91062eca9efce92ae21aa7f90928ecc88a69c",
+        "meta.json": "49de2f689253a4901c32397a3dffeb6ea25967a96bd41aa3d56940c8dc4b632d"
+      },
+      "fixture_sha256": "57a982decc19a666b76105505743184947f81c805cb339902ba8ea42dfcbce70",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-arsenal-insufficient-one-resource",
+      "card_ids": [
+        "toughen_up_blue"
+      ],
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "54c9b9612654cedc35ced8e589c457b6af02d97056fcefba37948d8bed0accbc",
+        "actions.json": "5ca5ed73ee949999f8ad898d6678fb0dd2a9b739bdb31225ee2d14bcea3bd258",
+        "assertions.json": "6d28d8973c72a5d2298c0f2070b91ee52786ca343cfcdcf316fbf92c6de77d5b",
+        "expected_final_gamestate.txt": "b2872122edefd74bc95654dc405422f877e8d4052055a877ad535f2b53cbe8dd",
+        "meta.json": "a745221533c836a4b5e280c801c24cc25c64c6b60233db4ed11924e4b029b8fe"
+      },
+      "fixture_sha256": "2528e793779c748431e329ed0c792618888e4128b9fb87bb2e3d1a2d14b3b9e3",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 15,
+      "native_assertions": 76,
+      "independent_model_checks": 78,
+      "actual_priority_passes": 13,
+      "recording_archive_sha256": "13fbc68484e543bfefc9bc2055f58e3530b19c6a6d815d6f64b5bdeb8ed8c7c3",
+      "printed_cost_payments": [
+        {
+          "cardID": "raging_onslaught_red",
+          "resources": 3,
+          "actionPoints": 1
+        }
+      ],
+      "printed_pitch_payments": [],
+      "reaction_resolution_order": [],
+      "final_HP": [
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0
+      ],
+      "final_GY_UIDs": {
+        "1": [
+          3
+        ],
+        "2": []
+      },
+      "all_initial_final_physical_UID_owner_controller_zones_matched": true,
+      "marker_queue_frame_drained": true
+    }
+  ]
+}

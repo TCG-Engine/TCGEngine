@@ -1,0 +1,7 @@
+{
+    "name": "Breaking Scales / combo-label-without-active-condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:51:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Rising Knee Thrust has Combo even when Leg Tap was not the previous attack. It is a legal target: destroy arms as cost, then add exactly1 power (3 to4), without granting go again. Native defender health16 detects that increase. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaking_scales https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

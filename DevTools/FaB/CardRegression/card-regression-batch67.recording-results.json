@@ -1,0 +1,338 @@
+[
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 291
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-no-defense-property-real-block-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 241
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-pitch-primary-real-funding",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 308
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 238
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-insufficient-total-assets-no-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 254
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 291
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-no-defense-property-real-block-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 241
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-pitch-primary-real-funding",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 308
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 238
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 187
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-insufficient-total-assets-no-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 254
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 128
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 129
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 291
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-no-defense-property-real-block-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 241
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-pitch-primary-real-funding",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 237
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 238
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 187
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-insufficient-total-assets-no-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 84
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 254
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 164
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 152
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 238
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 164
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 152
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 238
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 164
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 152
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+        "status": "recorded_semantically_checked",
+        "actions": 3,
+        "assertions": 140
+    },
+    {
+        "slug": "card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+        "status": "recorded_semantically_checked",
+        "actions": 7,
+        "assertions": 238
+    }
+]

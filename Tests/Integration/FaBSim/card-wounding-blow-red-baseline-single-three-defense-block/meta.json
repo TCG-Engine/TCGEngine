@@ -1,0 +1,7 @@
+{
+    "name": "Wounding Blow / ordinary baseline / single-three-defense-block",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:28:54+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0, power4, pitch1, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual play from Hand spends one AP and exactly0 resources; initial0 plus pitches[] leaves0. Printed attack4 against defense3 causes1 damage; no go again. Source stays on chain through resolution, then clears at Close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

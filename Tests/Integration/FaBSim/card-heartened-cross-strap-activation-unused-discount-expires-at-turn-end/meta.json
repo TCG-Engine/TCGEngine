@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / unused-discount-expires-at-turn-end",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:31+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve Cross Strap, then pass through both turns without using its effect. Filled P1 arsenal avoids an end-phase placement prompt. On P1 next turn the this-turn discount is expired: printed3 Raging requires all blue3, leaving0. First attack of new turn deals7. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

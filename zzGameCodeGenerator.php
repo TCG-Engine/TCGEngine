@@ -1,11 +1,33 @@
 <?php
 
-include './zzImageConverter.php';
+// This CLI-only target needs the schema emitter, never auth, images or card databases.
+$zoneAccessorsOnlyCLI = false;
+$generatorScalarAdder = null;
+$generatorExpectedSHA = null;
+if (PHP_SAPI === 'cli') foreach (($argv ?? []) as $generatorArg) {
+  if (str_starts_with($generatorArg, 'only=')) {
+    if (substr($generatorArg, 5) !== 'ZoneAccessors') {
+      fwrite(STDERR, "Unsupported only= target; expected ZoneAccessors.\n"); exit(2);
+    }
+    $zoneAccessorsOnlyCLI = true;
+  }
+  if (str_starts_with($generatorArg, 'scalarAdder=')) $generatorScalarAdder = substr($generatorArg, 12);
+  if (str_starts_with($generatorArg, 'expectedSHA=')) $generatorExpectedSHA = substr($generatorArg, 12);
+}
+if (PHP_SAPI === 'cli' && ($zoneAccessorsOnlyCLI || $generatorScalarAdder !== null || $generatorExpectedSHA !== null)) {
+  if (!$zoneAccessorsOnlyCLI || !preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', (string)$generatorScalarAdder)
+      || !preg_match('/^[0-9a-f]{64}$/D', (string)$generatorExpectedSHA)) {
+    fwrite(STDERR, "Selective regeneration requires only=ZoneAccessors scalarAdder=NAME expectedSHA=SHA256.\n"); exit(2);
+  }
+}
+if (!$zoneAccessorsOnlyCLI) include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
-include_once "./AccountFiles/AccountSessionAPI.php";
-include_once "./Database/ConnectionManager.php";
-include_once "./CardEditor/Database/CardAbilityRepository.php";
+if (!$zoneAccessorsOnlyCLI) {
+  include_once "./AccountFiles/AccountSessionAPI.php";
+  include_once "./Database/ConnectionManager.php";
+  include_once "./CardEditor/Database/CardAbilityRepository.php";
+}
 
 // Support CLI invocation: parse arguments if not running under HTTP
 $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
@@ -44,6 +66,36 @@ $maxSeats = in_array($rootName, ['SWUSim', 'FaBSim'], true) ? 4 : 2;
 // Emits the by-reference "return the seat's global" body shared by Get<Zone>($player) and
 // <Zone>Value($player). For $maxSeats<=2 it emits the original if/else (byte-identical output);
 // for >2 a switch over the seats. (Function declarations are hoisted, so definition order is fine.)
+/** Locate one real named function using tokens, ignoring braces in strings/comments. */
+function GeneratorScalarAdderSpan(string $code, string $name): array {
+  $tokens = token_get_all($code); $offsets = []; $offset = 0;
+  foreach ($tokens as $i => $token) {
+    $offsets[$i] = $offset; $offset += strlen(is_array($token) ? $token[1] : $token);
+  }
+  $matches = [];
+  foreach ($tokens as $i => $token) {
+    if (!is_array($token) || $token[0] !== T_FUNCTION) continue;
+    $j = $i + 1;
+    while (isset($tokens[$j]) && is_array($tokens[$j]) && in_array($tokens[$j][0], [T_WHITESPACE,T_COMMENT,T_DOC_COMMENT], true)) ++$j;
+    if (!isset($tokens[$j]) || !is_array($tokens[$j]) || $tokens[$j][0] !== T_STRING || $tokens[$j][1] !== $name) continue;
+    while (isset($tokens[$j]) && $tokens[$j] !== '{' && $tokens[$j] !== ';') ++$j;
+    if (!isset($tokens[$j]) || $tokens[$j] !== '{') throw new RuntimeException('Expected concrete scalar adder body.');
+    $brace = $j; $depth = 1;
+    while (++$j < count($tokens) && $depth > 0) {
+      if ($tokens[$j] === '{' || (is_array($tokens[$j]) && in_array($tokens[$j][0], [T_CURLY_OPEN,T_DOLLAR_OPEN_CURLY_BRACES], true))) ++$depth;
+      elseif ($tokens[$j] === '}') --$depth;
+    }
+    if ($depth !== 0) throw new RuntimeException('Unbalanced scalar adder body.');
+    $end = $offsets[$j - 1] + 1;
+    $signature = substr($code, $offsets[$i], $offsets[$brace] - $offsets[$i]);
+    $matches[] = ['start'=>$offsets[$i], 'length'=>$end-$offsets[$i],
+      'signature'=>preg_replace('/\s+/', '', $signature),
+      'code'=>substr($code, $offsets[$i], $end-$offsets[$i])];
+  }
+  if (count($matches) !== 1) throw new RuntimeException('Expected exactly one selected scalar adder.');
+  return $matches[0];
+}
+
 function EmitSeatReturnBody($handler, $zoneName) {
   global $maxSeats;
   $globs = [];
@@ -590,11 +642,24 @@ for($i=0; $i<count($zones); ++$i) {
 }
 
 $rootPath = "./" . $rootName;
+if ($zoneAccessorsOnlyCLI) {
+  $selectedZones = array_values(array_filter($zones, fn($z) => $z->Name === $generatorScalarAdder));
+  if (count($selectedZones) !== 1) throw new RuntimeException('Selected scalar zone is absent or duplicated.');
+  $selectedZone = $selectedZones[0];
+  if ($selectedZone->DisplayMode !== 'Value'
+      || count($selectedZone->Properties) !== 1 || $selectedZone->Properties[0]->Name !== 'Value'
+      || $selectedZone->Properties[0]->Type !== 'number') throw new RuntimeException('Selection must be an existing numeric Value-mode scalar zone.');
+  $generatorExistingPath = $rootPath . "/ZoneAccessors.php";
+  if (!is_file($generatorExistingPath)) throw new RuntimeException('Selective generation requires an existing accessor file.');
+  $generatorOriginalAccessors = file_get_contents($generatorExistingPath);
+  if (hash('sha256', $generatorOriginalAccessors) !== $generatorExpectedSHA) throw new RuntimeException('Accessor base hash changed; preserve current file.');
+  $generatorOriginalAdder = GeneratorScalarAdderSpan($generatorOriginalAccessors, 'Add' . $generatorScalarAdder);
+}
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
 
-//Write the zone accessors file
+//Write the zone accessors file; selective mode renders the same emitter to memory.
 $filename = $rootPath . "/ZoneAccessors.php";
-$handler = fopen($filename, "w");
+$handler = fopen($zoneAccessorsOnlyCLI ? 'php://memory' : $filename, $zoneAccessorsOnlyCLI ? 'w+' : 'w');
 $mzGetObject = "function &GetZoneObject(\$mzID) {\r\n";
 $mzGetObject .= "  global \$playerID;\r\n";
 $mzGetObject .= "  \$mzArr = explode(\"-\",\$mzID);\r\n";
@@ -1383,6 +1448,29 @@ if($hasAnyIndexedProperties) {
 }
 
 fwrite($handler, "?>");
+if ($zoneAccessorsOnlyCLI) {
+  rewind($handler); $generatorRendered = stream_get_contents($handler); fclose($handler);
+  $generatorNewAdder = GeneratorScalarAdderSpan($generatorRendered, 'Add' . $generatorScalarAdder);
+  if ($generatorNewAdder['signature'] !== $generatorOriginalAdder['signature']) throw new RuntimeException('Selected scalar adder signature changed; preserve current file.');
+  $generatorMerged = substr_replace($generatorOriginalAccessors, $generatorNewAdder['code'],
+    $generatorOriginalAdder['start'], $generatorOriginalAdder['length']);
+  $generatorTarget = fopen($filename, 'r+b');
+  if ($generatorTarget === false || !flock($generatorTarget, LOCK_EX)) throw new RuntimeException('Cannot lock selected accessor file.');
+  try {
+    $generatorCurrent = stream_get_contents($generatorTarget);
+    if (hash('sha256', $generatorCurrent) !== $generatorExpectedSHA) throw new RuntimeException('Accessor changed while generating; preserve current file.');
+    if ($generatorMerged !== $generatorCurrent) {
+      rewind($generatorTarget);
+      if (fwrite($generatorTarget, $generatorMerged) !== strlen($generatorMerged)) throw new RuntimeException('Incomplete selected accessor write.');
+      if (!ftruncate($generatorTarget, strlen($generatorMerged)) || !fflush($generatorTarget)) throw new RuntimeException('Cannot finish selected accessor write.');
+    }
+  } finally { flock($generatorTarget, LOCK_UN); fclose($generatorTarget); }
+  echo json_encode(['path'=>$filename, 'scalarAdder'=>$generatorScalarAdder,
+    'emittedFunctionSHA'=>hash('sha256', $generatorNewAdder['code']),
+    'beforeSHA'=>$generatorExpectedSHA, 'afterSHA'=>hash('sha256', $generatorMerged),
+    'nonselectedBytesPreserved'=>true]) . "\n";
+  exit(0);
+}
 fclose($handler);
 //Write the class file
 $filename = $rootPath . "/ZoneClasses.php";

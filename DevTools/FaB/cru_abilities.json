@@ -820,7 +820,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:1');\n",
+        "abilityCode": "$targetSource = FaBIdentityFromMZ($mzID);\n\nif ($targetSource !== null) {\n FaBCRUResolveLunging($player, $targetSource['object']);\n \n}\n",
         "isImplemented": true
       }
     ]

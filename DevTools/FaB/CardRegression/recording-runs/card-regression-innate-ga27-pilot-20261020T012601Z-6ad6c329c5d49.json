@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T01:26:01+00:00",
+    "input_file": "card-regression-innate-ga27-pilot.json",
+    "input_sha256": "ecae8647865410394fe59268ee85b32e3bed4bd6c04a09d0f9a4f46bddb4be83",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-fry-blue-innate-ga-zero-cost-keeps-spare-blue",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 118
+        },
+        {
+            "slug": "card-surging-strike-red-innate-ga-hand-fully-blocked-go-again-real-followup",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 166
+        },
+        {
+            "slug": "card-dust-runner-outlaw-yellow-innate-ga-printed-pitch-funds-generic-cost-three",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 69
+        },
+        {
+            "slug": "card-sic-em-shot-red-innate-ga-arsenal-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 124
+        }
+    ]
+}

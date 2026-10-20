@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-20T01:03:24+00:00",
+    "input_file": "card-regression-batch43-pilot.json",
+    "input_sha256": "f3a5463c3ab421c8b9195becbbc9b1752eebe4a11a8c7251cf7e21638aba66d3",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 157
+        },
+        {
+            "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 178
+        }
+    ]
+}

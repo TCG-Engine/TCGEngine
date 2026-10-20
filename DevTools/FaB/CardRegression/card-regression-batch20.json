@@ -1,0 +1,3368 @@
+[
+  {
+    "slug": "compat-reaction-fang-strike-ephemeral-effect-before-remove",
+    "name": "Fang Strike / resolution lifecycle / ephemeral-effect-before-remove",
+    "cardIDs": [
+      "fang_strike"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "ephemeral-effect-before-remove"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "nuu",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "fang_strike",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          },
+          {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "fang_strike"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1CombatChain-0",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 5
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 15
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nuu may include Generic attacks. The ephemeral reaction was created into hand earlier this turn (Fang Strike by Arousing Wave, Slither by Undertow Stilettos); it is not in the deck or initial card-pool. Wounding Blow is a legal attack-action target. While its chooser is pending the reaction stays on Stack and the effect has not applied. On selection power increases4 to5. Only after effect completion does Ephemeral remove the reaction, leaving neither graveyard nor banished card. The undefended attack then deals 5 and grants 0 AP.",
+    "printedCard": {
+      "id": "fang_strike",
+      "name": "Fang Strike",
+      "types": [
+        "Mystic",
+        "Assassin",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "",
+      "functional_text_plain": "Ephemeral\nTarget attack action card gets +1{p}."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/3045/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#fang_strike"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied."
+    ],
+    "prerequisiteBlockers": [
+      {
+        "id": "suspected-wtr-default-weapon-restriction-on-mst-reactions",
+        "status": "source_confirmed_not_live_probed",
+        "path": "FaBSim/Custom/WTRCards.php:87-108",
+        "reason": "Fang Strike/Slither fall through to weapon-only return, while MSTCards165 requires attack action. Do not substitute a weapon or bypass CanPlayCard. Review/fix this distinct restriction first."
+      }
+    ]
+  },
+  {
+    "slug": "compat-reaction-slither-ephemeral-effect-before-remove",
+    "name": "Slither / resolution lifecycle / ephemeral-effect-before-remove",
+    "cardIDs": [
+      "slither"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "ephemeral-effect-before-remove"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "nuu",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "slither",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          },
+          {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p1Hand-0",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "slither"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1CombatChain-0",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Banish",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Nuu may include Generic attacks. The ephemeral reaction was created into hand earlier this turn (Fang Strike by Arousing Wave, Slither by Undertow Stilettos); it is not in the deck or initial card-pool. Wounding Blow is a legal attack-action target. While its chooser is pending the reaction stays on Stack and the effect has not applied. On selection the attack gains go again. Only after effect completion does Ephemeral remove the reaction, leaving neither graveyard nor banished card. The undefended attack then deals 4 and grants 1 AP.",
+    "printedCard": {
+      "id": "slither",
+      "name": "Slither",
+      "types": [
+        "Mystic",
+        "Assassin",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "",
+      "functional_text_plain": "Ephemeral\nTarget attack action card gets go again."
+    },
+    "sources": [
+      "https://fabtcg.com/articles/nuu-blitz-deck-tutorial/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#slither"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied."
+    ],
+    "prerequisiteBlockers": [
+      {
+        "id": "suspected-wtr-default-weapon-restriction-on-mst-reactions",
+        "status": "source_confirmed_not_live_probed",
+        "path": "FaBSim/Custom/WTRCards.php:87-108",
+        "reason": "Fang Strike/Slither fall through to weapon-only return, while MSTCards165 requires attack action. Do not substitute a weapon or bypass CanPlayCard. Review/fix this distinct restriction first."
+      }
+    ]
+  },
+  {
+    "slug": "compat-reaction-rout-red-reprise-return-defender",
+    "name": "Rout / resolution lifecycle / reprise-return-defender",
+    "cardIDs": [
+      "rout_red"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "reprise-return-defender"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "dorinthea",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "dawnblade",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "rout_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 3
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "rout_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p2CombatChain-0",
+        "type": "MZMAYCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "rout_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "defense",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "kind": "hand_ids",
+            "player": 2,
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Dawnblade costs1 and has base3; blue pitch3 leaves2, paying Rout2 leaves0. An actual hand block enables reprise. Rout grants+3 immediately during resolution, then pauses for its optional return choice and remains on Stack. Selecting the non-equipment blocker returns it to its owner hand, removing its3 defense. Rout clears to owner graveyard after the chooser and continuation finish, with the same active attack and AP0.",
+    "printedCard": {
+      "id": "rout_red",
+      "name": "Rout",
+      "types": [
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "2",
+      "pitch": "1",
+      "functional_text_plain": "Target weapon attack gets +3{p}.\nReprise - If the defending hero has defended with a card from their hand this chain link, you may return a non-equipment defending card to its owners hand."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/233/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#rout_red"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-rout-red-reprise-decline",
+    "name": "Rout / resolution lifecycle / reprise-decline",
+    "cardIDs": [
+      "rout_red"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "reprise-decline"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "dorinthea",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "dawnblade",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "rout_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 3
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "rout_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "PASS",
+        "type": "MZMAYCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "rout_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "player": 2,
+            "value": [
+              "wounding_blow_yellow"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Dawnblade costs1 and has base3; blue pitch3 leaves2, paying Rout2 leaves0. An actual hand block enables reprise. Rout grants+3 immediately during resolution, then pauses for its optional return choice and remains on Stack. Declining preserves the blocker and its3 defense. Rout clears to owner graveyard after the chooser and continuation finish, with the same active attack and AP0.",
+    "printedCard": {
+      "id": "rout_red",
+      "name": "Rout",
+      "types": [
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "2",
+      "pitch": "1",
+      "functional_text_plain": "Target weapon attack gets +3{p}.\nReprise - If the defending hero has defended with a card from their hand this chain link, you may return a non-equipment defending card to its owners hand."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/233/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#rout_red"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ],
+    "prerequisiteBlockers": [
+      {
+        "id": "generated-await-continuation-skipped-on-pass",
+        "status": "source_confirmed_not_live_probed",
+        "reason": "Core CUSTOM skip-on-PASS suppresses Rout generated continuation unless FaB opts in. Apply and crossreview the separate reaction-await-pass.proposed.patch first; keep await-frame drain strict.",
+        "paths": [
+          "Core/DecisionQueueController.php:143",
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php#rout_red:0:ResolveCard-await"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
+    "name": "Stroke of Foresight / resolution lifecycle / reprise-draw-put-top",
+    "cardIDs": [
+      "stroke_of_foresight_red"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "reprise-draw-put-top"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "dorinthea",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "dawnblade",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "stroke_of_foresight_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 3
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "0",
+        "type": "MZMODAL",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_yellow",
+              "raging_onslaught_blue"
+            ]
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "wounding_blow_yellow"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "raging_onslaught_blue"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Dawnblade3 costs1, blue pitch3 leaves2; Stroke1 leaves1. A hand block enables reprise. Attack gets+3; draw the known top red card, then choose the preexisting yellow card and top deck position. The source remains on Stack across BOTH separate awaits and clears only after the second continuation. The drawn red stays in hand and exact final deck order is asserted.",
+    "printedCard": {
+      "id": "stroke_of_foresight_red",
+      "name": "Stroke of Foresight",
+      "types": [
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "1",
+      "pitch": "1",
+      "functional_text_plain": "Target weapon attack gets +3{p}.\nReprise - If the defending hero has defended with a card from their hand this chain link, draw a card, then put a card from your hand on the top or bottom of your deck."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/251/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#stroke_of_foresight_red"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-bottom",
+    "name": "Stroke of Foresight / resolution lifecycle / reprise-draw-put-bottom",
+    "cardIDs": [
+      "stroke_of_foresight_red"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "reprise-draw-put-bottom"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "dorinthea",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "dawnblade",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "stroke_of_foresight_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-1",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 3
+          },
+          {
+            "kind": "defense",
+            "value": 3
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "1",
+        "type": "MZMODAL",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "stroke_of_foresight_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 6
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "wounding_blow_red"
+            ]
+          },
+          {
+            "kind": "deck_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_blue",
+              "wounding_blow_yellow"
+            ]
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-0",
+            "property": "CardID",
+            "value": "raging_onslaught_blue"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1Deck-1",
+            "property": "CardID",
+            "value": "wounding_blow_yellow"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "Dawnblade3 costs1, blue pitch3 leaves2; Stroke1 leaves1. A hand block enables reprise. Attack gets+3; draw the known top red card, then choose the preexisting yellow card and bottom deck position. The source remains on Stack across BOTH separate awaits and clears only after the second continuation. The drawn red stays in hand and exact final deck order is asserted.",
+    "printedCard": {
+      "id": "stroke_of_foresight_red",
+      "name": "Stroke of Foresight",
+      "types": [
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "1",
+      "pitch": "1",
+      "functional_text_plain": "Target weapon attack gets +3{p}.\nReprise - If the defending hero has defended with a card from their hand this chain link, draw a card, then put a card from your hand on the top or bottom of your deck."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/251/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#stroke_of_foresight_red"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-roaring-beam-yellow-empty-soul-return-and-charge-other",
+    "name": "Roaring Beam / resolution lifecycle / empty-soul-return-and-charge-other",
+    "cardIDs": [
+      "roaring_beam_yellow"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "empty-soul-return-and-charge-other"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "boltyn",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "roaring_beam_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "courage"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_yellow",
+              "roaring_beam_yellow"
+            ]
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-0",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "courage"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Soul",
+            "cardID": "raging_onslaught_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "roaring_beam_yellow"
+            ]
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "The empty-soul condition is checked after creating Courage. Return Roaring Beam from the resolving Stack to its owner hand before prompting charge, then charge raging_onslaught_yellow. The already moved source must not be cleared again by the reaction finalizer. Generic attack4, health20, no resources spent, AP0 remain. Charging Roaring Beam itself is legal because it has returned to hand before charge.",
+    "printedCard": {
+      "id": "roaring_beam_yellow",
+      "name": "Roaring Beam",
+      "types": [
+        "Light",
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "2",
+      "functional_text_plain": "Create a Courage token.\nIf there are no cards in your soul, return this to its owner's hand, then charge your soul."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/4621/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#roaring_beam_yellow"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
+    "name": "Roaring Beam / resolution lifecycle / empty-soul-charge-self",
+    "cardIDs": [
+      "roaring_beam_yellow"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "empty-soul-charge-self"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "boltyn",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "roaring_beam_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 1,
+            "type": "MZCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "courage"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 0
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_yellow",
+              "roaring_beam_yellow"
+            ]
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "p1Hand-1",
+        "type": "MZCHOOSE",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "courage"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Soul",
+            "cardID": "roaring_beam_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_yellow"
+            ]
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "The empty-soul condition is checked after creating Courage. Return Roaring Beam from the resolving Stack to its owner hand before prompting charge, then charge roaring_beam_yellow. The already moved source must not be cleared again by the reaction finalizer. Generic attack4, health20, no resources spent, AP0 remain. Charging Roaring Beam itself is legal because it has returned to hand before charge.",
+    "printedCard": {
+      "id": "roaring_beam_yellow",
+      "name": "Roaring Beam",
+      "types": [
+        "Light",
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "2",
+      "functional_text_plain": "Create a Courage token.\nIf there are no cards in your soul, return this to its owner's hand, then charge your soul."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/4621/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#roaring_beam_yellow"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-roaring-beam-yellow-nonempty-soul-no-return-no-charge",
+    "name": "Roaring Beam / resolution lifecycle / nonempty-soul-no-return-no-charge",
+    "cardIDs": [
+      "roaring_beam_yellow"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "nonempty-soul-no-return-no-charge"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "boltyn",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "roaring_beam_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 1,
+        "zone": "Soul",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "roaring_beam_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Arena",
+            "cardID": "courage"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Arena",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Soul",
+            "cardID": "wounding_blow_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Soul",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "player": 1,
+            "value": [
+              "raging_onslaught_yellow"
+            ]
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "A card already in Boltyn soul makes the condition false. Create one Courage; do not return the reaction or charge any card. The macro finishes synchronously despite having await code in its other branch. Clear the source once to owner graveyard, preserving the existing soul and the other hand card.",
+    "printedCard": {
+      "id": "roaring_beam_yellow",
+      "name": "Roaring Beam",
+      "types": [
+        "Light",
+        "Warrior",
+        "Attack Reaction"
+      ],
+      "cost": "0",
+      "pitch": "2",
+      "functional_text_plain": "Create a Courage token.\nIf there are no cards in your soul, return this to its owner's hand, then charge your soul."
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/4621/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#roaring_beam_yellow"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ]
+  },
+  {
+    "slug": "compat-reaction-razor-reflex-blue-nuu-foreign-owner-clear",
+    "name": "Razor Reflex / resolution lifecycle / nuu-foreign-owner-clear",
+    "cardIDs": [
+      "razor_reflex_blue"
+    ],
+    "branches": [
+      "attack-reaction-clear-after-resolution",
+      "nuu-foreign-owner-clear"
+    ],
+    "status": "proposed_unrecorded",
+    "coverage_kind": "compatibility_probe",
+    "effectBranch": true,
+    "heroes": [
+      "nuu",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "razor_reflex_blue",
+        "player": 2,
+        "zone": "Banish",
+        "properties": {
+          "FaceDown": 0
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Banish-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Banish-0",
+            "property": "FaceDown",
+            "value": "0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "player": 1,
+            "mzID": "p2Banish-0",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Banish-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "razor_reflex_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ATTACK_REACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Banish"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "razor_reflex_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Banish",
+            "value": 0
+          },
+          {
+            "type": "computed_power_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 5
+          },
+          {
+            "type": "computed_go_again_equals",
+            "mzId": "p1CombatChain-0",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "ConsecutivePasses",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      }
+    ],
+    "oracle": "This is a mid-turn fixture after Nuu paid its Chi cost and its Instant ability resolved targeting player2. A player2-owned blue Razor is publicly banished; the exact native MST_NUU permission state is present. Nuu may play it this turn without paying its resource cost. Play a Generic cost0 attack, then play the foreign-owned blue Razor through the existing permission and ordinary action runner. On Stack Owner2 and Controller1 must differ. The attack gets+1; after resolution Razor goes to player2 graveyard, never player1. Stop before hit so this ownership test does not depend on the separate pending Razor on-hit trigger fix.",
+    "printedCard": {
+      "id": "razor_reflex_blue",
+      "name": "Razor Reflex",
+      "types": [
+        "Generic",
+        "Attack Reaction"
+      ],
+      "cost": "1",
+      "pitch": "3",
+      "functional_text_plain": "Choose 1;\n- Target dagger or sword weapon attack gets +1{p}.\n- Target attack action card with cost 1 or less gets +1{p} and \"When this hits, it gets go again.\""
+    },
+    "sources": [
+      "https://judge.fabtcg.com/cards/detail/324/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#812b",
+      "https://rules.fabtcg.com/en/cr/03-zones/#3012",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537",
+      "FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_blue"
+    ],
+    "authoringNotes": [
+      "Workspace proposal only; no actual game actions, recordings or replay were run.",
+      "Use supported clicks, choices and passes; do not waive a failed semantic checkpoint.",
+      "No explicit UniqueID overrides or Hand TurnEffects are used.",
+      "Current source is expected to fail until the separately reviewed lifecycle fix is applied.",
+      "Final native priority1 check, actual pass to priority2, and passes1 checkpoint prove resolution no longer blocks gameplay."
+    ],
+    "state": {
+      "turnEffects": {
+        "1": [
+          {
+            "type": "MST_NUU",
+            "amount": 1,
+            "uses": 1,
+            "victim": 2
+          }
+        ],
+        "2": []
+      }
+    },
+    "setupProvenance": {
+      "permission": "FaBMSTNuuPermission(1,2) -> FaBMSTAdd(1,NUU,1,{victim:2})",
+      "meaning": "Nuu ability already resolved during this turn; not a test of paying Chi or its top-deck choices.",
+      "nativeSource": "FaBSim/Custom/MSTCards.php:94-97",
+      "officialRuleSource": "https://fabtcg.com/rules-and-policy-center/release-notes/part-the-mistveil/",
+      "noExplicitUIDs": true,
+      "status": "legally_reachable_static_review_only"
+    }
+  }
+]

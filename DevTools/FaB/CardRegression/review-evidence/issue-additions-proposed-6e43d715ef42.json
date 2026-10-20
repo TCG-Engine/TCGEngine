@@ -1,0 +1,392 @@
+{
+  "issues": [
+    {
+      "id": "FAB-REG-024",
+      "status": "native_fix_clean_qualification_pending",
+      "card_ids": [
+        "blink_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "blink_blue"
+      ],
+      "related_passing_witness_card_ids": [
+        "lead_the_charge_red",
+        "kano",
+        "energy_potion_blue"
+      ],
+      "scope_note": "Only Blink blue native opponent-phase pilot proves a preserved before-fix failure. AddActionPoints shared gain guard, own-MAIN start allocation and go-again dependent notification were repaired; no allAP-source or all-interaction correctness claim. Real Kano/Lead is a separate passing legal Action-as-INSTANT witness, not an independently reproduced before-fix failure.",
+      "rule": "CR1.13.2a-b permits AP gain only during the recipient own ActionPhase; CR8.5.7b makes nonturn AP gain fail. The official Lead-as-instant example applies the restriction to both printed go again and later delayed gain.",
+      "source": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "additional_rule_sources": [
+        "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "https://fabtcg.com/articles/rules-reprise-23-rosetta/"
+      ],
+      "setup": "Isolated recorder MAIN, TurnPlayer1/turnnumber2; player2 priority and Blink blue HandUID3, resources0/AP0, P1AP1. Lightning-legal Lexi Livewire actor; known life20/20 is fixture state, not a claim of both printed starting-life values. No hero activation, modifier, permission, turneffect or user save data.",
+      "action": {
+        "playerID": 2,
+        "mode": 10002,
+        "cardID": "p2Hand-0!FSM"
+      },
+      "expected": "Blink cost0 Instant is legal and costs no AP. After actual priority passes1 then2 resolve it, effect attempts APgain for nonturn2 and gains0: P2AP0/P1AP1, resources0, source ownerGraveyard1, Stack/queues empty, normal player1 MAIN/ACTION priority.",
+      "observed_before_fix": "Expected p2ActionPoints to equal 0, got 1.",
+      "observed": "Three attempted native actions completed Blink resolution; the independently required P2AP0 assertion observed1. Wrong output was blocked and not saved as a passing fixture.",
+      "reproducer_command": "php DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-batch29-pilot.json card-blink-blue-hand-opponent-phase-zero-ap",
+      "reproducer_scenario": "card-blink-blue-hand-opponent-phase-zero-ap",
+      "evidence": "recording-runs/card-regression-batch29-pilot-20261019T235843Z-6ad6aeb3585fe.json",
+      "input_sha256": "88f48f2b232e538beed81994eb6b3a0dcc2ddd156e36130108262edf2d212126",
+      "evidence_provenance": "Immutable native attempted3actions, failing scalar assertion and observed game state. Archive records input hash and completion time but has no runtime or full five-file failing fixture hash; do not manufacture those bindings.",
+      "before_fix_evidence_resolution": {
+        "file": "recording-runs/card-regression-batch29-pilot-20261019T235843Z-6ad6aeb3585fe.json",
+        "sha256": "2118266140afda016dd8768ee8d73fb45ed19f02317e0bc153cd247601b39f5a",
+        "input_sha256": "88f48f2b232e538beed81994eb6b3a0dcc2ddd156e36130108262edf2d212126",
+        "matching_preserved_input_paths": [
+          "card-regression-batch29-pilot.json"
+        ],
+        "qualification": "Exact preserved input hash matches current pilot file and later passing retry. Before failure was rejected; later correct recordings are separate evidence."
+      },
+      "source_location": "Schemas/FaBSim/GameSchema.txt:ActionPoints BeforeAdd; FaBSim/Custom/GameLogic.php:FaBBeforeActionPoints/StartOfTurnPhase; FaBSim/Custom/ROSRuntime.php:FaBROSGo; zzGameCodeGenerator.php:selected scalar adder mode",
+      "resolution": "Schema uses existing BeforeAdd emitter callback. Native hook vetoes only increased AP balances unless recipient is TurnPlayer and phaseMAIN; equal assignments/debits remain allowed. Existing StartOfTurnPhase enters its existing MAIN before normal AP1 assignment, preserving later hooks. FaBROSGo checks ownMAIN so a prohibited go-again APgain cannot spuriously queue ArcLightning. Player initialization/deserialization/by-reference setup remains explicit and unchanged; no fixture/save migration or gameplay bypass was added.",
+      "generator_resolution": "Reviewed CLI rootName=FaBSim only=ZoneAccessors scalarAdder=ActionPoints expectedSHA=4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8 validated selection/base/unique named function/signature before writes or DB/auth/image includes. Actual unchanged schema emitter rendered to memory and only its selected AddActionPoints function was merged. Actual generator emitted function3e05ca378e6f9c6e987635cb69abb9acb4a0d6bc9b95b2fb8625a957c65e13d5; file4d064...\u2192996756... changed by exactly the BeforeAdd line. All26 other root/generated files and every nonselected accessor byte preserved; default generator behavior unchanged. No manual generated edit or remote DB/import.",
+      "reviewed_implementation": {
+        "patch_sha256": "2815c2fb5734e149a864e1323691a5ebb0df7f8d617b1acb6b49375899209557",
+        "manifest_sha256": "1f9d1180120ab8e7ec33387de43fdda4ae99355b1fc8bb97ee1f549aacb25e1e",
+        "independent_review": {
+          "path": "source-review-evidence/issues024-026-62d6c259ae94/files/action-points-framework-independent-review.json",
+          "sha256": "fdff8133cf7b3c96977ec1ad32f237edb973c0932800ba98dc0b2298c4a01bd7"
+        },
+        "component_checks": 3641,
+        "lints": 5,
+        "detected_component_faults": 5,
+        "isolated_generator_runs": 8,
+        "qualification": "Standalone components and scratch mirrors are source-contract evidence, not native recorded coverage."
+      },
+      "native_implementation_evidence": {
+        "path": "source-review-evidence/ap-framework-native-20261020T001544Z-f8c04b07/applied-manifest.json",
+        "sha256": "0bc56af6150c5a6e94f005fa8e0df1cc52f8464be2630daffa7eaac9d48b0e69",
+        "actual_generator_exit_code": 0,
+        "accessor_before": "4d064bb69c814bd53af91e9deb8fa56409301531a428e2a2fcaabc083e08f1a8",
+        "accessor_after": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+        "unchanged_other_generated_files": 26
+      },
+      "passing_fixture": "Tests/Integration/FaBSim/card-blink-blue-hand-opponent-phase-zero-ap",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-blink-blue-hand-opponent-phase-zero-ap",
+          "file_sha256": {
+            "initial_gamestate.txt": "67e848f049ae0218dfe08a13f0f3068306bffcae26c3ec51993db56d9cb54342",
+            "actions.json": "9944e1aa10a683c9eb781ec03dd0255850a5125347325bd7f143fd605732b3ac",
+            "assertions.json": "963d07f628aa2513338702b0ab9592e4b3646858ac748fb7b5ff7646b149fbe1",
+            "expected_final_gamestate.txt": "e03993026e23568e60202ae6061546f00cb33b741e1e21d08d998da25fbb9aeb",
+            "meta.json": "0ef06de883c5f8b5b59ada85bd7bc50987f1cfbe3597faa75dc6c88f3c22f459"
+          },
+          "fixture_sha256": "2d4cfafd9e575cc1ee9b17a2837d039457ebeb9617c591c15f6138755e05e2a9",
+          "actions": 3,
+          "assertions": 44,
+          "resolution_scope": "Blink actual correct AP0 after3actions"
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+          "file_sha256": {
+            "initial_gamestate.txt": "8a0477d88ac23ed5b26753b7361611b256c219f3e68a74d5515117f581604ef8",
+            "actions.json": "97d3755fa66bce13a2255973955ad764f51d6065ba3f52524b7eba2812ba596e",
+            "assertions.json": "852f1d6cd522d466f029aa0d460d9a188624c02a366843e9c2591a9e11ca7f80",
+            "expected_final_gamestate.txt": "c85f41095254003f55774aa151364c3a3063da9d3faf9eff517315248dfbeebc",
+            "meta.json": "f2fd6c59303f631d268bc9b47c014a2020d04a044f26cb9dfb57143f01872795"
+          },
+          "fixture_sha256": "9ddf78580d4ea1570ae1631ea416a4d733f242730896ff018bc60b63c1a58451",
+          "actions": 20,
+          "assertions": 328,
+          "resolution_scope": "Actual real twoKano20actions/328assertions; both Lead AP gains fail offturn; separate narrow AP+Lead witness"
+        }
+      ],
+      "fixed_native_evidence": [
+        {
+          "file": "recording-runs/card-regression-batch29-pilot-20261020T001615Z-6ad6b2cfb3213.json",
+          "sha256": "b9471749796d201ebae6e1dee25ab34af9c27703854576441525c6f9628cbe0d",
+          "input_sha256": "88f48f2b232e538beed81994eb6b3a0dcc2ddd156e36130108262edf2d212126",
+          "result": {
+            "slug": "card-blink-blue-hand-opponent-phase-zero-ap",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 44
+          }
+        },
+        {
+          "file": "recording-runs/card-regression-batch32-20261020T001700Z-6ad6b2fcdc831.json",
+          "sha256": "9bd7189bc9b11fa74159503ec012f7d732fb05d381fd625a2fe6f9acd5ff63bc",
+          "input_sha256": "d1c1e66c77fb06f7cf9491680c3519760abbe85121e0cad5ca83f89f25c11e9a",
+          "actions": 20,
+          "assertions": 328
+        }
+      ],
+      "independent_saved_reviews": [
+        {
+          "file": "source-review-evidence/issues024-026-62d6c259ae94/files/b29-saved73-independent-review.json",
+          "sha256": "814640dc92fc6af8a856904988e07c44586dc84cc2318908922447fe62cdd5eb",
+          "scope": "Blink exact3action44assertion row in actualsaved73 review"
+        },
+        {
+          "file": "source-review-evidence/issues024-026-62d6c259ae94/files/lead-nonturn-kano-ap-witness-actual-saved-independent-review.json",
+          "sha256": "0b66da19ed23dda8fcb6a95fca14c15baae2764aef98b1a8f1d0bd257d9f9914",
+          "scope": "Kano20/328/18 actualsaved650check review"
+        },
+        {
+          "file": "source-review-evidence/issues024-026-62d6c259ae94/files/lead-nonturn-kano-ap-witness-saved-review-approved-rows.json",
+          "sha256": "0f485d70df969dd4155f12859b49ff5a67410de0ccd231badc2cfd7d98add494",
+          "scope": "Standard fixtures array wrapper; all5 raw/behaviorhashes preserved"
+        }
+      ],
+      "current_runtime_validation": {
+        "status": "pending_current_full_clean_replays_controls_suites",
+        "runtime_sha256_parent_reported": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+        "full_clean_reports": [],
+        "semantic_controls_detected": null,
+        "qualification": "Current8ef8 qualification remains pending in this staging snapshot. Historical0f6 full failure and parent-reported focused pass are separate evidence; no invented stdout or inherited pass counts."
+      },
+      "limitations": [
+        "No per-card runtime enumeration of all shared AP callers or all gain/zero/replacement/observer/elimination interactions. Native BeforeAdd covers ordinary AddActionPoints increases; direct by-reference state initialization is data setup, not an authorized gameplay bypass.",
+        "Only offturn Blink failure is preserved. Own trueEND native card play was not authored because CR1.11.3 gives no priority outsideActionphase; phaseguard evidence there is isolated component evidence.",
+        "Kano witness does not certify generic awaited ABILITY source lifetime; Lead SourceZoneGraveyard is current provenance diagnostic, not broad ordinary-spell clearing correctness. No fullKano/Potion card claim.",
+        "Go-again-dependent ArcLightning observer guard has static/component evidence; do not claim a native ArcLightning interaction solely from Blink or Lead recordings.",
+        "Native start-phase model already enters MAIN before its existing start hooks. Broader start/endphase event ordering beyond the bounded AP grant reorder remains separate.",
+        "AP debit/equality/initialization preservation and generator drift preservation are source/component contracts; current complete regression replay remains a separate gate."
+      ],
+      "original_proposed_status": "fixed_native_pilots_verified_partial_scope_qualification_pending",
+      "original_issue_proposal": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/action-point-rule-issue024-proposed-row.json",
+        "sha256": "6b8464db46bb144c19495f0d989fe705aace897ef8b9fc41255bdd113f23b832"
+      },
+      "evidence_sha256": "2118266140afda016dd8768ee8d73fb45ed19f02317e0bc153cd247601b39f5a",
+      "normalization_source_package": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/action-point-rule-issue024-proposed-row.json",
+        "sha256": "6b8464db46bb144c19495f0d989fe705aace897ef8b9fc41255bdd113f23b832"
+      },
+      "evidence_archive_index": "source-review-evidence/issues024-026-62d6c259ae94/evidence-path-index.json",
+      "normalization_qualification": "Author proposal preserved byte-exact; status is pending clean qualification. Source/component/native author/saved semantic evidence remains separate from clean deterministic replay. Portable evidence paths resolve through the staged archive; no inherited passing runtime/control counts."
+    },
+    {
+      "id": "FAB-REG-025",
+      "status": "native_fix_clean_qualification_pending",
+      "title": "Managed Aether Dart AB2 second red pitch chooser retains a removed Hand slot after save compaction",
+      "card_ids": [
+        "aetherstorm_wellingtons",
+        "aether_dart_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "aetherstorm_wellingtons",
+        "aether_dart_red"
+      ],
+      "scope_note": "Only the exact Aether Dart red / Aetherstorm Wellingtons / two Wounding Blow red funding interaction is individually reproduced. No blanket Barrier or generated-continuation certification.",
+      "expected": "After first red pitch1 toward elected fixed Arcane Barrier2, remaining live card is displayed as p2Hand-0 across save/load; source UID3 remains Stack, victimHP20/resources1 until second red pitch1. Then pay2 once, prevent2 of3, take1 credited caster1/victim2, clear original spell UID3 to ownerGY once and retain Wellingtons UID4.",
+      "observed_before": "After6 supported actions and persisted assertion-mode reloads, source still awaited second payment but p2DecisionQueue-0.Param was p2Hand-1 while the sole surviving Hand card was p2Hand-0. Expected p2Hand-0 assertion failed; no passing fixture was saved before repair.",
+      "reproducer_scenario": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+      "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+      "before_fix_evidence": {
+        "path": "recording-runs/card-regression-batch30-20261020T001128Z-6ad6b1b04937f.json",
+        "sha256": "0d343b9ca7a7b0a486275ddea08c0049b06e98fe5f05fa480e9d1e3370608bec",
+        "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+        "error": "Expected p2DecisionQueue-0.Param to equal 'p2Hand-0', got 'p2Hand-1'.",
+        "proof_path": "source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/before-proof.json",
+        "proof_sha256": "90699ddb2ae0fd9f867a8b944454b0a5b70c6e8f0cb875e66cab3ba7b5ae6d34",
+        "frame_qualification": "Before archive records live Hand refs and queued CUSTOM/source marker but not raw await-frame locals. Frame-local preconditions were source/component reviewed; successful unchanged native after now proves matching branch execution."
+      },
+      "repair": {
+        "patchPath": "source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/proposed.patch",
+        "patchRawSHA256": "c620c1331632f66f8717beaab186f8bf9c6566002bb58760a3c8fb329e69197e",
+        "manifestPath": "source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-proposal/manifest.json",
+        "manifestRawSHA256": "9a5fd4e143b0067f746cf400d9ae6cc294161ac6bef07d40d82028c1077d0dfb",
+        "independentReviewPath": "source-review-evidence/issues024-026-62d6c259ae94/files/ab-pitch-remap-independent-review.json",
+        "independentReviewRawSHA256": "f89737c3bc2df737308a127cfc3187242bb1e535ba15f40b9c4ace9f346e7ab0",
+        "appliedNativeRawSHA256": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+        "appliedNativeNormalizedUTF8LFSHA256": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b"
+      },
+      "source_explanation": "Existing writer removes tombstoned Hand rows, but generated Prepare/Resolve continuation queued its pre-save numeric Hand index. Bounded native EngineRemapZoneForSave helper clones only a guarded live managed-plain-spell Barrier pitch row, binds its owned canonical frame/source/victim/cost, intersects originally listed eligible Hand refs, translates surviving writer indices and preserves frame/custom return flow. Existing Flock writer body is retained.",
+      "native_after": {
+        "path": "recording-runs/card-regression-batch30-20261020T002747Z-6ad6b583e7346.json",
+        "sha256": "ff1b07e0d65050ca2d55f04a6a34aa59c9c801b98cdc669d25d01ddc3fb00f38",
+        "result": {
+          "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+          "status": "recorded_semantically_checked",
+          "actions": 7,
+          "assertions": 156
+        },
+        "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+        "runtime_sha256_parent_reported": "0f6fe38a8531f1cb6b6e1164f643fd8ba5112cb4a8610bec78e6609720116ecd"
+      },
+      "passing_fixture": {
+        "path": "Tests/Integration/FaBSim/card-aetherstorm-wellingtons-pay-red-pitch-twice",
+        "file_sha256": {
+          "initial_gamestate.txt": "ef0ac5810136b5c545034753c159ebc58189ed5cf5edbcc405ce780e5b899560",
+          "actions.json": "78b0c43c887bc819ef8140d1703eb3b1b86855fb7bb3b3cc78b096c5d7f39ed4",
+          "assertions.json": "990d5da619a0df87e89c086e5acbc096af43d9ec0af4a145b188b98d54468f89",
+          "expected_final_gamestate.txt": "0e0f96b59dac2ef117a42b66c64f1a9365d1ddddab4c599ce043d1b560d4d1b3",
+          "meta.json": "660acee294e5a86b9b248926afe8eea64c63ad9c03ae53394694b30664ea5812"
+        },
+        "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+        "actions": 7,
+        "assertions": 156
+      },
+      "independent_saved_review": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/ab87th-actual-saved-independent-review.json",
+        "sha256": "2843e8c7c91539bd3d65d7e4b1bd4f1f5ce75c6681aa05aed67a2583e3e357b8",
+        "standard_rows_path": "source-review-evidence/issues024-026-62d6c259ae94/files/ab87th-saved-review-approved-rows.json",
+        "standard_rows_sha256": "227c08b088ee38ae76730667aa3d77a52d585cf638a69c2d8c3d5d9f9201d85e"
+      },
+      "current_runtime_validation": {
+        "status": "pending_current_full_clean_replays_controls_suites",
+        "runtime_sha256_parent_reported": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+        "full_clean_reports": [],
+        "semantic_controls_detected": null,
+        "qualification": "Current8ef8 qualification remains pending in this staging snapshot. Historical0f6 full failure and parent-reported focused pass are separate evidence; no invented stdout or inherited pass counts."
+      },
+      "resolution_scope": "Exact unchanged native reproducer now records correctly and independently passes printed-cost/pitch/prevention/source/controller/cleanup audit. Await current clean replay/control/suite gate before fixed_verified_partial_scope.",
+      "remaining_work": "Preserve native-source before/after proof and correct Hand0 oracle; separately reviewed runner repair is applied, but two matching full clean replays/current controls/suites remain pending. Broader Barrier interactions remain outside this fix.",
+      "qualification": "Source approval, standalone106checks/fivefaults, native seven-action recording and actual saved semantic review are distinct evidence. No fixture snapshot was blessed solely from PASS; no new full-card completion claim.",
+      "evidence": "recording-runs/card-regression-batch30-20261020T001128Z-6ad6b1b04937f.json",
+      "evidence_sha256": "0d343b9ca7a7b0a486275ddea08c0049b06e98fe5f05fa480e9d1e3370608bec",
+      "original_proposal": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-proposed.json",
+        "sha256": "6a8e8bf654da220ceaf41ae037c38ace23467ae5b77e7a128f50112be7ae56c8"
+      },
+      "runner_boundary_dependency": {
+        "issue_id": "FAB-REG-026",
+        "proposal_path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-026-proposed.json",
+        "proposal_sha256": "23ae6c2a7e4c3c09e82e87ae5c619f4459c9cb0acd73b434aef2fdb8d2a76d3f",
+        "diagnostic": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/runner-boundary-native-diagnostic-results.json",
+        "diagnostic_sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01",
+        "repair_application": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/applied.json",
+        "repair_application_sha256": "b3759ab7f9b46f0bde202115c81a99c6d2dbfad1d4dbe418415107a75584cc8a",
+        "qualification": "Original025 serialized chooser fixed by c620; subsequent CLI live-array false failure is separately026. No expected Param weakening or rerecord/snapshot update."
+      },
+      "original_proposed_status": "fixed_pilot_checked_pending_clean_replay_controls",
+      "original_issue_proposal": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-proposed.json",
+        "sha256": "6a8e8bf654da220ceaf41ae037c38ace23467ae5b77e7a128f50112be7ae56c8"
+      },
+      "normalization_source_package": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-026-issue-additions-proposed.json",
+        "sha256": "81ccd76d1ef6f8fd6e1b0d7c8b3cfc862d43ea2da36a7bb3a7f2044c792aa761"
+      },
+      "evidence_archive_index": "source-review-evidence/issues024-026-62d6c259ae94/evidence-path-index.json",
+      "normalization_qualification": "Author proposal preserved byte-exact; status is pending clean qualification. Source/component/native author/saved semantic evidence remains separate from clean deterministic replay. Portable evidence paths resolve through the staged archive; no inherited passing runtime/control counts.",
+      "historical_clean_replay_failure_at_runner_boundary": {
+        "evidence": "card-regression-replay-expanded1452-run1.json",
+        "evidence_sha256": "3989856865368e39ea523ac49f8d2e65374f0688f8fe42ef30bb462b56401176",
+        "runtime_sha256": "0f6fe38a8531f1cb6b6e1164f643fd8ba5112cb4a8610bec78e6609720116ecd",
+        "returncode": 1,
+        "result": {
+          "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+          "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+          "passed": false,
+          "result": "[FAIL] Aetherstorm Wellingtons / pay-red-pitch-twice: Step 6 assertion failed: Expected p2DecisionQueue-0.Param to equal 'p2Hand-0', got 'p2Hand-1'."
+        },
+        "qualification": "Native author recording succeeded, but this unchanged canonical case fails true replay step6. Separate runner save-boundary diagnosis is under review for issue026; no clean passing classification or native-source broad correctness is inferred."
+      }
+    },
+    {
+      "id": "FAB-REG-026",
+      "status": "runner_fix_clean_qualification_pending",
+      "title": "FaBSim CLI regression runner asserts pre-save live coordinates instead of persisted request state",
+      "card_ids": [
+        "aetherstorm_wellingtons",
+        "aether_dart_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "aetherstorm_wellingtons",
+        "aether_dart_red"
+      ],
+      "affected_components": [
+        "DevTools/RunIntegrationTests.php"
+      ],
+      "scope_note": "Runner observation-boundary defect independently reproduced with the exact Wellingtons two-red funding fixture after the actual serialized-choice repair025. Not a claim that Arcane Barrier semantics are generally wrong or that all-root runner behavior changed.",
+      "expected": "After a successful writing FaBSim action, step assertions must observe the persisted state that the next real request/UI and recorder assertion request parse. Correct expected second-pitch chooser is p2Hand-0; actual live post-action source arrays may still retain tombstoned pre-save index1.",
+      "observed": "Actual full1452 native replay at runtime0f6f fails only this step6 Param oracle. The supported-action diagnostic reproduces loaded queueHand1 and surviving UID6 at liveHand1, then ordinary Parse without write/action exposes persisted queueHand0 and the same UID6 atHand0. Serialized original sourceUID3/controller1 and all real await-frame variables remain identical; final real Hand0 answer correctly pays2, prevents2, deals1 and matches the unchanged final snapshot.",
+      "reproducer_scenario": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+      "input_sha256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+      "evidence": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/runner-boundary-native-diagnostic-results.json",
+      "evidence_sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01",
+      "before_fix_evidence": {
+        "full_replay_path": "source-review-evidence/issues024-026-62d6c259ae94/files/card-regression-replay-expanded1452-run1.json",
+        "full_replay_sha256": "3989856865368e39ea523ac49f8d2e65374f0688f8fe42ef30bb462b56401176",
+        "runtime_sha256": "0f6fe38a8531f1cb6b6e1164f643fd8ba5112cb4a8610bec78e6609720116ecd",
+        "fixture_count": 1452,
+        "failed_row": {
+          "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+          "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+          "passed": false,
+          "result": "[FAIL] Aetherstorm Wellingtons / pay-red-pitch-twice: Step 6 assertion failed: Expected p2DecisionQueue-0.Param to equal 'p2Hand-0', got 'p2Hand-1'."
+        },
+        "qualification": "Actual native CLI replay failure, not fabricated game state. Diagnostic source hashes and native pre-patch runner archive bind the observation-boundary explanation."
+      },
+      "native_diagnostic": {
+        "path": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/runner-boundary-native-diagnostic-results.json",
+        "sha256": "beeb35460585f4ffba049802b6451e84e544c39724053442c1bc6edfd769df01",
+        "checks": 68,
+        "actions": 7,
+        "native_assertions": 156,
+        "loaded_choice": "p2Hand-1",
+        "persisted_choice": "p2Hand-0",
+        "same_surviving_funding_uid": 6,
+        "same_original_spell_uid": 3,
+        "actual_frame_locals_unchanged": true,
+        "owned_game_cleaned": true,
+        "fixture_unchanged": true,
+        "final_snapshot_matches": true
+      },
+      "source_explanation": "EngineRunAction parses only before each action. FaBSim WriteGamestate intentionally saves a remapped clone of the decision queue and compacted zones without mutating loaded objects. FCRCheck first checks the live assertion then emits an unrecorded11002 request; that reparse makes later Param checks observe saved coordinates. CLI RunIntegrationTests omitted that persisted boundary and checked old arrays directly. The engine writer/remap and correct Hand0 oracle must remain unchanged.",
+      "repair": {
+        "target": "DevTools/RunIntegrationTests.php",
+        "patch": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/proposal/proposed.patch",
+        "patch_sha256": "4eba23164963362253824c6fde79df1b4d5a79265d37df235dc609742562aae8",
+        "manifest": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/proposal/manifest.json",
+        "manifest_sha256": "bcfe92e7acc4b3eb7b620e3f73eed705edb6c7b3647c3a16aad15eb00ee646f2",
+        "independent_review": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/runner-persisted-boundary-independent-review.json",
+        "independent_review_sha256": "fc22598b510d4c19d90d55642fb3b96643470b91e2b325e158b3e4b53acda5c3",
+        "application": "source-review-evidence/runner-persisted-boundary-20261020T003906Z/applied.json",
+        "application_sha256": "b3759ab7f9b46f0bde202115c81a99c6d2dbfad1d4dbe418415107a75584cc8a",
+        "native_before_sha256": "d339d93ea4f3f5d2dc41315de98aa6fe6e9cc675b0c9274b00d2b861a977a522",
+        "native_after_sha256": "f0194817194cc5983c0bc9f716a9057f365fbb898e73ce6164d093f643672ddd",
+        "runtime_sha256": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87"
+      },
+      "passing_fixture": {
+        "path": "Tests/Integration/FaBSim/card-aetherstorm-wellingtons-pay-red-pitch-twice",
+        "file_sha256": {
+          "initial_gamestate.txt": "ef0ac5810136b5c545034753c159ebc58189ed5cf5edbcc405ce780e5b899560",
+          "actions.json": "78b0c43c887bc819ef8140d1703eb3b1b86855fb7bb3b3cc78b096c5d7f39ed4",
+          "assertions.json": "990d5da619a0df87e89c086e5acbc096af43d9ec0af4a145b188b98d54468f89",
+          "expected_final_gamestate.txt": "0e0f96b59dac2ef117a42b66c64f1a9365d1ddddab4c599ce043d1b560d4d1b3",
+          "meta.json": "660acee294e5a86b9b248926afe8eea64c63ad9c03ae53394694b30664ea5812"
+        },
+        "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+        "actions": 7,
+        "assertions": 156
+      },
+      "independent_saved_review": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/ab87th-actual-saved-independent-review.json",
+        "sha256": "2843e8c7c91539bd3d65d7e4b1bd4f1f5ce75c6681aa05aed67a2583e3e357b8"
+      },
+      "current_runtime_validation": {
+        "status": "pending_current_full_clean_replays_controls_suites",
+        "runtime_sha256_parent_reported": "8ef84003d127806df61aa7bb0eb577df5783846f088fcb063d3fcec5b9a83f87",
+        "full_clean_reports": [],
+        "semantic_controls_detected": null,
+        "qualification": "Current8ef8 qualification remains pending in this staging snapshot. Historical0f6 full failure and parent-reported focused pass are separate evidence; no invented stdout or inherited pass counts."
+      },
+      "resolution_scope": "Exactly two runner anchors: after existing outcome/expectFailure checks, reload only successful writing FaBSim actions; preserve optional transient flash in finally; catch parser errors as failed steps reaching existing cleanup. Rejections, nonwriting actions, all other roots, initial-load path, engine/card sources, remap behavior, fixture actions/oracles/snapshots and Core replay APIs are unchanged.",
+      "remaining_work": "Require two exact same-runtime clean full1452 runs, current57 semantic controls and native suites. Broader root reloading is not included.",
+      "qualification": "Source reviewed independently,115 isolated exact-loop checks/two lints/six fault controls plus three optional-flash accessor branches passed. Native68-check diagnostic now confirms actual serialized boundary. Current full qualification remains pending; no full card/interactions declaration.",
+      "original_proposed_status": "fixed_pilot_checked_pending_clean_replay_controls",
+      "original_issue_proposal": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-026-proposed.json",
+        "sha256": "23ae6c2a7e4c3c09e82e87ae5c619f4459c9cb0acd73b434aef2fdb8d2a76d3f"
+      },
+      "normalization_source_package": {
+        "path": "source-review-evidence/issues024-026-62d6c259ae94/files/fab-reg-025-026-issue-additions-proposed.json",
+        "sha256": "81ccd76d1ef6f8fd6e1b0d7c8b3cfc862d43ea2da36a7bb3a7f2044c792aa761"
+      },
+      "evidence_archive_index": "source-review-evidence/issues024-026-62d6c259ae94/evidence-path-index.json",
+      "normalization_qualification": "Author proposal preserved byte-exact; status is pending clean qualification. Source/component/native author/saved semantic evidence remains separate from clean deterministic replay. Portable evidence paths resolve through the staged archive; no inherited passing runtime/control counts."
+    }
+  ],
+  "qualification": "Scratch pending additions024/025/026. Author source/native/runner proofs are preserved; no automatic resolution or full-card claim."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / nonattack-does-not-consume",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Nimblism is a non-attack Action with go again, so it does not consume Cross Strap. Raging Onslaught is the first attack: printed cost3 reduced to1, blue3 leaves2. Nimblism applies only to an attack card with cost1 or less, so it does not change Raging printed power7. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

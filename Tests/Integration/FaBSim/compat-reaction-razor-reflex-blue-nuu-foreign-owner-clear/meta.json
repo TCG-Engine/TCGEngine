@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / resolution lifecycle / nuu-foreign-owner-clear",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:28:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This is a mid-turn fixture after Nuu paid its Chi cost and its Instant ability resolved targeting player2. A player2-owned blue Razor is publicly banished; the exact native MST_NUU permission state is present. Nuu may play it this turn without paying its resource cost. Play a Generic cost0 attack, then play the foreign-owned blue Razor through the existing permission and ordinary action runner. On Stack Owner2 and Controller1 must differ. The attack gets+1; after resolution Razor goes to player2 graveyard, never player1. Stop before hit so this ownership test does not depend on the separate pending Razor on-hit trigger fix. Sources: https://judge.fabtcg.com/cards/detail/324/ https://rules.fabtcg.com/en/cr/08-keywords/#812b https://rules.fabtcg.com/en/cr/03-zones/#3012 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_blue"
+}

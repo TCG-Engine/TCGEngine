@@ -241,6 +241,9 @@ function RegressionNormalizeAction($action) {
   if (isset($action['resolvedCardIDs']) && is_array($action['resolvedCardIDs'])) {
     $normalized['resolvedCardIDs'] = array_values(array_map('strval', $action['resolvedCardIDs']));
   }
+  if (($action['expectFailure'] ?? null) === true) {
+    $normalized['expectFailure'] = true;
+  }
   return $normalized;
 }
 
@@ -464,6 +467,90 @@ function RegressionRecordAction($rootName, $gameName, $action) {
   RegressionWriteRecording($rootName, $gameName, $recording);
 }
 
+/** Validate a portable state-field assertion without consulting game state. */
+function RegressionStateFieldInput($payload) {
+  $root = $payload['rootName'] ?? null;
+  $path = $payload['path'] ?? null;
+  $comparison = array_key_exists('comparison', $payload) ? $payload['comparison'] : 'equals';
+  if (!is_string($root) || !preg_match('/^[A-Za-z][A-Za-z0-9_]*$/D', $root)) {
+    return [null, 'State assertion requires an explicit rootName.'];
+  }
+  if (!is_array($path) || !array_is_list($path) || count($path) < 1 || count($path) > 32) {
+    return [null, 'State assertion path must contain 1..32 literal field/index segments.'];
+  }
+  foreach ($path as $segment) {
+    if (!(is_string($segment) && $segment !== '') && !(is_int($segment) && $segment >= 0)) {
+      return [null, 'State assertion path segments must be nonempty strings or nonnegative integer indexes.'];
+    }
+  }
+  if (!in_array($comparison, ['equals', 'missing_or_null'], true)) {
+    return [null, 'Unsupported state assertion comparison.'];
+  }
+  $result = ['rootName'=>$root, 'path'=>$path, 'comparison'=>$comparison];
+  if ($comparison === 'equals') {
+    if (!array_key_exists('valueJson', $payload) || !is_string($payload['valueJson'])) {
+      return [null, 'State equality requires an explicit JSON-encoded valueJson.'];
+    }
+    try { json_decode($payload['valueJson'], false, 512, JSON_THROW_ON_ERROR); }
+    catch (Throwable $error) { return [null, 'State assertion valueJson is invalid JSON.']; }
+    $result['valueJson'] = $payload['valueJson'];
+  } elseif (array_key_exists('valueJson', $payload)) {
+    return [null, 'missing_or_null must omit valueJson.'];
+  }
+  return [$result, null];
+}
+
+/** Strict JSON scalar types, ordered arrays, and order-independent object members. */
+function RegressionJsonValuesEqual($actual, $expected) {
+  if (gettype($actual) !== gettype($expected)) return false;
+  if ($actual instanceof stdClass && $expected instanceof stdClass) {
+    $left = get_object_vars($actual); $right = get_object_vars($expected);
+    if (count($left) !== count($right)) return false;
+    foreach ($left as $key=>$value) {
+      if (!array_key_exists($key, $right) || !RegressionJsonValuesEqual($value, $right[$key])) return false;
+    }
+    return true;
+  }
+  if (is_array($actual)) {
+    if (count($actual) !== count($expected)) return false;
+    foreach ($actual as $index=>$value) {
+      if (!array_key_exists($index, $expected) || !RegressionJsonValuesEqual($value, $expected[$index])) return false;
+    }
+    return true;
+  }
+  return $actual === $expected;
+}
+
+function RegressionEvaluateStateField($assertion) {
+  [$input, $error] = RegressionStateFieldInput($assertion);
+  if ($error !== null) return [false, $error];
+  if (!function_exists('GameRegressionState')) return [false, 'Game regression state hook is unavailable.'];
+  try {
+    $json = GameRegressionState($input['rootName']);
+    if (!is_string($json)) return [false, 'Game regression state hook does not support root ' . $input['rootName'] . '.'];
+    $actual = json_decode($json, false, 512, JSON_THROW_ON_ERROR);
+    if (!($actual instanceof stdClass)) return [false, 'Game regression state hook must return a JSON object snapshot.'];
+  } catch (Throwable $error) {
+    return [false, 'Game regression state hook failed: ' . $error->getMessage()];
+  }
+  $present = true;
+  foreach ($input['path'] as $segment) {
+    if ($actual instanceof stdClass && property_exists($actual, (string)$segment)) {
+      $actual = $actual->{(string)$segment};
+    } elseif (is_array($actual) && is_int($segment) && array_key_exists($segment, $actual)) {
+      $actual = $actual[$segment];
+    } else { $present = false; break; }
+  }
+  $label = $input['rootName'] . ' state ' . json_encode($input['path']);
+  if ($input['comparison'] === 'missing_or_null') {
+    return [!$present || $actual === null, 'Expected ' . $label . ' to be missing or null.'];
+  }
+  if (!$present) return [false, 'Expected ' . $label . ' to exist for JSON equality, got missing.'];
+  $expected = json_decode($input['valueJson'], false, 512, JSON_THROW_ON_ERROR);
+  return [RegressionJsonValuesEqual($actual, $expected),
+    'Expected ' . $label . ' to equal JSON ' . $input['valueJson'] . ', got ' . json_encode($actual, JSON_PRESERVE_ZERO_FRACTION) . '.'];
+}
+
 function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
   $type = strval($payload['type'] ?? '');
   $assertion = [
@@ -473,6 +560,11 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
   ];
 
   switch ($type) {
+    case 'game_state_field':
+      [$fields, $error] = RegressionStateFieldInput($payload);
+      if ($error !== null) return [null, $error];
+      $assertion = array_merge($assertion, $fields);
+      break;
     case 'current_player_is':
     case 'phase_is':
     case 'turn_player_is':
@@ -492,6 +584,7 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['property'] = strval($payload['property'] ?? '');
       $assertion['value'] = strval($payload['value'] ?? '');
       break;
+    case 'computed_go_again_equals':
     case 'computed_power_equals':
       $assertion['mzId'] = strval($payload['mzId'] ?? '');
       $assertion['value'] = intval($payload['value'] ?? 0);
@@ -772,6 +865,22 @@ function RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug) {
   ];
 }
 
+/** Opt-in expected rejections retain native post-action assertions in both UI replay paths. */
+function RegressionReplayActionFailureMessage($rootName, $slug, $action, $result, $stepNumber) {
+  if (($action['expectFailure'] ?? null) !== true) {
+    // Preserve the legacy unannotated replay result contract.
+    return empty($result['success']) ? ($result['message'] ?: 'engine action failed') : '';
+  }
+  if (($result['success'] ?? null) !== false) {
+    return 'Expected-rejection action unexpectedly succeeded or returned no explicit rejection.';
+  }
+  $assertions = RegressionLoadAssertionsForFixture(RegressionFixtureDir($rootName, $slug));
+  $postAssertions = array_values(array_filter($assertions, fn($assertion) => RegressionAssertionMatchesStep($assertion, $stepNumber)));
+  if (count($postAssertions) === 0) return 'Expected-rejection action requires native post-action assertions.';
+  [$passed, $message] = RegressionEvaluateAssertionsForStep($postAssertions, $stepNumber);
+  return $passed ? '' : 'Post-rejection assertion failed: ' . $message;
+}
+
 function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = false) {
   $loadResult = RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug);
   if (empty($loadResult['success'])) {
@@ -797,7 +906,8 @@ function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = f
         'updateCache' => false,
         'disableRecording' => true,
       ]);
-      if (empty($result['success'])) {
+      $actionFailure = RegressionReplayActionFailureMessage($rootName, $slug, $action, $result, $stepIndex + 1);
+      if ($actionFailure !== '') {
         RegressionPersistReplayState(
           $rootName,
           $gameName,
@@ -805,11 +915,11 @@ function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = f
           $actions,
           $stepIndex,
           'replay_failed',
-          'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed')
+          'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . $actionFailure
         );
         return [
           'success' => false,
-          'message' => 'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed'),
+          'message' => 'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . $actionFailure,
         ];
       }
     }
@@ -896,8 +1006,9 @@ function RegressionReplayFixtureNextAction($rootName, $gameName, $slug = '') {
     'updateCache' => false,
     'disableRecording' => true,
   ]);
-  if (empty($result['success'])) {
-    $message = 'Fixture replay failed at step ' . ($nextActionIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed');
+  $actionFailure = RegressionReplayActionFailureMessage($rootName, $slug, $actions[$nextActionIndex], $result, $nextActionIndex + 1);
+  if ($actionFailure !== '') {
+    $message = 'Fixture replay failed at step ' . ($nextActionIndex + 1) . ': ' . $actionFailure;
     RegressionPersistReplayState($rootName, $gameName, $slug, $actions, $nextActionIndex, 'step_failed', $message);
     return ['success' => false, 'message' => $message];
   }
@@ -945,6 +1056,8 @@ function RegressionEvaluateAssertion($assertion) {
   $type = $assertion['type'] ?? '';
 
   switch ($type) {
+    case 'game_state_field':
+      return RegressionEvaluateStateField($assertion);
     case 'current_player_is':
       $actual = intval($GLOBALS['currentPlayer'] ?? 0);
       $expected = intval($assertion['value'] ?? 0);
@@ -989,6 +1102,12 @@ function RegressionEvaluateAssertion($assertion) {
         $actual = is_scalar($value) ? strval($value) : json_encode($value);
       }
       return [$actual === $expected, "Expected {$mzId}.{$property} to equal '{$expected}', got '{$actual}'."];
+    case 'computed_go_again_equals':
+      $mzId = strval($assertion['mzId'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $obj = GetZoneObject($mzId);
+      $actual = (is_object($obj) && function_exists('ObjectCurrentGoAgain')) ? ObjectCurrentGoAgain($obj) : null;
+      return [$actual === $expected, "Expected {$mzId} computed go again to equal {$expected}, got " . var_export($actual, true) . "."];
     case 'computed_power_equals':
       $mzId = strval($assertion['mzId'] ?? '');
       $expected = intval($assertion['value'] ?? 0);

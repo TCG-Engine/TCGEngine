@@ -1,0 +1,279 @@
+{
+  "status": "INDEPENDENT_ACTUAL_FOUR_LIVE_MANUAL_HOLD_PRIORITY_DEFECT_CONFIRMED_NO_PASSING_FIXTURE",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T14:23:13.649415+00:00",
+  "checks": 15430,
+  "archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch77-four-live-sigil-20261020T141730Z-6ad777fa922de.json",
+  "archive_sha256": "634c97d8e5f158db17e0668bddc5eb2d7885cf9108ca0a9acbd1f8f0c7c80309",
+  "input_sha256": "6454182ce3fd0c2ecddb2f372ebfe939f12bed4211581c6cd6f86550a2a392ca",
+  "actual_initial_sha256": "d09fc863fc6e810df6dc49c7aceccdff835b56f72b96a8c2a1e3fd31f9d8336d",
+  "actual_initial_heroes": [
+    {
+      "CardID": "dorinthea",
+      "Status": "2",
+      "Owner": "1",
+      "Controller": "1",
+      "Damage": "0",
+      "UniqueID": "1",
+      "TurnEffects": "-",
+      "Counters": "-"
+    },
+    {
+      "CardID": "dorinthea",
+      "Status": "2",
+      "Owner": "2",
+      "Controller": "2",
+      "Damage": "0",
+      "UniqueID": "2",
+      "TurnEffects": "-",
+      "Counters": "-"
+    },
+    {
+      "CardID": "dorinthea",
+      "Status": "2",
+      "Owner": "3",
+      "Controller": "3",
+      "Damage": "0",
+      "UniqueID": "3",
+      "TurnEffects": "-",
+      "Counters": "-"
+    },
+    {
+      "CardID": "dorinthea",
+      "Status": "2",
+      "Owner": "4",
+      "Controller": "4",
+      "Damage": "0",
+      "UniqueID": "4",
+      "TurnEffects": "-",
+      "Counters": "-"
+    }
+  ],
+  "actual_initial_shortcut_prefs": [
+    {
+      "version": 1,
+      "holdPriority": true,
+      "windows": {
+        "BLOCK": false,
+        "ATTACK_REACTION": false,
+        "DEFENSE_REACTION": false,
+        "ACTION_PRIORITY": false,
+        "INSTANT_PRIORITY": false,
+        "ATTACK_PRIORITY": false,
+        "DEFEND_PRIORITY": false,
+        "OTHER_REACTION": false,
+        "DAMAGE_PRIORITY": false,
+        "RESOLUTION_PRIORITY": false,
+        "END_PHASE": false
+      }
+    },
+    {
+      "version": 1,
+      "holdPriority": true,
+      "windows": {
+        "BLOCK": false,
+        "ATTACK_REACTION": false,
+        "DEFENSE_REACTION": false,
+        "ACTION_PRIORITY": false,
+        "INSTANT_PRIORITY": false,
+        "ATTACK_PRIORITY": false,
+        "DEFEND_PRIORITY": false,
+        "OTHER_REACTION": false,
+        "DAMAGE_PRIORITY": false,
+        "RESOLUTION_PRIORITY": false,
+        "END_PHASE": false
+      }
+    },
+    {
+      "version": 1,
+      "holdPriority": true,
+      "windows": {
+        "BLOCK": false,
+        "ATTACK_REACTION": false,
+        "DEFENSE_REACTION": false,
+        "ACTION_PRIORITY": false,
+        "INSTANT_PRIORITY": false,
+        "ATTACK_PRIORITY": false,
+        "DEFEND_PRIORITY": false,
+        "OTHER_REACTION": false,
+        "DAMAGE_PRIORITY": false,
+        "RESOLUTION_PRIORITY": false,
+        "END_PHASE": false
+      }
+    },
+    {
+      "version": 1,
+      "holdPriority": true,
+      "windows": {
+        "BLOCK": false,
+        "ATTACK_REACTION": false,
+        "DEFENSE_REACTION": false,
+        "ACTION_PRIORITY": false,
+        "INSTANT_PRIORITY": false,
+        "ATTACK_PRIORITY": false,
+        "DEFEND_PRIORITY": false,
+        "OTHER_REACTION": false,
+        "DAMAGE_PRIORITY": false,
+        "RESOLUTION_PRIORITY": false,
+        "END_PHASE": false
+      }
+    }
+  ],
+  "actual_initial_scalars": {
+    "SeatOrder": "1234",
+    "LiveSeats": "1234",
+    "PriorityPlayer": "1",
+    "ConsecutivePasses": "0",
+    "TurnPlayer": "1",
+    "TurnNumber": "2",
+    "CurrentPhase": "MAIN"
+  },
+  "actual_initial_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": [],
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": []
+  },
+  "actual_actions": [
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p4Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "actual_failure": "Expected PriorityPlayer to equal 4, got 1.",
+  "actual_post_failure_state": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "4": [
+        {
+          "type": "PEN_INSTANT_CHAIN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_INSTANT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "4": [
+        "sigil_of_solace_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 4,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false
+      }
+    },
+    "omn": {
+      "2": {
+        "4": {
+          "INSTANT:0": 1,
+          "DISCOUNT:0": 0
+        }
+      }
+    }
+  },
+  "fixture_saved": false,
+  "old3074_raw5_exact": true,
+  "source_at_audit_sha256": "bc927b75baddd47ad39c1df6d87d912cac7dd25cc353f8df6bd17776fccf3743",
+  "reproducer": "Four actual young Dorinthea heroes, live/order1234, UPF/passive[], all master hold true and every shortcut window false. Initial turn/priority1. Real P1,P2,P3 passes; P4 announces sole cost0 Sigil UID5. Expected caster4 retains priority with passes0; actual first post-click assertion reports priority1.",
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "section": "1.11.5",
+      "basis": "Player regains priority after playing a card; explicit manual hold forbids silently shortcutting the pass."
+    }
+  ],
+  "limits": [
+    "No actual post-failure full raw snapshot or Stack/HP scalars were captured. Later intended Stack1, passes0 and allHP20 checks were not reached because the priority assertion failed first; these are expected, not observed physical facts.",
+    "Initial snapshot and failure diagnostics directly prove setup, actual4actions, accepted P4 source/payment trace and wrong actualpriority; no passing test was saved.",
+    "Source seam explains wrong handoff but is separate from actual observation.",
+    "All3074 old fixtures exact raw5 preserved; no replays or native games/actions/imports executed by this audit."
+  ]
+}

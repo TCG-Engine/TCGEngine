@@ -1,0 +1,1130 @@
+{
+  "status": "INDEPENDENT_FIVE_HISTORICAL_DR_FINITE_SCOPES_CURRENT_CONTROL_REBIND_APPROVED_NO_NEW_FINITE_PROMOTIONS",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T15:35:50.658990+00:00",
+  "checks": 429,
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "card_ids": [
+    "dodge_blue",
+    "evasive_leap_red",
+    "evasive_leap_yellow",
+    "evasive_leap_blue",
+    "toughen_up_blue"
+  ],
+  "scope_id": "ordinary-flat-defense-reaction/v1",
+  "native_scope_before": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-completion-scopes.json",
+    "sha256": "18bc0dee5846dc81e7ac8a63489722555d1b91212bbc547ca0b990a68fdaaab5"
+  },
+  "original_scope_proof": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\evidence-index-3728486a69b2.json",
+    "sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd"
+  },
+  "original_scope_reviews": {
+    "dodge_blue": {
+      "verdict": "approved_complete_finite_baseline",
+      "reviewer": "/root/wtr_buff_scenarios (exact113 actual evidence adapter; independent scope gate pending)",
+      "evidence_file": "review-evidence/evidence-index-3728486a69b2.json",
+      "evidence_sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd",
+      "qualification": "Scratch proposal only; requires separate independent scope/adapter approval and all parent final current qualification gates before registration."
+    },
+    "evasive_leap_red": {
+      "verdict": "approved_complete_finite_baseline",
+      "reviewer": "/root/wtr_buff_scenarios (exact113 actual evidence adapter; independent scope gate pending)",
+      "evidence_file": "review-evidence/evidence-index-3728486a69b2.json",
+      "evidence_sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd",
+      "qualification": "Scratch proposal only; requires separate independent scope/adapter approval and all parent final current qualification gates before registration."
+    },
+    "evasive_leap_yellow": {
+      "verdict": "approved_complete_finite_baseline",
+      "reviewer": "/root/wtr_buff_scenarios (exact113 actual evidence adapter; independent scope gate pending)",
+      "evidence_file": "review-evidence/evidence-index-3728486a69b2.json",
+      "evidence_sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd",
+      "qualification": "Scratch proposal only; requires separate independent scope/adapter approval and all parent final current qualification gates before registration."
+    },
+    "evasive_leap_blue": {
+      "verdict": "approved_complete_finite_baseline",
+      "reviewer": "/root/wtr_buff_scenarios (exact113 actual evidence adapter; independent scope gate pending)",
+      "evidence_file": "review-evidence/evidence-index-3728486a69b2.json",
+      "evidence_sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd",
+      "qualification": "Scratch proposal only; requires separate independent scope/adapter approval and all parent final current qualification gates before registration."
+    },
+    "toughen_up_blue": {
+      "verdict": "approved_complete_finite_baseline",
+      "reviewer": "/root/wtr_buff_scenarios (exact113 actual evidence adapter; independent scope gate pending)",
+      "evidence_file": "review-evidence/evidence-index-3728486a69b2.json",
+      "evidence_sha256": "3728486a69b2ee46ff611b6e5e3aff86be73ba2d2d61e101dfb116e753abbbdd",
+      "qualification": "Scratch proposal only; requires separate independent scope/adapter approval and all parent final current qualification gates before registration."
+    }
+  },
+  "current81_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\final81-current-native-controls-independent-review.json",
+    "sha256": "f8d6308b4079837f3a4b4ef9abea9e011d950812b2d4e3bfc3ea713654af80ae"
+  },
+  "current77_native_report": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative-control-runs\\20261020T152737Z-583cdfbc-after.json",
+    "sha256": "8902462267474a15d0f14676d1b5f174feeff735d2794181d27139593b76c5e8"
+  },
+  "exact_runtime_leaf_changes": [
+    {
+      "card_id": "dodge_blue",
+      "path": "required_semantic_controls/0/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "dodge_blue",
+      "path": "required_semantic_controls/1/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "path": "required_semantic_controls/0/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "path": "required_semantic_controls/1/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "path": "required_semantic_controls/0/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "path": "required_semantic_controls/1/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "path": "required_semantic_controls/0/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "path": "required_semantic_controls/1/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "path": "required_semantic_controls/0/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "path": "required_semantic_controls/1/runtime_sha256",
+      "before": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+      "after": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc"
+    }
+  ],
+  "control_bindings": [
+    {
+      "card_id": "dodge_blue",
+      "control_id": "muscle_defense_plus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      }
+    },
+    {
+      "card_id": "dodge_blue",
+      "control_id": "muscle_defense_minus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "control_id": "muscle_defense_plus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      }
+    },
+    {
+      "card_id": "evasive_leap_red",
+      "control_id": "muscle_defense_minus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "control_id": "muscle_defense_plus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      }
+    },
+    {
+      "card_id": "evasive_leap_yellow",
+      "control_id": "muscle_defense_minus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "control_id": "muscle_defense_plus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      }
+    },
+    {
+      "card_id": "evasive_leap_blue",
+      "control_id": "muscle_defense_minus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "control_id": "muscle_defense_plus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      }
+    },
+    {
+      "card_id": "toughen_up_blue",
+      "control_id": "muscle_defense_minus_one",
+      "current_native_control": {
+        "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "output": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17.\n[SUMMARY] Total: 1 | Pass: 0 | Fail: 1",
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion"
+      },
+      "original_required_control": {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    }
+  ],
+  "shared_defense_functions_unchanged": {
+    "FaBDefenseValue": "f19c8a6c5edfd48f172d10e3bafe79ef832956d011148600bcc5898cd79a31bb",
+    "FaBCurrentDefense": "ccb57f904994bee7f9169970f7f36bee5278fbe73c9d9473f41581029bc1c5a5"
+  },
+  "existing_exact_baseline_scenarios": 114,
+  "assessments_after": {
+    "dodge_blue": {
+      "status": "complete_declared_baseline",
+      "complete": true,
+      "scope_id": "ordinary-flat-defense-reaction/v1",
+      "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "requirements": [
+        {
+          "id": "hand-floating-exact-at-zero-ap",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-floating-overfunded-preserves-surplus",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-three-defense-plus-reaction-exactly-full-blocks",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "two-distinct-reactions-sum-defense",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacker-razor-above-pending-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "defender-response-above-pending-razor",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "printed-pitch-funds-distinct-cost-three-attack",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-arsenal-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "nonturn-action-priority-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "before-attack-layer-resolves-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attack-window-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-defend-declaration-hand-click-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-wrong-priority-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacking-hero-cannot-play-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "damage-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "resolution-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "ally-target-cannot-use-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-eligibility-after-partial-stack-resolution",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "shared-real-cnc-prohibits-defense-reaction-after-partial-resolution",
+          "met": true,
+          "reasons": []
+        }
+      ],
+      "reasons": [],
+      "separate_interaction_holds": [
+        "Any external cost/defense modification, prevention, replacements, suppression, granted abilities or observer beyond the explicitly named real Razor compatibility witness.",
+        "Dominate/late eligibility, multi-target/UPF, stolen cards/foreign ownership/control, negation/cancellation/source selfmovement, and turn-end/pitch ordering.",
+        "Issue028 activation/event/listener consumers and shortcut/autopass semantics remain unverified; this scope covers manually played reaction cards only.",
+        "CnC shared witness proves rejection before Damage only; no CnC hit/Close, physical/virtual ownership, source movement or suppression interaction is inferred.",
+        "Ten author per-card +/-1 fault plans remain unexecuted. This conditional adapter instead proposes two real named shared numeric-defense controls with explicit native common-path mapping; independent reviewer may require a more specific fault before closure."
+      ]
+    },
+    "evasive_leap_red": {
+      "status": "complete_declared_baseline",
+      "complete": true,
+      "scope_id": "ordinary-flat-defense-reaction/v1",
+      "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "requirements": [
+        {
+          "id": "hand-floating-exact-at-zero-ap",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-floating-overfunded-preserves-surplus",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-three-defense-plus-reaction-exactly-full-blocks",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "two-distinct-reactions-sum-defense",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacker-razor-above-pending-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "defender-response-above-pending-razor",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "printed-pitch-funds-distinct-cost-three-attack",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-arsenal-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "nonturn-action-priority-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "before-attack-layer-resolves-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attack-window-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-defend-declaration-hand-click-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-wrong-priority-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacking-hero-cannot-play-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "damage-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "resolution-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "ally-target-cannot-use-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-eligibility-after-partial-stack-resolution",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "shared-real-cnc-prohibits-defense-reaction-after-partial-resolution",
+          "met": true,
+          "reasons": []
+        }
+      ],
+      "reasons": [],
+      "separate_interaction_holds": [
+        "Any external cost/defense modification, prevention, replacements, suppression, granted abilities or observer beyond the explicitly named real Razor compatibility witness.",
+        "Dominate/late eligibility, multi-target/UPF, stolen cards/foreign ownership/control, negation/cancellation/source selfmovement, and turn-end/pitch ordering.",
+        "Issue028 activation/event/listener consumers and shortcut/autopass semantics remain unverified; this scope covers manually played reaction cards only.",
+        "CnC shared witness proves rejection before Damage only; no CnC hit/Close, physical/virtual ownership, source movement or suppression interaction is inferred.",
+        "Ten author per-card +/-1 fault plans remain unexecuted. This conditional adapter instead proposes two real named shared numeric-defense controls with explicit native common-path mapping; independent reviewer may require a more specific fault before closure."
+      ]
+    },
+    "evasive_leap_yellow": {
+      "status": "complete_declared_baseline",
+      "complete": true,
+      "scope_id": "ordinary-flat-defense-reaction/v1",
+      "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "requirements": [
+        {
+          "id": "hand-floating-exact-at-zero-ap",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-floating-overfunded-preserves-surplus",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-three-defense-plus-reaction-exactly-full-blocks",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "two-distinct-reactions-sum-defense",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacker-razor-above-pending-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "defender-response-above-pending-razor",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "printed-pitch-funds-distinct-cost-three-attack",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-arsenal-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "nonturn-action-priority-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "before-attack-layer-resolves-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attack-window-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-defend-declaration-hand-click-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-wrong-priority-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacking-hero-cannot-play-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "damage-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "resolution-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "ally-target-cannot-use-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-eligibility-after-partial-stack-resolution",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "shared-real-cnc-prohibits-defense-reaction-after-partial-resolution",
+          "met": true,
+          "reasons": []
+        }
+      ],
+      "reasons": [],
+      "separate_interaction_holds": [
+        "Any external cost/defense modification, prevention, replacements, suppression, granted abilities or observer beyond the explicitly named real Razor compatibility witness.",
+        "Dominate/late eligibility, multi-target/UPF, stolen cards/foreign ownership/control, negation/cancellation/source selfmovement, and turn-end/pitch ordering.",
+        "Issue028 activation/event/listener consumers and shortcut/autopass semantics remain unverified; this scope covers manually played reaction cards only.",
+        "CnC shared witness proves rejection before Damage only; no CnC hit/Close, physical/virtual ownership, source movement or suppression interaction is inferred.",
+        "Ten author per-card +/-1 fault plans remain unexecuted. This conditional adapter instead proposes two real named shared numeric-defense controls with explicit native common-path mapping; independent reviewer may require a more specific fault before closure."
+      ]
+    },
+    "evasive_leap_blue": {
+      "status": "complete_declared_baseline",
+      "complete": true,
+      "scope_id": "ordinary-flat-defense-reaction/v1",
+      "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
+      "requirements_met": 22,
+      "requirements_total": 22,
+      "requirements": [
+        {
+          "id": "hand-floating-exact-at-zero-ap",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-floating-overfunded-preserves-surplus",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-three-defense-plus-reaction-exactly-full-blocks",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "two-distinct-reactions-sum-defense",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacker-razor-above-pending-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "defender-response-above-pending-razor",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "printed-pitch-funds-distinct-cost-three-attack",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-arsenal-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "nonturn-action-priority-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "before-attack-layer-resolves-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attack-window-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-defend-declaration-hand-click-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-wrong-priority-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacking-hero-cannot-play-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "damage-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "resolution-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "ally-target-cannot-use-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-eligibility-after-partial-stack-resolution",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "shared-real-cnc-prohibits-defense-reaction-after-partial-resolution",
+          "met": true,
+          "reasons": []
+        }
+      ],
+      "reasons": [],
+      "separate_interaction_holds": [
+        "Any external cost/defense modification, prevention, replacements, suppression, granted abilities or observer beyond the explicitly named real Razor compatibility witness.",
+        "Dominate/late eligibility, multi-target/UPF, stolen cards/foreign ownership/control, negation/cancellation/source selfmovement, and turn-end/pitch ordering.",
+        "Issue028 activation/event/listener consumers and shortcut/autopass semantics remain unverified; this scope covers manually played reaction cards only.",
+        "CnC shared witness proves rejection before Damage only; no CnC hit/Close, physical/virtual ownership, source movement or suppression interaction is inferred.",
+        "Ten author per-card +/-1 fault plans remain unexecuted. This conditional adapter instead proposes two real named shared numeric-defense controls with explicit native common-path mapping; independent reviewer may require a more specific fault before closure."
+      ]
+    },
+    "toughen_up_blue": {
+      "status": "complete_declared_baseline",
+      "complete": true,
+      "scope_id": "ordinary-flat-defense-reaction/v1",
+      "completion_meaning": "Finite ordinary printed blank Generic Defense Reaction baseline: correct cost/printed defense/pitch and no AP cost; legal hand/arsenal reaction timing, hero/priority/type rejection, LIFO responder ordering and continued Reaction Step after partial resolution, real CnC prohibition, exact damage/HP and owner Graveyard cleanup. This is not arbitrary cross-card interaction completeness.",
+      "requirements_met": 30,
+      "requirements_total": 30,
+      "requirements": [
+        {
+          "id": "hand-floating-exact-at-zero-ap",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-floating-overfunded-preserves-surplus",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-floating-exact",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-three-defense-plus-reaction-exactly-full-blocks",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "two-distinct-reactions-sum-defense",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacker-razor-above-pending-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "defender-response-above-pending-razor",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "printed-pitch-funds-distinct-cost-three-attack",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "own-action-arsenal-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "nonturn-action-priority-hand-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "before-attack-layer-resolves-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attack-window-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "normal-defend-declaration-hand-click-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-wrong-priority-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "attacking-hero-cannot-play-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "damage-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "resolution-window-too-late-rejected",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "ally-target-cannot-use-defense-reaction",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-blue-pitch-leaves-one-resource",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-yellow-pitch-pays-exactly-two",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-two-red-pitches-use-current-hand-zero",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "one-floating-plus-red-pays-exactly-two",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-down-blue-pitch",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-face-up-two-red-pitches",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "hand-insufficient-one-resource-source-cannot-fund-itself",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "arsenal-insufficient-one-resource",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "reaction-eligibility-after-partial-stack-resolution",
+          "met": true,
+          "reasons": []
+        },
+        {
+          "id": "shared-real-cnc-prohibits-defense-reaction-after-partial-resolution",
+          "met": true,
+          "reasons": []
+        }
+      ],
+      "reasons": [],
+      "separate_interaction_holds": [
+        "Any external cost/defense modification, prevention, replacements, suppression, granted abilities or observer beyond the explicitly named real Razor compatibility witness.",
+        "Dominate/late eligibility, multi-target/UPF, stolen cards/foreign ownership/control, negation/cancellation/source selfmovement, and turn-end/pitch ordering.",
+        "Issue028 activation/event/listener consumers and shortcut/autopass semantics remain unverified; this scope covers manually played reaction cards only.",
+        "CnC shared witness proves rejection before Damage only; no CnC hit/Close, physical/virtual ownership, source movement or suppression interaction is inferred.",
+        "Ten author per-card +/-1 fault plans remain unexecuted. This conditional adapter instead proposes two real named shared numeric-defense controls with explicit native common-path mapping; independent reviewer may require a more specific fault before closure."
+      ]
+    }
+  },
+  "semantics_unchanged_without_review_labels_sha256": "2daa7a7e2b257f707506f974ecc776d3e38df70839038bec1c55a2b72103f9cd",
+  "scope": [
+    "Restore requalification of the same five previously registered finite baselines; no new card/branch/scenario/control added.",
+    "Only ten required_control runtime leaves change from actual historical8ec to actual current561899. Control IDs/expected failure/prefix/firstfailure/output signatures remain exact and whole current rows equal old rows except runtime.",
+    "All requirements/oracles/metadata/holds/shared mappings unchanged. Actual full3079x2 and current suites satisfy old requirements. FaBDefenseValue and FaBCurrentDefense functions byte-identical to original old source.",
+    "Original scope-review draft labels were stale in registered metadata. Original evidence and labels remain preserved in this proof. New scope_review points to this exact narrow independent current requalification.",
+    "Shared two Muscle defense +/-1 controls remain two actual controls, not ten per-card executions. No new coverage or broader reaction interactions are claimed."
+  ],
+  "native_actions": 0,
+  "native_imports": 0,
+  "native_writes": 0
+}

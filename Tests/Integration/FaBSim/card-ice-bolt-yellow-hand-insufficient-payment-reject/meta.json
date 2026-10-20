@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / hand-insufficient-payment-reject",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:01:12+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cost2 exceeds available1, with no other hand cards. The spell itself cannot pitch to pay its own cost. Supported click fromHand is rejected before target preparation: preserve source, HP, resources andAP; no Stack, pitch or chooser. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_yellow https://judge.fabtcg.com/cards/detail/1634/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

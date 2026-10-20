@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / hand-cost-two-excluded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact upper exclusion: Brutal Assault blue costs2, above Razor maximum1. A blue pitch paid attack2 and left1, so Razor is affordable; only target cost forbids it. Clicking preserves reaction, pitch, resources1 and AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_red https://judge.fabtcg.com/cards/detail/322/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

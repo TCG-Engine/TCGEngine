@@ -1,0 +1,18 @@
+{
+  "status": "LP030_SOURCE_APPLIED_BEFORE_REPRO_AND_NATIVE_POSTFIX_GATES_PENDING",
+  "before_runtime": "7b6270fcded6644480dd6e6706c955e5dd607f4369e592b1c022ac56e124a85c",
+  "after_runtime": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+  "changed_files": [
+    "FaBSim/Custom/CRUCards.php",
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/WTRCards.php",
+    "FaBSim/Custom/MONCards.php",
+    "DevTools/FaB/build_cru_abilities.py",
+    "DevTools/FaB/cru_abilities.json"
+  ],
+  "perfile_native_line_endings_preserved": true,
+  "existing_two_fixture_raw5_unchanged": true,
+  "before_full2982_clean_replay": "card-regression-replay-full2982-7b62-pre-lp-run1.json",
+  "before_full2982_report_sha256": "2bcc371df5850b5909b586507c49d15c58f10ffa6a2b7a07ac9460298116f1e7",
+  "new_fixtures_added": 0
+}

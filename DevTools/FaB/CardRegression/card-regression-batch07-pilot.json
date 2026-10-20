@@ -1,0 +1,1030 @@
+[
+  {
+    "slug": "card-unmovable-red-hand-paid-blue-three",
+    "name": "Unmovable / hand-paid-blue-three",
+    "cardIDs": [
+      "unmovable_red"
+    ],
+    "branches": [
+      "hand-paid-blue-three"
+    ],
+    "zones": [
+      {
+        "cardID": "disable_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "unmovable_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 7
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "unmovable_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Unmovable printed defense is 7; Hand origin adds 0, for exact defense 7. Pay cost3 with blue-three; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 2 and defender life is 18. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#unmovable_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Independent oracle: printed card text and CR7.4.2b/d, CR7.5.2; WTRCards.php:214 is implementation evidence only.",
+      "Pilot fault control: remove the arsenal WTR_DEFENSE:1 tag only in an isolated fixture state before resolution; expect p2Health exactly one lower.",
+      "Opposite fault control: add one extra defense only in the isolated hand fixture; expect life assertion to reject the extra prevention."
+    ]
+  },
+  {
+    "slug": "card-unmovable-red-arsenal-paid-blue-three",
+    "name": "Unmovable / arsenal-paid-blue-three",
+    "cardIDs": [
+      "unmovable_red"
+    ],
+    "branches": [
+      "arsenal-paid-blue-three"
+    ],
+    "zones": [
+      {
+        "cardID": "disable_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "unmovable_red",
+        "player": 2,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Arsenal-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Arsenal-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 8
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "unmovable_red"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Arsenal",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Unmovable printed defense is 7; Arsenal origin adds 1, for exact defense 8. Pay cost3 with blue-three; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 1 and defender life is 19. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#unmovable_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Independent oracle: printed card text and CR7.4.2b/d, CR7.5.2; WTRCards.php:214 is implementation evidence only.",
+      "Pilot fault control: remove the arsenal WTR_DEFENSE:1 tag only in an isolated fixture state before resolution; expect p2Health exactly one lower.",
+      "Opposite fault control: add one extra defense only in the isolated hand fixture; expect life assertion to reject the extra prevention."
+    ]
+  },
+  {
+    "slug": "card-fate-foreseen-red-hand-opt-one-top-then-draw",
+    "name": "Fate Foreseen / hand-opt-one-top-then-draw",
+    "cardIDs": [
+      "fate_foreseen_red"
+    ],
+    "branches": [
+      "hand-opt-one-top-then-draw"
+    ],
+    "zones": [
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "fate_foreseen_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZREARRANGE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Temp",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "value": [
+              "sink_below_blue",
+              "raging_onslaught_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "Top=wounding_blow_red;Bottom=",
+        "player": 2,
+        "type": "MZREARRANGE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_red",
+              "wounding_blow_yellow"
+            ],
+            "player": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "fate_foreseen_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_red"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_yellow",
+              "raging_onslaught_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 6
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Fate Foreseen costs0 and defends for printed 4 from either hand or arsenal; no source-zone bonus. Opt1 looks only at original top wounding_blow_red; choose top, leaving order ['wounding_blow_red', 'wounding_blow_yellow']. Subsequent Sink Below blue bottoms the independent hand filler raging_onslaught_blue and draws wounding_blow_red; this persisted hand-card assertion proves the chosen ordering rather than only deck membership. Combined defense 4+2 prevents 6 of incoming Raging Onslaught7, giving life 19. Both cards are Generic and both heroes Ira; this is the first attack so no Ira bonus applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#fate_foreseen_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8.5.22"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Fate Foreseen belongs to ARC. Local source: arc_abilities.json ResolveCard, with ARCCards.php:92-110 staging and MZREARRANGE Top=/Bottom= schema.",
+      "CR8.5.22: Opt1 may return the one looked-at card to top or bottom. Empty-deck failure is separate.",
+      "Pilot negative control: flip Top/Bottom in the disposable recorded MZREARRANGE answer; require the subsequent drawn-card assertion to fail, before any final snapshot comparison.",
+      "Missing-opt control: bypass only the opt resolution in an isolated fixture state; persisted p2Temp count1 checkpoint must fail even for keep-top choice."
+    ]
+  },
+  {
+    "slug": "card-fate-foreseen-red-hand-opt-one-bottom-then-draw",
+    "name": "Fate Foreseen / hand-opt-one-bottom-then-draw",
+    "cardIDs": [
+      "fate_foreseen_red"
+    ],
+    "branches": [
+      "hand-opt-one-bottom-then-draw"
+    ],
+    "zones": [
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "fate_foreseen_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_yellow",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZREARRANGE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Temp",
+            "cardID": "wounding_blow_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Deck",
+            "value": 1
+          },
+          {
+            "kind": "hand_ids",
+            "value": [
+              "sink_below_blue",
+              "raging_onslaught_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "value": "Top=;Bottom=wounding_blow_red",
+        "player": 2,
+        "type": "MZREARRANGE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_yellow",
+              "wounding_blow_red"
+            ],
+            "player": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2,
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "fate_foreseen_red"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_yellow"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_red",
+              "raging_onslaught_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Temp",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 6
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "oracle": "Fate Foreseen costs0 and defends for printed 4 from either hand or arsenal; no source-zone bonus. Opt1 looks only at original top wounding_blow_red; choose bottom, leaving order ['wounding_blow_yellow', 'wounding_blow_red']. Subsequent Sink Below blue bottoms the independent hand filler raging_onslaught_blue and draws wounding_blow_yellow; this persisted hand-card assertion proves the chosen ordering rather than only deck membership. Combined defense 4+2 prevents 6 of incoming Raging Onslaught7, giving life 19. Both cards are Generic and both heroes Ira; this is the first attack so no Ira bonus applies.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#fate_foreseen_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.4",
+      "https://rules.fabtcg.com/en/cr/07-combat/#7.5",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8.5.22"
+    ],
+    "validationStatus": "proposed-unrecorded",
+    "reviewNotes": [
+      "Fate Foreseen belongs to ARC. Local source: arc_abilities.json ResolveCard, with ARCCards.php:92-110 staging and MZREARRANGE Top=/Bottom= schema.",
+      "CR8.5.22: Opt1 may return the one looked-at card to top or bottom. Empty-deck failure is separate.",
+      "Pilot negative control: flip Top/Bottom in the disposable recorded MZREARRANGE answer; require the subsequent drawn-card assertion to fail, before any final snapshot comparison.",
+      "Missing-opt control: bypass only the opt resolution in an isolated fixture state; persisted p2Temp count1 checkpoint must fail even for keep-top choice."
+    ]
+  }
+]

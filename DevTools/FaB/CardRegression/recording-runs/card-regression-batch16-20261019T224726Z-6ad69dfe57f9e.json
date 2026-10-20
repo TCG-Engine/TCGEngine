@@ -1,0 +1,543 @@
+{
+    "completed_at_utc": "2026-10-19T22:47:26+00:00",
+    "input_file": "card-regression-batch16.json",
+    "input_sha256": "d5c5e78e9448eff094fbf2dae274efaee9add73ecfc43e57efd7358bbc05dfb3",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-reveal-cost-one-boundary-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-arsenal-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-pitch-distinct-card-before-reveal-cost-one",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 36
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-only-cost-two-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-absent-cost-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-cannot-reveal-played-card-itself",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-reveal-cost-one-boundary-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-arsenal-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-pitch-distinct-card-before-reveal-cost-one",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 36
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-only-cost-two-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-absent-cost-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-yellow-cannot-reveal-played-card-itself",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-reveal-cost-one-boundary-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-arsenal-reveal-cost-zero-attack-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 26
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-pitch-distinct-card-before-reveal-cost-one",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 36
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-only-cost-two-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-absent-cost-reveal-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-blue-cannot-reveal-played-card-itself",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 8
+        },
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-quicken-next-attack-trigger-and-consumption",
+            "status": "blocked_or_incorrect",
+            "error": "Expected Stack-0.TurnEffects to equal '[]', got '[\"WTR_POWER:1\"]'.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": true,
+                "combatStep": "LAYER",
+                "chainLink": 1,
+                "attacker": 1,
+                "defender": 2,
+                "attackUID": 3,
+                "attackTarget": {
+                    "type": "HERO",
+                    "player": 2,
+                    "uid": 2,
+                    "zone": "Hero"
+                },
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "Flock of the Feather Walkers",
+                "attackHit": true,
+                "attackPower": 5,
+                "defenseValue": 0,
+                "damageDealt": 5,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_AA_ATTACK",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_ATTACKED_2",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SEA_ATTACKED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "SUP_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_LAST_flock_of_the_feather_walkers",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_AA_COMBAT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_AURAS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_AURA",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_AURAS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_CREATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_DAMAGE",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ROS_VALLEY_HIT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PHYSICAL",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "SEA_ATTACKED_HERO",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_DAMAGE_EVENT",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_DAMAGED",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "HNT_DAMAGED_BY",
+                            "amount": 1,
+                            "uses": 1,
+                            "uid": 1
+                        },
+                        {
+                            "type": "MON_PHYSICAL",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DTD_LOST",
+                            "amount": 5,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ELE_DAMAGED",
+                            "amount": 5,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": {
+                    "1": [
+                        3
+                    ]
+                },
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "flock_of_the_feather_walkers_red",
+                        "wounding_blow_red"
+                    ]
+                },
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false,
+                        "iarPermission": [],
+                        "mstReactions": 0,
+                        "mstBanished": [],
+                        "supFirst": true,
+                        "dtdPrevention2": true,
+                        "hntHitMarked2": false,
+                        "hvyWagers": []
+                    },
+                    "7": {
+                        "iarPermission": []
+                    },
+                    "4": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [
+                            "Flock of the Feather Walkers"
+                        ],
+                        "mstFree": false,
+                        "mstPreviousPitch": 1,
+                        "mstPreviousAA": true,
+                        "rosLastLightning": false
+                    }
+                },
+                "arcActions": {
+                    "1": 2
+                },
+                "outPreviousNames": {
+                    "1": []
+                },
+                "lastAttackCardID": "flock_of_the_feather_walkers_red",
+                "attackTargets": [
+                    {
+                        "type": "HERO",
+                        "player": 2,
+                        "uid": 2,
+                        "zone": "Hero"
+                    }
+                ],
+                "defendIndex": 0,
+                "attackGoAgain": false,
+                "iar": {
+                    "2": {
+                        "1": {
+                            "DAMAGE:2": 1
+                        }
+                    }
+                },
+                "omn": {
+                    "2": {
+                        "2": {
+                            "REPROACH": 1
+                        }
+                    }
+                },
+                "chainHits": 1,
+                "consecutiveHits": 1,
+                "attackActionHits": {
+                    "1": 1
+                },
+                "mstPreviousPitch": 1,
+                "mstPreviousAA": true,
+                "hntPreviousDraconic": false
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": []
+            }
+        }
+    ]
+}

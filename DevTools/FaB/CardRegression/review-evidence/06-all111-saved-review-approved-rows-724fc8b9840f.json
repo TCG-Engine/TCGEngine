@@ -1,0 +1,3164 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/catalog_effect_map",
+  "review_basis": "Exact union of approved original87 rows and approvedB44actual24; preserves per-fixture semantic approval/raw5/named4behavior. Authoritative component reviews remain separate and byte-bound in finite evidence index.",
+  "original_review": {
+    "path": "ab8-intrinsic-closure/all111-saved-review-approved-rows.json",
+    "sha256": "a99e0041f1b6d39fa8ef390e86b4a4124adc5d6e9b45b8fd0db898b1b86c37cb"
+  },
+  "fixtures": [
+    {
+      "slug": "card-aetherstorm-wellingtons-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "cf946f095debd7da97f2dd4d138fcde6d6a597239d88f27239449c8015c92397",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "2f02de8864d5bc6c04f09f913ed2da3f83890f78fc8987ecfb8ace8e68be1ac0",
+        "expected_final_gamestate.txt": "598e53d919786d0e85ac6c8bb472a95cf4d1cf360b983a5dea3fa6b2989c530a",
+        "meta.json": "57fc0a888f6c8cc9f69d1be00a7d55cce0c33eaf213b511b4c2a0db839024502"
+      },
+      "fixture_sha256": "d2afabd8aeabfa54d63f32ee6b640c4fbee56ebecc913e64481e5433a1b4a3cd",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "cf946f095debd7da97f2dd4d138fcde6d6a597239d88f27239449c8015c92397",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "ced18d9bdda9adb19e568eac2a038a5156c208c628fbaf0adf0af6a5b823d920",
+        "expected_final_gamestate.txt": "1b7c616bf2642e03f2224964876807a12565fb37135dc8aa452ab5fea5d41301",
+        "meta.json": "d9c0bf0e7d9c31b19cae66abcae2a62b7f4c459ed350ffe9e40afbf98342d4d2"
+      },
+      "fixture_sha256": "1eff84685e93f74a3ef97dd531076bda7d7886ff45b3b5cd3212fc8880a6c5e6",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ba629111b907c57d88464d5b7108781944c34be9a76b0de27b19697dbe0d931c",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "8032092741b54ffd3b2ac3ab4a63879bdc0f6eb6daba8fa2fdbc8ae7669ebd88",
+        "expected_final_gamestate.txt": "27d65f996990227ea3eb08eaf95fbd417eaf79e64db023def5e7fba0e6f962d1",
+        "meta.json": "3a5e7012d8d5e1e77970ef03f2abe3dedeceb5ff6228ca9b9078598e4a689835"
+      },
+      "fixture_sha256": "b4716b1698ff7c80b45094cd5648f00cc6319d5ac099f5ffc4606e81cb35b086",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1fbf61e515b5a403e9a4e5edecbc7ca87b718529f21343b35d0552361ed4f6cd",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "45ec0b7850371323f07074594819dceb02aef6039c4bde227554e2a850182bab",
+        "expected_final_gamestate.txt": "f12b769ce64c5c89c3034e31ab65371f8155fd86b07efb8e334925638eb51f1b",
+        "meta.json": "cd3ca9b3e923da445984809ad0408340e9968e24f7f3d497707549da398dfb54"
+      },
+      "fixture_sha256": "8518b2f96003100ea52c0061d4ac3370a32ac27490e00ed1f4ae45b009047f92",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a58266e3f4b439dc354317b4052b3c4207f3d41ebfedc62282e6f39c7ecbad0b",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "3b261dfdf93c6c9caac62c1da6ac908f68b4275bb23651884b6cda748d7a4b1d",
+        "expected_final_gamestate.txt": "36371920f5259f0d126c3c7efbdaa1fb0f355d47d7e5992de6a2f59da07cddad",
+        "meta.json": "02fe1c82c720d9c66ad938e6a347d152c820a4b461f785838e133806d627a2fe"
+      },
+      "fixture_sha256": "84e1ca2356e398313a56e2eea790619670ec2948031e391e656cf28215badecc",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d8356ab650690564ceb12f9818d61b8b00f68d9d570b3481f8d2b268f4a92fed",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "995796a7bbae83e99a1a2b3fc1fbae6e4777c02869d6d043a9f75b131e986779",
+        "expected_final_gamestate.txt": "6674bfe093408f4772ff3fd675f8e3b18ca9183341e549c72299a47a4bcea6b2",
+        "meta.json": "91ad8739d4776ae5837ae8b085ba06f17c8c52f53bb9a1842cb330fe36396429"
+      },
+      "fixture_sha256": "6922ac9861c3cb68d5ff606fc2cdfd5f66314fef5fd89e42c44609d658d3a30f",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9e58880f40ddcdbb5015996ed0b98fd3996951be480c828b92cf65a3807b5d17",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "a4dfa591c4ea4da959b64d7fc30ee69719914186a1861609f41f2d1bbb96dff2",
+        "expected_final_gamestate.txt": "75e01fec3d3dc34d93b5a6d3604f5a8e1af7af975b3a886d713810411b1f67fb",
+        "meta.json": "1073744b7eb135c2749ecda1403eeb4e0074f4449fa85accdc171fcba5d1054c"
+      },
+      "fixture_sha256": "1ffdf62d6076336a9f1ed694a88654b94aa92fc01a787aad6861dc24682343f8",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "51f20704a970db03e06cf058d68c60cd3ab5b18c9dca95dd6147c363f3d889a0",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "1914130bb5a422b2875cd1642a0581eb2e6d4b27394db6c788748b9a240dcac5",
+        "expected_final_gamestate.txt": "f1b5a0465d7b6b653c0fc23b18b1b94c6d1a7225525a99f69977ee9eda5e6a05",
+        "meta.json": "969e49ab358f15c8ba17a85d0246d04c63526bc4099900443ac5cd88dee04076"
+      },
+      "fixture_sha256": "dc9dc3e2b6a07942f9dce3a765abd14aaa196cb3afcf298aab88218c3c18d5da",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "00415d6300e06846306b1bd54927bf3d72de1b8ece5d0d90e6c0c96d938f6cf3",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "9edddc5f4d62b75ceff68ab682027a133c3d056f3727a6f1776e6cc37840ced4",
+        "expected_final_gamestate.txt": "dd72d82a3fc556c98545aeadcf18cc1a8396205ee51d4319dc84100e4392925c",
+        "meta.json": "96f44939c1f3a3bbbc0c3c80abf04d1b6a51cd24259ec1cb0936983a3ff0c32f"
+      },
+      "fixture_sha256": "ca8dbe67108f37c1caad82b273b68293c3176804e45e25b31b5bf8862c8b995a",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "00415d6300e06846306b1bd54927bf3d72de1b8ece5d0d90e6c0c96d938f6cf3",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "65a267d00355a7cd18bcd725f0390fe297b836cec1132fc064cbb5c9e323036e",
+        "expected_final_gamestate.txt": "4f6e2b8fc920a0f53da8ac1624fc654124ccd63aaae2d266442c48aae57b03a4",
+        "meta.json": "5623f8ec4dc57fbcd323a2315300dec74e3beb369736dae67fde00ea3a5cdce7"
+      },
+      "fixture_sha256": "f8675337136a6f8f207925bea62c4b0b85170c33dc39a56452817ec3e1e4ecf1",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-arcane-lantern-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c13c72c200450a1fcaac180324f43d249ef9aa426f09843abbba5673428a9fcb",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "86d2d803db8add2b725b69416f08acb1a9ac278297eb3117c27ed8e617ef0798",
+        "expected_final_gamestate.txt": "92b14ecb687aadf9bcf37811e919ac16793928f481f55035aa2f55d3359ec5b6",
+        "meta.json": "f002df3de9c487e4bcc5b44d907d56172eaf4d43799a83aa8baba926883dd166"
+      },
+      "fixture_sha256": "b2607ba1b102df84c3e50becd58a9d36c11ece59c5050489526c299f9cfc0fc2",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-arcane-lantern-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c13c72c200450a1fcaac180324f43d249ef9aa426f09843abbba5673428a9fcb",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "5449aec484fbe9522871facd16ab363c76ea3fd1985edd3fd79243dfdb1675ef",
+        "expected_final_gamestate.txt": "6e3910d2bf093ed5264ad1c13eede1ab9426ca077e581de37774ac2e32fc391a",
+        "meta.json": "ef68ab02b2fabcdc4d12f0eebac06bb794f7fbc079b9847eb1373d19c800528d"
+      },
+      "fixture_sha256": "addbe664eeec9d225d79a4f2eca0f11c385f8caebbc4ce7af1b43a5fc43893e0",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-arcane-lantern-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "17b63c1b116663aef8f48ad25a67a417875389c2f80c9ddeaf175f694bc09f47",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "800dd4d201ec92c913831f07791fe0905f36da7bdbd6016f31b9bf11a5b0817b",
+        "expected_final_gamestate.txt": "85ad732cef230c073e10a2b55f253aac2f2ec422f6de1fd4143459c64cca7b03",
+        "meta.json": "8c36f83dacec06464bb090d96be32aed030cceafb4caff0b8f11bb36ef328516"
+      },
+      "fixture_sha256": "7958834b398e7f82b2799496e0f6780044d20b6511b63df1ca79296efc93b1da",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-arcane-lantern-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0fd5874c0c60bb0b92773c01c9895e12f7b1218104d576b9dacfc726840f27a0",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "5af0cd5737e7960dc0fc2e496f410fb92c35b7a26d5d0b6fefef6151ba124f7e",
+        "expected_final_gamestate.txt": "8e300e60f53c85f9a722aa30976e7a8b3f4f25a8edc47836012413293f3dfff1",
+        "meta.json": "348e9df6b6969f5af96f3a79638f574574efbd7212a8bd5fc1299fe91127747d"
+      },
+      "fixture_sha256": "f8f23d72cd0ca912031f32b1c4cd3c525d0085846cba0b78cae2555ebedd76e6",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-arcane-lantern-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "528829b0e9f8b4ddebf1a319a8ddb45cba9477f4eefee2bb1d02f8f276a843bd",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "fee50907b516d438934fca415cef753309e3caa36c2a57aa3bd10c55df65f0f4",
+        "expected_final_gamestate.txt": "855a6b4762bc7de16b851f2dfaad982f7b1dcba1e6a1098343dfdf10a6c0f6b0",
+        "meta.json": "abd2baf13142f11811fb05543dea3de7a738545d0fe7d089538eb2e89246f35d"
+      },
+      "fixture_sha256": "a28938cf6848ba5c42e0fd53b9435d62704cd0ff53cff7d7fa007de7ac3d052a",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-arcane-lantern-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2202f4c21ed727a53b813b7043feaa0ece2d327f9d11cd845bc96c12b9128b5b",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "a07830bc85064515ce83048e0b8919b15b26313ad45d1a301570f867b35b9244",
+        "expected_final_gamestate.txt": "911615f57873324189beff17b15f44247691ce3215270f1fd97145c736099b91",
+        "meta.json": "88467087c413ded5ca2dddb1270d18f30e670ede25ff3996b9e1569e7b5156db"
+      },
+      "fixture_sha256": "5dfe0040ea62d3bbadd330fe434344f437f8e8ca76ae55cf87c38a5dac46395f",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-arcane-lantern-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "eecdaa9de343702c1de87cbae8c702498c3c81a969c85058dcd102619d32f58d",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "25f12f5e7ba521b5f6c237e9606e661fb26a9396f211cf5aa952293af587fcfa",
+        "expected_final_gamestate.txt": "46c87d34e401e3f0c1b0c5ac7e0ef0445cb363b1309ce5e100cfd9784016f953",
+        "meta.json": "bd4f28c8961a41e3a42aa9cd9cb49e3da41b86b301e5f5cd51a52a27da61d412"
+      },
+      "fixture_sha256": "64f5b60ae3eca1cdeaea3fb58da56b20194366cd94ab61fddce8e4eb0a10c8c0",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-arcane-lantern-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a500b7da4c1a103f0d2bab59a5976173c6ee9612b08ed4bd11aa58f456030a07",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "4b51785d2a817dac2aff7edd1660f072869e304f0e461b8841c4d2f7d4c9e42b",
+        "expected_final_gamestate.txt": "7ae9b2b9cec77438b46d4a471aa514281e911c5d69c9ffc0e2562a6bd61342bf",
+        "meta.json": "ff1386789b7842692730cc3d315588676cfaae6892f9ee25a3a15db228f17049"
+      },
+      "fixture_sha256": "3973ac370a382780b4926a2c5d28f5d4ef61b75aba24c5fbe4a859f3ff041153",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-arcane-lantern-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a3fed7c2dd9b0cea4c0cfeb5dfaf21404161d1ba57e974cb54e6ad69353c479",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "327de95b246c090c3600c253ded7d6bbea982d2aae413d4f1c73b6f52477387d",
+        "expected_final_gamestate.txt": "0b64f2b30a6d063dc379944af9b1895539de02324c5e45681d4ee65d28d53ac8",
+        "meta.json": "e5a7daed61b861de2976817aa3235913c6a1cb8dde7d03a769068e1744f8bf4f"
+      },
+      "fixture_sha256": "ee840fdc031e7ae1063e43634a5e6cd5a49bce2e1595eefc7de9cc96fbd3ca7b",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-arcane-lantern-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ed0e7526793e26159d236122c9da3a88ca56f987f3cfddacbb5e8754a27d90be",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "5054b38dd6d8f36514fdeb625957a48c6a45b250169a0090005d122692dc2eb2",
+        "expected_final_gamestate.txt": "59bff5f34213b35ce338791d1f097293f1efb5e326004130a1c2b7973b7bb364",
+        "meta.json": "9a66299519f73269737d7032fafd01b25d874317d3a11cc36d5af103a5347878"
+      },
+      "fixture_sha256": "8335c7af0a308de177be62c7ecb73647386ff5146284e4bb17c6186d5ad5f792",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-enclosed-firemind-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f24b719b39066767ecd38c75e33217f0ae1de6d24b3f6945760bb6f3124ba6f",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "68f340b0c3c642cf47bbdcb50a448aa34c659fa2c9be87f54d0b45b4db479d7c",
+        "expected_final_gamestate.txt": "a54d79455c566f6367ce3c659f62e16b9e8d97750f9904d31bc0bbc206d244e5",
+        "meta.json": "8834b45c8057cc4e0c9f110f8a423267a6dddede37eabbfbe8c15c7a6efa8cde"
+      },
+      "fixture_sha256": "f5095d8e2a15a8a58bbc812757db84e4c6e0631c8c881d3aed251cd5587a7bc4",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-enclosed-firemind-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f24b719b39066767ecd38c75e33217f0ae1de6d24b3f6945760bb6f3124ba6f",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "909651e622c2eb0e4a5a7873aa56800cd3aa4520ca5c3a4e80cf249e8fa3cc1e",
+        "expected_final_gamestate.txt": "ad29fb770e552b40938face383286b8fc620ab04b993fa597fb3536ee9f9084e",
+        "meta.json": "413fa202bec92c7ed0c669a2c1635a91fd2a374405d1744cbc4504b804a6b7bf"
+      },
+      "fixture_sha256": "de787e54da7be8ba97e4d10d945841004aedcd5ffcfb8c4154bcf6cdc2468983",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-enclosed-firemind-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1d33c0388f16ca382bfb9f2d1e6a405b02bd4a264cec18207e976a65578cdbd4",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "8f9a3d545041f47f5ccf4f41b60ae4a4675016682a4fd4f367d0d158c16c3be6",
+        "expected_final_gamestate.txt": "7df833ef43fa52a77d5c9d84bf70ae3392dac1fd168406a911d843caafcc6e38",
+        "meta.json": "9969486200e5cbca86920efcdbb558afdcbfcad0682c54f2dd6667ddf93b7a83"
+      },
+      "fixture_sha256": "76f17c69f8519eb2b8a5aa0ded5b957effa9801cb977ef07b197db58599c388f",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-enclosed-firemind-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ad2b1b5a7380d86b0e33f2f11bfac351d2e47b33754aba9d92918dfd06e2174a",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "2058a838a7fec672a69865a5cc75b0c5a8e2b04acb3e1219ae8a773ac15aa589",
+        "expected_final_gamestate.txt": "fa2b2083a62da90747c20a8a88ee082f11b7d16b20bc76a854dacf026760057e",
+        "meta.json": "40aab4af5ec33bef88f55427cfd4584b096f9f4a6b1e8cae642545e0288f6c34"
+      },
+      "fixture_sha256": "531f618160963fb3801a0cc9914a4f45ec43505ca6192bbfafcc05eb4e40acf1",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-enclosed-firemind-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b43e316a98a0a667fc035376602ce0f3e8d517480d6bb142c0524a5b797fb042",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "f53b877bce5250d1ce4b7417c29840733e8dab2a3ef7c50e4c821c187de15c96",
+        "expected_final_gamestate.txt": "4084accb8e88a4b4bb5e33858da6e144400371312adacf2f244c854bedb8a6ca",
+        "meta.json": "58db6c4870c9a8e7039b3c4a5c110472d6114ca354883c318fd64e1f324a37e9"
+      },
+      "fixture_sha256": "f7fc3a0599f9dce16ac59e4547de989c411ac2e28d2b7fdd2e40ce069067d473",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-enclosed-firemind-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "76ca31981711fa8f441e191c0043542181514232ead79643a81f87064c7e1f82",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "b9d42034b9f9b0269d28ae657d392a734d58356e3cf6c2b9f49d64cbbdc3ba3e",
+        "expected_final_gamestate.txt": "661f629b4e0179c7f7b993090fca665168c30eb520a7e93083da8694d8bf95cf",
+        "meta.json": "32f2c64ea864e6b11f99c56240ed7152e17fdcfb1a5e0e2d0aa3e79a8965f228"
+      },
+      "fixture_sha256": "1447774bd83cd4429d06e9e5a48974287ba65242bd10d35e4e831eb020308fd9",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-enclosed-firemind-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fd2d3a482ad3ab0e28840ad5bbe54ba418c6f5107936a3aeee6383ffd6c50bdc",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "7181d918c4651caa7a98774a8dd8862bd9b0cb263d29dc8b634dc092e3d2f8a8",
+        "expected_final_gamestate.txt": "68e32789afe5c56b504e57e110e8d5c8bc71580f05cb263300ee8501dfa8fcaf",
+        "meta.json": "d3dd857e9b3c364e7ecda5fbe6e4abe523fbf5e6e146f5ef17618deaefe7229f"
+      },
+      "fixture_sha256": "96675abf0e3627457a1376438b8554209e3cd25186a5718a764e12dcfb6e8429",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-enclosed-firemind-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3b942ca45e6e6d98658c63e63d753ace4056e7f0ca2a0f35e55f93fdafd7ada0",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "c4251f80efe03ab25726a09227c85efbf2c9000a359aaeb43712cbe813582001",
+        "expected_final_gamestate.txt": "178b9e6c5583bd2475b885019ca36ed9f067ef87e549202126c78684444a1ebb",
+        "meta.json": "937b87d38e8c421e34f29caf1bedfe29a7d9302d28d2d619ee69feaef9a4d535"
+      },
+      "fixture_sha256": "2a4fea723c73169904b69d6ddbc3e5a5c919ce4dfce209a0b8d24dd0bc888e97",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-enclosed-firemind-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "db60ea7928f4e87c9985ab8fcb0d77a13f74e415138c2c9b4251f4d3c6f2c6e2",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "426f5d7db70ddd4f68c89286f212cb58d495f9f1285c67ad5c6bc7b46b575d6b",
+        "expected_final_gamestate.txt": "d479ef496583fae2092dc658ee46e24a330e812dc310b049c4232f23ae78465e",
+        "meta.json": "548cba6ae0631ab0b3c1f34538d84bc2ef537b9c0a3a824b54defce81d53eb6d"
+      },
+      "fixture_sha256": "12a6b0b2d8b70f0f7c250261b5e5db5f77e3a4eff12688a843d8f41a19578598",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-enclosed-firemind-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9398f29b284cf31489d0152d791c25a5941bc57f600327399156b388d765d477",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "34bc285ccaaabee2243748e9b87abd2e82babb36b7967f18a788a99c020956f2",
+        "expected_final_gamestate.txt": "4ab4049d1da961edec3545fde66f16a29c4e24ef788d25af54229273b0156cb5",
+        "meta.json": "1719e463fb375ea4f92b731d96525226979818fb6d257d28ef246fccf534de58"
+      },
+      "fixture_sha256": "0814f2d6498badf837e4ac58ab889978cc00865e500f96e174d1cc2a7759f750",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-enclosed-firemind-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9398f29b284cf31489d0152d791c25a5941bc57f600327399156b388d765d477",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "c97dfc6a473420ed89ff00cff93e52495b1fbfa18133e5fdae5fc6f1641954e2",
+        "expected_final_gamestate.txt": "5c8efb6f9748da318dbe7f01f0c600c3f599bb64db45c148145a9d122cda82ff",
+        "meta.json": "0ff6bf0db2e3353c1162acbc9e352396481c26ee402da650b81e7bb9338dc417"
+      },
+      "fixture_sha256": "639b16b240e3bbbab5c8321543d0a86a4dbe98c7a29a872ddb8815823a0d5731",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-nullrune-boots-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d5f77e109ff572ac8723656ca2bfb0ce14f8a95ee826688454a3834877ca70a4",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "181f6dd27545de1381af2ba5ca660d6679b5e0f7530640952edc860822ce39c2",
+        "expected_final_gamestate.txt": "ab2dc447bb3de0dcc4d9afb5acaf1a49ae6ed482592abe5fa6e8777a5658a51f",
+        "meta.json": "40f9aa075ea8ba80e317c32ac63cdead8ac0b50fe387ff10639b19669333f682"
+      },
+      "fixture_sha256": "9c4012949905972db05d73c7473aafd49f56186b3af38517ef8f12698507c051",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-boots-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d5f77e109ff572ac8723656ca2bfb0ce14f8a95ee826688454a3834877ca70a4",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "d7e55717096957318f502cfee38b8445b4e46b212a88af2cbad1b378355b30fc",
+        "expected_final_gamestate.txt": "b2976662e9c053e59308cb22a391a3c8c3a9f57c2514572ee09aa19f881668ad",
+        "meta.json": "020c462809a5a9315b9c5b54aee5211bd18f18ce0e861ff8b034ed76701de631"
+      },
+      "fixture_sha256": "5c36b4d0b59cca414644f1ceaf57e5a8b81fb462c502169a28842b3c453442a0",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-boots-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "78af4389f6488c1d1a4bdd65dae56e84ffbb56c4eb31c17b0c4ffc2aa1f9e0ba",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "85ebc0113326e62cc252f54825d5b6e6db7a6b14767915e69eb63323c191b8d5",
+        "expected_final_gamestate.txt": "df6abe804dc7fec902d9eda7e4dbd65a0176f8ad2c838849f6cf47e6e1fee0bb",
+        "meta.json": "c65523eba13557ee3b4096a1764eb05b878ab606d699d77c7ab10dde7f0be7d0"
+      },
+      "fixture_sha256": "a53de67d03b59e1fd8a45a1490ba1ac83745308913ac9ae1a2d43d2a96618879",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-boots-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "06c1633a9a9eec6796aed6083c2449f60164b5480b5d8b038384f431f6d55544",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "ed6126f4c105747ca481ee60388e057e3b0c970d6e2ebbcd63c3e94f2bd995cd",
+        "expected_final_gamestate.txt": "3bf6a3eee3fac614efd8532de5c152d1040718dad0abd66bb7c03568d23355ac",
+        "meta.json": "ad9c0c430f0defc147d70f1a352c739f93a928105cb727ae2d46f4b786c0a046"
+      },
+      "fixture_sha256": "acc63f88355b6232758dcb45123c18fe7480c20c8980ea30e91dd7d3369844fe",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-nullrune-boots-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "11ee84f578afc58ebbacb5a68b8d36a534220aaf73caac6f447646691ebb64d4",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "5b79a58eb2f6328403cea9a14352f84122df37f19e3a1532b30d6577f51358c4",
+        "expected_final_gamestate.txt": "c394b4874be347dcd41dca7044d2880d2c546f98cd5f51016da3b467a8642b3f",
+        "meta.json": "4ead5c632e9011343b286093fec56349197514a7621337e7d871f387100451cb"
+      },
+      "fixture_sha256": "63a339af1caa4a9acd367dcc4238be0deb1e944b576fd5c986b08d84dc44bfc0",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-boots-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "af37103370d4d2a1b8173df155da9d90f7c343fc7809864d077e671e3489f7a6",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "ef87161024184b79e75467dc6e72077cf09eb54b86cdeea85b746caf640b88ae",
+        "expected_final_gamestate.txt": "d7aa7a0e13e0964369078822617c32a8f84a6500d23b2740656ad699953d213a",
+        "meta.json": "e9ac563a5bdc353e9baa3b431ac1e1412bf92faab78eacf9936cfa13f6a67e5b"
+      },
+      "fixture_sha256": "757494a40dbbc2d0f0afbd17872225355d5800b659b22cb09c580688f809e24c",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-boots-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4c44822893cd3cd2161c14ca1bcb3463385e62849bd0b181528d99bd043a1a29",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "8441bcb4e4f04669d63df9dcaed7cd55c30493eed3cb689b7e056d037d70bf4a",
+        "expected_final_gamestate.txt": "bf3923f8532669d4abefb82f75c168d343021add7768f81d24c1499cc66fa2bc",
+        "meta.json": "f8ac4197f5e3eb03467604427858ac76ab31f3312a64b84f43c86b21eac7a4ae"
+      },
+      "fixture_sha256": "525e09f8c4a76b1caaf4128f03d5f398273fb9312611ebf4c729f56fda9bd479",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-boots-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "be13ed237e3ac34db48e7f576e4b9a25c2a242152b5d11e2575fce63247e18c1",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "e73dab756170b617164d229e9848415c83b93126c5f5ebd3fe221039b4fa1cc0",
+        "expected_final_gamestate.txt": "0065b86af769896b2ccda80f4a04f1153eac3560dc833a3df91b9b71514cf3ad",
+        "meta.json": "2450fd1f7a6574cf9a4c6431cf7073c8fc7a8cc895165befca0c8c9ae84cd67c"
+      },
+      "fixture_sha256": "6484959d6086de45b4b6f5a29795e287a98f0856d0369685e773ece163adcb1d",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-nullrune-boots-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c11f58c9bb1a379a715a45ebbc9c7210c9613fb726adb4b9b7d139afa21cb238",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "055034d2904e36381dfff3d694341bcae347a5a436efc97c282ca840a66b6bad",
+        "expected_final_gamestate.txt": "141f4de47d41e3992fb47fce000e242376800af94daaf8b9cf66ba7d2c0c0fd2",
+        "meta.json": "187f226034a5f7d5df0cc657154cf6fb02bc943930b65b7fa3c6580a14903d57"
+      },
+      "fixture_sha256": "f65b12aec5da01e11641da628731571cad0e5e60278b67f782d1cc4a14829685",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-boots-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "150d94f5d3517d044f2fb6cb208e68d5e72fa0d075ffc67369e70c51b65fb375",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "2e47ddd833d3e65d34e3ad3cd931c306f66b51eefb5fc3ade1695ab92ebfba13",
+        "expected_final_gamestate.txt": "126b54bf1c2154c97264efef6ad15383a55196e9af51ada87d055e3007ca3b03",
+        "meta.json": "8fff3e303034ce6879efae149062f7693fc4f70b2c32817c2436cfe95f03f1fa"
+      },
+      "fixture_sha256": "6e4b94f0fb62731923b252bc45bbae9aa22a828cb67bd8cb0e78e35bff5c0c7d",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-nullrune-boots-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "150d94f5d3517d044f2fb6cb208e68d5e72fa0d075ffc67369e70c51b65fb375",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "a38d07cc16217ec5b3a8edc5e1cf6211697590132cae6470ccbdd8f7f2c808d7",
+        "expected_final_gamestate.txt": "dcf43a1160fb8356271afc7bc62bf8ca256cde45cd5c9167f1a9062d9c197270",
+        "meta.json": "d29d703282359f42345ba5116515c02150da852cccececbc1d8dee3e414f75fc"
+      },
+      "fixture_sha256": "d7c954ad980e2fa506db49fc0dbccea0519e0162410810bc3871971e8b8a8d26",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-nullrune-gloves-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d206120f17f7c3f7914f3ff85582ba0a7b157b6bd0333ffeed541d3e3fa53795",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "e623f6bc1a3dc0a0a2bd7f31674fffb90d5fc570da3d61b046f469ab2f5fc395",
+        "expected_final_gamestate.txt": "f3b36fee6e5ea18d087f5105ccedda735b9fb9e502ac3d911e469548a59e9369",
+        "meta.json": "38d8e84e4d14461fd3b2257b2513ee3b310470cbd880a26e457f8cbac34f3cc1"
+      },
+      "fixture_sha256": "d94cd5de2de3995146f08b40a864743f96153f3aea21fd927274258b6b3aa8b5",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-gloves-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d206120f17f7c3f7914f3ff85582ba0a7b157b6bd0333ffeed541d3e3fa53795",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "c6563a595b41ee07a0086197233f14ad45f5cbdf7bf815b76e40b845dc9b011a",
+        "expected_final_gamestate.txt": "527ee0c393a266e5c409506eec6f5ef8d50b19457b08a9b91f55c6c45a26cb33",
+        "meta.json": "a5262e8c23582b8c1226cfc823ca9f1ff484c41b021ee1b9e18e5afe39ea7bcc"
+      },
+      "fixture_sha256": "03a815489a1a05da21f509e2a586ac164ca5e2d612f28370aaf9f8788d3967f7",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-gloves-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "aa8467a8df17cac7b38f8cb7f6afc97ae6cbd56df508c79dca45f70e5babc4ab",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "5d8e0f7cd97eea1540312fe62aa747cd3a5ff161468467ab4de2b6b1e5aa3ac6",
+        "expected_final_gamestate.txt": "c4042e2cf1fabc9bceb34e3f83b49d36884992cf80020d1c9e1afe261107d1f1",
+        "meta.json": "0dc50a9ef4c8687943585a50c1499afb675dd8faefea5690428f429eade111f9"
+      },
+      "fixture_sha256": "f140ae5a5fc66c9e3b2ff0dc162d6a1b205918d6140515cd07398a46721435d2",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-gloves-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9f67986d1884cc31a368813a80dae1549ae246f937980d9b732adb656e759da2",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "d5df21d1dfb680c997d907533cf7de2a67f5e7921def64ae0f85135f6f8cdfc4",
+        "expected_final_gamestate.txt": "312f7a9464e6f1ed4d014168db5aad30320cf1681288df6426023cc4dc731d2d",
+        "meta.json": "da0ee13abe4753f700628da1388614c33ffb6705d721f38c925c281212ae457d"
+      },
+      "fixture_sha256": "566b45282e57c0560e088301651049a416dc82032916ab3e2374f16190cab9cb",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-nullrune-gloves-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2a73c395c6d4a46173ed048db52e0888eba8dfa0769894bd09a8fff73ad78ece",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "2d4f3eabeb08c0eee47022aee5005042ca094d30347ee515b381ff87b04fef10",
+        "expected_final_gamestate.txt": "a9b4b14908ac4c466797c4945070f1cb3a5e361982944e12eaf2b9777a481c26",
+        "meta.json": "fcff8f936d6657d67e797891b61ca9251e12a3079166c742771243a971f1c2d0"
+      },
+      "fixture_sha256": "3b44ef083875568aff753272bb694d701c26a5f9d6fa284a6b23688eb15eeeb6",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-gloves-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b0c5dcd556b81326b89acde99114a82b622f9e48b3f7b4481281107f3a3a6f13",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "e7f5aced6a48c9fcdda36a56c131a4b627080434eae3e29099f6b6eb5e410375",
+        "expected_final_gamestate.txt": "36cab070a5442551b06c41bae26b5acedb0b0e711a2e4f0cbcb0b97bbac2b0bf",
+        "meta.json": "f48aeabed3147b2e748e9234dea65f49e5fd571f90441ace40eb26ed11cdc9de"
+      },
+      "fixture_sha256": "d30e9e9b09adb5b7337e9626d93857af3bc89defbe7b44817da80dbfacaee4c5",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-gloves-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a038bc0835541075902d95758e67c70043d0689836ff432b952122cad7569de7",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "5ced819e2df020e8c220b9364f4849e8890e00099fa19ad24698d4c7a15256fa",
+        "expected_final_gamestate.txt": "72d78431316d24b04de8826268e95e21272321ce57243e1483dc7bf31aa8010a",
+        "meta.json": "cfcf4fe21a661830035f5e12ae8970fa47576cd38f9d150406dfb3e255e9cf84"
+      },
+      "fixture_sha256": "23f36a274e72785dca8feaeb872717301966c40a1169f6af09674d4ec4128a57",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-gloves-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2635e49c1ed762e900a3aeeba327cc979b5f575c4410e94f508667c53893970d",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "49e85d884121670a3d973f322d9970866e3d365f7d71102da4971c9296aa993e",
+        "expected_final_gamestate.txt": "16bb063c8694be11a853cc070e9b1f40dab7c1374cc87a8b8a44431891fb5f8f",
+        "meta.json": "899e59118435121ae95b574c96e59a5299bbceea28cf1d9c534d65e8271bfcaa"
+      },
+      "fixture_sha256": "6fa4fb20d79cd97e469f4985f5afcef0935b0c8f61084d65a63a07ac257c1d42",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-nullrune-gloves-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6a22d9e414f3936d6fbbb6a895fb7493f66284bb4592e8c9d850602c24bddb0b",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "426a366eb579450324451761bab27bd486b051837161b0312502855e139ae9f4",
+        "expected_final_gamestate.txt": "001bb871b08eec5fc33b9f381fa2ead26dfd832e70d221d8558f5b13cb3f43d1",
+        "meta.json": "16c35738e85bbef92e7b7d350e5b8879a77e096a0483931aa86c376e59959ea9"
+      },
+      "fixture_sha256": "33c8431d4be5c9741bee5a429129688fe733fcab1eeb5c11b50a4bb1076ecd92",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-gloves-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7b4e3c27d7d3ba4a5bce2821284d80d265c3f6217f056600ff18e35fb0936d54",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "7a8e69903e78a3999daeaacde4266b1c311da8990654da1f27a5d3d93e47b1a5",
+        "expected_final_gamestate.txt": "a20dc9bd2f11a7304c637ec9508795c7f4073bb4f5be8888879ca20347b15a09",
+        "meta.json": "58a9233b8e62eedbbae62d4f35c9acaf396fa27403e1e778afb2ea90b6b86352"
+      },
+      "fixture_sha256": "a35c95737c77e2f5ea7197d81c7800daa9e6590b71ee2159611f8774a5488f2a",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-nullrune-gloves-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7b4e3c27d7d3ba4a5bce2821284d80d265c3f6217f056600ff18e35fb0936d54",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "e3aafed62dc61a777a26d41fe2eacecfa2f69339c4881e1b1c759023e720ba8c",
+        "expected_final_gamestate.txt": "bf6f21df101208f47394d9457f1ddd2f36790abe58cc65852e6be79d79d2d4e9",
+        "meta.json": "a174c8a84e262cd6fb0d5f48d06e9f466a2e43d6db4c2b124a2be47a9fd54a63"
+      },
+      "fixture_sha256": "0c8bac914c8bb5883eb73f4188fded761cfa2c1392616ae07ad5f36f28c821fd",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-nullrune-hood-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b1ffe4162c3a5a57cba1684e85247cffb9631b7d8c46d25dcfdc7a01f4987cde",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "5515171a94891e171040acd1006762219738193db4accde6859d4e66e135da35",
+        "expected_final_gamestate.txt": "cc52d9d2e4da1e709928bc82fc2703ca5735bb5191e0cf40eae363860ccbf70d",
+        "meta.json": "feacb92cd10c3801c5fa96f38626b1e3111056fedfcd1fef8c6af08efffcd0de"
+      },
+      "fixture_sha256": "d91992fe52a24bab5cc49747294ecde0e4aa62a3e52a84f869dc2b4ffb5a27ba",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-hood-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b1ffe4162c3a5a57cba1684e85247cffb9631b7d8c46d25dcfdc7a01f4987cde",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "5e6e3b1f947c36ab4dd961afd08375622272ea47258950f6dc6cdad20331576f",
+        "expected_final_gamestate.txt": "9ddccc8ffd2a495dd55bb18690ce4a2ef0ab12467e8011850a3b447f165b0841",
+        "meta.json": "8ddf5112525ebb69db75a3a8ecab9e55907bb34ed05cbbe33dee87b2f82a092e"
+      },
+      "fixture_sha256": "a1d3c6a5cd191b7c8125541f4e9ab943104714c60d0d346c30fc5b35ccbe184c",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-hood-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9bc080588009ecb3809e3d69da639b58fe52ff2fb09ae91e94b521518ac7f889",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "96ef70b2b69e22258a974938b13da3cf76e55332b2c1506b77f78edc6835672d",
+        "expected_final_gamestate.txt": "d77c8d447079b38ccf36749d4ffdf8f9387c000577916f62e287a83d8ba04f8f",
+        "meta.json": "0a04cb3d9ebe2fc8c05554ae6e12c93503198ace3f02b4c7744bb8b808ae9e9f"
+      },
+      "fixture_sha256": "ed91fe4402d12c75457f8c839153a1d5c62b0ed2620b7c7de2e0af54079e4c28",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-hood-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4596dce3d50b3df59a7d4134f7c27f5f036c44b5c5acfa18eba4e687dfda565a",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "99ef576736c6fedcbc7171f8e37e70d6f5e7f52bb6d17d1f75de7391577aad27",
+        "expected_final_gamestate.txt": "80caeb06fc383ed51d820d64394044dbfcf2ee0bc008ec1ad98113ff181bf16e",
+        "meta.json": "ab9d0f68fdc3968cc3475b59cbadfe21cf493f8c0cd9841934276eb400a6549a"
+      },
+      "fixture_sha256": "ece370d1c32f686c6e417d031eb35fcac2a342ce4b42fe51d862be4fa110ca1f",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-nullrune-hood-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5307cd37794e540540b0c88272f75891639626cac4ccf99f65040eb23d4c8b97",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "6067a1c80e269b6b0b435f5e0dbc681bc550ccd6c98b811bec6f60e71fbac517",
+        "expected_final_gamestate.txt": "28405513fbadd34297cbd86d0ed148273829cacd13a111cee1f06f6e578fdbb8",
+        "meta.json": "48c8125f87db87686502ea6fd6f733456f44b554d3142d85c9cf8c841c5f7dcd"
+      },
+      "fixture_sha256": "af4b5953fc3b8232725d68f81849cfd3b0aebb90baa2de13ab6bd7759bd64cbf",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-hood-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "18f5a761bfa2034389ec2bf51661127f01f36da3110f40874ef4d6323df10513",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "2faa96d2e6fd3920b4a8412cff468096de006759775db664124b9c52d343cee5",
+        "expected_final_gamestate.txt": "0a7fa7bef25b47955f0d46deb85516a6a13592152d95e68df6aa613b6ddc6611",
+        "meta.json": "f3c58d798b1b6eb3fcc4fae30fa319a86b4776d9af3558639ebb8ff4f7fc8fd9"
+      },
+      "fixture_sha256": "7322267e0fb4d4d09cf705145292b67fe8eff22d21d49da2e45442d8e78d4c89",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-hood-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "133cfedf3b02021794df533ed139c722d989f515e4b37a1a6d4cb42df206d41a",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "12459b4ada7381384511a601344f2e42183efb3a407c55aa6e378da6769e82b5",
+        "expected_final_gamestate.txt": "169d1f9ed869a73e2607048cd2387285c7b0b2268177a707a075a57c3c413007",
+        "meta.json": "952000d7cb93126b6570f013a883e13c2e768176a3e4935cae8189cf1d9b4a3b"
+      },
+      "fixture_sha256": "90867e074236495c5a8cd42336b9058a2873eeae4502bc9bbd8bbd03e0830b88",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-hood-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "440bd6fbaeb02d6d46a4b32feb0262c12ca0dd796c461ff4eb4a3eb6bab13b3f",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "47594bb0030c83057257a4c5776b51b43f456d809b584d3081d4a73eca34c23d",
+        "expected_final_gamestate.txt": "dc61bc6084ef6f9487be91a6f77c84099a1f2ed97d8c99eec6b620b347739a50",
+        "meta.json": "26ca2852cfd397c12478a02a22075967c1f2757a6702d1cb7b46fa8ef3aeb11f"
+      },
+      "fixture_sha256": "3c79a7606bd6fccbf8250855ab5a4af4ffea4ae9bbdd02dae63464c28f47c40d",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-nullrune-hood-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b7627d08ccbf987039b71aedbc8b63788d74e5b2be1cda07df0c994d18458417",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "3acef72c1cb5cafbf84c972bf9f92348deb4293d8437ae771065a9c7fc770bc8",
+        "expected_final_gamestate.txt": "dacd4573c69985a01f5d7d338725874be0223787b55e345651c1f97bbcc9594d",
+        "meta.json": "c01578116af0ce00752cef0b0ba16c285ab4f4bf25bfe38f8f8510bbec90620c"
+      },
+      "fixture_sha256": "2e4135d3721773e0d2c1783af51bbe360816620b2fb446782047b8e35444a213",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-hood-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c6a7a0b2c2cfd5eb3ad1a37e63248159b12e5a1f61252bdb139f9a656e10c77a",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "bd14962d7ed112f5aceb37f4f0514f9c44d41cbf9eda396db04ac75be2c5098e",
+        "expected_final_gamestate.txt": "379e33bef5aa95d5cbe055de4462a5889e7be23b44bbc1f6a04d796144c08310",
+        "meta.json": "1f3a2eda26f08fa45eaf5bb7777f476e79c00a4c061371010a5fe8e0ab0c30c4"
+      },
+      "fixture_sha256": "97b4013be12cd4f117df1cf4a034f9bfecfc61688bcfc19fb9645cc1daf37f42",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-nullrune-hood-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c6a7a0b2c2cfd5eb3ad1a37e63248159b12e5a1f61252bdb139f9a656e10c77a",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "c30033f02e38b1547e9cb9f0c3ac62bad58507eecc7a96ebfd5fce668aa71f05",
+        "expected_final_gamestate.txt": "fde31e8b9c0c3c165b64e40e896465d621dfdd47df3837760b2052a1730b53f1",
+        "meta.json": "e217b52c6299981806f4a01fd86545515a6ebfafb2897b4ba4fb3964ef2a2642"
+      },
+      "fixture_sha256": "aa48996e9b54975bfea892eacb4f32d3ce8da12083e05fe6ab3110e8bf547aef",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-nullrune-robe-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "814fb1a371ad3e0b56aefaa8815b4e1e293bf9d6ac1d5d0f10f78b2cc891ffc2",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "89e783516c5f4788e18d497e8cf7ab28552f49708525b8503d53c7e7a40b4344",
+        "expected_final_gamestate.txt": "254e9f8c6bfb709e8243fbf22861ff19d32a3811d5754022e7e40d86c9d4e571",
+        "meta.json": "049bc13c4f000ff3066bb7cdea53127d04e6618f7f78a2117cbad0027d05d563"
+      },
+      "fixture_sha256": "5c2ab2bc1e34efa26455cf2eb72b149bf08ece005da9d31de2abafe1326b2fb9",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-robe-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "814fb1a371ad3e0b56aefaa8815b4e1e293bf9d6ac1d5d0f10f78b2cc891ffc2",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "27a2a45849d69730a689a180b0d842c180997c4101a3b5a0bc42658ec2293976",
+        "expected_final_gamestate.txt": "3b5df04823394876fda6741b0137c0653bf9d3f9a7dd82b18d9284dd1dc586a7",
+        "meta.json": "0e790ef2a4c3b59f999943e3217df2fab228e5e1e0a97e6d489a2d5c8927f741"
+      },
+      "fixture_sha256": "49c3cd41235cf63f3e65d01494bb3ce9b8bd285de7e7078f068d3f4cc2e9ae7f",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-robe-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a3c4231b82fcfdbe4d8f596e63ccae67184d83fee7f3a8bc7f2ee99427798b8b",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "c18991401d7e2ee53749be6a21a940543681ca96c9bfd77cb1f9c10a2047e686",
+        "expected_final_gamestate.txt": "59058c79c1a18990e0b8c9c5114bca74aee4ff621ffc9c8d343932d262126467",
+        "meta.json": "c965eef51e1334fe28a905a8c1e631a31aacb15d602fe78e367f52cd7b342395"
+      },
+      "fixture_sha256": "5d1aed54986bec533ad2f39050a514a6728577893cbbb2ad0d95f9d20c3f1b05",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-robe-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d5b3d3357dba66ba4cb4489e9e2aca1833a99c3e3a1da717e831697a1424d56d",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "6154e157033c2912b023e0817bb1a485583efdb965d344d1bad16d94411daa08",
+        "expected_final_gamestate.txt": "504ad550de4cc351b22c9b94de2d9eef36af31f9aff7908305466e83774d8140",
+        "meta.json": "74875d0427f8a4ec72ccf75e28374be7caca5ee902ba5fedd775fa28a9aef3fb"
+      },
+      "fixture_sha256": "b5668fcd92991900237cc3d62715daacc82045fb77a6e7ef5a8d5a901701db93",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-nullrune-robe-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9be7808642f0082a09e333591a7dc33aec0914d689baaf15fe8d42661e495d7f",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "dfab18a781c24161d2d4ce995c0434859b086c4f9206b2d5bd7ffbfc95f95214",
+        "expected_final_gamestate.txt": "3053bff333174547e47eed160ec6b5ac6436f0349a4178c7a594ba8119a86c98",
+        "meta.json": "c333bd9cde1608f447dc33dacaa840406132b924a2fe4020a2a4fb2ce87cfbd5"
+      },
+      "fixture_sha256": "5ddcd4803e3c434d8fcd90900c601a2d1fd4583452fd03796f71f8fa410b2492",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-robe-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0f9768a38407cbb1b1a6b5fc861788ca12992faf5075b7f63affd581ba3223f3",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "eefc8da88458e04f89fe9c950d1308b20580cdffdf872d13859780de301f9f7a",
+        "expected_final_gamestate.txt": "3896f02b99ad085371c97fa6fb53e9d7c0e2c0cbe6312ab0bf056423237bd458",
+        "meta.json": "19be0046528e9d1d974874585d1b9c2b6abe5acb758a2d20fdca1b177251394d"
+      },
+      "fixture_sha256": "ee94f77aebff8902f8daa51e40c9e48baedf8706f2dbf0bdbe16e078ec90a6a5",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-robe-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1dbb854d143b030c2049097f1ab5bf0a1ff38483438f311c6978925f9097c791",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "eab04d31491935ff9eebb5b809cf98c2ace585e8d8ebf1985f62502964658ab5",
+        "expected_final_gamestate.txt": "051224e8a3c4a9bb5a52449d8a04e920c0d15aa0a1e2b4d4c16f96d56b0e077c",
+        "meta.json": "a0881836c7f4b937eeb2e26918dcc2b08b73227937883037981d5218a090888e"
+      },
+      "fixture_sha256": "3a064c7b7684a1106dbfa3975193b7e7bdcbea55418c7fa2eceeb71ca0e5052d",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-nullrune-robe-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f051eb7874ff68be7920eb293ed02610c31a10a5477d3f237db7abdd0bb48e89",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "0219627b02b35934044d684e927ba93c78e5470ceb9a5bcc968a308b76eccce6",
+        "expected_final_gamestate.txt": "0adad1180624bbe0b693afefb6ab47b8291c61252243aa4d184b71d978a75f0a",
+        "meta.json": "03f77b34a637979ba14298897d8517e814e4fa858e7ce93c85a070873eaa6a38"
+      },
+      "fixture_sha256": "e64d3262a864fae2f8ec88defb21befd6adf7bd3cb107dba824ae083357da534",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-nullrune-robe-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2193c9377881cfa25d92849c58856cd161ceeb5827cb37b7db47c35160184206",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "f126a4739e4c336c1e87b3095417342e0ae0fac11a3f3dbb278e713cc4c889a8",
+        "expected_final_gamestate.txt": "a240bc8522d5dda90973a22792ff76a67718df250103c11d61c46742af12430e",
+        "meta.json": "22d780a3a251647055fc51c7ccc1b810201a07f56d4a833c46c0c68f4d4374fc"
+      },
+      "fixture_sha256": "9cb84aa4dbd480c76f83bd2dd6f36a4d9dbf95879b4c92a16b0d322c44632225",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-nullrune-robe-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "105a049511c3bac6164d184e68491df6dbb7bb7fbc695b7cd3084d07f507f2ee",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "1812325d02bde23cda9ac413eeb8dd48f852dfc8273cac582858aab9ae56621e",
+        "expected_final_gamestate.txt": "2b46fbe357f831a4e6158f2043b794e03712169580b7e5bcfba7492e99f5d50c",
+        "meta.json": "7e303f08ec24bf0cfc11ca647bd153ed218fb1f71c42079eca1496a9d84c0dde"
+      },
+      "fixture_sha256": "558950f5b02f2d927605723b1b8ad01dd269626a645f84b730a2f23c6629d1e6",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-nullrune-robe-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "105a049511c3bac6164d184e68491df6dbb7bb7fbc695b7cd3084d07f507f2ee",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "2c8b24552c288874543e39c262ede62085c4bfc57484795f3a38fc405b716d0a",
+        "expected_final_gamestate.txt": "3954daabd5b6f28273f62cb78674a0fbc9039c4db19ba0ff1c107aa41bd8c92b",
+        "meta.json": "ab182b46d44437ef98fd750fa72211ade16f95d061feb68ee4d1f0a678c89897"
+      },
+      "fixture_sha256": "65e73afb982e802eafb4d4a4f6ab24c8ea8bb9234bb54eaaa0ea15b3325b145e",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-shamanic-shinbones-pay-floating-exact",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "15a8c68a95da430324f7a8bb72e602e6e53199f50a3c06c137d5ea0b760e48ce",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "addc9db0b0cde299dbe7077a0d67a94c8498f4792fcd41efa58a20496a5ddb40",
+        "expected_final_gamestate.txt": "55c284923f35042c19130d5d9a97c3da03a54de88fe4080dfe56f122802dd362",
+        "meta.json": "1ff839636f0b1663dcdf694adbd183c149799a0d99d47dea4d4a9234a2858fbd"
+      },
+      "fixture_sha256": "4e087b6627bd0176c359ffa63539ca409a470e1b453043bb4f7282fc93250b6f",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-shamanic-shinbones-decline-while-affordable",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "15a8c68a95da430324f7a8bb72e602e6e53199f50a3c06c137d5ea0b760e48ce",
+        "actions.json": "c2a46ab46e16a40346d0c1180ed2766c6a5d481efb80a6c73c275205fb1ab3ae",
+        "assertions.json": "ae879b0530a8d6cd9fdba093e626b05884feae8d44bec082378f5d505cbf84b2",
+        "expected_final_gamestate.txt": "ea1245539e8874371006ad526a365decf2396207ca6a6df1544138c7cf19077b",
+        "meta.json": "364eaffe768d2115d5734dc95f4fc46b0dbe819e9d4b85ebf26b28b068cb4fbc"
+      },
+      "fixture_sha256": "8efaffbd8c247a914d1f59d3b64ec88731ea44b3bec88324d4ec31afc903be2a",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-shamanic-shinbones-pay-overfunded-once-per-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d9bc6ce3e23105e3d001ea83d89e2a489baefea1b596300574aa3fc0e18ed687",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "6616057dc908db5dd14a60cb22e5dba8a8f0362c149fe53133a567996aa78a4f",
+        "expected_final_gamestate.txt": "68ef7ff9ed3cd2eecf4408f04194b7731f981fbf7e7b1a248ba5747580a6b079",
+        "meta.json": "2d4b2f696a16726e200923087fcedb29719cf0a5a764b66b46008ffcb1ed52ae"
+      },
+      "fixture_sha256": "2253079ca30eef23a14b227cfac68446afc467a0d4685f02c2becabc4693a51a",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-shamanic-shinbones-unfunded-keyword-not-offered",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e338bfe1dc58a61a5a59385dcc22d36cf35955031fec2aa4cedc4f612a67550a",
+        "actions.json": "2d2cd6460a84cfce0b57b5cd138cf50c57e4ac93136ad599da8b9984b43b8d2c",
+        "assertions.json": "c2c31a0e06b8cd02fabd7e860fc669b1ecb8e36b006e4b6ecd9be5029ba7b88a",
+        "expected_final_gamestate.txt": "1490c655e229f9bbec86efcb4ba82070c0b4335b607c2fef21eb71706252c4b4",
+        "meta.json": "df2d8724a3455e3caceb9b1c26c025551a68e12b0c9f8536a1313b4b4c2fd2ca"
+      },
+      "fixture_sha256": "b1c2f312dad423a917dd3c04f1b2b07d6670311717f5f1767b1156b987372677",
+      "native_assertions": 70,
+      "actions": 4
+    },
+    {
+      "slug": "card-shamanic-shinbones-pay-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "01721e5842549c53907556dd1bf063ff6cd8a627782380c19731d125488be081",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "f8c277feb649241a09dfed750e104def97791709221751ff2bd177649e70d045",
+        "expected_final_gamestate.txt": "91bcfe56d9247521a22afd64969e0acee7a4d4366a6eb89a66657aa6d9bc4ba4",
+        "meta.json": "a23692a827926fd5e3eb142a88cb0b7eb1fe55c3b90ed289add45a7cc08d3547"
+      },
+      "fixture_sha256": "124dfd5e195543cd0af2eb4a7f3306bb4a82bdb1a9c6ff736d91606507131504",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-shamanic-shinbones-pay-red-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "189d199f8d03b74cfef4bef91d8638f7335862050f4677154e8fc298aa426cc5",
+        "actions.json": "6a3da8c30a418921332b6a1255ac887bbbfe760b8ef6a116fd6c0ddb08b2d26d",
+        "assertions.json": "2fe5921be6ca1d532c26a04ff75fa775ca12ba1d7fee3c13bb33c62a1cc232ac",
+        "expected_final_gamestate.txt": "7041f1bfeedf300e400010364497adac9523b139972e372f1fb4aaaf0f1a2a74",
+        "meta.json": "fc587be8587b55cbd541d8150523f020c17a3fbc9ca0f592a12815dbaef11eb1"
+      },
+      "fixture_sha256": "5930b692aeaf72e543ce89b3e4584154ecf5f5862139bd89b1f655a4a4405425",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-shamanic-shinbones-small-packet-full-fixed-cost",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e98384b8d74a9004df8c98e55de097aa99bc56e5647c005bd269af18a7a567eb",
+        "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+        "assertions.json": "09b39ebc94942967a933c85eeb462cbb3d325f4ae7a23cd075133e637fa2ab35",
+        "expected_final_gamestate.txt": "51833194c811c20c87658ea8ca489a627d14a3109dc25d70ebb16fe306413032",
+        "meta.json": "402b8977379bc19bb881e389fef6e18d830f3830a1602d37923f48149020a7d0"
+      },
+      "fixture_sha256": "00360dbb30b34f7f45c1ec48fcc73a8ce49a4d6f78a7318a81fb1608edf545cb",
+      "native_assertions": 98,
+      "actions": 5
+    },
+    {
+      "slug": "card-shamanic-shinbones-reuse-later-packet-real-boots-grant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3a48d99f24f3ba639f361eb5d3ae5024909210866b621caf56c675deab5ec2a5",
+        "actions.json": "4c919cee2c1a118d1e344076e88c7bdfbbadec0d2c21c8198e6891fe39fcb153",
+        "assertions.json": "6f3d31c120a0cb160d588e2ab0397c70ffc56279e62012720325054ef064a7c4",
+        "expected_final_gamestate.txt": "5c0d7fcc00784524a6e786554277007c2083a2ff8a3bfbbfab9b8f0db00b0c0f",
+        "meta.json": "e0ea9982a2ae38cbac3741ce84fef2d1c7337e4f47e4572ddd17f79fb881c1f8"
+      },
+      "fixture_sha256": "45286081b93a0f71bd7de0502d528b8c2f338a72bc52dbee6a869125982573ce",
+      "native_assertions": 217,
+      "actions": 13
+    },
+    {
+      "slug": "card-shamanic-shinbones-two-distinct-sources-same-packet",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2a7435d5cda11201e194041eeee399b088261774e04e2b80784ec6ed9268d512",
+        "actions.json": "e50a9ef1106d59ba49a9620e5e52bc026fedd069630d3d9d57572f067aa94ba5",
+        "assertions.json": "6b88376f2975ee66688c66f5e2c8bb19ab317d3ae15a87d7075ed3fb2122341e",
+        "expected_final_gamestate.txt": "eb2a249109b6bc88415aaf7cd81934e7dc1d4c37ea1814a4d0863d83b9a4cbf3",
+        "meta.json": "9ff6d973c07830a22d37e49feb36f260b86358a6648d5db9969ec462a4541306"
+      },
+      "fixture_sha256": "89fc4c4baf5f8037a56d1021a068ffc04223cf082ad1a585a2a5f67cc6061a03",
+      "native_assertions": 128,
+      "actions": 6
+    },
+    {
+      "slug": "card-shamanic-shinbones-physical-damage-not-prevented",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ad2e70938406f2c20349353c6992b74dc3d982c99ff8902a0803829ee6c6a782",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "b2194e940b4ce96d012034fa0619678d938b14d74de4b9fe3f2b0cd9eb62799b",
+        "expected_final_gamestate.txt": "9a58e238bc95e4f2074ee41493a6f1ed951ec2a5f195add586a1b0886cd9ab6c",
+        "meta.json": "e62dd194236f6960c4134a675d9e2056b1dd0e405cdc2c86259a06792cc996c3"
+      },
+      "fixture_sha256": "9bc8873145e56e90a22f57235dfac6ce514c8cdf59270d41363d625b37c3e941",
+      "native_assertions": 40,
+      "actions": 14
+    },
+    {
+      "slug": "card-shamanic-shinbones-zero-defense-block-returns-without-destruction",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ad2e70938406f2c20349353c6992b74dc3d982c99ff8902a0803829ee6c6a782",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "d06fe37ef939c5603b7008baee25dad235ea5cd9871e786dfc3d1411d9d8a113",
+        "expected_final_gamestate.txt": "fad3d3a36d1219720917086b9484ecacfe77a97f62eee9f2041994014006efc5",
+        "meta.json": "a2279573150a7c97cb3f0b518625ec968df8d959e316317de991ea8cedf5cf54"
+      },
+      "fixture_sha256": "053de5eaf7688f38450e7ae60af4ce39b7f7483164905878010debe90afb5119",
+      "native_assertions": 37,
+      "actions": 15
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-pay-red-pitch-twice",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "ef0ac5810136b5c545034753c159ebc58189ed5cf5edbcc405ce780e5b899560",
+        "actions.json": "78b0c43c887bc819ef8140d1703eb3b1b86855fb7bb3b3cc78b096c5d7f39ed4",
+        "assertions.json": "990d5da619a0df87e89c086e5acbc096af43d9ec0af4a145b188b98d54468f89",
+        "expected_final_gamestate.txt": "0e0f96b59dac2ef117a42b66c64f1a9365d1ddddab4c599ce043d1b560d4d1b3",
+        "meta.json": "660acee294e5a86b9b248926afe8eea64c63ad9c03ae53394694b30664ea5812"
+      },
+      "fixture_sha256": "d9d054fa312b860c808e27562f64884ac73e0c399dda4f543099058f141522b8",
+      "actions": 7,
+      "native_assertions": 156
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8911c505693fb9c6ef65e0cca33fbfee36693ba079698aa3efa8531a915792f4",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "e2adb130313ca341720897ffae3ccaa927c05fc7289e8097688a6c68fdb74e9c",
+        "expected_final_gamestate.txt": "f80eabf7bfef6db77e04343ae4f895d9a1aec15f7d690ddd7ddb6112810168dc",
+        "meta.json": "0aa38f6edf8480b81ab36c9e910f150b1139b3505e4d7976879a2798a061a5c8"
+      },
+      "fixture_sha256": "a1eb06db3011aea665b4429ec482ca5d6a54d10b052925ec9818ed0a82c9cdab",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "aetherstorm_wellingtons"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 2,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        15,
+        20
+      ],
+      "finalResources": [
+        2,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "51f20704a970db03e06cf058d68c60cd3ab5b18c9dca95dd6147c363f3d889a0",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "bf7d955961ed6f4a18d27adec648f4c6c9ebc16911162ad4e8a372a2640b65a3",
+        "expected_final_gamestate.txt": "43e6882c67fbe5772c7df40f1404139ddf7596443e65033b538f16ad2a553925",
+        "meta.json": "0076073518ad1baa92f51a9c9c478e609fac962a2f56da1ac6f0b36f2111634b"
+      },
+      "fixture_sha256": "9b9e9bf1cc9e97c34390bef76d1409201a3fdfd178e70051a66c1ff48709482e",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "aetherstorm_wellingtons"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 2,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 2,
+        "secondPayment": 2,
+        "totalPrevention": 3,
+        "arcaneDamage": 0,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1b6a2db26e71036940b31e5cd488530a79226e2ddd8c891a45f3a5fcc1b1249d",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "317ffd5ed8a8c836e36b40d7d18a3896fb9775963c5bc3af8927f2fbdbc7f93e",
+        "expected_final_gamestate.txt": "a9e846b5b161d70e60613b4e2fb763ef8f883b3d210dfe76675fb9345c0fd72d",
+        "meta.json": "bcc4941ed02d0540d6b20e063f4e1150477f491c2d96ac62d8d535cef6fca114"
+      },
+      "fixture_sha256": "8594b5f4d9c79407f654a2f13ccbc942813871354ae07191cf54b07096ab85e9",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "aetherstorm_wellingtons"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 2,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 2,
+        "arcaneDamage": 1,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        12
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "471cddfb3374da24e09c1ee968f7b4089b7e13466ac2e99224605cb3ef6642a8",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "f9824e4c7c0b5f840dad95fef4556310d22f05a5239526b41317c910f11b7493",
+        "expected_final_gamestate.txt": "cfa63b2945bfcf8de416f0dbc6f39a98b46cd7a915bd5934095a50b1c4c7d66d",
+        "meta.json": "449c7a1787e62718911fc39859557a8c068380bfbcd89168e605f54de5fcad19"
+      },
+      "fixture_sha256": "eea5372bdc253554e73d16e7231d0e7addaf3b1dba3a6f9dfdfc7bc1c596e1a9",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "arcane_lantern"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a3fed7c2dd9b0cea4c0cfeb5dfaf21404161d1ba57e974cb54e6ad69353c479",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "d34a126fa630dd304040633f1bec85d55bf9d3107d19d7a11efd4d07dfa2fdfe",
+        "expected_final_gamestate.txt": "ca88005f57a804e6618ed0a4e8b3c09c7aca693d8c8013f088bb3d5f1d47387d",
+        "meta.json": "e671608ef5de19cdfa7df8f4a7b56667ae0fe9125fe23ed0f089af3ed8089ef6"
+      },
+      "fixture_sha256": "fbe1a570e24ae97367773a0c24f8f685725f6ae736d94084d28729c0bcdf4280",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "arcane_lantern"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "198c75f32dc189023f0a4445b6ef16522c4524d75b5f8c806eee021d2bb279c7",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "acd6f11f176d7bb29be3c687d79f03bbbb7bdc2cc60f1f662870bc37313a76e3",
+        "expected_final_gamestate.txt": "61aa2cf5a8a58e922adc32247b3933acebe34a7a42ce9ee6ec5a07ec90a94db4",
+        "meta.json": "af07f24aec84e1b8db97192f5b97b0404621008aa25f825d1f9dd56baa79f237"
+      },
+      "fixture_sha256": "3e1ac0a5f0aeec6b8487ab8f9f7887f6ee3641597d6a14e749d550d877ca13d2",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "enclosed_firemind"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "db60ea7928f4e87c9985ab8fcb0d77a13f74e415138c2c9b4251f4d3c6f2c6e2",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "5aa472bcf93e4ca690482a0b269dd8a15b5a4b6dd5f2d74578ae41fc5149a36f",
+        "expected_final_gamestate.txt": "91cb079b38d88d733b2be82241f316073a5d20318bc6d0e5b146a54e75d71a87",
+        "meta.json": "430ceda53e68fc4dd1c0e3999d225e3a9231c6e0708104654195da5c352d3e1f"
+      },
+      "fixture_sha256": "9dc1d2d6002050e9a521ae7e7ce4db323f52f3321fdd4f357bbc308831b00b4f",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "enclosed_firemind"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9a1ab491f333cdd5ca710fc74d131c476036792451249ff00c471ec01253f9dd",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "11711f680ad0fd208bba3145c9add9861e7f662c58a560d055d7e784f734ddd2",
+        "expected_final_gamestate.txt": "852a5f9b6aceaf8b4cb7cab015807b95410abeea7ddf24af1e7efe6327060fba",
+        "meta.json": "71d4513b56a63a10e031d821a7d7bd2e1df9f15de10ae4b54c27bf083b2a3232"
+      },
+      "fixture_sha256": "2dcfd596f61963c5ba4674257f74f549de4bdfcd9827ca1b56506843251a096a",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "enclosed_firemind"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d3a89005d001e5615d21667871c6489e49ff5426840dbf50926227fc5861915a",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "82db6bde73a4ac9883eba377dc52d66ea58ac12c6d9d0387d12eff26e08cefa9",
+        "expected_final_gamestate.txt": "df1b0314e9fc58d928e43229454cad1ea318c231ff4d0fbd74fc88b1b7368e7d",
+        "meta.json": "ac8d6b3a88c3739326cfbde7d0151245d031b3e87732cc69a1b9dad79937189f"
+      },
+      "fixture_sha256": "6db5ad5839205f7b15664e4dbed51ef9f7262907d9fb486c03db3af926b451e8",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_boots"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c11f58c9bb1a379a715a45ebbc9c7210c9613fb726adb4b9b7d139afa21cb238",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "bf05d484effc5fa5516d9844ff60a47782b2650222cee404d7ad751485d0d1aa",
+        "expected_final_gamestate.txt": "a1b8595aa10ac4bd1b4c5ab35463412f77972a1709bbd09fa30166468ebb9680",
+        "meta.json": "5cde9b848c5aa8d50dbe89450ad5ea636026b9dbb09f6a828ea66a4047390ff1"
+      },
+      "fixture_sha256": "2acae10b4e88843e3d29d718211a9059a12e83dca7d7438239b743d26beab9a3",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_boots"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "949f93f45c419e154085d2c746a229a8aa9b1813019746790a298d0d723032a9",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "2ae3ec5d894259e0758d80da77b0a2f82a3a9d7617bad7c5a3266ec41533214a",
+        "expected_final_gamestate.txt": "52a12812a4e4c195220448abcf6ae26a395e34f25989eda3efc05fac2d1fc552",
+        "meta.json": "042f8c4578b11b14839845133be41f0eaab7f0b28a7f22c9bec2b4a409ba8c5e"
+      },
+      "fixture_sha256": "0570853d210d54d936811bd9851caa31e92de471ff80ab589f54b419639b0cd3",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_boots"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5e41fb7af919c23062c8171b4b85a0a51595919b841da68f37cf65a102cb0498",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "cbece73a5ef0ba1c7645e081edf24a8841e2a0fd97037a16bf7df5a73328d031",
+        "expected_final_gamestate.txt": "17ed9755e0c34aa67d195132c9e5932b526f0f1556a4b052d50fdaf3a7aebf46",
+        "meta.json": "1827e69dd890e449d75d90ddf1c9b5bb1084af79d41610705510ab0a6eb62cfe"
+      },
+      "fixture_sha256": "bdfa7427794d5f09c0457009d80b6f2434e7ca549c8e41dad6287c7bd338319d",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_gloves"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6a22d9e414f3936d6fbbb6a895fb7493f66284bb4592e8c9d850602c24bddb0b",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "953331ec225e85956cc3f763a9afa0eb0bf4b392e1d5c4d17a9e2f5cea675969",
+        "expected_final_gamestate.txt": "e6dbd6c1ebc195b934611b9bb3fbf12c0e26411d9c961899e31ce58d77ed5e27",
+        "meta.json": "ee3ed511e392dce95286eba43961a87e07e967edb9b0df6a4c1c42b60eae1699"
+      },
+      "fixture_sha256": "260a700645f16bfbf152f98b8d52f7c9d5c10471028bb199a3c75e68a712f87a",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_gloves"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c31b375a875ecbfcac1339b31727923d4c2519f4d18477be2508f1621c23a2c8",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "4eb978803b0c930f61cb44579cc5232cc65d4da37c336e71ab961b932316f506",
+        "expected_final_gamestate.txt": "692f104d02824315025489a5ad02fdd229c57c61773146f5b0268f6f49862aca",
+        "meta.json": "d6f735b5969f99bf993c2b0c1fa66ba93525ad47bc0053f8d4f2fad595a6ac11"
+      },
+      "fixture_sha256": "ff16094165d03d60e4c844e86da32618a83d2c0c1ebf47a91fd91c69233ea395",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_gloves"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e5704742b31b9d12a2b039ff38b36bcfd76a36bb8a4fe54e2859815ce3d9d1a6",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "eb2aa8206a4c08868206ffa48b851d3d20a995bfa75598b31d319555b6053f23",
+        "expected_final_gamestate.txt": "b11b1691074d3f3944cf10ce50a28235d67338923464b63262d049852ea34974",
+        "meta.json": "9caa2737a50ead5ddac07c269be7ab37d4b608411676b08e2697e88578d22077"
+      },
+      "fixture_sha256": "26a7a5fbcc111b7358c209a95c93642e6ea88420e0409024bf832387cfd81c42",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_hood"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b7627d08ccbf987039b71aedbc8b63788d74e5b2be1cda07df0c994d18458417",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "0e4744180d73566b2d581e02ecc02b7e60d5a586fea18cc8133674ec1b3debaa",
+        "expected_final_gamestate.txt": "1f929426659630ac2bbb1876a2955c7fc8801f1cef39954d41204c7e5f2498a8",
+        "meta.json": "9ed22b13ddeef4cdbc159742ea1e0d0ad91d4d08447996adac30683188acba6f"
+      },
+      "fixture_sha256": "4360ad4d0bea78b15d362398da35bd4a6761b77734f33902ba70592737cbd166",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_hood"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "15b687c8faf03c2c0fddf2af994752a0c69e9f287b8c097c7bbfaf547934f2d6",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "31943ecc0edb15efac0f226b772a80c090cbcbc2e23213594d32f7c7211fe3ad",
+        "expected_final_gamestate.txt": "99aec30a5ec06f5b9fdf4a9407ca38d92c72a6be048d75efce315b1750bc2684",
+        "meta.json": "df605dd8c07826e201328349bae53b33a192cf633700634e5a76015a2150c247"
+      },
+      "fixture_sha256": "8c53fb732bcc7e3f4c49fd16b28ac54093fe4f68db4e4198b203732a793bfd7a",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_hood"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "b836f0b74d99dae7c8084f32cb4a37a6ae400f4b29684e138352e584087d3a9a",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "7e48e109e9259ae432b3344a2398af16a66138b0a8ec42e7ee4c6d1c6760e6eb",
+        "expected_final_gamestate.txt": "ee60a9c094ba8b0dc3810fc5a991f5e83e298a355360f2420a2d908e18de8cdc",
+        "meta.json": "3dd908e4b921a327765de5ac0895252b3fc1a15a9764fac82a4ff5de9e56ccb8"
+      },
+      "fixture_sha256": "669c108838d4381570c39e055936bf7be9f2072022a574571b78df660238d937",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_robe"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2193c9377881cfa25d92849c58856cd161ceeb5827cb37b7db47c35160184206",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "0e955d04f73d1cbb9bf76170324c23138ddab3e3228e74d9a089bc01a74841fa",
+        "expected_final_gamestate.txt": "4e0034983d23cefd0b973dde39ca0c1a942b46dc68ca6dc048fd3ebbb203fff1",
+        "meta.json": "f028218ac8f62e8ea7c7eea32765882d9a8d6a07e8b8a35bdf60d72034c59ec2"
+      },
+      "fixture_sha256": "85bdf65aa532d5d7ba57e919704a1519414ebfcd591d355fcafd508c18646abb",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_robe"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a5f7143b04e41f97e103defdf756b26d1ff0117a912c331a6cdba3f1e1e6d416",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "786ae4c28db6585432b6d3d0635fa86d5e24d00d495ed999b7cfbc7289ac2269",
+        "expected_final_gamestate.txt": "dcfbfb9f37b40f61e7cd337be15fcfeadff7f1b9a9bdc9bb5fcb67cdbc09c867",
+        "meta.json": "813e5159b62c3f331fbcc4293f051b1b35515b2bceaec817f62d663ff5c3c28e"
+      },
+      "fixture_sha256": "57a8626f224ac5e6fb01a5ebb60de7c851a0f6ddadb64b08b20ddbb261b66f98",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "nullrune_robe"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-static-no-manual-activation-own-main",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e506bccde854401a7da5932611429dffe3ae315614d9fc373e129a3ce9de719c",
+        "actions.json": "428a8b85f137d27df6cb4b1d18d2da91833861fb07b4bf0ac3ea13fbe5e744f0",
+        "assertions.json": "0f3c87aa5f629ddcf33caeff77c38f638efcb0e4016596dddfa38d0cd90c00ba",
+        "expected_final_gamestate.txt": "a2f3b3da6c49ef91969ac97707158a2b32fcb916d9dccaae58c51e4486c212a6",
+        "meta.json": "f5c78f9a8458de4c5d8cbb3effdca2725799a1829d23ecf0208217cef291b37f"
+      },
+      "fixture_sha256": "43a7bd355cce6d6caef055694e330d613fe16bb0a67a03e8addcadd68047ec59",
+      "actions": 1,
+      "native_assertions": 43,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "source_is_ordinary_own_equipped_permanent",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "static_keyword_click_cannot_create_or_pay_an_ability",
+          "step": 1,
+          "native_assertions": 23
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "shamanic_shinbones"
+      ],
+      "branch": "static-no-manual-activation-own-main",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 43,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "manualActivation": "No printed activated ability; actual equipped source click leaves source3/AP1/resources1/priority1/Stack0/queues unchanged."
+      },
+      "finalHP": [
+        20,
+        20
+      ],
+      "finalResources": [
+        1,
+        0
+      ],
+      "finalActionPoints": [
+        1,
+        0
+      ]
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-two-sources-second-listed-first",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "2a7435d5cda11201e194041eeee399b088261774e04e2b80784ec6ed9268d512",
+        "actions.json": "029b13cdff8b7ebffe02e2e46a6ecc53fa15e81ac24d21cb80fe000df3763c39",
+        "assertions.json": "7846f54986d4826b522ef8956caa09563608f1394346ad23ca7916737401c0eb",
+        "expected_final_gamestate.txt": "98bf2ebb7de6b22a9724409ccdad8bb3029ec1d3840173570f0191bdc43568b4",
+        "meta.json": "6df78d5eb5ba02534090a4717be9ab3259b982d8da905ef3a0d0ee333d2df9ab"
+      },
+      "fixture_sha256": "33a0534c97d6718fbbdb3dee7af903d009746b53b59a5e3401b327e3444bf84e",
+      "actions": 6,
+      "native_assertions": 130,
+      "native_game_state_fields": 4,
+      "checkpoints": [
+        {
+          "checkpoint": "target_before_payment",
+          "step": 1,
+          "native_assertions": 27
+        },
+        {
+          "checkpoint": "paid_spell_live_before_resolution",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "prevention_before_damage_source_live",
+          "step": 4,
+          "native_assertions": 28
+        },
+        {
+          "checkpoint": "selected_second_source_paid_only_primary_source_remains",
+          "step": 5,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "distinct_other_equipment_retained",
+          "step": 6,
+          "native_assertions": 3
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "shamanic_shinbones"
+      ],
+      "branch": "two-sources-second-listed-first",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 130,
+      "derived_oracle": {
+        "printedBarrier": 1,
+        "secondSourceBarrier": 1,
+        "firstPayment": 1,
+        "remainingAfterFirst": 1,
+        "secondPayment": 1,
+        "totalPrevention": 2,
+        "arcaneDamage": 1,
+        "chosenUIDOrder": [
+          5,
+          4
+        ]
+      },
+      "finalHP": [
+        20,
+        19
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-barrier-while-defending-real-kano-instant",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4e0abe45eeab8c90b5d6a80c04fe280b20942b4d20d4ff5c1ad5b01c86d4cc48",
+        "actions.json": "5a7b051503114b15dcb0a19bd25b915596664645888d95dfdff8f98ca24f47f8",
+        "assertions.json": "690a829324f3d085c0996be3b5582cb3e57f8d54b4de38e51702f6e3d2d42f67",
+        "expected_final_gamestate.txt": "b5f3503cd816434975182d7d2cb902307bbb6cbdfd715b588c997acf087b03d2",
+        "meta.json": "4eecd90738dac54af0671201f9bcfb0a7e77d011c281d1dbcf0b97c11352eb98"
+      },
+      "fixture_sha256": "b0297747adba8d6dc793d7733b8b18c7fc55bd0208b27fa21b87377e5e722bda",
+      "actions": 24,
+      "native_assertions": 344,
+      "native_game_state_fields": 28,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_attack_ready_for_real_equipment_defense",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "supported_block_moves_same_live_uid_to_chain",
+          "step": 6,
+          "native_assertions": 26
+        },
+        {
+          "checkpoint": "real_reaction_priority_before_kano",
+          "step": 9,
+          "native_assertions": 31
+        },
+        {
+          "checkpoint": "actual_kano_cost3_no_action_cost",
+          "step": 10,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "actual_kano_top_choice_while_gear_defends",
+          "step": 12,
+          "native_assertions": 25
+        },
+        {
+          "checkpoint": "real_kano_uid_grant_no_synthetic_permission",
+          "step": 13,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "instant_dart_real_target_before_zero_asset_payment",
+          "step": 14,
+          "native_assertions": 30
+        },
+        {
+          "checkpoint": "instant_dart_committed_in_reaction_without_ap",
+          "step": 15,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "defending_permanent_barrier_is_the_live_offered_source",
+          "step": 17,
+          "native_assertions": 34
+        },
+        {
+          "checkpoint": "arcane_paid_from_defending_source_before_attack_damage",
+          "step": 18,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "ordinary_physical_damage_still_unprevented_by_defending_barrier",
+          "step": 22,
+          "native_assertions": 29
+        },
+        {
+          "checkpoint": "normal_close_returns_same_barrier_uid_once",
+          "step": 24,
+          "native_assertions": 33
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "shamanic_shinbones"
+      ],
+      "branch": "barrier-while-defending-real-kano-instant",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 344,
+      "derived_oracle": {
+        "printedDefense": 0,
+        "printedBarrier": 1,
+        "kanoResourceCost": 3,
+        "printedArcane": 3,
+        "prevented": 1,
+        "arcaneDamage": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "spellUID": 5,
+        "attackUID": 3,
+        "expectedGraveyardUIDOrder": [
+          5,
+          3
+        ],
+        "permission": "Actual Kano ability3 and actual top-card MZMAYCHOOSE; no seeded permission, CC role or UID. AP0 persists during real instant cast and barrier."
+      },
+      "finalHP": [
+        15,
+        16
+      ],
+      "finalResources": [
+        0,
+        0
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f5741256f4179ccb385eaffa7a6ff7655fcd5d879da6d203eb3e574f80b15e09",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "5b0594cd0561929fc2a1edcfb56a1058f7eb63dd92d45017a4e289df06528467",
+        "expected_final_gamestate.txt": "74d73546e89eb2737a260f5da9b221861eeb8797387c7dfd5693faffa3df8105",
+        "meta.json": "7742d0bd4f0ecdceca25cf8b23c888507f990abe246c20aea612d30218cac416"
+      },
+      "fixture_sha256": "234eac60f33f4335347f3d1911f6ee04b16cfee8d69bb6f058a87bef21694ea7",
+      "actions": 15,
+      "native_assertions": 85,
+      "native_game_state_fields": 14,
+      "checkpoints": [
+        {
+          "checkpoint": "ordinary_attack_before_lantern_attempt",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "absent_defense_is_not_numeric_zero_block",
+          "step": 6,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "unblocked_physical_two_no_arcane_payment",
+          "step": 13,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "lantern_never_left_logical_weapon_slot",
+          "step": 15,
+          "native_assertions": 25
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "arcane_lantern"
+      ],
+      "branch": "missing-defense-real-block-rejected",
+      "source_recipe_sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+      "source_pilot_sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+      "all_supported_actions_and_all_native_assertions_match_approved_recipe": true,
+      "independently_modeled_native_assertions": 85,
+      "derived_oracle": {
+        "printedDefense": "ABSENT",
+        "physicalPower": 2,
+        "physicalDamage": 2,
+        "sourceUID": 4,
+        "sourcePreserved": true,
+        "blockAction": "Actual FSM click ignored as an unavailable declaration; engine transport success is not asserted as failure."
+      },
+      "finalHP": [
+        20,
+        18
+      ],
+      "finalResources": [
+        0,
+        1
+      ],
+      "finalActionPoints": [
+        0,
+        0
+      ]
+    }
+  ]
+}

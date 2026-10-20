@@ -1,0 +1,7 @@
+{
+    "name": "Snatch / opponent responds before hit draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:38:34+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CR1.6.2c and6.6: Snatch hit queues a draw layer. Opponent plays Sigil red above it; health16->19 while attacker hand0/deck2 remains, then draw layer resolves hand1/deck1. Sources: https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

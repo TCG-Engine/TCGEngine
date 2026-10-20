@@ -1,0 +1,398 @@
+[
+  {
+    "slug": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+    "name": "Ironrot Gauntlet / Blade Break fully-blocked-no-hit-still-destroys",
+    "cardIDs": [
+      "ironrot_gauntlet"
+    ],
+    "branches": [
+      "fully-blocked-no-hit-still-destroys"
+    ],
+    "heroes": [
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "ironrot_gauntlet",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Hand",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "pendingPayment"
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "resolvingReaction"
+          }
+        ],
+        "checkpoint": "plain_four_attack_ready_to_defend"
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Equipment-0",
+        "player": 2
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          },
+          {
+            "kind": "state",
+            "value": 4,
+            "key": "defenseValue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "ironrot_gauntlet"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Role",
+            "value": "DEFENSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "FromZone",
+            "value": "Equipment"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2CombatChain-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "pendingPayment"
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "resolvingReaction"
+          }
+        ],
+        "checkpoint": "free_defense_one_declared_before_damage"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "kind": "state",
+            "value": 0,
+            "key": "damageDealt"
+          },
+          {
+            "kind": "state",
+            "value": false,
+            "key": "attackHit"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "ironrot_gauntlet"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": true,
+            "key": "combatOpen"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "pendingPayment"
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "resolvingReaction"
+          }
+        ],
+        "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p2Graveyard",
+            "cardID": "ironrot_gauntlet"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1CombatChain",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "kind": "state",
+            "value": false,
+            "key": "combatOpen"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "pendingPayment"
+          },
+          {
+            "kind": "state",
+            "value": null,
+            "key": "resolvingReaction"
+          }
+        ],
+        "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window"
+      }
+    ],
+    "oracle": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Equipment1 plus Generic Wounding Blow blue hand-defense3 exactly blocks4. Persisted attackHitfalse/damage0/HP20 prove no hit. Blade Break still destroys at chain close; both the ordinary hand blocker and equipment reach owner Graveyard after close, never at link resolution.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/08-keywords/#833",
+      "https://rules.fabtcg.com/en/cr/07-combat/#77",
+      "https://rules.fabtcg.com/en/cr/06-effects/#66",
+      "FaBSim/GeneratedCode/cardArrayCache.json#ironrot_gauntlet"
+    ],
+    "proposal_status": "unrecorded_semantic_spec_review_required",
+    "branch_scope": "Ordinary public equipped instance, unsuppressed printed keyword, no external destruction replacements. Partial coverage only."
+  }
+]

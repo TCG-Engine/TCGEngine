@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / arsenal-insufficient-reaction-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:54+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Reaction printed cost1; after legally paying for the attack only0 resources remain and no other hand card is pitchable. Reject announcement before spending resources or moving the reaction. Preserve hand/arsenal, pitch count and AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_red https://judge.fabtcg.com/cards/detail/322/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

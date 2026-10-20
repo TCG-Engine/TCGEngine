@@ -1,0 +1,74 @@
+{
+  "status": "SPEC_PROTOCOL_CORRECTION_REQUIRES_INDEPENDENT_REVIEW",
+  "source_files": [
+    {
+      "path": "FaBSim/ZoneAccessors.php",
+      "sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    {
+      "path": "Core/DecisionQueueController.php",
+      "sha256": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+    },
+    {
+      "path": "Core/EngineActionRunner.php",
+      "sha256": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec"
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "sha256": "753cb6804def31c927999239c316d6fa282be9d8b67c28cb087cdfde1bf0b257"
+    },
+    {
+      "path": "FaBSim/Custom/CRUCards.php",
+      "sha256": "db40ec4cf603f8336933ae389a8dd2ffd097fa9ebc817be9df8bb28cb23dff03"
+    },
+    {
+      "path": "FaBSim/ZoneClasses.php",
+      "sha256": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    }
+  ],
+  "original_full": {
+    "path": "lunging-postfix-scenarios-v2\\full31-proposed.json",
+    "sha256": "d52e40bf904486ee36d79589371cdefce1895531f748090bcf25a272b6036b12"
+  },
+  "original_pilots": {
+    "path": "lunging-postfix-scenarios-v2\\pilots5-proposed.json",
+    "sha256": "f3b66d1fae1aa6d3e85287dec718f5fcd809a1fe4299c75065c33d4b9ff59898"
+  },
+  "corrected_full": {
+    "path": "full31-proposed.json",
+    "sha256": "cf01263c10f0636a62067ca190d9bc5518500b4259975b1993e12343eb1dcd12"
+  },
+  "corrected_pilots": {
+    "path": "pilots5-proposed.json",
+    "sha256": "672b3c7de8e7afc9f4932de37e15231af4ba9e46ab671fb89f71a34a9eeec618"
+  },
+  "delta": {
+    "path": "exact-delta.json",
+    "sha256": "fc04316fb06210dc64ca26b05966e70eeb4bf8e392b82f3159dd12a896dba30c",
+    "checkpoints": 8,
+    "replaced_count_checks": 8,
+    "added_exact_property_checks": 120
+  },
+  "model": {
+    "path": "independent-protocol-model-results.json",
+    "sha256": "abf7902eadb0d4b04a348f504afba7e5cee70a77652b6e793c731756fb273abe"
+  },
+  "source_trace": [
+    "FaBSim/ZoneAccessors.php PlayCard first calls DoPlayCard, then appends PASSPARAMETER stringified true=1 and SYSTEM PlayCard_AfterAction at Block99 before executing statics.",
+    "FaBCRULungingClaimOrRequestTarget queues a Block1 MZCHOOSE and FAB_LUNGING_TARGET CUSTOM; null means awaiting input; DoPlayCard returns true before saving undo, moving/paying the source, or creating Stack.",
+    "Core DecisionQueueController AddDecision preserves ascending Block/stable same-block order; ExecuteStaticMethods puts the nonstatic nonempty MZCHOOSE back and returns, so both wrapper tails remain after the chooser pair.",
+    "On legal target answer the CUSTOM calls DoPlayCard directly, not outer PlayCard; subsequent static PASSPARAMETER and empty PlayCard_AfterAction handler drain normally. Existing post-answer empty-queue, target UID/link, costs/assets, resolution, damage, expiry, and Close assertions are retained.",
+    "DecisionQueue constructor declares numeric Block and DontSkipOnPass plus Type, Param, Tooltip; exact property assertions pin one chooser, one matching CUSTOM, and two known static tails rather than accepting arbitrary extra decisions."
+  ],
+  "preservation": "All 31 recipe setup/metadata/action objects and all original oracles except exactly eight count2->4 checks are unchanged.120 exact native queue-property oracles added; only one of five pilots changes; four already-saved pilots remain structurally identical.",
+  "failed_attempt": "DevTools/FaB/CardRegression/recording-runs/card-regression-batch70-pilot-20261020T035758Z-6ad6e6c66b8ce.json",
+  "failure_classification": "Incorrect specification omitted standard native outer PlayCard continuation; no engine rule defect inferred from the four-row queue.",
+  "remaining_gates": [
+    "Independent corrected-spec source review",
+    "Corrected fifth pilot actual saved semantic review",
+    "Full31 native recording and exact actual review",
+    "Final-runtime clean replay/negative controls/native suites"
+  ],
+  "native_writes": 0,
+  "game_actions": 0
+}

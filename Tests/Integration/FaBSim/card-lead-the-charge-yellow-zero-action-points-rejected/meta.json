@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / zero-action-points-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. Although resource cost is0, an ordinary action needs own turn/priority and1AP. The rejected click preserves source and installs no effect. Nonturn actor has the normalAP0. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

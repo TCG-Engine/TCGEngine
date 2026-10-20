@@ -1,0 +1,1365 @@
+{
+  "status": "PLANNED_ORDINARY_CONTRACT_REQUIRES_INDEPENDENT_REVIEW",
+  "identities": [
+    "destructive_deliberation_red",
+    "destructive_deliberation_yellow",
+    "destructive_deliberation_blue",
+    "strike_gold_red",
+    "strike_gold_yellow",
+    "strike_gold_blue",
+    "earth_form_red",
+    "earth_form_yellow",
+    "earth_form_blue",
+    "lightning_form_red",
+    "lightning_form_yellow",
+    "lightning_form_blue"
+  ],
+  "requirements": [
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_red",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_yellow",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "destructive_deliberation_blue",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_red",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_yellow",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "strike_gold_blue",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_red",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_yellow",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "earth_form_blue",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_red",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_yellow",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "hand-exact-float-unblocked-hit",
+      "expectation": "Own MAIN/AP1, sole source in Hand, exactly printed resources. Pin paid Stack source, printed power/noGA, real hit damage, one independent queued ability before priority, no token until resolution, one correct token for attacker, close to ownerGY.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "arsenal-face-up-unblocked-hit",
+      "expectation": "Same effect and funding from legal own face-up Arsenal; SourceZone and FromZone Arsenal, UID retained.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "arsenal-face-down-unblocked-hit",
+      "expectation": "Same from face-down Arsenal; no ability permits arbitrary non-hand/non-arsenal origin.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "overfund-one-resource-remains",
+      "expectation": "Exactly printed cost+1 floating, no other card/action modifier; final resource1.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "zero-ap-ordinary-play-rejected",
+      "expectation": "Own MAIN priority with AP0, sufficient resources. Source/UID/economy and all zones unchanged; no damage/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "wrong-priority-play-rejected",
+      "expectation": "Own MAIN but opponent priority, sufficient AP/resources; unchanged source and economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "nonturn-ordinary-play-rejected",
+      "expectation": "Actual opponent turn with source ownerAP0 and priority, no real instant permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "graveyard-origin-play-rejected",
+      "expectation": "Known state source ownGY, sufficient assets/priority. No printed play permission; unchanged source/economy.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "own-printed-pitch-normal-funding",
+      "expectation": "Use this physical card as a pitch payment for a legal Generic cost3 attack; exact red/yellow/blue assets, Pitch identity and economy. No on-hit token trigger from merely pitching.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "own-printed-defense-exact-two",
+      "expectation": "Source in defenderHand, supported declaration against Generic4-power attack; exact cached defense2/damage2/HP18, free blocking/noAP, no source play/hit effect, owner cleanup.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "exact-block-no-hit",
+      "expectation": "Legal printed defenses totaling exact source power; damage0/attackHit false, no triggered layer, no token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "overblock-no-hit",
+      "expectation": "Legal printed defenses totaling power+1; no negative damage, no hit/trigger/token.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "one-damage-hit-still-one-token",
+      "expectation": "Defenses total power-1, exact1 damage and one queued trigger/one token. Legal Generic printed defense1 equipment can supply odd boundary where needed; declaration/destruction obligations must be derived before recipe.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "fully-prevented-hit-negative",
+      "expectation": "Physical packet fully prevented through real prevention costs/choices; no hit/trigger/token. Mandatory Ward choices must be explicit; do not infer automatic fallback.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "ally-target-qualifier",
+      "expectation": "Real physical target choice against opponentDromai AetherAshwing, no hero damage. Three any-target families must create one token after hit/queued layer even if ally dies; Destructive hero-only family must not create Ponder.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "repeated-independent-copies",
+      "expectation": "Two physical sources with legal known-state funding/AP, separate real hit events produce separate token triggers. EmbodimentLightning consumer timing is additional required dependency, not permission to seed goagain.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "blue-three-payment",
+      "expectation": "Blue3 pays printed source cost; remainder3-cost, AP0, sourceUID on Stack before priority; no effect before real hit.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "red-sequential-payments",
+      "expectation": "Printed cost many red1 pitch payments; boundary before final payment preserves AP until asset completion, no early hit effect; final resource0.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    },
+    {
+      "card_id": "lightning_form_blue",
+      "branch": "unfundable-resources",
+      "expectation": "Cost-1 floating and no other fundable card. Rejected play leaves source/UID/assets unchanged.",
+      "status": "PLANNED_NOT_AUTHORED_OR_EXECUTED"
+    }
+  ],
+  "requirement_count": 219,
+  "token_dependency_contracts": [
+    {
+      "token": "ponder",
+      "required": "Correct Generic Token Aura creation, own-controller end-phase destruction+one ordered draw; token ceases outsideArena rather than becomingGY. End-phase automatic layer timing has a separate rule witness; no source attack card is given draw directly."
+    },
+    {
+      "token": "gold",
+      "required": "Correct Generic Token Item creation; supported Action2+destroy cost paid before draw, AP1 spent then ownGA restored on resolution, one known draw, no duplicate token/GY."
+    },
+    {
+      "token": "embodiment_of_earth",
+      "required": "Correct Elemental Token Aura; own NAA while defending+1def, AA/otherplayer excluded, stacking copies; at beginning of controller action phase destroy. Keep begin-phase no-priority rules and ordinary snapshot evidence distinct."
+    },
+    {
+      "token": "embodiment_of_lightning",
+      "required": "Correct Elemental Token Aura; source attack does not retroactively getGA. Next AA play creates independent trigger, source remains live before trigger resolution, destroy token+grantGA only on resolve. NAA/weapon/Instant exclusion and multiple tokens separately trigger. Native FaBELEPlayed currently destroys/tags eagerly; this is source-predicted held behavior, not an executed failure."
+    }
+  ],
+  "not_excluded_as_interactions": [
+    "Trigger-versus-effect timing and priority before creation.",
+    "Exact printed pitch/defense, ordinary costs/origins/failures.",
+    "Full block/one-damage hit/full prevention and hero-only qualifier versus ally hit.",
+    "Independent repeated copies and no retroactive self-goagain.",
+    "Required token semantics are explicit dependency contracts; tokens are not silently declared complete."
+  ],
+  "external_holds": [
+    "Ability loss/restoration/copy or suppression before event/after already queued trigger. An already-triggered layer must not be canceled by source suppression; this requires real supported effect witness.",
+    "Foreign owner/controller, multiplayer targets and simultaneous hit triggers/replacement ordering.",
+    "Token multipliers/replacements/prohibitions, Florian/Victor/Ripple/Verdant/global listeners, prevention interactions outside named witness."
+  ],
+  "progression": "Independently review four prospective pilots, then root runs serial correct-rule attempts. If actual eager trigger bug is demonstrated, retain failure/reproducer and hold positive recording until a bounded independently reviewed repair. After valid pilot/negative controls, author and run all planned ordinary requirements in source-equivalent sub-batches; no arbitrary stop after pilots."
+}

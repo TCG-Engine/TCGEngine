@@ -1,0 +1,38 @@
+{
+    "completed_at_utc": "2026-10-20T13:54:26+00:00",
+    "input_file": "card-regression-batch73.json",
+    "input_sha256": "92721e6c37ad0d8ba9b6153f9073385046b2e404e64696ff52abd6dcd8302758",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-lunging-press-blue-rejected-target-answer-wrong-actor",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 286
+        },
+        {
+            "slug": "card-lunging-press-blue-rejected-target-answer-pass-not-legal-target",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 286
+        },
+        {
+            "slug": "card-lunging-press-blue-rejected-target-answer-unlisted-private-source",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 286
+        },
+        {
+            "slug": "card-lunging-press-blue-rejected-target-answer-out-of-range-target",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 286
+        },
+        {
+            "slug": "card-lunging-press-blue-rejected-target-answer-multiple-target-answer",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 286
+        }
+    ]
+}

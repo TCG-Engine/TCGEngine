@@ -1,0 +1,7 @@
+{
+    "name": "Critical Strike / ordinary baseline / arsenal-insufficient-0-resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:22:47+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost1, power3, pitch3, defense3, empty text/keywords. Legal class/talent hero; no hero activation, draw, discard, modifier or random choice. Actual Arsenal click must be rejected for arsenal-insufficient-0-resources. Preserve source, AP/resources[1, 0]/[0, 0], health20/20, priority1, empty Stack and graveyard; no author-only legality query is substituted for the action. Sources: FaBSim/GeneratedCode/cardArrayCache.json#critical_strike_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

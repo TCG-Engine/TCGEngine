@@ -1,0 +1,7 @@
+{
+    "name": "Head Jab / innate go again / blue / printed-pitch-funds-generic-cost-three",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:02:06+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "head_jab_blue: printed cost0, pitch3, power1, defense2; exact printed text Go again. Subject supplies actual printedpitch3 while paying GenericMuscleMutt cost3. Startwith0; pitch subjectUID4 through supported currentHand0, finish with0. Only GenericMuscleMuttUID3 attacks power6 with no goagain/APrefund; pitched subject never attacks or grantsAP. Arrow may legally pitch fromHand withoutBow. Sources: FaBSim/GeneratedCode/cardArrayCache.json#head_jab_blue https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/BEN024.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

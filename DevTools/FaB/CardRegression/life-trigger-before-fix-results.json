@@ -1,0 +1,164 @@
+[
+    {
+        "slug": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+        "status": "blocked_or_incorrect",
+        "error": "Expected Stack count 2, got 1.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "PRIORITY",
+            "combatOpen": false,
+            "combatStep": "NONE",
+            "chainLink": 0,
+            "attacker": 0,
+            "defender": 0,
+            "attackUID": 0,
+            "attackTarget": null,
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "scar_for_a_scar_red"
+                ]
+            },
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false
+                }
+            },
+            "arcActions": {
+                "1": 1
+            }
+        }
+    },
+    {
+        "slug": "card-wounded-bull-red-lower-own-heal-removes-condition",
+        "status": "blocked_or_incorrect",
+        "error": "Expected Stack count 2, got 1.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Hand-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "PRIORITY",
+            "combatOpen": false,
+            "combatStep": "NONE",
+            "chainLink": 0,
+            "attacker": 0,
+            "defender": 0,
+            "attackUID": 0,
+            "attackTarget": null,
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "wounded_bull_red"
+                ]
+            },
+            "eleKorshemActiveTurn": 2,
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Hand",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false
+                }
+            },
+            "arcActions": {
+                "1": 1
+            }
+        }
+    }
+]

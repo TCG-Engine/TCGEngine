@@ -1,0 +1,7 @@
+{
+    "name": "Enlightened Strike / mode-power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay mandatory additional cost by bottoming Wounding Blow blue, then choose mode 1 (power). Attack for 7; only draw mode draws original top Head Jab blue, only go-again mode returns an action point. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enlightened_strike_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,391 @@
+{
+  "issues": [
+    {
+      "id": "FAB-REG-027",
+      "status": "native_fix_clean_qualification_pending",
+      "card_ids": [
+        "en_garde_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "en_garde_red"
+      ],
+      "scope_note": "Missing printed nextweapon+3 effect reproduced numerically, repaired by oneexistingtyped-effect table entry. EnGarde21 effectscenarios+separateunchanged numericdiagnostic are saved and semantically reviewed; ownpitch/normaldefense and knowninteractionholds prevent completecard claim.",
+      "rule": "En Garde red: Your next weapon attack this turn gets +3 power. Go again. Cost1; no goagain granted to the weapon.",
+      "source": "https://judge.fabtcg.com/cards/detail/1472/",
+      "setup": "Isolated Boltyn/Ira Crimson Haze duel, MAIN ACTION priority1/AP1, EnGardeRedUID3Hand and CintariSaberUID4weapon, floatingresources2, no charge/Soul, no defenders or otherweaponmodifiers.",
+      "expected": "Resolve sourcecost1 andownGArefund, then payweaponcost1/AP; printed sword2+bonus3 givescomputed5, damage5/HP15, noattackGA, terminalresources0/AP0.",
+      "observed_before_fix": "Separate unchanged numericdiagnostic reached computedpower checkpoint after6realactions: power expected5got2. Earlier originalgolden failed rawStackTurnEffects after4actions; no actualdamage/HPcheckpoint reached in either failedbefore attempt and no incorrectfixture saved.",
+      "before_fix_evidence": {
+        "numeric_proof": {
+          "path": "source-review-evidence/en-garde-20261020T011945Z/proposal/issue027-numeric-beforeproof.json",
+          "sha256": "e7970cca71d2446ed24d06f100411b6dbe1c35224be4143024901e30d4e1df12"
+        },
+        "input_sha256": "2248e54664b6d9f6bd98aff01e6b60a68a4c2643c6e1da737af860d1ce7b6bef",
+        "immutable_archive_sha256": "c8d9d153cec7833b9cc67e23ab052bb4609be46de14356185677996f26cebe15"
+      },
+      "resolution": "FaBWTRResolveCard buff map gains only en_garde=>NEXT_WEAPON[3]. Existing typed use1/consumption/subtype filters/expiry are used. No sourceownGA/payment/weaponGA/rules/generator changes. OriginalreviewedCRLFcandidate metadata mismatch was caught beforewrite; LF-only correction f31e independently approved and preserves oneentry/nativeLF. Later028changes preserve thisentry.",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRResolveCard $buffs",
+      "source_review": {
+        "semantic_sha256": "ba83f170dc3e9f46b0279d1c5e3c9ea168a2aa13e28d1c13a392a473f2be0341",
+        "newline_correction_sha256": "97271254b30588a76cea7e819b09357fb6fffe1ad537f9a608bab1fc827805e0",
+        "exact_patch_sha256": "0571a046af491fd59140166a5523e14fa118a63de389c187f7314f3179a996be",
+        "native_before_sha256": "8474a62a6f0c6cadae4df3907529e355b8e0afe4c7dbc120aab9f345cbcd266b",
+        "one_entry_LF_after_sha256": "f31e69d203e85fc98d389be95b9216d56397c2c016fea318f80026d9bf7fef9d"
+      },
+      "passing_fixture": "Tests/Integration/FaBSim/card-en-garde-red-hand-floating",
+      "bounded_actual_after": {
+        "original_and_numeric_review_sha256": "91c152d0c7d04298b967e01aa59c1010aca6d4e4761b4e37fda09b9a55818db6",
+        "ordinary21_proof_sha256": "7da57ce0501f200386851b515b3d20296451a2ddefbec7dbf6df3eaa76663e1c",
+        "full198_review_sha256": "00a474959124e09f576a5bb743b59ff48896591265e2b7c6f2be29cb0c74d4bb",
+        "ordinary_effect_cases": 21,
+        "numeric_duplicate_cases": 1,
+        "passing_numeric_facts": "Actualcomputed5/damage5/HP15/AP0/res0,no weaponGA, physicalweapon4unmodified/proxy5bonus3; originalandnumericinitial/actions/finalbytesidentical.",
+        "qualification": "Currentruntime corpus replay, semantic controls and native suites remain parent-owned pending gates. Do notinherit earlier1452qualification or declare allcardbehaviors complete."
+      },
+      "remaining_required_intrinsic_tests": [
+        "Own printedpitch1 normalfunding use.",
+        "Own printeddefense3 free normaldefense use."
+      ],
+      "remaining_interaction_holds": [
+        "EarliestStack effecttiming, abilityloss/restoration/copy.",
+        "Power/cost/defense modifiers/prohibitions/replacements andlisteners/Korshem.",
+        "Otherhero/weapon conditions, foreignownership/control/multiplayer."
+      ],
+      "evidence": "source-review-evidence/en-garde-20261020T011945Z/proposal/issue027-numeric-beforeproof.json",
+      "evidence_sha256": "e7970cca71d2446ed24d06f100411b6dbe1c35224be4143024901e30d4e1df12",
+      "original_proposal": {
+        "path": "source-review-evidence/issues027-028-pending/evidence/013-issue027-normalized-addition-ad0abe2b91d3.json",
+        "sha256": "ad0abe2b91d3b7d93311283483f22d1a42d224d9266623f410b2bb95c78de914"
+      },
+      "current_runtime_validation": {
+        "status": "pending_final_whole_corpus_qualification",
+        "runtime_applied_then_further028_preserved": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "current_full_qualification_claim": false,
+        "captured_historical1452_is_not_current_qualification": true
+      },
+      "metadata_correction": {
+        "path": "source-review-evidence/future2743-inputs-v3/supplements/issue027-hero-label-correction-supplement.json",
+        "sha256": "87b6884bbb863172d580c2ac6cf8b712f220a2721fdd346690bebb90b0281db6"
+      }
+    },
+    {
+      "id": "FAB-REG-028",
+      "status": "native_fix_clean_qualification_pending",
+      "card_ids": [
+        "dodge_blue",
+        "evasive_leap_red",
+        "razor_reflex_red",
+        "lunging_press_blue",
+        "pummel_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "evasive_leap_red"
+      ],
+      "scope_note": "Only manual reaction CARD play during a continuing MAIN Reaction Step after partial stack resolution; source guards and actual bounded probes are separate from future final runtime qualification.",
+      "rule": "Eligible attacker/attacked-hero reactions can be announced with priority while the Reaction Step continues; a lower waiting layer means the step has not ended.",
+      "source": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rule_sections": [
+        "7.4.2a",
+        "7.4.2b",
+        "7.4.2c",
+        "7.4.3"
+      ],
+      "expected": "After top Razor resolves, lower Dodge still waits. Turn player passes once. Attacked hero with priority may play Evasive Leap while the Reaction Step continues; Stack must become 2. This is not contingent on resolving the lower layer first.",
+      "observed_before_fix": "Unchanged c700 probe failed its legal15th action/third reaction click: Expected Stack count2, got1. Prior layer Razor had resolved and lower Dodge remained. Exact immutable archive records state/queue/hand references but lacks full before card objects/PriorityPlayer; those are not invented.",
+      "evidence": "source-review-evidence/reaction-priority028-20261020T013944Z/proposal/issue028-before-proof.json",
+      "evidence_sha256": "41c3921fcf2a09b2a09499cde9911480d01ec59f41022d024481570fff99187a",
+      "before_fix_archive": {
+        "path": "recording-runs/card-regression-batch45-20261020T010336Z-6ad6bde845c87.json",
+        "sha256": "7f724d4eac7e0f76d8b9b609e359e9ef7ef3f314409a66854ad2c6bddafba028"
+      },
+      "correct_before_recipe": {
+        "path": "source-review-evidence/issues027-028-pending/evidence/032-post-partial-resolution-third-reaction-probe-c70005bbb9b4.json",
+        "sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f"
+      },
+      "source_repair": {
+        "patch_sha256": "2bf779a19a84a16b6a0f98899c44ee4280025a093018135bebf8905b8aa6c364",
+        "independent_review": {
+          "path": "source-review-evidence/reaction-priority028-20261020T013944Z/issue028-independent-source-review.json",
+          "sha256": "fbdfe2a8117f3f3052cd4757e440de9c601c97bf60b74abff20edc709443048a"
+        },
+        "applied": {
+          "path": "source-review-evidence/reaction-priority028-20261020T013944Z/applied.json",
+          "sha256": "f4f7c86e531a4a82343c69ea984ffea5e43206c573ba9429feb2df38b2b501c1"
+        },
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "source_after_sha256": {
+          "FaBSim/Custom/GameLogic.php": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+          "FaBSim/Custom/WTRCards.php": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+          "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b"
+        },
+        "resolution": "GameLogic accepts REACTION or continuing PRIORITY with live active ATTACK/current UID/controller/link and no pending payment/target/resolution/queues/await frames; PRIORITY additionally needs a lower live layer. WTR conditional card-target filters and EVO defense restriction use the same predicate. Priority transition, Core/generated code and EnGarde entry are preserved."
+      },
+      "bounded_after_saved_evidence": [
+        {
+          "path": "source-review-evidence/issues027-028-pending/evidence/001-batch45-saved-third-reaction-independent-review-43a05d038fb3.json",
+          "sha256": "43a05d038fb3a9a2ae74b6e0b31ca586dcd722dea011a544851049f7b02019e8"
+        },
+        {
+          "path": "source-review-evidence/issues027-028-pending/evidence/068-issue028-saved3-and-proxy-owner-independent-review-0e69852073cb.json",
+          "sha256": "0e69852073cbe4c4ab6331f820c8e24dd125595bd4beda896bcd21cad581ec5e"
+        },
+        {
+          "path": "source-review-evidence/future2743-inputs-v3/supplements/issue028-saved4-independent-review.json",
+          "sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23"
+        }
+      ],
+      "bounded_after_saved_slugs": [
+        "compat-flat-defense-reaction-third-response-after-partial-resolution",
+        "compat-reaction-priority028-further-ar-lunging-press",
+        "compat-reaction-priority028-wrong-target-funded-pummel-rejected",
+        "compat-reaction-priority028-insufficient-cost-valid-razor-rejected",
+        "compat-reaction-priority028-cnc-prohibition-physical-source-owner"
+      ],
+      "bounded_after_facts": "Actual c70027actions/332native assertions pins thirdclickStack2, attack7/defense5/damage2/HP18, Razor hit trigger then goagain/AP1, source/owner/LIFO/Close cleanup. First3 compatibility74actions/763assertions pin furtherAR, wrongtarget Pummel refusal and insufficient-cost Razor refusal. Separate B58 actual17actions/208native assertions pins physical source owner/controller/SourceUniqueID, real CnC manual DR prohibition and Potion controller resources; stops before Damage. Raw synthetic Owner slot is not a rule golden.",
+      "replacement_CnC_prohibition_witness": {
+        "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+        "recipe_sha256": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99",
+        "status": "saved_semantics_reviewed_pending_current_clean_replay",
+        "raw_virtual_owner_oracle_not_used": true,
+        "actual_saved_review": {
+          "path": "source-review-evidence/future2743-inputs-v3/supplements/issue028-saved4-independent-review.json",
+          "sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23"
+        },
+        "fixture_sha256": "89cc35cbfc354ba31db4bcfa7c09558c1072763ef239ae71d58a833baabb3092",
+        "actual_actions": 17,
+        "native_assertions": 208
+      },
+      "rejected_spec_history": {
+        "classification": "INCORRECT_REPRESENTATION_SPEC_ORACLE_NOT_A_CARD_RULE_FAILURE",
+        "original_recipe_sha256": "ede1583bfe34dd673d3bfbf47b6073d2ae34289e38a4210797d8b78555007d91",
+        "old_slug": "compat-reaction-priority028-real-command-and-conquer-prohibition",
+        "replacement_recipe_sha256": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99",
+        "proof": {
+          "path": "source-review-evidence/issues027-028-pending/evidence/056-native-compatibility-owner-oracle-rejection-reason-6f05295e684c.json",
+          "sha256": "6f05295e684cb869489245b993339bee98816556089777a0136942e8ce5c4340"
+        },
+        "qualification": "Wrong raw synthetic ABILITY Owner1 oracle, not a native card-rule failure. Original ede4 failed attempt retained. Physical source owner/controller/SourceUniqueID/actor oracles remain in distinct B58; neither rawOwner0 logical-correctness nor CnC hit behavior is inferred."
+      },
+      "current_runtime_validation": {
+        "status": "pending_final_whole_corpus_qualification",
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "current_full_qualification_claim": false,
+        "required_current_controls": "Final71 intended native semantic controls at the exact final runtime; historical70/subsets cannot substitute.",
+        "two_current_full_reports_bound": false,
+        "native_suites_final_bound": false
+      },
+      "remaining_work": [
+        "Final whole frozen-corpus two same-runtime full clean runs/current71intended controls/WTR0/ARC0 remain required before any fixed_verified status. B58 exact actual saved review is now bound.",
+        "WTR/ARC/ELE/EVR reaction activations; Arakni/LeapFrog and Talisman of Featherfoot listeners; reaction-specific autopass remain held.",
+        "EVO_NO_DEFEND is source/component-only: no legal native reaction-card route proved; do not call it an actual gameplay compatibility test.",
+        "Generic ownership/control/LKI/departure/UPF/elimination remain outside bounded manual card-play repair.",
+        "Separately open029 CnC mandatory-hit trigger-layer and030 Lunging legal previous-public-AA announcement failures have precise native before evidence; neither is fixed or covered by028."
+      ],
+      "passing_fixture": "Tests/Integration/FaBSim/compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "full_card_completion_claim": false
+    },
+    {
+      "id": "FAB-REG-029",
+      "status": "open_native_reproduced_correct_oracle",
+      "card_ids": [
+        "command_and_conquer_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "command_and_conquer_red"
+      ],
+      "scope_note": "Two isolated ordinary unblocked hero-hit before probes, Arsenal present and empty. Mandatory triggered-layer timing only; no full target/prevention/ownership/trigger metadata coverage.",
+      "rule": "The printed non-targeted when-hit-hero ability creates a triggered layer before players regain priority, even when no Arsenal cards exist; destruction belongs to layer resolution.",
+      "source": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rule_sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6",
+        "6.6.6a"
+      ],
+      "evidence": "recording-runs/card-regression-batch59-20261020T020704Z-6ad6ccc8d4c34.json",
+      "evidence_sha256": "15dfa094d1daca0de9ab5f1ae7b078c490f4de4c03a48fa32361ea3528e0f059",
+      "input": "card-regression-batch59.json",
+      "input_sha256": "0821527f4056adfb5475090a87e261554c712d88f5aa39aebb967f8b99ca5e71",
+      "expected": "First real DAMAGE boundary after unblocked6 hit has Stack1 mandatory hit trigger. Arsenal remains unchanged until that layer resolves; empty Arsenal still produces a non-targeted no-op trigger.",
+      "observed": "Both unchanged correct probes fail their first post-hit oracle Stack1 with actual0 after10 supported actions. Native state confirms DAMAGE, hittrue/damage6, sourceattackUID3/link1, pendingPayment/pendingAttackTarget null and resolvingReaction key absent; both decision queues empty.",
+      "source_explanation": "Current generated Hit closure loops defender Arsenal and moves cards directly to Graveyard, creating no Stack layer. This establishes an inline implementation mechanism; actual physical Arsenal movement was not captured at failure.",
+      "native_rows": [
+        {
+          "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-arsenal-present",
+          "native_error": "Expected Stack count 1, got 0.",
+          "actual_actions": 10,
+          "last_action": {
+            "playerID": 2,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          },
+          "observed_decisions": {
+            "1": [],
+            "2": []
+          },
+          "observed_hand_refs": {
+            "1": [],
+            "2": []
+          },
+          "observed_state": {
+            "window": "DAMAGE",
+            "combatStep": "DAMAGE",
+            "combatOpen": true,
+            "chainLink": 1,
+            "attackUID": 3,
+            "previousAttackCardID": "",
+            "attacker": 1,
+            "defender": 2,
+            "attackHit": true,
+            "damageDealt": 6,
+            "pendingPayment": null,
+            "pendingAttackTarget": null,
+            "cardsPlayedThisTurn": {
+              "1": [
+                "command_and_conquer_red"
+              ]
+            }
+          },
+          "resolvingReaction_key_present": false
+        },
+        {
+          "slug": "probe-command-and-conquer-red-mandatory-hit-trigger-empty-arsenal-still-triggers",
+          "native_error": "Expected Stack count 1, got 0.",
+          "actual_actions": 10,
+          "last_action": {
+            "playerID": 2,
+            "mode": 10001,
+            "buttonInput": "",
+            "cardID": "!CustomInput!Pass",
+            "chkInput": [],
+            "inputText": ""
+          },
+          "observed_decisions": {
+            "1": [],
+            "2": []
+          },
+          "observed_hand_refs": {
+            "1": [],
+            "2": []
+          },
+          "observed_state": {
+            "window": "DAMAGE",
+            "combatStep": "DAMAGE",
+            "combatOpen": true,
+            "chainLink": 1,
+            "attackUID": 3,
+            "previousAttackCardID": "",
+            "attacker": 1,
+            "defender": 2,
+            "attackHit": true,
+            "damageDealt": 6,
+            "pendingPayment": null,
+            "pendingAttackTarget": null,
+            "cardsPlayedThisTurn": {
+              "1": [
+                "command_and_conquer_red"
+              ]
+            }
+          },
+          "resolvingReaction_key_present": false
+        }
+      ],
+      "evidence_limits": [
+        "The immutable failure archives record error, supported attempted actions, FaBGetState, decision queues1/2 and hand references. They do not contain a full serialized snapshot, actual PriorityPlayer, physical Arsenal/final zone contents, or DecisionQueueVariables/await-frame map.",
+        "Reached prefix checkpoints and pass_until priority conditions are exact recipe/driver evidence; they must not be relabeled as separately captured post-failure priority/raw-card observations.",
+        "No supported target chooser is pending because both native decision queues are empty. Uncaptured orphan await-frame contents are unknown, not asserted empty.",
+        "After the first failing Stack check, later HP/assets/Arsenal/target-source oracles were not executed. CnC early inline Arsenal movement is demonstrated by current source and consistent graveyard event state, not independently observed physical cards in the failure archive."
+      ],
+      "passing_fixture": null,
+      "saved_as_passing": false,
+      "remaining_work": "Review a bounded mandatory responseable trigger implementation, preserve source/actor and priority, add actual source/Arsenal timing observations, rerecord only correct effects, independently inspect, then current replay/controls/suites. No source fix is applied by this proposal."
+    },
+    {
+      "id": "FAB-REG-030",
+      "status": "open_native_reproduced_correct_oracle",
+      "card_ids": [
+        "lunging_press_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "lunging_press_blue"
+      ],
+      "scope_note": "Exact legal announcement of Lunging Press with a live prior resolved attack-action card while the current attack is a real weapon proxy. Target resolution and other eligible target choices are separate unexecuted obligations.",
+      "rule": "Its printed target is an attack action CARD; it need not be the active attack. A live public prior-link Surging Strike remains an eligible card while a later Kodachi attacks; the weapon itself is ineligible.",
+      "source": "https://judge.fabtcg.com/cards/detail/720/",
+      "rules": [
+        "CR1.2.2c/e",
+        "1.8.5/a",
+        "3.6.1",
+        "7.0.3f",
+        "7.2.2",
+        "8.1.2a"
+      ],
+      "evidence": "recording-runs/card-regression-batch60-20261020T020859Z-6ad6cd3b3eee5.json",
+      "evidence_sha256": "c644d52514ce716b88f31ac38bd392df9cec584cb1282015df5a4b5090a79e64",
+      "input": "card-regression-batch60.json",
+      "input_sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39",
+      "expected": "After real Surging5damage/goagain and cost1 Kodachi follow-up, attacker1 may announce cost0 Lunging targeting sole eligible prior SurgingUID3. Supported source click creates its original sourceUID4 Stack1 or a legal target chooser. No target/power resolution is asserted yet.",
+      "observed": "After21 real actions, final Lunging hand click leaves Stack0 and p1Hand-0 reference, without any decision chooser. Native state is continuing REACTION/currentKodachiUID6/link2/previousSurging, pendingPayment/pendingAttackTarget null and resolvingReaction key absent; both queues empty.",
+      "source_explanation": "FaBWTRCanPlay tests only the active attack object for Lunging; current Kodachi is not an attack-action card, causing rejection despite earlier public Surging. Generated resolution also tags global activeattackUID, a separate source-only issue not reached by this rejected play.",
+      "native_rows": [
+        {
+          "slug": "card-lunging-press-blue-rule-probe-previous-aa-remains-legal-during-real-kodachi",
+          "native_error": "Expected Stack count 1, got 0.",
+          "actual_actions": 21,
+          "last_action": {
+            "playerID": 1,
+            "mode": 10002,
+            "buttonInput": "",
+            "cardID": "p1Hand-0!FSM",
+            "chkInput": [],
+            "inputText": ""
+          },
+          "observed_decisions": {
+            "1": [],
+            "2": []
+          },
+          "observed_hand_refs": {
+            "1": [
+              "p1Hand-0"
+            ],
+            "2": []
+          },
+          "observed_state": {
+            "window": "REACTION",
+            "combatStep": "REACTION",
+            "combatOpen": true,
+            "chainLink": 2,
+            "attackUID": 6,
+            "previousAttackCardID": "surging_strike_red",
+            "attacker": 1,
+            "defender": 2,
+            "attackHit": false,
+            "damageDealt": 0,
+            "pendingPayment": null,
+            "pendingAttackTarget": null,
+            "cardsPlayedThisTurn": {
+              "1": [
+                "surging_strike_red",
+                "harmonized_kodachi"
+              ]
+            }
+          },
+          "resolvingReaction_key_present": false
+        }
+      ],
+      "evidence_limits": [
+        "The immutable failure archives record error, supported attempted actions, FaBGetState, decision queues1/2 and hand references. They do not contain a full serialized snapshot, actual PriorityPlayer, physical Arsenal/final zone contents, or DecisionQueueVariables/await-frame map.",
+        "Reached prefix checkpoints and pass_until priority conditions are exact recipe/driver evidence; they must not be relabeled as separately captured post-failure priority/raw-card observations.",
+        "No supported target chooser is pending because both native decision queues are empty. Uncaptured orphan await-frame contents are unknown, not asserted empty.",
+        "After the first failing Stack check, later HP/assets/Arsenal/target-source oracles were not executed. CnC early inline Arsenal movement is demonstrated by current source and consistent graveyard event state, not independently observed physical cards in the failure archive."
+      ],
+      "passing_fixture": null,
+      "saved_as_passing": false,
+      "remaining_work": "Review supported legal target declaration/selection and UID/source binding, then exercise old/current/defending AA choices and illegal weapon cases. No selected-target effect, previous-card power hook, unsupported choice input or passing regression is invented."
+    }
+  ],
+  "qualification": "027/028 pending final gates;029/030 open correct-native failures. No auto-promotion, source repair or new passing recording."
+}

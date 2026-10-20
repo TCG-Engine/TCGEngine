@@ -1,0 +1,7 @@
+{
+    "name": "Sharpen Steel / blue-pitch-payments",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:45:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next weapon attack this turn gets +1 power. It does not grant that attack go again. Each blue card pitches for3 only when an asset cost remains. Positive buff costs are paid before its go again; a later weapon payment cannot pay the buff again. Cost3 uses two blue pitches total (6-3-1=2); cost1 uses one blue pitch (3-1-1=1); cost0 uses one blue for the weapon (3-1=2). Sources: FaBSim/GeneratedCode/cardArrayCache.json#sharpen_steel_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

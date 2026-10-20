@@ -1,0 +1,7 @@
+{
+    "name": "Smash with Big Tree / blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:12:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed attack 6, cost 2, go again False; pay using 1 blue pitch card(s). Defender has 3 defense; expected damage 3. Hero rhinar has no modifying effect in this first-attack state. Sources: FaBSim/GeneratedCode/cardArrayCache.json#smash_with_big_tree_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

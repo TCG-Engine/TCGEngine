@@ -1,0 +1,142 @@
+{
+    "completed_at_utc": "2026-10-19T22:31:52+00:00",
+    "input_file": "card-regression-batch16-pilot.json",
+    "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+    "filter": "opponent-response-before-quicken-created",
+    "results": [
+        {
+            "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+            "status": "blocked_or_incorrect",
+            "error": "Invalid selection.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PITCH",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": {
+                    "player": 1,
+                    "uid": 3,
+                    "cost": 1,
+                    "fromZone": "Hand",
+                    "kind": "ATTACK",
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE",
+                    "wtrFlockStage": "REVEAL",
+                    "wtrFlockUndoHash": "e93ec8cb9ff7191b907e16c92b920de6978761f75ad01642ec3d4fc9abe6f54f",
+                    "wtrFlockAssetsPaid": true,
+                    "wtrFlockChargedCost": 1,
+                    "wtrFlockRevealRequired": true
+                },
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": [],
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [
+                    {
+                        "Type": "MZCHOOSE",
+                        "Param": "p1Hand-1",
+                        "Block": 1,
+                        "Tooltip": "Reveal_a_card_for_the_additional_cost",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 0,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "flock_of_the_feather_walkers_red:0:PrepareCard-await|flock_of_the_feather_walkers_red:0:PrepareCard#1|1|chosen",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "PASSPARAMETER",
+                        "Param": "1",
+                        "Block": 99,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 2,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "SYSTEM",
+                        "Param": "PlayCard_AfterAction",
+                        "Block": 99,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "DecisionQueue",
+                        "PlayerID": 1,
+                        "mzIndex": 3,
+                        "_sourceZone": null
+                    }
+                ],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": [
+                    "p2Hand-0"
+                ]
+            }
+        }
+    ]
+}

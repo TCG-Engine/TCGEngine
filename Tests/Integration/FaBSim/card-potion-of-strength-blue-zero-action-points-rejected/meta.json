@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / zero-action-points-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The turn player has priority but AP0. Even a resource-cost0 activated Action requires an action point. Reject activation before its destruction cost, leaving the Potion in Arena and stack empty. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

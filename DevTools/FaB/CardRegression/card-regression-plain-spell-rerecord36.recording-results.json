@@ -1,0 +1,218 @@
+[
+    {
+        "slug": "card-scalding-rain-blue-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-blue-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-blue-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-blue-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-red-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-red-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-red-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-red-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-yellow-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-yellow-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-yellow-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-scalding-rain-yellow-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-blue-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-blue-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-blue-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-blue-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-red-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-red-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-red-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-red-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-yellow-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-yellow-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 6,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-yellow-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-voltic-bolt-yellow-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-blue-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-blue-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-blue-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-blue-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-red-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-red-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-red-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-red-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-yellow-barrier-decline",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-yellow-barrier-pay",
+        "status": "recorded_semantically_checked",
+        "actions": 5,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-yellow-target-1",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    },
+    {
+        "slug": "card-zap-yellow-target-2",
+        "status": "recorded_semantically_checked",
+        "actions": 4,
+        "assertions": 8
+    }
+]

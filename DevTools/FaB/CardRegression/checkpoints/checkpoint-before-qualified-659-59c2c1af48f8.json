@@ -1,0 +1,1063 @@
+{
+  "completed_utc": "2026-10-19T22:55:36.229395+00:00",
+  "runtime_sha256": "a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0",
+  "summary": {
+    "identities_inventoried": 5196,
+    "printing_records": 17188,
+    "ability_snapshot_identities": 4806,
+    "compiled_macro_identities": 3816,
+    "implemented_or_shared_hook_candidates": 4810,
+    "identities_with_recorded_branches": 122,
+    "scenarios_recorded": 629,
+    "scenarios_independently_semantically_reviewed": 629,
+    "scenarios_with_clean_replay_pass": 629,
+    "scenarios_with_two_clean_replay_passes": 507,
+    "fully_covered_identities": 0,
+    "negative_controls_detected": 45,
+    "negative_controls_total": 45,
+    "recorded_terminal_state_compatibility_scenarios": 4,
+    "blocked_incorrect_behavior_scenarios": 14,
+    "identities_without_recorded_branches": 5074,
+    "identities_with_semantically_verified_branches": 122,
+    "identities_with_partial_verified_coverage": 122,
+    "identities_without_semantically_verified_branches": 5074,
+    "scenarios_semantically_reviewed_and_current_replay_passed": 629,
+    "card_scenario_branch_entries": 987,
+    "canonical_saved_fixture_folders": 629,
+    "unmapped_canonical_fixture_folders": []
+  },
+  "latest_clean_replay": "card-regression-replay-flock-arsenal-expansion-run1.json",
+  "latest_clean_replay_result": "629/629 PASS",
+  "repeat_pass_scope": "507 exact current fixtures have at least two clean passes under this same runtime;122 newly expanded fixtures have one.",
+  "review_scope": "Independent semantic family/specification review and representative saved pilot inspection preceded expansion. All629 exact fixture hashes have review entries and a current clean replay; this does not mean every saved fixture was manually inspected.",
+  "fixed_bugs": [
+    {
+      "id": "FAB-REG-001",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "sic_em_shot_red",
+        "sic_em_shot_yellow",
+        "sic_em_shot_blue",
+        "rusty_harpoon_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "sic_em_shot_red"
+      ],
+      "scope_note": "Only Sic Em Shot red was exercised without a bow. Other arrow identities are potentially affected by the same shared legality path, not individually proven incorrect.",
+      "rule": "CR 8.2.6a: an arrow can only be played from arsenal and only if its controller controls a bow.",
+      "source": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "setup": "Isolated duel, Azalea controller, ACTION phase with priority and one action point, Sic Em Shot red in face-down arsenal, one floating resource, no bow or weapons.",
+      "action": {
+        "playerID": 1,
+        "mode": 10002,
+        "cardID": "p1Arsenal-0!FSM"
+      },
+      "expected": "Reject play; arrow remains in arsenal; stack empty; resources and action point unchanged.",
+      "observed": "Arrow leaves arsenal, is announced on the stack, pays its resource cost, and enters PRIORITY despite no bow.",
+      "reproducer_command": "php DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-rule-probes.json",
+      "reproducer_scenario": "card-sic-em-shot-red-no-bow-rejected",
+      "evidence": "blocked-rule-probe-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-sic-em-shot-red-no-bow-rejected",
+      "source_location": "FaBSim/Custom/ARCCards.php:FaBARCCanPlay",
+      "resolution": "Shared arrow legality now requires arsenal origin and an equipped controlled bow. Independent review accepted12 authored cases and a semantic negative control; removed-bow serialization case is an absent-bow duplicate, not in-memory tombstone-filter coverage.",
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-002",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [],
+      "scope_note": "Generic integration runner initial-assertion setup; affects any root with step0 zone assertions.",
+      "expected": "Load runtime and fresh fixture before evaluating initial assertions.",
+      "observed_before_fix": "First fixture could fatal undefined GetZone, or initial assertions could see prior fixture globals.",
+      "resolution": "RunnerPrepareTempGame now loads selected runtime and parses fresh state before returning.",
+      "source_location": "DevTools/RunIntegrationTests.php:RunnerPrepareTempGame",
+      "passing_fixture": "Tests/Integration/FaBSim/card-snatch-red-wtr-hit-unblocked-draw-exactly-one",
+      "validation": "AzukiSim alley-thug passed. Hellbreak spot check cannot run because its preexisting generated TurnController.php is missing; unrelated files unchanged.",
+      "before_fix_evidence_path": null,
+      "evidence_qualification": "The before-fix failure was observed during the working session; no failing-before log or fixture artifact was preserved in this repository. Current passing step-0 assertion fixtures and replay reports support the fixed behavior, but do not constitute a preserved before/after pair.",
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-003",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [],
+      "scope_note": "Shared turn cleanup, not attributed to individual card coverage.",
+      "rule": "CR4.4.3e-f clears all action points before turn-player refill.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "Departing player AP0 before refill; next turn player subsequently receives AP1.",
+      "observed_before_fix": "Departing player retained AP1 after passing turn.",
+      "resolution": "FaBFinishEndTurn clears every seat before drawing.",
+      "source_location": "FaBSim/Custom/GameLogic.php:FaBFinishEndTurn",
+      "evidence": "ap-cleanup-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/rule-end-turn-clears-unused-action-points",
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-004",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "snatch_red",
+        "snatch_yellow",
+        "snatch_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "snatch_red"
+      ],
+      "rule": "CR1.6.2c and6.6: hit creates a triggered layer before another player receives priority.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "After hit damage but before draw resolution, Stack1/hand0/deck2; allow an opposing instant response above the draw.",
+      "observed_before_fix": "Draw executed synchronously during combat damage, leaving no response window.",
+      "resolution": "Existing ABILITY stack path queues a captured-controller draw. Queue-time ability suppression checked, no suppression/source recheck on resolution.",
+      "source_location": "FaBSim/Custom/WTRAbilities.php:FaBWTRQueueDrawOnHit and FaBSim/Custom/WTRCards.php:FaBWTRHit",
+      "evidence": "snatch-trigger-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-snatch-red-opponent-responds-before-hit-draw",
+      "limitations": [
+        "Externally tagged weapon draw uses same helper; simultaneous-trigger ordering and multiple identical granted-trigger multiplicity remain unverified.",
+        "Original Hand NO_ABILITIES setup was invalid: Hand does not serialize that dynamic field. It is not evidence of a rule bug. Corrected known-BLIND interaction uses Guardian Bravo and persisted duration state."
+      ],
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-005",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "scar_for_a_scar_red",
+        "scar_for_a_scar_yellow",
+        "scar_for_a_scar_blue",
+        "wounded_bull_red",
+        "wounded_bull_yellow",
+        "wounded_bull_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "scar_for_a_scar_red",
+        "wounded_bull_red"
+      ],
+      "rule": "CR6.6.1c-d: conditional generated effects are distinct from the play event trigger; evaluate life on triggered-layer resolution.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "On play Stack2 with no early bonus. Own healing can prevent grant; opponent healing can enable grant; life changes after resolution do not change grant.",
+      "observed_before_fix": "Life checked and bonus granted synchronously during CardPlayed; only the attack was on stack.",
+      "resolution": "Queue whitelisted play-trigger ABILITY with source UID. On resolution compare current life and grant only if source remains on Stack. Check abilities at queue time only.",
+      "source_location": "FaBSim/Custom/WTRAbilities.php:FaBWTRQueueLifeOnPlay and FaBWTRResolveAbility; WTRCards.php:FaBWTRCardPlayed",
+      "evidence": "life-trigger-before-fix-results.json",
+      "passing_fixtures": [
+        "Tests/Integration/FaBSim/card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+        "Tests/Integration/FaBSim/card-wounded-bull-red-lower-own-heal-removes-condition"
+      ],
+      "limitations": [
+        "Source leave/reenter round trips are unverified because existing engine physical UIDs survive zone changes."
+      ],
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-006",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "energy_potion_blue"
+      ],
+      "scope_note": "Native weapon and fixed WTR activation fallbacks; only Energy Potion under known BLIND reproduced before fix.",
+      "rule": "CR5.2.2 functional activated ability required.",
+      "expected": "Guardian Bravo owns Energy Potion under active BLIND: reject and preserve Arena/resource/AP.",
+      "observed_before_fix": "Supported item click destroyed suppressed potion and created ability layer.",
+      "resolution": "HasNoAbilities fallback guard after ARC activation dispatch preserves legal hidden equipment exception.",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRCanActivate",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "passing_fixture": "Tests/Integration/FaBSim/card-energy-potion-blue-activation-lost-ability-rejection-probe",
+      "later_runtime_replay_note": "Historical a4b6 validation is retained separately. Current runtime qualification is explicit above and must not inherit its repeat count from a different runtime.",
+      "historical_runtime_validation": "activation-pilots-run1:380/380 PASS, runtime a4b6c18f3ba6a21f920c9893d99d34cf4d8b4992c74c8b5edbc7d2f3beedce34; native WTR/ARC pass",
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-008",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "pummel_red",
+        "pummel_yellow",
+        "pummel_blue",
+        "razor_reflex_red",
+        "razor_reflex_yellow",
+        "razor_reflex_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "pummel_red",
+        "razor_reflex_red"
+      ],
+      "rule": "Current CR8.1.2b: resolving attack reaction is cleared; contrast8.1.3b defense reaction becomes defending.",
+      "source": "https://rules.fabtcg.com/pdf/en-fab-cr.pdf",
+      "expected": "Reaction leaves stack for graveyard on resolution while its power/granted abilities affect current attack.",
+      "source_location": "FaBSim/Custom/GameLogic.php:DoResolveCard combined reaction branch",
+      "evidence": "reaction-destination-before-fix-results.json",
+      "passing_fixture": null,
+      "evidence_provenance": "Original seven reaction-destination failures retain full attempted actions/state in this dedicated before-fix file. New successful authoring rows are retained separately in immutable recording-runs archives.",
+      "resolution": "Attack reactions now retain a live Stack source while resolution and known generated awaits run, then clear to owner only when still on Stack and owned continuation work has drained. Defense reactions retain their separate defending-card path. Three ordinary reaction pilots and eight lifecycle compatibility pilots were authored successfully; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-pummel-red-hand-club-weapon-no-discard",
+          "fixture_sha256": "2cee679bad12bb649e45c06971b66c3772143d752830e439d5bc26e3f473400a",
+          "actions": 17,
+          "assertions": 19,
+          "recording_archive": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+          "archive_completed_at_utc": "2026-10-19T22:29:20+00:00",
+          "input_file": "card-regression-batch13-pilot.json",
+          "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+          "authoring_result": {
+            "slug": "card-pummel-red-hand-club-weapon-no-discard",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 19
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+          "fixture_sha256": "bd89c7dd79fdeac2e94723b73c4c9e9f8c6d349d053aa960a7002ea797077a4a",
+          "actions": 19,
+          "assertions": 19,
+          "recording_archive": "recording-runs/card-regression-batch13-pilot-20261019T224031Z-6ad69c5f1082a.json",
+          "archive_completed_at_utc": "2026-10-19T22:40:31+00:00",
+          "input_file": "card-regression-batch13-pilot.json",
+          "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+          "authoring_result": {
+            "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 19
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+          "fixture_sha256": "d001166b5b64e334b8c5018008c1ebc2a40065cb97257d59fc0db66fbb125464",
+          "actions": 16,
+          "assertions": 16,
+          "recording_archive": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+          "archive_completed_at_utc": "2026-10-19T22:29:20+00:00",
+          "input_file": "card-regression-batch13-pilot.json",
+          "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+          "authoring_result": {
+            "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 16
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-rout-red-reprise-return-defender",
+          "fixture_sha256": "2c1f0e6d89ad8c5d494bc55d8588e0c21b876c53adcd9fad2f22f00207bf1e05",
+          "actions": 15,
+          "assertions": 37,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-rout-red-reprise-return-defender",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 37
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-rout-red-reprise-decline",
+          "fixture_sha256": "6650dc9c4cffadb2dc1f1435507559acf0f205e0557497bdf9ebdd981f451563",
+          "actions": 15,
+          "assertions": 36,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-rout-red-reprise-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 36
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
+          "fixture_sha256": "d58cf0cb4eb2457a022f462906199d88b3024d019efee09f259ffeb33dd929b5",
+          "actions": 16,
+          "assertions": 58,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-top",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 58
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-stroke-of-foresight-red-reprise-draw-put-bottom",
+          "fixture_sha256": "dc352abb41768bcf0e2531df88941ce62393965d6c683ad1dd9b8e8d7c78d55d",
+          "actions": 16,
+          "assertions": 58,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-stroke-of-foresight-red-reprise-draw-put-bottom",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 58
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-roaring-beam-yellow-empty-soul-return-and-charge-other",
+          "fixture_sha256": "103e559166e8742639370d587d070ef7ff398decb57929322ccacea67108b7b8",
+          "actions": 13,
+          "assertions": 32,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-roaring-beam-yellow-empty-soul-return-and-charge-other",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
+          "fixture_sha256": "92efcbfd140031f8582ced9f0d9b84ff50d5fe66cfd588c83569f46bbf5b7cec",
+          "actions": 13,
+          "assertions": 32,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-roaring-beam-yellow-empty-soul-charge-self",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 32
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-roaring-beam-yellow-nonempty-soul-no-return-no-charge",
+          "fixture_sha256": "fb6cb98b64789963e42794ee2d73aa5eba9ee2190c3ced7f0ae226db6a10aaf8",
+          "actions": 12,
+          "assertions": 21,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-roaring-beam-yellow-nonempty-soul-no-return-no-charge",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 21
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/compat-reaction-razor-reflex-blue-nuu-foreign-owner-clear",
+          "fixture_sha256": "8208d165deee69f00bdd2c9ac5a296b66eed3e1454693ed5335bee41bb21e64a",
+          "actions": 12,
+          "assertions": 27,
+          "recording_archive": "recording-runs/card-regression-batch20-pilot-20261019T222841Z-6ad69999bcbb7.json",
+          "archive_completed_at_utc": "2026-10-19T22:28:41+00:00",
+          "input_file": "card-regression-batch20-pilot.json",
+          "input_sha256": "3c3c6c058d004bb26f09592c872f8f13eec6b474350738708dc97cdc95276d33",
+          "authoring_result": {
+            "slug": "compat-reaction-razor-reflex-blue-nuu-foreign-owner-clear",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 27
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results.",
+      "observed_before_fix": "Both attack/defense reactions enter CombatChain in shared branch; all7 reviewed pilots stop at reaction-in-graveyard assertion before reaching later hit-trigger probes.",
+      "limitations": [
+        "The three successful B13 branches cover club/sword weapon exclusions and fully blocked Razor only. The four newly exposed hit-trigger failures remain open separately.",
+        "Only eight saved B20 pilots qualify as author-time checks. Fang Strike and Slither proposals were not saved and are not token/Ephemeral coverage.",
+        "Compatibility pilot authoring success is not current clean replay or a full audit of all generated await handlers."
+      ],
+      "unreproduced_compatibility_limits": [
+        {
+          "target": "reaction controller elimination during pending choices",
+          "status": "no_supported_legal_native_action_established_not_recorded",
+          "qualification": "Source review and synthetic component checks do not establish native UPF/concession coverage."
+        },
+        {
+          "target": "live controller with eliminated chooser",
+          "status": "unsupported_unreproduced",
+          "qualification": "No generic safe no-choice completion has been established; preserving a frame/diagnostic is not proof remaining effects resolve."
+        },
+        {
+          "target": "foreign-owned source controlled by an eliminated player",
+          "status": "separate_existing_rule_concern_source_inspection_only",
+          "qualification": "Ordinary Nuu foreign-owner clearing pilot does not test elimination. Existing object cleanup versus surviving owner graveyard still needs a legal reproducer."
+        },
+        {
+          "target": "unknown, malformed, legacy, nested or unproven frame ownership",
+          "status": "not_purged_not_native_recorded",
+          "qualification": "Current bounded cancellation applies only to proved owned current-protocol frames; unknown work remains held. No all-frame correctness claim."
+        }
+      ]
+    },
+    {
+      "id": "FAB-REG-009",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red ordinary Flock pilot. Costs, reveal and trigger response timing only; other pitch variants and payment failure/rollback interactions remain pending.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+      "observed": "Expected p1Resources to equal 0, got 1.",
+      "evidence": "flock-quicken-before-fix-audited-summary.json",
+      "expected": "The attack trigger must offer a real response window. Before it resolves, opponent casts Sigil blue and heals20->21; Quicken remains absent while Sigil resolves above the trigger. Only afterward is one Quicken created. The already-played Flock has no go again; it deals5, leaving life16 and AP0. This pilot distinguishes eager token creation from the required triggered-layer behavior. Before the reveal answer, CR5.1.7 asset payment is already complete: resources0, AP0. The reveal effect-cost is paid afterward under CR5.1.8-9.",
+      "passing_fixture": null,
+      "evidence_provenance": "Audited summary only: the original full attempted-action/state trace was overwritten by the previous latest-results workflow and was not retained. The independent audit preserved the original resource-order failure; this file is not a recreated recording. The earlier failure stopped before ordinary attack-trigger timing, so that timing had been a source concern rather than a dynamically reproduced pre-fix defect.",
+      "resolution": "Flock's bounded native payment stages debit printed assets before mandatory reveal effect-cost, validate/reserve a reveal candidate while pitching, then announce play only on completion. Its attack trigger queues a Quicken-creation layer with an opponent response window. The exact red response pilot was authored successfully after the payment-stage fix; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+          "fixture_sha256": "cbd3dfcdecb3f03904f19461f68c082e7bc5922ec364bf75dd822413f71c6f81",
+          "actions": 19,
+          "assertions": 30,
+          "recording_archive": "recording-runs/card-regression-batch16-pilot-20261019T223642Z-6ad69b7aabacb.json",
+          "archive_completed_at_utc": "2026-10-19T22:36:42+00:00",
+          "input_file": "card-regression-batch16-pilot.json",
+          "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+          "authoring_result": {
+            "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 30
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-010",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "quicken"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-quicken-attack-action-trigger-timing",
+      "observed": "Expected Stack count 2, got 1.",
+      "evidence": "flock-quicken-before-fix-audited-summary.json",
+      "expected": "Start with one existing Quicken token and Wounding Blow red in hand. The first attack receives no Ira second-attack bonus. Pay its zero resources and one AP to play the attack. Quicken triggers and is a separate layer: Stack2/Arena1, and the attacking Stack-0 has no granted TurnEffects yet. Resolving the trigger destroys Quicken and grants GO_AGAIN to the still-pending attack: Stack1/Arena0, AP remains0. The attack then resolves to the combat chain with power4 and go again. After unblocked damage4, opponent life16 and AP1. This isolates Quicken timing independently of Flock creation or payment.",
+      "passing_fixture": null,
+      "evidence_provenance": "Audited summary of original Stack2-vs1 failure only; original full attempted-action/state trace was overwritten and is not reconstructed. Six current pilots were re-recorded after the separate token-boundary correction and are distinguished from held earlier token snapshots.",
+      "resolution": "Existing Quicken now creates a separate captured-controller trigger per token on qualifying attack action play or weapon attack activation. The trigger destroys its source token and grants go again to its captured attack. Response, two-token/single-go-again, known suppression, nonattack and weapon branches were authored with six saved pilots; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-attack-action-trigger-timing",
+          "fixture_sha256": "fefe4f99eb0a856126b0f88c1cb194e151168eedbf89eea39526a50e594ba7ff",
+          "actions": 14,
+          "assertions": 27,
+          "recording_archive": "recording-runs/card-regression-batch16-pilot-20261019T223251Z-6ad69a930d27d.json",
+          "archive_completed_at_utc": "2026-10-19T22:32:51+00:00",
+          "input_file": "card-regression-batch16-pilot.json",
+          "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+          "authoring_result": {
+            "slug": "card-quicken-attack-action-trigger-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 27
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-opponent-response-before-destroy-and-grant",
+          "fixture_sha256": "7b73b852c7937c70b28b3ecdd3870e6d6a5857098eec69ef2f2b044c484106bb",
+          "actions": 17,
+          "assertions": 37,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-opponent-response-before-destroy-and-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 37
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-two-tokens-two-trigger-layers-single-go-again",
+          "fixture_sha256": "1154048332e230fd9759d8a0340a56b60294c527cd049793c268b5c5168b41c5",
+          "actions": 16,
+          "assertions": 29,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-two-tokens-two-trigger-layers-single-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 29
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-known-blinding-suppresses-existing-token-trigger",
+          "fixture_sha256": "0f28cd09ac9e37a8ceb47ea6c3fc435911b24ca54a26c40973417be7b28ec925",
+          "actions": 12,
+          "assertions": 12,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-known-blinding-suppresses-existing-token-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 12
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-nonattack-instant-does-not-trigger",
+          "fixture_sha256": "eb15160875d223d1c7d345cb4798c7a9db93028bd431d047e00d83ddd5fd1ac0",
+          "actions": 3,
+          "assertions": 10,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-nonattack-instant-does-not-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 10
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-weapon-activation-trigger-timing",
+          "fixture_sha256": "c19007539f12a0091b405eed94dd6594cd17622ef61fba7a70e20d3d8ef68fbf",
+          "actions": 14,
+          "assertions": 27,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-weapon-activation-trigger-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 27
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results.",
+      "limitations": [
+        "Known initial-token fixtures do not establish token creation.",
+        "No generic trigger-order/controller/source-departure or all-token lifecycle coverage is claimed."
+      ]
+    },
+    {
+      "id": "FAB-REG-011",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+      "observed": "can_play  expected true got false",
+      "evidence": "flock-quicken-before-fix-audited-summary.json",
+      "expected": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+      "passing_fixture": null,
+      "evidence_provenance": "Original failure is retained as an independently audited summary only; full original attempted-action/state trace was overwritten. This starts with known Guardian BLIND state and does not cover Blinding generation, crush, duration or expiry.",
+      "resolution": "Known active Blinding removes Flock's reveal ability and attack trigger: the card may pay only its printed resource/AP cost with no reveal chooser and creates no token. The exact red known-duration pilot was authored successfully; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+          "fixture_sha256": "5c29046b2df2d30b253cc5042ea42707b6ca967891116ca13787d6114669e356",
+          "actions": 12,
+          "assertions": 10,
+          "recording_archive": "recording-runs/card-regression-batch16-pilot-20261019T223117Z-6ad69a3544ea8.json",
+          "archive_completed_at_utc": "2026-10-19T22:31:17+00:00",
+          "input_file": "card-regression-batch16-pilot.json",
+          "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+          "authoring_result": {
+            "slug": "card-flock-of-the-feather-walkers-red-known-blinding-no-reveal-cost-no-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 10
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-012",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "flock_of_the_feather_walkers_red"
+      ],
+      "scope_note": "Exact reviewed red/Quicken pilot only; broader pitch variants remain proposed.",
+      "reproducer_scenario": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+      "observed": "Expected p1Arena count 0, got 1.",
+      "evidence": "flock-quicken-before-fix-audited-summary.json",
+      "expected": "Known already-resolved Blinding of the Old Ones during Guardian Bravo turn suppresses all owned-card abilities. Flock has no additional reveal ability, even with no spare card, and no attack trigger. Pay only printed1; no chooser, no token or pending trigger, printed power5, no go again. This tests interaction with a known persistent effect; it does not cover Blinding generation, crush or expiry.",
+      "passing_fixture": null,
+      "evidence_provenance": "Original failure is retained as an independently audited summary only; full original attempted-action/state trace was overwritten. This starts with known Guardian BLIND state and does not cover Blinding generation, crush, duration or expiry.",
+      "resolution": "Known active Blinding removes Flock's reveal ability and attack trigger: the card may pay only its printed resource/AP cost with no reveal chooser and creates no token. The exact red known-duration pilot was authored successfully; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+          "fixture_sha256": "a57268626b8ac6a48ab903c94f92971777824a8900abba04e8d3057a83b6b2ad",
+          "actions": 12,
+          "assertions": 10,
+          "recording_archive": "recording-runs/card-regression-batch16-pilot-20261019T223117Z-6ad69a3544ea8.json",
+          "archive_completed_at_utc": "2026-10-19T22:31:17+00:00",
+          "input_file": "card-regression-batch16-pilot.json",
+          "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+          "authoring_result": {
+            "slug": "card-flock-of-the-feather-walkers-red-known-blinding-spare-card-no-chooser-no-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 10
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results."
+    },
+    {
+      "id": "FAB-REG-013",
+      "status": "fixed_verified_partial_scope",
+      "card_ids": [
+        "quicken"
+      ],
+      "scope_note": "Exact reproduced source is consumed Quicken. Generic source fix potentially affects other Token-typed objects, whose boundaries remain unverified.",
+      "expected": "Consumed token leaves arena and ceases to exist; it is absent from Graveyard and other off-arena zones.",
+      "observed_before_fix": "After its triggered layer destroyed Quicken, p1Graveyard count was1 instead of0.",
+      "evidence": "token-boundary-before-fix-results.json",
+      "evidence_provenance": "Exact native failing attempted actions and observed state retained, including input SHA-256 and filter; unlike the older Flock summary, this is a full failure trace.",
+      "source_location": "FaBSim/Custom/GameLogic.php:FaBAddToZone / move boundary",
+      "resolution": "Shared move boundary removes Token-typed sources before off-arena zone insertion. Six current Quicken pilots contain explicit graveyard/removal checkpoints and were re-recorded after this fix; current replay qualification is reported separately below.",
+      "pilot_checked_fixtures": [
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-attack-action-trigger-timing",
+          "fixture_sha256": "fefe4f99eb0a856126b0f88c1cb194e151168eedbf89eea39526a50e594ba7ff",
+          "actions": 14,
+          "assertions": 27,
+          "recording_archive": "recording-runs/card-regression-batch16-pilot-20261019T223251Z-6ad69a930d27d.json",
+          "archive_completed_at_utc": "2026-10-19T22:32:51+00:00",
+          "input_file": "card-regression-batch16-pilot.json",
+          "input_sha256": "ad5f210ca797330228cc88aaf3d4bdea57916e012db8d59e1a6e31eca825592c",
+          "authoring_result": {
+            "slug": "card-quicken-attack-action-trigger-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 27
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-opponent-response-before-destroy-and-grant",
+          "fixture_sha256": "7b73b852c7937c70b28b3ecdd3870e6d6a5857098eec69ef2f2b044c484106bb",
+          "actions": 17,
+          "assertions": 37,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-opponent-response-before-destroy-and-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 37
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-two-tokens-two-trigger-layers-single-go-again",
+          "fixture_sha256": "1154048332e230fd9759d8a0340a56b60294c527cd049793c268b5c5168b41c5",
+          "actions": 16,
+          "assertions": 29,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-two-tokens-two-trigger-layers-single-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 29
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-known-blinding-suppresses-existing-token-trigger",
+          "fixture_sha256": "0f28cd09ac9e37a8ceb47ea6c3fc435911b24ca54a26c40973417be7b28ec925",
+          "actions": 12,
+          "assertions": 12,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-known-blinding-suppresses-existing-token-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 12
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-nonattack-instant-does-not-trigger",
+          "fixture_sha256": "eb15160875d223d1c7d345cb4798c7a9db93028bd431d047e00d83ddd5fd1ac0",
+          "actions": 3,
+          "assertions": 10,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-nonattack-instant-does-not-trigger",
+            "status": "recorded_semantically_checked",
+            "actions": 3,
+            "assertions": 10
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        },
+        {
+          "path": "Tests/Integration/FaBSim/card-quicken-weapon-activation-trigger-timing",
+          "fixture_sha256": "c19007539f12a0091b405eed94dd6594cd17622ef61fba7a70e20d3d8ef68fbf",
+          "actions": 14,
+          "assertions": 27,
+          "recording_archive": "recording-runs/card-regression-batch18-20261019T223306Z-6ad69aa2d0d58.json",
+          "archive_completed_at_utc": "2026-10-19T22:33:06+00:00",
+          "input_file": "card-regression-batch18.json",
+          "input_sha256": "f6c3c5dde5bb080f6271f55b0cbb3e479528b0002c10d473d8a99581fb3c5fc9",
+          "authoring_result": {
+            "slug": "card-quicken-weapon-activation-trigger-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 27
+          },
+          "archive_input_hash_matches_current": true,
+          "action_assertion_counts_match_archive": true,
+          "qualification": "Successful author-time semantic checks; fixture hash captured at this audit. Archive has no runtime or fixture hash and is not a clean replay proof."
+        }
+      ],
+      "current_runtime_validation": "507/507 exact fixtures passed two clean full replays under runtime a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0;45/45 semantic controls; existing WTR and ARC native suites exit0. See lifecycle-token-flock-pilots-run1/run2 and native-suite-lifecycle-token-flock-results.",
+      "limitations": [
+        "Token creation and all other Token types are not proved by Quicken consumption alone.",
+        "Six held earlier token fixture directories in DevTools/FaB/CardRegression/held-unverified-token-attempts are excluded from canonical inventory and verification."
+      ]
+    }
+  ],
+  "open_reproduced_bugs": [
+    {
+      "id": "FAB-REG-007",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "breaking_scales"
+      ],
+      "scope_note": "Shared Battleworn timing; Breaking Scales is the exact exercised source.",
+      "rule": "CR8.3.2,7.7: Battleworn resolves in Close Step automatically before equipment returns; no priority during Close.",
+      "expected": "Counters[] in RESOLUTION before chain close, then DEFENSE1 after automatic close.",
+      "observed": "p2CombatChain-0.Counters already DEFENSE1 during RESOLUTION.",
+      "source_location": "FaBSim/Custom/GameLogic.php:FaBCleanupResolvedLink",
+      "evidence": "activation-and-battleworn-before-fix-results.json",
+      "passing_fixture": null,
+      "remaining_work": "Move timing with correct per-defended-attack Nerves condition, live keyword/aura checks, LKI and close ordering. Do not record round-trip snapshots preserving premature counters."
+    },
+    {
+      "id": "FAB-REG-014",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "pummel_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "pummel_red"
+      ],
+      "reproducer_scenario": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+      "expected": "A Pummel-granted hero-hit discard ability must not trigger when the enhanced attack hits an ally. Preserve hero hand and create no discard chooser/layer.",
+      "observed": "Expected decision queue for player 2 to be empty.",
+      "evidence": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRHit WTR_PUMMEL_HIT dispatch",
+      "passing_fixture": null,
+      "limitations": [
+        "The exact enhanced attack targets a PERMANENT in Arena; observed hit damage8. The failing empty-queue assertion proves an unwanted chooser exists, not that a discard was already completed.",
+        "Other pitch variants and broader target interactions remain pending."
+      ]
+    },
+    {
+      "id": "FAB-REG-015",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "pummel_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "pummel_red"
+      ],
+      "reproducer_scenario": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+      "expected": "On hero hit, create a responseable triggered layer before the defender chooses a card. Stack1 while both defender hand cards remain and no chooser is pending; resolve the layer before discard choice.",
+      "observed": "Expected Stack count 1, got 0.",
+      "evidence": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRHit / Pummel Hit macro",
+      "passing_fixture": null,
+      "limitations": [
+        "Current failure reaches DAMAGE with hit=true/damage8 but Stack0. Later chosen-card discard outcome remains blocked by this missing-layer checkpoint."
+      ]
+    },
+    {
+      "id": "FAB-REG-016",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "pummel_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "pummel_red"
+      ],
+      "reproducer_scenario": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+      "expected": "Two resolved Pummels grant two independent hero-hit abilities: after damage create Stack2, then resolve two independently chosen discards.",
+      "observed": "Expected Stack count 2, got 0.",
+      "evidence": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRResolveReaction and FaBWTRHit",
+      "passing_fixture": null,
+      "limitations": [
+        "Observed Stack0 instead of2 reproduces missing trigger-layer count. The final two-discard multiplicity checkpoint was not reached, so do not claim the engine actually discarded only one.",
+        "Native boolean tag membership suggests a separate collapse risk, still blocked behind timing until corrected and exercised."
+      ]
+    },
+    {
+      "id": "FAB-REG-017",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "razor_reflex_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "razor_reflex_red"
+      ],
+      "reproducer_scenario": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "expected": "Razor's granted hit ability creates Stack1; go again remains absent until that layer resolves, then grants exactly one AP on chain resolution.",
+      "observed": "Expected Stack count 1, got 0.",
+      "evidence": "recording-runs/card-regression-batch13-pilot-20261019T222920Z-6ad699c0e2d3a.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "d51238be14ddb5b01780c48d7ab96332cb7712b4cb6dfcfeb54afdb3a47105e0",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRResolveReaction / FaBWTRAttackHasGoAgain",
+      "passing_fixture": null,
+      "limitations": [
+        "Observed DAMAGE/hit=true/damage7 with Stack0. Later go-again/AP assertions are blocked by the missing-layer failure; source inspection alone suggests premature availability.",
+        "Fully blocked and sword-weapon exclusion pilots passed author checks separately and do not prove the hit branch."
+      ]
+    },
+    {
+      "id": "FAB-REG-018",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "throttle_red",
+        "full_tilt_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "throttle_red",
+        "full_tilt_red"
+      ],
+      "reproducer_scenario": "card-throttle-red-boost-mechanologist-unblocked",
+      "expected": "Declaring the optional Boost additional cost is allowed early, but its top-card banishment effect-cost must occur after asset payment. Before blue pitching/paying printed cost2/AP, Deck remains unchanged and Banish0.",
+      "observed": "Expected p1Banish count 0, got 1.",
+      "evidence": "recording-runs/card-regression-batch17-pilot-20261019T223704Z-6ad69b9014a49.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "7c06fc5644294f2f7f177d0bb4ef27f227a6ac2381fbe5d7949da2ab1d7e78a4",
+      "source_location": "ARC/EVO PrepareCard Boost paths and shared card payment ordering",
+      "passing_fixture": null,
+      "limitations": [
+        "Exact second corroborating source: full_tilt_red / card-full-tilt-red-boost-nonmechanologist-no-go-again in the same immutable archive; it also fails Banish0-vs1 before payment.",
+        "This failure precedes subsequent Boost go-again/damage branches; broad24-card family remains gated."
+      ],
+      "corroborating_reproducer": "card-full-tilt-red-boost-nonmechanologist-no-go-again"
+    },
+    {
+      "id": "FAB-REG-019",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "heart_wrencher_red"
+      ],
+      "individually_reproduced_card_ids": [
+        "heart_wrencher_red"
+      ],
+      "reproducer_scenario": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+      "expected": "Heart Wrencher has printed Boost and must offer the optional additional-cost choice before announcement, including its zero-cost play.",
+      "observed": "state window expected \"PITCH\" got \"PRIORITY\"",
+      "evidence": "recording-runs/card-regression-batch17-pilot-20261019T223704Z-6ad69b9014a49.json",
+      "evidence_provenance": "Immutable native authoring failure with attempted actions and observed state. Archive retains the exact input-spec SHA-256 but no runtime hash; this is a failing reproducer, not a current replay proof.",
+      "input_sha256": "7c06fc5644294f2f7f177d0bb4ef27f227a6ac2381fbe5d7949da2ab1d7e78a4",
+      "source_location": "Heart Wrencher ability snapshot / generated PrepareCard coverage / shared Boost preparation",
+      "passing_fixture": null,
+      "limitations": [
+        "Exact observed window is PRIORITY instead of expected preparation PITCH and no Boost choice appeared. Missing PrepareCard dispatch is also supported by source inspection.",
+        "Yellow/blue are suspected by shared family source, not individually reproduced. Subsequent banish/go-again checks were not reached."
+      ]
+    },
+    {
+      "id": "FAB-REG-020",
+      "status": "incorrect_behavior_reproduced_not_saved_as_passing",
+      "card_ids": [
+        "burgeoning_red",
+        "burgeoning_yellow",
+        "burgeoning_blue",
+        "power_play_red",
+        "power_play_yellow",
+        "power_play_blue"
+      ],
+      "individually_reproduced_card_ids": [
+        "burgeoning_red",
+        "burgeoning_yellow",
+        "burgeoning_blue",
+        "power_play_red",
+        "power_play_yellow",
+        "power_play_blue"
+      ],
+      "rule": "CR6.2.3a and6.3.5: conditional static-continuous intrinsic bonuses require a functional source ability and update with the current state.",
+      "source": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "scope_note": "All six Burgeoning/Power Play pitch variants individually exercised from Arsenal under known already-resolved Guardian BLIND. Generation/crush/duration of Blinding are outside these fixtures.",
+      "expected": "Printed power only: Burgeoning6/5/4 and PowerPlay3/2/1; externally supplied modifiers remain independent.",
+      "observed_failures": [
+        {
+          "scenario": "card-burgeoning-red-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 6 got 7"
+        },
+        {
+          "scenario": "card-burgeoning-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 5 got 6"
+        },
+        {
+          "scenario": "card-burgeoning-blue-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 4 got 5"
+        },
+        {
+          "scenario": "card-power-play-red-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 3 got 8"
+        },
+        {
+          "scenario": "card-power-play-yellow-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 2 got 7"
+        },
+        {
+          "scenario": "card-power-play-blue-arsenal-known-blinding-no-intrinsic-bonus",
+          "error": "power  expected 1 got 6"
+        }
+      ],
+      "evidence": "recording-runs/card-regression-batch19-20261019T224841Z-6ad69e4967b4c.json",
+      "input_sha256": "07e2523c83f566ba581a9f0c0b9459cd746d88a5623d1a32fdf05ce754b29928",
+      "reproducer_command": "php DevTools/FaB/CardRegression/record_card_regressions.php DevTools/FaB/CardRegression/card-regression-batch19.json arsenal-known-blinding-no-intrinsic-bonus",
+      "source_locations": [
+        "FaBSim/Custom/ELECards.php:FaBELEPlayed",
+        "FaBSim/Custom/SUPCards.php:FaBSUPPlayed"
+      ],
+      "passing_fixture": null,
+      "remaining_work": "Correct dynamic intrinsic origin bonus, retain external modifiers/caps, validate suppression/loss/restoration, and re-record semantic cases if internal representation changes."
+    }
+  ],
+  "static_only_concerns": [
+    "Fang Strike/Slither intended Ephemeral compatibility proposals remain held by source-inspected generic target-legality behavior; no native failure proof yet.",
+    "Dead chooser continuation, unknown/orphan frames, foreign-owner elimination and legal UPF cancellation remain component/source limitations, not native recording coverage.",
+    "Blacktek hero-only hit provenance is lost in its existing shared granted-go-again tag; ally branch not exercised.",
+    "Broader base-ability loss versus effects-granted abilities and explicit cannot-gain staging remain unverified; ordinary pilot passes do not prove those interactions.",
+    "Boost listener callback ordering (including TwinDrive/Viziertronic) is source-inspected and remains outside plain Boost payment pilots."
+  ],
+  "negative_controls": {
+    "detected": 45,
+    "total": 45,
+    "canonical_fixture_folders": 0,
+    "runtime_sha256": "a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0"
+  },
+  "continuation": "Continue reviewed catalog batches and independently reviewed native fixes; no fixed stopping point. All work local; no remote authoring, generated-file edits, database writes, commits, pushes, deployments or publication.",
+  "native_suites": {
+    "evidence": "Historical checkpoint summary only: original full native-suite report was overwritten by the later granted-hit/Boost suite run.",
+    "WTR_exit_code": 0,
+    "ARC_exit_code": 0,
+    "runtime_sha256": "a727c65555adb9d1dcb55119b906c03411990f1f36c466ec1058daae763243a0"
+  },
+  "evidence_qualifications": [
+    "Runner initialization fix has no preserved failing-before artifact; current step0/replay evidence supports the repair.",
+    "Original Flock/Quicken before-fix latest-result file was overwritten on retry. Read-only audit retained exact failure summaries, explicitly marked as summaries rather than recreated recordings. Subsequent attempts have immutable recording-runs archives.",
+    "Six early Quicken attempts with incorrect graveyard tokens were held outside the passing inventory; all six current canonical cases were freshly recorded with strengthened token-boundary assertions.",
+    "A single Chromium DNS warning appeared in tracked debug.log during the task and was left untouched because its origin is unrelated or uncertain.",
+    "The original a727 native WTR/ARC full-output report was overwritten when a helper reused its fixed output filename. The existing dated checkpoint retained exit codes0/0, but full historical output is unavailable. New07f079 suites passed0/0 and are preserved separately; the helper now writes exclusive run-specific reports."
+  ]
+}

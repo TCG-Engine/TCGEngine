@@ -1,0 +1,63 @@
+{
+  "status": "FROZEN_CNC_B74_24_PLUS7PILOT_PENDING_INDEPENDENT_SPEC_GATE",
+  "author": "/root/pilot_review",
+  "original_five_saved_proof_sha256": "5d2b44008d954e7ff9a0821808e1e485e93cff2ac1c59699523577387744ac74",
+  "original_prohibition_saved_proof_sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23",
+  "scenarios_sha256": "8fc65d98f4f2f70d815a340f5eded9f18db3eb377ab69e9eddbdf62d8d8eb897",
+  "pilot_sha256": "d835ed906419f244fcbde47ba65c19e8a363f03505b5f3ca18d792c20b6e4b59",
+  "author_validation_sha256": "6d8ed06955cd91a8bca5eea9e84bb3d2551d5e2c65a5669206812a206073510d",
+  "paper_checks": 4385,
+  "native_persistable_oracles": 4228,
+  "source_audit": {
+    "FaBSim/Custom/GameLogic.php": "753cb6804def31c927999239c316d6fa282be9d8b67c28cb087cdfde1bf0b257",
+    "FaBSim/Custom/WTRCards.php": "dc1abf1c8e97641a2a873901ce701bf4028c2e72abefadf262b02c0af4b87518",
+    "FaBSim/Custom/WTRAbilities.php": "00b0ef1df18a5288a68dcce12178c9b72ef8d9e8dbb92caecbd51ee5bd77c63d",
+    "FaBSim/Custom/ELECards.php": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682"
+  },
+  "printed_faces": {
+    "command_and_conquer_red.webp": "e79de808a68b6562582e32a2c5a0dfc9b4cb61c93fc968dfc52fb602449eb612",
+    "new_horizon.webp": "6003ea8867473823be9ed38efe0039fd28ecb1d7b77f5198e92df1b3c790448d",
+    "aether_ashwing.webp": "fd6ab1c9470eff4947d2c937611c1c07470dad56c7654c865b0b9bfa11ba7078",
+    "timesnap_potion_blue.webp": "95e9cd2ed0563e442b41043ce62096bc5f79f4c1c42172a664db804e2f146f81",
+    "dodge_blue.webp": "754294201ee584bb89a2d6a352d1822f463197960ed405cd07ca998cc25cd6d8"
+  },
+  "primary_rules": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/498/",
+      "basis": "Current printed cost2/power6/defense3; noGA, hero-hit all-Arsenal mandatory effect and chain-link DR prohibition."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/285/",
+      "basis": "Timesnap action activation destroys it and gains2AP; no resource cost. Actual AP1->0->2 supplies spare action points without any injected flag."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/tales-of-aria-release-notes/",
+      "basis": "Official indexed New Horizon text and independently viewed local card face: faceup Arsenal card provides an extra Arsenal zone. Direct page403, indexed primary text readable."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/#333",
+      "basis": "Arsenal refers to all Arsenal zones; each contains one owned deck-card; Arsenal cards can be played."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/#742",
+      "basis": "Reaction timing, defending from Hand/equipment, active link and next link; cost and action point rules remain normal."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/#752",
+      "basis": "Physical damage/hit equals power minus defense for the actual target; hitting an ally is distinct from hitting a hero."
+    }
+  ],
+  "important_details": [
+    "All24 cases use only supported click/answer/pass_until actions and native persisted scalar/count/property/state/computed-stat checks; no CanPlay/CanActivate diagnostic substitutes.",
+    "Source identities are assigned by normal sequential fixture helpers; no UID override, temporary rule tags, injected stack/layer/state/permissions or forced RNG.",
+    "Two-card Arsenal is legal Azalea Ranger with sole NewHorizonHead and one faceup card. No head defense/destruction occurs.",
+    "Ashwing initial material counters exactly match existing FaBUPRTransform known prior legal transform; creation/material provenance itself is not under test. Actual target chooser answer is theirArena-0; the hero remains20 and Arsenal stays.",
+    "Actual Timesnap support costs0 resources, spendsAP then gains2 only on resolution. The second-link case preserves both old source and old blockers on link1, opens actual link2 from Resolution with spareAP, and uses the same original ArsenalDodge for negative then positive play.",
+    "Own initial-action priority is transferred by a recorded real pass before wrong-priority/nonturn failed clicks; no arbitrary priority override in those recipes.",
+    "Actual failure of a correctly expected proposed branch must remain blocked/incorrect unsaved; keep original input and precise evidence, never weaken state/identity/damage oracles."
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

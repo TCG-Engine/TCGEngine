@@ -1,0 +1,7 @@
+{
+    "name": "Muscle Mutt / arsenal-faceup-floating",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:05:22+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Muscle Mutt is Generic, yellow pitch2, printed cost3, power6, defense2, and has no functional text/keywords. Both young Dorintheas legally use Generic cards; their weapon-hit ability never applies to these attack action cards. Play from Arsenal with FaceDown=0. Spend3 of3 resources and one AP; float0. Deal exactly6, return no AP, keep source on chain through resolution, and put it in owner Graveyard when chain closes. Sources: https://judge.fabtcg.com/cards/detail/1486/ FaBSim/GeneratedCode/cardArrayCache.json#muscle_mutt_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,19 @@
+{
+  "status": "FROZEN_OWNER0_CORRECTION_PENDING_INDEPENDENT_DESCRIPTOR_GATE",
+  "files": {
+    "live12-proposed.json": "fb6345530c084d2fe0ce100193c947b59db50f733ae577ff915717bb44a6d0b5",
+    "full210-proposed.json": "0a2630d9714382fd0779ef3c9aa426d50b45542e57d78718aec16b1a87b96db3",
+    "card-regression-batch72-yinti.json": "825de6b4996854329330cabb9ab6eaefe23cd847183fb6167d031409e2bb2ef4",
+    "live-pilot4-exact-subset-proposed.json": "e6a8018cb20e3130fa543d5876c9bf424c425d8b08036110f43344c54c15dea1",
+    "serial-split-binding.json": "27ea2120779ea8893b58ff040e4e965f56ac3d37f8f2661d586f1b70a8519c56",
+    "delta-source-and-model-validation.json": "d0c20e3d6d4062800c853b66741f237d4847e884ac839500380a0d884f4dfc4f"
+  },
+  "unchanged_original_input_sha256": {
+    "mon-continuous-stat-attacks\\live-aura-transitions\\scenarios12-proposed.json": "c37e689e8c6e2649f13628ee9ed2d59bc4a4f0ad22140de1d7d01d2b2eb44562",
+    "mon-continuous-stat-attacks\\full-ordinary\\scenarios-proposed.json": "467c0bf09bffc16143a9cbf87e94ea73ba179ba393bc7cdc4db24dc7f4a32b20",
+    "mon210-serial-family-split-proposal\\card-regression-batch72-yinti.json": "c7640d06336e4208487bcd23f3d6bcb081c015bf229217c56494067e5f8a9232",
+    "mon-continuous-stat-attacks\\live-aura-transitions\\pilots4-exact-subset-proposed.json": "7579e2179497b11c93b70be2ef75e604661bb0605444f451e1dda324fd12b21f"
+  },
+  "native_writes": 0,
+  "game_actions": 0
+}

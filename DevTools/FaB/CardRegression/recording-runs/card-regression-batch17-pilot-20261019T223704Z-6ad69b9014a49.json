@@ -1,0 +1,299 @@
+{
+    "completed_at_utc": "2026-10-19T22:37:04+00:00",
+    "input_file": "card-regression-batch17-pilot.json",
+    "input_sha256": "7c06fc5644294f2f7f177d0bb4ef27f227a6ac2381fbe5d7949da2ab1d7e78a4",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-throttle-red-boost-mechanologist-unblocked",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p1Banish count 0, got 1.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "0",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PITCH",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": {
+                    "player": 1,
+                    "uid": 3,
+                    "cost": 2,
+                    "fromZone": "Hand",
+                    "kind": "ATTACK",
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE"
+                },
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MON_BANISHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ARC_BOOSTED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_CHAIN_BOOST",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "boosted": true
+                    },
+                    "5": {
+                        "iarPermission": [],
+                        "penBoostTurn": 2
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+            "status": "blocked_or_incorrect",
+            "error": "Expected p1Banish count 0, got 1.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "0",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PITCH",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": {
+                    "player": 1,
+                    "uid": 3,
+                    "cost": 2,
+                    "fromZone": "Hand",
+                    "kind": "ATTACK",
+                    "returnWindow": "ACTION",
+                    "returnCombatStep": "NONE"
+                },
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "MON_BANISHED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "ARC_BOOSTED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_CHAIN_BOOST",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": [],
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "boosted": true
+                    },
+                    "5": {
+                        "iarPermission": [],
+                        "penBoostTurn": 2
+                    }
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [
+                    "p1Hand-0"
+                ],
+                "2": []
+            }
+        },
+        {
+            "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+            "status": "blocked_or_incorrect",
+            "error": "state window expected \"PITCH\" got \"PRIORITY\"",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DYN_BOOST_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "heart_wrencher_red"
+                    ]
+                },
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false,
+                        "rosLastLightning": false
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sloggism / cost-two-boundary-next-only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:08+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay Sloggism printed3 with blue3: resources0 and go again restores AP1. Exact inclusive boundary: cost2 Surging Strike red gets5+5; another blue3 leaves1. Next Surging Strike blue costs2, paid from1 plus blue3 leaving2, and gets printed3+Ira second-attack1=4 only. Next-only consumption pinned by health10 then6, pitch counts2 then3. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sloggism_yellow https://judge.fabtcg.com/cards/detail/335/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

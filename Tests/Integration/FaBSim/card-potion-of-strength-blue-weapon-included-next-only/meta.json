@@ -1,0 +1,7 @@
+{
+    "name": "Potion of Strength / weapon-included-next-only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:21:38+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Potion next attack includes weapons: first Kodachi is1+2=3. Blue Wounding Blow costs0, so pitching it pays Kodachi1 and gives printed conditional go again; resources2. The following Head Jab red is3+Ira second-attack1=4 and receives no consumed Potion bonus. Health17 then13. One-use scope is next attack, without attack-action restriction. Sources: FaBSim/GeneratedCode/cardArrayCache.json#potion_of_strength_blue https://judge.fabtcg.com/cards/detail/284/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

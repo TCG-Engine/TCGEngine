@@ -1,0 +1,7 @@
+{
+    "name": "Nimblism / cost-zero-no-granted-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:05+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Nimblism costs0 and its own go again returns the spent action point. Wounding Blow red is the first attack, printed cost0/power4. It receives +1, deals 5, and does not gain go again from Nimblism. Defender starts20, finishes15; active player AP0. This is ability coverage, not merely play/pitch smoke. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nimblism_blue https://judge.fabtcg.com/cards/detail/333/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

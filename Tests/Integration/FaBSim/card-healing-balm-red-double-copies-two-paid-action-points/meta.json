@@ -1,0 +1,7 @@
+{
+    "name": "Healing Balm / double-copies-two-paid-action-points",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:13:56+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain 3{h}. Pay exactly1AP when played; no printed go again. Health increases by printed amount only when the card resolves, with no starting-life cap. Two copies each cost1AP and each add their printed life amount; no AP refund. Sources: FaBSim/GeneratedCode/cardArrayCache.json#healing_balm_red https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

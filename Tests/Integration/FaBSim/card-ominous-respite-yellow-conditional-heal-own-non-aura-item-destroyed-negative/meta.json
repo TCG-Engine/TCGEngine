@@ -1,0 +1,7 @@
+{
+    "name": "Ominous Respite / conditional heal / own-non-aura-item-destroyed-negative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:48:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed ominous_respite_yellow cost1, pitch2, no defense property, no action-point cost or gain as an Instant. Branch own-non-aura-item-destroyed-negative. Independent printed-rule model requires terminal health[12, 20], resources[1, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/4855/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Surging Strike / innate go again / yellow / hand-two-red-partial-funding",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T04:04:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "surging_strike_yellow: printed cost2, pitch2, power4, defense2; exact printed text Go again. Actual supported pitch input supplies2 toward printedcost2. AP remains1 while underfunded; each current Hand0 pitch preserves its original UID. Once fully paid AP0, residualresources0; then printed4damage and unconditional ResolutionAP1. Original funding cards stay Pitch through close. Sources: FaBSim/GeneratedCode/cardArrayCache.json#surging_strike_yellow https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP126.webp https://rules.fabtcg.com/en/cr/08-keywords/#835 https://rules.fabtcg.com/en/cr/08-keywords/#826 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#517 https://rules.fabtcg.com/en/cr/07-combat/#762 FaBSim/Custom/GameLogic.php::CanPlayCard/FaBTryCompletePayment/FaBDeclareBlock/FaBBeginDamageStep/FaBBeginResolutionStep/FaBCleanupResolvedLink/FaBCloseCombatChain"
+}

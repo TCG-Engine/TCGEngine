@@ -1,0 +1,7 @@
+{
+    "name": "Aether Dart / opponent-sigil-response-before-arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:57+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Pay spell cost0 and1AP, declare opponent hero target. Opponent Sigil blue is an instant: it costs0 and noAP, resolves above the spell and heals20->21; underlying spell remains on Stack. Then printed1 arcane resolves, opponent21->20. Both cards go to their owners' graveyards, no go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_blue https://judge.fabtcg.com/cards/detail/1674/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

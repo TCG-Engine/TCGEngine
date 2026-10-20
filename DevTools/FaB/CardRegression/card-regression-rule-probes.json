@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "card-sic-em-shot-red-no-bow-rejected",
+    "name": "Sic 'Em Shot / no-bow-rejected",
+    "cardIDs": [
+      "sic_em_shot_red"
+    ],
+    "branches": [
+      "no-bow-rejected"
+    ],
+    "zones": [
+      {
+        "cardID": "sic_em_shot_red",
+        "player": 1,
+        "zone": "Arsenal",
+        "properties": {
+          "FaceDown": 1
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Arsenal-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Arsenal",
+            "cardID": "sic_em_shot_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "oracle": "CR8.2.6a: playing an arrow requires both arsenal origin and control of a bow. With no bow, clicking must not announce or pay for the arrow.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sic_em_shot_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "heroes": [
+      "azalea",
+      "ira_crimson_haze"
+    ],
+    "resources": [
+      1,
+      0
+    ]
+  }
+]

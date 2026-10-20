@@ -1,0 +1,7 @@
+{
+    "name": "Enclosed Firemind / intrinsic closure / two-sources-second-listed-first",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:36:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "AB1 primaryUID4 and distinct AB1 sourceUID5 are both displayed Eq0&Eq1. Choose SECOND-listed Eq1 first: pay exactly1, resources1 remain, HP20 unchanged while original arcane event is being replaced; only unused primary Eq0/UID4 remains eligible. Then pay full1 from primary, total prevention2, take1, resources0; both sources persist ready. For AB2 this distinguishes correct initial cost1 from incorrectly choosing first-listed cost2. For AB1 explicit remaining source ref/UID pins the choice despite equal amounts. Original forward-order8 remain unchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enclosed_firemind https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN016.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

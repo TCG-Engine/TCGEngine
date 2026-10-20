@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Lantern / intrinsic closure / missing-defense-real-block-rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:03:26+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ArcaneLantern has no printed defense value, distinct from numeric0. Native logicalOffHand storage is Equipment with freeweapon slots. Actual player2 equipmentclick duringDEFEND_DECLARE must fail to declare defense: sourceUID4 remains liveEquipment, no defending card/proxy is created, no assets are spent. Unblocked GenericWoundingBlowBlue2 deals2physical (HP20\u219218); AB doesnot apply tophysical. Lantern remainsreadysameUID/owner/slot, GY0, afterClose. This pins missingDEF against accidental conversiontonumeric0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arcane_lantern https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR155.webp https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/07-combat/#732 https://rules.fabtcg.com/en/cr/01-game-concepts/#174 https://rules.fabtcg.com/en/cr/06-effects/#645"
+}

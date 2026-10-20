@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-10-19T23:07:57+00:00",
+    "input_file": "card-regression-warriors-valor-compat-pilot.json",
+    "input_sha256": "0873b4d2968aabdee62e5b11261116bb544219a8276106acc2e99f44155e70ab",
+    "filter": "compat-",
+    "results": [
+        {
+            "slug": "compat-warriors-valor-red-hero-hit-layer-timing",
+            "status": "recorded_semantically_checked",
+            "actions": 19,
+            "assertions": 35
+        },
+        {
+            "slug": "compat-warriors-valor-red-fully-blocked-no-hit-layer-no-go-again",
+            "status": "recorded_semantically_checked",
+            "actions": 20,
+            "assertions": 31
+        }
+    ]
+}

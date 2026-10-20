@@ -1,0 +1,2884 @@
+[
+  {
+    "slug": "card-surging-militia-red-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        8,
+        8,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        8,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-two-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        6,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        8,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        5,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        5,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-red-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-one-normal-hand-card",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        3,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-two-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        5,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-yellow-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-one-normal-hand-card",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-two-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        2,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-surging-militia-blue-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-one-normal-hand-card",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        3,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        5,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        5,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        7,
+        0,
+        7
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-red-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 6,
+    "printed_cost": 2,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        7,
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-one-normal-hand-card",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        3,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-two-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        5,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-yellow-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 5,
+    "printed_cost": 2,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-blue-three-payment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-red-then-red-payment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-unfundable-cost-minus-one-reject",
+    "mode": "reject",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-one-normal-hand-card",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        3,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-two-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-three-normal-hand-cards",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-equipment-only-excluded",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-one-hand-plus-two-equipment",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-defense-reaction-pending-then-resolved",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-previous-link-defenders-excluded",
+    "mode": "two-links",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        5,
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "slug": "card-stony-woottonhog-blue-mon-static-ordinary-nonattack-defender-counts",
+    "mode": "attack",
+    "printed_power": 4,
+    "printed_cost": 2,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        5,
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        3,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-attack-two-own-auras-not-plus-two",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        4,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-attack-only-opponent-aura-negative",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-attack-own-item-only-negative",
+    "mode": "attack",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-defend-own-aura-present",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-defend-two-own-auras-not-plus-two",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-defend-opponent-only-aura-negative",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-red-mon-static-defend-own-item-only-negative",
+    "mode": "defend",
+    "printed_power": 3,
+    "printed_cost": 0,
+    "printed_pitch": 1,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        2,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        3,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-attack-own-aura-present",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-attack-two-own-auras-not-plus-two",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        3,
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-attack-only-opponent-aura-negative",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-attack-own-item-only-negative",
+    "mode": "attack",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-defend-own-aura-present",
+    "mode": "defend",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-defend-two-own-auras-not-plus-two",
+    "mode": "defend",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-defend-opponent-only-aura-negative",
+    "mode": "defend",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-yellow-mon-static-defend-own-item-only-negative",
+    "mode": "defend",
+    "printed_power": 2,
+    "printed_cost": 0,
+    "printed_pitch": 2,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-hand-floating-unblocked",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-arsenal-face-down",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-arsenal-face-up",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-overfund-one",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-zero-ap-reject",
+    "mode": "reject",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-wrong-priority-reject",
+    "mode": "reject",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-nonturn-ordinary-reject",
+    "mode": "reject",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 2,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-graveyard-origin-reject",
+    "mode": "reject",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": []
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-printed-pitch",
+    "mode": "pitch",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        6,
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-printed-defense-no-aura",
+    "mode": "defend",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-exact-full-block",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        1,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-overblock",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        3,
+        0
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-attack-own-aura-present",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-attack-two-own-auras-not-plus-two",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        2,
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-attack-only-opponent-aura-negative",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-attack-own-item-only-negative",
+    "mode": "attack",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 3,
+    "primary_seat": 1,
+    "physical_links": [
+      [
+        1,
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-defend-two-own-auras-not-plus-two",
+    "mode": "defend",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        3,
+        1
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-defend-opponent-only-aura-negative",
+    "mode": "defend",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "slug": "card-yinti-yanti-blue-mon-static-defend-own-item-only-negative",
+    "mode": "defend",
+    "printed_power": 1,
+    "printed_cost": 0,
+    "printed_pitch": 3,
+    "primary_uid": 4,
+    "primary_seat": 2,
+    "physical_links": [
+      [
+        4,
+        2,
+        2
+      ]
+    ]
+  }
+]

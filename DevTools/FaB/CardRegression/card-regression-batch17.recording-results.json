@@ -1,0 +1,1280 @@
+[
+    {
+        "slug": "card-full-tilt-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-full-tilt-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-full-tilt-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-full-tilt-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-full-tilt-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-full-tilt-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-full-tilt-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-full-tilt-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-full-tilt-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-full-tilt-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-full-tilt-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-full-tilt-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-full-tilt-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-full-tilt-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-gas-guzzler-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-gas-guzzler-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-gas-guzzler-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-gas-guzzler-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-gas-guzzler-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-gas-guzzler-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-gas-guzzler-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-gas-guzzler-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-gas-guzzler-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-heart-wrencher-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-heart-wrencher-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-heart-wrencher-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-heart-wrencher-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-heart-wrencher-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-heart-wrencher-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-heart-wrencher-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-heart-wrencher-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-heart-wrencher-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-razzle-dazzle-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-razzle-dazzle-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-razzle-dazzle-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-razzle-dazzle-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-razzle-dazzle-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-throttle-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-throttle-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-throttle-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-throttle-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-throttle-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-throttle-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-throttle-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-throttle-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-throttle-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-throttle-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-throttle-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-throttle-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-throttle-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-fifty-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-fifty-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-fifty-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-fifty-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-fifty-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-sixty-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-sixty-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-sixty-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-sixty-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 64
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 46
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 62
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 13,
+        "assertions": 58
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zero-to-sixty-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-blue-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-zipper-hit-blue-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-zipper-hit-blue-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-blue-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zipper-hit-blue-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-zipper-hit-blue-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-blue-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-blue-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-blue-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-red-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-zipper-hit-red-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-zipper-hit-red-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-red-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zipper-hit-red-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-zipper-hit-red-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-red-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-red-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-red-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-yellow-boost-mechanologist-unblocked",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 73
+    },
+    {
+        "slug": "card-zipper-hit-yellow-decline-boost-preserves-deck",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 55
+    },
+    {
+        "slug": "card-zipper-hit-yellow-boost-nonmechanologist-no-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-yellow-empty-deck-ordinary-play",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 29
+    },
+    {
+        "slug": "card-zipper-hit-yellow-boost-mechanologist-fully-blocked",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 71
+    },
+    {
+        "slug": "card-zipper-hit-yellow-arsenal-boost-mechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 67
+    },
+    {
+        "slug": "card-zipper-hit-yellow-zero-action-points",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-yellow-nonturn-action-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-zipper-hit-yellow-insufficient-resources",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 13
+    },
+    {
+        "slug": "card-throttle-red-boost-cost-before-opponent-response",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 90
+    },
+    {
+        "slug": "card-full-tilt-red-boost-cost-before-opponent-response",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 90
+    },
+    {
+        "slug": "card-heart-wrencher-red-boost-cost-before-opponent-response",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 81
+    },
+    {
+        "slug": "card-throttle-red-independent-second-boost-nonmechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 88
+    },
+    {
+        "slug": "card-full-tilt-red-independent-second-boost-nonmechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 88
+    },
+    {
+        "slug": "card-heart-wrencher-red-independent-second-boost-nonmechanologist",
+        "status": "recorded_semantically_checked",
+        "actions": 26,
+        "assertions": 79
+    }
+]

@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T14:40:34+00:00",
+    "input_file": "card-regression-batch79-four-live-dart.json",
+    "input_sha256": "f82a8406c67677c78d4c5a23221854475da5f5703e4397105f24ea0bede6287b",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 1006
+        }
+    ]
+}

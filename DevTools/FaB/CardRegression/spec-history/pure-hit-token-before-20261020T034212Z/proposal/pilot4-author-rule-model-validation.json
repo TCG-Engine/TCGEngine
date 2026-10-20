@@ -1,0 +1,66 @@
+{
+  "status": "AUTHOR_PRINTED_RULE_MODEL_PASS_NOT_INDEPENDENT_APPROVAL_OR_NATIVE_COVERAGE",
+  "pilot_sha256": "477e175d50eaaa312da8db92675622a8149a040a5f45a3a7af15a3f932143856",
+  "native_expected_values_modeled": 1032,
+  "semantic_faults_rejected": 16,
+  "results": [
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "native_expected_values_modeled": 258,
+      "printed_cost": 2,
+      "printed_power": 5,
+      "expected_target_hp": 15,
+      "created_token": "ponder",
+      "source_uid": 3,
+      "trigger_uid": 4,
+      "token_uid": 5
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "native_expected_values_modeled": 258,
+      "printed_cost": 0,
+      "printed_power": 4,
+      "expected_target_hp": 16,
+      "created_token": "gold",
+      "source_uid": 3,
+      "trigger_uid": 4,
+      "token_uid": 5
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "native_expected_values_modeled": 258,
+      "printed_cost": 3,
+      "printed_power": 7,
+      "expected_target_hp": 13,
+      "created_token": "embodiment_of_earth",
+      "source_uid": 3,
+      "trigger_uid": 4,
+      "token_uid": 5
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "native_expected_values_modeled": 258,
+      "printed_cost": 1,
+      "printed_power": 5,
+      "expected_target_hp": 15,
+      "created_token": "embodiment_of_lightning",
+      "source_uid": 3,
+      "trigger_uid": 4,
+      "token_uid": 5
+    }
+  ],
+  "native_custom_literal_search": [
+    {
+      "path": "FaBSim/Custom/UzuriBot.php",
+      "file_sha256": "4ef6be1cf6f98da118fd52aee721631a41627cef2b07505575d617958616ed14",
+      "line": 8,
+      "text": " if(in_array($b,['death_touch','humble','cut_down_to_size','destructive_deliberation'],true))$v+=1;"
+    }
+  ],
+  "search_interpretation": "No gameplay Custom queue exception mentions these12 baseIDs; the sole literal is unrelated Uzuri bot evaluation. Explicit compiled Hit callback is the relevant execution evidence. Broad indirect mechanisms are not assumed correct.",
+  "native_actions": 0,
+  "native_writes": 0,
+  "game_imports": 0,
+  "requires_independent_gate": true,
+  "script_sha256": "c45650e438aecde24134f02c7ff9889e8836dbac899ad29d1ba8173180f3aa91"
+}

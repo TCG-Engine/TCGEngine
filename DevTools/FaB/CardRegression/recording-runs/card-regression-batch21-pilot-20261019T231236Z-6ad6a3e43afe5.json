@@ -1,0 +1,167 @@
+{
+    "completed_at_utc": "2026-10-19T23:12:36+00:00",
+    "input_file": "card-regression-batch21-pilot.json",
+    "input_sha256": "74d8252ed27981abe160aebbf4d0fd6dc069e8a4878405ad1d226ad6a9e6d9d6",
+    "filter": "card-",
+    "results": [
+        {
+            "slug": "card-aether-dart-red-opponent-hero-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 4,
+            "assertions": 54
+        },
+        {
+            "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+            "status": "blocked_or_incorrect",
+            "error": "Expected Stack count 1, got 0.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 100,
+                    "buttonInput": "",
+                    "cardID": "p2Hero-0",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "ACTION",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "DYN_SURGENT_USED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "ice_bolt_red"
+                    ]
+                },
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "uprTargetUID": 2,
+                        "target": 2,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false,
+                        "iarPermission": []
+                    }
+                },
+                "arcActions": {
+                    "1": 1
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": [
+                    {
+                        "Type": "MZMAYCHOOSE",
+                        "Param": "p2Equipment-0",
+                        "Block": 1,
+                        "Tooltip": "Choose_arcane_barrier",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    },
+                    {
+                        "Type": "CUSTOM",
+                        "Param": "ice_bolt_red:0:ResolveCard-await|ice_bolt_red:0:ResolveCard#1|45|barrier",
+                        "Block": 1,
+                        "Tooltip": "",
+                        "DontSkipOnPass": 0,
+                        "removed": null,
+                        "Location": "",
+                        "PlayerID": 0,
+                        "mzIndex": -1,
+                        "_sourceZone": null
+                    }
+                ]
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        }
+    ]
+}

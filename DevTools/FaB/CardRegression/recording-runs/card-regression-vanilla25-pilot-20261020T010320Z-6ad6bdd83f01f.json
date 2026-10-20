@@ -1,0 +1,86 @@
+{
+    "completed_at_utc": "2026-10-20T01:03:20+00:00",
+    "input_file": "card-regression-vanilla25-pilot.json",
+    "input_sha256": "36927213e964c131f5e93361fe236069d21776f7b3db74dd26eed70ac73d0343",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-wounding-blow-red-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-critical-strike-red-baseline-hand-red-pitch-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-brutal-assault-red-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-raging-onslaught-red-baseline-hand-red-then-yellow-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-autumns-touch-red-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-winters-grasp-blue-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-heavens-claws-yellow-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-no-defense-value-cannot-declare-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 50
+        },
+        {
+            "slug": "card-rusty-harpoon-blue-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-rusty-harpoon-blue-baseline-hand-arrow-rejected-with-bow",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 21
+        },
+        {
+            "slug": "card-rusty-harpoon-blue-baseline-arsenal-arrow-rejected-without-bow",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 20
+        },
+        {
+            "slug": "card-winters-grasp-red-baseline-pitched-for-exact-1",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-critical-strike-blue-baseline-defends-exactly-3-partial-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 54
+        }
+    ]
+}

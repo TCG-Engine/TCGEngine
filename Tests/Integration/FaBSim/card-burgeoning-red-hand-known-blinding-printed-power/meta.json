@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / hand-known-blinding-printed-power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:03+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power6, cost2; originHand. The arsenal-only intrinsic bonus is1; expected current power6. Known active Blinding removes the intrinsic static ability; printed power remains. Pay exactly2 floating resources and1AP, leaving0/0. Defense0; damage=max(0,6-0)=6; defender life20->14. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_red https://judge.fabtcg.com/cards/detail/1174/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf https://judge.fabtcg.com/cards/detail/3761/"
+}

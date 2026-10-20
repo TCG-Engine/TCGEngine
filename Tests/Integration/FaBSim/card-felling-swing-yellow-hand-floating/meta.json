@@ -1,0 +1,7 @@
+{
+    "name": "Felling Swing / hand-floating",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:46:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +5 power. It does not grant that attack go again. First hatchet_of_body is printed power2, becomes7, deals7; all resources are paid exactly and finalAP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

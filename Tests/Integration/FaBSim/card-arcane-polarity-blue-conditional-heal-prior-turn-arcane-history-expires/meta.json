@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Polarity / conditional heal / prior-turn-arcane-history-expires",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:40:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed arcane_polarity_blue cost0, pitch3, no defense property, no action-point cost or gain as an Instant. Branch prior-turn-arcane-history-expires. Independent printed-rule model requires terminal health[8, 20], resources[0, 0], AP[0, 1].  Sources: https://judge.fabtcg.com/cards/detail/3299/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

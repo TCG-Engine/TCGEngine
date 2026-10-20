@@ -1,0 +1,61 @@
+{
+  "reason": "Preserve14 exact qualified fixtures before owned native rerecords that persist formerly author-only state checks. No snapshots edited.",
+  "fixtures": [
+    {
+      "slug": "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+      "fixture_sha256": "2ce94318ea1167bb3642ba93c381b3f9b0923ec075390a14f278a083a98d7201"
+    },
+    {
+      "slug": "card-pummel-red-hand-club-weapon-no-discard",
+      "fixture_sha256": "b19b40971d41bdc51ba47c25e69a562711501ff8c55c95cca4801274fd531cbb"
+    },
+    {
+      "slug": "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+      "fixture_sha256": "40ed5e831a2a2745779d4630102db3e2718880116f80c30b9d865131f7d6d5d0"
+    },
+    {
+      "slug": "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+      "fixture_sha256": "e1a984df6da65ea6b9ef8bfa76b17393c0abe3eed7a1228f058b1ba2fc951dfe"
+    },
+    {
+      "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+      "fixture_sha256": "7fb21d4d70ad7798e33cb98e16b782c62b6097dbccb910875a5057fba8710d30"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "fixture_sha256": "941b31a88d8fc00b9979ef9934b397a8503ec0e6430a777f79256cec91ceaf51"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+      "fixture_sha256": "502ef59c2eb5b51ee614dc1816d657403659d4156189996aa60f80f4095ced55"
+    },
+    {
+      "slug": "card-full-tilt-red-boost-nonmechanologist-no-go-again",
+      "fixture_sha256": "691fadc843dd844140fe68f7bc12e3c9a78bd1c415d04758ed0d5c2a36b3cdef"
+    },
+    {
+      "slug": "card-heart-wrencher-red-boost-mechanologist-unblocked",
+      "fixture_sha256": "883232c187336e4a9cce40e537d6abe67636e38f53786b6ce139ddc122d4aa90"
+    },
+    {
+      "slug": "card-throttle-red-boost-mechanologist-unblocked",
+      "fixture_sha256": "1062e4ac7340503faa4f885ee084af6ef0b3d6f113b448cc3258520e7173f05b"
+    },
+    {
+      "slug": "card-aether-dart-red-opponent-hero-floating",
+      "fixture_sha256": "b2b04f0955d58a6831b87423ba5368e9b23329978b693aa09f8dd3656308f8a8"
+    },
+    {
+      "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+      "fixture_sha256": "9902dfb3e27a378868b8194b3be257dedd81126fd5bcd0bd293692970163d77d"
+    },
+    {
+      "slug": "compat-warriors-valor-red-hero-hit-layer-timing",
+      "fixture_sha256": "cc6865122b6a9e0cdba8fcbb3ab27ddda76c3ad5e1a586d49a452e0c2cecb237"
+    },
+    {
+      "slug": "compat-warriors-valor-red-fully-blocked-no-hit-layer-no-go-again",
+      "fixture_sha256": "0624614dce6b45ec711d3aa189f6e34edf93c89024749c2adc987a92a9275945"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Enclosed Firemind / zero-defense-block-returns-without-destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:10:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Enclosed Firemind has printed defense0, so it can legally defend for0. Defend Wounding Blow blue from Equipment at nonturnAP0. Attack2 minus defense0 deals2 physical; no AB payment/chooser. No Battleworn/BladeBreak/Temper exists. It remains on chain through link resolution, then returns to its original equipment slot with sameUID4, Status2, Damage0 and no graveyard object. Resources1 remain. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enclosed_firemind https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN016.webp DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+}

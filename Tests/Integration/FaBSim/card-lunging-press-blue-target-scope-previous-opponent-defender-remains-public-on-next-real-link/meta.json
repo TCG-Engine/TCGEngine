@@ -1,0 +1,7 @@
+{
+    "name": "Lunging Press / target scope / previous-link opponent defending AA remains legal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:51:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Surging5 is defended by Blue Wounding3 on link1: damage2 leaves18 and printed GA supplies one AP for actual Wounding0/link2. Previous opposing defender UID6/link1 is still a public AA alongside both attacking AA cards. LP chooses that older defender, captures its own link1 rather than active link2, and applies only its power modifier. Current Wounding4 has no defenders for link2, deals4 leaving14; earlier2 damage is not recomputed. All original cards clear in physical owner order at Close. Sources: https://judge.fabtcg.com/cards/detail/720/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

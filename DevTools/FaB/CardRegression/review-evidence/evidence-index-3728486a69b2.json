@@ -1,0 +1,98 @@
+{
+  "status": "CONDITIONAL_FINITE_DEFINITION_NOT_CURRENT_COMPLETION",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "directFixtures": 113,
+  "directActionCount": 1766,
+  "directNativeAssertions": 14122,
+  "directReports": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch43-saved108-independent-review.json",
+      "sha256": "bdd5f0582ae9350d311ebabc08715cde6de5a7163cc3521819dfc4cadee7292f"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch45-saved-third-reaction-independent-review.json",
+      "sha256": "43a05d038fb3a9a2ae74b6e0b31ca586dcd722dea011a544851049f7b02019e8"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\batch56-saved4-independent-review.json",
+      "sha256": "b827c9066bf79bc2b0e8d5fb79b5717c767087e34d7c85f9bd73d4fd4e910b15"
+    }
+  ],
+  "sourceRecipes": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch43.json",
+      "sha256": "07893dee7d19ce795eb7d905a3643000680a18004ec37600bc3b2f4b69430554"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch45.json",
+      "sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch56.json",
+      "sha256": "5b9fc382ee59f4c12198679818ecfc9a765b7d01e536c973622803d501d2a3fe"
+    }
+  ],
+  "sourceContract": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\flat-defense-reactions\\finite-baseline-completion-contract.json",
+    "sha256": "fd6ed8bd8e1b5fb4afa2995305ba1cf44f4fbc0c15b15aff805d8873f37796b4"
+  },
+  "sharedProhibition": {
+    "report": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\issue028-saved4-independent-review.json",
+    "sha256": "fe060e201dde402bc26fffb9770fd7ca5123709467e6005ca3893a8a3e8e3b23",
+    "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+    "raw5": {
+      "initial_gamestate.txt": "aa0d48b1e4cc4992bc852f4ab05aaba456424a7a0d1d8408eb5c366412c35840",
+      "actions.json": "ed9673fbd25911fff78f59859fef3799d6f6ac48fc129b80720baa23bb232302",
+      "assertions.json": "1461afc292a3d305d2ba87659e92e7c6a47bcf6b9d70f23c699eff656fe47c75",
+      "expected_final_gamestate.txt": "b36d73d716e9468f485ea0ef7692227fae59e1437e083a85ce7173c34ad76b88",
+      "meta.json": "50cb5d20596c7ec6e5e0fd6cea9b7fda78cd7e467d68a7d8181f6f88840953a6"
+    },
+    "behavior": "89cc35cbfc354ba31db4bcfa7c09558c1072763ef239ae71d58a833baabb3092",
+    "exactScope": "A real active Command and Conquer prohibits manual Defense Reaction CARD play even after partial layer resolution. B58 stops before actual damage/Close, which are not required for this prohibition claim."
+  },
+  "sharedControls": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\negative-control-runs\\20261020T015429Z-3a29eb31-after.json",
+    "sha256": "01137efddaba0a7bf0a4ca51f3de15f3279b55b0d481ae9ba5b0ea6bb359bd66",
+    "controls": [
+      {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 19",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_plus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 19."
+      },
+      {
+        "runtime_sha256": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+        "fixture": "card-muscle-mutt-yellow-defends-exactly-two-partial-damage",
+        "mutation": "fixture-only effect/choice/cost perturbation",
+        "expected_failure": "p2Health to equal 18, got 17",
+        "detected": true,
+        "returncode": 1,
+        "control_id": "muscle_defense_minus_one",
+        "prefix_actions": 6,
+        "expected_failure_step": 7,
+        "evidence_kind": "disposable_fixture_semantic_assertion",
+        "output_contains": "[FAIL] Muscle Mutt / defends exactly two, takes two: Step 7 assertion failed: Expected p2Health to equal 18, got 17."
+      }
+    ],
+    "sourcePath": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+    "sourceSHA256": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "basis": "FaBDefenseValue explicitly accepts both DEFENSE and DEFENSE_REACTION and sums same FaBCurrentDefense result for each current owned link. Native Muscle +/-1 controls independently detect HP differences from that shared numeric defense->damage path. Direct113 separately pin every actual DR printed defense/cost/timing/layer with native damage+HP. No unexecuted ten per-card planned faults are claimed run."
+  },
+  "currentRuntimeBasis": "8ec89bc9f6616ede8d9ed45fdd6ff8c9ccecb9cc74f349328f6742ce85ea8330",
+  "remainingQualification": [
+    "Separate independent finite definition/adapter gate",
+    "Two exact current full-corpus clean replays on same frozen runtime",
+    "Current shared exact semantic controls including required2 and full native suite pass",
+    "Parent guarded metadata integration"
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "completion_claim": false
+}

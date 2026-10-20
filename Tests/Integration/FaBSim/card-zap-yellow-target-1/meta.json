@@ -1,0 +1,7 @@
+{
+    "name": "Zap / target-1",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:37:50+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact plain spell text: deal 2 arcane to chosen own/opposing hero. Printed cost0; 0 blue pitches leaves0. Action consumes one AP. Sources: FaBSim/GeneratedCode/cardArrayCache.json#zap_yellow https://rules.fabtcg.com/en/cr/07-combat/"
+}

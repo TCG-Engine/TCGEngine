@@ -1,0 +1,14 @@
+{
+    "completed_at_utc": "2026-10-20T14:52:29+00:00",
+    "input_file": "card-regression-batch81-four-live-read-runes.json",
+    "input_sha256": "08729ebc523412961257127d05e40a3690cf2e5c4283b00b28a3c1b8e6bba943",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 703
+        }
+    ]
+}

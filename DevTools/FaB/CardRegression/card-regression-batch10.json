@@ -1,0 +1,609 @@
+[
+  {
+    "slug": "card-snatch-red-hit-trigger-response-window",
+    "name": "Snatch / hit trigger response window",
+    "cardIDs": [
+      "snatch_red"
+    ],
+    "branches": [
+      "hit-trigger-response-before-draw"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snatch_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "DAMAGE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "head_jab_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      }
+    ],
+    "oracle": "CR1.6.2c Snatch example: hitting creates a triggered Draw a card layer. After combat damage and before resolving that layer, hand0/deck2/Stack1; after priority passes hand1/deck1.",
+    "printedCard": {
+      "id": "snatch_red",
+      "name": "Snatch",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this hits, draw a card.",
+      "wtrPrintings": [
+        "WTR167"
+      ]
+    },
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "snatch_red",
+        "to": "wounding_blow_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p1Hand count 1, got 0",
+      "why": "Wounding Blow of the same color has equal cost and power and no draw ability. Damage and action-point checkpoints should pass; draw checkpoint must fail before any snapshot comparison.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "damage fully prevented by a real card effect",
+      "attack targeting an ally where legal",
+      "multiple on-hit triggers and interactions"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches."
+  },
+  {
+    "slug": "card-snatch-red-opponent-responds-before-hit-draw",
+    "name": "Snatch / opponent responds before hit draw",
+    "cardIDs": [
+      "snatch_red"
+    ],
+    "branches": [
+      "hit-trigger-opponent-instant-response-before-draw"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "ira_crimson_haze",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snatch_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "player": 2,
+        "zone": "Hand",
+        "cardID": "sigil_of_solace_red",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "DAMAGE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "player": 2,
+        "mzID": "p2Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackCount": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Hand",
+            "cardID": "head_jab_blue"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      }
+    ],
+    "oracle": "CR1.6.2c and6.6: Snatch hit queues a draw layer. Opponent plays Sigil red above it; health16->19 while attacker hand0/deck2 remains, then draw layer resolves hand1/deck1.",
+    "printedCard": {
+      "id": "snatch_red",
+      "name": "Snatch",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this hits, draw a card.",
+      "wtrPrintings": [
+        "WTR167"
+      ]
+    },
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "snatch_red",
+        "to": "wounding_blow_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p1Hand count 1, got 0",
+      "why": "Wounding Blow of the same color has equal cost and power and no draw ability. Damage and action-point checkpoints should pass; draw checkpoint must fail before any snapshot comparison.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "damage fully prevented by a real card effect",
+      "attack targeting an ally where legal",
+      "multiple on-hit triggers and interactions"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches."
+  },
+  {
+    "slug": "card-snatch-red-blanked-no-hit-trigger",
+    "name": "Snatch / blanked no hit trigger",
+    "cardIDs": [
+      "snatch_red"
+    ],
+    "branches": [
+      "blanked-source-no-hit-trigger"
+    ],
+    "status": "proposed_unrecorded",
+    "effectBranch": true,
+    "heroes": [
+      "bravo",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "snatch_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_yellow",
+        "player": 1,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "combatStep": "DAMAGE"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Deck",
+            "value": 2
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "stackEmpty": true
+        }
+      }
+    ],
+    "oracle": "Start during Bravo turn under previously resolved Blinding of the Old Ones: all owned cards have no abilities. Snatch has no hit ability: damage4, hand0/deck2, no triggered layer. This covers the known effect interaction, not generation or expiry of Blinding.",
+    "printedCard": {
+      "id": "snatch_red",
+      "name": "Snatch",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "1",
+      "cost": "0",
+      "power": "4",
+      "defense": "2",
+      "functional_text_plain": "When this hits, draw a card.",
+      "wtrPrintings": [
+        "WTR167"
+      ]
+    },
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/#162c",
+      "https://judge.fabtcg.com/cards/detail/3761/"
+    ],
+    "authoringNotes": [
+      "Fresh local fixture; automatic engine UniqueIDs only; no explicit UniqueID override.",
+      "Both heroes may use Generic cards; Ira second-attack bonus never applies because this is the first attack.",
+      "Derived checks are author-time diagnostics. Native scalar, count and membership checkpoints must be retained in saved regression.",
+      "Proposed only: no scenario has been recorded, independently reviewed, or replayed by this author."
+    ],
+    "proposedNegativeControl": {
+      "method": "disposable-fixture-card-substitution",
+      "replaceInitialCard": {
+        "from": "snatch_red",
+        "to": "wounding_blow_red"
+      },
+      "rewriteOnlyIdentityMembershipAssertions": true,
+      "expectedSemanticFailure": "p1Hand count 1, got 0",
+      "why": "Wounding Blow of the same color has equal cost and power and no draw ability. Damage and action-point checkpoints should pass; draw checkpoint must fail before any snapshot comparison.",
+      "productionRulesMutation": false
+    },
+    "remainingBranches": [
+      "damage fully prevented by a real card effect",
+      "attack targeting an ally where legal",
+      "multiple on-hit triggers and interactions"
+    ],
+    "reviewGate": "Record one representative per effect family, independently inspect saved assertions and an effect-specific failing negative control, then scale remaining variants and branches.",
+    "state": {
+      "mpgDurations": [
+        {
+          "player": 1,
+          "kind": "BLIND",
+          "active": true,
+          "started": true
+        }
+      ]
+    }
+  }
+]

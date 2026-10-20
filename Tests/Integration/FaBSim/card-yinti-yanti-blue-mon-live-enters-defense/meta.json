@@ -1,0 +1,7 @@
+{
+    "name": "Yinti Yanti / live aura enters-defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:43:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed yinti_yanti_blue: cost0/power1/defense2/pitch3. The aura predicate applies continuously while this attacks or defends. A real MercifulRetribution InstantAura costs4 and enters the Arena under its own unchangedUID, without preventing the physical attack. Initial condition is absent; final condition is present. Fresh physical defense3, damage1, targetHP19. Both AP0 after initial attack and remain0; no goagain. UID/owner/origin and ordinary close are pinned. Sources: https://judge.fabtcg.com/cards/detail/1022/ https://judge.fabtcg.com/cards/detail/742/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Earthlore Surge / arsenal-facedown-buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:05:00+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed text independently specifies cost 2, next attack action this turn +4 power and this source's own go again. It neither limits the attack's printed cost nor grants that attack go again. Oldhim's unactivated defense reaction does not modify these attacks; its Essence permits Earth cards and its Guardian class permits Sledge. This nonattack action can be played from facedown Arsenal. Pitch blue3, pay2, float1, source enters graveyard and Arsenal empties. Its own go again returnsAP1; Wounding Blow then gets4+4 and leaves opponent12, with no granted go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#earthlore_surge_yellow https://judge.fabtcg.com/cards/detail/1178/ https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

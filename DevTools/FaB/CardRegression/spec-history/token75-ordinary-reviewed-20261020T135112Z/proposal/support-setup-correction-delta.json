@@ -1,0 +1,1844 @@
+[
+  {
+    "index": 15,
+    "slug": "card-destructive-deliberation-red-token75-overblock-no-hit",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "flock_of_the_feather_walkers_red",
+      "ponder"
+    ],
+    "new_secondary": [
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow",
+      "ponder"
+    ]
+  },
+  {
+    "index": 105,
+    "slug": "card-earth-form-red-token75-red-sequential-payments",
+    "replacements": {
+      "5": [
+        "wounding_blow_red",
+        "flock_of_the_feather_walkers_red"
+      ],
+      "6": [
+        "wounding_blow_red",
+        "nimblism_red"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 0,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 2,
+        "check": 16,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 2,
+        "check": 20,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 4,
+        "check": 12,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 4,
+        "check": 16,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 12,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 24,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 10,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 10,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 12,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 12,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 14,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 14,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 16,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 16,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 18,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 18,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 20,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 20,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "wounding_blow_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red",
+      "nimblism_red",
+      "wounding_blow_red"
+    ]
+  },
+  {
+    "index": 112,
+    "slug": "card-earth-form-red-token75-overblock-no-hit",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ],
+      "7": [
+        "flock_of_the_feather_walkers_red",
+        "muscle_mutt_yellow"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 0,
+        "check": 36,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 32,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 39,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 39,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 35,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 31,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 10,
+        "check": 48,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 27,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 12,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 51,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 54,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 54,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 18,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 54,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      },
+      {
+        "step": 20,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 20,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 20,
+        "check": 41,
+        "UID": 7,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "muscle_mutt_yellow"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow",
+      "muscle_mutt_yellow"
+    ]
+  },
+  {
+    "index": 113,
+    "slug": "card-earth-form-red-token75-one-damage-hit-still-one-token",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 45,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 52,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 20,
+        "check": 45,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 20,
+        "check": 52,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 22,
+        "check": 38,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 22,
+        "check": 42,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow"
+    ]
+  },
+  {
+    "index": 114,
+    "slug": "card-earth-form-red-token75-fully-prevented-hit-negative",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 49,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 45,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 52,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 42,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 49,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 17,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 17,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 19,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 19,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 21,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 21,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red",
+      "spectral_shield"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow",
+      "spectral_shield"
+    ]
+  },
+  {
+    "index": 123,
+    "slug": "card-earth-form-yellow-token75-red-sequential-payments",
+    "replacements": {
+      "5": [
+        "wounding_blow_red",
+        "flock_of_the_feather_walkers_red"
+      ],
+      "6": [
+        "wounding_blow_red",
+        "nimblism_red"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 0,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 2,
+        "check": 16,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 2,
+        "check": 20,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 4,
+        "check": 12,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 4,
+        "check": 16,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 12,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 24,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 10,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 10,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 12,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 12,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 14,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 14,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 16,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 16,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 18,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 18,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 20,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 20,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "wounding_blow_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red",
+      "nimblism_red",
+      "wounding_blow_red"
+    ]
+  },
+  {
+    "index": 129,
+    "slug": "card-earth-form-yellow-token75-exact-block-no-hit",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow"
+    ]
+  },
+  {
+    "index": 141,
+    "slug": "card-earth-form-blue-token75-red-sequential-payments",
+    "replacements": {
+      "5": [
+        "wounding_blow_red",
+        "flock_of_the_feather_walkers_red"
+      ],
+      "6": [
+        "wounding_blow_red",
+        "nimblism_red"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 0,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 2,
+        "check": 16,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 2,
+        "check": 20,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 4,
+        "check": 12,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 4,
+        "check": 16,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 12,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 6,
+        "check": 24,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 8,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 10,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 10,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 12,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 12,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 14,
+        "check": 21,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 14,
+        "check": 25,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 16,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 16,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 18,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 18,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      },
+      {
+        "step": 20,
+        "check": 26,
+        "UID": 5,
+        "before": "wounding_blow_red",
+        "after": "flock_of_the_feather_walkers_red"
+      },
+      {
+        "step": 20,
+        "check": 30,
+        "UID": 6,
+        "before": "wounding_blow_red",
+        "after": "nimblism_red"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "wounding_blow_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red",
+      "nimblism_red",
+      "wounding_blow_red"
+    ]
+  },
+  {
+    "index": 148,
+    "slug": "card-earth-form-blue-token75-overblock-no-hit",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_earth",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow"
+    ]
+  },
+  {
+    "index": 165,
+    "slug": "card-lightning-form-red-token75-overblock-no-hit",
+    "replacements": {
+      "5": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_yellow"
+      ],
+      "6": [
+        "flock_of_the_feather_walkers_red",
+        "flock_of_the_feather_walkers_blue"
+      ]
+    },
+    "card_id_oracle_edits": [
+      {
+        "step": 0,
+        "check": 28,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 0,
+        "check": 32,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 2,
+        "check": 24,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 2,
+        "check": 28,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 4,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 4,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 6,
+        "check": 31,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 6,
+        "check": 35,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 8,
+        "check": 27,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 8,
+        "check": 31,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 27,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 10,
+        "check": 44,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 12,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 14,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 14,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 16,
+        "check": 40,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 16,
+        "check": 47,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      },
+      {
+        "step": 18,
+        "check": 33,
+        "UID": 5,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_yellow"
+      },
+      {
+        "step": 18,
+        "check": 37,
+        "UID": 6,
+        "before": "flock_of_the_feather_walkers_red",
+        "after": "flock_of_the_feather_walkers_blue"
+      }
+    ],
+    "old_secondary": [
+      "embodiment_of_lightning",
+      "flock_of_the_feather_walkers_red"
+    ],
+    "new_secondary": [
+      "embodiment_of_lightning",
+      "flock_of_the_feather_walkers_blue",
+      "flock_of_the_feather_walkers_red",
+      "flock_of_the_feather_walkers_yellow"
+    ]
+  }
+]

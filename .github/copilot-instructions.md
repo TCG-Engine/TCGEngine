@@ -25,6 +25,15 @@ this only with `--memory-only`, and writes one final state file if a game fails.
 
 If you change the schema or generator, re-run the generator and hard-refresh the browser so the client receives the updated `GeneratedUI_*.js` (the generator deletes old `GeneratedUI_*.js` files and writes a new timestamped one).
 
+For a reviewed change to one numeric scalar's `BeforeAdd` hook, the CLI can regenerate only its `Add...` function while preserving the rest of the current accessor file. Pass the current file's SHA-256 so concurrent edits cause regeneration to stop:
+
+```powershell
+$accessorHash = (Get-FileHash .\FaBSim\ZoneAccessors.php -Algorithm SHA256).Hash.ToLowerInvariant()
+php zzGameCodeGenerator.php rootName=FaBSim only=ZoneAccessors scalarAdder=ActionPoints expectedSHA=$accessorHash
+```
+
+This path uses the existing schema emitter, validates the selected numeric scalar and function signature, and exits after writing that adder. Other schema changes still require ordinary regeneration.
+
 ## Decision Queue — server-side (how it works)
 - File: `Core/DecisionQueueController.php`.
 - Core concept: each player has a `DecisionQueue` zone (parsed from schema). Objects placed into that zone are processed by `DecisionQueueController::ExecuteStaticMethods()` to perform static, immediate actions that do not require interactive input.

@@ -1,0 +1,64 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "2b2544474195f4c626892dcf1df5bfcddf91681a3f9a9a5168efee30de1d8114",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T04:16:49.408425+00:00",
+  "canonical_inventory_at_capture": 3001,
+  "fixtures": [
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "fixture_sha256": "87851d4bed359bbfc566f4f9070e21639712a02a664e06159ca6f252c1bcd51a",
+      "passed": true,
+      "result": "[PASS] Destructive Deliberation Red / hit trigger resolves before token creation"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fixture_sha256": "9648251ddd8d42d17d244ac312ab02583dc70eb4e26417adbd55b8cbbb801947",
+      "passed": true,
+      "result": "[PASS] Earth Form Red / hit trigger resolves before token creation"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fixture_sha256": "a361cb225fcfa09e548e7eb77bbda784946d2e7df7648ff383604622d795e368",
+      "passed": true,
+      "result": "[PASS] Lightning Form Red / hit trigger resolves before token creation"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "fixture_sha256": "315e678696bf03ab8ef4816e2f621e2522656af8fe91065ad5aea0d89401dc27",
+      "passed": true,
+      "result": "[PASS] Strike Gold Red / hit trigger resolves before token creation"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "returncode": 0,
+      "stdout": "[PASS] Destructive Deliberation Red / hit trigger resolves before token creation\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "returncode": 0,
+      "stdout": "[PASS] Earth Form Red / hit trigger resolves before token creation\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "returncode": 0,
+      "stdout": "[PASS] Lightning Form Red / hit trigger resolves before token creation\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "returncode": 0,
+      "stdout": "[PASS] Strike Gold Red / hit trigger resolves before token creation\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

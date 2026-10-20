@@ -1,0 +1,7 @@
+{
+    "name": "Razor Reflex / hand-dagger-weapon-no-granted-go-again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:56:04+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Weapon mode targets harmonized_kodachi and gives printed +2; expected power3, damage3. This mode grants no hit-go-again ability. Raging Onslaught blue has printed cost3, so it cannot satisfy Kodachi cost0 pitch condition. Attack plus Razor payment leaves1 resource(s), and resolution leaves AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#razor_reflex_yellow https://judge.fabtcg.com/cards/detail/323/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

@@ -1,0 +1,179 @@
+{
+    "completed_at_utc": "2026-10-20T01:03:10+00:00",
+    "input_file": "card-regression-batch33-pilot.json",
+    "input_sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+            "status": "recorded_semantically_checked",
+            "actions": 18,
+            "assertions": 94
+        },
+        {
+            "slug": "card-cut-deep-red-attack-action-excluded-and-preserves-buff",
+            "status": "recorded_semantically_checked",
+            "actions": 27,
+            "assertions": 97
+        },
+        {
+            "slug": "card-felling-swing-red-blue-pitch-payments",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 99
+        },
+        {
+            "slug": "card-en-garde-red-hand-floating",
+            "status": "blocked_or_incorrect",
+            "error": "Expected Stack-0.TurnEffects to equal '[\"WTR_POWER:3\"]', got '[]'.",
+            "attempted_actions": [
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Hand-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 2,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10001,
+                    "buttonInput": "",
+                    "cardID": "!CustomInput!Pass",
+                    "chkInput": [],
+                    "inputText": ""
+                },
+                {
+                    "playerID": 1,
+                    "mode": 10002,
+                    "buttonInput": "",
+                    "cardID": "p1Weapons-0!FSM",
+                    "chkInput": [],
+                    "inputText": ""
+                }
+            ],
+            "observed_state": {
+                "window": "PRIORITY",
+                "combatOpen": false,
+                "combatStep": "NONE",
+                "chainLink": 0,
+                "attacker": 0,
+                "defender": 0,
+                "attackUID": 0,
+                "attackTarget": null,
+                "pendingAttackTarget": null,
+                "previousAttackCardID": "",
+                "handBlockUIDs": [],
+                "intimidated": [],
+                "pendingPayment": null,
+                "lastAttackName": "",
+                "attackHit": false,
+                "attackPower": 0,
+                "defenseValue": 0,
+                "damageDealt": 0,
+                "declaredBlockUIDs": [],
+                "passiveSeats": [],
+                "gameMode": "",
+                "turnEffects": {
+                    "1": [
+                        {
+                            "type": "SUP_COST_ONE",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "PEN_WEAPON_ACTIVATED",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_ATTACKS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_WEAPONS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "CRU_SWORDS",
+                            "amount": 1,
+                            "uses": 1
+                        },
+                        {
+                            "type": "EVR_PLAYED",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "type": "EVR_GRAVEYARD",
+                            "amount": 1,
+                            "uses": 1
+                        }
+                    ]
+                },
+                "nextTurnEffects": [],
+                "hitsThisTurn": [],
+                "cardsPlayedThisTurn": {
+                    "1": [
+                        "en_garde_red",
+                        "cintari_saber"
+                    ]
+                },
+                "eleKorshemActiveTurn": 2,
+                "arcCards": {
+                    "3": {
+                        "iarOrigin": 1,
+                        "mstChiPitched": 0,
+                        "rosMeld": -1,
+                        "rosSurgeGo": false,
+                        "evoDashPlay": false,
+                        "omnFirstDamage": false,
+                        "iarPlayedFrom": "Hand",
+                        "mstFree": false,
+                        "rosLastLightning": false,
+                        "iarPermission": []
+                    },
+                    "5": {
+                        "outPreviousNames": [],
+                        "mstFree": false,
+                        "mstPreviousPitch": 0,
+                        "mstPreviousAA": false
+                    }
+                },
+                "arcActions": {
+                    "1": 2
+                }
+            },
+            "observed_decisions": {
+                "1": [],
+                "2": []
+            },
+            "observed_hand_refs": {
+                "1": [],
+                "2": []
+            }
+        }
+    ]
+}

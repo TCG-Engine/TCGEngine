@@ -1,0 +1,102 @@
+{
+  "status": "saved_native_boundaries_reviewed_current_runtime_replay_parent_pending",
+  "native_writes": 0,
+  "reviewer_game_actions": 0,
+  "accepted_coverage": 0,
+  "ordinary_scope": "Only completed link Resolution -> Close without Nerves/eligibility changes/competing effects. Early Close before link cleanup remains held.",
+  "total_actions": 46,
+  "total_native_assertions": 45,
+  "aggregate_sha256": "8ba355184377e39714280e01e78466d4057d6eff79afa8478cd6c1d6a750ee8f",
+  "fixtures": [
+    {
+      "slug": "rule-battleworn-close-first-counter-then-second-chain",
+      "actions": 31,
+      "native_assertions": 32,
+      "counter_boundaries": [
+        [
+          0,
+          "p2Equipment-0",
+          "[]"
+        ],
+        [
+          13,
+          "p2CombatChain-0",
+          "[]"
+        ],
+        [
+          15,
+          "p2Equipment-0",
+          "{\"DEFENSE\":1}"
+        ],
+        [
+          28,
+          "p2CombatChain-0",
+          "{\"DEFENSE\":1}"
+        ],
+        [
+          30,
+          "p2Equipment-0",
+          "{\"DEFENSE\":2}"
+        ]
+      ],
+      "final_health2": 14,
+      "final_equipment": [
+        "breaking_scales 2 0 2 2 0 3 - eyJERUZFTlNFIjoyfQ=="
+      ],
+      "stack_empty": true,
+      "queues_empty": true,
+      "combat_chain_empty": true,
+      "pending_counter_map_absent": true,
+      "await_frames": 0,
+      "pending_reaction_marker": null,
+      "actual_final_pass": true,
+      "file_sha256": {
+        "actions.json": "da19a59159a452f1fce237c9fa47d33e95e5b85686eef618d58c4bcb4586c2bc",
+        "assertions.json": "7a53ebbae24988a83c34f79900e0d9f3585313a3d48235407be225bd5ec90324",
+        "expected_final_gamestate.txt": "61bc7a870270eb204f6e769d439351ff139f0db8141140d7aa717f4ff9035d4c",
+        "initial_gamestate.txt": "473d3bbbea110f231d381a861716648a63f33920e5d88bc3e0203ef27c974a48",
+        "meta.json": "ff486cecdfc30fd6b34d81209b63fcf7f81e8bf678ab6ed8122ce823cc1e71c6"
+      }
+    },
+    {
+      "slug": "rule-battleworn-close-nondefending-equipment-unchanged",
+      "actions": 15,
+      "native_assertions": 13,
+      "counter_boundaries": [
+        [
+          0,
+          "p2Equipment-0",
+          "[]"
+        ],
+        [
+          12,
+          "p2Equipment-0",
+          "[]"
+        ],
+        [
+          14,
+          "p2Equipment-0",
+          "[]"
+        ]
+      ],
+      "final_health2": 16,
+      "final_equipment": [
+        "helm_of_isens_peak 2 0 2 2 0 3 - -"
+      ],
+      "stack_empty": true,
+      "queues_empty": true,
+      "combat_chain_empty": true,
+      "pending_counter_map_absent": true,
+      "await_frames": 0,
+      "pending_reaction_marker": null,
+      "actual_final_pass": true,
+      "file_sha256": {
+        "actions.json": "255da0f6d76f46c3a69d3b020b63c52e441e6dd7e7d24bc5bf86c08b271a02c4",
+        "assertions.json": "a389f3e021574a12ce56bc3d5e4e05ca89dbf88d9589e5488490c1d83f9ccb7c",
+        "expected_final_gamestate.txt": "3143579c360e17540fd9fbd99c6430745a2ff07343df339410b033990bf14e4c",
+        "initial_gamestate.txt": "4fb6b2453eb44192a4ecf9ea92a40534c2957fb081164048c0423cd5118bfb67",
+        "meta.json": "edfe5b117f78ca48be988e27bb0e43ad82e97dac9545c2dcc96ffde05ff0bed2"
+      }
+    }
+  ]
+}

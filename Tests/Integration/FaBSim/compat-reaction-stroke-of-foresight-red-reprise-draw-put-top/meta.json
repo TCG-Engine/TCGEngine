@@ -1,0 +1,7 @@
+{
+    "name": "Stroke of Foresight / resolution lifecycle / reprise-draw-put-top",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:28:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Dawnblade3 costs1, blue pitch3 leaves2; Stroke1 leaves1. A hand block enables reprise. Attack gets+3; draw the known top red card, then choose the preexisting yellow card and top deck position. The source remains on Stack across BOTH separate awaits and clears only after the second continuation. The drawn red stays in hand and exact final deck order is asserted. Sources: https://judge.fabtcg.com/cards/detail/251/ https://rules.fabtcg.com/en/cr/08-keywords/#812b https://rules.fabtcg.com/en/cr/03-zones/#3012 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#stroke_of_foresight_red"
+}

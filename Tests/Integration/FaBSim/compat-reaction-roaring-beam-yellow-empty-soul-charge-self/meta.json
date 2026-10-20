@@ -1,0 +1,7 @@
+{
+    "name": "Roaring Beam / resolution lifecycle / empty-soul-charge-self",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:28:41+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The empty-soul condition is checked after creating Courage. Return Roaring Beam from the resolving Stack to its owner hand before prompting charge, then charge roaring_beam_yellow. The already moved source must not be cleared again by the reaction finalizer. Generic attack4, health20, no resources spent, AP0 remain. Charging Roaring Beam itself is legal because it has returned to hand before charge. Sources: https://judge.fabtcg.com/cards/detail/4621/ https://rules.fabtcg.com/en/cr/08-keywords/#812b https://rules.fabtcg.com/en/cr/03-zones/#3012 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/GeneratedCode/cardArrayCache.json#roaring_beam_yellow"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Nimblism / unused-expires-at-end-turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:37:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Resolve Nimblism red and make no attack this turn. Pass normally to player2, who plays a cost0 Wounding Blow blue for2 without go again, spending their AP; pass back to player1. On the controller next turn the Arsenal Wounding Blow red attacks for printed4, not7. No draw or pitch-order choices occur. The this-turn modifier must expire unused. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nimblism_red https://judge.fabtcg.com/cards/detail/331/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

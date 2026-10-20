@@ -1,0 +1,3257 @@
+{
+  "status": "CORRECTED_SPEC_REQUIRES_SEPARATE_INDEPENDENT_REVIEW",
+  "old_full_sha256": "e45ae88cb7d27274e37f66cf998df86908fb43a13f44f09d55d9a7e4d2a70418",
+  "old_pilot_sha256": "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+  "corrected_full": {
+    "path": "weapon-intrinsic-addendum\\played-ledger-corrected\\scenarios-proposed.json",
+    "sha256": "72af4aac5526ff5b11beef1deb5abf68a830ab7b43c0c32d776fc877fc5d0830"
+  },
+  "corrected_pilot": {
+    "path": "weapon-intrinsic-addendum\\played-ledger-corrected\\pilots-proposed.json",
+    "sha256": "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13"
+  },
+  "native_failed_before_attempt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch61-pilot-20261020T030703Z-6ad6dad7d7fee.json",
+    "sha256": "1c2a955de51d8ef444939bdf860e82821a8d58cd9ab15f2d706b2089c6d32a1d",
+    "input_sha256": "949d8ab7c81c1ee11daf5e68f9a81727a3d5e37859d4e0e8a20de24ef331c7a8",
+    "failures": [
+      {
+        "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "error": "state turnEffects expected {\"1\":[]} got {\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1}]}"
+      },
+      {
+        "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "error": "state turnEffects expected {\"1\":[],\"2\":[]} got {\"1\":[{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_2\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1}]}"
+      },
+      {
+        "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+        "error": "state turnEffects expected {\"1\":[]} got {\"1\":[{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1}]}"
+      },
+      {
+        "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+        "error": "state turnEffects expected {\"1\":[],\"2\":[]} got {\"1\":[{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_2\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1}]}"
+      }
+    ]
+  },
+  "classification": "All four stopped on an incorrect global-empty turnEffects expectation. Normal attack/pitch/play history exists. This is an oracle defect, not demonstrated engine rule failure; no failed passing fixture saved.",
+  "changes": [
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 0,
+      "checkpoint": "initial_ordinary_cards_and_printed_assets",
+      "oldCheckIndex": 21,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "oldCheckIndex": 15,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 6,
+      "checkpoint": "mutt_printed_power_and_no_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 8,
+      "checkpoint": "printed_six_damage_and_no_action_point_refund",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"muscle_mutt_yellow\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 0,
+      "checkpoint": "initial_defender_zero_ap_resources",
+      "oldCheckIndex": 19,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": []
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn"
+          ],
+          "comparison": "equals",
+          "valueJson": "[]"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 6,
+      "checkpoint": "primary_defends_free_for_printed_three_no_buff",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 8,
+      "checkpoint": "reaction_step_power_four_defense_three_no_granted_go_again",
+      "oldCheckIndex": 14,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 10,
+      "checkpoint": "one_damage_no_primary_own_go_again_or_effect",
+      "oldCheckIndex": 13,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "step": 12,
+      "checkpoint": "actual_close_preserves_subject_identity_owner_and_no_effect",
+      "oldCheckIndex": 12,
+      "before": {
+        "kind": "state",
+        "key": "turnEffects",
+        "value": {
+          "1": [],
+          "2": []
+        }
+      },
+      "after": [
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "1"
+          ],
+          "comparison": "equals",
+          "valueJson": "[\"wounding_blow_red\"]"
+        },
+        {
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "cardsPlayedThisTurn",
+            "2"
+          ],
+          "comparison": "missing_or_null"
+        }
+      ]
+    }
+  ],
+  "changed_global_checks": 100,
+  "new_game_state_checks": 180,
+  "actual_actions_setup_and_numeric_oracles_unchanged": true,
+  "original_inputs_review_and_attempt_preserved": true,
+  "native_source_basis": {
+    "FaBSim/Custom/GameLogic.php": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "FaBSim/Custom/WTRCards.php": "56a163154630515b73e3e8f40113a3a61aa9c23203c273df45edd963fa4523b8",
+    "Core/RegressionTestFramework.php": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "rules_basis": "Pitching and declaring a normal defense do not play that card. FaBWTRCardPlayed appends only the actual played CardID to cardsPlayedThisTurn. Ledger list[MuscleMuttYellow] or[WoundingBlowRed] and missing seat2 prove no primary play event while allowing unrelated normal history.",
+  "limits": [
+    "Does not assert all global effects absent.",
+    "Does not certify arbitrary future weapon state; actual primary Pitch/DEF role+tags and immediate attack proxy numeric/noGA checks remain exact.",
+    "Prior independent90a numerical/action model needs a bounded correction review before parent serialretry.",
+    "No native action, source write or fixture write performed by this correction author."
+  ],
+  "builder_sha256": "358dd3017ebcb66a646d7b6a13b174960f94b79fc4070562718529d7e55353e5"
+}

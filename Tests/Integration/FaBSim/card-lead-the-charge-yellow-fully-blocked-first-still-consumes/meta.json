@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / fully-blocked-first-still-consumes",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:33+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least1 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. First qualifying critical_strike_red creates its trigger and earnsAP1 before combat. It is fully blocked by6 defense, so no hit occurs. It has no go again. A second qualifying critical_strike_blue consumes the remainingAP but creates no additional trigger, power3, no extraAP. This proves consumption on play independent of hit. Sources: https://judge.fabtcg.com/cards/detail/549/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_yellow"
+}

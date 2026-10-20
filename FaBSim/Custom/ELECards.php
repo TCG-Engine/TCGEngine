@@ -84,7 +84,7 @@ function FaBELEPlayed(int $p,object $o,string $from): void {
         if($aa&&str_starts_with($k,'ELE_WEAVE_')&&FaBELEElement($o,substr($k,10).'|Elemental')){$use=true;if(FaBELEFused($uid)){if($k==='ELE_WEAVE_Earth')++$v;if($k==='ELE_WEAVE_Ice')FaBWTRTag($o,'DOMINATE');if($k==='ELE_WEAVE_Lightning')FaBWTRTag($o,'GO_AGAIN');}}
         if(!$use){$left[]=$e;continue;}if($v)FaBWTRTag($o,'WTR_POWER:'.$v);foreach($e['tags']??[] as $tag)FaBWTRTag($o,$tag);
     }FaBWTRSetEffects($p,$left);
-    if($from==='Arsenal'){if($b==='burgeoning')FaBWTRTag($o,'WTR_POWER:1');if($b==='lightning_surge')FaBWTRTag($o,'GO_AGAIN');if($b==='evergreen')FaBWTRTag($o,'ELE_BOTTOM_CLOSE');}
+    if($from==='Arsenal'){if($b==='burgeoning'&&!HasNoAbilities($o))FaBWTRTag($o,'WTR_POWER:1');if($b==='lightning_surge')FaBWTRTag($o,'GO_AGAIN');if($b==='evergreen')FaBWTRTag($o,'ELE_BOTTOM_CLOSE');}
     if($attack&&FaBELECount($p,'ENTANGLE')){FaBWTRTag($o,'WTR_POWER:-2');FaBELEClear($p,'ENTANGLE');}
 }
 function FaBELEDamageBonus(int $p,string $ref,int $n,string $type): int {

@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / opponent-barrier-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:11+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost1 and1AP, then resolve printed3 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 explicitly declines Barrier1 with PASS, preserving its resource. Prevent0; damage=max(0,3-0)=3, victim life17, other hero20. Final resources[0, 1]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_yellow https://judge.fabtcg.com/cards/detail/1628/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

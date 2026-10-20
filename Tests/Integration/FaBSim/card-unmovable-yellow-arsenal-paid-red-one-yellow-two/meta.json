@@ -1,0 +1,7 @@
+{
+    "name": "Unmovable / arsenal-paid-red-one-yellow-two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:36:39+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Unmovable printed defense is 6; Arsenal origin adds 1, for exact defense 7. Pay cost3 with red-one-yellow-two; no defender action point exists or is consumed. Disable red (Bravo Guardian, cost5) attacks for9, so expected damage is 2 and defender life is 18. All expected defense values leave positive damage, so missing or excessive defense modifiers change a persisted life checkpoint. Defender arsenal is empty after the reaction; Disable crush has no card to move even in the blue-hand branch that takes4. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unmovable_yellow https://rules.fabtcg.com/en/cr/07-combat/#7.4 https://rules.fabtcg.com/en/cr/07-combat/#7.5"
+}

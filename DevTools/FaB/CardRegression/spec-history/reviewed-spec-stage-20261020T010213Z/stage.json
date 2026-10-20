@@ -1,0 +1,108 @@
+{
+  "status": "REVIEWED_SPECS_STAGED_UNRECORDED",
+  "files": [
+    {
+      "source": "plain-random-discard/scenarios-proposed.json",
+      "target": "card-regression-batch31.json",
+      "sha256": "f530f97086d90c34da961ce9477e5172146b29ab16d3987f9b3cac9170bd826b"
+    },
+    {
+      "source": "plain-random-discard/pilots-proposed.json",
+      "target": "card-regression-batch31-pilot.json",
+      "sha256": "dba6218595f2c070ef23712e20c597c0ad3ff7c20dac940c963bc9a56f494ad1"
+    },
+    {
+      "source": "weapon-next-proposed.json",
+      "target": "card-regression-batch33.json",
+      "sha256": "ddcf55effb622bf62727b7476bbf200bde6289dfb8c40a06e6fd45a4c5b06e9f"
+    },
+    {
+      "source": "weapon-next-pilot.json",
+      "target": "card-regression-batch33-pilot.json",
+      "sha256": "725c9c40551d2127c65b65369eb8514786c4f7b8238f6f3de34d763d2aca7680"
+    },
+    {
+      "source": "vanilla-baseline-expansion/vanilla25-additive-pilot.json",
+      "target": "card-regression-vanilla25-pilot.json",
+      "sha256": "36927213e964c131f5e93361fe236069d21776f7b3db74dd26eed70ac73d0343"
+    },
+    {
+      "source": "flat-defense-reactions/scenarios-proposed.json",
+      "target": "card-regression-batch43.json",
+      "sha256": "07893dee7d19ce795eb7d905a3643000680a18004ec37600bc3b2f4b69430554"
+    },
+    {
+      "source": "flat-defense-reactions/pilot-proposed.json",
+      "target": "card-regression-batch43-pilot.json",
+      "sha256": "f3a5463c3ab421c8b9195becbbc9b1752eebe4a11a8c7251cf7e21638aba66d3"
+    },
+    {
+      "source": "ab8-intrinsic-closure/additive24-proposed.json",
+      "target": "card-regression-batch44.json",
+      "sha256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302"
+    },
+    {
+      "source": "ab8-intrinsic-closure/pilots5-proposed.json",
+      "target": "card-regression-batch44-pilot.json",
+      "sha256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e"
+    },
+    {
+      "source": "flat-defense-reactions/post-partial-resolution-third-reaction-probe.json",
+      "target": "card-regression-batch45.json",
+      "sha256": "c70005bbb9b417c037912272cecc2ce1f8c66fae8bd06da5bb4bcf438f3f503f"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\autumns_touch.json",
+      "target": "card-regression-batch34.json",
+      "sha256": "685ca86bcf01e408379c8733f1c26940c6a97b86e9dd57d1de8c12ab319f5aec"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\brutal_assault.json",
+      "target": "card-regression-batch35.json",
+      "sha256": "a3c0c597a73f4288fbc677fcd7ca5fc69b7c57bf42850044420a580cfa7e3f41"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\critical_strike.json",
+      "target": "card-regression-batch36.json",
+      "sha256": "4c9dfc80e0a9f270f859e149f1c81acb88dbad2cf9bd8a290e5746e07aa972ac"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\heavens_claws.json",
+      "target": "card-regression-batch37.json",
+      "sha256": "227497623c0831dc05f156e73fff17e334579a5470938fad60ca20af73c7e036"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\raging_onslaught.json",
+      "target": "card-regression-batch38.json",
+      "sha256": "4e0e5f4baa510dab73c0014ceef079efa58ad02b67e40bc73ef5ae55ce933cd9"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\rusty_harpoon.json",
+      "target": "card-regression-batch39.json",
+      "sha256": "8af6d2a0e212d88c02aa28b92aecea2314107ee0e4476b5d3e02f2b97eb4b0f6"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\smash_with_big_tree.json",
+      "target": "card-regression-batch40.json",
+      "sha256": "a43c118382b0ddc625b8979f9c23fd1c37c1ee81b892639f961c94c555bdacbc"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\winters_grasp.json",
+      "target": "card-regression-batch41.json",
+      "sha256": "0c67127cc6d4fd65585b6944fff98a222dc24e79b034bbc7ce562e6fea8d3fe7"
+    },
+    {
+      "source": "vanilla-baseline-expansion\\batches\\wounding_blow.json",
+      "target": "card-regression-batch42.json",
+      "sha256": "bd9bd4da5ee38c633fb52ddb31094baf3d241435934775402a17c2ae69de136b"
+    }
+  ],
+  "reviews": {
+    "plain-random-discard-independent-spec-review.json": "1aa2b1f2cc77d4baa1ac16660d002db52c39ed077ec251093e246e88c9d55007",
+    "weapon-next-independent-spec-review.json": "bcb21af147bb1a0e172edc2c95d82f594dceaa5a07df71b486016b9ee94149e6",
+    "vanilla25-additive-independent-review.json": "4b4cc6cdaa00c07b2b721af8968c251db92237c420f706343a093a9e06c6cf24",
+    "flat-defense-reactions-independent-spec-review.json": "10fdfe18fce738a34d6749d05cb30e2b626c23795a75dc9f412c52abf9f30f90",
+    "ab8-intrinsic-closure/independent-additive24-spec-review.json": "2a00d78504cbeb4c9fb60121f6c0d330c5fd688b93c8ce9bfa070b941eda369d",
+    "flat-defense-reactions-third-response-independent-review.json": "a71b77d51e4487ca35c18e16f485060ea55b8066f315e91de279e450002bf846"
+  }
+}

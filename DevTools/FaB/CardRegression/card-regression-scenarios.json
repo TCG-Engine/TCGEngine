@@ -1,0 +1,1167 @@
+[
+  {
+    "slug": "card-sigil-of-solace-red-gain",
+    "name": "Sigil of Solace / gain",
+    "cardIDs": [
+      "sigil_of_solace_red"
+    ],
+    "branches": [
+      "gain"
+    ],
+    "zones": [
+      {
+        "cardID": "sigil_of_solace_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 13
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sigil_of_solace_red"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed text gains 3 life. Injured controller starts at 10 life; instant consumes no action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      10,
+      20
+    ]
+  },
+  {
+    "slug": "card-sigil-of-solace-yellow-gain",
+    "name": "Sigil of Solace / gain",
+    "cardIDs": [
+      "sigil_of_solace_yellow"
+    ],
+    "branches": [
+      "gain"
+    ],
+    "zones": [
+      {
+        "cardID": "sigil_of_solace_yellow",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 12
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sigil_of_solace_yellow"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed text gains 2 life. Injured controller starts at 10 life; instant consumes no action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_yellow",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      10,
+      20
+    ]
+  },
+  {
+    "slug": "card-sigil-of-solace-blue-gain",
+    "name": "Sigil of Solace / gain",
+    "cardIDs": [
+      "sigil_of_solace_blue"
+    ],
+    "branches": [
+      "gain"
+    ],
+    "zones": [
+      {
+        "cardID": "sigil_of_solace_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "sigil_of_solace_blue"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Printed text gains 1 life. Injured controller starts at 10 life; instant consumes no action point.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_blue",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "health": [
+      10,
+      20
+    ]
+  },
+  {
+    "slug": "card-wounding-blow-red-unblocked",
+    "name": "Wounding Blow / unblocked",
+    "cardIDs": [
+      "wounding_blow_red"
+    ],
+    "branches": [
+      "unblocked"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 4
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "wounding_blow_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "First unblocked attack deals printed 4 physical damage; go again is False. The first attack does not receive Ira second-attack bonus.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#wounding_blow_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-head-jab-red-unblocked",
+    "name": "Head Jab / unblocked",
+    "cardIDs": [
+      "head_jab_red"
+    ],
+    "branches": [
+      "unblocked"
+    ],
+    "zones": [
+      {
+        "cardID": "head_jab_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 3
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1CombatChain",
+            "cardID": "head_jab_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "First unblocked attack deals printed 3 physical damage; go again is True. The first attack does not receive Ira second-attack bonus.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#head_jab_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-exchange",
+    "name": "Sink Below / exchange",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "exchange"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "p2Hand-0",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Sink Below defends for 4. Optional exchange exchange: only accepting bottoms the chosen card and draws original deck top. Wounding Blow 4 is fully defended.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-sink-below-red-decline",
+    "name": "Sink Below / decline",
+    "cardIDs": [
+      "sink_below_red"
+    ],
+    "branches": [
+      "decline"
+    ],
+    "zones": [
+      {
+        "cardID": "wounding_blow_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "sink_below_red",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "head_jab_blue",
+        "player": 2,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 2,
+        "zone": "Deck",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "click",
+        "mzID": "p2Hand-0",
+        "player": 2
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "answer",
+        "value": "-",
+        "player": 2,
+        "type": "MZMAYCHOOSE"
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "hand_ids",
+            "value": [
+              "head_jab_blue"
+            ],
+            "player": 2
+          },
+          {
+            "kind": "deck_ids",
+            "value": [
+              "wounding_blow_blue"
+            ],
+            "player": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "defense",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2CombatChain",
+            "cardID": "sink_below_red"
+          }
+        ]
+      }
+    ],
+    "oracle": "Sink Below defends for 4. Optional exchange decline: only accepting bottoms the chosen card and draws original deck top. Wounding Blow 4 is fully defended.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-harmonized-kodachi-zero-cost-pitch",
+    "name": "Harmonized Kodachi / zero-cost-pitch",
+    "cardIDs": [
+      "harmonized_kodachi"
+    ],
+    "branches": [
+      "zero-cost-pitch"
+    ],
+    "zones": [
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "wounding_blow_blue"
+          },
+          {
+            "kind": "power",
+            "value": 1
+          },
+          {
+            "kind": "go_again",
+            "value": true
+          },
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Weapons-0"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "harmonized_kodachi"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Weapons-0"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay one resource by pitching a blue card for three; keep two. Kodachi attacks for one and persists. Go again requires an actual cost of zero, not an absent cost; expected True. Once-per-turn activation unavailable after attack.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#harmonized_kodachi",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-harmonized-kodachi-nonzero-cost-pitch",
+    "name": "Harmonized Kodachi / nonzero-cost-pitch",
+    "cardIDs": [
+      "harmonized_kodachi"
+    ],
+    "branches": [
+      "nonzero-cost-pitch"
+    ],
+    "zones": [
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "raging_onslaught_blue"
+          },
+          {
+            "kind": "power",
+            "value": 1
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Weapons-0"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "harmonized_kodachi"
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay one resource by pitching a blue card for three; keep two. Kodachi attacks for one and persists. Go again requires an actual cost of zero, not an absent cost; expected False. Once-per-turn limit not independently covered in this branch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#harmonized_kodachi",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-harmonized-kodachi-no-cost-pitch",
+    "name": "Harmonized Kodachi / no-cost-pitch",
+    "cardIDs": [
+      "harmonized_kodachi"
+    ],
+    "branches": [
+      "no-cost-pitch"
+    ],
+    "zones": [
+      {
+        "cardID": "harmonized_kodachi",
+        "player": 1,
+        "zone": "Weapons",
+        "properties": {}
+      },
+      {
+        "cardID": "heart_of_fyendal_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Weapons-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "state",
+            "value": "PITCH",
+            "key": "window"
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Pitch",
+            "cardID": "heart_of_fyendal_blue"
+          },
+          {
+            "kind": "power",
+            "value": 1
+          },
+          {
+            "kind": "go_again",
+            "value": false
+          },
+          {
+            "kind": "can_activate",
+            "value": false,
+            "player": 1,
+            "mzID": "p1Weapons-0"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Weapons",
+            "cardID": "harmonized_kodachi"
+          }
+        ]
+      }
+    ],
+    "oracle": "Pay one resource by pitching a blue card for three; keep two. Kodachi attacks for one and persists. Go again requires an actual cost of zero, not an absent cost; expected False. Once-per-turn limit not independently covered in this branch.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#harmonized_kodachi",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  },
+  {
+    "slug": "card-goliath-gauntlet-destroy-buff",
+    "name": "Goliath Gauntlet / destroy-buff",
+    "cardIDs": [
+      "goliath_gauntlet"
+    ],
+    "branches": [
+      "destroy-buff"
+    ],
+    "zones": [
+      {
+        "cardID": "goliath_gauntlet",
+        "player": 1,
+        "zone": "Equipment",
+        "properties": {}
+      },
+      {
+        "cardID": "raging_onslaught_red",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "player": 1,
+        "zone": "Hand",
+        "properties": {}
+      }
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "mzID": "p1Equipment-0",
+        "player": 1
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "goliath_gauntlet"
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "stackEmpty": true,
+          "window": "ACTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "goliath_gauntlet"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "click",
+        "mzID": "p1Hand-0",
+        "player": 1
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 9
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION"
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 11
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Destroy equipment as cost; activation has go again. Next cost-3 Raging Onslaught gets +2 power (7 to 9); blue pitch pays cost 3.",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ]
+  }
+]

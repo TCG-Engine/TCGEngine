@@ -1,0 +1,128 @@
+{
+  "status": "SINGLE_EXISTING_EARTH_OTHER_CONTROLLER_SPEC_INDEPENDENTLY_APPROVED_FOR_NATIVE_PILOT",
+  "reviewer": "/root/resume_token_specs",
+  "input_sha256": "a832e18a01829e5993182a8046de028d36ed9f215c849dcefe6b366f91839840",
+  "model_path": "review_token75_ordinary228.py",
+  "model_sha256": "94dd3e0dd326b488f27aec86c5d0ea6b0c5b5ff2b5cd72d91980af5390267c74",
+  "checks": 976,
+  "modeled_case": {
+    "slug": "card-earth-form-red-token75-created-earth-other-controller-naa-defense-excluded",
+    "spec_modeled": true,
+    "oracles": 642,
+    "modeled_actions": 31,
+    "individual_passes": 28,
+    "final_hp": [
+      20,
+      12
+    ],
+    "final_resources": [
+      0,
+      0
+    ],
+    "final_ap": [
+      0,
+      0
+    ],
+    "checkpoints": [
+      {
+        "checkpoint": "initial_printed_legal_assets",
+        "modeled_action_step": 0,
+        "oracles": 43
+      },
+      {
+        "checkpoint": "assets_paid_no_token_or_hit_layer",
+        "modeled_action_step": 1,
+        "oracles": 46
+      },
+      {
+        "checkpoint": "printed_power_no_retroactive_go_again",
+        "modeled_action_step": 3,
+        "oracles": 48
+      },
+      {
+        "checkpoint": "real_damage_trigger_layer_token_absent",
+        "modeled_action_step": 10,
+        "oracles": 59
+      },
+      {
+        "checkpoint": "opponent_priority_token_still_absent",
+        "modeled_action_step": 11,
+        "oracles": 59
+      },
+      {
+        "checkpoint": "only_hit_layer_resolution_creates_canonical_owned_token",
+        "modeled_action_step": 12,
+        "oracles": 57
+      },
+      {
+        "checkpoint": "resolved_hit_no_current_attack_ga_or_ap_refund",
+        "modeled_action_step": 14,
+        "oracles": 57
+      },
+      {
+        "checkpoint": "real_close_exact_source_and_blocker_owner_cleanup",
+        "modeled_action_step": 16,
+        "oracles": 49
+      },
+      {
+        "checkpoint": "opponent_naa_stays_printed_three_despite_attackers_earth",
+        "modeled_action_step": 22,
+        "oracles": 55
+      },
+      {
+        "checkpoint": "other_controller_earth_exclusion_damage_one",
+        "modeled_action_step": 27,
+        "oracles": 60
+      },
+      {
+        "checkpoint": "real_link_resolution_exact_ga_refund",
+        "modeled_action_step": 29,
+        "oracles": 60
+      },
+      {
+        "checkpoint": "real_close_original_physical_sources_retained",
+        "modeled_action_step": 31,
+        "oracles": 49
+      }
+    ]
+  },
+  "model_fault": {
+    "name": "Attackers Earth incorrectly modifies opponents NAA defense",
+    "detected": true,
+    "first_error": "card-earth-form-red-token75-created-earth-other-controller-naa-defense-excluded opponent_naa_stays_printed_three_despite_attackers_earth {'kind': 'state', 'key': 'defenseValue', 'value': 3} independent=4"
+  },
+  "reviewer_authored_this_recipe": false,
+  "source_hashes": {
+    "FaBSim/Custom/ELECards.php": "af45a8b56294e3b64832b83d1a4c1db55daeb4ed7c3406e5d5e1eda33843b2ec",
+    "FaBSim/Custom/WTRAbilities.php": "5babe8457b3ae98d249a70c9c2094c18ca734a850fd7818aad4f13983e2ae59f",
+    "FaBSim/Custom/GameLogic.php": "70a6ad592e0b05ab80824e4defcf3fb5ee39e818036ee88a32504fed305350ae",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.6.11"
+      ],
+      "basis": "Earth applies only to NAA cards its controller controls while defending; attacker-owned Earth cannot modify the other players NAA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.3",
+        "7.5"
+      ],
+      "basis": "First Earth7 damage creates own token. The later actual WB4 against opponents printed defense3 deals1, finalHP12. No source/token was seeded."
+    }
+  ],
+  "required_gates": [
+    "Actual native supported actions and save only correct behavior.",
+    "Independent saved raw5/action/oracle binding audit, clean replays and semantic native controls."
+  ],
+  "accepted_native_coverage": 0,
+  "finite_complete": false,
+  "native_actions": 0,
+  "native_writes": 0,
+  "native_imports": 0
+}

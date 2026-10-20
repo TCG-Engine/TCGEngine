@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / opponent-ally-target-no-hero-barrier",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:25+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Any target includes opponent Aether Ashwing, a1health ally. Cast cost1/1AP and deal printed2 to that ally. Hero Arcane Barrier on the Ashwing/Nullrune does not protect an ally, so no hero prevention chooser despite victim resources1. Ashwing is destroyed by2>=1 and token ceases outside arena: Arena0 and Graveyard0 for player2. Both hero HP20; Nullrune and resources1 persist. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_blue https://judge.fabtcg.com/cards/detail/1629/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

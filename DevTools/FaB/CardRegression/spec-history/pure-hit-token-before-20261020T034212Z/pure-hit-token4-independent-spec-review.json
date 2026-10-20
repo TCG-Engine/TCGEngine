@@ -1,0 +1,265 @@
+{
+  "status": "FOUR_CORRECT_RULE_HIT_TOKEN_PILOTS_APPROVED_FOR_PARENT_SERIAL_BEFORE_PROBES",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "pilot_sha256": "477e175d50eaaa312da8db92675622a8149a040a5f45a3a7af15a3f932143856",
+  "catalog_audit_sha256": "07f5234d265146ab008efe67395e51f760609a7a219c7f6b334de4d7433079d2",
+  "current_context_sha256": "24c1d51be2f8ed49f7061efd80c4a3ed4e4ceaaf7395b1dad6677ab2414d5121",
+  "minimal_plan_sha256": "71780e0d6442a79331c57a0b5ce6a47f0ce841cffdc7fd54426a63da0a9df097",
+  "independent_checks": 4188,
+  "modeled_native_oracles": 1032,
+  "modeled_supported_actions": 64,
+  "modeled_individual_passes": 60,
+  "rows": [
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "spec_semantically_approved": true,
+      "modeled_supported_actions": 16,
+      "modeled_individual_passes": 15,
+      "native_planned_oracles": 258,
+      "printed_cost": 2,
+      "printed_power": 5,
+      "final_target_HP": 15,
+      "token": "ponder"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "spec_semantically_approved": true,
+      "modeled_supported_actions": 16,
+      "modeled_individual_passes": 15,
+      "native_planned_oracles": 258,
+      "printed_cost": 0,
+      "printed_power": 4,
+      "final_target_HP": 16,
+      "token": "gold"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "spec_semantically_approved": true,
+      "modeled_supported_actions": 16,
+      "modeled_individual_passes": 15,
+      "native_planned_oracles": 258,
+      "printed_cost": 3,
+      "printed_power": 7,
+      "final_target_HP": 13,
+      "token": "embodiment_of_earth"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "spec_semantically_approved": true,
+      "modeled_supported_actions": 16,
+      "modeled_individual_passes": 15,
+      "native_planned_oracles": 258,
+      "printed_cost": 1,
+      "printed_power": 5,
+      "final_target_HP": 15,
+      "token": "embodiment_of_lightning"
+    }
+  ],
+  "pure_model_faults": [
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "eagerToken",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0}"
+    },
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "missingLayer",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'Stack', 'value': 1}"
+    },
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "wrongActor",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'card_property_equals', 'mzId': 'Stack-0', 'property': 'Controller', 'value': '1'}"
+    },
+    {
+      "slug": "card-destructive-deliberation-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "retroactiveGA",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'kind': 'go_again', 'value': False}"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "eagerToken",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0}"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "missingLayer",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'Stack', 'value': 1}"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "wrongActor",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'card_property_equals', 'mzId': 'Stack-0', 'property': 'Controller', 'value': '1'}"
+    },
+    {
+      "slug": "card-strike-gold-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "retroactiveGA",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'kind': 'go_again', 'value': False}"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "eagerToken",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0}"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "missingLayer",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'Stack', 'value': 1}"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "wrongActor",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'card_property_equals', 'mzId': 'Stack-0', 'property': 'Controller', 'value': '1'}"
+    },
+    {
+      "slug": "card-earth-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "retroactiveGA",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'kind': 'go_again', 'value': False}"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "eagerToken",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'p1Arena', 'value': 0}"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "missingLayer",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'zone_count', 'zone': 'Stack', 'value': 1}"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "wrongActor",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'type': 'card_property_equals', 'mzId': 'Stack-0', 'property': 'Controller', 'value': '1'}"
+    },
+    {
+      "slug": "card-lightning-form-red-pure-hit-token-hand-queued-timing-pilot",
+      "fault": "retroactiveGA",
+      "detected": true,
+      "first_error": "exact independent printed/pass/source oracle {'kind': 'go_again', 'value': False}"
+    }
+  ],
+  "catalog12_source_rows": [
+    {
+      "cardID": "destructive_deliberation_red",
+      "official_url": "https://judge.fabtcg.com/cards/detail/2146/",
+      "printing_count": 3,
+      "callback_sha256": "b97214588c49cf0bbe58b0cc7edf81cc6c8042a39064a5495eea3ef065d79f49"
+    },
+    {
+      "cardID": "destructive_deliberation_yellow",
+      "official_url": "https://judge.fabtcg.com/cards/detail/2147/",
+      "printing_count": 2,
+      "callback_sha256": "90ca169a8d62feb40fce8f3d92e6cf24061efc872087db0f33ca940b3ccfde2a"
+    },
+    {
+      "cardID": "destructive_deliberation_blue",
+      "official_url": "https://judge.fabtcg.com/cards/detail/2148/",
+      "printing_count": 2,
+      "callback_sha256": "1be29479335937927ae46a5c20fcfd325cea4a398688199aa5f6d533c061a6c9"
+    },
+    {
+      "cardID": "strike_gold_red",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3990/",
+      "printing_count": 4,
+      "callback_sha256": "87103085c3038b07e36edcbf0d0e2971f1a24ffdcaeb411c60bf69884d09868e"
+    },
+    {
+      "cardID": "strike_gold_yellow",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3991/",
+      "printing_count": 2,
+      "callback_sha256": "f757757833c62939220ae9c1c7bbeef092f7e24d05af392e374bfc983dfeeeeb"
+    },
+    {
+      "cardID": "strike_gold_blue",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3992/",
+      "printing_count": 2,
+      "callback_sha256": "fd903e91259fd8fff2500d6f477fa0244d8df6f6a99ea09f3b3dc93e9a5f7dc2"
+    },
+    {
+      "cardID": "earth_form_red",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3021/",
+      "printing_count": 4,
+      "callback_sha256": "d4b69967c59d3b812b568bcc5232554d9c96081283d50661fc7fd16fe4f6f0b3"
+    },
+    {
+      "cardID": "earth_form_yellow",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3247/",
+      "printing_count": 2,
+      "callback_sha256": "32f8fa1a48f7b901f2b97d5b271646286979777baa3372ca235205555ac7e300"
+    },
+    {
+      "cardID": "earth_form_blue",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3248/",
+      "printing_count": 3,
+      "callback_sha256": "d7727cfd5bf4732eb630a1daa224c901f6a6cbd0f34314b4f354e48fb5bb5ce7"
+    },
+    {
+      "cardID": "lightning_form_red",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3083/",
+      "printing_count": 5,
+      "callback_sha256": "72791624336f79d50e1426b98d6789fee3573d3675f5f6d8aa638773a9ed0711"
+    },
+    {
+      "cardID": "lightning_form_yellow",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3264/",
+      "printing_count": 2,
+      "callback_sha256": "59787b078881e56179a963946512df78c6f1e917e25026c807bb05bbc9493c93"
+    },
+    {
+      "cardID": "lightning_form_blue",
+      "official_url": "https://judge.fabtcg.com/cards/detail/3265/",
+      "printing_count": 2,
+      "callback_sha256": "da39a8c19470ae4bd99aff6135700676ce64aadc8792acf255ff58512892e66c"
+    }
+  ],
+  "review_basis": "Separate individual-pass model derives all1032 exact proposed oracles from real one-Hand-card plays with full printed floating costs and AP1/nonturnAP0. Red costs2/0/3/1,powers5/4/7/5,defense2,pitch1 and trigger qualifiers independently checked against local printed faces/current official JudgeHub. Damage creates one respondable triggered layer before priority; no token before resolution; token5 created only after actual two passes, sourceUID3 staysCC untilClose, no current AA play event to grant retroactiveLightning goagain. All physical-property references are serialized GameSchema fields. Quiet legalDori/Oldhim/Lexi classes/talents avoid extra automatic triggers. Current inline compiled Hit helper calls are a source prediction, not accepted intended timing.",
+  "native_representation_scope": "Prospective virtual CardID/Owner1/Controller1/ABILITY/SourceZoneCC/SourceUID3/UID4 convention matches existing native printed hit helpers (Snatch/CnC). These internal-field oracles are reviewed as that bounded native recording contract, not a claim that rules mandate all implementation encodings. If native proof fails, distinguish actual timing/effect violations from any independently incorrect representation oracle before a repair.",
+  "official_sources": [
+    "https://judge.fabtcg.com/cards/detail/2146/",
+    "https://judge.fabtcg.com/cards/detail/2147/",
+    "https://judge.fabtcg.com/cards/detail/2148/",
+    "https://judge.fabtcg.com/cards/detail/3990/",
+    "https://judge.fabtcg.com/cards/detail/3991/",
+    "https://judge.fabtcg.com/cards/detail/3992/",
+    "https://judge.fabtcg.com/cards/detail/3021/",
+    "https://judge.fabtcg.com/cards/detail/3247/",
+    "https://judge.fabtcg.com/cards/detail/3248/",
+    "https://judge.fabtcg.com/cards/detail/3083/",
+    "https://judge.fabtcg.com/cards/detail/3264/",
+    "https://judge.fabtcg.com/cards/detail/3265/",
+    "https://rules.fabtcg.com/en/cr/06-effects/",
+    "https://rules.fabtcg.com/en/cr/07-combat/"
+  ],
+  "rule_basis": "CR6.6.1d/6.6.5/6.6.6: trigger layer then resolution effects, added before next priority. CR7.5.2/7.5.3: positive unblocked damage creates hit then turn player priority. CR6.6.5a: later-created Embodiment cannot retroactively trigger on the earlier play; no intrinsic goagain.",
+  "scope": {
+    "catalog_identities": 12,
+    "printing_records": 33,
+    "concrete_pilot_recipes_approved": 4,
+    "ordinary219_plans_are_not_recipes_or_coverage": true,
+    "full_family_coverage_approved": false
+  },
+  "required_gates": [
+    "Parent confirms isolated serial slot/current source stamp, probes exact firstStrike subset or filter then other approved representatives if useful.",
+    "Preserve any correct-rule failures/attempted actions/input hash and verify no passing fixture saved; never relax no-early-token/queued-layer/priority oracles for green.",
+    "Any necessary native fix requires separate bounded independently reviewed source proposal; no generic/generated change authorized by this spec gate.",
+    "Only after actual saved five-raw/behavior/action/oracle review plus deterministic clean replay/semantic controls may these specific scenarios count. Full219 still needs concrete recipes and dependency behaviors."
+  ],
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_coverage": 0
+}

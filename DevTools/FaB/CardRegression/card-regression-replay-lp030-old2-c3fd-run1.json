@@ -1,0 +1,38 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "c3fd7d2278f722e6ae7a814d26439591d009da4a7eceb6c8b92b60cbe947276f",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T03:57:04.103287+00:00",
+  "canonical_inventory_at_capture": 2983,
+  "fixtures": [
+    {
+      "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "fixture_sha256": "89cc35cbfc354ba31db4bcfa7c09558c1072763ef239ae71d58a833baabb3092",
+      "passed": true,
+      "result": "[PASS] Issue028 native compatibility / real-command-and-conquer-prohibition"
+    },
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "fixture_sha256": "50146734ab15d6fb47b7123d96e2e3386a18840eff24fa35ef57512fd054191c",
+      "passed": true,
+      "result": "[PASS] Issue028 native compatibility / further-ar-lunging-press"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+      "returncode": 0,
+      "stdout": "[PASS] Issue028 native compatibility / real-command-and-conquer-prohibition\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=compat-reaction-priority028-further-ar-lunging-press",
+      "returncode": 0,
+      "stdout": "[PASS] Issue028 native compatibility / further-ar-lunging-press\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,4125 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/pilot_review",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "blade-break-review/saved-full66-independent-review.json",
+    "sha256": "e65d1b4417f3eadf7bf09100a853d312c3912e53ca8e3b8149050a9ce4dae3a2"
+  },
+  "fixtures": [
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "993c68b788d20b43ea28a9986f8a46bd0b32973bbb174daae59f0d8fd549cf09",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "2fe21e6919c369045f5394a512d98bacab24043bed4a725c6e457e59e85545c6",
+        "expected_final_gamestate.txt": "4b82855a76318b336b242dba6fe040e19b492da6658e542c0296e53c3039883f",
+        "meta.json": "74ea9a353ff99d7b1dc36a29e12d708507a2f7b44f03820c0a1ffed65437ffb1"
+      },
+      "fixture_sha256": "365f6c12c40a274841ace20a88957eec5d278ebf5382eff947bffe626dc69ea8",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "37aa17f467c010c504e1fdc85c641f1ac5f02a4255a2cebfc7e9fe1973475739",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "d3d1dd45e89518e1507ee64fc80ac9bcc87b3edb2225671123368f40e89ad019",
+        "expected_final_gamestate.txt": "49d90cf6b8d16b4579655ddda6433dda0452ebbfb4bb92cdf80fd530f06a63e0",
+        "meta.json": "1413f4945232a2ede9fca1449a99263c571d302779fd68571d70664acff74dec"
+      },
+      "fixture_sha256": "4ec8044fb6fe63b6cc0e1f7c910cf2ef075ebebe23b88545f3f5d44fc3ca6462",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9c940a9ae379304b24cc2ddf2059c6bfbe3a5d1ccc4685473fc05fb23f0b1ac8",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "3612c41d25d6346cda7b99de89979f3a9c9b513bbcb77c888a67e90ef07a4417",
+        "expected_final_gamestate.txt": "79b6fabb9fe0c5fde5e70a640479213f078feeb9fb52e220c9c8779cf6c06271",
+        "meta.json": "b86d9ff14f6be1543295326598dd6a185031486e49924fc0620361cf9db78d9d"
+      },
+      "fixture_sha256": "7ebcdce2aecdac737eb49f98576687fac11b172b618435c711242dc80a91055b",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "993c68b788d20b43ea28a9986f8a46bd0b32973bbb174daae59f0d8fd549cf09",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "0659ec4dbe3da4899f77b988015ac01f7a4f7caf14e7e331a40b33bfa532ad62",
+        "expected_final_gamestate.txt": "6d72e01608551cd708f5d19bf72b2329ae320847829da1b7ff1393db09001d3e",
+        "meta.json": "682825797edc6c2f22764585716ac977b7b1d23147a22ebfa192faf9a49526b4"
+      },
+      "fixture_sha256": "0ff5ea52c6806e01f4df009a6d2aadb548ed846cb1a6787f287c8a9dae9172d9",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "69d2ff04bfd0032ee9b29f6739625d50bc0968c985282eae564dd4a53eb2ab24",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "a2b7bf446dceea1fad7882b7814576fcca1ff9adb672d89107d5a8899d41e8e9",
+        "expected_final_gamestate.txt": "085f60610be4ba2c9c3ac72d61a5f3c170c253b74ecba59f6df55ceb2766b3d5",
+        "meta.json": "270461e206d83a6f22ef377871017a96ddaa73afea42c4cc7882e36ec89d1f03"
+      },
+      "fixture_sha256": "fddc4b38a58c5682cb836ba16febb6fa3468ce614a3903b2be1d77f85d3be875",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "32eaf176d32c03a111d72447cd0ca3e4785492bb699085136b31de940be97d1a",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "bdcd820afd550535eb2843c0c89a798ba945ebfe694ce73eb6907b9154ec7bfe",
+        "expected_final_gamestate.txt": "dc8f74185910dd7bdec1519b7685ed9d8ff14f7f1c06a0800e11635a56e65474",
+        "meta.json": "ec0aea20f6c95089882ea0731d2cfcf7ae0270eaa1f2798f40254278459043e0"
+      },
+      "fixture_sha256": "0eae2150c89420e1bbaca9db2b036525a71ba18f5c3dca5b9cfd035bac6259aa",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-gauntlet-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "32eaf176d32c03a111d72447cd0ca3e4785492bb699085136b31de940be97d1a",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "a7f2b2f123dfb840961f8dd97660a159314ece58c6f634eb73b9cc000d3fae02",
+        "expected_final_gamestate.txt": "da2e54870a40a529e0e45a8aab76b5069648288e782042518018420b434c1e38",
+        "meta.json": "ecd2b43a9a1e87e3d4a24ead7162cc649dfa28d469a0b1c2f3f2b8666fd8b980"
+      },
+      "fixture_sha256": "394bcc8f79beb93d6f3e06bc4a55b72327c7c4fa06d85f6755218ee493f9bf85",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_gauntlet"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c9fcb40d0429fb068153928a95c524ce38d394e12618f4787cd9dd4e99443328",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "bdd90821b715fc6137529e6c167cdbbd1b21406d7dd9320fceb8029fcf613293",
+        "expected_final_gamestate.txt": "541ee8ee4591af6cece87bd5c4ad2beff4855da1d7af7e4b5b9b18f8b7394aaf",
+        "meta.json": "790d732c8342094a00a2e8d650c707f8716abb8b8ad7b5a21b05e1266352268e"
+      },
+      "fixture_sha256": "f402444908aebd31a72da01e53786d6301cc1cf358f082bd4b33d5ada630c336",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "1130a4e60508854e05a2e51ef16c004787ad549ba9cfb165f32f352a7f233626",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "b96e6abca73ae724708b0dfc2a9396df85d9c7a534fb4133f39c5acb2c28d554",
+        "expected_final_gamestate.txt": "1587374cf96a30b48f6f6fff3a0047deba7ce9fba6d883d88d74a243b7698b73",
+        "meta.json": "4e0ac3b3c52ddaa54d9bb61465a64d17980b6ea6fce0409f2f226349d5259000"
+      },
+      "fixture_sha256": "ace1f48705dc9252549d904540aff1b61f6238a316d1ecad8cd0aac32bbc837a",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d7f1d51984f1a469130055a235b30fa17ae6cb7d8f4f249ee59849e6665cc8e6",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "b1666d4fb20e87aae1a94a73262fcc08d0b5d409100134618bb6311d86757331",
+        "expected_final_gamestate.txt": "c459ed2ae101f562b92ac94f6e60eaad72264a53e30a03135ffaeea0ac8b3aff",
+        "meta.json": "921efcbb852dc7693468df3e1749faa27496123f231f6e1092bb0b03003b8031"
+      },
+      "fixture_sha256": "720e558238db8dcd91ca52de10197d71a9a6b30c89f2e3ccaea5d138f0d5f38e",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c9fcb40d0429fb068153928a95c524ce38d394e12618f4787cd9dd4e99443328",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "d354d8b009e7e4859ab1640ffd163cf0b9fc78831244fabf68b2d595d231fa18",
+        "expected_final_gamestate.txt": "67cccc5f9e6048f5a70a693edb39380ea5b7977b1f2568efb5b2a186c3a132c8",
+        "meta.json": "0bfc1ee5440f1174d0e793a07b1aa33a2c89b55177a8e58093f34422cc18f82e"
+      },
+      "fixture_sha256": "982aeca726e9eaf7fe7ce996a0064b7b764b19bd5ff0961b08bdcdf95e590e9f",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "938b3bcf714b75a27d3c739ea9ac4753edf946b76642c127d98cca762b69ba50",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "2495c9df98301a05d07fa1d0cc3db57c04beb05ed15b7c75ab6729232dd854f1",
+        "expected_final_gamestate.txt": "e294de3135a5d27d61ce7f04e63de2a96660a9375777adc5fd73fbb9f31aa764",
+        "meta.json": "11f22e86cd13e39dd7372ea2264e96e6de0f34425fc3bd31c531acb15d0abeaa"
+      },
+      "fixture_sha256": "63e8eac4e9371f2d3d258633e96c9955dc7836f1b46351eccc4da2d9caab625a",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "35bcc716790cd6f9f23df361c4d856400a05ead7f659adad30b8b3a63f7f0ff7",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "af97a47a0c6ff3d85d8acc9980b185de14394036bd07f41a6310608ecdfa2f2e",
+        "expected_final_gamestate.txt": "a9ae1a2fe250c1c66ae27928fc670bcc7eec9d1a886a66681af2a0c0341af54f",
+        "meta.json": "08064de9b668e9afff4b6cf89a865b91a5be13b91efd9c1334d9e1576fc3842d"
+      },
+      "fixture_sha256": "966967bd44278807fcef6271ca3352f8020676146ce7e88f3d1d88e58bf7f767",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "35bcc716790cd6f9f23df361c4d856400a05ead7f659adad30b8b3a63f7f0ff7",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "f8c3c4f43dfb12fc1f17cb3ad1b6169a96581ede4c152a6f7d5da4e03f9846f0",
+        "expected_final_gamestate.txt": "0ed9a9327391966a12c972d8353d080a72dbf908d9974ca6879657a6a3754c9a",
+        "meta.json": "7dec13272807f67f1e66e37c88b1be57eeb0acf42104a0b34972f713ecaf7c89"
+      },
+      "fixture_sha256": "47ed4d0fdabe36d5ba1ec623c39c40a1b2bd78bfb588cf55479effb08441ba2f",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0894880c5f5988fde9802c13302bc1056a3afa82b17cac28b9c79c113408416f",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "131a991c3a613802a53033c8eb118d8661b68a158c610ef12f7ea10317727b49",
+        "expected_final_gamestate.txt": "0110b71b07767cf3d37c8aa0740cd70ced268c0610995a082e0ef0bbe66744ef",
+        "meta.json": "5916d52227eff52000ff14ef907b02d1115064bf5730daf27051e78f793eb7bb"
+      },
+      "fixture_sha256": "4dcb9ee3d6d62f59b5c6a9e15f24f66bf122c54f1f244656abb607ba8a1fbb7e",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a587066e6dce434da31500cacae263511f79c105075cd418c164acf9a11c132e",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "83a3e0d3b5306850f9cf443438555468c5c95eac4ab27c1475363f60c9a14afa",
+        "expected_final_gamestate.txt": "7b8a466d5eacc95ee3bc7e08a97bde31226373c5ca8e0c3a45ad2eb1971fee8d",
+        "meta.json": "a82916f6ee575abbaa7127e059708699afe650546d956bb3d083c3c37e9d72c1"
+      },
+      "fixture_sha256": "709217b7d0ad60813cb9efdfcc7e042fdfdf4fc70bb435f64d544be4967a6de3",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5b708d94a87cf75c6e35f6ff18ada7899386a5ccda57587a96d929e91ee1b651",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "2110c5619020307b0d3686552ad493b1d6e81d526bb2baa3b65bb7b9c38fbe54",
+        "expected_final_gamestate.txt": "63c35e71f51cc0c6fef58f5b144f66fae968e96d2473d560c090e268245f7f20",
+        "meta.json": "ea04609ee6c6a046a6d8ae950f1ec9e2d4ed82bc9ec61076b229213856dc8a1c"
+      },
+      "fixture_sha256": "ea11b07c36d471b2d8a7872e29b7118f9fbfb2cf8c3273064172e9faa5197b61",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0894880c5f5988fde9802c13302bc1056a3afa82b17cac28b9c79c113408416f",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "7f0cd71bef26e98a5203c09ded845346150bd81364c87595b1f460abc75fb102",
+        "expected_final_gamestate.txt": "95afdff3dbbdec7452889b8b8da6a8e1232f8d4dd2d8a9d78b645f6c7594bce1",
+        "meta.json": "f877829caabe030426da522049f8b57c03f8847cf5d169164f5bc8ff82452dc0"
+      },
+      "fixture_sha256": "e833a0b7c48541db654cbc812a8a7581b2f77ce87f8b59f9183ca1c93a4bae0c",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c783be6372d476bd58162fd60ce0d6eda9d0ee211cba0fd961f3b00aabe2b841",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "8af4cb8a38b7bcba5c283cb5cc7c3584f3e0aaea1c802cbb96a1fa49b76bd6a3",
+        "expected_final_gamestate.txt": "33c526ebb880df0fd22dfaaabb00c552a51fbec46ddbb5c3739474bdbfabbf5a",
+        "meta.json": "11d6985f0f86ea2999ca90ad924a08dec4d5818523ab8b1ebe7f0a216cb20465"
+      },
+      "fixture_sha256": "8afe7c10615ca77fc541b4847f6d19fe36f8babbc470b9a82ef725e0c065d7e3",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d47730162dd66a7f277d6f5a7f2dee1c0d4fd38e30c55448df4604f9a4c16883",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "5726604e38e0a739457ab2e26bb7caa21761c3fb6ae4c9ae77b29fd55ff608a7",
+        "expected_final_gamestate.txt": "e5d7ecf12a01cffaf5fdc8e54f03bde7ef6ec864e751a0d9333ef7ffcd8e2b22",
+        "meta.json": "d1b007076b9fe002b3665da140270186ce1fab7a3cf460bc4e327de5d402a30d"
+      },
+      "fixture_sha256": "1fbdfa090786bf6f299a40012b48648b51c296f98422775f0ae81c624e1fe53c",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d47730162dd66a7f277d6f5a7f2dee1c0d4fd38e30c55448df4604f9a4c16883",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "647238295a7bf922dfb630cee6b40e359205d5152b76e4bf30b79969ff8167e6",
+        "expected_final_gamestate.txt": "e9ac4226e1a3e941940e8e731a6c6744db7ef0ddc157e236498e9f731818137d",
+        "meta.json": "6f78d3e1cdf7f60584cb35b5f1a27cc5bca575b5363584e001fe6fc42f7d50a0"
+      },
+      "fixture_sha256": "5c5d45b6d5f823b9a95f5b34079d816f42e73fb83d1733d56a77b729a807baf9",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_legs"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d14478225c9a65cf51ade484f342da57d6cc2434bb31a7409c59fe53de7a5139",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "7d5fe7a372058e81a9b546c0044ff385bd4833b8528fccee9869fb3d7e220e4e",
+        "expected_final_gamestate.txt": "391676206c3da70f2d18156cba78bfe5c10b61f5fb5316404cef74323eb32a39",
+        "meta.json": "550e9fea8e388d8a4922d03a8a519e2b6e7460b72631deaecd9728abe8d06ecd"
+      },
+      "fixture_sha256": "b71c40e8b8eace9256ce365b29b29e722dd189b21153442601be5e17e7f6842a",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5403f12f0ada931c22b5f92bcf4b880e14e4dde91d5f63af4308a2d2ba560e91",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "64c8897a41c10c048366fd9d759ed7f9763bf4750e325beaed3c79066e9ec4f8",
+        "expected_final_gamestate.txt": "cccfb94a438067799bcf02e8889dbe505aaa112887049be952ccba856b98c388",
+        "meta.json": "f722d73fbadf977686f3c7713deec95dcd804126d6e8d03ffebe2a7fe24ad60d"
+      },
+      "fixture_sha256": "78bb63921d4a0a3fbc4e7fa19b8d2359ff44375c2aa56cf1f439153680041b63",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "28f84fbced23c2654fce54b1b50eb24de39a78b098134c4c888ae6033d796f39",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "71398c5f1dc758313665b94c7e0d197c873c236a2aaf6462fa4816f947e48109",
+        "expected_final_gamestate.txt": "f0fa40df0c4697570ffd8bf43ae4eac7265cadb9f11e46d874f4ba87df833233",
+        "meta.json": "8d93a80e1ef18786c87cb87d35d2870f660cf6629e9ac8cc1af48b765af42ebc"
+      },
+      "fixture_sha256": "34274bd85cc2f6978102f886ef657203bb3963557ee6e432005cba7c4df4ba99",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d14478225c9a65cf51ade484f342da57d6cc2434bb31a7409c59fe53de7a5139",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "b85e5750c682a6c07684b93221848ddfb754203ae394e8b91e1352ae2e46872b",
+        "expected_final_gamestate.txt": "e7002e710b4357c70b6e6d00f066b576375aa7883cd2f041059b510cfc60572d",
+        "meta.json": "6b32a1c013d5e2f40e3f3d0a18e9ea8e5f399139f92ba636c48f5fab325041c1"
+      },
+      "fixture_sha256": "222e75358c21d746f95c1f440eb0089024a076b86c76fbc1eeb8522420a08387",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "90ab027c9c05d9930a335aee3f3b0f6a8c40a434e1b1e32a547099ca95bd9194",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "8fa4536e3988f7f8f63c05d279099c6e574bed567f851b0f620e66770d026004",
+        "expected_final_gamestate.txt": "7184f71ff7bb78d0d61f07a38f3acd7cc54b3e9e2632e266a3b1c51d50ed5553",
+        "meta.json": "c9972194ea16a66996fff54be0cfdaa4fc792a3a46af0bd0a13b5f65f388f8f3"
+      },
+      "fixture_sha256": "246fe54605e07de199100fc6c29a28fdc21d6bdc55acfba7f3da549b743aa011",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "023cfd2e0796f71b71c9c77efba79436de0c35ae48612dcefe0aed838638d0ac",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "91c588c46a2317294dc7454af22badb2cdad9ca4e71e08a2e2e4586ce65149d1",
+        "expected_final_gamestate.txt": "38ef83bd68308a04fb68cee5380987f610998a32e1dd548144ece707c1c44d52",
+        "meta.json": "db41c25178fd9f2d5362a6fc554a75c1f16037b2e30ae0cbcfd4d7a3746a697a"
+      },
+      "fixture_sha256": "c7de6467034c1282efa3284087dbed5d1552aaa10517003e1def1886a4d8e528",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-plate-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "023cfd2e0796f71b71c9c77efba79436de0c35ae48612dcefe0aed838638d0ac",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "972ab849bd0076a795d746cd78f420e69ab191cc876a767f8e0679e11de66fda",
+        "expected_final_gamestate.txt": "c39bd8c35017eb031106dcbdf692ce8928f558130716ba4e67e945b296653067",
+        "meta.json": "3d2a0256d47691c1b3eba95f6f345398a5804dedf66632cf2f5e2f0f5f2e5fe0"
+      },
+      "fixture_sha256": "a364a0e42b647656a3ea758969757dc12ec4d049ac42e7b6a8f528a0cec5dc05",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_plate"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "aa6abfc7cf460d80ddb6c4496fff732bd409a442a6025a536e4ceb6907d87616",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "d3e409c571ff0aac2968cb6ae5dbb0101eb97549441cbe0021378262b0249e13",
+        "expected_final_gamestate.txt": "8346b399e86edcea66cb742c779ec3bd71a237f50ac74e15ca256a6105e57bf5",
+        "meta.json": "ed423a9d5034115813bc9add0d3b48ee687b7d39ba17ebb5f6018a39e70cd635"
+      },
+      "fixture_sha256": "6ce26206c8047a3ddcab5b9f219b9fef82f82182908b058371f1c1d10d03bfd7",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3928fce5e7e2b557fc0b790b83dbf671163391de4025c50bea67680e91961466",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "b73a757b61ca583e44abcfd03e8acd54a58865cc8fe43227eb5012d17782db46",
+        "expected_final_gamestate.txt": "639af1bc743e1665a6fe189ff9ae7ff2e272ea165d77cb667c62d228efa18a43",
+        "meta.json": "bad21ae0eea222c7dd97d30f71975b06212959bac7b92d1b8cedccba8b0df994"
+      },
+      "fixture_sha256": "6e2936ae76e109a8c36aec7ea73daafb9f55d7af718526e42a772033ae269d46",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9e22456d449ce65c697452f67749022261ebf16d45612bb4de49db100a091427",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "88258a89d9d973eb3b82be80634df2b471d63609ed31b3c152fe1205096f2d4a",
+        "expected_final_gamestate.txt": "ffb4d99829f2cf7567a2d7294be1fb16d09581509652a89ec6df64ba07514b6a",
+        "meta.json": "061262bfe2f7d091a9a5c7bcdaae364efeee7e63df3b28b7a016f89bc66fb25e"
+      },
+      "fixture_sha256": "1878e5b254c543bb638e00e87f9bed23d3a5d883c10eaf400d83fcaada485e90",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "aa6abfc7cf460d80ddb6c4496fff732bd409a442a6025a536e4ceb6907d87616",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "03cb16f96b0e92921851329adfd39d1d60d4cf2584a5dc65fd089845025cd830",
+        "expected_final_gamestate.txt": "53bd99848baba92d4973948e4a062f8bfbd5115e646fa00d959d1e4c02b0a429",
+        "meta.json": "921caca706893fb5af71f52d110c72eeebfb68bc622e928a8dd8833a2db9e684"
+      },
+      "fixture_sha256": "25899145121ded7cb0e148b521170e239e2fb6a1d9e3026feb16b9afac01295d",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a3856fd2c0f2c8661fe537b8995beb22661da18f86e4978f19ef97ec347f7fc",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "4105593454b68f36309c581bc86e5193002bb14181cf4d6cc8f9fbd2f12bb9b9",
+        "expected_final_gamestate.txt": "b78e914dbf863f01b1b3eaa92dac803c6ff824d64f322b74f3fffd7532637f61",
+        "meta.json": "d7874176e0d6374402105c62f4382d767d4903cbc7bfebe5164ddadc84ef3204"
+      },
+      "fixture_sha256": "dedcd2ee236423d203e1f584db1ed5ae12bbd7fc0b771816fd56b279aaca155e",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "bf7ae783f3e6ab122e9ef83ea55d09b544342d19a173c6de952ff76b18246241",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "fc4610b1d7f429288b01316ef6a7553d04089bf97afe1c94531d30f054f3e9b0",
+        "expected_final_gamestate.txt": "9ae88fa30dac49950b2f0b4e366066127f38724bd1e34692138754fa78fe8051",
+        "meta.json": "8db8a10d2f9455e0211aa8b67e35bc2b7197011a6c8d48ccdc7d8f86e0db1f7d"
+      },
+      "fixture_sha256": "19a0fd329993ecf3f65d146fafe0389b4eafd6182b82e816af61cfd3bb2ac133",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "bf7ae783f3e6ab122e9ef83ea55d09b544342d19a173c6de952ff76b18246241",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "f90a4ae1bd8cae2271f0ba59df266e825aea20c3806213ce1930da42d02f3c8e",
+        "expected_final_gamestate.txt": "e27aa761e901064d1fbe2e92978df7c98e6e52c71c971b6b1b1c0822aeb231c9",
+        "meta.json": "e4de038dde1bca3bf7278b36e9faa7b537a7c97a293cb1adebcabe92d7046e07"
+      },
+      "fixture_sha256": "a9c88947d1265c05dc7ab74754b195512939d0ea9c47de368171785d1446d4ec",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "991b74ee60b536e0766becd5d5ecc272870ca26eee3b8dc2be78f40e8116fc3f",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "fab9f6154bd4c8ba4e664c0e218b2856e957151ea699c13b4c2c6eaf5d189ceb",
+        "expected_final_gamestate.txt": "6ee385af2f4d4bb9ee0387f9cd1a08601ccf9fe48105fe42b247a00c8ff92a59",
+        "meta.json": "fcf1a327d1717a6439aeb5a1f18b62cae79a46021a4fb074ce4b5ed93d18eec4"
+      },
+      "fixture_sha256": "32f992ef63a38eea5f47dc396f43bbbfa013cd77fdb8bbedad2250e405d3ce24",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "f6ebdbe1625ef4c1e6342541ae7e6c111864342ed76b9b1ddfbdbe50199f26b9",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "39f7671ea37a389308097bef0487fdfdc1474cc128273f51d26c962068b34822",
+        "expected_final_gamestate.txt": "33f6e71efc1182b82935953fcce03bca6a960c273fa679a6b5dc3015495266ef",
+        "meta.json": "208d7f9db2af46b70e6a5ffa224fdb1a6367b74aa9913a156580d255ed27e6cd"
+      },
+      "fixture_sha256": "a78d5c1b8fce6f1a67a8afe4df315503004bc09132ed986a3b76552134adeee8",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "15028d78b1c8a08e5e01878f822a69fff4470c67a750e05fe264e023ff507867",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "e6e08c079d84617498c0f2f3cc14081403bb739a46ec812f982a8caf0d75cafe",
+        "expected_final_gamestate.txt": "0fd93d7aef78d303c7f50c1411dbc153e360858e8832775232669756226d27f7",
+        "meta.json": "347079dd81f723760f23084622fe3dc7123cc79f6ea9442762e08c3093c4f410"
+      },
+      "fixture_sha256": "a6400d235993fa9b71f19dbea0b18a0fa34f9a5bb6a219424150ffa8d6eae554",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "991b74ee60b536e0766becd5d5ecc272870ca26eee3b8dc2be78f40e8116fc3f",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "6f060c6681f7d29423d031cc35eb8df6bd19cf26cb9a31beb5e8ef245081a4d4",
+        "expected_final_gamestate.txt": "8dac9c1eaafcfb5e15197db2780cd27134af4e6014e25468b6f8355b87d0ceb9",
+        "meta.json": "0b39671d4931dc2971350cb1e1dee15f6f6b401cf1723224f655efbd28f8cbb4"
+      },
+      "fixture_sha256": "898fe0f4030a23913ccac3b89a73d484e3ad213d79b55f2999c2613e430301d2",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "a67eb149a8800eb76a350a32be00367025724fc188a4ccf167ffc4895d3d3e98",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "8f45c38c884322faea26097aed90353152d45cc69b713588ce302d82dbdce58d",
+        "expected_final_gamestate.txt": "629221a0c3bb0264001ed773ace166bce5c985585e5733bbf25d80dae1185925",
+        "meta.json": "3a247c0d69085c2acd6d59f5de3eb45eae676e24a9b9c5993fe9f899156ea45c"
+      },
+      "fixture_sha256": "5d29693234b0ada40bbee06947979b55f6bfb7dda50cce17968f03cfee49989c",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9ae76a5db80056a955d2fb7647752e3fccb73ac24f0906a2ebd3fef49319ee50",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "87c1cec4cbb1305fb411b1c22e0df12775e1ebbd6798a97d5de07310f9d4c48e",
+        "expected_final_gamestate.txt": "08980f0a7685e6cde42280f1db2d461c34f0dae274f92967c74457472fd4dd20",
+        "meta.json": "0e0af4c60f795979c03e6d65e4ec85b53b2b17d25b49c49bbde793ee0d7e2ecd"
+      },
+      "fixture_sha256": "0f4600d3e00d6c5de154e8ffe22c20a0327eb5ba339d12a4c6df7ce6b963fc2b",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-arms-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9ae76a5db80056a955d2fb7647752e3fccb73ac24f0906a2ebd3fef49319ee50",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "2796fad05915b17c466fa0777249d63b07e2bcdabef8c5b06270f62290da5763",
+        "expected_final_gamestate.txt": "64bcad9fe4e9e144f002ab2c4bde15906d4176a327c5c87aa4fe0f1957a54aa3",
+        "meta.json": "8900883d8c0266822c8930278d9a27d23140997ac51437e8c7a9bf255c738d53"
+      },
+      "fixture_sha256": "e3c225d343857ad09d0a6b3d5c87bcb4ac7b957d9573fb74a1feebe83100ead3",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_arms"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6db0c849cc0cca3b1c7b24c83d537d001c546cfc4885a96fcf03eaff52febe7f",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "09a23f5c9e258c9903d7cddcffe78bece664b398e2ebf204d22d4da1ef78ec4f",
+        "expected_final_gamestate.txt": "44e8c8e116e1349b493ebea3d0edb4528e07e05eebec50450bbab79219a27136",
+        "meta.json": "863815860362543ea2b6b12e65881b1af1623963e095557f5ab052d563627e94"
+      },
+      "fixture_sha256": "059d05992351e4516b3e58279115098c69630c0b759823278b64ab2f1e20ff23",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d1144ca7089362058e5bff450957b9bad8e92a465c96c1888906e077a3c75836",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "c0daf694a221407aaae2ab71bf2908f08cf8fcd1b760d18a49ba5f01d81b2a44",
+        "expected_final_gamestate.txt": "69942dacd55959f25726fe5aacf27bb3ec8500985a9968a942a1ed93ff28218e",
+        "meta.json": "27c188b55ca64cfb34f593d5c426535e1122b28a5992e739ec5d2df364508dab"
+      },
+      "fixture_sha256": "73f4c18ba8f60f5d88b16e9a9de49284bc4c43965713a33673e6a438910c9165",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "c1beaf822876d90d5e4432fbb98bf0b23193409b0157b97991493f25beccbcd3",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "4e76387329b9727ea1fa1ff7bf32ff32fef987ccbdc65bd81fbacb513c5c66e6",
+        "expected_final_gamestate.txt": "898a880c3c82194f332dcb4a0d7e17ba5c4c7a327c6fc5742d377b2e2fc59873",
+        "meta.json": "87a2adc688da017c7fbefc65180b8f0a139c9d57ced12faed6aef7ce1a61fe15"
+      },
+      "fixture_sha256": "d7295a77fb088929772bd8fb5f887e21899d15ddf92f74f7dcdb4f5da88b37dd",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "6db0c849cc0cca3b1c7b24c83d537d001c546cfc4885a96fcf03eaff52febe7f",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "6f8214ac48036575b4fe90415d60b2bfe41935d8fa1d5ed3d32b41a20a9ee40b",
+        "expected_final_gamestate.txt": "fbc78109ce4df7bf7952e659572410445ba027b0e7cb91e6c306d848e1dde1c6",
+        "meta.json": "afa41c0b3f555fc748136aac2cb78465fec0726e8229d73060c150f71217fe74"
+      },
+      "fixture_sha256": "23e5fdd397cd0e844271c854208cda2750f9f065fb978a2154fb0ff30cf32496",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8c52d30a757e7797b4e9c4527f6a4f098e3edba27b68c485a0a14251138f779f",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "55f8a3695962ac044203984f8a79808ec5c4fd4c9c901aa4c42c501c39f59a5b",
+        "expected_final_gamestate.txt": "607c158cd6e576726e01c55cb9df544768a55f2d53a192ed88154721a4407810",
+        "meta.json": "c4e02ab2a62d942c9cdfeedd5627fa55511b9b4a7825b77036568070589ae65d"
+      },
+      "fixture_sha256": "75decf7b9775b05dab8dafec3bd6737ba71fd2d66b98f902d59ddbb7bbca577a",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a990e721df3c99441fb53b8903f2de712bd729cf4355aad134f2e785b97dbb3",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "062643997345f8173d4fb025e3a1c1c58939207187234bff377aa029ce76657d",
+        "expected_final_gamestate.txt": "ec530cc4b38c4dd16e3f21682a67ceb4037688bc978e49e6941e6797ff4262cd",
+        "meta.json": "dadc34d6169ff25c642338356424610eab3a0e7dd2ac572ce74c9bbf69d8e5a4"
+      },
+      "fixture_sha256": "c912f8caeac335bc141f1fc0c028193879a99ed16a668495ce95dc3dc35741ca",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-chest-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "4a990e721df3c99441fb53b8903f2de712bd729cf4355aad134f2e785b97dbb3",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "d9c9e7b56d5b8253112b4869958acc73b006a8a8755b75b190403e9bf76a2858",
+        "expected_final_gamestate.txt": "bef12ce9087cbd6f73dbbea255201d3dfbc7b7381b6c29ea18abeb1b0cfc8a6b",
+        "meta.json": "5390edfb6f25158b3e9cf70fad9f641c9ce8f4add230a1fc57ea91802eb506fd"
+      },
+      "fixture_sha256": "0c393a830bf5cc612befef0cd034ccbc9f0ae14eab5edeb6d54f31be9267cb64",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_chest"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f066fa666002b9539fb2d563b8e9b1bff296b33ee5047b6cc3b5ea21ffb2c59",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "9978fa74030d61ec4290ee36f4ec5a3ce8aec0378dad988c4d856ab29b6fa486",
+        "expected_final_gamestate.txt": "0ed3f2bf9de7c1f2faa9fd5284380180a24e83c129ba4251ff4e997eba0afbbc",
+        "meta.json": "372047c895ed673d7b989234d22b3bc5fd6c71e2309f3f4493981a84b0bdc004"
+      },
+      "fixture_sha256": "e28bbe2652d196dced1b66282e5ef4381e874950e5ab5e8a284b54af17a21321",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fbdb000946af904f07299b27e27a871a435d51f4c3ffecf37631dfea99318e5f",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "7fd184eb46eb592404167128b5a0032774386d053fa78006453cba01a166aa2f",
+        "expected_final_gamestate.txt": "caa9dab0a9f88945a6782b7e19a63471b698f69816b311283d9c08cf66fde4a8",
+        "meta.json": "d194fb76647daf21d1608e49495127f18879afa27e21156b18c48a555507bc65"
+      },
+      "fixture_sha256": "88c0821f04088c240462baa12132b541758dac33ff51163cdc5e4b42b527507b",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "7162f7e5feff6ceae3fa67f50e37f4559cd8b4dd7e6a41ffdba29de9ef50ebab",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "120c86e5b960f4fe74c7d579c8cd5ededd4a6af6a5bd3b53c88992bf35883875",
+        "expected_final_gamestate.txt": "e86775abfbedd853d10641120d101ab4fafa2ccd12036ef349c593e60929707b",
+        "meta.json": "b1ed90f4232fd0e08f2b676f3fcf80e6bfe4953c0706a2689e50b18bd7994e3a"
+      },
+      "fixture_sha256": "86563bb88e611eecbb32f3b99522cc98aeff87681b92bea321376c0a5ae16038",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5f066fa666002b9539fb2d563b8e9b1bff296b33ee5047b6cc3b5ea21ffb2c59",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "e8d92e1d98136a08f63620d9429e7be07b46e23fb2ba54e7cabebb944c6304e0",
+        "expected_final_gamestate.txt": "39803be0c3f3eaa7060dda19815a884f23e058897fdafdf37eeabfe5b50492d5",
+        "meta.json": "ca85a7f2f925401d817de8cd11ad95eb3732829de298f69b51a53d7f94d78a89"
+      },
+      "fixture_sha256": "db80e563a94be9d1ee683a0633a1c36519eb27d8f8907628b28d29e50c8f9a30",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d9b0722fd3ff6ddaa769c5c863d095ce2e7e08684bbce577ac753ff72aa5fd5a",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "c537196b5a2c2d84967d0bd433044028be9c8c89fbb7d95a806ec945275edcca",
+        "expected_final_gamestate.txt": "6d26664a1d0fa4ff39400525967bfa8f6166fe8fbbbf1605c393ab72545a4044",
+        "meta.json": "fddd12b2d6b56845e1b4f38f2d84bc23c789a14d916f618be92778be575bc278"
+      },
+      "fixture_sha256": "3ec8fd3c8a66c5a88ec7282182ad83080af06289f9e9d5a0a39d34b886913106",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "69921fcdd812e4f16cc1391c7b095efa62e48dc5495c7d972630f0a7afe56749",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "652fdefaa4f4d2f7c7ede59e41a56e981e419a73541fab7e7a06a298f95e7a24",
+        "expected_final_gamestate.txt": "53e33cc80567b1b733e3333810efcf97b8f9418f9a5f2533e9c9dceee9ee996e",
+        "meta.json": "1aa0879c69fa4d2ccf90c4507e66e0b43baf756e9e9230f692ede9e8648e2a56"
+      },
+      "fixture_sha256": "b63a1cb5150403fea063b49bec9a3f9fca3e93d1ce2094546cf0a644aeea6394",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "69921fcdd812e4f16cc1391c7b095efa62e48dc5495c7d972630f0a7afe56749",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "fdf11a34453c0be14eae74f847bf05f7ed5df8469df14b400d3e2eedf957ec3d",
+        "expected_final_gamestate.txt": "0b3f427c6cdb0e4ff92805344e3e859431c877236af8b03bdc55674e4f0101d9",
+        "meta.json": "c6783847b05b14c11eaba0f49f03aa4f24271097900a7ea46c3102458d060555"
+      },
+      "fixture_sha256": "b4323a7cd8e26dce9406969e6e9204dcf23c1eb5584d1f1ec54f65f7af23b2be",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-defend-alone-three-damage",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "94586ed56f76820880573a9ae7fb3e4e92976a380365caf11e0cd319d3892b7c",
+        "actions.json": "a24850b73f2a7bf6511952eb69d1522c9ae6334f340f04ea7f74fd492347750c",
+        "assertions.json": "efb05288febf76b00691aafb7a85f4d0e61b8953013d3477ce624a57987ea8af",
+        "expected_final_gamestate.txt": "e7c9c594ce82c83f5bd948e63562563f3a02d206dab192cd99ed04b7c253497a",
+        "meta.json": "a2780ced59f674ad45732798643d6e3746fa10efffd06b268ddc36f880f35883"
+      },
+      "fixture_sha256": "541ff7cca533ca0faf0104ff8dbb8f20a32064d4d664b3e8e84dd58b6d976c72",
+      "actions": 15,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "defend-alone-three-damage",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 17,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-fully-blocked-no-hit-still-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9c40c195d705c841085417b03d198b6191463630a8a098d36832b77e02d2d073",
+        "actions.json": "f34a43a1e35bb56bbe4be7bcfa1efa17ed2cff6c1015ac1961862376bdf65f02",
+        "assertions.json": "cc3200d5a072a86ec04e1d04d2c1d81d17c23e6bb7a00a91155d5b2cc10e2111",
+        "expected_final_gamestate.txt": "e043f701f7e0b070837f57050a417688cec4aaa8ea68f36fd90a19101d3bd239",
+        "meta.json": "1e18d8f6cf11f9c787ee946d0610d0f5b72adf55d9d249ba1d9ea8c8f99ccf77"
+      },
+      "fixture_sha256": "8867abc38c76b971f46223549e13c21e9a74dee6e5da44b69d20ccfcd5694950",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "fully-blocked-no-hit-still-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-hand-first-equipment-second-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "8a6827e384d12dae7c92d0132df6abf8da242ffc2b4b63bcb90edb9c5e1d332e",
+        "actions.json": "82811cf9265944608e7c4ab2e380a254d89d7e19607a2178574563d9cda9e473",
+        "assertions.json": "fb3cd45213c55dd813c95efed5d45943eb80cd5753a6add43c00c87a1a82ee04",
+        "expected_final_gamestate.txt": "d1d1b5d2cf2396e8cace5a3b9b3e89fcf3aadd0d00939929e2c3dd5b387b5c9f",
+        "meta.json": "cd42fee1f866a38faa041ff1d780a4d83077e4c55c1ddc387119a9d13993ca15"
+      },
+      "fixture_sha256": "2c1387143cea3fa1d34422d010e341a4f818ac19181b1247055406c957f5fa8c",
+      "actions": 16,
+      "native_assertions": 55,
+      "native_game_state_fields": 13,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 14,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 16,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 7,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "hand-first-equipment-second-no-hit",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-not-defending-survives-close",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "94586ed56f76820880573a9ae7fb3e4e92976a380365caf11e0cd319d3892b7c",
+        "actions.json": "7eebce0730347849658fe72f36bdcda24dd9649c4e2713013c60bb2b65e8113b",
+        "assertions.json": "d5fbd6cc6c0890934b8956a35c7c0cde755728ba98e4ebba116bf33241e7a616",
+        "expected_final_gamestate.txt": "75bc09acd071e89129cc357cf438fe9dfaf59b6cea680a776412d576e45e2920",
+        "meta.json": "07d42c0021928d95eace7692547febcf3009c952e37ab78433832b89b91ee2fe"
+      },
+      "fixture_sha256": "4e3837ba25fc7d3cd10cfe1547a2e289f3a14b58b09ebeff05be16e1e5e67224",
+      "actions": 14,
+      "native_assertions": 32,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "equipment_not_declared",
+          "step": 5,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "unused_equipment_survives_unblocked_hit",
+          "step": 12,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "unused_blade_break_never_destroys_on_close",
+          "step": 14,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "not-defending-survives-close",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-attacker-cannot-defend-own-attack",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "985980b94d78a87845a2a665caa2a7ef8abf6ca109cebc41069830d376574e6d",
+        "actions.json": "b4c11698eb73c5cf7c93cf6911344e5bc63fd0d79348c09718b527d8fc04a852",
+        "assertions.json": "528ab4e78926a0e8cf577fc89920f70960dcf9f8a0fab5cb3bf96f7a333cbb3d",
+        "expected_final_gamestate.txt": "877793643ed88d27ef41f44a154be0729ccd9c559a9df8674539a5f04634715a",
+        "meta.json": "c0b525a9ebc12d750107d9de54fad85b7eb21c41e4fcb96e3471d32c73ef791a"
+      },
+      "fixture_sha256": "dfcc9fca395d1506c3a43b22fc907d3ca61afe3c53435fdb8c6da68eaa45b56e",
+      "actions": 15,
+      "native_assertions": 32,
+      "native_game_state_fields": 5,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "attacker_equipment_cannot_defend_own_attack",
+          "step": 6,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "rejected_self_block_did_not_reduce_damage",
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "nondefending_owner_equipment_not_destroyed",
+          "step": 15,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "attacker-cannot-defend-own-attack",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 0,
+        "first_damage": 4,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 16,
+        "ordinary_final_source_destination": "Equipment",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-prior-link-equipment-cannot-defend-again",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d2bdbc8718a217298ffa98daade7f2cdafcfe82b9bdeb92fe756f4c4a1a016e9",
+        "actions.json": "654a64979a5d22eb1ea01204ba2cd77a52db8a292a28afa859561ef66957a55f",
+        "assertions.json": "4a72d520daf189a12b107ae2e64798257aafc530c4ca13c2c19b5c6d517321fd",
+        "expected_final_gamestate.txt": "96ed27cf5402600836c23752ca0dd712edfbaefd622cfddf059731fffd9006c6",
+        "meta.json": "3f79aa22715b402f06ddc7b74ffc7df0c8ccaba89d4b3683792e5c61aea7ec8d"
+      },
+      "fixture_sha256": "f1262511d86d24a6ad9110915ae4efe8055ce40c4e0b91a070822ae2dfcc0229",
+      "actions": 28,
+      "native_assertions": 70,
+      "native_game_state_fields": 15,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "old_equipment_remains_on_prior_link",
+          "step": 18,
+          "native_assertions": 5
+        },
+        {
+          "checkpoint": "same_card_cannot_defend_second_link",
+          "step": 19,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "equipment_still_waits_for_entire_chain_close",
+          "step": 26,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 28,
+          "native_assertions": 15
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "prior-link-equipment-cannot-defend-again",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-legs-blade-break-destroyed-equipment-unavailable-next-chain",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "d2bdbc8718a217298ffa98daade7f2cdafcfe82b9bdeb92fe756f4c4a1a016e9",
+        "actions.json": "3b130340b88cd1e7ec9ab4b29bd4d3ac7bb7b654c5fcdf43bd9785b3298766c9",
+        "assertions.json": "fd4b5dee8da4c97b04b8971d9e25189218c9e7cb95eca6bb5961c6c64eccadec",
+        "expected_final_gamestate.txt": "c6ac8426e32131a3634927b16eb793d85f454d070d529cf8723f5001eb7b5ff1",
+        "meta.json": "3488e62235338f0b5329424bb90ce8b9739372ac47dd4dce58d461f2f83d2abe"
+      },
+      "fixture_sha256": "15fe7b673f50c0ebf20065db34353de587288fce055f72e3f72e7c9ae6229029",
+      "actions": 30,
+      "native_assertions": 77,
+      "native_game_state_fields": 17,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "resolved_link_equipment_not_destroyed_before_chain_close",
+          "step": 13,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "chain_closed_and_blade_break_destroyed_without_response_window",
+          "step": 15,
+          "native_assertions": 15
+        },
+        {
+          "checkpoint": "destroyed_equipment_cannot_defend_new_chain",
+          "step": 21,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "new_chain_has_no_armor_reduction",
+          "step": 28,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": "destroyed_equipment_did_not_reappear",
+          "step": 30,
+          "native_assertions": 11
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "free_defense_one_declared_before_damage",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 1
+          }
+        }
+      ],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_legs"
+        ],
+        "branch": "destroyed-equipment-unavailable-next-chain",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 1,
+        "first_damage": 3,
+        "second_unblocked_damage": 2,
+        "terminal_p2_health": 15,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-ironrot-helm-blade-break-multiple-distinct-slots-each-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "488e67f08ca573d109c501c6d4ce96a35eab0e10b90c3547cfb83ab4a32411af",
+        "actions.json": "0dba67c1f472d26b81de413ffdeb84f74066114ee5ea4c0f17ff980676142fce",
+        "assertions.json": "433f22f8b24fba1e6a3e26c61854041e8c2f281f8e19a0ee61dda2da6882a149",
+        "expected_final_gamestate.txt": "6a3fb205a69c75a77cf8aba51b2d51093e1326a3fe9efecf1c5722d6693973d4",
+        "meta.json": "ff65f709976e52df6f67be9adeee72746e706ce3be8eec24b3a78965fbd5b9ec"
+      },
+      "fixture_sha256": "7cc5a2107ba529dbb3cc43d4b6c7609a91f11f55671ff24a51dc841ff83efc24",
+      "actions": 18,
+      "native_assertions": 43,
+      "native_game_state_fields": 7,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "distinct_equipment_independent_defenders",
+          "step": 9,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "all_equipment_survives_link_resolution",
+          "step": 16,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "each_blade_break_equipment_destroyed_once_on_close",
+          "step": 18,
+          "native_assertions": 14
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "ironrot_helm",
+          "ironrot_plate",
+          "ironrot_gauntlet",
+          "ironrot_legs"
+        ],
+        "branch": "multiple-distinct-slots-each-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-teklo-base-head-blade-break-multiple-distinct-slots-each-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "004ca21368488ddbba41e384c12de70c0a61ab13338251496a41ecd0f57ef3be",
+        "actions.json": "0dba67c1f472d26b81de413ffdeb84f74066114ee5ea4c0f17ff980676142fce",
+        "assertions.json": "e43fd8fada6dac339ae5c757e9c0bbf0f892a0ece8a78633340ae043607a3d61",
+        "expected_final_gamestate.txt": "91b8a882f33e55935b8d54914784f015d884d06dd02fa7643450367ae001e34f",
+        "meta.json": "1803b605eec8780a5906d523898087c759e034bf0ba0fd4d81883ac795cbe1d6"
+      },
+      "fixture_sha256": "18b938e2a46725db05384d15d57272044a4c83163a0c55fb87f416feb6bdff5e",
+      "actions": 18,
+      "native_assertions": 43,
+      "native_game_state_fields": 7,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "distinct_equipment_independent_defenders",
+          "step": 9,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "all_equipment_survives_link_resolution",
+          "step": 16,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "each_blade_break_equipment_destroyed_once_on_close",
+          "step": 18,
+          "native_assertions": 14
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "teklo_base_head",
+          "teklo_base_chest",
+          "teklo_base_arms",
+          "teklo_base_legs"
+        ],
+        "branch": "multiple-distinct-slots-each-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 4,
+        "first_damage": 0,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 20,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": null
+      }
+    },
+    {
+      "slug": "card-rotten-old-buckler-blade-break-multiple-distinct-slots-each-destroys",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0b434295c4c9aeb0763a0889cb60bd2edca62074d517a84aff2f5a5742b1650a",
+        "actions.json": "00a35ce8f40f263bb33becbeeea711ac61d1709c38b10e3ac96ad029003dd41a",
+        "assertions.json": "786f73bb86ed0ecea3c46be0e6f3146434fca6aa55d7f1e4f8bad5a675fb26e6",
+        "expected_final_gamestate.txt": "beca4bffd2c6ccd408c0e4987eb0c3b7b111099cbf586798c2de359b7c14d90d",
+        "meta.json": "1789a2319b0f4e13b19f2ba0b23f565f45f09102347eb487d3fe42f7b2a77d85"
+      },
+      "fixture_sha256": "eee22c0e1a3bd273d7dc94864953f13be6ffca8cfba055dfcfa3c1f1e35ce945",
+      "actions": 16,
+      "native_assertions": 37,
+      "native_game_state_fields": 7,
+      "checkpoints": [
+        {
+          "checkpoint": "plain_four_attack_ready_to_defend",
+          "step": 5,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "distinct_equipment_independent_defenders",
+          "step": 7,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "all_equipment_survives_link_resolution",
+          "step": 14,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": "each_blade_break_equipment_destroyed_once_on_close",
+          "step": 16,
+          "native_assertions": 12
+        }
+      ],
+      "author_only_checks": [],
+      "independent_printed_model": {
+        "primary_ids": [
+          "rotten_old_buckler",
+          "ironrot_helm"
+        ],
+        "branch": "multiple-distinct-slots-each-destroys",
+        "printed_equipment_defense_each": 1,
+        "first_attack_printed_power": 4,
+        "first_defense": 2,
+        "first_damage": 2,
+        "second_unblocked_damage": 0,
+        "terminal_p2_health": 18,
+        "ordinary_final_source_destination": "owner Graveyard",
+        "offhand_logical_weapon_slot_storage": "Equipment"
+      }
+    }
+  ]
+}

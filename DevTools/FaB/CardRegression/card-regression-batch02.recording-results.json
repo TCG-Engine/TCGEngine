@@ -1,0 +1,38 @@
+[
+    {
+        "slug": "card-enlightened-strike-red-mode-draw",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 10
+    },
+    {
+        "slug": "card-enlightened-strike-red-mode-power",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 10
+    },
+    {
+        "slug": "card-enlightened-strike-red-mode-go-again",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 10
+    },
+    {
+        "slug": "card-enlightened-strike-red-missing-additional-cost",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 3
+    },
+    {
+        "slug": "card-bravo-cost-three-dominate",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 5
+    },
+    {
+        "slug": "card-bravo-cost-zero-no-dominate",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 5
+    }
+]

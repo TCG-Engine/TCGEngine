@@ -1,0 +1,7 @@
+{
+    "name": "Blink / arsenal-face-down-own-phase-zero-ap",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:19:13+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0. Gain 1 action point.. Instant: pay no AP; gain1AP only during the beneficiary's own action phase (CR1.13.2a-b), otherwise gain0AP.  Sources: FaBSim/GeneratedCode/cardArrayCache.json#blink_blue https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

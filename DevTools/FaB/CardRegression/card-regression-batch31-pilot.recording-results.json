@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "card-savage-swing-red-mandatory-discard-hand-blue-pitch-singleton",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 125
+    },
+    {
+        "slug": "card-wrecker-romp-blue-mandatory-discard-two-red-pitches-before-singleton-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 146
+    },
+    {
+        "slug": "card-wrecker-romp-red-mandatory-discard-fully-blocked-still-pays-discard",
+        "status": "recorded_semantically_checked",
+        "actions": 17,
+        "assertions": 130
+    }
+]

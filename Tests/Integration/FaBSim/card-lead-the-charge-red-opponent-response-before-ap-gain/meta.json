@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / opponent-response-before-ap-gain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least0 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. After qualifying play creates its pending trigger, opponent with freshAP0 responds with cost0 Sigil of Solace. It resolves first, gaining3 life while casterAP remains0. Then Lead trigger resolves toAP1, then underlying attack. This distinguishes an actual response window from eager AP gain. Sources: https://judge.fabtcg.com/cards/detail/548/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_red"
+}

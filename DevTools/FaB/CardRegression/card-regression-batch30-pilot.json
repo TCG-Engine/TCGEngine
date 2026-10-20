@@ -1,0 +1,3848 @@
+[
+  {
+    "slug": "card-aetherstorm-wellingtons-pay-blue-pitch",
+    "name": "Aetherstorm Wellingtons / pay-blue-pitch",
+    "cardIDs": [
+      "aetherstorm_wellingtons"
+    ],
+    "branches": [
+      "pay-blue-pitch"
+    ],
+    "heroes": [
+      "iyslander",
+      "kano"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "aetherstorm_wellingtons",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Hand",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "proposal_status": "unrecorded_independent_review_required",
+    "coverageClassification": "bounded_printed_barrier_equipment_branch",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#aetherstorm_wellingtons",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN110.webp",
+      "https://judge.fabtcg.com/cards/detail/4401/",
+      "DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard",
+      "FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal",
+      "FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect",
+      "FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#838",
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+    ],
+    "printedCard": {
+      "id": "aetherstorm_wellingtons",
+      "name": "Aetherstorm Wellingtons",
+      "types": [
+        "Wizard",
+        "Equipment",
+        "Legs"
+      ],
+      "defense": "0",
+      "functional_text_plain": "Arcane Barrier 2",
+      "card_keywords": [
+        "Arcane Barrier 2"
+      ]
+    },
+    "fixtureConstraints": {
+      "actor": "P1 owns turn MAIN/ACTION turn2 withAP1; nonturnP2AP0.",
+      "hero_reason": "P1 Iyslander is Wizard; P2 kano legally equips Wizard Equipment - Legs. Generic Hand pitch cards legal for every chosen hero.",
+      "health": "Explicit20life is a legal healed known state for young Wizards; healing generation and tournament/deck construction are excluded.",
+      "zone": "Arcane Lantern is physically stored in canonical native Equipment while occupying a logical weapon slot per Off-Hand rules. No other weapon or Off-Hand exists; ordinary equipment occupies its printed slot.",
+      "source": "All source/hero/equipment UIDs allocated by recorder; no UniqueID override or synthetic Stack."
+    },
+    "authoringNotes": [
+      "Workspace-only proposal, no native actions/writes/recordings by author.",
+      "Only8 declared cardIDs count for the family; support spells/equipment do not acquire coverage by incidental use.",
+      "Arcane Barrier is static optional replacement: full fixed resourceN, prevent at mostN, no destroy/exhaust/AP. One source applies once to an original damage event, reusable on a later event.",
+      "Choose the displayed actual source reference; target preparation MZCHOOSE and AB MZMAYCHOOSE/PASS, pitching MZCHOOSE use existing native recorder.",
+      "Keep source live Stack/ownerGY0, HP and AP unadvanced while choices await. State checks now persist native game_state_field assertions including caster1Ã¢â€ â€™victim2 arcane credit.",
+      "Save only correct runtime results, then clean deterministic replay and semantic controls. Current output is not the oracle."
+    ],
+    "remainingBranches": [
+      "Ordinary base keywords only: suppression/granted keyword/prevention modifiers, Ward/Spellvoid/Quell/unpreventable effects are separate shared interaction scope.",
+      "Allies/UPF/elimination/foreign controller, moving source during a chooser and arbitrary source-destination replacements are held.",
+      "Raw invalid/stale/foreign/multi chooser answers require disposable API contract tests; never submit them in a passing recording recipe."
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "target_before_payment",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "paid_spell_live_before_resolution",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "prevention_before_damage_source_live",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "p2Equipment-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "pitch_before_payment_and_damage",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Hand-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZCHOOSE",
+        "value": "p2Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 1
+              }
+            }
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "aetherstorm_wellingtons"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 19
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "exact_pitch_membership_and_empty_hand",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Pitch",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "With0 floating resources elect the one actual AB2 source, then pitch 1 Generic Wounding Blow blue card(s) for3. Pay full2, leave1, prevent2, take1. HP20/sourceStack/ownerGY0 and AP0 persist until pitching/payment finishes; equipment retained/unexhausted. No printed pitch trigger applies. Each answer uses displayed live Hand0 after native compaction."
+  },
+  {
+    "slug": "card-arcane-lantern-pay-blue-pitch",
+    "name": "Arcane Lantern / pay-blue-pitch",
+    "cardIDs": [
+      "arcane_lantern"
+    ],
+    "branches": [
+      "pay-blue-pitch"
+    ],
+    "heroes": [
+      "iyslander",
+      "ira_crimson_haze"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "arcane_lantern",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_blue",
+        "zone": "Hand",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "proposal_status": "unrecorded_independent_review_required",
+    "coverageClassification": "bounded_printed_barrier_equipment_branch",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#arcane_lantern",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/EVR155.webp",
+      "https://judge.fabtcg.com/cards/detail/1427/",
+      "DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard",
+      "FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal",
+      "FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect",
+      "FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#838",
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+    ],
+    "printedCard": {
+      "id": "arcane_lantern",
+      "name": "Arcane Lantern",
+      "types": [
+        "Generic",
+        "Equipment",
+        "Off-Hand"
+      ],
+      "defense": "",
+      "functional_text_plain": "Arcane Barrier 1",
+      "card_keywords": [
+        "Arcane Barrier 1"
+      ]
+    },
+    "fixtureConstraints": {
+      "actor": "P1 owns turn MAIN/ACTION turn2 withAP1; nonturnP2AP0.",
+      "hero_reason": "P1 Iyslander is Wizard; P2 ira_crimson_haze legally equips Generic Equipment - Off-Hand. Generic Hand pitch cards legal for every chosen hero.",
+      "health": "Explicit20life is a legal healed known state for young Wizards; healing generation and tournament/deck construction are excluded.",
+      "zone": "Arcane Lantern is physically stored in canonical native Equipment while occupying a logical weapon slot per Off-Hand rules. No other weapon or Off-Hand exists; ordinary equipment occupies its printed slot.",
+      "source": "All source/hero/equipment UIDs allocated by recorder; no UniqueID override or synthetic Stack."
+    },
+    "authoringNotes": [
+      "Workspace-only proposal, no native actions/writes/recordings by author.",
+      "Only8 declared cardIDs count for the family; support spells/equipment do not acquire coverage by incidental use.",
+      "Arcane Barrier is static optional replacement: full fixed resourceN, prevent at mostN, no destroy/exhaust/AP. One source applies once to an original damage event, reusable on a later event.",
+      "Choose the displayed actual source reference; target preparation MZCHOOSE and AB MZMAYCHOOSE/PASS, pitching MZCHOOSE use existing native recorder.",
+      "Keep source live Stack/ownerGY0, HP and AP unadvanced while choices await. State checks now persist native game_state_field assertions including caster1Ã¢â€ â€™victim2 arcane credit.",
+      "Save only correct runtime results, then clean deterministic replay and semantic controls. Current output is not the oracle."
+    ],
+    "remainingBranches": [
+      "Ordinary base keywords only: suppression/granted keyword/prevention modifiers, Ward/Spellvoid/Quell/unpreventable effects are separate shared interaction scope.",
+      "Allies/UPF/elimination/foreign controller, moving source during a chooser and arbitrary source-destination replacements are held.",
+      "Raw invalid/stale/foreign/multi chooser answers require disposable API contract tests; never submit them in a passing recording recipe."
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "target_before_payment",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "paid_spell_live_before_resolution",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "prevention_before_damage_source_live",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "p2Equipment-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "pitch_before_payment_and_damage",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Hand-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZCHOOSE",
+        "value": "p2Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 2
+              }
+            }
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "arcane_lantern"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 1
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "exact_pitch_membership_and_empty_hand",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "p2Hand",
+            "value": 0
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Pitch",
+            "cardID": "wounding_blow_blue"
+          }
+        ]
+      }
+    ],
+    "oracle": "With0 floating resources elect the one actual AB1 source, then pitch 1 Generic Wounding Blow blue card(s) for3. Pay full1, leave2, prevent1, take2. HP20/sourceStack/ownerGY0 and AP0 persist until pitching/payment finishes; equipment retained/unexhausted. No printed pitch trigger applies. Each answer uses displayed live Hand0 after native compaction."
+  },
+  {
+    "slug": "card-shamanic-shinbones-decline-while-affordable",
+    "name": "Shamanic Shinbones / decline-while-affordable",
+    "cardIDs": [
+      "shamanic_shinbones"
+    ],
+    "branches": [
+      "decline-while-affordable"
+    ],
+    "heroes": [
+      "iyslander",
+      "rhinar"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      1
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "shamanic_shinbones",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "proposal_status": "unrecorded_independent_review_required",
+    "coverageClassification": "bounded_printed_barrier_equipment_branch",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#shamanic_shinbones",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN005.webp",
+      "DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard",
+      "FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal",
+      "FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect",
+      "FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#838",
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8210"
+    ],
+    "printedCard": {
+      "id": "shamanic_shinbones",
+      "name": "Shamanic Shinbones",
+      "types": [
+        "Brute",
+        "Equipment",
+        "Legs"
+      ],
+      "defense": "0",
+      "functional_text_plain": "Arcane Barrier 1",
+      "card_keywords": [
+        "Arcane Barrier 1"
+      ]
+    },
+    "fixtureConstraints": {
+      "actor": "P1 owns turn MAIN/ACTION turn2 withAP1; nonturnP2AP0.",
+      "hero_reason": "P1 Iyslander is Wizard; P2 rhinar legally equips Brute Equipment - Legs. Generic Hand pitch cards legal for every chosen hero.",
+      "health": "Explicit20life is a legal healed known state for young Wizards; healing generation and tournament/deck construction are excluded.",
+      "zone": "Arcane Lantern is physically stored in canonical native Equipment while occupying a logical weapon slot per Off-Hand rules. No other weapon or Off-Hand exists; ordinary equipment occupies its printed slot.",
+      "source": "All source/hero/equipment UIDs allocated by recorder; no UniqueID override or synthetic Stack."
+    },
+    "authoringNotes": [
+      "Workspace-only proposal, no native actions/writes/recordings by author.",
+      "Only8 declared cardIDs count for the family; support spells/equipment do not acquire coverage by incidental use.",
+      "Arcane Barrier is static optional replacement: full fixed resourceN, prevent at mostN, no destroy/exhaust/AP. One source applies once to an original damage event, reusable on a later event.",
+      "Choose the displayed actual source reference; target preparation MZCHOOSE and AB MZMAYCHOOSE/PASS, pitching MZCHOOSE use existing native recorder.",
+      "Keep source live Stack/ownerGY0, HP and AP unadvanced while choices await. State checks now persist native game_state_field assertions including caster1Ã¢â€ â€™victim2 arcane credit.",
+      "Save only correct runtime results, then clean deterministic replay and semantic controls. Current output is not the oracle."
+    ],
+    "remainingBranches": [
+      "Ordinary base keywords only: suppression/granted keyword/prevention modifiers, Ward/Spellvoid/Quell/unpreventable effects are separate shared interaction scope.",
+      "Allies/UPF/elimination/foreign controller, moving source during a chooser and arbitrary source-destination replacements are held.",
+      "Raw invalid/stale/foreign/multi chooser answers require disposable API contract tests; never submit them in a passing recording recipe."
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "target_before_payment",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "paid_spell_live_before_resolution",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "prevention_before_damage_source_live",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "3"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "PASS"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 3
+              }
+            }
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "shamanic_shinbones"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 17
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Shamanic Shinbones has fixed Arcane Barrier1. Against one printed3-arcane Dart packet, decline although1 resources are available: prevent0, take3; resources remain1. No equipment destruction, exhaustion, AP expense or delayed destruction. Same source cannot be used again on that original packet even when resources remain. Caster credit1Ã¢â€ â€™2, live source during chooser, owner graveyard only after resolution and turn-player priority are pinned."
+  },
+  {
+    "slug": "card-enclosed-firemind-reuse-later-packet-real-boots-grant",
+    "name": "Enclosed Firemind / reuse-later-packet-real-boots-grant",
+    "cardIDs": [
+      "enclosed_firemind"
+    ],
+    "branches": [
+      "reuse-later-packet-real-boots-grant"
+    ],
+    "heroes": [
+      "iyslander",
+      "bravo"
+    ],
+    "health": [
+      20,
+      20
+    ],
+    "resources": [
+      1,
+      2
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "zones": [
+      {
+        "cardID": "mage_master_boots",
+        "zone": "Equipment",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "aether_dart_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "enclosed_firemind",
+        "zone": "Equipment",
+        "player": 2,
+        "properties": {}
+      }
+    ],
+    "proposal_status": "unrecorded_independent_review_required",
+    "coverageClassification": "bounded_printed_barrier_equipment_branch",
+    "sources": [
+      "FaBSim/GeneratedCode/cardArrayCache.json#enclosed_firemind",
+      "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN016.webp",
+      "DevTools/FaB/upr_abilities.json#aether_dart_red/PrepareCard,ResolveCard",
+      "FaBSim/Custom/UPRCards.php::FaBUPRBarrierValue/FaBUPRBarrierChoices/FaBUPRDeal",
+      "FaBSim/Custom/ARCCards.php::FaBARCPitchChoices/FaBARCPitchForEffect",
+      "FaBSim/Custom/GameLogic.php::FaBFinishReactionResolution",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#838",
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/#8210",
+      "DevTools/FaB/arc_abilities.json#mage_master_boots/ResolveAbility"
+    ],
+    "printedCard": {
+      "id": "enclosed_firemind",
+      "name": "Enclosed Firemind",
+      "types": [
+        "Guardian",
+        "Equipment",
+        "Head"
+      ],
+      "defense": "0",
+      "functional_text_plain": "Arcane Barrier 1",
+      "card_keywords": [
+        "Arcane Barrier 1"
+      ]
+    },
+    "fixtureConstraints": {
+      "actor": "P1 owns turn MAIN/ACTION turn2 withAP1; nonturnP2AP0.",
+      "hero_reason": "P1 Iyslander is Wizard; P2 bravo legally equips Guardian Equipment - Head. Generic Hand pitch cards legal for every chosen hero.",
+      "health": "Explicit20life is a legal healed known state for young Wizards; healing generation and tournament/deck construction are excluded.",
+      "zone": "Arcane Lantern is physically stored in canonical native Equipment while occupying a logical weapon slot per Off-Hand rules. No other weapon or Off-Hand exists; ordinary equipment occupies its printed slot.",
+      "source": "All source/hero/equipment UIDs allocated by recorder; no UniqueID override or synthetic Stack."
+    },
+    "authoringNotes": [
+      "Workspace-only proposal, no native actions/writes/recordings by author.",
+      "Only8 declared cardIDs count for the family; support spells/equipment do not acquire coverage by incidental use.",
+      "Arcane Barrier is static optional replacement: full fixed resourceN, prevent at mostN, no destroy/exhaust/AP. One source applies once to an original damage event, reusable on a later event.",
+      "Choose the displayed actual source reference; target preparation MZCHOOSE and AB MZMAYCHOOSE/PASS, pitching MZCHOOSE use existing native recorder.",
+      "Keep source live Stack/ownerGY0, HP and AP unadvanced while choices await. State checks now persist native game_state_field assertions including caster1Ã¢â€ â€™victim2 arcane credit.",
+      "Save only correct runtime results, then clean deterministic replay and semantic controls. Current output is not the oracle."
+    ],
+    "remainingBranches": [
+      "Ordinary base keywords only: suppression/granted keyword/prevention modifiers, Ward/Spellvoid/Quell/unpreventable effects are separate shared interaction scope.",
+      "Allies/UPF/elimination/foreign controller, moving source during a chooser and arbitrary source-destination replacements are held.",
+      "Raw invalid/stale/foreign/multi chooser answers require disposable API contract tests; never submit them in a passing recording recipe."
+    ],
+    "secondaryCardIDs": [
+      "mage_master_boots"
+    ],
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Equipment-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "boots_cost_paid",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ABILITY"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "mage_master_boots"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "boots_own_go_again_resolved",
+        "checks": [
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "target_before_payment",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "paid_spell_live_before_resolution",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "prevention_before_damage_source_live",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "4"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 20
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "first_spell_granted_go_again_not_paid_early",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[\"GO_AGAIN\"]"
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "p2Equipment-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 2
+              }
+            }
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "target_before_payment",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Type",
+            "value": "MZCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p1DecisionQueue-0",
+            "property": "Param",
+            "value": "p1Hero-0&p2Hero-0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 1,
+        "type": "MZCHOOSE",
+        "value": "p2Hero-0"
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "paid_spell_live_before_resolution",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 2
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          }
+        ]
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "decision": {
+            "player": 2,
+            "type": "MZMAYCHOOSE"
+          }
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "prevention_before_damage_source_live",
+        "checks": [
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 1
+          },
+          {
+            "type": "card_exists",
+            "zone": "Stack",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "CardID",
+            "value": "aether_dart_red"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Kind",
+            "value": "ACTION"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceUniqueID",
+            "value": "5"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Owner",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "Controller",
+            "value": "1"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "SourceZone",
+            "value": "Hand"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 2
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 1
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 18
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Type",
+            "value": "MZMAYCHOOSE"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2DecisionQueue-0",
+            "property": "Param",
+            "value": "p2Equipment-0"
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "new_packet_same_source_no_repeat_go_again",
+        "checks": [
+          {
+            "type": "card_property_equals",
+            "mzId": "Stack-0",
+            "property": "TurnEffects",
+            "value": "[]"
+          }
+        ]
+      },
+      {
+        "kind": "answer",
+        "player": 2,
+        "type": "MZMAYCHOOSE",
+        "value": "p2Equipment-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "stackEmpty": true
+        }
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "completed_damage_source_cleared_once_priority_restored",
+        "checks": [
+          {
+            "kind": "state",
+            "key": "window",
+            "value": "ACTION"
+          },
+          {
+            "kind": "state",
+            "key": "pendingPayment",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "resolvingReaction",
+            "value": null
+          },
+          {
+            "kind": "state",
+            "key": "arcaneDealt",
+            "value": {
+              "1": {
+                "2": 4
+              }
+            }
+          },
+          {
+            "type": "zone_count",
+            "zone": "Stack",
+            "value": 0
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Graveyard",
+            "value": 3
+          },
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "aether_dart_red"
+          },
+          {
+            "type": "card_exists",
+            "zone": "p2Equipment",
+            "cardID": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "CardID",
+            "value": "enclosed_firemind"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "UniqueID",
+            "value": "6"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Owner",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Controller",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Status",
+            "value": "2"
+          },
+          {
+            "type": "card_property_equals",
+            "mzId": "p2Equipment-0",
+            "property": "Damage",
+            "value": "0"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Graveyard",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Resources",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2ActionPoints",
+            "value": 0
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p1Health",
+            "value": 20
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "p2Health",
+            "value": 16
+          },
+          {
+            "type": "scalar_zone_equals",
+            "zone": "PriorityPlayer",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Pitch",
+            "value": 0
+          },
+          {
+            "type": "decision_queue_empty",
+            "player": "all"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Equipment",
+            "value": 1
+          },
+          {
+            "type": "zone_count",
+            "zone": "p2Weapons",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "kind": "checks",
+        "checkpoint": "boots_and_barrier_remain_correct_destinations",
+        "checks": [
+          {
+            "type": "card_exists",
+            "zone": "p1Graveyard",
+            "cardID": "mage_master_boots"
+          },
+          {
+            "type": "zone_count",
+            "zone": "p1Equipment",
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "oracle": "Activate actual Mage Master Boots for1resource/1AP and destroy it; its own go again restoresAP1. First actual Dart gets next-only go again. Pay AB1 once to first3 packet, take2, retaining same equipmentUID6 and resources1; source completes before its AP refund. Cast second actual Dart atAP1; same equipment can pay1 again for independent second3 packet. Final defenderHP16, resources0, casterAP0 (second Dart lacks go again), casterGY3 including Boots/twoDarts, barrier retained unexhausted. This is later-event reuse, not twice on one event."
+  }
+]

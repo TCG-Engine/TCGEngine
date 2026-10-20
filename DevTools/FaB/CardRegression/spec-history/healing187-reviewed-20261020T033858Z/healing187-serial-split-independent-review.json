@@ -1,0 +1,71 @@
+{
+  "status": "INDEPENDENT_EXACT_HEALING187_SPLIT_APPROVED_FOR_PARENT_GUARDED_STAGE_AND_SERIAL_RECORDING",
+  "reviewer": "/root/coverage_evidence_audit",
+  "checks": 1042,
+  "split_manifest_sha256": "d3fd05555bdc15aa31889fc6a34317740fe3b433321d5868869570d3d41c849b",
+  "approved_full187_sha256": "e721ac0c8750b4219e09c9efde6f40f7c1edaa61b37fc1acc5d8c00da5610c0a",
+  "approved_spec_review_sha256": "52d4df4e6187c26110a6acbdba13777fe80f0df01a29cc9647bddd0b621a1eb9",
+  "batches": [
+    {
+      "batch": 66,
+      "cases": 51,
+      "sha256": "5884fa05c93233352e53ead25ec23bf8d9f95d09654788cf6e030de521281db7",
+      "already_saved": [
+        "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap"
+      ],
+      "new_cases": 50
+    },
+    {
+      "batch": 67,
+      "cases": 57,
+      "sha256": "ff170cd1e0ec2fd8515a7601d36ce7b33a0f3d4cd11bde644be0dfc4885027a0",
+      "already_saved": [
+        "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two"
+      ],
+      "new_cases": 56
+    },
+    {
+      "batch": 68,
+      "cases": 60,
+      "sha256": "28e2f12df009753ee25adfb1fdd23648c7d86d7649b95366fa261b65896607fa",
+      "already_saved": [
+        "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold"
+      ],
+      "new_cases": 59
+    },
+    {
+      "batch": 69,
+      "cases": 19,
+      "sha256": "42fdccb3e20c303d3f0d8acf14d698830262641a75175509f9b0a608d5b5e1a4",
+      "already_saved": [
+        "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed"
+      ],
+      "new_cases": 18
+    }
+  ],
+  "ordered_source_objects_exact": 187,
+  "overlap": 0,
+  "missing": 0,
+  "changed_scenario_objects": 0,
+  "modeled_actions_unchanged": 1206,
+  "modeled_passes_unchanged": 888,
+  "modeled_native_oracles_unchanged": 36198,
+  "existing_four_saved_pilots_raw5_unchanged": [
+    "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+    "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+    "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+    "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed"
+  ],
+  "new_unrecorded_cases": 183,
+  "held_fertile_threshold_cases_excluded": 3,
+  "native_targets_absent_at_review": true,
+  "native_writes": 0,
+  "php_engine_or_game_executions": 0,
+  "new_verified_coverage": 0,
+  "limits": [
+    "This gate preserves the separately approved187 source objects; it is not a new semantic renewal or actual saved review.",
+    "Source approval52d4 was read under historical8ec. Current7b62/new source requires actual saved review and qualified replay/control/suite evidence.",
+    "No --rerecord-authored; preserve/skip original4. Parent owns serial native recording and must retain exact failures without saving incorrect regressions.",
+    "Healing187 retains3 separate Fertile predicate/timing holds and lifecycle/activation/external limits; no complete10-card claim or Undo/cancel approval."
+  ]
+}

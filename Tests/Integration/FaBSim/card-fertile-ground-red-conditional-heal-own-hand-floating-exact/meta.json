@@ -1,0 +1,7 @@
+{
+    "name": "Fertile Ground / conditional heal / own-hand-floating-exact",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:46:24+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed fertile_ground_red cost2, pitch1, no defense property, no action-point cost or gain as an Instant. Branch own-hand-floating-exact. Independent printed-rule model requires terminal health[12, 20], resources[0, 0], AP[1, 0].  Sources: https://judge.fabtcg.com/cards/detail/3356/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

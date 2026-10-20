@@ -90,7 +90,220 @@ function FaBWTRPayAbilityCosts(int $player, object $stack): void {
     if($spec['timing']==='ACTION')FaBWTRSetEffects($player,array_values(array_filter(FaBWTREffects($player),fn($e)=>($e['type']??'')!=='FIRST_ACTION_COST')));
 }
 
+/** Exact printed hit abilities migrated from synchronous generated token creation. */
+function FaBWTRPureTokenHitSpec(string $id): ?array {
+    return match ($id) {
+        'destructive_deliberation_red', 'destructive_deliberation_yellow', 'destructive_deliberation_blue'
+            => ['token'=>'ponder', 'heroOnly'=>true],
+        'strike_gold_red', 'strike_gold_yellow', 'strike_gold_blue'
+            => ['token'=>'gold', 'heroOnly'=>false],
+        'earth_form_red', 'earth_form_yellow', 'earth_form_blue'
+            => ['token'=>'embodiment_of_earth', 'heroOnly'=>false],
+        'lightning_form_red', 'lightning_form_yellow', 'lightning_form_blue'
+            => ['token'=>'embodiment_of_lightning', 'heroOnly'=>false],
+        default => null,
+    };
+}
+
+/** Capture the triggered effect now; token creation occurs only on resolution. */
+function FaBWTRQueuePureTokenHit(int $player, object $attack, int $amount): void {
+    $spec = FaBWTRPureTokenHitSpec((string)$attack->CardID);
+    $controller = intval($attack->Controller ?? $player);
+    if ($controller < 1) $controller = $player;
+    if ($spec === null || $amount <= 0 || !FaBSeatIsLive($controller)
+        || HasNoAbilities($attack) || FaBCRUHitSuppressed($attack)) return;
+    $state = FaBGetState();
+    if ($spec['heroOnly'] && ($state['attackTarget']['type'] ?? '') !== 'HERO') return;
+    AddStack(CardID:$attack->CardID, Owner:$controller, Controller:$controller, Kind:'ABILITY',
+        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
+        Params:['wtrTokenHitToken'=>$spec['token'], 'wtrTokenHitController'=>$controller,
+            'wtrTokenHitAction'=>FaBHasType($attack, 'Action'),
+            'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** A queued layer survives its source leaving, changing, or losing its abilities. */
+function FaBWTRResolvePureTokenHit(object $stack): void {
+    $player = intval($stack->Params['wtrTokenHitController'] ?? 0);
+    $token = (string)($stack->Params['wtrTokenHitToken'] ?? '');
+    if (!FaBSeatIsLive($player) || !in_array($token,
+        ['ponder', 'gold', 'embodiment_of_earth', 'embodiment_of_lightning'], true)) return;
+    $action = (bool)($stack->Params['wtrTokenHitAction'] ?? false);
+    $hadController = array_key_exists('fabEffectController', $GLOBALS);
+    $previousController = $hadController ? $GLOBALS['fabEffectController'] : null;
+    $GLOBALS['fabEffectController'] = $player;
+    try {
+        // Preserve each original helper, including token replacements and creation callbacks.
+        if ($token === 'ponder') FaBOUTToken($player, $token, 1, $player, $action);
+        else FaBHVYToken($player, $token, 1, $player, $action);
+    } finally {
+        if ($hadController) $GLOBALS['fabEffectController'] = $previousController;
+        else unset($GLOBALS['fabEffectController']);
+    }
+}
+
+/** CnC has a mandatory hero-hit trigger even when that hero has no Arsenal cards. */
+function FaBWTRQueueCommandAndConquerHit(int $player, object $attack, int $amount): void {
+    if ($attack->CardID !== 'command_and_conquer_red' || $amount <= 0
+        || !FaBSeatIsLive($player) || HasNoAbilities($attack)) return;
+    $state = FaBGetState();
+    if (($state['attackTarget']['type'] ?? '') !== 'HERO') return;
+    $victim = intval($state['attackTarget']['player'] ?? 0);
+    if (!in_array($victim, FaBSeatOrder(), true)) return;
+    AddStack(CardID:$attack->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
+        Params:['wtrCncVictim'=>$victim, 'returnWindow'=>(string)$state['window'],
+            'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** Resolve against the hit hero's current Arsenal; the source need not remain. */
+function FaBWTRResolveCommandAndConquerHit(int $player, object $stack): void {
+    if ($stack->CardID !== 'command_and_conquer_red' || !FaBSeatIsLive($player)) return;
+    $victim = intval($stack->Params['wtrCncVictim'] ?? 0);
+    if (!FaBSeatIsLive($victim)) return;
+    $uids = [];
+    foreach (FaBChoiceRefs($victim, 'Arsenal') as $ref) {
+        $found = FaBIdentityFromMZ($ref);
+        if ($found !== null && $found['player'] === $victim && $found['zone'] === 'Arsenal')
+            $uids[] = intval($found['object']->UniqueID);
+    }
+    $hadController = array_key_exists('fabEffectController', $GLOBALS);
+    $previousController = $hadController ? $GLOBALS['fabEffectController'] : null;
+    $GLOBALS['fabEffectController'] = $player;
+    try {
+        foreach ($uids as $uid) {
+            $found = FaBFindUID($uid);
+            if ($found !== null && $found['player'] === $victim && $found['zone'] === 'Arsenal')
+                FaBMONDestroy($uid);
+        }
+    } finally {
+        if ($hadController) $GLOBALS['fabEffectController'] = $previousController;
+        else unset($GLOBALS['fabEffectController']);
+    }
+}
+
+/** Put a hit-triggered draw on the existing ability stack before granting priority. */
+function FaBWTRQueueDrawOnHit(int $player, object $attack): void {
+    if (!FaBSeatIsLive($player) || HasNoAbilities($attack)) return;
+    $state = FaBGetState();
+    AddStack(CardID:$attack->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
+        Params:['wtrDrawTrigger'=>true, 'returnWindow'=>(string)$state['window'],
+            'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** Queue the play trigger; its conditional grant is evaluated on resolution. */
+function FaBWTRQueueLifeOnPlay(int $player, object $source, string $tag): void {
+    if (!FaBSeatIsLive($player) || HasNoAbilities($source)) return;
+    if (!in_array($tag, ['GO_AGAIN', 'WTR_WOUNDED_BULL'], true)) return;
+    $state = FaBGetState();
+    AddStack(CardID:$source->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'Stack', SourceUniqueID:intval($source->UniqueID),
+        Params:['wtrLifeTriggerTag'=>$tag, 'returnWindow'=>(string)$state['window'],
+            'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** Queue Quicken's play/activation trigger before granting go again. */
+function FaBWTRQueueQuicken(int $player, object $token, object $attack): void {
+    if (!FaBSeatIsLive($player) || HasNoAbilities($token)) return;
+    $state = FaBGetState();
+    AddStack(CardID:'quicken', Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'Arena', SourceUniqueID:intval($token->UniqueID),
+        Params:['wtrQuickenAttackUID'=>intval($attack->UniqueID),
+            'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** Flock creates its token when the attack trigger resolves. */
+function FaBWTRQueueFlockToken(int $player, object $attack): void {
+    if (!FaBSeatIsLive($player) || HasNoAbilities($attack)) return;
+    $state = FaBGetState();
+    AddStack(CardID:$attack->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
+        Params:['wtrFlockTokenTrigger'=>true, 'returnWindow'=>(string)$state['window'],
+            'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
+/** Granted hit abilities use the same priority/ability stack as printed hit abilities. */
+function FaBWTRQueueGrantedHit(int $player, object $attack, string $effect, int $victim = 0): void {
+    // Plain base-ability loss does not remove these effects-granted abilities.
+    // The hit dispatcher retains its existing explicit hit-prohibition checks.
+    if (!FaBSeatIsLive($player) || !in_array($effect, ['DISCARD', 'GO_AGAIN'], true)) return;
+    if ($effect === 'DISCARD' && ($victim < 1 || $victim > 4)) return;
+    $state = FaBGetState();
+    AddStack(CardID:$attack->CardID, Owner:$player, Controller:$player, Kind:'ABILITY',
+        SourceZone:'CombatChain', SourceUniqueID:intval($attack->UniqueID),
+        Params:['wtrGrantedHitEffect'=>$effect, 'wtrHitVictim'=>$victim,
+            'wtrHitChainLink'=>intval($attack->ChainLink ?? 0),
+            'returnWindow'=>(string)$state['window'], 'returnCombatStep'=>(string)$state['combatStep']]);
+    $state = FaBGetState(); $state['window'] = 'PRIORITY'; FaBSetState($state);
+}
+
 function FaBWTRResolveAbility(int $player, object $stack): void {
+    if (isset($stack->Params['wtrTokenHitToken'])) {
+        FaBWTRResolvePureTokenHit($stack);
+        return;
+    }
+    if (isset($stack->Params['wtrCncVictim'])) {
+        FaBWTRResolveCommandAndConquerHit($player, $stack);
+        return;
+    }
+    if (!empty($stack->Params['arcLeadTrigger'])) {
+        $controller = intval($stack->Params['arcLeadController'] ?? $player);
+        // The AP gain is the delayed effect, not go again; source loss cannot cancel it.
+        // CR 1.13.2b / 8.5.7b: the trigger still resolves, but AP gain can fail.
+        if (FaBSeatIsLive($controller) && $controller === intval(GetTurnPlayer()) && GetCurrentPhase() === 'MAIN')
+            AddActionPoints($controller, intval(GetActionPoints($controller)) + 1);
+        $state = FaBGetState();
+        $stack->Params['returnWindow'] = FaBStackTop() !== null ? 'PRIORITY'
+            : (!empty($state['combatOpen']) ? ($state['combatStep'] === 'DEFEND' ? 'DEFEND_PRIORITY' : $state['combatStep']) : 'ACTION');
+        $stack->Params['returnCombatStep'] = (string)($state['combatStep'] ?? 'NONE');
+        return;
+    }
+    if (isset($stack->Params['wtrGrantedHitEffect'])) {
+        // A triggered layer survives loss or suppression of the source ability.
+        if ($stack->Params['wtrGrantedHitEffect'] === 'DISCARD') {
+            FaBRequestDiscard(intval($stack->Params['wtrHitVictim'] ?? 0));
+        } elseif ($stack->Params['wtrGrantedHitEffect'] === 'GO_AGAIN') {
+            $attack = FaBFindUID(intval($stack->SourceUniqueID));
+            // Preserve source identity even if this physical UID is replayed later.
+            if ($attack !== null && $attack['zone'] === 'CombatChain'
+                && ($attack['object']->Role ?? '') === 'ATTACK'
+                && intval($attack['object']->ChainLink ?? 0) === intval($stack->Params['wtrHitChainLink'] ?? -1)) {
+                FaBWTRTag($attack['object'], 'GO_AGAIN');
+            }
+        }
+        return;
+    }
+    if (isset($stack->Params['wtrQuickenAttackUID'])) {
+        // Each queued trigger remains independent of its source's later abilities.
+        $token = FaBFindUID(intval($stack->SourceUniqueID));
+        if ($token !== null && $token['zone'] === 'Arena' && $token['object']->CardID === 'quicken') {
+            FaBMONDestroy(intval($token['object']->UniqueID));
+        }
+        $attack = FaBFindUID(intval($stack->Params['wtrQuickenAttackUID']));
+        if ($attack !== null && $attack['zone'] === 'Stack') FaBWTRTag($attack['object'], 'GO_AGAIN');
+        return;
+    }
+    if (!empty($stack->Params['wtrFlockTokenTrigger'])) { FaBWTRCreateArena($player, 'quicken'); return; }
+
+    if (isset($stack->Params['wtrLifeTriggerTag'])) {
+        $tag = (string)$stack->Params['wtrLifeTriggerTag'];
+        $source = FaBFindUID(intval($stack->SourceUniqueID));
+        if ($source !== null && $source['zone'] === 'Stack'
+            && in_array($tag, ['GO_AGAIN', 'WTR_WOUNDED_BULL'], true)) {
+            foreach (FaBOpponents($player) as $opponent) {
+                if (FaBPENLifeMore($opponent, $player)) { FaBWTRTag($source['object'], $tag); break; }
+            }
+        }
+        return;
+    }
+    // A triggered layer resolves independently of its source or current suppression.
+    if (!empty($stack->Params['wtrDrawTrigger'])) { DoDrawCard($player, 1); return; }
     if(isset($stack->Params['arcSpec'])){FaBARCResolveAbility($player,$stack);return;}
     $id=$stack->CardID;$spec=FaBWTRAbilitySpec($id);
     if($spec===null)return;

@@ -1,0 +1,7 @@
+{
+    "name": "Aetherstorm Wellingtons / intrinsic closure / static-no-manual-activation-own-main",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:35:58+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Only printed static AB2; no activated ability exists. Owner has own MAIN priority, AP1 and enough resources, so wrong priority or missing assets cannot explain rejection. Actual source click must leave sourceUID3 equipped/ready and assets/HP/priority unchanged with no Stack/choices. AB supplies no Action or Instant activation outside a pending arcane-damage replacement event. No query-only proof substitutes for click. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aetherstorm_wellingtons https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN110.webp https://rules.fabtcg.com/en/cr/08-keywords/#838 https://rules.fabtcg.com/en/cr/07-combat/#732 https://rules.fabtcg.com/en/cr/01-game-concepts/#174 https://rules.fabtcg.com/en/cr/06-effects/#645"
+}

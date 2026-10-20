@@ -1,0 +1,32 @@
+{
+    "completed_at_utc": "2026-10-20T00:03:06+00:00",
+    "input_file": "card-regression-batch30-pilot.json",
+    "input_sha256": "97a3fcce1d7117b99105fd3ef76445c9253bdc796e1227e041d9580f095b89b6",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-aetherstorm-wellingtons-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-arcane-lantern-pay-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 128
+        },
+        {
+            "slug": "card-shamanic-shinbones-decline-while-affordable",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 98
+        },
+        {
+            "slug": "card-enclosed-firemind-reuse-later-packet-real-boots-grant",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 217
+        }
+    ]
+}

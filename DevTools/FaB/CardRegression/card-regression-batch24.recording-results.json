@@ -1,0 +1,26 @@
+[
+    {
+        "slug": "card-throttle-red-decline-boost-pays-assets-only",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 49
+    },
+    {
+        "slug": "card-heart-wrencher-red-empty-deck-no-boost-choice",
+        "status": "recorded_semantically_checked",
+        "actions": 12,
+        "assertions": 25
+    },
+    {
+        "slug": "card-throttle-red-boost-last-deck-card-after-assets",
+        "status": "recorded_semantically_checked",
+        "actions": 14,
+        "assertions": 44
+    },
+    {
+        "slug": "card-flock-of-the-feather-walkers-red-known-speedslip-boost-cost-seam",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 68
+    }
+]

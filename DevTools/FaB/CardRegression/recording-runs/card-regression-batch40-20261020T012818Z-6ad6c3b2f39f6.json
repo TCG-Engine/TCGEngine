@@ -1,0 +1,272 @@
+{
+    "completed_at_utc": "2026-10-20T01:28:18+00:00",
+    "input_file": "card-regression-batch40.json",
+    "input_sha256": "a43c118382b0ddc625b8979f9c23fd1c37c1ee81b892639f961c94c555bdacbc",
+    "filter": "",
+    "results": [
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-pitched-for-exact-3",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-blue-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 17,
+            "assertions": 89
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-no-defense-value-cannot-declare-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 50
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-pitched-for-exact-1",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-red-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-hand-floating-exact",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-hand-floating-overfunded",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-arsenal-facedown-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-arsenal-faceup-floating",
+            "status": "recorded_semantically_checked",
+            "actions": 14,
+            "assertions": 71
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-hand-blue-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 83
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-hand-red-then-red-pitch",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 95
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-single-three-defense-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 85
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-fully-blocked-no-hit",
+            "status": "recorded_semantically_checked",
+            "actions": 16,
+            "assertions": 87
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-no-defense-value-cannot-declare-block",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 50
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-pitched-for-exact-2",
+            "status": "recorded_semantically_checked",
+            "actions": 15,
+            "assertions": 78
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-hand-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-arsenal-insufficient-1-resources",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-zero-action-points-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-nonturn-action-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        },
+        {
+            "slug": "card-smash-with-big-tree-yellow-baseline-wrong-priority-rejected",
+            "status": "recorded_semantically_checked",
+            "actions": 1,
+            "assertions": 19
+        }
+    ]
+}

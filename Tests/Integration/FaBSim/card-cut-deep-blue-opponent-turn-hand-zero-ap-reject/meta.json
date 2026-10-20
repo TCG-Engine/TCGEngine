@@ -1,0 +1,7 @@
+{
+    "name": "Cut Deep / opponent-turn-hand-zero-ap-reject",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:46:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next dagger attack this turn gets +2 power. It does not grant that attack go again. Illegal timing/AP/priority attempt preserves the source card and all assets; no buff or source go again resolves. Off-turn AP0 cases combine turn timing and absent AP. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cut_deep_blue https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

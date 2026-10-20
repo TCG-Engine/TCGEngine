@@ -1,0 +1,7 @@
+{
+    "name": "Command and Conquer / mandatory when-hit trigger / arsenal-present",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T05:24:49+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed Generic Command and Conquer costs2, attacks6 and has no go again. Play it through supported Hand action with exactly2 resources/oneAP; unblocked6 damage leaves opposing hero14. Its non-targeted when-hit-hero effect must create one triggered layer before priority, even with an empty Arsenal. At the first Damage boundary require Stack1 before any other oracle, source stillCombatChain, and the original facedown Arsenal WoundingBlowBlueUID4/owner2 stillArsenal and opponentGraveyard0. Actual priority passes resolve the layer; only then Arsenal0 and originalUID4 in owner2Graveyard. No AP gain/GA. Actual Resolution passes and normal Close move CnCUID3 to owner1Graveyard. No guessed trigger CardID, rawOwner, source metadata or implementation tags are asserted. Sources: https://rules.fabtcg.com/en/cr/06-effects/#665 https://rules.fabtcg.com/en/cr/06-effects/#666 https://rules.fabtcg.com/en/cr/07-combat/#752 https://rules.fabtcg.com/en/cr/07-combat/#755 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/#537 FaBSim/WebpImages/command_and_conquer_red.webp FaBSim/GeneratedCode/cardArrayCache.json#command_and_conquer_red"
+}

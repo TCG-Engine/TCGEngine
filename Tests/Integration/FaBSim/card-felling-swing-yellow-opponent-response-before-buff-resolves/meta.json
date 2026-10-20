@@ -1,0 +1,7 @@
+{
+    "name": "Felling Swing / opponent-response-before-buff-resolves",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:46:45+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +5 power. It does not grant that attack go again. Opponent blue Sigil resolves before the source. Its life gain is+1 to opponent. Source AP refund waits until the buff card resolves, then matching weapon receives the printed modifier. Ordinary action timing offers no legal intervening attack while this source is pending, so no stronger premature-effect assertion is claimed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

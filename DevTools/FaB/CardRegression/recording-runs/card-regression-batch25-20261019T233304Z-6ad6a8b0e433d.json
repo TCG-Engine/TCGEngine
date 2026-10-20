@@ -1,0 +1,38 @@
+{
+    "completed_at_utc": "2026-10-19T23:33:04+00:00",
+    "input_file": "card-regression-batch25.json",
+    "input_sha256": "70a7eef628e348d4a48962795d1743dcb9970c3fff63268566deaf4edf27fd55",
+    "filter": "",
+    "results": [
+        {
+            "slug": "compat-plain-spell-aether-dart-red-spellvoid-destroy",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 68
+        },
+        {
+            "slug": "compat-plain-spell-aether-dart-red-spellvoid-decline",
+            "status": "recorded_semantically_checked",
+            "actions": 5,
+            "assertions": 68
+        },
+        {
+            "slug": "compat-plain-spell-aether-dart-red-barrier-pitch-blue-live-source",
+            "status": "recorded_semantically_checked",
+            "actions": 6,
+            "assertions": 84
+        },
+        {
+            "slug": "compat-plain-spell-aether-dart-red-boots-granted-go-again-once-after-await",
+            "status": "recorded_semantically_checked",
+            "actions": 13,
+            "assertions": 160
+        },
+        {
+            "slug": "compat-plain-spell-aether-dart-red-storm-striders-underlying-energy-ability-real-pass",
+            "status": "recorded_semantically_checked",
+            "actions": 12,
+            "assertions": 131
+        }
+    ]
+}

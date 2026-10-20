@@ -1,0 +1,190 @@
+{
+  "status": "INDEPENDENT_MODERN_EXACT_SAVED_B26_TWO_EXISTING_PILOTS_APPROVED_NO_NEW_COVERAGE",
+  "reviewer": "/root/resume_actual_audit",
+  "captured_utc": "2026-10-20T15:51:45.434946+00:00",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "checks": 135,
+  "utility_checks": 201,
+  "fixtures": [
+    {
+      "slug": "card-muscle-mutt-yellow-hand-blue-pitch",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "e8bb71d64a8acf419695379d662aa99e2d7e58abc6e0aa0db721f9afa9779188",
+        "actions.json": "a5527b44e1419ef78f27212f020666139abf2833f6221775456d91bea3ed7eae",
+        "assertions.json": "ccd156176b9e79418e5b99dd44ea6546308b860bfd962bcd238b30cd6b5771c3",
+        "expected_final_gamestate.txt": "8cd7423cf5cdfe1d24a14963d9ac6b8a3cc74b87cf7be309d42d823b1ce4c1cb",
+        "meta.json": "7b65fd1d693ffc4263302a04b04277da78205a364249ebb9c939518f65beb36a"
+      },
+      "fixture_sha256": "6fe5fda052210cbf27c9cd22e8daffcd42e0c2ea43e6ffff5a15c32030cfeafd",
+      "actions": 15,
+      "native_assertions": 46,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": "await_asset_payment",
+          "step": 1,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": "costs_complete_before_priority",
+          "step": 2,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "attack_declared",
+          "step": 4,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "link_resolved_no_early_clear",
+          "step": 13,
+          "native_assertions": 9
+        },
+        {
+          "checkpoint": "chain_closed_to_owner_graveyard",
+          "step": 15,
+          "native_assertions": 9
+        }
+      ],
+      "author_only_checks": [],
+      "cardIDs": [
+        "muscle_mutt_yellow"
+      ],
+      "review_basis": "Fresh independent read of existing saved supported actions, every persisted oracle against printed blank-card cost/power/pitch and damage model, full initial/final physical snapshots/UIDs/ownership/queues/frames and exact original raw5. Existing two full current replay reports bind unchanged behavior. No new scenario, action or expectation.",
+      "limitations": [
+        "The zero-damage defense pilot proves sufficient defense against a power2 attack; exact defense upper bound is not established by this endpoint. The existing separate partial-damage case is retained as the finite baseline requirement.",
+        "Computed defense2 author check is not persisted in this original recording; it receives no new native-oracle credit.",
+        "This adapter modernizes proof serialization only; old proof, fixtures, assertions and broad interaction holds remain unchanged."
+      ],
+      "replay_bindings": [
+        {
+          "report": "card-regression-replay-full3079-561899-run1.json",
+          "sha256": "2f253c0b0c6eccaa79ca68ae6bd8aa813f3fa96c635bf476a8275fd9466fdbb4",
+          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "fixture_sha256": "6fe5fda052210cbf27c9cd22e8daffcd42e0c2ea43e6ffff5a15c32030cfeafd",
+          "passed": true
+        },
+        {
+          "report": "card-regression-replay-full3079-561899-run2.json",
+          "sha256": "f1bc7eb1c4c813939f5c1f7426c1930f2d3b5ce9c7a83d619a5219a671a9beec",
+          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "fixture_sha256": "6fe5fda052210cbf27c9cd22e8daffcd42e0c2ea43e6ffff5a15c32030cfeafd",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "slug": "card-muscle-mutt-yellow-defends-for-two-no-hit",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "fe07c4652430fae183562d06a3825eb4f759e85c587686ccdc782b0b57625580",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "8173feceb2bf71c8416390a0328b01b01833e1b789c8d7622bfbdb69736abade",
+        "expected_final_gamestate.txt": "b606b3be45f70b0bfe1a168f95e76e5ebed85e9f006e5a77e438da7cdec435db",
+        "meta.json": "ba26ddd766f8f1bbd7e1a7e5785dd1c08246b9f8c5875c0d45a1fee1c2aa8988"
+      },
+      "fixture_sha256": "d5a42c1d279e571f394027cffeab438560e893abaccb19af599f0f1008290f2b",
+      "actions": 15,
+      "native_assertions": 16,
+      "native_game_state_fields": 0,
+      "checkpoints": [
+        {
+          "checkpoint": "muscle_mutt_defense_two",
+          "step": 6,
+          "native_assertions": 8
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": "muscle_mutt_defense_two",
+          "step": 6,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "cardIDs": [
+        "muscle_mutt_yellow"
+      ],
+      "review_basis": "Fresh independent read of existing saved supported actions, every persisted oracle against printed blank-card cost/power/pitch and damage model, full initial/final physical snapshots/UIDs/ownership/queues/frames and exact original raw5. Existing two full current replay reports bind unchanged behavior. No new scenario, action or expectation.",
+      "limitations": [
+        "The zero-damage defense pilot proves sufficient defense against a power2 attack; exact defense upper bound is not established by this endpoint. The existing separate partial-damage case is retained as the finite baseline requirement.",
+        "Computed defense2 author check is not persisted in this original recording; it receives no new native-oracle credit.",
+        "This adapter modernizes proof serialization only; old proof, fixtures, assertions and broad interaction holds remain unchanged."
+      ],
+      "replay_bindings": [
+        {
+          "report": "card-regression-replay-full3079-561899-run1.json",
+          "sha256": "2f253c0b0c6eccaa79ca68ae6bd8aa813f3fa96c635bf476a8275fd9466fdbb4",
+          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "fixture_sha256": "d5a42c1d279e571f394027cffeab438560e893abaccb19af599f0f1008290f2b",
+          "passed": true
+        },
+        {
+          "report": "card-regression-replay-full3079-561899-run2.json",
+          "sha256": "f1bc7eb1c4c813939f5c1f7426c1930f2d3b5ce9c7a83d619a5219a671a9beec",
+          "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+          "fixture_sha256": "d5a42c1d279e571f394027cffeab438560e893abaccb19af599f0f1008290f2b",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "original_proof": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\b26-native-pilot-independent-review-37ae98290a82.json",
+    "sha256": "37ae98290a829d435fb8144d4241f7dbfdc6642f1f0acceeef0bfeb1acb3452e",
+    "preserved": true
+  },
+  "source_spec": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch26.json",
+    "sha256": "f66901b20c29a21fe3e3d44568d8042faed8ef08c95168f8f065292d3fb809e9"
+  },
+  "printed_metadata": {
+    "muscle_mutt_yellow": {
+      "id": "muscle_mutt_yellow",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "2",
+      "cost": "3",
+      "power": "6",
+      "defense": "2",
+      "functional_text_plain": ""
+    },
+    "wounding_blow_blue": {
+      "id": "wounding_blow_blue",
+      "types": [
+        "Generic",
+        "Action",
+        "Attack"
+      ],
+      "pitch": "3",
+      "cost": "0",
+      "power": "2",
+      "defense": "3",
+      "functional_text_plain": ""
+    }
+  },
+  "metadata_source_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "reason": "Older affirmative raw-five-only review schema lacks fixture_sha256 required by current strict native proof verifier. These freshly reviewed existing rows explicitly supply both modern behavior digest and exact original raw5 without changing verifier code or expectations.",
+  "native_actions": 0,
+  "native_imports": 0,
+  "native_writes": 0,
+  "new_scenarios": 0,
+  "new_card_identities": 0,
+  "new_finite_baseline_promotions": 0
+}

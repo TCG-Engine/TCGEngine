@@ -1,0 +1,7 @@
+{
+    "name": "Pummel / arsenal-cost-two-hit-defender-chooses-1",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:55:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Brutal Assault blue is cost2/power4, exactly Pummel inclusive boundary. Pummel costs2, grants +4 and hero-hit discard; power8, life12. Blue3 pays attack2 leaving1; second blue3 pays Pummel2 leaving2. Damage creates Stack1 while defender still has both distinct cards and no chooser. Only after resolving the trigger does the defender choose index1 (wounding_blow_yellow) to discard. Hand1/graveyard1 plus exact remaining/discarded membership pin controller, amount and choice. No attack go again, final AP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pummel_red https://judge.fabtcg.com/cards/detail/319/ https://rules.fabtcg.com/en/cr/07-combat/#742a https://rules.fabtcg.com/en/cr/01-game-concepts/#162c"
+}

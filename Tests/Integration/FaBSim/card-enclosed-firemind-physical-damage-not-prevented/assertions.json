@@ -1,0 +1,293 @@
+[
+    {
+        "step": 3,
+        "type": "computed_power_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p1CombatChain-0",
+        "value": 2
+    },
+    {
+        "step": 3,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 3,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 1
+    },
+    {
+        "step": 3,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 3,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 18
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 1
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 12,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 12,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "cardID": "enclosed_firemind"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "CardID",
+        "value": "enclosed_firemind"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 12,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Weapons",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p1Graveyard",
+        "cardID": "wounding_blow_blue"
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Health",
+        "value": 20
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Health",
+        "value": 18
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1Resources",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2Resources",
+        "value": 1
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p1ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "scalar_zone_equals",
+        "viewerPlayerID": 1,
+        "zone": "p2ActionPoints",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "card_exists",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "cardID": "enclosed_firemind"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "CardID",
+        "value": "enclosed_firemind"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "UniqueID",
+        "value": "4"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Owner",
+        "value": "2"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Controller",
+        "value": "2"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 14,
+        "type": "card_property_equals",
+        "viewerPlayerID": 1,
+        "mzId": "p2Equipment-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Graveyard",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "Stack",
+        "value": 0
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Equipment",
+        "value": 1
+    },
+    {
+        "step": 14,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "p2Weapons",
+        "value": 0
+    }
+]

@@ -1,0 +1,56 @@
+{
+  "status": "INDEPENDENT_LUNGING_TARGET_RULE_INFERENCE_AND_SUPPORTED_BEFOREPROBE_APPROVED",
+  "reviewer": "/root/pilot_review",
+  "checks": 317,
+  "audit_sha256": "4059f64094d4617ff38843bc021d33c938413abcef9f452d05eeeaf1e3c75170",
+  "probe_sha256": "4e6a4a7171910dea5f0c80ee3c3d049c9c47b54eb555a1c6c5b1c6565ba5dd39",
+  "native_persistable_checks": 89,
+  "independently_viewed_card_faces": {
+    "lunging_press_blue": "84d527fb8f8df397e702566f861fd579a3ec267a17f425867e9c49db8236fbf2",
+    "surging_strike_red": "b4064cff5d0916e682964b1d7361709e81b7bc1aa2d687907d85bcdf0b823ed8",
+    "harmonized_kodachi": "178dfdc6e95db71f70aafae4d7919f82a2567bceac1afebbb6ca43fd9af70a43",
+    "fai": "4b04d004f3ebfb3afc59d95c31aed15b4fc84a77a207ed5c1e6d7d9f4e072215"
+  },
+  "native_writes": 0,
+  "game_actions": 0,
+  "accepted_saved_coverage": 0,
+  "target_scope_verdict": "Current official target description contains no active/attacking/current-link/own restriction. A public AA card on prior resolved chain link, or a public defending AA including opponent-controlled, remains an eligible target. Reaction timing constrains the player/current attack, not the target description.",
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/720/",
+      "basis": "Official LungingPress0 GenericAttackReaction effect targets an attack action card."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "basis": "CR1.8.5/a target parameters and public arena/stack eligibility; no unstated active-link requirement."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "basis": "CR3.6.1 combat chain is public and in arena."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "basis": "CR7.0.3f and7.2.2 prior chain cards remain until they leave;7.6.2/3 allows real followup after GA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "basis": "CR8.1.2a attacker has permission during Reaction Step; no target-scope narrowing."
+    }
+  ],
+  "probe_qualification": [
+    "Valid actual beforeproof in existing supported recorder: real cost2/5damage/GA Surging, then real cost1/AP1 Kodachi with no pitched0. Earlier public Surging is sole legal AA while current attack is a weapon.",
+    "Stack1 is an expected standard source announcement boundary; native failure can establish illegal rejection only after checking observed decision queues/pending selection are empty. If a legitimate target chooser is pending before Stack, treat as workflow adaptation, never wrong-card evidence. No guessed answer or target-choice UI was fabricated.",
+    "Probe ends before resolution, so it does not establish correct chosen-target effect routing, old-card computed power, target-revalidation or passing-regression coverage."
+  ],
+  "existing_partial_qualification": "Frozen21 current-target drafts cannot prove full ordinary target coverage; public defending AA may introduce additional choices. B57 first three and B58 bounded compatibility each have a single eligible current AA (other played reaction is DR/item/AR), so this scope finding alone does not invalidate their already reviewed selected-target outcome.",
+  "source_concerns": [
+    "Native current-AA-only CanPlay rejects legal previous/defending-AA alternatives while weapon is active.",
+    "Generated resolution uses global active attackUID rather than declared target; source-only until native probe verifies relevant path.",
+    "ObjectCurrentPower hook is current-attack-only; no unsupported old-card power oracle is inferred."
+  ],
+  "remaining_gates": [
+    "Parent isolated native beforeproof/record immutable error, state, queues and supported actions before calling current rejection a bug.",
+    "Separate target declaration/selection/source binding implementation and compatibility matrix review if actual bug confirmed.",
+    "Broader current/old/defending target choice branches are ordinary unresolved target obligations, not arbitrarily externalized holds."
+  ]
+}

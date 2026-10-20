@@ -1,0 +1,17 @@
+{
+  "status": "held_incorrect_attribution_not_accepted_passing",
+  "completed_utc": "2026-10-19T23:22:09.799030+00:00",
+  "slug": "card-ice-bolt-red-opponent-barrier-pay-floating",
+  "held_path": "DevTools/FaB/CardRegression/held-unverified-spell-attribution/card-ice-bolt-red-opponent-barrier-pay-floating",
+  "files": {
+    "actions.json": "5c4aa71d3b154675d6a1a5a22eeb13dde68150e530f3ff2c1e8132674d3ce005",
+    "assertions.json": "d4b267bf3e93cdd8bb876e7ea9c5c26a72180f7f45d7fa73f023922044da81f9",
+    "expected_final_gamestate.txt": "88260eabd69a721f72fc069e195a160694d309ae3f8085c911de7fcd25cf815e",
+    "initial_gamestate.txt": "5e752b9be5dd96a27097910058c804fa1fae3bacd40844af40a3c928325adefc",
+    "meta.json": "b36392549b0a76a9a98941200084dcd0fea55e8aa7b15312f7a73ad96cdfa33e"
+  },
+  "lifecycle_check": "Pending prevention correctly retained Stack1/source/GY0 after repair; this alone is not complete semantic validation.",
+  "expected": "Caster seat1/sourceUID3/victim2 must receive correct damage attribution.",
+  "observed": "arcaneDealt credits seat2 to seat2; HNT_DAMAGED_BY UID2 and ROS_DAMAGE/ROS_ARCANE credited to seat2 after that defender answers prevention.",
+  "review": "b21-native-pilot-read-review.json"
+}

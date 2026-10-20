@@ -1,0 +1,504 @@
+{
+  "status": "B61_V3_BOUNDED_PITCH_SCHEMA_CORRECTION_APPROVED_FOR_NATIVE_RETRY",
+  "reviewer": "/root/wtr_attack_scenarios",
+  "spec_sha256": "ae6aba4b9d46a4c01773be4172d49f88807174fd94a1d86b0275afef666597c7",
+  "pilot_sha256": "7c1dbe96f1cf105790a19eb3a5dd4b77dd629ff2b3ca19fde92a01f3767f31e5",
+  "manifest_sha256": "ab89efbe7d117a490fe5ba79f1af78c4b883a1e989c055d9f387dbd7d7fb0781",
+  "independent_checks": 6555,
+  "pure_actual_schema_evaluator_checks": 12,
+  "modeled_persistable_oracles": 2810,
+  "modeled_actions": 300,
+  "supported_card_property_checks": 780,
+  "exact_deleted_checks": [
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 4,
+      "checkpoint": "primary_pitch_pays_three_no_buff_or_go_again",
+      "old_check_index": 21,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "step": 10,
+      "checkpoint": "actual_close_primary_remains_pitch_source_owner_graveyard",
+      "old_check_index": 25,
+      "mzId": "p1Pitch-0",
+      "property": "TurnEffects",
+      "zoneClass": "Pitch",
+      "schemaSerialized": false,
+      "publicFieldDeclared": false,
+      "removed_check": {
+        "type": "card_property_equals",
+        "mzId": "p1Pitch-0",
+        "property": "TurnEffects",
+        "value": "[]"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-sharpen-steel-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-cut-deep-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-yellow-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-pitch-funds-distinct-cost-three-no-action-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "spec_semantically_approved": true,
+      "modeled_actions": 15
+    }
+  ],
+  "actual_schema_probe": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\weapon-intrinsic-schema-independent-probe-results.json",
+    "sha256": "d6545c9755f7da5e96623c97b24239008966568eec75b5c26212b9a2b90120b7",
+    "source_classes_sha256": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "source_framework_sha256": "d8213ee44f566a45d9475e5e52a1ab7ed3e6560984356e4a7521f5ffc6372c8d"
+  },
+  "prior_review_correction": "My prior d65b review incorrectly modeled TurnEffects as present on every zone object and failed to check serialized Pitch fields. Actual class/constructor/Serialize and actual RegressionEvaluateAssertion now independently prove the old Pitch [] assertion invalid; dynamic properties vanish on roundtrip. No replacement empty-string oracle or engine schema change is accepted.",
+  "review_basis": "Exact20 deletion-only delta, all actions/setup/metadata/ledger/math/other props unchanged, all10 defense objects equal. Every780 retained physical property is in GameSchema, declared public class fields and actual Serialize accessors. Replayed all planned checks in schema-aware independent individual-pass model; prior focused cardsPlayedThisTurn and printed power/noGA/cost/damage/Close remain. Two saved defense fixture five-raw files preserved without rerecord.",
+  "native_attempt_preserved": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch61-pilot-20261020T032119Z-6ad6de2f6afe6.json",
+    "sha256": "9f4113a8dbb06dff2108bada60118bfef11358c706dea6b106e8e3571f8431f5",
+    "input_sha256": "20ce4c1fb4db461559b451e6c6651f0e2090abc407c208d665c016ee5eb8ac13"
+  },
+  "saved_defense2_binding": [
+    {
+      "slug": "card-felling-swing-blue-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "recipe_object_exact_unchanged": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "0ef2cfd445028c286251ae847a43d5f3ee1a5a546bbf34091a1f455497935785",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "84edf383417f9f4605bb55c24a30500fd03720f3bc70cfc308da44dcec80c93a",
+        "expected_final_gamestate.txt": "8049fab1801554ec38cc52e6ccc07760295119bad07c9dc1ec30f8bf889916f8",
+        "meta.json": "342092aae8014ab0010491b957126caf3f88964845774637cd99e12dbc61429c"
+      },
+      "do_not_rerecord": true,
+      "actual_saved_semantic_review_pending": true
+    },
+    {
+      "slug": "card-en-garde-red-weapon-buff-printed-defense-three-no-action-cost-or-effect",
+      "recipe_object_exact_unchanged": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "5322d10ce99f64a5b9276387ace8d15538bc6530b51c4bd60485ad2a8b457acf",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "81b496ab5a3064231795d24d5aed3043db55a11930b9e172371a2fb89ee44834",
+        "expected_final_gamestate.txt": "5d8e39dc8949f2eb2f3dd64b1a2049bd042f986e7268c1ffc2cdeb345dd0833a",
+        "meta.json": "2cbbc9ce0f535470736717e8014e29c72131966398b9b93f57c0b0a4515df479"
+      },
+      "do_not_rerecord": true,
+      "actual_saved_semantic_review_pending": true
+    }
+  ],
+  "limits": [
+    "This spec gate adds no native recorded/replayed coverage; retry only unsaved pitch pilots and skip existing valid defense fixtures.",
+    "No physical Pitch TurnEffects or universal global-effect absence claim. Immediate numeric/noGA/source/played-ledger facts retained; any inappropriate NEXT grant in actual final state needs semantic review.",
+    "Actual saved review, correct current-runtime replay/controls/suites and qualification remain parent execution gates."
+  ],
+  "native_writes": 0,
+  "game_actions": 0
+}

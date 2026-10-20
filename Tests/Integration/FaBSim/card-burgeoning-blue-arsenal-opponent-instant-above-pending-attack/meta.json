@@ -1,0 +1,7 @@
+{
+    "name": "Burgeoning / arsenal-opponent-instant-above-pending-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T00:48:18+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed power4, cost2; originArsenal. The arsenal-only intrinsic bonus is1; expected current power5. No extra trigger layer or go again is created. Pay exactly2 floating resources and1AP, leaving0/0. Opponent Sigil blue resolves above the attack, life20->21; the attack remains pending without dealing damage. Defense0; damage=max(0,5-0)=5; defender life21->16. Origin is checked independently on Stack and CombatChain; the arsenal becomes empty as the attack leaves it. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burgeoning_blue https://judge.fabtcg.com/cards/detail/1176/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_solace_blue"
+}

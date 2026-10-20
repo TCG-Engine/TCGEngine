@@ -1,0 +1,7 @@
+{
+    "name": "Ironrot Helm / Blade Break destroyed-equipment-unavailable-next-chain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:02:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed defense1 and only Blade Break. CR8.3.3 destroys this when the combat chain closes if it defended. CR7.7.1/7.7.4 gives no priority during Close Step and resolves close triggers automatically before remaining equipment returns (7.7.5). Start2AP. First plain4attack is defended by equipment1 and deals3; close destroys equipment. On a later fresh chain, attempting to defend with that Graveyard equipment cannot revive or add it; plain2attack deals2, leaving HP15 and exactly one destroyed equipment still in Graveyard. Sources: https://rules.fabtcg.com/en/cr/08-keywords/#833 https://rules.fabtcg.com/en/cr/07-combat/#77 https://rules.fabtcg.com/en/cr/06-effects/#66 FaBSim/GeneratedCode/cardArrayCache.json#ironrot_helm"
+}

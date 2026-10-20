@@ -1,0 +1,48 @@
+{
+  "status": "EXACT_APPROVED_ROW_SUBSET_CURRENT_BYTES_ONLY_NOT_RUNTIME_QUALIFIED",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "review_basis": "Exact approved saved-fixture rows inherited without altered row fields; source independent review preserved verbatim. Runtime qualification is separate.",
+  "original_review": {
+    "path": "batch45-saved-third-reaction-independent-review.json",
+    "sha256": "43a05d038fb3a9a2ae74b6e0b31ca586dcd722dea011a544851049f7b02019e8"
+  },
+  "fixtures": [
+    {
+      "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "3fd6b5da9ba8cdb303fe1a47b842520a180eb16d9ed14fea4eccb27fee3c6c38",
+        "actions.json": "be4dde4cf29254b2086c9e37f961df6cb2d77f35444703ad883ffb5f3d66f8ec",
+        "assertions.json": "e96a3a16696a2a3398ede0292238a7a8de71d87d7611eb2859a6c42e2aa5822c",
+        "expected_final_gamestate.txt": "7a5c01981874355b6d2da489288aae31fd26fae5b14b996cf7cf500b254e2bff",
+        "meta.json": "8e221400bd6354254a052a07b1e3bd2ae88eec5bbfd15c4df9659e7310fda1b3"
+      },
+      "fixture_sha256": "f659cf74881494d7e029fb6c20c3387ec8c079e66c13563458b02d0df7aa5023",
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "actions": 27,
+      "native_assertions": 332,
+      "independent_model_checks": 340,
+      "final_HP": [
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0
+      ],
+      "final_p1_GY_UIDs": [
+        5,
+        3
+      ],
+      "final_p2_GY_UIDs": [
+        6,
+        4
+      ],
+      "marker_queues_frames_drained": true
+    }
+  ]
+}

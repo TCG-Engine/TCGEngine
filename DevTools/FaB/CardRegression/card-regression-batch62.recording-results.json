@@ -1,0 +1,116 @@
+[
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-floating-overfunded-preserves-surplus",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-arsenal-face-up-floating-exact",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-normal-three-defense-plus-reaction-exactly-full-blocks",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 170
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-two-distinct-reactions-sum-defense",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 208
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacker-razor-above-pending-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 23,
+        "assertions": 222
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-defender-response-above-pending-razor",
+        "status": "recorded_semantically_checked",
+        "actions": 22,
+        "assertions": 221
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-printed-pitch-funds-distinct-cost-three-attack",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 67
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-own-action-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-own-action-arsenal-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-nonturn-action-priority-hand-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 1,
+        "assertions": 38
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-before-attack-layer-resolves-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-attack-window-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-normal-defend-declaration-hand-click-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-reaction-wrong-priority-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacking-hero-cannot-play-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-damage-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-resolution-window-too-late-rejected",
+        "status": "recorded_semantically_checked",
+        "actions": 15,
+        "assertions": 76
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-ally-target-cannot-use-defense-reaction",
+        "status": "recorded_semantically_checked",
+        "actions": 16,
+        "assertions": 78
+    },
+    {
+        "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-third-reaction-after-partial-resolution-028-required",
+        "status": "recorded_semantically_checked",
+        "actions": 27,
+        "assertions": 332
+    }
+]

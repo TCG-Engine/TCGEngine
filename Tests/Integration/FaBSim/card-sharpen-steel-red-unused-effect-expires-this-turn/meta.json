@@ -1,0 +1,7 @@
+{
+    "name": "Sharpen Steel / unused-effect-expires-this-turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T03:45:14+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed cost0, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next weapon attack this turn gets +3 power. It does not grant that attack go again. Leave this-turn modifier unused. Both normal turn transitions clear it. Occupied Arsenal avoids placement choices; sole Deck blue refills and later pitches3 to pay weapon1, leaving2. Next-turn weapon remains printed2; opponent had dealt2 to hero1. No end-pitch ordering choices. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sharpen_steel_red https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

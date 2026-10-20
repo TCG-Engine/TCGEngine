@@ -1,0 +1,7 @@
+{
+    "name": "Goliath Gauntlet / cost-one-exclusion",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:30+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact negative boundary: Leg Tap red costs1, so it attacks for printed4 without the +2 Goliath buff. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goliath_gauntlet https://rules.fabtcg.com/en/cr/07-combat/"
+}

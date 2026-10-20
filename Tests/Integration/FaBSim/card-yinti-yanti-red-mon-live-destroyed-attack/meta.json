@@ -1,0 +1,7 @@
+{
+    "name": "Yinti Yanti / live aura destroyed-attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T15:43:10+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed yinti_yanti_red: cost0/power3/defense2/pitch1. The aura predicate applies continuously while this attacks or defends. A real Kano activation pays3, grants the known BlueDart as an Instant, and mandatory Ward1 destroys the last Shield while preventing all1 arcane damage. Initial condition is present; final condition is absent. Fresh physical defense0, damage3, targetHP17. Both AP0 after initial attack and remain0; no goagain. UID/owner/origin and ordinary close are pinned. Sources: https://judge.fabtcg.com/cards/detail/1020/ https://judge.fabtcg.com/cards/detail/742/ https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

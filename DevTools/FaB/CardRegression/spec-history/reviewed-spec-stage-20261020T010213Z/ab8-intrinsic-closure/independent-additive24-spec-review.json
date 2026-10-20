@@ -1,0 +1,555 @@
+{
+  "status": "INDEPENDENT_EXACT_ADDITIVE24_SPECS_APPROVED_NATIVE_PILOTS_REQUIRED",
+  "reviewer": "/root/wtr_reaction_scenarios",
+  "additiveSHA256": "0013868b7a9ac556ea733c9c230b70bf2c27736fc7eb3bb800292be312202302",
+  "pilotSHA256": "23be054c5565252a91081db90abdd77ba48a9aa4add0bd66da55fdce7a26a71e",
+  "combinedSHA256": "c17286d32d164050bf6db20040bc32ebd4d3599e846ed3ebc2ea3addf1a33385",
+  "original87SHA256": "02baa29a655918220b9a80c235e41143bb6ab41d3d7cbdcd9e77741934527880",
+  "original87PrefixAndOraclesUnchanged": true,
+  "cases": 24,
+  "pilots": 5,
+  "nativeAssertionCount": 3877,
+  "independentChecks": 4488,
+  "originalIndependentModelAdditionalChecks": 1804,
+  "branchCounts": {
+    "static-no-manual-activation-own-main": 8,
+    "two-sources-second-listed-first": 8,
+    "barrier-while-defending-real-kano-instant": 7,
+    "missing-defense-real-block-rejected": 1
+  },
+  "scenarios": [
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "aetherstorm_wellingtons",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          15,
+          20
+        ],
+        "resources": [
+          2,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-two-sources-second-listed-first",
+      "cardID": "aetherstorm_wellingtons",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-aetherstorm-wellingtons-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "aetherstorm_wellingtons",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          12
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "arcane_lantern",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-two-sources-second-listed-first",
+      "cardID": "arcane_lantern",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "enclosed_firemind",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-two-sources-second-listed-first",
+      "cardID": "enclosed_firemind",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-enclosed-firemind-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "enclosed_firemind",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "nullrune_boots",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-two-sources-second-listed-first",
+      "cardID": "nullrune_boots",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-boots-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "nullrune_boots",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "nullrune_gloves",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-two-sources-second-listed-first",
+      "cardID": "nullrune_gloves",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-gloves-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "nullrune_gloves",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "nullrune_hood",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-two-sources-second-listed-first",
+      "cardID": "nullrune_hood",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-hood-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "nullrune_hood",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "nullrune_robe",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-two-sources-second-listed-first",
+      "cardID": "nullrune_robe",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-nullrune-robe-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "nullrune_robe",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-static-no-manual-activation-own-main",
+      "cardID": "shamanic_shinbones",
+      "branch": "static-no-manual-activation-own-main",
+      "nativeAssertions": 43,
+      "derivedFinal": {
+        "HP": [
+          20,
+          20
+        ],
+        "resources": [
+          1,
+          0
+        ],
+        "AP": [
+          1,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-two-sources-second-listed-first",
+      "cardID": "shamanic_shinbones",
+      "branch": "two-sources-second-listed-first",
+      "nativeAssertions": 130,
+      "derivedFinal": {
+        "HP": [
+          20,
+          19
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-shamanic-shinbones-intrinsic-barrier-while-defending-real-kano-instant",
+      "cardID": "shamanic_shinbones",
+      "branch": "barrier-while-defending-real-kano-instant",
+      "nativeAssertions": 344,
+      "derivedFinal": {
+        "HP": [
+          15,
+          16
+        ],
+        "resources": [
+          0,
+          0
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    },
+    {
+      "slug": "card-arcane-lantern-intrinsic-missing-defense-real-block-rejected",
+      "cardID": "arcane_lantern",
+      "branch": "missing-defense-real-block-rejected",
+      "nativeAssertions": 85,
+      "derivedFinal": {
+        "HP": [
+          20,
+          18
+        ],
+        "resources": [
+          0,
+          1
+        ],
+        "AP": [
+          0,
+          0
+        ]
+      },
+      "verdict": "APPROVED_FOR_PARENT_SERIAL_NATIVE_PROBE_NOT_COVERAGE"
+    }
+  ],
+  "sourceRawSHA256": {
+    "FaBSim/Custom/GameLogic.php": "2ce3dfd5ad8ebcca693f7b3b983246dc02ecaf0a42fe7b87b4570e4f1f225b56",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/ARCCards.php": "c3b8c93aeea5bb8915e879b45c0065ac9d18ed78111691e13813868327543636",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "reusedOriginalModelRawSHA256": "553429acd9e3f4807564d498bcab92f9af0cbabfa27da75c464c5cb62873b053",
+  "findings": [
+    "SameUID physical equipment moves toCombatChain by actual supported defense, oldEquipment is removed; live counts0/1 and FromZoneEquipment pinned, no proxy or seeded combat card.",
+    "Actual Kano instant3 resolves real topDart look/banish grant; actual Banish source5 played asINSTANT atAP0 duringReaction. Target is declared before completion. Original physical attackUID3 remains unresolved throughout.",
+    "Live defending equipmentUID4 is the only displayed AB candidate and pays fullN. Arcane3-N before physical2, proper caster credit, originalDartGY5 then attackGY3, equipmentreturnsUID4/ready/Damage0 afterclose.",
+    "No Stack-count oracle is made during awaited Kano look; broader asynchronous activated-source lifetime is explicitly held rather than blessed.",
+    "Lantern missingdefense actual FSMclick leaves it equipped and unspent with no defending card; numeric0 seven other cards are legally declared. Expected engine success flag is not invented for ignored FSM input.",
+    "Reverse-order cases choose explicit second-listedUID5 before primaryUID4, with exact remaining Param/sourceUID and resourceN checkpoint; AB2 makes first cost1 versus2 observable.",
+    "OwnMAIN static clicks have AP1/fullfunding/currentpriority so no accidental activation is pinned under meaningful legal conditions.",
+    "Original87 saved semantic reviews remain unchanged. This is additional specification approval, not actual recording/replay, finite-scope completion approval or all-interactions certification."
+  ],
+  "remainingGates": [
+    "Parent serial five pilot probes with unchanged intended semantic oracles; independently review saved native fixture actions/assertions/snapshots.",
+    "Conditional finite closure scope requires a separate exact declaration/review and qualified current two-clean/control/native gates.",
+    "Suppression/granted keyword/cannotgain, source movement outside ordinary defense, unpreventable, modified defense/prevention and multiplayer are external contracts."
+  ],
+  "nativeActions": 0,
+  "nativeWrites": 0,
+  "requiredCorrections": []
+}

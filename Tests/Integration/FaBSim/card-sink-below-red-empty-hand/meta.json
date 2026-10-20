@@ -1,0 +1,7 @@
+{
+    "name": "Sink Below / empty-hand",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:13:27+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "With no card left in hand after playing Sink, no exchange is possible and no card is drawn. Printed defense4 still applies. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sink_below_red https://rules.fabtcg.com/en/cr/07-combat/"
+}

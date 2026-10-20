@@ -1,0 +1,7 @@
+{
+    "name": "Ice Bolt / opponent-barrier-pay-floating",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:37:01+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost2 and1AP, then resolve printed5 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 pays1floating resource for Barrier1, equipment persists. Prevent1; damage=max(0,5-1)=4, victim life16, other hero20. Final resources[2, 0]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ice_bolt_red https://judge.fabtcg.com/cards/detail/1633/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

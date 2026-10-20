@@ -1,0 +1,14 @@
+[
+    {
+        "slug": "card-evasive-leap-red-flat-dr-hand-floating-exact-at-zero-ap",
+        "status": "recorded_semantically_checked",
+        "actions": 18,
+        "assertions": 157
+    },
+    {
+        "slug": "card-toughen-up-blue-flat-dr-hand-blue-pitch-leaves-one-resource",
+        "status": "recorded_semantically_checked",
+        "actions": 19,
+        "assertions": 178
+    }
+]

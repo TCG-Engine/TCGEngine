@@ -1,0 +1,334 @@
+{
+  "status": "INDEPENDENT_EXACT_SIX_VIRTUAL_OWNER_DESCRIPTOR_CORRECTION_APPROVED_FOR_NATIVE_PILOT_GATES",
+  "reviewer": "/root/resume_catalog",
+  "checks": 831445,
+  "manifest_sha256": "055bab0b54f6f887573baf19ef5b8de8913f248c1c53b59ce5065aa3a3446111",
+  "scope": "Only six virtual Kano ABILITY Stack.Owner diagnostics change from caster seat to actual framework default0. All gameplay actions, printed effect numeric assertions, initial physical sources, real caster controller and Hero SourceUniqueID remain exact. This is a framework representation correction, not a card-rule or source-code change.",
+  "files": [
+    {
+      "original": "mon-continuous-stat-attacks/live-aura-transitions/scenarios12-proposed.json",
+      "original_sha256": "c37e689e8c6e2649f13628ee9ed2d59bc4a4f0ad22140de1d7d01d2b2eb44562",
+      "corrected": "live12-proposed.json",
+      "corrected_sha256": "fb6345530c084d2fe0ce100193c947b59db50f733ae577ff915717bb44a6d0b5",
+      "cases": 12,
+      "changed_virtual_diagnostics": 6,
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "exact_deltas": [
+        {
+          "path": [
+            2,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            3,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            6,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            7,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            10,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            11,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ]
+    },
+    {
+      "original": "mon-continuous-stat-attacks/full-ordinary/scenarios-proposed.json",
+      "original_sha256": "467c0bf09bffc16143a9cbf87e94ea73ba179ba393bc7cdc4db24dc7f4a32b20",
+      "corrected": "full210-proposed.json",
+      "corrected_sha256": "0a2630d9714382fd0779ef3c9aa426d50b45542e57d78718aec16b1a87b96db3",
+      "cases": 210,
+      "changed_virtual_diagnostics": 6,
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "exact_deltas": [
+        {
+          "path": [
+            160,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            161,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            184,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            185,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            208,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            209,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ]
+    },
+    {
+      "original": "mon210-serial-family-split-proposal/card-regression-batch72-yinti.json",
+      "original_sha256": "c7640d06336e4208487bcd23f3d6bcb081c015bf229217c56494067e5f8a9232",
+      "corrected": "card-regression-batch72-yinti.json",
+      "corrected_sha256": "825de6b4996854329330cabb9ab6eaefe23cd847183fb6167d031409e2bb2ef4",
+      "cases": 72,
+      "changed_virtual_diagnostics": 6,
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-red-mon-live-destroyed-defense",
+        "card-yinti-yanti-yellow-mon-live-destroyed-attack",
+        "card-yinti-yanti-yellow-mon-live-destroyed-defense",
+        "card-yinti-yanti-blue-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "exact_deltas": [
+        {
+          "path": [
+            22,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            23,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            46,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            47,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        },
+        {
+          "path": [
+            70,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            71,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ]
+    },
+    {
+      "original": "mon-continuous-stat-attacks/live-aura-transitions/pilots4-exact-subset-proposed.json",
+      "original_sha256": "7579e2179497b11c93b70be2ef75e604661bb0605444f451e1dda324fd12b21f",
+      "corrected": "live-pilot4-exact-subset-proposed.json",
+      "corrected_sha256": "e6a8018cb20e3130fa543d5876c9bf424c425d8b08036110f43344c54c15dea1",
+      "cases": 4,
+      "changed_virtual_diagnostics": 2,
+      "changed_cases": [
+        "card-yinti-yanti-red-mon-live-destroyed-attack",
+        "card-yinti-yanti-blue-mon-live-destroyed-defense"
+      ],
+      "exact_deltas": [
+        {
+          "path": [
+            2,
+            "steps",
+            8,
+            "checks",
+            53,
+            "value"
+          ],
+          "before": "2",
+          "after": "0"
+        },
+        {
+          "path": [
+            3,
+            "steps",
+            11,
+            "checks",
+            61,
+            "value"
+          ],
+          "before": "1",
+          "after": "0"
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "FaBSim/Custom/ARCAbilities.php": "3d93e7520aeeadcfd14bb9c5664b95d7b7b17aa3d3b768fdf431c0e32167c54b",
+    "FaBSim/Custom/WTRCards.php": "f34346a0061cb7c970293f20016a485470faf6fa3088900ba8aaf012513e32cc",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+  },
+  "native_writes": 0,
+  "native_game_actions": 0,
+  "all_saved_ordinary4_unchanged": true,
+  "all210_objects_reconstruct": true,
+  "faults_detected": [
+    "old_owner_retained",
+    "wrong_controller",
+    "physical_hero_changed",
+    "printed_health_changed"
+  ],
+  "actual_native_execution_required": true,
+  "script_sha256": "5122e4001a920e73c7e699be655837d6d380764f858fab1366cafa8f8cc5d6fc"
+}

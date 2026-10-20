@@ -1,0 +1,532 @@
+{
+  "status": "INDEPENDENT_ACTUAL_SAVED_FOUR_HEALING_PILOTS_APPROVED_ONLY",
+  "reviewer": "/root/wtr_buff_scenarios",
+  "source_spec_sha256": "dfd9707e12490376bb4eb593764e8c9fc6f593f5cf1f67c7e3bc3388669a0ae2",
+  "native_spec_sha256": "dfd9707e12490376bb4eb593764e8c9fc6f593f5cf1f67c7e3bc3388669a0ae2",
+  "independent_spec_review_sha256": "6cedcad13626a366a0438afe4f7311e673ff49e752ed9aa313cda9ec812dc7c2",
+  "independent_model_source_sha256": "31a6257bfeaa5bf4702133cee3627dcc9ba5c7c80a5cbd062ff8758b532842ea",
+  "native_source_sha256": {
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/GameLogic.php": "1163845d1d651b2c0606d64b9b7d403b614bf901fbb0b47ec4e553b723d904dd",
+    "FaBSim/Custom/ROSCards.php": "2f6b96bb9d25cc8a40dfb043147367f09a807330badc51d3ddae391e4fc7c339",
+    "FaBSim/Custom/CRUCards.php": "90471718963827e837c4e600b5f8d5d44f332863daff4d0deb6c26f7c6a0d39b",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "FaBSim/Custom/MONCards.php": "28f112a3672f30e220e4cfa4574384bd16455bcef2cdb0a2d6656ed38e4fc3f7",
+    "FaBSim/Custom/MSTCards.php": "d8abcf502b260e220956b9b9edac336293792180afd9a8bff18f7020af2d48d1",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "e50d9638393ee59c60362d612d3765d95a03a15877e00045c342ff2c60b1b682",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "c2660347566893186e51227563d790d1b06fcd04628629290f93aca17ddcc7d9",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "8006846e96e707a9b6fec304251d99a1d7c0d32ae8cd4492e06e0deb02a8e0f5"
+  },
+  "archived_native_attempt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+    "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+  },
+  "saved_review_checks": 869,
+  "totals": {
+    "fixtures": 4,
+    "identities": 4,
+    "actions": 33,
+    "native_assertions": 384,
+    "assertion_types": {
+      "scalar_zone_equals": 112,
+      "zone_count": 62,
+      "decision_queue_empty": 16,
+      "game_state_field": 37,
+      "card_property_equals": 156,
+      "computed_power_equals": 1
+    }
+  },
+  "fixtures": [
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "496b7a40d9ab340d1e724276a4db59e0f3077fef41c4b57985e397c80cbe674b",
+        "actions.json": "3d5b5c048544769188a5e9568fe9e55584fb85913b70536227b7060834fc03e9",
+        "assertions.json": "976a30be66a1337fb0b1dab9ee05de5ab21c5d86013a22a8c31a86b9eba69b00",
+        "expected_final_gamestate.txt": "02a988af1df04aab3d42da49f0e4b91aa9ff1f7f89a53d961325e3401ca4826e",
+        "meta.json": "6f1617dd985dbda688cf75d571855bf2d3eae5a1e3ec730844cdd453b697dc6b"
+      },
+      "fixture_sha256": "d76ec3b4acb5566bd816d76c8eb90581a2acf6b063dae4545b3536093b51b38e",
+      "actions": 7,
+      "native_assertions": 102,
+      "native_game_state_fields": 12,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "dart_target_declaration",
+          "step": 1,
+          "native_assertions": 6
+        },
+        {
+          "checkpoint": "dart_paid_not_dealt",
+          "step": 2,
+          "native_assertions": 17
+        },
+        {
+          "checkpoint": "actual_arcane_damage_before_heal",
+          "step": 4,
+          "native_assertions": 21
+        },
+        {
+          "checkpoint": "instant_paid_at_zero_ap_not_early_healed",
+          "step": 5,
+          "native_assertions": 18
+        },
+        {
+          "checkpoint": "conditional_four_life_once",
+          "step": 7,
+          "native_assertions": 20
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+      "independent_model": {
+        "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+        "semantically_approved": true,
+        "native_oracles": 102,
+        "modeled_actions": 7,
+        "modeled_priority_passes": 4,
+        "action_trace": [
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-1"
+          },
+          {
+            "kind": "answer",
+            "player": 1,
+            "type": "MZCHOOSE",
+            "value": "p1Hero-0"
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-0"
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          }
+        ],
+        "printed_heals": [
+          {
+            "cardID": "arcane_polarity_red",
+            "controller": 1,
+            "gain": 4
+          }
+        ],
+        "final_health": [
+          11,
+          20
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          0,
+          0
+        ],
+        "final_GY_UIDs": {
+          "1": [
+            4,
+            3
+          ],
+          "2": []
+        }
+      },
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+        "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+      },
+      "no_native_replay_by_reviewer": true
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "add88864632b2a61b295e198dd5d81fbbbff319b39b76b7fbc890d956d4b36ae",
+        "actions.json": "d092fc7c4cda805e63b782b6b911c7c0a735f25c94c6bd666b8e7608c7e3f591",
+        "assertions.json": "755326e26cdcb800c7e92e92a475a21bfd6f762c26de30ff91c8d6212ab15bf5",
+        "expected_final_gamestate.txt": "d94cc5304b34b73b295aeb236e6420a13a9173bb76488f6d5c71837d4c772cb0",
+        "meta.json": "5dc5758eb4b1f428d0561a5ad8757ed34a09a48bf1eb5c830095fe6710ccf73f"
+      },
+      "fixture_sha256": "793e41f5b0a070bf83196aeb2268f8dddecafa4a350a44da6bac7bc9df371a2e",
+      "actions": 3,
+      "native_assertions": 85,
+      "native_game_state_fields": 6,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "step": 0,
+          "native_assertions": 32
+        },
+        {
+          "checkpoint": "cost_two_paid_zero_ap_preserved",
+          "step": 1,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "four_earth_threshold_five_life",
+          "step": 3,
+          "native_assertions": 34
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+      "independent_model": {
+        "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+        "semantically_approved": true,
+        "native_oracles": 85,
+        "modeled_actions": 3,
+        "modeled_priority_passes": 2,
+        "action_trace": [
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-0"
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          }
+        ],
+        "printed_heals": [
+          {
+            "cardID": "fertile_ground_red",
+            "controller": 1,
+            "gain": 5
+          }
+        ],
+        "final_health": [
+          15,
+          20
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          0,
+          0
+        ],
+        "final_GY_UIDs": {
+          "1": [
+            3
+          ],
+          "2": []
+        }
+      },
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+        "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+      },
+      "no_native_replay_by_reviewer": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "9a3d7daff85d780082af8dc257d38cb4e1096b000f12a84598aae9b1aebd82c9",
+        "actions.json": "f33c74de297dc5b2db90f4b8e989e9795640262629fb0973d5fa4f7a638f8474",
+        "assertions.json": "8cd3125d969088cbd7a80604f3dc04ff5745c50e57391a99ee5d3a6c25f28930",
+        "expected_final_gamestate.txt": "f9aadde0bc8c7bbe711c9bad19a2e89a2e4df266888eec8709628edb0ebb5097",
+        "meta.json": "67bfc6b74f75c3b7b06a0b967381c7c8ebfd64d5b36f400aa05161e07f2f7864"
+      },
+      "fixture_sha256": "f46437f3df08ec9aaaba694dd27949d87a188bfd3195c5b22b0e92937166625b",
+      "actions": 4,
+      "native_assertions": 81,
+      "native_game_state_fields": 7,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "step": 0,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "announced_needs_pitch_not_healed",
+          "step": 1,
+          "native_assertions": 16
+        },
+        {
+          "checkpoint": "blue_three_pays_two_and_leaves_one",
+          "step": 2,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "empty_prior_graveyard_base_three_only",
+          "step": 4,
+          "native_assertions": 22
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+      "independent_model": {
+        "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+        "semantically_approved": true,
+        "native_oracles": 81,
+        "modeled_actions": 4,
+        "modeled_priority_passes": 2,
+        "action_trace": [
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-0"
+          },
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-0"
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          }
+        ],
+        "printed_heals": [
+          {
+            "cardID": "count_your_blessings_red",
+            "controller": 1,
+            "gain": 3
+          }
+        ],
+        "final_health": [
+          13,
+          20
+        ],
+        "final_resources": [
+          1,
+          0
+        ],
+        "final_AP": [
+          1,
+          0
+        ],
+        "final_GY_UIDs": {
+          "1": [
+            3
+          ],
+          "2": []
+        }
+      },
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+        "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+      },
+      "no_native_replay_by_reviewer": true
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "47a1a34edc9639b2fb1d31db144b93744dfec1d33184fbada23de3b58db5b34f",
+        "actions.json": "f972a776cfdd13cc661965f36f313f0b20b416137559878d56c5dca079c5e390",
+        "assertions.json": "5c669ba2ed2c042a355f75c54f3675a2a715aacd1034fde1d8e27dddd946ab23",
+        "expected_final_gamestate.txt": "42ec1790cc04ef12cee33d8130e3949a1927dea08e54168e651182ab0a2fd442",
+        "meta.json": "be9aa44a06d4fe03842f630d325f76213696cba934d817e46e539da4aa375d84"
+      },
+      "fixture_sha256": "1777282f13e124834bd5213b2fac56ca707563a6182d66739488bbee51f1de7f",
+      "actions": 19,
+      "native_assertions": 116,
+      "native_game_state_fields": 12,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "step": 0,
+          "native_assertions": 23
+        },
+        {
+          "checkpoint": "actual_ward_prevention_choice_before_damage",
+          "step": 10,
+          "native_assertions": 11
+        },
+        {
+          "checkpoint": "ward_destroyed_then_three_actual_physical",
+          "step": 13,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "respite_instant_paid_by_nonturn_player",
+          "step": 15,
+          "native_assertions": 19
+        },
+        {
+          "checkpoint": "own_aura_destroyed_gains_three_not_two",
+          "step": 17,
+          "native_assertions": 20
+        },
+        {
+          "checkpoint": "physical_source_clears_heal_preserved",
+          "step": 19,
+          "native_assertions": 24
+        }
+      ],
+      "author_only_checks": [],
+      "fullNativeAssertionSequenceAndActionStepsMatch": true,
+      "review_basis": "All supported source/pitch/choice actions and each individual priority pass equal the separate prior printed-rule action model; all exact native assertions and complete terminal physical/economy snapshots checked read-only. No current engine output used to derive healing formulas.",
+      "independent_model": {
+        "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+        "semantically_approved": true,
+        "native_oracles": 116,
+        "modeled_actions": 19,
+        "modeled_priority_passes": 16,
+        "action_trace": [
+          {
+            "kind": "click",
+            "player": 1,
+            "mzID": "p1Hand-0"
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "answer",
+            "player": 2,
+            "type": "MZCHOOSE",
+            "value": "p2Arena-0"
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "click",
+            "player": 2,
+            "mzID": "p2Hand-0"
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          },
+          {
+            "kind": "pass",
+            "player": 1
+          },
+          {
+            "kind": "pass",
+            "player": 2
+          }
+        ],
+        "printed_heals": [
+          {
+            "cardID": "ominous_respite_yellow",
+            "controller": 2,
+            "gain": 3
+          }
+        ],
+        "final_health": [
+          20,
+          20
+        ],
+        "final_resources": [
+          0,
+          0
+        ],
+        "final_AP": [
+          0,
+          0
+        ],
+        "final_GY_UIDs": {
+          "1": [
+            3
+          ],
+          "2": [
+            4
+          ]
+        }
+      },
+      "archived_native_run": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch63-20261020T030718Z-6ad6dae688712.json",
+        "sha256": "f3d6e8722f0d6fef219739919e508018ecd01a84bc2fb2dce9596e1e24db656f"
+      },
+      "no_native_replay_by_reviewer": true
+    }
+  ],
+  "limits": [
+    "Only these exact four native saved fixtures; not the unrecorded corrected187 family.",
+    "Count source legacy early-Graveyard/-1 compensation is not a source-lifecycle correctness approval.",
+    "Known token/Earth-Banish setup generation not tested.",
+    "Parent fresh deterministic replay/control/current-runtime gates remain required before qualified coverage."
+  ],
+  "native_games_executed": 0,
+  "native_source_writes": 0,
+  "fixture_writes": 0,
+  "review_script_sha256": "67fb3cdd4bfa8dbae2fa5d788d5712bffb7fceec05363c7e5a00257148abbfbb"
+}

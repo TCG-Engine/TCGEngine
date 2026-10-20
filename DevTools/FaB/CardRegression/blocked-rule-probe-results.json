@@ -1,0 +1,87 @@
+[
+    {
+        "slug": "card-sic-em-shot-red-no-bow-rejected",
+        "status": "blocked_or_incorrect",
+        "error": "Expected card sic_em_shot_red to exist in p1Arsenal.",
+        "attempted_actions": [
+            {
+                "playerID": 1,
+                "mode": 10002,
+                "buttonInput": "",
+                "cardID": "p1Arsenal-0!FSM",
+                "chkInput": [],
+                "inputText": ""
+            }
+        ],
+        "observed_state": {
+            "window": "PRIORITY",
+            "combatOpen": false,
+            "combatStep": "NONE",
+            "chainLink": 0,
+            "attacker": 0,
+            "defender": 0,
+            "attackUID": 0,
+            "attackTarget": null,
+            "pendingAttackTarget": null,
+            "previousAttackCardID": "",
+            "handBlockUIDs": [],
+            "intimidated": [],
+            "pendingPayment": null,
+            "lastAttackName": "",
+            "attackHit": false,
+            "attackPower": 0,
+            "defenseValue": 0,
+            "damageDealt": 0,
+            "declaredBlockUIDs": [],
+            "passiveSeats": [],
+            "gameMode": "",
+            "turnEffects": {
+                "1": [
+                    {
+                        "type": "SUP_COST_ONE",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "CRU_ATTACKS",
+                        "amount": 1,
+                        "uses": 1
+                    },
+                    {
+                        "type": "EVR_PLAYED",
+                        "amount": 1,
+                        "uses": 1
+                    }
+                ]
+            },
+            "nextTurnEffects": [],
+            "hitsThisTurn": [],
+            "cardsPlayedThisTurn": {
+                "1": [
+                    "sic_em_shot_red"
+                ]
+            },
+            "eleKorshemActiveTurn": 2,
+            "arcCards": {
+                "3": {
+                    "iarOrigin": 1,
+                    "mstChiPitched": 0,
+                    "rosMeld": -1,
+                    "rosSurgeGo": false,
+                    "faceUp": false,
+                    "evoDashPlay": false,
+                    "omnFirstDamage": false,
+                    "iarPlayedFrom": "Arsenal",
+                    "outPreviousNames": [],
+                    "mstFree": false,
+                    "mstPreviousPitch": 0,
+                    "mstPreviousAA": false,
+                    "rosLastLightning": false
+                }
+            },
+            "arcActions": {
+                "1": 1
+            }
+        }
+    }
+]

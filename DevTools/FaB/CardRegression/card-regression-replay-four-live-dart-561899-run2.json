@@ -1,0 +1,25 @@
+{
+  "command": "Existing RunIntegrationTests.php --root=FaBSim --test=<each listed slug>",
+  "scope": "TARGETED_SUBSET_ONLY_NOT_A_FULL_CORPUS_RUN",
+  "runtime_sha256": "561899c9b57e783baf4a1771b553db6e7ef1e5d283a914d60241b90f13c420bc",
+  "returncode": 0,
+  "completed_utc": "2026-10-20T14:42:46.490327+00:00",
+  "canonical_inventory_at_capture": 3077,
+  "fixtures": [
+    {
+      "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "fixture_sha256": "386216b561abdcb09dd3918d16a49ddf5a1f317205e5ee5affca5512c9cd1607",
+      "passed": true,
+      "result": "[PASS] Aether Dart / four live players, player3 response and player4 Spellvoid"
+    }
+  ],
+  "per_fixture_native_commands": [
+    {
+      "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "command": "php DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "returncode": 0,
+      "stdout": "[PASS] Aether Dart / four live players, player3 response and player4 Spellvoid\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lead the Charge / rejected-action-does-not-consume",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:08:42+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed source cost0, own go again, next played ACTION CARD with cost at least2 generates a delayed triggered-layer granting1AP when that layer resolves. This includes nonattack action cards; weapon activation, instants, pitching and defending are not action-card plays. brutal_assault_red costs2, but only1 resource and no pitch card exist. Rejected click does not spend AP or trigger/consume Lead. Activate/destroy Energy Potion as an Instant to gain2resources; that ability is not an action-card play. The now-funded target still triggers Lead and floats1. Sources: https://judge.fabtcg.com/cards/detail/550/ https://rules.fabtcg.com/en/cr/06-effects/#663 https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ FaBSim/GeneratedCode/cardArrayCache.json#lead_the_charge_blue"
+}

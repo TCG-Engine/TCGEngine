@@ -1,0 +1,7 @@
+{
+    "name": "Aether Hail / opponent-two-barriers-once-each",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T02:00:07+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost1 and1AP, then resolve printed4 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim has distinct arm/head Barrier1 equipment and2resources. Pay each once; after the first payment HP is still20, resources1, and only the unused hood remains eligible. Second payment leaves0. Prevent2; damage=max(0,4-2)=2, victim life18, other hero20. Final resources[1, 0]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_hail_red https://judge.fabtcg.com/cards/detail/1627/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

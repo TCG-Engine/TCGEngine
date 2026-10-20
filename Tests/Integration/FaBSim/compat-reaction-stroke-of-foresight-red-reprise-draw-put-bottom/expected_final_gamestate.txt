@@ -1,0 +1,115 @@
+1
+16
+1
+dorinthea 2 1 1 0 1 - -
+1
+ira_crimson_haze 2 2 2 0 2 - -
+0
+0
+1
+dawnblade 1 1 1 0 3 - eyJXRUFQT05fQVRUQUNLX1RVUk4iOjIsIldFQVBPTl9BVFRBQ0tTIjoxfQ==
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+dawnblade 2 1 1 0 11 WTR_POWER:3~CRU_SUPPRESS_POWER:3 eyJXRUFQT05fVUlEIjozfQ== ATTACK 1 Weapons
+1
+wounding_blow_red 2 2 2 0 9 - - DEFENSE 1 Hand
+0
+0
+2
+raging_onslaught_blue 8 1 1
+wounding_blow_yellow 6 1 1
+0
+0
+0
+1
+wounding_blow_red 7 1 1
+1
+wounding_blow_yellow 10 2 2
+0
+0
+0
+0
+0
+0
+1
+stroke_of_foresight_red 4 1 1 0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+wounding_blow_blue 5 1 1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+20
+20
+20
+20
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+
+
+0
+2
+1
+{"window":"REACTION","combatOpen":true,"combatStep":"REACTION","chainLink":1,"attacker":1,"defender":2,"attackUID":11,"attackTarget":{"type":"HERO","player":2,"uid":2,"zone":"Hero"},"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[9],"intimidated":[],"pendingPayment":null,"lastAttackName":"Dawnblade","attackHit":false,"attackPower":0,"defenseValue":3,"damageDealt":0,"declaredBlockUIDs":[9],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"PEN_WEAPON_ACTIVATED","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"CRU_WEAPONS","amount":1,"uses":1},{"type":"CRU_SWORDS","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HVY_WEAPON_ATTACKED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_WEAPON_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_2","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_dawnblade","amount":1,"uses":1},{"type":"EVR_SWORD_DAGGER","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"SEA_DRAWN","amount":1,"uses":1},{"type":"DTD_DRAWN","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}],"2":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["dawnblade","stroke_of_foresight_red"]},"arcCards":{"11":{"penPitchTypes":["Generic","Action","Attack"],"dynPitchAA":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"iarPermission":[],"mstReactions":1,"mstBanished":[],"supFirst":true},"5":{"iarPermission":[]},"9":{"iarPermission":[]},"4":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"iarPermission":[]},"7":{"iarPermission":[]},"6":{"iarPermission":[]}},"arcActions":{"1":1},"outPreviousNames":{"1":[]},"lastAttackCardID":"dawnblade","attackTargets":[{"type":"HERO","player":2,"uid":2,"zone":"Hero"}],"defendIndex":0,"attackGoAgain":false,"arakniReactionSteps":{"2:11:1":true},"arakniAttackReactions":{"2:11:1":true},"outAnyReactions":{"2:1:1":true},"outReactions":{"2:1:1":true},"eleKorshemActiveTurn":2}
+0
+12
+12
+0
+0
+0
+0
+1
+0:Before passing priority<vname>1<v0>MAIN<v0>2<v0><v0>12<v0>12<v0>dorinthea<v2>2<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v0>dawnblade<v2>1<v2>1<v2>1<v2>0<v2>3<v2>-<v2>eyJXRUFQT05fQVRUQUNLX1RVUk4iOjIsIldFQVBPTl9BVFRBQ0tTIjoxfQ==<v0><v0><v0>dawnblade<v2>2<v2>1<v2>1<v2>0<v2>11<v2>WTR_POWER:3~CRU_SUPPRESS_POWER:3<v2>eyJXRUFQT05fVUlEIjozfQ==<v2>ATTACK<v2>1<v2>Weapons<v0>raging_onslaught_blue<v2>8<v2>1<v2>1<v1>wounding_blow_yellow<v2>6<v2>1<v2>1<v0>wounding_blow_red<v2>7<v2>1<v2>1<v0><v0>stroke_of_foresight_red<v2>4<v2>1<v2>1<v2>0<v0><v0><v0>wounding_blow_blue<v2>5<v2>1<v2>1<v0><v0><v0><v0>20<v0>1<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0>ira_crimson_haze<v2>2<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v0><v0><v0><v0>wounding_blow_red<v2>2<v2>2<v2>2<v2>0<v2>9<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v0><v0>wounding_blow_yellow<v2>10<v2>2<v2>2<v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0>{"mzID":"Stack-0","mzIDCardID":"stroke_of_foresight_red","attacker":1,"defender":2,"fabSourceZone":"Hand","evoEvent":"","cardID":"stroke_of_foresight_red","fromZone":"Hand","chosen":"p1Hand-0","position":"1"}<v0><v0>1<v0>0<v0>{"window":"REACTION","combatOpen":true,"combatStep":"REACTION","chainLink":1,"attacker":1,"defender":2,"attackUID":11,"attackTarget":{"type":"HERO","player":2,"uid":2,"zone":"Hero"},"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[9],"intimidated":[],"pendingPayment":null,"lastAttackName":"Dawnblade","attackHit":false,"attackPower":0,"defenseValue":3,"damageDealt":0,"declaredBlockUIDs":[9],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"PEN_WEAPON_ACTIVATED","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"CRU_WEAPONS","amount":1,"uses":1},{"type":"CRU_SWORDS","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HVY_WEAPON_ATTACKED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_WEAPON_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_2","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_dawnblade","amount":1,"uses":1},{"type":"EVR_SWORD_DAGGER","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"SEA_DRAWN","amount":1,"uses":1},{"type":"DTD_DRAWN","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}],"2":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["dawnblade","stroke_of_foresight_red"]},"arcCards":{"11":{"penPitchTypes":["Generic","Action","Attack"],"dynPitchAA":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"iarPermission":[],"mstReactions":1,"mstBanished":[],"supFirst":true},"5":{"iarPermission":[]},"9":{"iarPermission":[]},"4":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"iarPermission":[]},"7":{"iarPermission":[]},"6":{"iarPermission":[]}},"arcActions":{"1":1},"outPreviousNames":{"1":[]},"lastAttackCardID":"dawnblade","attackTargets":[{"type":"HERO","player":2,"uid":2,"zone":"Hero"}],"defendIndex":0,"attackGoAgain":false,"arakniReactionSteps":{"2:11:1":true},"arakniAttackReactions":{"2:11:1":true},"outAnyReactions":{"2:1:1":true},"outReactions":{"2:1:1":true},"eleKorshemActiveTurn":2}<v0>0<v0>{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}<v0>{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}<v0>11<v0>0
+1
+0:Before passing priority<vname>1<v0>MAIN<v0>2<v0><v0>12<v0>12<v0>dorinthea<v2>2<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v0>dawnblade<v2>1<v2>1<v2>1<v2>0<v2>3<v2>-<v2>eyJXRUFQT05fQVRUQUNLX1RVUk4iOjIsIldFQVBPTl9BVFRBQ0tTIjoxfQ==<v0><v0><v0>dawnblade<v2>2<v2>1<v2>1<v2>0<v2>11<v2>-<v2>eyJXRUFQT05fVUlEIjozfQ==<v2>ATTACK<v2>1<v2>Weapons<v0>wounding_blow_red<v2>7<v2>1<v2>1<v1>raging_onslaught_blue<v2>8<v2>1<v2>1<v0>wounding_blow_yellow<v2>6<v2>1<v2>1<v0><v0><v0><v0><v0>wounding_blow_blue<v2>5<v2>1<v2>1<v0><v0><v0><v0>20<v0>1<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0>ira_crimson_haze<v2>2<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v0><v0><v0><v0>wounding_blow_red<v2>2<v2>2<v2>2<v2>0<v2>9<v2>-<v2>-<v2>DEFENSE<v2>1<v2>Hand<v0><v0>wounding_blow_yellow<v2>10<v2>2<v2>2<v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>0<v0>{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0><v0>20<v0>0<v0>0<v0>1<v0><v0>{"mzID":"Stack-0","mzIDCardID":"stroke_of_foresight_red","attacker":1,"defender":2,"fabSourceZone":"Weapons","evoEvent":"","cardID":"stroke_of_foresight_red","fromZone":"Hand"}<v0>stroke_of_foresight_red<v2>1<v2>1<v2>ATTACK_REACTION<v2>Hand<v2>4<v2>-<v2>4<v2>-<v2>eyJGQUJfUExBWV9PUkRFUiI6MX0=<v0>2<v0>0<v0>{"window":"REACTION","combatOpen":true,"combatStep":"REACTION","chainLink":1,"attacker":1,"defender":2,"attackUID":11,"attackTarget":{"type":"HERO","player":2,"uid":2,"zone":"Hero"},"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[9],"intimidated":[],"pendingPayment":null,"lastAttackName":"Dawnblade","attackHit":false,"attackPower":0,"defenseValue":3,"damageDealt":0,"declaredBlockUIDs":[9],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MST_BLUE_PITCHED","amount":1,"uses":1},{"type":"PEN_WEAPON_ACTIVATED","amount":1,"uses":1},{"type":"CRU_ATTACKS","amount":1,"uses":1},{"type":"CRU_WEAPONS","amount":1,"uses":1},{"type":"CRU_SWORDS","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"HVY_WEAPON_ATTACKED","amount":1,"uses":1},{"type":"HNT_ATTACKS","amount":1,"uses":1},{"type":"HNT_WEAPON_ATTACK","amount":1,"uses":1},{"type":"HNT_ATTACKED_2","amount":1,"uses":1},{"type":"SEA_ATTACKED","amount":1,"uses":1},{"type":"SUP_ATTACKS","amount":1,"uses":1},{"type":"MON_LAST_dawnblade","amount":1,"uses":1},{"type":"EVR_SWORD_DAGGER","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1}],"2":[{"type":"SEA_ATTACKED_HERO","amount":1,"uses":1},{"type":"ELE_AA_COMBAT","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["dawnblade","stroke_of_foresight_red"]},"arcCards":{"11":{"penPitchTypes":["Generic","Action","Attack"],"dynPitchAA":true,"outPreviousNames":[],"mstFree":false,"mstPreviousPitch":0,"mstPreviousAA":false,"iarPermission":[],"mstReactions":1,"mstBanished":[],"supFirst":true},"5":{"iarPermission":[]},"9":{"iarPermission":[]},"4":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false}},"arcActions":{"1":1},"outPreviousNames":{"1":[]},"lastAttackCardID":"dawnblade","attackTargets":[{"type":"HERO","player":2,"uid":2,"zone":"Hero"}],"defendIndex":0,"attackGoAgain":false,"arakniReactionSteps":{"2:11:1":true},"arakniAttackReactions":{"2:11:1":true},"outAnyReactions":{"2:1:1":true},"outReactions":{"2:1:1":true}}<v0>0<v0>{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}<v0>{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}<v0>11<v0>0
+0
+0
+2
+1
+MAIN
+
+{"mzID":"Stack-0","mzIDCardID":"stroke_of_foresight_red","attacker":1,"defender":2,"fabSourceZone":"Hand","evoEvent":"","cardID":"stroke_of_foresight_red","fromZone":"Hand","chosen":"p1Hand-0","position":"1"}
+{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}
+{"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"PlayCardCalls":{"1":1},"PlayCard":{"1":{"stroke_of_foresight_red":1}}}
+11
+0

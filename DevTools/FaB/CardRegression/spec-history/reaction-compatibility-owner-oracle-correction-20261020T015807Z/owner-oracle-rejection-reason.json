@@ -1,0 +1,11 @@
+{
+  "classification": "INCORRECT_REPRESENTATION_SPEC_ORACLE_NOT_A_CARD_RULE_FAILURE",
+  "removed_from_active_slug": "compat-reaction-priority028-real-command-and-conquer-prohibition",
+  "old_input_sha256": "ede1583bfe34dd673d3bfbf47b6073d2ae34289e38a4210797d8b78555007d91",
+  "reason": "Three raw Owner1 assertions applied to a synthetic EnergyPotion ABILITY slot that native constructors leave unpopulated. Independent review establishes logical layer owner remains activator1; no assertion of logicalOwner0 is accepted. All physicalOwner1/controller/sourceUID/numeric/actor/action oracles retained in separate reviewed candidate.",
+  "replacement_slug": "compat-reaction-priority028-cnc-prohibition-physical-source-owner",
+  "replacement_input_sha256": "80e569f1472ce4cea545e027713af651a0c8203569fb1bb0bbe96bca2ac1eb99",
+  "independent_review_sha256": "0e69852073cbe4c4ab6331f820c8e24dd125595bd4beda896bcd21cad581ec5e",
+  "protected_history": "Original ede input, native immutable failed attempt, earlier rejected CnC hit-timing draft and independent review remain preserved. Real issue028 c700 before-fix failure and correct rule-oracle probes are not changed.",
+  "active_scope": "B57 only original3 valid recipes, byte-equivalent objects; B58 only the new distinct fourth candidate. Owner-sensitive virtual-layer interactions explicitly held. Newfourth is not accepted until native execution/saved review/replay."
+}

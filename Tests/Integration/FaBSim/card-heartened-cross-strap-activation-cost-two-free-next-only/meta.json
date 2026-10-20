@@ -1,0 +1,7 @@
+{
+    "name": "Heartened Cross Strap / cost-two-free-next-only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-19T23:59:29+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "First printed-cost2 Surging Strike red is free and deals5 with go again. Discount is consumed exactly once. Second Surging Strike blue pays full2 using blue3, leaves1, and deals printed3+Ira1=4. Both have printed go again. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heartened_cross_strap https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

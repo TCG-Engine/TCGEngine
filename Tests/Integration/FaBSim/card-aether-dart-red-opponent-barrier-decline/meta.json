@@ -1,0 +1,7 @@
+{
+    "name": "Aether Dart / opponent-barrier-decline",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:59:35+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Cast for printed cost0 and1AP, then resolve printed3 arcane toward hero2. Before prevention completes, both HP20, source on Stack and caster Graveyard0. Victim2 explicitly declines Barrier1 with PASS, preserving its resource. Prevent0; damage=max(0,3-0)=3, victim life17, other hero20. Final resources[0, 1]; no go again. Source goes to its owner's graveyard after effects finish. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_dart_red https://judge.fabtcg.com/cards/detail/1672/ https://rules.fabtcg.com/pdf/en-fab-cr.pdf"
+}

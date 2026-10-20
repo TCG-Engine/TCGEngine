@@ -1,0 +1,7 @@
+{
+    "name": "Throttle / Boost last deck card after assets",
+    "rootName": "FaBSim",
+    "createdAt": "2026-10-20T01:13:37+02:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exactly one card remains in Deck when Throttle red is announced. Accept optional Boost, but leave that card in Deck while resources/AP are unpaid. Pitch Generic Wounding Blow blue for3, pay printed2 and one AP, then successfully banish the sole current top card face up as the additional effect-cost. Emptying Deck this way does not invalidate the paid card. Zero to Sixty blue is Mechanologist, so the attack gains go again, deals6 unblocked, leaves opponent14 and returns AP1; resources stay1 and no banish-play permission is granted. Sources: FaBSim/GeneratedCode/cardArrayCache.json#throttle_red DevTools/FaB/arc_abilities.json#throttle_red/PrepareCard FaBSim/Custom/ARCAbilities.php::FaBARCPayDeferredBoostCosts https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ (5.1.3b, 5.1.7-5.1.10) https://rules.fabtcg.com/en/cr/08-keywords/ (Boost)"
+}
