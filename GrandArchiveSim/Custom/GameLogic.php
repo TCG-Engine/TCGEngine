@@ -10792,6 +10792,12 @@ function CataleptConstellationHoldsLock($obj) {
     return false;
 }
 
+// "Can't wake up" locks that hold against every wake-up, not only the wake up phase: Briar, Schwartz King and a unit held by Cataleptic Constellation.
+function GAWakeUpLocked($obj) {
+    if($obj === null) return false;
+    return $obj->CardID === "r1zd9ys1qc" || CataleptConstellationHoldsLock($obj);
+}
+
 function WakeUpPhase() {
     // Backstop: no explicit removed-card protection should still be "in progress" once a new turn
     // begins. This guards against any dispatch that isn't wired to
@@ -14029,7 +14035,7 @@ function EndPhase() {
 
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
-        if(HasVigor($field[$i])) {
+        if(HasVigor($field[$i]) && !GAWakeUpLocked($field[$i])) {
             $field[$i]->Status = 2; // Vigor units ready themselves at end of turn
         }
         // Attune with Flames (nvx7mnu1xh): clear ATTUNE_FLAMES_BUFF at end of controller's turn

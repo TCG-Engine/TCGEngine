@@ -280,6 +280,44 @@ gaScenario('cataleptic-constellation-the-targeted-ally-stays-rested-through-the-
     ->covers(['on-enter', 'rest', 'wake-up-lock'], GA_CATALEPTIC_TEXT)
     ->register();
 
+// Wake-up effects must respect "can't wake up": Ordained Charisma wakes its target, but not an ally held by Cataleptic Constellation (Briar is spellshroud, so it cannot be targeted).
+const GA_ORDAINED_WAKE_TEXT = 'Gain control of target ally with 2[POWER] or less until end of turn. Wake up that ally.';
+
+function gaOrdainedWake(string $slug, bool $held) {
+    $s = gaScenario($slug)
+        ->deckTemplate('quiet', 'Dungeon Guide')
+        ->readyFor('Ordained Charisma')
+        ->seed('myField', 'Dungeon Guide', properties: ['Status' => 1]);
+    // Seeding the Constellation fires its On Enter: the answer rests the Dungeon Guide and locks it.
+    if ($held) $s->seed('myField', 'Cataleptic Constellation')->target('myField-1');
+    return $s->seed('myHand', 'Ordained Charisma')->play('Ordained Charisma')->pay(3)->target('myField-1');
+}
+
+gaOrdainedWake('ordained-charisma-wakes-up-its-target', false)
+    ->expectProperty('p1Field-1', 'Status', '2', 'The target woke up')
+    ->tested('Ordained Charisma')
+    ->covers(['gain-control', 'wake-up'], GA_ORDAINED_WAKE_TEXT)
+    ->register();
+
+gaOrdainedWake('ordained-charisma-cannot-wake-up-an-ally-held-by-cataleptic-constellation', true)
+    ->expectProperty('p1Field-1', 'Status', '1', 'Cataleptic Constellation: the ally can\'t wake up, so it stays rested')
+    ->tested('Ordained Charisma')
+    ->covers(['gain-control', 'wake-up', 'condition'], GA_ORDAINED_WAKE_TEXT)
+    ->register();
+
+// Whirlwind Reaper wakes itself at the beginning of its controller's end phase by removing a preparation counter; a Cataleptic Constellation hold still applies.
+gaScenario('whirlwind-reaper-cannot-wake-itself-up-while-held-by-cataleptic-constellation')
+    ->deckTemplate('quiet', 'Dungeon Guide')
+    ->readyFor('Cataleptic Constellation')
+    ->seed('myField', 'Whirlwind Reaper')
+    ->seed('myField', 'Cataleptic Constellation')->target('myField-1')
+    ->patch('myField-0', ['Counters' => ['preparation' => 1]])
+    ->endTurn()->answer(1, 'YES')
+    ->expectProperty('p1Field-1', 'Status', '1', 'The held Reaper stays rested even though its end-phase wake-up ability resolved')
+    ->tested('Whirlwind Reaper')
+    ->covers(['end-phase', 'wake-up', 'condition'], 'At the beginning of your end phase, you may remove a **preparation** counter from your champion. If you do, wake up Whirlwind Reaper.')
+    ->register();
+
 // ---- Reflect the Skies ----
 
 const GA_REFLECT_TEXT = 'Put the bottom four cards of your deck on top of your deck in a random order. **Glimpse 2**.';

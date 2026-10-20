@@ -3033,6 +3033,19 @@ $playCardAbilities["jh9s424gjr:0"] = function($player) { //Enervating Decay
   DecisionQueueController::AddDecision($player, "CUSTOM", "jh9s424gjr:0:PlayCard-1", 1);
 };
 
+// Temporary Control Wake (3iG6h4jAPl): "...wake it up" wrote Status = 2 on any target, so a Briar or a Cataleptic Constellation-held ally woke anyway.
+if(isset($customDQHandlers["3iG6h4jAPl:0:CardActivated-1"])) {
+  $customDQHandlers["3iG6h4jAPl:0:CardActivated-1"] = (function($original) {
+    return function($player, $parts, $lastDecision) use ($original) {
+      $targetObj = GetZoneObject($lastDecision);
+      $statusBefore = $targetObj !== null ? $targetObj->Status : null;
+      $original($player, $parts, $lastDecision);
+      $targetObj = GetZoneObject($lastDecision);
+      if($targetObj !== null && $statusBefore !== null && GAWakeUpLocked($targetObj)) $targetObj->Status = $statusBefore;
+    };
+  })($customDQHandlers["3iG6h4jAPl:0:CardActivated-1"]);
+}
+
 // Nico, Whiplash Allure / Wield-Not-Wrath style lash triggers: these generated handlers banish a floating-memory card from the graveyard without
 // telling Nico (NicoOnFloatingMemoryBanished). Wrap each so a net gain in the banish zone notifies him once the original has run.
 foreach(["cfpwakb1k0:0:Enter-1", "fbvt9rdhkj:0:Enter-1", "qb6zhphtw6:0:Enter-1", "2ha4dk88zq:0:CardActivated-1",

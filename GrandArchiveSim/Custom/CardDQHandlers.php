@@ -4400,7 +4400,7 @@ $customDQHandlers["WhirlwindReaperWakeup"] = function($player, $parts, $lastDeci
     }
     // Wake up Whirlwind Reaper
     $reaperObj = &$field[$fieldIdx];
-    if(!$reaperObj->removed) {
+    if(!$reaperObj->removed && !GAWakeUpLocked($reaperObj)) {
         $reaperObj->Status = 2;
     }
 };

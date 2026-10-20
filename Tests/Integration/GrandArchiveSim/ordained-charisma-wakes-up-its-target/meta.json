@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "3iG6h4jAPl"
+        ],
+        "mechanics": [
+            "gain-control",
+            "wake-up"
+        ],
+        "rulesClauses": [
+            "Gain control of target ally with 2[POWER] or less until end of turn. Wake up that ally."
+        ]
+    },
+    "name": "ordained-charisma-wakes-up-its-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-20T00:38:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3iG6h4jAPl"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}
