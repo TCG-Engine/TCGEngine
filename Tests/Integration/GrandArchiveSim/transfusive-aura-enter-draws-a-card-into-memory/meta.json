@@ -1,0 +1,24 @@
+{
+    "name": "transfusive-aura-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7qWYuRNoYI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7qWYuRNoYI"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

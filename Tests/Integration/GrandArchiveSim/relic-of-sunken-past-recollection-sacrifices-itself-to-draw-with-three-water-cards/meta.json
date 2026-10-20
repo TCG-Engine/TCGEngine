@@ -1,0 +1,26 @@
+{
+    "name": "relic-of-sunken-past-recollection-sacrifices-itself-to-draw-with-three-water-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:50:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dqqwey9xys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dqqwey9xys"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "recollection",
+            "sacrifice",
+            "draw"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, if there are three or more water element cards in your graveyard, you may sacrifice CARDNAME. If you do, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

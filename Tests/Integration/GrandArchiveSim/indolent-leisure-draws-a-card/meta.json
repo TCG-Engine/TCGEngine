@@ -1,0 +1,23 @@
+{
+    "name": "indolent-leisure-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "29bvfw3te2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "29bvfw3te2"
+        ],
+        "mechanics": [
+            "draw"
+        ],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

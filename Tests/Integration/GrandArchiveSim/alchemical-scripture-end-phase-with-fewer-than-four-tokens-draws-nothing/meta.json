@@ -1,0 +1,25 @@
+{
+    "name": "alchemical-scripture-end-phase-with-fewer-than-four-tokens-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:19:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h9v2214upu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h9v2214upu"
+        ],
+        "mechanics": [
+            "end-phase",
+            "tokens",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if you control four or more tokens"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

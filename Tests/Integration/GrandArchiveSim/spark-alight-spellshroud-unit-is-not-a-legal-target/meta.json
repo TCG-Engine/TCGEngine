@@ -15,6 +15,9 @@
             "spellshroud",
             "target-filter"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Deal 2 unpreventable damage to target unit.",
+            "Units with spellshroud can't be targeted by Spells."
+        ]
     }
 }

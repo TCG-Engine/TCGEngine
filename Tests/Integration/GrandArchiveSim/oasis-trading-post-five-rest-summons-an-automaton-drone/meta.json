@@ -1,0 +1,25 @@
+{
+    "name": "oasis-trading-post-five-rest-summons-an-automaton-drone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uy4xippor7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uy4xippor7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "summon"
+        ],
+        "rulesClauses": [
+            "(5), [REST]: **Summon** an Automaton Drone token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "apprentice-aeromancer-without-the-class-bonus-gets-no-power-from-a-wind-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9f0nsj62l6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9f0nsj62l6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate a wind element Spell card"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

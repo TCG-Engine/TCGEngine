@@ -1,0 +1,24 @@
+{
+    "name": "facet-the-forgotten-opponents-cannot-play-cards-with-the-activated-cards-name",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:11:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "snXzdCvSHL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "snXzdCvSHL"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "play-restriction"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Enter:** Look at target opponent's memory. You may activate a card from among them without paying its costs and ignoring its elemental requirements. If you do, your opponents can't play cards with the same name as the activated card for as long as you control CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

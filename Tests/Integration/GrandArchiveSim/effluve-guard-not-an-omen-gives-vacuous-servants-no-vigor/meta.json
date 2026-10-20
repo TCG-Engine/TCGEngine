@@ -1,0 +1,25 @@
+{
+    "name": "effluve-guard-not-an-omen-gives-vacuous-servants-no-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:11:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5tz8bwcoel"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5tz8bwcoel"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as this card is an **omen**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

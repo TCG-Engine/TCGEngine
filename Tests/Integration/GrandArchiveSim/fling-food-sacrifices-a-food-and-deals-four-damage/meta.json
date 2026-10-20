@@ -1,0 +1,27 @@
+{
+    "name": "fling-food-sacrifices-a-food-and-deals-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pVHGi99Svy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pVHGi99Svy"
+        ],
+        "mechanics": [
+            "damage",
+            "additional-cost-sacrifice",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a Food item.",
+            "Deal 4 damage to target unit."
+        ]
+    },
+    "notes": "Regression: the Food sacrifice printed as an additional cost was never paid, so Fling Food dealt its 4 damage for free and kept the item.",
+    "sourceScenario": {
+        "seed": 42
+    }
+}

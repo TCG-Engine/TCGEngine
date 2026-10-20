@@ -1,0 +1,26 @@
+{
+    "name": "vengeful-gust-level-three-returning-ally-deals-four-damage-to-its-controllers-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:04:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q4dvnn3zp1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q4dvnn3zp1"
+        ],
+        "mechanics": [
+            "level-gate",
+            "on-enter",
+            "damage",
+            "suppress"
+        ],
+        "rulesClauses": [
+            "[Level 3+] The next time that card would enter the field this turn, it enters with \"**On Enter:** Deal 4 damage to your champion.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -18,7 +18,9 @@
             "ability-loss",
             "phantasmagoria"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Non-Specter cards in your graveyard lose all abilities."
+        ]
     },
     "engineBug": {
         "status": "fixed",

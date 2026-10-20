@@ -1,0 +1,29 @@
+{
+    "name": "searing-rebuke-class-bonus-deals-three-damage-only-when-damage-is-prevented",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hdvpug4d5m",
+        "YFCfIOwNQ5"
+    ],
+    "notes": "Regression: the Class Bonus damage was dealt as soon as Searing Rebuke resolved, whether or not any damage was ever prevented.",
+    "semanticCoverage": {
+        "testedCards": [
+            "hdvpug4d5m",
+            "YFCfIOwNQ5"
+        ],
+        "mechanics": [
+            "prevention",
+            "trigger",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever damage is prevented this way, deal 3 damage to target champion you don't control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "draw-into-memory"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Put any amount of cards from your memory on the bottom of your deck in any order. Then draw that many cards into your memory."
+        ]
     },
     "engineBug": {
         "status": "fixed",

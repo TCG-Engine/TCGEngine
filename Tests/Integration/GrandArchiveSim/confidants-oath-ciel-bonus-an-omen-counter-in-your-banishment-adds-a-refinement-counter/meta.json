@@ -1,0 +1,26 @@
+{
+    "name": "confidants-oath-ciel-bonus-an-omen-counter-in-your-banishment-adds-a-refinement-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:52:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nlufjh84vm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nlufjh84vm"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "omen",
+            "trigger",
+            "refinement"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Whenever an **omen** counter is put on a card in your banishment, put a **refinement** counter on Confidant's Oath."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

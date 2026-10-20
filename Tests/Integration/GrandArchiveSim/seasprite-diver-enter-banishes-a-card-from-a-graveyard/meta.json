@@ -1,0 +1,25 @@
+{
+    "name": "seasprite-diver-enter-banishes-a-card-from-a-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mxqsm4o98v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mxqsm4o98v"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Banish target card in a graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

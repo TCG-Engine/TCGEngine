@@ -1,0 +1,24 @@
+{
+    "name": "aenean-cyclic-winds-without-the-class-bonus-pays-the-full-five",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:08:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3GjTPUfsp3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3GjTPUfsp3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] This card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

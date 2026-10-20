@@ -1,0 +1,2 @@
+# Fixtures that may still be defined as arrays inside DevTools/create-prd-ability-fixtures.php (one slug per line).
+# Empty on purpose: every fixture is written with the scenario builder, and the generator refuses a new inline definition.

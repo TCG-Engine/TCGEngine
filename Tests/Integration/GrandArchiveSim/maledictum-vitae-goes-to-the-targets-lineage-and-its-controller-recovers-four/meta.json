@@ -1,0 +1,25 @@
+{
+    "name": "maledictum-vitae-goes-to-the-targets-lineage-and-its-controller-recovers-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "24I0xn0OQ1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "24I0xn0OQ1"
+        ],
+        "mechanics": [
+            "lineage",
+            "recover",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put CARDNAME on the bottom of target champion's lineage. Whenever this card is put into a champion's lineage, that champion's controller **recovers 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

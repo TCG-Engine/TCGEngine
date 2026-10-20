@@ -1,0 +1,26 @@
+{
+    "name": "fractal-of-creation-sacrifice-summons-a-token-copy-of-a-token-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:26:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7mnu1xhs5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7mnu1xhs5"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "summon",
+            "token-copy"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** **Summon** a token copy of target token you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

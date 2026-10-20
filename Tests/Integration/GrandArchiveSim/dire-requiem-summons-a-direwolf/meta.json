@@ -1,0 +1,24 @@
+{
+    "name": "dire-requiem-summons-a-direwolf",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:04:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ek6gdmh8zh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ek6gdmh8zh"
+        ],
+        "mechanics": [
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "Summon a Direwolf token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

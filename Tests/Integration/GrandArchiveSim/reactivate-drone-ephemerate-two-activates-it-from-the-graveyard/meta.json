@@ -1,0 +1,24 @@
+{
+    "name": "reactivate-drone-ephemerate-two-activates-it-from-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xWqduqhMNp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xWqduqhMNp"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "graveyard-activation"
+        ],
+        "rulesClauses": [
+            "**Ephemerate \u2014** (2)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

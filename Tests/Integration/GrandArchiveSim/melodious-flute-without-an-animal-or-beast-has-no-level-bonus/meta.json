@@ -1,0 +1,24 @@
+{
+    "name": "melodious-flute-without-an-animal-or-beast-has-no-level-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:16:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WAFNy2lY5t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WAFNy2lY5t"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

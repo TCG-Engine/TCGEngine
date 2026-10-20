@@ -1,0 +1,26 @@
+{
+    "name": "spirit-of-serene-water-enter-glimpses-and-draws-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zq9ox7u6wz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zq9ox7u6wz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Glimpse 6**. Draw six cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "suzakus-command-ordinary-beast-respects-prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:34:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5v598k3m1w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5v598k3m1w"
+        ],
+        "mechanics": [
+            "shenju",
+            "unpreventable"
+        ],
+        "rulesClauses": [
+            "If that ally is a Shenju, that attack gets an additional +2 [POWER] and its combat damage is unpreventable."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

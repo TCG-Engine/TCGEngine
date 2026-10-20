@@ -1,0 +1,23 @@
+{
+    "name": "absolving-flames-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:09:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3fbpyhm271"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3fbpyhm271"
+        ],
+        "mechanics": [
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

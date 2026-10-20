@@ -1,0 +1,26 @@
+{
+    "name": "amorphous-strike-class-bonus-on-attack-banishes-a-graveyard-attack-card-for-plus-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:24:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5kt3q2svd5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5kt3q2svd5"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "banish",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** You may banish an attack card from your graveyard. If you do, CARDNAME gets **+X** [POWER] where **X** is the banished card's power."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "reciprocity-dorumegias-call-tonoris-bonus-level-one-cannot-use-its-rest-ability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:21:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mSOHJGjrIu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mSOHJGjrIu"
+        ],
+        "mechanics": [
+            "tonoris-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Tonoris Bonus] [Level 2+] **[REST]:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

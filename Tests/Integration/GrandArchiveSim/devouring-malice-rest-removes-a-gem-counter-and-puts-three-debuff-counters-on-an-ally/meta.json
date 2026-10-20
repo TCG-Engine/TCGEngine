@@ -1,0 +1,27 @@
+{
+    "name": "devouring-malice-rest-removes-a-gem-counter-and-puts-three-debuff-counters-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:45:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1keruycrwi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1keruycrwi"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "counter",
+            "modal",
+            "spell"
+        ],
+        "rulesClauses": [
+            "[REST], Remove a **gem** **counter from Devouring Malice**: As a Spell, choose one that hasn't been chosen\u2014 \u2022 Put three **debuff** counters on target ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

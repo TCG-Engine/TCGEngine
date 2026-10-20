@@ -1,0 +1,24 @@
+{
+    "name": "rivulet-adjutant-class-bonus-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y547d3iixm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y547d3iixm"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

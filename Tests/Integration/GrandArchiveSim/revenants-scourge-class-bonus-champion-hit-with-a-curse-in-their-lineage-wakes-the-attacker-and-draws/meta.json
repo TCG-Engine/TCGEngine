@@ -1,0 +1,27 @@
+{
+    "name": "revenants-scourge-class-bonus-champion-hit-with-a-curse-in-their-lineage-wakes-the-attacker-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r5a3pmmloe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r5a3pmmloe"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-champion-hit",
+            "wake-up",
+            "draw",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** If there are one or more Curse cards in the hit champion\u2019s lineage, wake up the attacker and draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

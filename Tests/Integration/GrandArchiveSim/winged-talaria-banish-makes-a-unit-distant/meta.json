@@ -1,0 +1,26 @@
+{
+    "name": "winged-talaria-banish-makes-a-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:09:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yfid3xuxax"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yfid3xuxax"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "distant",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(2)**, Banish CARDNAME**: Target unit becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

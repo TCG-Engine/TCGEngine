@@ -18,7 +18,10 @@
             "static-ability",
             "ability-loss"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Attack cards in your graveyard have floating memory.",
+            "An object that loses all abilities no longer grants its static effects."
+        ]
     },
     "engineBug": {
         "status": "fixed",

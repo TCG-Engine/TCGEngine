@@ -1,0 +1,25 @@
+{
+    "name": "stolid-vanguard-equestrian-enter-without-a-horse-gets-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yrm3xibmoz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yrm3xibmoz"
+        ],
+        "mechanics": [
+            "equestrian",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian* \u2014 On Enter:** If you control a Horse ally"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "the-constellatory-spire-class-bonus-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:28:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yd609g44vm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yd609g44vm"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate. **On Enter:** Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

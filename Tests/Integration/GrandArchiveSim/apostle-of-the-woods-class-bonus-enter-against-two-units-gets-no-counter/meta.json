@@ -1,0 +1,25 @@
+{
+    "name": "apostle-of-the-woods-class-bonus-enter-against-two-units-gets-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:26:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sg2ghTKuDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sg2ghTKuDt"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Then if an opponent controls three or more units"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

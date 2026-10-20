@@ -1,0 +1,26 @@
+{
+    "name": "washuru-token-recollection-banishes-a-card-from-your-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:31:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k5iv040vcq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k5iv040vcq"
+        ],
+        "mechanics": [
+            "recollection",
+            "banish",
+            "graveyard",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, banish a card from your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

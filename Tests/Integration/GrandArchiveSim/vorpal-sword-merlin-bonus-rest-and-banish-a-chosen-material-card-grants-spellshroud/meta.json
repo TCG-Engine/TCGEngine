@@ -1,0 +1,26 @@
+{
+    "name": "vorpal-sword-merlin-bonus-rest-and-banish-a-chosen-material-card-grants-spellshroud",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:41:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PIcB5KuuMd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PIcB5KuuMd"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "rest",
+            "banish-material",
+            "spellshroud"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] [REST]**, Banish a card from your material deck:** CARDNAME gains **spellshroud** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

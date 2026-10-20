@@ -1,0 +1,24 @@
+{
+    "name": "empowering-enlightenment-puts-an-enlighten-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bo0n07e53e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bo0n07e53e"
+        ],
+        "mechanics": [
+            "empower",
+            "counter"
+        ],
+        "rulesClauses": [
+            "**Empower 2**. Put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

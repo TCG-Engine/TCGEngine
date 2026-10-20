@@ -1,0 +1,27 @@
+{
+    "name": "martial-flowstate-class-bonus-sacrifices-itself-when-your-champion-levels-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:55:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fekR8D4FpB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fekR8D4FpB"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "class-bonus",
+            "level-up",
+            "sacrifice",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever your champion levels up, sacrifice CARDNAME, draw a card into your memory, and your champion's next attack this turn gets +2[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

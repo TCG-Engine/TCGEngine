@@ -1,0 +1,25 @@
+{
+    "name": "stillwater-patrol-true-sight-attacks-a-stealth-unit-with-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LNSRQ5xW6E"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LNSRQ5xW6E"
+        ],
+        "mechanics": [
+            "true-sight",
+            "stealth",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**True Sight** *(This ally can attack units with **stealth**.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

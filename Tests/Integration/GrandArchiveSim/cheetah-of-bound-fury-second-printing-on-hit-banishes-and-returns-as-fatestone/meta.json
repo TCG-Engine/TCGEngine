@@ -1,0 +1,25 @@
+{
+    "name": "cheetah-of-bound-fury-second-printing-on-hit-banishes-and-returns-as-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:16:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5giGYm8WlR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5giGYm8WlR"
+        ],
+        "mechanics": [
+            "on-hit",
+            "banish",
+            "transform"
+        ],
+        "rulesClauses": [
+            "On Hit: You may banish Cheetah of Bound Fury, then return it to the field under its owner's control. (It enters the field as Fatestone of Unrelenting.)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

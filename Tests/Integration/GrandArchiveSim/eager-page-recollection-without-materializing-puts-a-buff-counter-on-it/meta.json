@@ -1,0 +1,25 @@
+{
+    "name": "eager-page-recollection-without-materializing-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jlAc0wWlDZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jlAc0wWlDZ"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, if you haven't materialized a card this turn, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

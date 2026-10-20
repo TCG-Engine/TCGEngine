@@ -1,0 +1,25 @@
+{
+    "name": "lu-bu-indomitable-titan-first-attack-pays-two-to-wake-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:46:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xyan7zbtxi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xyan7zbtxi"
+        ],
+        "mechanics": [
+            "on-attack",
+            "wake-up",
+            "payment"
+        ],
+        "rulesClauses": [
+            "**On Attack**: If this is CARDNAME's first attack this turn, you may pay (2). If you do, wake up CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

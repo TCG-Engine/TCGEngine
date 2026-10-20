@@ -1,0 +1,25 @@
+{
+    "name": "crescent-glaive-below-level-two-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h7iz4xkbq1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h7iz4xkbq1"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

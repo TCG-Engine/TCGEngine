@@ -1,0 +1,35 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "7qjnqww067",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "$deck = GetZone(\"myDeck\");\n$count = min(10, count($deck));\nif($count == 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myTempZone\");\n}\nawait PairedMindsChoose($player);",
+          "after": "$deck = GetZone(\"myDeck\");\n$count = min(10, count($deck));\nif($count == 0) return;\nfor($i = 0; $i < $count; ++$i) {\n    MZMoveTopOfZone($player, \"myDeck\", \"myTempZone\");\n}\nawait PairedMindsChoose($player);"
+        }
+      }
+    },
+    {
+      "card_id": "EQZZsiUDyl",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "// Storm Tyrant's Eye: [cost: banish self] Reveal until arcane found; deal unpreventable damage = cards revealed; put 1 to hand, rest to bottom\n$deck = &GetDeck($player);\n$revealed = 0;\n$foundIdx = -1;\nfor($i = 0; $i < count($deck); ++$i) {\n    $revealed++;\n    $element = CardElement($deck[$i]->CardID);\n    if(PropertyContains($element, \"ARCANE\")) {\n        $foundIdx = $i;\n        break;\n    }\n}\nif($revealed > 0) {\n    DealChampionDamage($player, $revealed);\n}\nif($foundIdx >= 0) {\n    MZMove($player, \"myDeck-\" . $foundIdx, \"myHand\");\n    $revealed--;\n}\n$deck = &GetDeck($player);\nfor($i = 0; $i < $revealed && count($deck) > 0; ++$i) {\n    MZMove($player, \"myDeck-0\", \"myDeck\");\n}",
+          "after": "// Storm Tyrant's Eye: [cost: banish self] Reveal until arcane found; deal unpreventable damage = cards revealed; put 1 to hand, rest to bottom\n$deck = &GetDeck($player);\n$revealed = 0;\n$foundIdx = -1;\nfor($i = 0; $i < count($deck); ++$i) {\n    $revealed++;\n    $element = CardElement($deck[$i]->CardID);\n    if(PropertyContains($element, \"ARCANE\")) {\n        $foundIdx = $i;\n        break;\n    }\n}\nif($revealed > 0) {\n    DealChampionDamage($player, $revealed);\n}\nif($foundIdx >= 0) {\n    MZMove($player, \"myDeck-\" . $foundIdx, \"myHand\");\n    $revealed--;\n}\n$deck = &GetDeck($player);\nfor($i = 0; $i < $revealed && count($deck) > 0; ++$i) {\n    MZMoveTopOfZone($player, \"myDeck\", \"myDeck\");\n}"
+        }
+      }
+    },
+    {
+      "card_id": "px8jypwc8t",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "$automatons = ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes: [\"AUTOMATON\"]);\n$autoStr = implode(\"&\", $automatons);\n$autoTarget = await $player.MZChoose($autoStr);\nDoSacrificeFighter($player, $autoTarget);\nDecisionQueueController::CleanupRemovedCards();\n$humans = ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes: [\"HUMAN\"]);\nif(empty($humans)) return;\n$humanStr = implode(\"&\", $humans);\n$humanTarget = await $player.MZChoose($humanStr);\nDoSacrificeFighter($player, $humanTarget);\nDecisionQueueController::CleanupRemovedCards();\nfor($i = 0; $i < 2; ++$i) {\n    if(empty(ZoneSearch(\"myDeck\"))) break;\n    MZMove($player, \"myDeck-0\", \"myGraveyard\");\n}",
+          "after": "$automatons = ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes: [\"AUTOMATON\"]);\n$autoStr = implode(\"&\", $automatons);\n$autoTarget = await $player.MZChoose($autoStr);\nDoSacrificeFighter($player, $autoTarget);\nDecisionQueueController::CleanupRemovedCards();\n$humans = ZoneSearch(\"myField\", [\"ALLY\"], cardSubtypes: [\"HUMAN\"]);\nif(empty($humans)) return;\n$humanStr = implode(\"&\", $humans);\n$humanTarget = await $player.MZChoose($humanStr);\nDoSacrificeFighter($player, $humanTarget);\nDecisionQueueController::CleanupRemovedCards();\nMillCards($player, \"myDeck\", \"myGraveyard\", 2);"
+        }
+      }
+    }
+  ]
+}

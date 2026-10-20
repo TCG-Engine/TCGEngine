@@ -1,0 +1,25 @@
+{
+    "name": "treacle-drowned-mouse-ephemeral-has-stealth-and-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:59:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6emPe9OEUn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6emPe9OEUn"
+        ],
+        "mechanics": [
+            "stealth",
+            "ephemeral",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **ephemeral**, it has **stealth**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

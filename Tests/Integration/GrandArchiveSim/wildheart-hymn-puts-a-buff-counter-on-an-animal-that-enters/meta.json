@@ -1,0 +1,25 @@
+{
+    "name": "wildheart-hymn-puts-a-buff-counter-on-an-animal-that-enters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:02:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f05n4ulo84"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f05n4ulo84"
+        ],
+        "mechanics": [
+            "counter",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Until end of turn, whenever an Animal enters the field under your control, put a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "pearled-prayer-main-phase-recovers-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:19:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HLcmZLe7Xr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HLcmZLe7Xr"
+        ],
+        "mechanics": [
+            "draw",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Draw a card into your memory. If you activated this card during your main phase, **recover 7**. Otherwise, **recover 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "training-dummy-cannot-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EeFXEYMmF3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EeFXEYMmF3"
+        ],
+        "mechanics": [
+            "restriction"
+        ],
+        "rulesClauses": [
+            "CARDNAME can't attack."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

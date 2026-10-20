@@ -1,0 +1,24 @@
+{
+    "name": "ominous-shadow-prevents-three-damage-dealt-to-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:58:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gveirpdm44"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gveirpdm44"
+        ],
+        "mechanics": [
+            "prevention",
+            "static"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to CARDNAME, prevent 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

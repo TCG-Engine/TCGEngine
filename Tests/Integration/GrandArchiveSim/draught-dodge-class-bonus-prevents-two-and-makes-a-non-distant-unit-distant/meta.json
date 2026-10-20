@@ -1,0 +1,27 @@
+{
+    "name": "draught-dodge-class-bonus-prevents-two-and-makes-a-non-distant-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "QFWIbwV25T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "QFWIbwV25T"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "distant",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to target unit this turn.",
+            "[Class Bonus] If that unit is **distant**, draw a card into your memory. Otherwise, it becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

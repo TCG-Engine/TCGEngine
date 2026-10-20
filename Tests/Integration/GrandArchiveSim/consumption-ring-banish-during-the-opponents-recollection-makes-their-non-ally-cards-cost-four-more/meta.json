@@ -1,0 +1,25 @@
+{
+    "name": "consumption-ring-banish-during-the-opponents-recollection-makes-their-non-ally-cards-cost-four-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:38:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g8q7imka92"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g8q7imka92"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost-increase",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish Consumption Ring**: Until end of turn, non-ally cards your opponents activate cost (4) more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

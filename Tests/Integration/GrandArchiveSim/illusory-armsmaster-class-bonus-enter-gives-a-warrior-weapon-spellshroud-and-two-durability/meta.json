@@ -1,0 +1,27 @@
+{
+    "name": "illusory-armsmaster-class-bonus-enter-gives-a-warrior-weapon-spellshroud-and-two-durability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:21:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LnVEY7nVXn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LnVEY7nVXn"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "spellshroud",
+            "durability",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Target Warrior weapon you control gains **spellshroud** until end of turn. Put two **durability** counters on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

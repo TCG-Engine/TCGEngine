@@ -1,0 +1,25 @@
+{
+    "name": "fractal-of-sparks-class-bonus-rest-deals-one-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5pw07bh5wf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5pw07bh5wf"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Deal 1 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

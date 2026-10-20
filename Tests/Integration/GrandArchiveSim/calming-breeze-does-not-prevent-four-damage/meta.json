@@ -1,0 +1,24 @@
+{
+    "name": "calming-breeze-does-not-prevent-four-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:30:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XgJ72Ot13P"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XgJ72Ot13P"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if 3 or less damage would be dealt to your champion, prevent that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

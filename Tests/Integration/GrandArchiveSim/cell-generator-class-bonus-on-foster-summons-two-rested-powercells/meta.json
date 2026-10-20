@@ -1,0 +1,27 @@
+{
+    "name": "cell-generator-class-bonus-on-foster-summons-two-rested-powercells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:41:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zihslnhzj4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zihslnhzj4"
+        ],
+        "mechanics": [
+            "foster",
+            "on-foster",
+            "class-bonus",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Foster:** **Summon** two Powercell tokens rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

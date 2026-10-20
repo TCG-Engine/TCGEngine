@@ -15,7 +15,10 @@
             "additional-cost-sacrifice",
             "command-chessman"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice up to two awake Chessman allies.",
+            "CARDNAME enters the intent with +2 [POWER] for each ally sacrificed this way."
+        ]
     },
     "engineBug": {
         "status": "fixed",

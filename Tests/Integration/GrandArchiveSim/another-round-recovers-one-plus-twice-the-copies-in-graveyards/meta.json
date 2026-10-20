@@ -1,0 +1,25 @@
+{
+    "name": "another-round-recovers-one-plus-twice-the-copies-in-graveyards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "94KW6YRrtC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "94KW6YRrtC"
+        ],
+        "mechanics": [
+            "recover",
+            "variable",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "**Recover 1+X**, where **X** is twice the amount of cards named CARDNAME in all graveyards. Then draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

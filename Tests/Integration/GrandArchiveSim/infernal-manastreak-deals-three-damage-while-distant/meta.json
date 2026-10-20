@@ -1,0 +1,25 @@
+{
+    "name": "infernal-manastreak-deals-three-damage-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rovbfpf7al"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rovbfpf7al"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "distant"
+        ],
+        "rulesClauses": [
+            "If your champion is distant, deal 3 damage to that unit instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

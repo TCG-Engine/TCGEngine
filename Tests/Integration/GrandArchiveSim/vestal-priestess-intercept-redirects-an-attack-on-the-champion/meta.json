@@ -1,0 +1,24 @@
+{
+    "name": "vestal-priestess-intercept-redirects-an-attack-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:20:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "12XYNDPi49"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "12XYNDPi49"
+        ],
+        "mechanics": [
+            "keyword",
+            "intercept"
+        ],
+        "rulesClauses": [
+            "**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

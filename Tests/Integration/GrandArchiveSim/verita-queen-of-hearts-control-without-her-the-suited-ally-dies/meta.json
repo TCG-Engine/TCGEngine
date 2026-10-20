@@ -1,0 +1,24 @@
+{
+    "name": "verita-queen-of-hearts-control-without-her-the-suited-ally-dies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:32:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iyvrYzBHVg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iyvrYzBHVg"
+        ],
+        "mechanics": [
+            "damage",
+            "control"
+        ],
+        "rulesClauses": [
+            "Deal 3 unpreventable damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

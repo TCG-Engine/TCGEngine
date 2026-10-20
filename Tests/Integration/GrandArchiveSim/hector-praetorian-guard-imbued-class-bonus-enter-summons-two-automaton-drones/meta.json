@@ -1,0 +1,27 @@
+{
+    "name": "hector-praetorian-guard-imbued-class-bonus-enter-summons-two-automaton-drones",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:33:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AsDKTmP3kp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AsDKTmP3kp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "imbue",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If Hector is **imbued**, **summon** two Automaton Drone tokens."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

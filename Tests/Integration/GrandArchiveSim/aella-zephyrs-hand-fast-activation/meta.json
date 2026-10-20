@@ -1,0 +1,24 @@
+{
+    "name": "aella-zephyrs-hand-fast-activation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:31:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "G8pN8Hackq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "G8pN8Hackq"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "**Fast Activation**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "horticounter-x6-y0-insufficient",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:09:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vve1szpv86"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vve1szpv86"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "negate",
+            "payment",
+            "banish",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice **Y** Herbs.",
+            "**Negate** target card activation unless its controller pays (X+Y). Banish the card that had its activation **negated** this way. When an activation is negated this way, **glimpse 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

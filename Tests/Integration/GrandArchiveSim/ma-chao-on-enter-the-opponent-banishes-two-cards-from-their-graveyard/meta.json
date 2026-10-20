@@ -1,0 +1,25 @@
+{
+    "name": "ma-chao-on-enter-the-opponent-banishes-two-cards-from-their-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fw8yvhf3mz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fw8yvhf3mz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "graveyard"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Target opponent banishes two cards from their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

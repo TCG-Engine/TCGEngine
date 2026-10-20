@@ -1,0 +1,27 @@
+{
+    "name": "conduit-of-seasons-on-attack-facing-east-recovers-one-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:39:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nm77bnz4cc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nm77bnz4cc"
+        ],
+        "mechanics": [
+            "on-attack",
+            "recover",
+            "draw-into-memory",
+            "shifting-currents",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Attack:** If your Shifting Currents face East, **recover 1** and draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

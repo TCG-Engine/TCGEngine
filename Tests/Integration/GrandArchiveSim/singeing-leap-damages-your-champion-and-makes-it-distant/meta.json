@@ -1,0 +1,24 @@
+{
+    "name": "singeing-leap-damages-your-champion-and-makes-it-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YFCfIOwNQ5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YFCfIOwNQ5"
+        ],
+        "mechanics": [
+            "damage",
+            "distant"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to your champion. Then your champion becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

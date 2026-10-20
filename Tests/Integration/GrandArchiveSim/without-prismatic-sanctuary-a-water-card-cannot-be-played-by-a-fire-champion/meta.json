@@ -1,0 +1,24 @@
+{
+    "name": "without-prismatic-sanctuary-a-water-card-cannot-be-played-by-a-fire-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:05:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9w0ejcyuvu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9w0ejcyuvu"
+        ],
+        "mechanics": [
+            "static",
+            "element"
+        ],
+        "rulesClauses": [
+            "Control case for the element-enabling domain."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

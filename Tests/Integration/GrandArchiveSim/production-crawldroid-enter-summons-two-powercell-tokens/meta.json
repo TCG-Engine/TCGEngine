@@ -1,0 +1,25 @@
+{
+    "name": "production-crawldroid-enter-summons-two-powercell-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:14:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AVgvV2L2k7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AVgvV2L2k7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** two Powercell tokens."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "ticket-to-the-afterlife-alice-bonus-rest-banishes-a-specter-card-from-the-graveyard-to-recover-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:16:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "E09lX95cb9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "E09lX95cb9"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "activated-ability",
+            "rest",
+            "banish",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus](2), [REST], **Banish a Specter card from your graveyard:** **Recover 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

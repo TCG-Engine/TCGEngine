@@ -1,0 +1,23 @@
+{
+    "name": "dynastic-whirlpool-opponent-mills-fifteen",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:05:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8ydxeQcp50"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8ydxeQcp50"
+        ],
+        "mechanics": [
+            "mill"
+        ],
+        "rulesClauses": [
+            "Each opponent puts the top fifteen cards of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

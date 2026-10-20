@@ -1,0 +1,24 @@
+{
+    "name": "accursed-strength-with-a-full-hand-and-memory-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:03:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j3fkza233s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j3fkza233s"
+        ],
+        "mechanics": [
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "*(If the amount of cards you would draw is negative, don't draw any cards.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

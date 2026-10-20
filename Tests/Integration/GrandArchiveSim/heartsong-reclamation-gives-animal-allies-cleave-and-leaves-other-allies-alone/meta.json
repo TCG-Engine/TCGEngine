@@ -1,0 +1,24 @@
+{
+    "name": "heartsong-reclamation-gives-animal-allies-cleave-and-leaves-other-allies-alone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:07:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d253WtyIXr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d253WtyIXr"
+        ],
+        "mechanics": [
+            "cleave",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "Until end of turn, Animal and/or Beast allies you control gain **cleave**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

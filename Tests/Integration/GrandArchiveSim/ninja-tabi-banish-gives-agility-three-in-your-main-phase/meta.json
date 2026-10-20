@@ -1,0 +1,26 @@
+{
+    "name": "ninja-tabi-banish-gives-agility-three-in-your-main-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:55:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "imcmo3l3th"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "imcmo3l3th"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "slow-speed",
+            "agility",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** You gain **agility 3** for this turn. Activate this ability only at slow speed."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "fleetfoot-filly-gets-no-counter-without-a-suppress",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1hrgshgthu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1hrgshgthu"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "Whenever a player **suppresses** an object"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

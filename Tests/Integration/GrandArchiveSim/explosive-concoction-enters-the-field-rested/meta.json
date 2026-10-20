@@ -1,0 +1,25 @@
+{
+    "name": "explosive-concoction-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yorsltrnu3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yorsltrnu3"
+        ],
+        "mechanics": [
+            "keyword",
+            "status",
+            "brew"
+        ],
+        "rulesClauses": [
+            "Hindered (This object enters the field rested.)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "scorching-knowledge-empowers-the-next-spell-by-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ECx3KFWqFD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ECx3KFWqFD"
+        ],
+        "mechanics": [
+            "empower"
+        ],
+        "rulesClauses": [
+            "Empower 3. (The next Spell card you activate this turn activates and resolves as if your champion got +3 level.)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

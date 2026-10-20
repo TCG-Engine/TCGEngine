@@ -1,0 +1,27 @@
+{
+    "name": "mortal-ambition-costs-two-less-per-unique-ally-and-buffs-human-and-horse-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ymuarq5tv0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ymuarq5tv0"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "stat-change",
+            "ambush",
+            "steadfast"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate for each unique ally you control.",
+            "Until end of turn, Human and Horse allies you control get +1 [LIFE] and gain **ambush** and **steadfast**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

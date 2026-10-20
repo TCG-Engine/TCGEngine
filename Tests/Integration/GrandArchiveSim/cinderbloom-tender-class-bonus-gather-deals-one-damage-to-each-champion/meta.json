@@ -1,0 +1,26 @@
+{
+    "name": "cinderbloom-tender-class-bonus-gather-deals-one-damage-to-each-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:21:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lgdlx7mdk0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lgdlx7mdk0"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "gather",
+            "damage",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you gather, deal 1 damage to each champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

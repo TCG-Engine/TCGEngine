@@ -1,0 +1,25 @@
+{
+    "name": "hydrocask-droid-enter-without-a-floating-memory-card-keeps-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GdCFiPyKyM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GdCFiPyKyM"
+        ],
+        "mechanics": [
+            "on-enter",
+            "floating-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If you have one or more cards with **floating memory** in your graveyard, CARDNAME gets +2[POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

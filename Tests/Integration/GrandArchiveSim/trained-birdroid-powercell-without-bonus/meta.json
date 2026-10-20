@@ -1,0 +1,25 @@
+{
+    "name": "trained-birdroid-powercell-without-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:39:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "84lj40Kyhv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "84lj40Kyhv"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "trigger",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you activate an ability of a Powercell item targeting another ally you control, gets +1 POWER this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

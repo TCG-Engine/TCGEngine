@@ -1,0 +1,26 @@
+{
+    "name": "shilowen-an-ally-entering-may-remove-two-durability-counters-to-get-a-bulwark-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "L9zeix1x4N"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "L9zeix1x4N"
+        ],
+        "mechanics": [
+            "trigger",
+            "optional-cost",
+            "counter",
+            "bulwark"
+        ],
+        "rulesClauses": [
+            "Whenever an ally enters the field, you may remove two **durability** counters from CARDNAME. If you do, put a **bulwark** counter on that ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

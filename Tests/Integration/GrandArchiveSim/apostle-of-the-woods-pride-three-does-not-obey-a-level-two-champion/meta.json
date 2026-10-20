@@ -1,0 +1,21 @@
+{
+    "name": "apostle-of-the-woods-pride-three-does-not-obey-a-level-two-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:25:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sg2ghTKuDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sg2ghTKuDt"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "**Pride 3**"
+        ]
+    }
+}

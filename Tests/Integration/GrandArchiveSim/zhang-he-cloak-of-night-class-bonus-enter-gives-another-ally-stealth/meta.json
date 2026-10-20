@@ -1,0 +1,26 @@
+{
+    "name": "zhang-he-cloak-of-night-class-bonus-enter-gives-another-ally-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "09axbotwlz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "09axbotwlz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "stealth",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: Another target ally you control gains **stealth** for as long as you control Zhang He."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

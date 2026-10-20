@@ -1,0 +1,26 @@
+{
+    "name": "crimson-protective-trinket-banish-banishes-wind-cards-among-two-random-revealed-memory-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "96659ytyj2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "96659ytyj2"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "reveal",
+            "banish",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Target opponent reveals two cards at random from their memory. Banish each wind element card revealed this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

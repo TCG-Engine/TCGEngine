@@ -1,0 +1,25 @@
+{
+    "name": "refresh-chamber-declining-the-banish-sends-it-to-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:37:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7nk45swaf8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7nk45swaf8"
+        ],
+        "mechanics": [
+            "materialize",
+            "floating-memory",
+            "optional"
+        ],
+        "rulesClauses": [
+            "Then you may banish a card with **floating memory** from your graveyard. If you do, put CARDNAME into its owner's memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "haunting-apparition-not-ephemeral-can-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:41:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UtwWXmc0IU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UtwWXmc0IU"
+        ],
+        "mechanics": [
+            "ephemeral",
+            "condition",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **ephemeral**, it has **stealth**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

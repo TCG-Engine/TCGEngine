@@ -1,0 +1,21 @@
+{
+    "name": "capricious-lynx-pride-four-does-not-obey-a-level-three-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:42:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1au7t9m4m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v1au7t9m4m"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword"
+        ],
+        "rulesClauses": [
+            "**Pride 4**"
+        ]
+    }
+}

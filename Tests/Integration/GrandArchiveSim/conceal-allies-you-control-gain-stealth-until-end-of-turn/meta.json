@@ -1,0 +1,23 @@
+{
+    "name": "conceal-allies-you-control-gain-stealth-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8nbmykyXcw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8nbmykyXcw"
+        ],
+        "mechanics": [
+            "stealth"
+        ],
+        "rulesClauses": [
+            "Allies you control gain **stealth** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "destined-encounter-scavenge-six-finds-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:03:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6F5hCQ8I9S"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6F5hCQ8I9S"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 6** for an ally card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

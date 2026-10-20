@@ -1,0 +1,23 @@
+{
+    "name": "angelic-vanguard-imbued-has-retort-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aKjX6INGkV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aKjX6INGkV"
+        ],
+        "mechanics": [
+            "imbue",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is **imbued**, it has **intercept** and **retort 2**."
+        ]
+    },
+    "behaviorFamily": true
+}

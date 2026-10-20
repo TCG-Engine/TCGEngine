@@ -1,0 +1,24 @@
+{
+    "name": "miasmic-fog-gives-all-allies-minus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OwhKGEMTXm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OwhKGEMTXm"
+        ],
+        "mechanics": [
+            "static",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "All allies get -1[LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

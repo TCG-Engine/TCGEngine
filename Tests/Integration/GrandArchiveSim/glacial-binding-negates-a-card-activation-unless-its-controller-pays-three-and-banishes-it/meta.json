@@ -1,0 +1,25 @@
+{
+    "name": "glacial-binding-negates-a-card-activation-unless-its-controller-pays-three-and-banishes-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:16:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cthZxfkdsY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cthZxfkdsY"
+        ],
+        "mechanics": [
+            "negate",
+            "tax",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (3). Banish the card that had its activation **negated** this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "prismatic-spirit-draws-six-and-enables-the-two-chosen-basic-elements",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:49:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "W3m0tnw4sr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "W3m0tnw4sr"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-discard",
+            "element-grant"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw six cards then choose two basic elements. CARDNAME gains \"**Inherited Effect:** This object is each of the chosen elements in addition to its other elements.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "shout-at-your-pets-gives-level-with-an-animal",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:04:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gvXQa57cxe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gvXQa57cxe"
+        ],
+        "mechanics": [
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Animal or Beast ally, your champion gets +1 level until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

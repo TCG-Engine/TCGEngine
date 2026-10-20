@@ -1,0 +1,26 @@
+{
+    "name": "tonoris-creations-will-token-summons-may-become-aurousteel-greatswords",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:27:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n2jnltv5kl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n2jnltv5kl"
+        ],
+        "mechanics": [
+            "replacement",
+            "summon",
+            "token",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "If you would **summon** one or more tokens, you may **summon** that many Aurousteel Greatsword tokens instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

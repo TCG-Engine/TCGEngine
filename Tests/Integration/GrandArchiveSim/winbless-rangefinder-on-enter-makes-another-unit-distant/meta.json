@@ -1,0 +1,25 @@
+{
+    "name": "winbless-rangefinder-on-enter-makes-another-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uyv3fpvw2i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uyv3fpvw2i"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Another target unit you control becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

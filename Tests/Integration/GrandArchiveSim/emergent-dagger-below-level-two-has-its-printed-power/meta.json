@@ -1,0 +1,25 @@
+{
+    "name": "emergent-dagger-below-level-two-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wljhyokktb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wljhyokktb"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] CARDNAME gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

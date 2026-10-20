@@ -1,0 +1,24 @@
+{
+    "name": "harness-mana-without-the-class-bonus-cannot-pay-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "G2XFRE8rFX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "G2XFRE8rFX"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

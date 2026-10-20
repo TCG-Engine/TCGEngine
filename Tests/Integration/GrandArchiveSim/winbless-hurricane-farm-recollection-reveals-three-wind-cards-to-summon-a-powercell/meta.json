@@ -1,0 +1,26 @@
+{
+    "name": "winbless-hurricane-farm-recollection-reveals-three-wind-cards-to-summon-a-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1dvdlhtiym"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1dvdlhtiym"
+        ],
+        "mechanics": [
+            "recollection",
+            "reveal",
+            "token",
+            "summon"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, you may reveal three wind element cards from your memory. If you do, **summon** a Powercell token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

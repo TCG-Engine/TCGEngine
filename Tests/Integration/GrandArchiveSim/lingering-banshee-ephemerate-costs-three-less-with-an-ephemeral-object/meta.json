@@ -1,0 +1,25 @@
+{
+    "name": "lingering-banshee-ephemerate-costs-three-less-with-an-ephemeral-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:41:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v0gu8efq08"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v0gu8efq08"
+        ],
+        "mechanics": [
+            "ephemerate",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more **ephemeral** objects, this card costs (3) less to activate this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

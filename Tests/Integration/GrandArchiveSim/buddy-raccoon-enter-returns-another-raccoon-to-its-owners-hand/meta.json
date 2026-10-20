@@ -1,0 +1,25 @@
+{
+    "name": "buddy-raccoon-enter-returns-another-raccoon-to-its-owners-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VMQsdBX2rx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VMQsdBX2rx"
+        ],
+        "mechanics": [
+            "on-enter",
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter: **You may return another target Raccoon ally you control to its owner's hand."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

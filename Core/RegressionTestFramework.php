@@ -500,6 +500,10 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['mzId'] = strval($payload['mzId'] ?? '');
       $assertion['value'] = intval($payload['value'] ?? 0);
       break;
+    case 'computed_level_equals':
+      $assertion['mzId'] = strval($payload['mzId'] ?? '');
+      $assertion['value'] = intval($payload['value'] ?? 0);
+      break;
     case 'scalar_zone_equals':
       $assertion['zone'] = strval($payload['zone'] ?? '');
       $assertion['value'] = intval($payload['value'] ?? 0);
@@ -1001,6 +1005,19 @@ function RegressionEvaluateAssertion($assertion) {
       $obj = GetZoneObject($mzId);
       $actual = (is_object($obj) && function_exists('ObjectCurrentHP')) ? ObjectCurrentHP($obj) : null;
       return [$actual === $expected, "Expected {$mzId} computed life to equal {$expected}, got " . var_export($actual, true) . "."];
+    case 'computed_level_equals':
+      $mzId = strval($assertion['mzId'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $obj = GetZoneObject($mzId);
+      $actual = (is_object($obj) && function_exists('ObjectCurrentLevel')) ? ObjectCurrentLevel($obj) : null;
+      return [$actual === $expected, "Expected {$mzId} computed level to equal {$expected}, got " . var_export($actual, true) . "."];
+    case 'global_effect_present':
+      // A per-player global effect (e.g. "until end of turn" statics registered with AddGlobalEffects) that has no per-object trace.
+      $effectPlayer = intval($assertion['player'] ?? 1);
+      $effectId = strval($assertion['effect'] ?? '');
+      $expected = intval($assertion['value'] ?? 1);
+      $actual = function_exists('GlobalEffectCount') ? intval(GlobalEffectCount($effectPlayer, $effectId)) : -1;
+      return [$actual === $expected, "Expected player {$effectPlayer} to have global effect {$effectId} x{$expected}, got x{$actual}."];
     case 'decision_queue_empty':
       $target = strtolower(strval($assertion['player'] ?? 'all'));
       $players = $target === 'all' ? [1, 2] : [intval($target)];

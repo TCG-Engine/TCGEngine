@@ -1,0 +1,49 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "2o82fwl22v",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "// Unstable Fractal: [Class Bonus] (3), REST, Sacrifice self: Destroy target item with memory cost 0 or reserve cost 5 or less.\nif(!IsClassBonusActive($player, [\"CLERIC\"])) return;\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if($iObj === null) continue;\n    if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 5) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$targetStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZChoose($targetStr);\n$targetObj = GetZoneObject($chosen);\nif($targetObj === null) return;\nOnLeaveField($player, $chosen);\n$dest = $player == $targetObj->Controller ? \"myGraveyard\" : \"theirGraveyard\";\nMZMove($player, $chosen, $dest);\nDecisionQueueController::CleanupRemovedCards();",
+          "after": "// Unstable Fractal: [Class Bonus] (3), REST, Sacrifice self: Destroy target item with memory cost 0 or reserve cost 5 or less.\nif(!IsClassBonusActive($player, [\"CLERIC\"])) return;\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if($iObj === null) continue;\n    if(ItemLowCostMatches($iObj->CardID, 5)) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$targetStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZChoose($targetStr);\n$targetObj = GetZoneObject($chosen);\nif($targetObj === null) return;\nOnLeaveField($player, $chosen);\n$dest = $player == $targetObj->Controller ? \"myGraveyard\" : \"theirGraveyard\";\nMZMove($player, $chosen, $dest);\nDecisionQueueController::CleanupRemovedCards();"
+        },
+        "prereq_code": {
+          "before": "$sourceObject = GetZoneObject($mzID);\nif($sourceObject === null) return false;\nif($sourceObject->Status != 2) return false;\nif(!IsClassBonusActive($player, [\"CLERIC\"])) return false;\n$hand = GetHand($player);\nif(count($hand) < 3) return false;\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if($iObj === null) continue;\n    if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 5) {\n        return true;\n    }\n}\nreturn false;",
+          "after": "$sourceObject = GetZoneObject($mzID);\nif($sourceObject === null) return false;\nif($sourceObject->Status != 2) return false;\nif(!IsClassBonusActive($player, [\"CLERIC\"])) return false;\n$hand = GetHand($player);\nif(count($hand) < 3) return false;\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if($iObj === null) continue;\n    if(ItemLowCostMatches($iObj->CardID, 5)) {\n        return true;\n    }\n}\nreturn false;"
+        }
+      }
+    },
+    {
+      "card_id": "88rx6p3p5i",
+      "macro_name": "OnAttack",
+      "fields": {
+        "ability_code": {
+          "before": "// Smashing Force: [CB] On Attack: May banish 2 fire cards from graveyard to destroy item/weapon\nif(!IsClassBonusActive($player, [\"GUARDIAN\"])) return;\n$fireCards = ZoneSearch(\"myGraveyard\", cardElements: [\"FIRE\"]);\nif(count($fireCards) < 2) return;\n// Check if any valid destroy targets exist\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"myField\", [\"WEAPON\"]),\n    ZoneSearch(\"theirField\", [\"WEAPON\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$doBanish = await $player.YesNo(\"Banish_2_fire_cards_to_destroy_item/weapon?\");\nif($doBanish == \"YES\") {\n    SmashingForceBanishStart($player);\n}",
+          "after": "// Smashing Force: [CB] On Attack: May banish 2 fire cards from graveyard to destroy item/weapon\nif(!IsClassBonusActive($player, [\"GUARDIAN\"])) return;\n$fireCards = ZoneSearch(\"myGraveyard\", cardElements: [\"FIRE\"]);\nif(count($fireCards) < 2) return;\n// Check if any valid destroy targets exist\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"myField\", [\"WEAPON\"]),\n    ZoneSearch(\"theirField\", [\"WEAPON\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if(ItemLowCostMatches($iObj->CardID, 4)) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$doBanish = await $player.YesNo(\"Banish_2_fire_cards_to_destroy_item/weapon?\");\nif($doBanish == \"YES\") {\n    SmashingForceBanishStart($player);\n}"
+        }
+      }
+    },
+    {
+      "card_id": "rj52215upu",
+      "macro_name": "CardActivated",
+      "fields": {
+        "ability_code": {
+          "before": "$level = PlayerLevel($player);\n$hasAllies = !empty(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\n$hasItems = false;\nif($level >= 2) {\n    $allItems = array_merge(ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]), ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]));\n    foreach($allItems as $mzI) {\n        $iObj = GetZoneObject($mzI);\n        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {\n            $hasItems = true;\n            break;\n        }\n    }\n}\nif(!$hasAllies && !$hasItems) return;\nif($hasAllies && !$hasItems) {\n    SwoopingTalonsMode1($player);\n} else if(!$hasAllies && $hasItems) {\n    SwoopingTalonsMode2($player);\n} else {\n    DecisionQueueController::AddDecision($player, \"YESNO\", \"-\", 1, \"Deal_2_damage_to_target_ally?\");\n    DecisionQueueController::AddDecision($player, \"CUSTOM\", \"SwoopingTalons_Choice\", 1);\n}",
+          "after": "$level = PlayerLevel($player);\n$hasAllies = !empty(array_merge(ZoneSearch(\"myField\", [\"ALLY\"]), ZoneSearch(\"theirField\", [\"ALLY\"])));\n$hasItems = false;\nif($level >= 2) {\n    $allItems = array_merge(ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]), ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]));\n    foreach($allItems as $mzI) {\n        $iObj = GetZoneObject($mzI);\n        if(ItemLowCostMatches($iObj->CardID, 4)) {\n            $hasItems = true;\n            break;\n        }\n    }\n}\nif(!$hasAllies && !$hasItems) return;\nif($hasAllies && !$hasItems) {\n    SwoopingTalonsMode1($player);\n} else if(!$hasAllies && $hasItems) {\n    SwoopingTalonsMode2($player);\n} else {\n    DecisionQueueController::AddDecision($player, \"YESNO\", \"-\", 1, \"Deal_2_damage_to_target_ally?\");\n    DecisionQueueController::AddDecision($player, \"CUSTOM\", \"SwoopingTalons_Choice\", 1);\n}"
+        }
+      }
+    },
+    {
+      "card_id": "xfpk9xycwz",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "// Alkahest: [Level 4+] Banish self: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"myField\", [\"WEAPON\"]),\n    ZoneSearch(\"theirField\", [\"WEAPON\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$targetStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZChoose($targetStr);\n$targetObj = GetZoneObject($chosen);\nOnLeaveField($player, $chosen);\n$dest = $player == $targetObj->Controller ? \"myGraveyard\" : \"theirGraveyard\";\nMZMove($player, $chosen, $dest);\nDecisionQueueController::CleanupRemovedCards();",
+          "after": "// Alkahest: [Level 4+] Banish self: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less\n$validTargets = [];\n$allItems = array_merge(\n    ZoneSearch(\"myField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"theirField\", [\"ITEM\", \"REGALIA\"]),\n    ZoneSearch(\"myField\", [\"WEAPON\"]),\n    ZoneSearch(\"theirField\", [\"WEAPON\"])\n);\nforeach($allItems as $mzI) {\n    $iObj = GetZoneObject($mzI);\n    if(ItemLowCostMatches($iObj->CardID, 4)) {\n        $validTargets[] = $mzI;\n    }\n}\nif(empty($validTargets)) return;\n$targetStr = implode(\"&\", $validTargets);\n$chosen = await $player.MZChoose($targetStr);\n$targetObj = GetZoneObject($chosen);\nOnLeaveField($player, $chosen);\n$dest = $player == $targetObj->Controller ? \"myGraveyard\" : \"theirGraveyard\";\nMZMove($player, $chosen, $dest);\nDecisionQueueController::CleanupRemovedCards();"
+        }
+      }
+    }
+  ]
+}

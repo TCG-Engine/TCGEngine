@@ -27,7 +27,10 @@ $response->message = "Failed to leave queue.";
 // `$lobbyId = uniqid(); ... $lobby->id = $lobbyId; apcu_store($lobbyId, ...)`), so the full-cache
 // walk this used to do was pure waste over a cache that also holds gamestates.
 $left = false;
-$lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left) {
+// Opt-in protection for GA practice: once pairing begins, polling must finish the handoff.
+$waitingOnly = $rootName === 'GrandArchiveSim' && ($_POST['waitingOnly'] ?? '') === '1';
+$pairing = false;
+$lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left, $waitingOnly, &$pairing) {
   if (!isset($lobby->players) || !is_array($lobby->players)) return false;
   // ⚠ AUTHENTICATE ON authKey, NOT playerID.
   // This used to match `getPlayerID() === $playerID` and never check the authKey it demands —
@@ -39,6 +42,12 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left) {
   // matching it alone is both correct and strictly stronger.
   foreach ($lobby->players as $index => $player) {
     if (($player instanceof Player) && hash_equals(strval($player->getAuthKey()), strval($authKey))) {
+      if ($waitingOnly && strval($lobby->rootName ?? '') === 'GrandArchiveSim'
+          && (!empty($lobby->ready) || !empty($lobby->gameName)
+              || intval($lobby->numPlayers ?? 0) >= intval($lobby->maxPlayers ?? 2))) {
+        $pairing = true;
+        return false;
+      }
       array_splice($lobby->players, $index, 1);
       $lobby->numPlayers--;
       $left = true;
@@ -62,7 +71,7 @@ if ($left) {
 $lobbyFound = $left;
 
 if (!$lobbyFound) {
-  $response->message = "Player not found in any lobby.";
+  $response->message = $pairing ? "Your match is being prepared. Joining shortly…" : "Player not found in any lobby.";
 }
 
 header('Content-Type: application/json');

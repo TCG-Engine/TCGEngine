@@ -1,0 +1,27 @@
+{
+    "name": "sleight-of-hand-gives-a-suited-ally-stealth-and-class-bonus-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:40:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ddkocwcm38"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ddkocwcm38"
+        ],
+        "mechanics": [
+            "stealth",
+            "class-bonus",
+            "draw-into-memory",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Suited ally you control gains **stealth** until end of turn.",
+            "[Class Bonus] Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

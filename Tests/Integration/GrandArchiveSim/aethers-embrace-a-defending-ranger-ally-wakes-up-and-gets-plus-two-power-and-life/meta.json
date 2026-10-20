@@ -1,0 +1,25 @@
+{
+    "name": "aethers-embrace-a-defending-ranger-ally-wakes-up-and-gets-plus-two-power-and-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:17:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wd7nuab7f3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wd7nuab7f3"
+        ],
+        "mechanics": [
+            "status",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If that unit is a defending Ranger ally, wake it up and it gets +2[POWER] and +2[LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

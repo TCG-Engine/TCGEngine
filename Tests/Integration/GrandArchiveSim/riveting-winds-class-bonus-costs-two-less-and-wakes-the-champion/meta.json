@@ -1,0 +1,26 @@
+{
+    "name": "riveting-winds-class-bonus-costs-two-less-and-wakes-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:41:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6Yvt2ZTjRD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6Yvt2ZTjRD"
+        ],
+        "mechanics": [
+            "status",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
+            "Wake up your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

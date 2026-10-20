@@ -1,0 +1,25 @@
+{
+    "name": "draught-of-stamina-sacrifice-wakes-up-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:00:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lpnvx7mnu1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lpnvx7mnu1"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "status",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** Wake up target ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

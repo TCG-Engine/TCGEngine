@@ -1,0 +1,24 @@
+{
+    "name": "chamberlain-toad-without-the-class-bonus-cannot-pay-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:23:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vgu1C2Lw6e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vgu1C2Lw6e"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory**"
+        ]
+    },
+    "behaviorFamily": true
+}

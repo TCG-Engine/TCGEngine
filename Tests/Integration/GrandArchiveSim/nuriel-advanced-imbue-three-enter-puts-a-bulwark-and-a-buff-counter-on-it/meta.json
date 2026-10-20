@@ -1,0 +1,27 @@
+{
+    "name": "nuriel-advanced-imbue-three-enter-puts-a-bulwark-and-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:47:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b9lli2PE7I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b9lli2PE7I"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue",
+            "on-enter",
+            "counter",
+            "bulwark"
+        ],
+        "rulesClauses": [
+            "**On Enter: ** If CARDNAME is **imbued**, put a **bulwark** and a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

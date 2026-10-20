@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-vritra-spares-a-champion-with-low-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Kf0t7qyLaH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Kf0t7qyLaH"
+        ],
+        "mechanics": [
+            "damage",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to each champion controlled by players with influence more than seven."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

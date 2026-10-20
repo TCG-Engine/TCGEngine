@@ -1,0 +1,26 @@
+{
+    "name": "lost-providence-rest-and-banish-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:29:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DNbIpzVgde"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DNbIpzVgde"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "banish-self",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[REST],** Banish CARDNAME:** Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

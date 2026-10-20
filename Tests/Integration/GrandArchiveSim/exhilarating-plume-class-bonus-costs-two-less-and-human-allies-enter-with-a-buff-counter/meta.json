@@ -1,0 +1,25 @@
+{
+    "name": "exhilarating-plume-class-bonus-costs-two-less-and-human-allies-enter-with-a-buff-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A9c8tb7LKD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A9c8tb7LKD"
+        ],
+        "mechanics": [
+            "static",
+            "buff",
+            "enters-with-counters"
+        ],
+        "rulesClauses": [
+            "Human ally cards you activate enter the field with an additional **buff** counter on them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

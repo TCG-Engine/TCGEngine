@@ -1,0 +1,26 @@
+{
+    "name": "feu-awakening-ciel-bonus-discards-everything-and-banishes-two-graveyard-cards-with-omens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:36:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0rKmarZ8QN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0rKmarZ8QN"
+        ],
+        "mechanics": [
+            "ciel-bonus",
+            "discard",
+            "banish",
+            "omen"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Discard all cards from your hand and memory. Then banish up to two cards from your graveyard. Put an **omen** counter on each card banished this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

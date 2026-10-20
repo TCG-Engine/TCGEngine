@@ -25,6 +25,10 @@ this only with `--memory-only`, and writes one final state file if a game fails.
 
 If you change the schema or generator, re-run the generator and hard-refresh the browser so the client receives the updated `GeneratedUI_*.js` (the generator deletes old `GeneratedUI_*.js` files and writes a new timestamped one).
 
+## Source-zone departure veto
+
+A zone can opt into `BeforeRemove: HookName` in its schema. The generated object's `Remove($trigger)` calls `HookName($object, $trigger)` before changing `removed` or indexes; return false to veto. Generated `MZMove` then returns null without adding a destination. Unconfigured schemas retain their prior output. Grand Archive Material uses `GAMaterialCanLeave`; card activation and cost-choice helpers must use the same predicate before spending costs. Destination `BeforeAdd` is too late to preserve a source that cannot leave.
+
 ## Decision Queue — server-side (how it works)
 - File: `Core/DecisionQueueController.php`.
 - Core concept: each player has a `DecisionQueue` zone (parsed from schema). Objects placed into that zone are processed by `DecisionQueueController::ExecuteStaticMethods()` to perform static, immediate actions that do not require interactive input.

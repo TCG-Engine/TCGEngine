@@ -1,0 +1,25 @@
+{
+    "name": "hector-praetorian-guard-class-bonus-prevents-damage-equal-to-your-token-count-once-per-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:25:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AsDKTmP3kp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AsDKTmP3kp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "prevention",
+            "tokens"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] If damage would be dealt to one or more non-token neos element units you control, prevent X of that damage where **X** is the amount of tokens you control. Apply this replacement effect only once per turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

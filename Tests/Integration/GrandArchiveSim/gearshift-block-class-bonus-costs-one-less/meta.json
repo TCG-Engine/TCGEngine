@@ -1,0 +1,24 @@
+{
+    "name": "gearshift-block-class-bonus-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:52:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ej4mcnqsm3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ej4mcnqsm3"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

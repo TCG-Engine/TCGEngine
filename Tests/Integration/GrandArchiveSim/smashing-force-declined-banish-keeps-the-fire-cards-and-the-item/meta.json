@@ -15,6 +15,8 @@
             "on-attack",
             "optional-choice-decline"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish two fire element cards from your graveyard. When you do, destroy target item or weapon with memory cost 0 or reserve cost 4 or less."
+        ]
     }
 }

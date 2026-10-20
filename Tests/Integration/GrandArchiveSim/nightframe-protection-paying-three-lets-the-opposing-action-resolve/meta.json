@@ -1,0 +1,26 @@
+{
+    "name": "nightframe-protection-paying-three-lets-the-opposing-action-resolve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:06:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PboHrwPZgP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PboHrwPZgP"
+        ],
+        "mechanics": [
+            "negate",
+            "targeting",
+            "ally-link",
+            "tax"
+        ],
+        "rulesClauses": [
+            "negate it unless the controller of the activation or trigger pays (3)."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "ritai-guard-class-bonus-equestrian-with-a-horse-ally-has-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:18:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jbc30d18ys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jbc30d18ys"
+        ],
+        "mechanics": [
+            "taunt",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Equestrian*** -- As long as you control a Horse ally, CARDNAME has **taunt** and **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "silvergale-obeliths-call-summons-a-memorite-obelith-with-a-sheen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:02:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZENwsneT5Y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZENwsneT5Y"
+        ],
+        "mechanics": [
+            "counter",
+            "token"
+        ],
+        "rulesClauses": [
+            "**Summon** a Memorite Obelith token with a **sheen** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

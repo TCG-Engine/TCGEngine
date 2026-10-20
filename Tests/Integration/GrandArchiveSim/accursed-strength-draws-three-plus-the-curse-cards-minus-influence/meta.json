@@ -1,0 +1,25 @@
+{
+    "name": "accursed-strength-draws-three-plus-the-curse-cards-minus-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:03:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j3fkza233s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j3fkza233s"
+        ],
+        "mechanics": [
+            "draw",
+            "lineage",
+            "influence"
+        ],
+        "rulesClauses": [
+            "Draw 3+**X** cards, where **X** is the amount of Curse cards in your champion's lineage minus your **influence**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

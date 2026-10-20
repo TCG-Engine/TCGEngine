@@ -1,0 +1,29 @@
+{
+    "name": "sigil-of-budding-embers-diao-chan-bonus-removes-x-glimmer-counters-to-deal-x-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:41:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g31dg6zl3j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g31dg6zl3j"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "activated-ability",
+            "rest",
+            "remove-counters",
+            "banish-self",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] [REST]**, Remove X glimmer counters from your champion, Banish CARDNAME:** As a Spell, deal **X** damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "lesser-boon-of-dux-class-locked-makes-an-ally-fostered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "QLWT8BnvlU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "QLWT8BnvlU"
+        ],
+        "mechanics": [
+            "foster",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, choose an ally and it becomes **fostered**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "armed-squallguard-without-omens-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e7782pjg1d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e7782pjg1d"
+        ],
+        "mechanics": [
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you have one or more attack omens"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

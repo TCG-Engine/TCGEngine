@@ -1,0 +1,25 @@
+{
+    "name": "everflame-staff-sees-exalted-fire-spell-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T19:03:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nrvth9vyz1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nrvth9vyz1"
+        ],
+        "mechanics": [
+            "damage",
+            "trigger",
+            "element"
+        ],
+        "rulesClauses": [
+            "Exalted Fire Spell damage qualifies as Fire."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

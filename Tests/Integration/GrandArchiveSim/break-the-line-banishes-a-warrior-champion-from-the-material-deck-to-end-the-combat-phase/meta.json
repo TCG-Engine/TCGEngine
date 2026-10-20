@@ -1,0 +1,25 @@
+{
+    "name": "break-the-line-banishes-a-warrior-champion-from-the-material-deck-to-end-the-combat-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:33:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VXHLfbZ6AB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VXHLfbZ6AB"
+        ],
+        "mechanics": [
+            "reaction",
+            "banish",
+            "end-combat"
+        ],
+        "rulesClauses": [
+            "You may banish a Warrior champion card from your material deck. If you do, end the combat phase."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,162 @@
+location	nearest_declaration	review_bucket	source
+GrandArchiveSim/Custom/CardDQHandlers.php:599	AwakenOmbre_GetChampionElements	value/local: inspect downstream comparisons in enclosing handler	$el = EffectiveCardElement($obj);
+GrandArchiveSim/Custom/CardDQHandlers.php:611	"$customDQHandlers[""AwakenOmbrePick""]"	value/local: inspect downstream comparisons in enclosing handler	$cardElement = CardElement($obj->CardID);
+GrandArchiveSim/Custom/CardDQHandlers.php:725	MoltenArrowFireGraveyardChoices	membership	"if(!$gy[$gi]->removed && PropertyContains(CardElement($gy[$gi]->CardID), ""FIRE"") && ""myGraveyard-"" . $gi !== $arrowMZ) {"
+GrandArchiveSim/Custom/CardDQHandlers.php:990	"$customDQHandlers[""VeiledDashReveal""]"	membership	"if($obj === null || $obj->removed || !PropertyContains(CardElement($obj->CardID), ""WIND"")) continue;"
+GrandArchiveSim/Custom/CardDQHandlers.php:1241	"$customDQHandlers[""ParcenetReveal""]"	membership	"if(PropertyContains(EffectiveCardElement($topCard), ""WIND"")) {"
+GrandArchiveSim/Custom/CardDQHandlers.php:3583	CelestialCallingReveal	membership	"if(CardElement($cardID) === ""ASTRA"" && PropertyContains(CardSubtypes($cardID), ""SPELL"")) {"
+GrandArchiveSim/Custom/CardDQHandlers.php:4291	"$customDQHandlers[""ChargedGunslingerDiscard""]"	membership	"if($cardID !== null && PropertyContains(CardElement($cardID), ""FIRE"")) {"
+GrandArchiveSim/Custom/CardDQHandlers.php:4786	"$customDQHandlers[""CreativeShockDiscard""]"	membership	"$isFire = ($obj !== null && PropertyContains(CardElement($obj->CardID), ""FIRE""));"
+GrandArchiveSim/Custom/CardDQHandlers.php:6408	"$customDQHandlers[""BlazeContinueFireLoads""]"	membership	"if(!PropertyContains(EffectiveCardElement($obj), ""FIRE"")) continue;"
+GrandArchiveSim/Custom/CardDQHandlers.php:7453	"$customDQHandlers[""DusklightCommunionCost""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($obj->CardID);
+GrandArchiveSim/Custom/CardDQHandlers.php:8632	NicoRapturesEmbraceEnter	membership	"if(PropertyContains(CardElement($scID), ""WATER"")) {"
+GrandArchiveSim/Custom/CardLogic.php:436	MisteyeArcherLook	membership	"if($topCard !== null && !$topCard->removed && PropertyContains(EffectiveCardElement($topCard), ""WATER"")) {"
+GrandArchiveSim/Custom/CardLogic.php:458	CoiledFatestoneEnter	value/local: inspect downstream comparisons in enclosing handler	$element = EffectiveCardElement($discObj);
+GrandArchiveSim/Custom/CardLogic.php:557	FatestoneOfHeavenActivated	advanced-element equality: review effective overrides separately	"if(CardElement($memory[$i]->CardID) === ""LUXEM"") ++$luxemCount;"
+GrandArchiveSim/Custom/CardLogic.php:677	WildgrowthFatestoneOnEnterCheck	value/local: inspect downstream comparisons in enclosing handler	$enteredElement = EffectiveCardElement($enteredObj);
+GrandArchiveSim/Custom/CombatLogic.php:1035	HasAmbush	advanced-element equality: review effective overrides separately	"&& EffectiveCardElement($fieldObj) === ""UMBRA"") {"
+GrandArchiveSim/Custom/CombatLogic.php:1602	BeginCombatPhase	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($obj) !== ""TERA"") {"
+GrandArchiveSim/Custom/CombatLogic.php:2306	OnHitTrigger	advanced-element equality: review effective overrides separately	"&& EffectiveCardElement($fulminatorAttacker) === ""ARCANE"") {"
+GrandArchiveSim/Custom/CombatLogic.php:2529	OnHitTrigger	membership	"&& PropertyContains(EffectiveCardElement($attackerObj), ""FIRE"")) {"
+GrandArchiveSim/Custom/CombatLogic.php:3085	"$customDQHandlers[""AttackTargetChosen""]"	advanced-element equality: review effective overrides separately	"&& EffectiveCardElement($asTargetObj) === ""NEOS"""
+GrandArchiveSim/Custom/CombatLogic.php:4101	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	? EffectiveCardElement($frostbiteSource) : CardElement($frostbiteInfo['cardID']);
+GrandArchiveSim/Custom/CombatLogic.php:4121	OnDealDamage	advanced-element equality: review effective overrides separately	"if($hexSourceObj !== null && EffectiveCardElement($hexSourceObj) === ""UMBRA"") {"
+GrandArchiveSim/Custom/CombatLogic.php:4160	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	"$sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : CardElement($sourceInfo[""cardID""]);"
+GrandArchiveSim/Custom/CombatLogic.php:4358	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	? EffectiveCardElement($sourceObj) : CardElement($shangxiangInfo['cardID']);
+GrandArchiveSim/Custom/CombatLogic.php:4782	OnDealDamage	membership	"&& !PropertyContains(EffectiveCardType($targetObj), ""TOKEN"") && EffectiveCardElement($targetObj) === ""NEOS"") {"
+GrandArchiveSim/Custom/CombatLogic.php:5123	OnDealDamage	membership	"if(PropertyContains(EffectiveCardElement($revealedCard), ""WIND"")) {"
+GrandArchiveSim/Custom/CombatLogic.php:5152	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	$primaSourceElement = EffectiveCardElement($primaSourceObj);
+GrandArchiveSim/Custom/CombatLogic.php:5154	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	$primaSourceElement = CardElement($primaSourceCardID);
+GrandArchiveSim/Custom/CombatLogic.php:5250	OnDealDamage	advanced-element equality: review effective overrides separately	"&& EffectiveCardElement($targetObj) === ""CRUX"") {"
+GrandArchiveSim/Custom/CombatLogic.php:5355	OnDealDamage	value/local: inspect downstream comparisons in enclosing handler	? EffectiveCardElement($sourceObj2) : CardElement($everflameSourceCardID);
+GrandArchiveSim/Custom/CombatLogic.php:5481	DealUnpreventableDamage	value/local: inspect downstream comparisons in enclosing handler	$primaSourceElement2 = EffectiveCardElement($primaSourceObj2);
+GrandArchiveSim/Custom/CombatLogic.php:5483	DealUnpreventableDamage	value/local: inspect downstream comparisons in enclosing handler	$primaSourceElement2 = CardElement($primaSourceCardID2);
+GrandArchiveSim/Custom/GameLogic.php:499	NormalizeImbueOption	value/local: inspect downstream comparisons in enclosing handler	'element' => CardElement($cardID)
+GrandArchiveSim/Custom/GameLogic.php:508	NormalizeImbueOption	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($cardID);
+GrandArchiveSim/Custom/GameLogic.php:541	GetCardImbueOptions	membership	"if(PropertyContains(CardType($cardID), ""ALLY"") && PropertyContains(CardElement($cardID), ""WIND"")) {"
+GrandArchiveSim/Custom/GameLogic.php:548	GetCardImbueOptions	value/local: inspect downstream comparisons in enclosing handler	'element' => CardElement($cardID)
+GrandArchiveSim/Custom/GameLogic.php:867	GetImbueOptionLabel	value/local: inspect downstream comparisons in enclosing handler	$labelElement = $option['element'] ?? CardElement($cardID);
+GrandArchiveSim/Custom/GameLogic.php:2293	MandatoryActivationCostBlocker	set/distinct-element comparison: separate rules review	$distinctElements[CardElement($gy[$gi]->CardID)] = true;
+GrandArchiveSim/Custom/GameLogic.php:2308	MandatoryActivationCostBlocker	value/local: inspect downstream comparisons in enclosing handler	"if(!empty($discardSpec[""elements""]) && !GAElementMatchesAny(CardElement($handObj->CardID), $discardSpec[""elements""])) continue;"
+GrandArchiveSim/Custom/GameLogic.php:2426	ActivationKindleReduction	membership	"if($gyObj !== null && empty($gyObj->removed) && PropertyContains(CardElement($gyObj->CardID), ""FIRE"")) ++$fireCards;"
+GrandArchiveSim/Custom/GameLogic.php:3392	DoActivateCard	membership	"if(PropertyContains(CardElement($gy[$gi]->CardID), ""FIRE"") || PropertyContains(CardSubtypes($gy[$gi]->CardID), ""AUTOMATON"")) {"
+GrandArchiveSim/Custom/GameLogic.php:3416	DoActivateCard	set/distinct-element comparison: separate rules review	$distinctElements[CardElement($gy[$gi]->CardID)] = true;
+GrandArchiveSim/Custom/GameLogic.php:3734	DoActivateCard	membership	"if(!$gy[$gi]->removed && PropertyContains(CardElement($gy[$gi]->CardID), ""FIRE"")) {"
+GrandArchiveSim/Custom/GameLogic.php:4110	"$customDQHandlers[""GenericGraveyardBanishCost""]"	value/local: inspect downstream comparisons in enclosing handler	"if(!empty($spec[""storeElementAs""]) && $banishedObjBefore !== null) DecisionQueueController::StoreVariable($spec[""storeElementAs""], CardElement($banishedObjBefore->CardID));"
+GrandArchiveSim/Custom/GameLogic.php:4829	RevealImbueReserved	value/local: inspect downstream comparisons in enclosing handler	$memoryElement = EffectiveCardElement($memory[$i]);
+GrandArchiveSim/Custom/GameLogic.php:5022	"$customDQHandlers[""KindleChoose""]"	membership	"if(!$gy[$gi]->removed && PropertyContains(CardElement($gy[$gi]->CardID), ""FIRE"")) {"
+GrandArchiveSim/Custom/GameLogic.php:5327	"$customDQHandlers[""SlimeKingCostBanish""]"	value/local: inspect downstream comparisons in enclosing handler	$chosenElement = CardElement($chosenObj->CardID);
+GrandArchiveSim/Custom/GameLogic.php:5350	"$customDQHandlers[""SlimeKingCostBanish""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($gy[$gi]->CardID);
+GrandArchiveSim/Custom/GameLogic.php:5391	"$customDQHandlers[""FurnaceDroneCostBanish""]"	membership	"if(PropertyContains(CardElement($gy[$gi]->CardID), ""FIRE"") || PropertyContains(CardSubtypes($gy[$gi]->CardID), ""AUTOMATON"")) {"
+GrandArchiveSim/Custom/GameLogic.php:6964	BanishAfterAdd	membership	"&& PropertyContains(CardElement($added->CardID), ""WATER"") && HasFloatingMemory($added)) {"
+GrandArchiveSim/Custom/GameLogic.php:7678	OnCardActivated	value/local: inspect downstream comparisons in enclosing handler	$activatedElement = CardElement($obj->CardID);
+GrandArchiveSim/Custom/GameLogic.php:10599	DoAllyDestroyed	membership	"if(PropertyContains(EffectiveCardElement($destroyedObj), ""FIRE"") && PropertyContains(EffectiveCardType($destroyedObj), ""ALLY"") && !$suppressed) {"
+GrandArchiveSim/Custom/GameLogic.php:11265	FieldAfterAdd	membership	"if(PropertyContains(EffectiveCardType($added), ""ALLY"") && PropertyContains(EffectiveCardElement($added), ""WIND"")) {"
+GrandArchiveSim/Custom/GameLogic.php:12020	"$customDQHandlers[""FractalRefreshPick""]"	membership	"if($chosenObj !== null && !$chosenObj->removed && PropertyContains(EffectiveCardElement($chosenObj), ""WATER"")) {"
+GrandArchiveSim/Custom/GameLogic.php:12787	RecollectionPhase	advanced-element equality: review effective overrides separately	"if(CardElement($mObj->CardID) === ""LUXEM"") ++$luxemCount;"
+GrandArchiveSim/Custom/GameLogic.php:13852	EndPhase	membership	"if(!$boonObj->removed && strpos(strval(EffectiveCardType($boonObj)), ""BOON"") !== false && PropertyContains(EffectiveCardElement($boonObj), ""FIRE"")) ++$fireBoons;"
+GrandArchiveSim/Custom/GameLogic.php:13856	EndPhase	membership	"if(PropertyContains(CardElement($lineageCardID), ""FIRE"")) ++$fireLineage;"
+GrandArchiveSim/Custom/GameLogic.php:13953	EndPhase	advanced-element equality: review effective overrides separately	"if($champObj !== null && EffectiveCardElement($champObj) === ""EXIA"") {"
+GrandArchiveSim/Custom/GameLogic.php:14017	GAKanaloaBuffsAlly	membership	"if(!PropertyContains(EffectiveCardType($obj), ""ALLY"") || !PropertyContains(EffectiveCardElement($obj), ""WATER"")) return false;"
+GrandArchiveSim/Custom/GameLogic.php:16582	ObjectCurrentLevel	advanced-element equality: review effective overrides separately	"if(CardElement($bObj->CardID) !== ""ARCANE"") continue;"
+GrandArchiveSim/Custom/GameLogic.php:18583	OnDiscardCard	membership	"if(PropertyContains(CardElement($discardedCardID), ""FIRE"")) {"
+GrandArchiveSim/Custom/GameLogic.php:18639	DoRevealCard	advanced-element equality: review effective overrides separately	"if(strpos($sourceZone, ""Memory"") !== false && CardElement($CardID) === ""LUXEM"") {"
+GrandArchiveSim/Custom/GameLogic.php:18854	ScavengeTempZoneChoices	value/local: inspect downstream comparisons in enclosing handler	$matches = CardElement($cardID) === $value;
+GrandArchiveSim/Custom/GameLogic.php:19012	FulguriteCoordinatorTargets	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($field[$i]) !== ""ARCANE"") continue;"
+GrandArchiveSim/Custom/GameLogic.php:19032	FulguriteCoordinatorApply	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($targetObj) !== ""ARCANE"") return;"
+GrandArchiveSim/Custom/GameLogic.php:19065	AddStaticCountersToArcaneObjectsYouControl	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($field[$i]) !== ""ARCANE"") continue;"
+GrandArchiveSim/Custom/GameLogic.php:20431	ZoneSearch	value/local: inspect downstream comparisons in enclosing handler	$effectiveElementStr = EffectiveCardElement($obj);
+GrandArchiveSim/Custom/GameLogic.php:21596	IsElementBonusActive	value/local: inspect downstream comparisons in enclosing handler	"$cardElements = array_values(array_filter(array_map('trim', explode("","", strval(CardElement($cardID)))), fn($e) => $e !== """"));"
+GrandArchiveSim/Custom/GameLogic.php:21602	IsElementBonusActive	value/local: inspect downstream comparisons in enclosing handler	"$champElements = array_filter(array_map('trim', explode("","", strval(EffectiveCardElement($obj)))), fn($e) => $e !== """");"
+GrandArchiveSim/Custom/GameLogic.php:22009	AeneanGutteringFlamesBonus	membership	"if($sourceCardID === null || !PropertyContains(CardElement($sourceCardID), ""FIRE"") || !IsAeneanSpellCardID($sourceCardID)) return 0;"
+GrandArchiveSim/Custom/GameLogic.php:22163	"$customDQHandlers[""FranCarmineSparkBanish""]"	membership	"$isFire = PropertyContains(CardElement($obj->CardID), ""FIRE"");"
+GrandArchiveSim/Custom/GameLogic.php:22620	TrackPRDChampionDamage	value/local: inspect downstream comparisons in enclosing handler	"$sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : ($sourceCardID !== null ? CardElement($sourceCardID) : """");"
+GrandArchiveSim/Custom/GameLogic.php:22787	EvaporationSynchronBanish	membership	"|| !PropertyContains(CardElement($banished->CardID), ""WATER"") || !HasFloatingMemory($banished)) return;"
+GrandArchiveSim/Custom/GameLogic.php:23149	GetCardElements	value/local: inspect downstream comparisons in enclosing handler	$elementProperty = CardElement($cardID);
+GrandArchiveSim/Custom/GameLogic.php:23327	CanPlayerUseCardElement	value/local: inspect downstream comparisons in enclosing handler	$cardElement = CardElement($cardID);
+GrandArchiveSim/Custom/GameLogic.php:23411	CanPlayerUseCardElement	membership	"if(!PropertyContains(EffectiveCardElement($field[$i]), ""ARCANE"")) continue;"
+GrandArchiveSim/Custom/GameLogic.php:24868	EffectiveCardElement	value/local: inspect downstream comparisons in enclosing handler	function EffectiveCardElement($obj) {
+GrandArchiveSim/Custom/GameLogic.php:24891	EffectiveCardElement	value/local: inspect downstream comparisons in enclosing handler	return CardElement($obj->CardID);
+GrandArchiveSim/Custom/GameLogic.php:25167	HasVigor	membership	"&& PropertyContains(EffectiveCardElement($fObj), ""WIND"")) {"
+GrandArchiveSim/Custom/GameLogic.php:25411	HasStealth	membership	"&& PropertyContains(EffectiveCardElement($fObj), ""WATER"")) {"
+GrandArchiveSim/Custom/GameLogic.php:25602	HasTrueSight	membership	"&& PropertyContains(EffectiveCardElement($fObj), ""WATER"")) {"
+GrandArchiveSim/Custom/GameLogic.php:26271	PrideAmount	membership	"&& PropertyContains(EffectiveCardElement($fObj), ""WATER"")) {"
+GrandArchiveSim/Custom/GameLogic.php:26286	PrideAmount	membership	"&& PropertyContains(EffectiveCardElement($fObj), ""WIND"")) {"
+GrandArchiveSim/Custom/GameLogic.php:26317	PrideAmount	membership	"&& (PropertyContains(EffectiveCardElement($fObj), ""FIRE"") || PropertyContains(EffectiveCardElement($fObj), ""TERA""))) {"
+GrandArchiveSim/Custom/GameLogic.php:26410	GAVoltaicSphereDiscount	membership	"if($subjectObj === null || !PropertyContains(CardSubtypes($subjectObj->CardID), ""SPELL"") || !PropertyContains(CardElement($subjectObj->CardID), ""ARCANE"")) return 0;"
+GrandArchiveSim/Custom/GameLogic.php:27745	GetOmenCountByElement	membership	if(PropertyContains(CardElement($obj->CardID), $element)) {
+GrandArchiveSim/Custom/GameLogic.php:28273	SlimeEruptionBanishLoop	membership	"if(!PropertyContains(EffectiveCardElement($gObj), ""FIRE"") && $nonFire >= 2) continue;"
+GrandArchiveSim/Custom/GameLogic.php:28296	"$customDQHandlers[""SlimeEruptionBanishPick""]"	membership	"if(!PropertyContains(EffectiveCardElement($obj), ""FIRE"")) {"
+GrandArchiveSim/Custom/GameLogic.php:28904	DomainRevealMemoryUpkeep	value/local: inspect downstream comparisons in enclosing handler	$element = EffectiveCardElement($card);
+GrandArchiveSim/Custom/GameLogic.php:29229	CheckRubyFatestoneQuestCounter	value/local: inspect downstream comparisons in enclosing handler	$sourceElement = EffectiveCardElement($sourceObj);
+GrandArchiveSim/Custom/GameLogic.php:29231	CheckRubyFatestoneQuestCounter	value/local: inspect downstream comparisons in enclosing handler	$sourceElement = CardElement($sourceCardID);
+GrandArchiveSim/Custom/GameLogic.php:29569	CalculateActivationReserveCost	membership	"if(PropertyContains(CardElement($cardID), ""WATER"")) $reserveCost += 2;"
+GrandArchiveSim/Custom/GameLogic.php:29579	CalculateActivationReserveCost	membership	"if(!PropertyContains(CardElement($cardID), ""NORM"")) {"
+GrandArchiveSim/Custom/GameLogic.php:29759	CalculateActivationReserveCost	membership	"&& PropertyContains(CardElement($pantheonObj->CardID), ""WIND"")) ++$astraeusLess;"
+GrandArchiveSim/Custom/GameLogic.php:29761	CalculateActivationReserveCost	membership	"foreach(GetChampionLineage($player) as $lineageCardID) if(PropertyContains(CardElement($lineageCardID), ""WIND"")) ++$astraeusLess;"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:754	"$activateAbilityAbilities[""EQZZsiUDyl:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($deck[$i]->CardID);
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:912	"$cardActivatedAbilities[""edg616r0za:0""]"	membership	"if($tobj !== null && !$tobj->removed && (PropertyContains(EffectiveCardElement($tobj), ""WIND"") || PropertyContains(EffectiveCardSubtypes($tobj), ""REACTION""))) {"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:953	"$enterAbilities[""disqw3d0o5:0""]"	membership	"&& PropertyContains(EffectiveCardElement($tcObj), ""WIND"")"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:1330	"$enterAbilities[""ZR8tnLruR6:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($deck[$i]->CardID);
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2013	"$activateAbilityAbilities[""qzv380ujf5:0""]"	membership	"if(!PropertyContains(CardElement($cID), ""FIRE"") || !PropertyContains(CardType($cID), ""ACTION"") || intval(CardCost_reserve($cID)) > 2) continue;"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:2330	"$customDQHandlers[""nbznVwdylT:0:CardActivated-1""]"	membership	"if($fieldObj !== null && !$fieldObj->removed && PropertyContains(EffectiveCardElement($fieldObj), ""WIND"")) $windCount++;"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:3706	"$activateCardPrereqs[""cbNF64gCsS:0""]"	membership	"if(PropertyContains(CardElement($obj->CardID), ""FIRE"") || PropertyContains(CardSubtypes($obj->CardID), ""AUTOMATON"")) ++$eligible;"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:3895	"$activateCardPrereqs[""lzjmwuir99:0""]"	membership	"if($candidate !== null && !$candidate->removed && $candidate !== $source && PropertyContains(CardElement($candidate->CardID), ""FIRE"")) return true;"
+GrandArchiveSim/Custom/GeneratedAbilityOverrides.php:3914	"$onAttackAbilities[""5du8f077ua:0""]"	value/local: inspect downstream comparisons in enclosing handler	"if(GAElementMatchesAny(EffectiveCardElement($human), [""FIRE"", ""TERA""])) { $eligible = true; break; }"
+GrandArchiveSim/Custom/MaterializeLogic.php:82	ShouldQueueCapacitanceMaterialCheck	membership	"if(!$obj->removed && PropertyContains(CardElement($obj->CardID), ""ARCANE"")) ++$arcane;"
+GrandArchiveSim/Custom/MaterializeLogic.php:382	GACapacitanceMaterialActivatable	membership	"if(!$bObj->removed && PropertyContains(CardElement($bObj->CardID), ""ARCANE"")) ++$arcane;"
+GrandArchiveSim/Custom/MaterializeLogic.php:988	"$customDQHandlers[""CAPACITANCE_MATERIAL_CHECK""]"	membership	"if(!$obj->removed && PropertyContains(CardElement($obj->CardID), ""ARCANE"")) ++$arcane;"
+GrandArchiveSim/Custom/OpportunityLogic.php:200	GetEffectStackActivationTargets	value/local: inspect downstream comparisons in enclosing handler	if(isset($filters['elements']) && !GAElementMatchesAny(CardElement($cardID), $filters['elements'])) continue;
+GrandArchiveSim/Custom/OpportunityLogic.php:314	TriggerReversalsPolarity	advanced-element equality: review effective overrides separately	"if(CardElement($cardID) !== ""ARCANE"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:184	"$activateCardPrereqs[""cbNF64gCsS:0""]"	membership	"if(CardElement($gy[$gi]->CardID) === ""FIRE"" || PropertyContains(CardSubtypes($gy[$gi]->CardID), ""AUTOMATON"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:272	"$activateCardPrereqs[""f0ymeslfpw:0""]"	set/distinct-element comparison: separate rules review	$distinctElements[CardElement($gy[$gi]->CardID)] = true;
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:386	"$activateCardPrereqs[""lzjmwuir99:0""]"	basic-element equality: membership candidate	"if(!$hObj->removed && ""myHand-"" . $hi !== $mzID && CardElement($hObj->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:600	"$activateCardPrereqs[""TlhsnnRhGK:0""]"	basic-element equality: membership candidate	"if(!$hObj->removed && ""myHand-"" . $hi !== $mzID && CardElement($hObj->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:1676	"$activateAbilityAbilities[""14m4c8ljye:0""]"	membership	"if(!PropertyContains(EffectiveCardElement($unitObj), ""ASTRA"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:2488	"$activateAbilityAbilities[""96659ytyj2:0""]"	basic-element equality: membership candidate	"if(CardElement($cardID) === ""WIND"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:3430	"$activateAbilityAbilities[""EQZZsiUDyl:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($deck[$i]->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:5447	"$activateAbilityAbilities[""pbtudivyzb:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($obj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:5476	"$activateAbilityPrereqs[""pbtudivyzb:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($dObj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:5839	"$activateAbilityAbilities[""qzv380ujf5:0""]"	basic-element equality: membership candidate	"if(CardElement($cID) !== ""FIRE"") continue;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:7302	"$activateAbilityAbilities[""xgax8bbjqj:0""]"	value/local: inspect downstream comparisons in enclosing handler	$cEl = CardElement($cID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:8313	"$activationCostModifierAbilities[""AJeuUDTPmV:0""]"	value/local: inspect downstream comparisons in enclosing handler	$el = CardElement($obj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:8329	"$activationCostModifierAbilities[""alnjt7DyZL:0""]"	element requirements: preserve separate semantics	if(CanPlayerMeetCardElementRequirements($player, CardElement($subjectObj->CardID))) return 0;
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:9352	"$enterAbilities[""1o0tKizBZ6:0""]"	basic-element equality: membership candidate	"if(CardElement($revealedCardID) !== ""WIND"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10061	"$enterAbilities[""8eyeqhc37y:0""]"	basic-element equality: membership candidate	"if($scID !== ""8eyeqhc37y"" && CardElement($scID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10488	"$enterAbilities[""ba0tqvwlp1:0""]"	basic-element equality: membership candidate	"if(!$hand[$i]->removed && CardElement($hand[$i]->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:10824	"$enterAbilities[""disqw3d0o5:0""]"	basic-element equality: membership candidate	"&& CardElement($tcObj->CardID) === ""WIND"""
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12901	"$enterAbilities[""qe1pkerbi3:0""]"	basic-element equality: membership candidate	"if($obj !== null && CardElement($obj->CardID) !== ""WATER"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:12908	"$enterAbilities[""qe1pkerbi3:0""]"	basic-element equality: membership candidate	"if($obj !== null && CardElement($obj->CardID) !== ""WATER"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:13555	"$enterAbilities[""TYlWgIYsq3:0""]"	value/local: inspect downstream comparisons in enclosing handler	$el = CardElement($tObj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:13916	"$enterAbilities[""wc8tuhuy4x:0""]"	basic-element equality: membership candidate	"if(CardElement($handObj->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14063	"$enterAbilities[""x8bd7ozuj6:0""]"	basic-element equality: membership candidate	"if(CardElement($lcID) === ""WIND"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14080	"$enterAbilities[""x9sSpjpP3G:0""]"	advanced-element equality: review effective overrides separately	"if(CardElement($obj->CardID) === ""ARCANE"") $arcaneCount++;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:14433	"$enterAbilities[""ZR8tnLruR6:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($deck[$i]->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:15484	"$cardActivatedAbilities[""4d5vettczb:0""]"	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($myField[$i]) === ""ASTRA"") continue;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:15492	"$cardActivatedAbilities[""4d5vettczb:0""]"	advanced-element equality: review effective overrides separately	"if(EffectiveCardElement($theirField[$i]) === ""ASTRA"") continue;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:17843	"$cardActivatedAbilities[""edg616r0za:0""]"	membership	"if(CardElement($tobj->CardID) === ""WIND"" || PropertyContains(CardSubtypes($tobj->CardID), ""REACTION"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:19854	"$cardActivatedAbilities[""nbznVwdylT:0""]"	membership	"if($fieldObj !== null && !$fieldObj->removed && PropertyContains(EffectiveCardElement($fieldObj), ""WIND"")) $windCount++;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:20939	"$cardActivatedAbilities[""qSxEKgmQ0I:0""]"	advanced-element equality: review effective overrides separately	"if(CardElement($banish[$i]->CardID) === ""TERA"") ++$x;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23292	"$cardActivatedAbilities[""y6isxy5lh2:0""]"	Norm predicate: membership versus Norm-only	"&& (CardElement($obj->CardID) === ""FIRE"" || CardElement($obj->CardID) === ""NORM"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:23879	"$discardCardAbilities[""KEhmWGivJp:0""]"	basic-element equality: membership candidate	"if(CardElement($discardedCardID) !== ""FIRE"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24095	"$onAttackAbilities[""2Ch1Gp3jEL:0""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($randomObj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24185	"$onAttackAbilities[""5du8f077ua:0""]"	basic-element equality: membership candidate	"&& (CardElement($fObj->CardID) === ""FIRE"" || CardElement($fObj->CardID) === ""TERA"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24311	"$onAttackAbilities[""7xgwve1d47:0""]"	basic-element equality: membership candidate	"if($topObj === null || CardElement($topObj->CardID) !== ""WATER"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24572	"$onAttackAbilities[""hreqhj1trn:0""]"	basic-element equality: membership candidate	"if(CardElement($topCard->CardID) === ""WIND"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24594	"$onAttackAbilities[""iuixf9rdmu:0""]"	basic-element equality: membership candidate	"if(CardElement($iObj->CardID) === ""WIND"") $windCount++;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24762	"$onAttackAbilities[""oqk1l75tlz:0""]"	basic-element equality: membership candidate	"if($iObj !== null && CardElement($iObj->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24814	"$onAttackAbilities[""q5CXVeHGIf:0""]"	set/distinct-element comparison: separate rules review	"if(in_array(CardElement($candidateObj->CardID), [""NORM"", ""FIRE"", ""WATER"", ""WIND""])) $candidates[] = $candidateMZ;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24832	"$onAttackAbilities[""qmyn2rz308:0""]"	basic-element equality: membership candidate	"if(!$hObj->removed && CardElement($hObj->CardID) === ""FIRE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:24888	"$onAttackAbilities[""rsps1qnzfl:0""]"	advanced-element equality: review effective overrides separately	"&& CardElement($iObj->CardID) === ""ASTRA"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25028	"$onAttackAbilities[""tf5f2n38g0:0""]"	advanced-element equality: review effective overrides separately	"if(!$banishForLabel[$i]->removed && CardElement($banishForLabel[$i]->CardID) === ""ARCANE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25259	"$onAttackAbilities[""xywyzv14iv:0""]"	membership	"if(CardElement($iObj->CardID) === ""WATER"" && PropertyContains(CardSubtypes($iObj->CardID), ""AETHERCHARGE"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:25434	"$onHitAbilities[""58xpspudnf:0""]"	membership	"if(!$gy[$i]->removed && CardElement($gy[$i]->CardID) === ""WIND"" && PropertyContains(CardSubtypes($gy[$i]->CardID), ""AETHERCHARGE"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:26130	"$onHitAbilities[""TgYTZg6TaG:0""]"	basic-element equality: membership candidate	"if(CardElement($revealedObj->CardID) !== ""WIND"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:31227	"$customDQHandlers[""THjSE7caau:0:Enter-1""]"	basic-element equality: membership candidate	"if(!IsMerlinBonusActive($player) || $discCardID === null || CardElement($discCardID) !== ""FIRE"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:35551	"$customDQHandlers[""n8wyfG9hbY:0:CardActivated-1""]"	membership	"if(PropertyContains(CardElement($topCardID), ""WIND"")) {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:38643	"$customDQHandlers[""qufoIF014c:0:OnAttack-1""]"	value/local: inspect downstream comparisons in enclosing handler	$element = CardElement($chosenObj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:38675	"$customDQHandlers[""r7oifozaog:0:OnAttack-1""]"	basic-element equality: membership candidate	"$isFire = CardElement($discardedObj->CardID) === ""FIRE"";"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:38741	"$customDQHandlers[""tf5f2n38g0:0:OnAttack-1""]"	advanced-element equality: review effective overrides separately	"if(!$banish[$i]->removed && CardElement($banish[$i]->CardID) === ""ARCANE"") {"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:39164	"$customDQHandlers[""YqQsXwEvv5:0:OnHit-1""]"	basic-element equality: membership candidate	"if(CardElement($chosenCardID) !== ""FIRE"") return;"
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:39233	"$customDQHandlers[""kuz07nk45s:0:OnFoster-1""]"	value/local: inspect downstream comparisons in enclosing handler	$chosenElement = CardElement($chosenObj->CardID);
+GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php:44952	EvaluateActivationCostModifier	membership	"$amount = PropertyContains(EffectiveCardElement($enteredObj), ""WIND"") ? 3 : 1;"

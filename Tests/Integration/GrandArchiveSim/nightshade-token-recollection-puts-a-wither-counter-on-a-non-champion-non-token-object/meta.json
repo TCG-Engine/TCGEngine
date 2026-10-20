@@ -1,0 +1,26 @@
+{
+    "name": "nightshade-token-recollection-puts-a-wither-counter-on-a-non-champion-non-token-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:31:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rzk3mjblse"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rzk3mjblse"
+        ],
+        "mechanics": [
+            "recollection",
+            "counter",
+            "wither",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put a **wither** counter on target non-champion non-token object you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

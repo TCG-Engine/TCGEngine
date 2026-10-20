@@ -1,0 +1,24 @@
+{
+    "name": "excalibur-cleansing-light-class-bonus-chosen-elements-cannot-be-activated-until-your-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:58:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qtRBz9azeZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qtRBz9azeZ"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "element-lock"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Choose up to two non-norm elements. Players can't materialize or activate cards of those elements until the beginning of your next turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

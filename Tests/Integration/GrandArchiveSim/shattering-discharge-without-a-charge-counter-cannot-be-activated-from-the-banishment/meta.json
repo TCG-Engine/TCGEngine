@@ -1,0 +1,24 @@
+{
+    "name": "shattering-discharge-without-a-charge-counter-cannot-be-activated-from-the-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:49:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uutqo9hm33"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uutqo9hm33"
+        ],
+        "mechanics": [
+            "banishment-activation",
+            "condition"
+        ],
+        "rulesClauses": [
+            "You may activate this card from your banishment as long as there's a **charge** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "potion-infusion-blaze-the-rested-potion-deals-four-damage-to-an-attacking-ally-when-sacrificed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:07:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8bki6fxxgm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8bki6fxxgm"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "on-sacrifice",
+            "damage",
+            "rest"
+        ],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains \"**On Sacrifice:** Deal 4 damage to target attacking ally\" until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

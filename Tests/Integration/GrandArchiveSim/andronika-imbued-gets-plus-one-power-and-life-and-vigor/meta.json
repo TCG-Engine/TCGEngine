@@ -1,0 +1,27 @@
+{
+    "name": "andronika-imbued-gets-plus-one-power-and-life-and-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:40:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vw2ifz1nr5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vw2ifz1nr5"
+        ],
+        "mechanics": [
+            "imbue",
+            "stat-change",
+            "vigor",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Imbue 3**",
+            "As long as CARDNAME is **imbued**, CARDNAME gets +1 [POWER] and +1 [LIFE], and has **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

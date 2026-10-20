@@ -1,0 +1,25 @@
+{
+    "name": "fractured-memories-merlin-bonus-declining-the-champion-hit-leaves-the-sheen-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UAJGQFbXjs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UAJGQFbXjs"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-champion-hit",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "You may move all **sheen** counters on the hit champion to your Fractured Memories."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "illuminate-secrets-deals-damage-equal-to-the-owners-influence-minus-yours",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:54:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0ymvddv1au"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0ymvddv1au"
+        ],
+        "mechanics": [
+            "damage",
+            "influence",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal an amount of damage to target unit equal to its owner's **influence** minus your **influence**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "landscape-corsair-kongming-bonus-on-enter-changes-the-direction-of-the-shifting-currents",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "racxis1ji8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "racxis1ji8"
+        ],
+        "mechanics": [
+            "on-enter",
+            "champion-bonus",
+            "currents"
+        ],
+        "rulesClauses": [
+            "[Kongming Bonus] **On Enter:** You may change the direction of your Shifting Currents to a different direction of your choice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

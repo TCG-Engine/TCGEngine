@@ -1,0 +1,25 @@
+{
+    "name": "purging-tempest-banishes-cards-entering-your-graveyard-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:03:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yuo7dbge3b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yuo7dbge3b"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if one or more cards would enter target player's graveyard from anywhere except the field, banish them instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

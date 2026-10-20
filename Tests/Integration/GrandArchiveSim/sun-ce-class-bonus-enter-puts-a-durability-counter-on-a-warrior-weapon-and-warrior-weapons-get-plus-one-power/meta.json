@@ -1,0 +1,28 @@
+{
+    "name": "sun-ce-class-bonus-enter-puts-a-durability-counter-on-a-warrior-weapon-and-warrior-weapons-get-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lvxsgng1a1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lvxsgng1a1"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "counter",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: Put a **durability** counter on target Warrior weapon you control.",
+            "[Class Bonus] Warrior weapons you control get +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

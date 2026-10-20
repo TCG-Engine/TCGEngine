@@ -1,0 +1,24 @@
+{
+    "name": "sealed-blade-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mDN1CI9IEe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mDN1CI9IEe"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

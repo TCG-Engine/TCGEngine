@@ -1,0 +1,25 @@
+{
+    "name": "gemini-starbearer-enter-summons-an-astral-shard-token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NyPQW7hkAq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NyPQW7hkAq"
+        ],
+        "mechanics": [
+            "on-enter",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Summon** an Astral Shard token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "aenean-tailwind-boost-level-6-wakes-the-ally-and-gives-its-next-attack-plus-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vNrkfKLlt6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vNrkfKLlt6"
+        ],
+        "mechanics": [
+            "status",
+            "stat-change",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "Wake up target ally.",
+            "[Class Bonus] [Level 6+] That ally's next attack this turn gets +4[POWER]. *(Apply this effect only if your champion\u2019s class matches this card\u2019s class and only if your champion is level 6 or higher.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

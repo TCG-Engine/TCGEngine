@@ -1,0 +1,25 @@
+{
+    "name": "tristan-shadowreaver-lineage-same-level-up-draws-two-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:09:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4upufooz13"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4upufooz13"
+        ],
+        "mechanics": [
+            "lineage",
+            "level-up",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Tristan can level up into champions of the same base level. When she does, draw two cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

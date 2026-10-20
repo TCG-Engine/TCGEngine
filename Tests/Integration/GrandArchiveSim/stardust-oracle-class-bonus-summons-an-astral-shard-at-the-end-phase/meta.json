@@ -1,0 +1,26 @@
+{
+    "name": "stardust-oracle-class-bonus-summons-an-astral-shard-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EPy8OUmPxa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EPy8OUmPxa"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "end-phase",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, **summon** an Astral Shard token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

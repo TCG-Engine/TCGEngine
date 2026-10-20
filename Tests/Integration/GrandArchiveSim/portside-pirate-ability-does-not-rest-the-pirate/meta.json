@@ -15,7 +15,10 @@
             "activated-ability",
             "auto-rest"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] Banish a card with floating memory from your graveyard: Put a buff counter on CARDNAME and it gains stealth until end of turn.",
+            "An activated ability only rests its source when its cost includes [REST]."
+        ]
     },
     "engineBug": {
         "status": "fixed",

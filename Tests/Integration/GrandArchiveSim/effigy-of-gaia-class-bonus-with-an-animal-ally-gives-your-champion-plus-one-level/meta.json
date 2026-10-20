@@ -1,0 +1,26 @@
+{
+    "name": "effigy-of-gaia-class-bonus-with-an-animal-ally-gives-your-champion-plus-one-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:45:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "akb1k0zi5h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "akb1k0zi5h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level",
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

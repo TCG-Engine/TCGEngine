@@ -1,0 +1,25 @@
+{
+    "name": "the-majestic-spirit-rounds-the-prevention-of-odd-combat-damage-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:34:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "prevention",
+            "crux",
+            "rounding"
+        ],
+        "rulesClauses": [
+            "If another crux element unit you control would take damage, prevent half of that damage, rounded up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

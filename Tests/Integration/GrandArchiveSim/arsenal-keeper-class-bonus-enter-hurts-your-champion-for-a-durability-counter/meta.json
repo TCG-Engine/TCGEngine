@@ -1,0 +1,26 @@
+{
+    "name": "arsenal-keeper-class-bonus-enter-hurts-your-champion-for-a-durability-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rn0yetaebj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rn0yetaebj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "counter",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may have CARDNAME deal 2 damage to your champion. If you do, put a durability counter on a weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

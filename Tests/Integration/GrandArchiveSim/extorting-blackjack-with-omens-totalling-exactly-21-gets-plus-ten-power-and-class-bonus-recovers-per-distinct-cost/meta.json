@@ -1,0 +1,28 @@
+{
+    "name": "extorting-blackjack-with-omens-totalling-exactly-21-gets-plus-ten-power-and-class-bonus-recovers-per-distinct-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:47:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bfg5ubeczk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bfg5ubeczk"
+        ],
+        "mechanics": [
+            "omen",
+            "stat-change",
+            "class-bonus",
+            "on-attack",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as the total reserve cost among your omens is exactly 21, Extorting Blackjack gets +10[POWER]. [Class Bonus] **On Attack**: **Recover** **X**, where **X** is the amount of **omens** you have with different costs."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

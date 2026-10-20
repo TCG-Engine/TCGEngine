@@ -1,0 +1,25 @@
+{
+    "name": "firebird-trailblazer-attack-discards-a-card-to-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ouj0b2l3gl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ouj0b2l3gl"
+        ],
+        "mechanics": [
+            "on-attack",
+            "draw-discard",
+            "optional-choice"
+        ],
+        "rulesClauses": [
+            "On Attack: You may discard a card. If you do, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

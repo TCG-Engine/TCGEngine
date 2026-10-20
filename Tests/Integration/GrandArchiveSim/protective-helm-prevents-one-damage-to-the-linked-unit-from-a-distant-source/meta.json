@@ -1,0 +1,25 @@
+{
+    "name": "protective-helm-prevents-one-damage-to-the-linked-unit-from-a-distant-source",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:54:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l2ipxnctse"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l2ipxnctse"
+        ],
+        "mechanics": [
+            "link",
+            "prevention",
+            "distant"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to linked unit from a **distant** source, prevent 1 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

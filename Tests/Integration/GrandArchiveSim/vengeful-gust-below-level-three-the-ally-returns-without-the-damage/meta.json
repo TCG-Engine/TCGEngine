@@ -1,0 +1,23 @@
+{
+    "name": "vengeful-gust-below-level-three-the-ally-returns-without-the-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:04:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q4dvnn3zp1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q4dvnn3zp1"
+        ],
+        "mechanics": [
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Level 3+] The next time that card would enter the field this turn"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

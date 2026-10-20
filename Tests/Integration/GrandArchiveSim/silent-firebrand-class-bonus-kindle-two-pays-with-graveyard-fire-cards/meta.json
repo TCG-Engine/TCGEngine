@@ -1,0 +1,25 @@
+{
+    "name": "silent-firebrand-class-bonus-kindle-two-pays-with-graveyard-fire-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:23:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vwktc1c3kn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vwktc1c3kn"
+        ],
+        "mechanics": [
+            "keyword",
+            "kindle",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Kindle 2 (You may banish up to two fire element cards from your graveyard as you activate this card. Each one pays for (1) of this card's cost.)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

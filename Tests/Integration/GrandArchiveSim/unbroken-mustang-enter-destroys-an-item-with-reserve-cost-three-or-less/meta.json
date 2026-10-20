@@ -1,0 +1,25 @@
+{
+    "name": "unbroken-mustang-enter-destroys-an-item-with-reserve-cost-three-or-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ye9jkvfo0x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ye9jkvfo0x"
+        ],
+        "mechanics": [
+            "on-enter",
+            "destroy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Destroy up to one target item or weapon with memory cost 0 or reserve cost 3 or less."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

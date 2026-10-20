@@ -1,0 +1,25 @@
+{
+    "name": "cosmic-focus-distant-champion-gains-ranged-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dWgPzoEbIE"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dWgPzoEbIE"
+        ],
+        "mechanics": [
+            "distant",
+            "ranged",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your champion is **distant**, they gain **ranged 4** for as long as they remain **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

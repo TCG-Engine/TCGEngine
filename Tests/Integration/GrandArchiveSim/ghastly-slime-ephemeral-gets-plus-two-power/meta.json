@@ -1,0 +1,25 @@
+{
+    "name": "ghastly-slime-ephemeral-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XFWU8KTVW9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XFWU8KTVW9"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "ephemerate",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ephemerate \u2014** (2) As long as CARDNAME is **ephemeral**, it gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "profane-bindings-negates-an-activation-banishes-it-and-goes-to-the-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7h2k6p8fss"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7h2k6p8fss"
+        ],
+        "mechanics": [
+            "negate",
+            "banish",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation. Banish the card that had its activation **negated** this way. Put Profane Bindings on the bottom of your champion's lineage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

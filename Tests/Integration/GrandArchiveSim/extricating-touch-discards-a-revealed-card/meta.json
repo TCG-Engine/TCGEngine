@@ -1,0 +1,25 @@
+{
+    "name": "extricating-touch-discards-a-revealed-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4a8hl5dben"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4a8hl5dben"
+        ],
+        "mechanics": [
+            "reveal",
+            "discard",
+            "targeting-player"
+        ],
+        "rulesClauses": [
+            "Target player reveals your choice of their hand or memory. Choose a card from among the revealed cards and discard it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

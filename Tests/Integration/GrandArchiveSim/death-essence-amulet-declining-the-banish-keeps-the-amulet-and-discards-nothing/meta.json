@@ -1,0 +1,24 @@
+{
+    "name": "death-essence-amulet-declining-the-banish-keeps-the-amulet-and-discards-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T04:10:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ddag7ue0k7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ddag7ue0k7"
+        ],
+        "mechanics": [
+            "trigger",
+            "optional"
+        ],
+        "rulesClauses": [
+            "Whenever an ally you control dies while it's not your turn, you may banish Death Essence Amulet. When you do, look at target opponent's hand or memory and discard a card from it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

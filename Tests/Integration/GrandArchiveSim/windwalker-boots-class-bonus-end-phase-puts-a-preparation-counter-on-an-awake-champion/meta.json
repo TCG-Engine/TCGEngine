@@ -1,0 +1,26 @@
+{
+    "name": "windwalker-boots-class-bonus-end-phase-puts-a-preparation-counter-on-an-awake-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:45:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "73fdt8ptrz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "73fdt8ptrz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "end-phase",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, if your champion is awake, put a **preparation** counter on them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

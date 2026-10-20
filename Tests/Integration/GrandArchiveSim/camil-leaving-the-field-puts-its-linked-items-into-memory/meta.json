@@ -1,0 +1,25 @@
+{
+    "name": "camil-leaving-the-field-puts-its-linked-items-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:16:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q5CXVeHGIf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q5CXVeHGIf"
+        ],
+        "mechanics": [
+            "on-leave",
+            "ally-link",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Leave:** Put the items that were linked to CARDNAME into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -15,7 +15,7 @@
         "mzId": "myField-0",
         "viewerPlayerID": 1,
         "property": "Counters",
-        "value": "[]",
+        "value": "{\"gaTopUnplayed\":1}",
         "semantic": true,
         "label": "The four enlighten counters were removed (pre-fix the champion levelled up for free)"
     },

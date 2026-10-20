@@ -1,0 +1,27 @@
+{
+    "name": "fragmented-spirit-of-water-enter-glimpses-draws-six-and-summons-a-spirit-shard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kat9hreqhj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kat9hreqhj"
+        ],
+        "mechanics": [
+            "on-enter",
+            "glimpse",
+            "draw",
+            "summon",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Glimpse 6**. Draw six cards. Then **summon** a Spirit Shard token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

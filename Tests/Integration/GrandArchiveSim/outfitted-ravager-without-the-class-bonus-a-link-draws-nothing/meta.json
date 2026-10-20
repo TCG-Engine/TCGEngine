@@ -1,0 +1,26 @@
+{
+    "name": "outfitted-ravager-without-the-class-bonus-a-link-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:19:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YZIyPCvgzH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YZIyPCvgzH"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "link",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever an object becomes linked to CARDNAME, draw a card and discard a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "shield-of-parvati-prevents-two-damage-to-the-linked-ally-and-is-sacrificed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "labt8hvoww"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "labt8hvoww"
+        ],
+        "mechanics": [
+            "link",
+            "prevention",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "If linked ally would take damage, prevent 2 of that damage and sacrifice CARDNAME instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

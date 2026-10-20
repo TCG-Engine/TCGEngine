@@ -1,0 +1,23 @@
+{
+    "name": "charged-hunter-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iffei7chsb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iffei7chsb"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

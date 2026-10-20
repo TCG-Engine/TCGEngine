@@ -1,0 +1,25 @@
+{
+    "name": "surging-bolt-deals-three-damage-to-a-champion-when-not-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "08kkz07nau"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "08kkz07nau"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "imbue"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

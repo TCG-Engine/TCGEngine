@@ -1,0 +1,23 @@
+{
+    "name": "without-greater-boon-of-enki-cell-production-summons-exactly-two-powercells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:42:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m6lGw6bQtb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m6lGw6bQtb"
+        ],
+        "mechanics": [
+            "token"
+        ],
+        "rulesClauses": [
+            "**Summon** two Powercell tokens rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

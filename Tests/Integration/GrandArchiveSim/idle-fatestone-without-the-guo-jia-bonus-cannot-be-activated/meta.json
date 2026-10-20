@@ -1,0 +1,24 @@
+{
+    "name": "idle-fatestone-without-the-guo-jia-bonus-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:13:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qiv63tpshe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qiv63tpshe"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] [REST], *(2)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "oneiric-key-pay-four-and-banish-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pY1TImPn8g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pY1TImPn8g"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw-into-memory",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(4), **Banish CARDNAME:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

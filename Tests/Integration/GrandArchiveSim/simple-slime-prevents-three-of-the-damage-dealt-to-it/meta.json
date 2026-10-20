@@ -1,0 +1,23 @@
+{
+    "name": "simple-slime-prevents-three-of-the-damage-dealt-to-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:09:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Zxab4Vi0wx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Zxab4Vi0wx"
+        ],
+        "mechanics": [
+            "prevention"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to CARDNAME, prevent 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

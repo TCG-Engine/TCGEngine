@@ -1,0 +1,25 @@
+{
+    "name": "unyielding-wraithguard-on-death-returns-to-the-field-ephemeral",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0vjo15768g"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0vjo15768g"
+        ],
+        "mechanics": [
+            "on-death",
+            "ephemeral",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**On Death**: Return Unyielding Wraithguard from your graveyard to the field. It becomes **ephemeral**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

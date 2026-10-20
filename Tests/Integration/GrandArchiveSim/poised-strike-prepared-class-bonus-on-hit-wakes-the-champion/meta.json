@@ -1,0 +1,28 @@
+{
+    "name": "poised-strike-prepared-class-bonus-on-hit-wakes-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:29:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mj3WSrghUH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mj3WSrghUH"
+        ],
+        "mechanics": [
+            "combat",
+            "prepare",
+            "class-bonus",
+            "on-hit",
+            "status"
+        ],
+        "rulesClauses": [
+            "**Prepare 1**",
+            "[Class Bonus] **On Hit:** If CARDNAME was prepared, wake up your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

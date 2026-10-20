@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "unpreventable-damage"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "At the beginning of each opponent's recollection phase, that player puts a debuff counter on an ally they control. If they don't, deal 2 unpreventable damage to their champion."
+        ]
     },
     "engineBug": {
         "status": "fixed",

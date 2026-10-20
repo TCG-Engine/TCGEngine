@@ -1,0 +1,25 @@
+{
+    "name": "blessed-clergy-imbued-without-the-class-bonus-leaves-the-opponent-unrestricted",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a3pmmloejo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a3pmmloejo"
+        ],
+        "mechanics": [
+            "imbue",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

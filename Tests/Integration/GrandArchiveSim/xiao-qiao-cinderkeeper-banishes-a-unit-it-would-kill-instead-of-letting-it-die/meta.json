@@ -1,0 +1,24 @@
+{
+    "name": "xiao-qiao-cinderkeeper-banishes-a-unit-it-would-kill-instead-of-letting-it-die",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:29:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3hgldrogit"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3hgldrogit"
+        ],
+        "mechanics": [
+            "replacement-effect",
+            "banish"
+        ],
+        "rulesClauses": [
+            "If a unit hit by CARDNAME this turn would die, banish it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

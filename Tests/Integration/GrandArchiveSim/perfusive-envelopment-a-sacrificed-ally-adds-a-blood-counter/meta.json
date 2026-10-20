@@ -1,0 +1,26 @@
+{
+    "name": "perfusive-envelopment-a-sacrificed-ally-adds-a-blood-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rRfRKqCBqF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rRfRKqCBqF"
+        ],
+        "mechanics": [
+            "trigger",
+            "sacrifice",
+            "counter",
+            "blood"
+        ],
+        "rulesClauses": [
+            "Whenever a player sacrifices an ally, put a **blood** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

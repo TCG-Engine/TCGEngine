@@ -1,0 +1,25 @@
+{
+    "name": "vacuous-servant-without-ciel-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:11:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "L67r0GlRHR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "L67r0GlRHR"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "omen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus]"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

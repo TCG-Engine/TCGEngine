@@ -1,0 +1,25 @@
+{
+    "name": "lacunarity-guide-with-a-fractal-phantasia-has-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:57:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6rheGKZGyG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6rheGKZGyG"
+        ],
+        "mechanics": [
+            "static-ability",
+            "stealth",
+            "fractal"
+        ],
+        "rulesClauses": [
+            "As long as you control one or more Fractal phantasias, CARDNAME has **stealth**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

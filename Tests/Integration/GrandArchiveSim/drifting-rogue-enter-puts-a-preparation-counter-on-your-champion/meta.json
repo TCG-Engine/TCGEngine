@@ -1,0 +1,24 @@
+{
+    "name": "drifting-rogue-enter-puts-a-preparation-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "awj9it7shv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "awj9it7shv"
+        ],
+        "mechanics": [
+            "on-enter",
+            "preparation"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **preparation** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

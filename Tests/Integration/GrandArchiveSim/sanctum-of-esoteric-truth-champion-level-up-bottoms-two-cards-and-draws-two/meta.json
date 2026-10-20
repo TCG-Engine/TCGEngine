@@ -1,0 +1,26 @@
+{
+    "name": "sanctum-of-esoteric-truth-champion-level-up-bottoms-two-cards-and-draws-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:36:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k45swaf8ur"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k45swaf8ur"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "zone-movement",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up, you may put two cards from your hand and/or memory on the bottom of your deck. If you do, draw two cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

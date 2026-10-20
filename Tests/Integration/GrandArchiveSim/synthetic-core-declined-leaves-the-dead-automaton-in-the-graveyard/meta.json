@@ -1,0 +1,26 @@
+{
+    "name": "synthetic-core-declined-leaves-the-dead-automaton-in-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:24:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w0y6isxy5l",
+        "i5jnsl7ddc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w0y6isxy5l",
+            "i5jnsl7ddc"
+        ],
+        "mechanics": [
+            "trigger",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "Whenever a non-token Automaton ally you control dies, you may banish Synthetic Core."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

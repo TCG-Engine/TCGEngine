@@ -1,0 +1,25 @@
+{
+    "name": "searing-truth-guo-jia-bonus-puts-a-quest-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pfstbz0i63"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pfstbz0i63"
+        ],
+        "mechanics": [
+            "damage",
+            "counter",
+            "champion-bonus"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] Put a quest counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "bedivere-class-bonus-level-three-on-death-buffs-each-beast-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pwakb1k0zi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pwakb1k0zi"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "on-death",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] **On Death:** Put a **buff** counter on each Animal and/or Beast ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

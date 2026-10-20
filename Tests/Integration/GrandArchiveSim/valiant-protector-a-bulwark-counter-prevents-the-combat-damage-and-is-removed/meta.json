@@ -1,0 +1,26 @@
+{
+    "name": "valiant-protector-a-bulwark-counter-prevents-the-combat-damage-and-is-removed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k21JAm6joz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k21JAm6joz"
+        ],
+        "mechanics": [
+            "keyword",
+            "bulwark",
+            "prevention",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Bulwark**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

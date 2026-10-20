@@ -1,0 +1,25 @@
+{
+    "name": "channeling-stone-banish-makes-the-next-card-cost-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EBWWwvSxr3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EBWWwvSxr3"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost-reduction",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** The next card you activate this turn costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

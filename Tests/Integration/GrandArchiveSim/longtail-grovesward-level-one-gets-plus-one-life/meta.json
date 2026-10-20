@@ -1,0 +1,24 @@
+{
+    "name": "longtail-grovesward-level-one-gets-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jn4mwv930y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jn4mwv930y"
+        ],
+        "mechanics": [
+            "level-gate",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Level 1+] Longtail Grovesward gets +1[LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "cry-for-help-without-the-class-bonus-redirects-without-extra-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:38:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nIKhHFa0rK"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nIKhHFa0rK"
+        ],
+        "mechanics": [
+            "redirect",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "**Class Bonus:** That ally gets +1 [LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

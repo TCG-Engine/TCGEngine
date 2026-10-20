@@ -1,0 +1,25 @@
+{
+    "name": "stellarion-shift-makes-a-unit-distant-and-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ms2x2v4qe3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ms2x2v4qe3"
+        ],
+        "mechanics": [
+            "distant",
+            "draw",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**. Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

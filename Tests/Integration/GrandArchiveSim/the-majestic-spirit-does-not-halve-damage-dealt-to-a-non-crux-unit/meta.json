@@ -1,0 +1,25 @@
+{
+    "name": "the-majestic-spirit-does-not-halve-damage-dealt-to-a-non-crux-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:34:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tsvbgl6ffq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tsvbgl6ffq"
+        ],
+        "mechanics": [
+            "prevention",
+            "crux",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If another crux element unit you control would take damage, prevent half of that damage, rounded up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

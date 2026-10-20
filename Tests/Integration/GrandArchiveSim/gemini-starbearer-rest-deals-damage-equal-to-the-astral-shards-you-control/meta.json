@@ -1,0 +1,27 @@
+{
+    "name": "gemini-starbearer-rest-deals-damage-equal-to-the-astral-shards-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NyPQW7hkAq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NyPQW7hkAq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "damage",
+            "targeting",
+            "spell"
+        ],
+        "rulesClauses": [
+            "[REST]: As a Spell, deal **X** damage to target unit, where **X** is the amount of objects named Astral Shard you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

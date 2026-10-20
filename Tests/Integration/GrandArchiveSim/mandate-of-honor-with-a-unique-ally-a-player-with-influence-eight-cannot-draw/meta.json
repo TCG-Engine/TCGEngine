@@ -1,0 +1,26 @@
+{
+    "name": "mandate-of-honor-with-a-unique-ally-a-player-with-influence-eight-cannot-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:54:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5ckzgqa186"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5ckzgqa186"
+        ],
+        "mechanics": [
+            "static",
+            "influence",
+            "restriction",
+            "draw"
+        ],
+        "rulesClauses": [
+            "As long as you control a unique ally, each player with **influence** eight or more can't draw cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

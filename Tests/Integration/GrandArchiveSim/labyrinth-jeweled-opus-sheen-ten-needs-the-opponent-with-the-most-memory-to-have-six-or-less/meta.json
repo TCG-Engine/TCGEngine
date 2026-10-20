@@ -1,0 +1,24 @@
+{
+    "name": "labyrinth-jeweled-opus-sheen-ten-needs-the-opponent-with-the-most-memory-to-have-six-or-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:33:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A58xZJJMz6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A58xZJJMz6"
+        ],
+        "mechanics": [
+            "sheen",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Sheen 10+] Your champion has **spellshroud** and **stealth** as long as they're awake and an opponent with the most cards in their memory has six or less cards in their memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

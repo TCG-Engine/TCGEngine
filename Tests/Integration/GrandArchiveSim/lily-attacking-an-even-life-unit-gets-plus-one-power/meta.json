@@ -1,0 +1,25 @@
+{
+    "name": "lily-attacking-an-even-life-unit-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:01:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l83tuzrl2a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l83tuzrl2a"
+        ],
+        "mechanics": [
+            "on-attack",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Attack**: If Lily is attacking a unit with an even life stat, this attack gets +1[POWER] and you may return a card from your memory to your hand."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

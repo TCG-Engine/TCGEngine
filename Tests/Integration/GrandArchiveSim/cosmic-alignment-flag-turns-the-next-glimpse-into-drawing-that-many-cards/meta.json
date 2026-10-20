@@ -1,0 +1,24 @@
+{
+    "name": "cosmic-alignment-flag-turns-the-next-glimpse-into-drawing-that-many-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:21:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b2buhbediq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b2buhbediq"
+        ],
+        "mechanics": [
+            "glimpse",
+            "replacement"
+        ],
+        "rulesClauses": [
+            "The next time you would **glimpse** an amount this turn, draw that many cards instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

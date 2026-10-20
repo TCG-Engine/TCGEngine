@@ -1,0 +1,25 @@
+{
+    "name": "imperial-scout-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:46:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nrow8iopvc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nrow8iopvc"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

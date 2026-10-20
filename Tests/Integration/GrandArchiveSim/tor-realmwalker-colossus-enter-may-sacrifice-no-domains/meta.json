@@ -1,0 +1,26 @@
+{
+    "name": "tor-realmwalker-colossus-enter-may-sacrifice-no-domains",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:34:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YKrCbNs3rh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YKrCbNs3rh"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "optional-choice",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Sacrifice up to three domains. For each domain sacrificed this way, put 2+**X** **durability** counters on CARDNAME where **X** is that domain's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

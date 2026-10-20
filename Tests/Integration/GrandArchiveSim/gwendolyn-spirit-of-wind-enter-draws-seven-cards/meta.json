@@ -1,0 +1,25 @@
+{
+    "name": "gwendolyn-spirit-of-wind-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:57:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "74wa4x7e22"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "74wa4x7e22"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

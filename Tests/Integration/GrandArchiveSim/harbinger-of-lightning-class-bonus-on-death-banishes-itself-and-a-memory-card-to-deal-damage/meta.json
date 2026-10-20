@@ -1,0 +1,26 @@
+{
+    "name": "harbinger-of-lightning-class-bonus-on-death-banishes-itself-and-a-memory-card-to-deal-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:49:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1i5z6r7s9k"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1i5z6r7s9k"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-death",
+            "banish",
+            "damage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Death**: Banish CARDNAME, and a card at random from your memory. When you do, as a Spell, deal **X** damage to target champion where **X** is the total reserve cost of the banished cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

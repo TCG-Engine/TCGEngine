@@ -1,0 +1,25 @@
+{
+    "name": "fanclub-leader-resonator-allies-get-plus-one-power-when-you-activate-a-melody",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:22:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u7IxJt1EaD"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "u7IxJt1EaD"
+        ],
+        "mechanics": [
+            "melody",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Harmony or Melody card, Resonator allies you control get +1[POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

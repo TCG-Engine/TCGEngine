@@ -1,0 +1,25 @@
+{
+    "name": "intervention-class-bonus-rests-the-champion-to-pay-for-two-of-the-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:57:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vmqe225jkb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vmqe225jkb"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "class-bonus",
+            "rest-champion"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] While paying for this card's reserve cost, you may rest your champion to pay for 2 of that cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

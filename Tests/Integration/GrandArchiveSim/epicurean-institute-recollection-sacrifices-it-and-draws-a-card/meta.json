@@ -1,0 +1,25 @@
+{
+    "name": "epicurean-institute-recollection-sacrifices-it-and-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "axxaUOWHA3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "axxaUOWHA3"
+        ],
+        "mechanics": [
+            "trigger",
+            "sacrifice",
+            "draw"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, sacrifice CARDNAME and draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

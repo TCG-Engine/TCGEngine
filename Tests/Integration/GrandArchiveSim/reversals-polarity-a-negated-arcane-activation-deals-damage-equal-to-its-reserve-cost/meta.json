@@ -1,0 +1,26 @@
+{
+    "name": "reversals-polarity-a-negated-arcane-activation-deals-damage-equal-to-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:52:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zVdqJRbsk1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zVdqJRbsk1"
+        ],
+        "mechanics": [
+            "trigger",
+            "negate",
+            "damage",
+            "arcane"
+        ],
+        "rulesClauses": [
+            "Whenever an arcane element card activation you control is **negated**, deal **X** damage to target champion, where **X** is that card's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

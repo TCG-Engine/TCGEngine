@@ -1,0 +1,22 @@
+{
+    "name": "capricious-lynx-pride-four-obeys-a-level-four-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:42:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1au7t9m4m"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "v1au7t9m4m"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "**Pride 4**"
+        ]
+    }
+}

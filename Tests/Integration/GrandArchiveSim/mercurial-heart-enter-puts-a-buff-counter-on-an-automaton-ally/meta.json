@@ -1,0 +1,26 @@
+{
+    "name": "mercurial-heart-enter-puts-a-buff-counter-on-an-automaton-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7ddcgw05qz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7ddcgw05qz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "counter",
+            "targeting",
+            "divine-relic"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put a **buff** counter on target Automaton ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "wuthering-sforzando-class-bonus-without-a-melody-pays-the-full-seven",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:21:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nlw3ZpjSxw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nlw3ZpjSxw"
+        ],
+        "mechanics": [
+            "melody",
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you've activated a Melody card this turn, this card costs 3 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

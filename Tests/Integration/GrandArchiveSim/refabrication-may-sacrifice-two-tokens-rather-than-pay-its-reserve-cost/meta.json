@@ -1,0 +1,25 @@
+{
+    "name": "refabrication-may-sacrifice-two-tokens-rather-than-pay-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cri23mf3vs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cri23mf3vs"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "sacrifice",
+            "token"
+        ],
+        "rulesClauses": [
+            "You may sacrifice two tokens rather than pay this card's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

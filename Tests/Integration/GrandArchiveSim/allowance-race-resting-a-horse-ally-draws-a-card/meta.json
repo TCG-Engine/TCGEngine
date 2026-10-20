@@ -1,0 +1,24 @@
+{
+    "name": "allowance-race-resting-a-horse-ally-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ezIeRDL7jm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ezIeRDL7jm"
+        ],
+        "mechanics": [
+            "rest",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Each player may rest up to two Horse allies they control. For each Horse ally rested this way, its controller draws a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

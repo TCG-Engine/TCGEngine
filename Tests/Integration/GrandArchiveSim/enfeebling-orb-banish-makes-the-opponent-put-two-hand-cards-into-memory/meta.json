@@ -1,0 +1,26 @@
+{
+    "name": "enfeebling-orb-banish-makes-the-opponent-put-two-hand-cards-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:10:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "T3cx65VM3D"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "T3cx65VM3D"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "zone-movement",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME: **Target opponent puts two cards from their hand into their memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

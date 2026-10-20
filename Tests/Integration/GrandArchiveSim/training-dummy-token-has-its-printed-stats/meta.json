@@ -1,0 +1,23 @@
+{
+    "name": "training-dummy-token-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EeFXEYMmF3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EeFXEYMmF3"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Training Dummy (no rules text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

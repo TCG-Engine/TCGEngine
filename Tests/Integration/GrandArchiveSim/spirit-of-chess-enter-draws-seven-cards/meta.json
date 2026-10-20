@@ -1,0 +1,25 @@
+{
+    "name": "spirit-of-chess-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AYe0neu31W"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "AYe0neu31W"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "ritai-guard-without-a-horse-ally-has-no-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:18:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jbc30d18ys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jbc30d18ys"
+        ],
+        "mechanics": [
+            "taunt",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Equestrian*** -- As long as you control a Horse ally, CARDNAME has **taunt** and **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

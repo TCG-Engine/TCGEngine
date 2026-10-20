@@ -1,0 +1,26 @@
+{
+    "name": "empowering-prayer-gives-plus-two-level-and-draws-when-level-equals-the-memory-count",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yfzk96yd60"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yfzk96yd60"
+        ],
+        "mechanics": [
+            "level",
+            "stat-change",
+            "condition",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Your champion gets +2 level until end of turn. Then if your champion's level is equal to the amount of cards in your memory, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

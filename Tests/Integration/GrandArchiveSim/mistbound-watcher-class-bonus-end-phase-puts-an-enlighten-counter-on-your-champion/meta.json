@@ -1,0 +1,25 @@
+{
+    "name": "mistbound-watcher-class-bonus-end-phase-puts-an-enlighten-counter-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:00:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mA4n0Z7BQz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mA4n0Z7BQz"
+        ],
+        "mechanics": [
+            "end-phase",
+            "class-bonus",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

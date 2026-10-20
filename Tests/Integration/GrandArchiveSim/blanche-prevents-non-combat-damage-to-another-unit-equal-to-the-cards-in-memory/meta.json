@@ -1,0 +1,24 @@
+{
+    "name": "blanche-prevents-non-combat-damage-to-another-unit-equal-to-the-cards-in-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5k1vt1cn1t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5k1vt1cn1t"
+        ],
+        "mechanics": [
+            "prevention",
+            "variable"
+        ],
+        "rulesClauses": [
+            "If another unit you control would be dealt non-combat damage, prevent an amount of that damage equal to the amount of cards in your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "plutus-fortunes-favor-discards-a-card-as-an-additional-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:27:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bgbhr5vm38"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bgbhr5vm38"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "discard"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, discard a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

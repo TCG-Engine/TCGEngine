@@ -1,0 +1,24 @@
+{
+    "name": "beseeched-fatestone-on-enter-materializes-a-card-from-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:19:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7t0vki9gy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7t0vki9gy"
+        ],
+        "mechanics": [
+            "on-enter",
+            "materialize"
+        ],
+        "rulesClauses": [
+            "**On Enter**: **Materialize** a card from your material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "sink-into-oblivion-mills-three-from-the-target-player",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:29:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a8I89SP24E"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a8I89SP24E"
+        ],
+        "mechanics": [
+            "mill",
+            "targeting-player"
+        ],
+        "rulesClauses": [
+            "Target player puts the top three cards of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -17,6 +17,8 @@
             "cost-filter",
             "level-gate"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Level 4+] Banish CARDNAME: Destroy target item or weapon with memory cost 0 or reserve cost 4 or less."
+        ]
     }
 }

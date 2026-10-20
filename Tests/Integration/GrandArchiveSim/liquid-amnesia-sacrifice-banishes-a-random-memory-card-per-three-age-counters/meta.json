@@ -1,0 +1,26 @@
+{
+    "name": "liquid-amnesia-sacrifice-banishes-a-random-memory-card-per-three-age-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:47:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k0hliqs2hi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k0hliqs2hi"
+        ],
+        "mechanics": [
+            "sacrifice",
+            "banish",
+            "counter",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** For every three **age** counters that were on CARDNAME, banish a card at random from target player\u2019s memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

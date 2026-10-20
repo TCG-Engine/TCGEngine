@@ -1,0 +1,25 @@
+{
+    "name": "indolent-leisure-class-bonus-level-three-also-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:39:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "29bvfw3te2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "29bvfw3te2"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

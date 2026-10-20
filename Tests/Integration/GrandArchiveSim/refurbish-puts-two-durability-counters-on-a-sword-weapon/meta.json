@@ -1,0 +1,24 @@
+{
+    "name": "refurbish-puts-two-durability-counters-on-a-sword-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b43adsk77Y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b43adsk77Y"
+        ],
+        "mechanics": [
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Put two **durability** counters on target Sword weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "ghost-hunter-attacking-an-ephemeral-ally-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:24:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lgl8pux7v9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lgl8pux7v9"
+        ],
+        "mechanics": [
+            "combat",
+            "stat-change",
+            "condition",
+            "ephemeral"
+        ],
+        "rulesClauses": [
+            "As long as Ghost Hunter is attacking an **ephemeral** ally, it gets +3[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

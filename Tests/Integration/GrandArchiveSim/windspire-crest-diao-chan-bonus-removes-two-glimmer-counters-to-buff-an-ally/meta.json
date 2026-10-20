@@ -1,0 +1,27 @@
+{
+    "name": "windspire-crest-diao-chan-bonus-removes-two-glimmer-counters-to-buff-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:12:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lzfkc8ntn4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lzfkc8ntn4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "champion-bonus",
+            "rest",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] (2), [REST], **Remove two glimmer counters from your champion**: Put a **buff** counter on an ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

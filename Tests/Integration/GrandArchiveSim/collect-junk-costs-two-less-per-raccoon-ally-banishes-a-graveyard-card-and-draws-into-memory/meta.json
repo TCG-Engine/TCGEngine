@@ -1,0 +1,26 @@
+{
+    "name": "collect-junk-costs-two-less-per-raccoon-ally-banishes-a-graveyard-card-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:54:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g6sW55DOgR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g6sW55DOgR"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "banish",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate for each Raccoon ally you control.",
+            "Banish up to one target card from a graveyard. Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

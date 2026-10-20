@@ -1,0 +1,24 @@
+{
+    "name": "lotor-trinket-enter-scavenges-six-for-a-raccoon-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6tBGQeC33"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6tBGQeC33"
+        ],
+        "mechanics": [
+            "on-enter",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Scavenge 6** for a Raccoon ally card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

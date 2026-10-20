@@ -17,7 +17,10 @@
             "targeting"
         ],
         "rulesClauses": [
-            "[Class Bonus] Spellshroud"
+            "[Class Bonus] **Spellshroud** *(This object can't be targeted by Spells.)*"
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

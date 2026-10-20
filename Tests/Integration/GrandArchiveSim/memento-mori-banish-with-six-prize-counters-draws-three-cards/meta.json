@@ -1,0 +1,26 @@
+{
+    "name": "memento-mori-banish-with-six-prize-counters-draws-three-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:11:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9xycwz9gv4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9xycwz9gv4"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "condition",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw three cards. Activate this ability only at slow speed and only if there are six or more **prize** counters on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

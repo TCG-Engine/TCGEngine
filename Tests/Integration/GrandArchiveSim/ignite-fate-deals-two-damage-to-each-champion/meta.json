@@ -1,0 +1,24 @@
+{
+    "name": "ignite-fate-deals-two-damage-to-each-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "267kgpwjmc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "267kgpwjmc"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to each champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

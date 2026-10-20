@@ -1,0 +1,26 @@
+{
+    "name": "aenean-cryosalvo-class-bonus-level-five-fractals-deal-one-extra-damage-each",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:38:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NHTouMzz3o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NHTouMzz3o"
+        ],
+        "mechanics": [
+            "damage",
+            "fractal",
+            "class-bonus",
+            "level"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 5+] Until end of turn, if a Fractal source you control would deal damage, it deals that much damage plus 1 instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

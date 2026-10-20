@@ -1,0 +1,25 @@
+{
+    "name": "rococo-enter-deals-two-damage-with-low-influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:18:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m6h38lrj52"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m6h38lrj52"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: If your influence is four or less, deal 2 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

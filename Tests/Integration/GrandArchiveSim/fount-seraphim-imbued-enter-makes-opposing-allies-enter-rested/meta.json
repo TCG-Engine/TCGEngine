@@ -1,0 +1,25 @@
+{
+    "name": "fount-seraphim-imbued-enter-makes-opposing-allies-enter-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:47:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k4pjo6lVMO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k4pjo6lVMO"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME is **imbued**, until the beginning of your next turn, allies your opponents control enter the field rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

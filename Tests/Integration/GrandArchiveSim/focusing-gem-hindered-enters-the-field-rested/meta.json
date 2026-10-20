@@ -1,0 +1,22 @@
+{
+    "name": "focusing-gem-hindered-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "SpENiP3jbN"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "SpENiP3jbN"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This object enters the field rested.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

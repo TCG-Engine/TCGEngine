@@ -1,0 +1,25 @@
+{
+    "name": "rictus-tiding-two-cards-totalling-eight-both-go-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4g7kufs4kg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4g7kufs4kg"
+        ],
+        "mechanics": [
+            "reveal",
+            "zone-movement",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Reveal the top two cards of your deck. If the total reserve cost of the revealed cards is 8, put both of them into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

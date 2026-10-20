@@ -15,7 +15,10 @@
             "actions-resolve-generated-enter-effect",
             "reference-aliasing"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "As an additional cost to activate this card, discard a fire element card.",
+            "Remove all sheen counters from all units on the field. Then deal X damage to each unit except for your champion, where X is the amount of counters removed this way."
+        ]
     },
     "engineBug": {
         "status": "fixed",

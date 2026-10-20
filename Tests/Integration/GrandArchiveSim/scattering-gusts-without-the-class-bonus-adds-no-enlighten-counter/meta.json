@@ -1,0 +1,24 @@
+{
+    "name": "scattering-gusts-without-the-class-bonus-adds-no-enlighten-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jOqyx96kse"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jOqyx96kse"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "optional-choice-decline"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put an **enlighten** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

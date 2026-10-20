@@ -461,6 +461,9 @@ while(!feof($handler)) {
       case "BeforeAdd":
         $zoneObj->BeforeAdd = trim($lineValue);
         break;
+      case "BeforeRemove":
+        $zoneObj->BeforeRemove = trim($lineValue);
+        break;
       case "AfterAdd":
         $zoneObj->AfterAdd = trim($lineValue);
         break;
@@ -563,6 +566,7 @@ while(!feof($handler)) {
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
         $zoneObj->BeforeAdd = null;
+        $zoneObj->BeforeRemove = null;
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
@@ -913,10 +917,33 @@ fwrite($handler, "    \$mzIndex = FlipZonePerspective(\$mzIndex);\r\n");
 fwrite($handler, "    \$toZone = FlipZonePerspective(\$toZone);\r\n");
 fwrite($handler, "  }\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
+// Opt-in (`Module: SkipRemovedMZMoves=<zone>,<zone>`): moving a card only flags its slot removed until the next cleanup, so a loop that repeats MZMove($player, "myDeck-0", ...) moved the first card and then hit the flagged
+// slot every time (mill 2 milled 1, "look at the top 3" saw 1). For the listed zones a flagged slot is skipped to the next live one. Schemas without the module generate exactly what they did before.
+$skipRemovedModule = GetModule("SkipRemovedMZMoves");
+if($skipRemovedModule !== null && trim($skipRemovedModule->Parameters ?? "") !== "") {
+  $skipRemovedZones = array_values(array_filter(array_map('trim', explode(",", $skipRemovedModule->Parameters)), 'strlen'));
+  fwrite($handler, "  if(\$removed !== null && property_exists(\$removed, 'removed') && \$removed->removed === true && in_array(strtok(\$mzIndex, '-'), " . var_export($skipRemovedZones, true) . ", true)) {\r\n");
+  fwrite($handler, "    \$skipParts = explode('-', \$mzIndex);\r\n");
+  fwrite($handler, "    \$skipZone = GetZone(\$mzIndex);\r\n");
+  fwrite($handler, "    for(\$skipIndex = intval(\$skipParts[1] ?? 0) + 1; \$skipIndex < count(\$skipZone); ++\$skipIndex) {\r\n");
+  fwrite($handler, "      if(\$skipZone[\$skipIndex] === null || (property_exists(\$skipZone[\$skipIndex], 'removed') && \$skipZone[\$skipIndex]->removed === true)) continue;\r\n");
+  fwrite($handler, "      \$mzIndex = \$skipParts[0] . '-' . \$skipIndex;\r\n");
+  fwrite($handler, "      \$removed = GetZoneObject(\$mzIndex);\r\n");
+  fwrite($handler, "      break;\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+}
 fwrite($handler, "  if(\$removed === null) return null;\r\n");
 fwrite($handler, "  if(property_exists(\$removed, 'removed') && \$removed->removed === true) return null;\r\n");
-fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
-fwrite($handler, "  \$removed->Remove();\r\n");
+$hasDepartureVeto = false;
+foreach($zones as $departureZone) if(($departureZone->BeforeRemove ?? null) !== null) $hasDepartureVeto = true;
+if($hasDepartureVeto) {
+  fwrite($handler, "  if(\$removed->Remove() === false) return null;\r\n");
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+} else {
+  fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
+  fwrite($handler, "  \$removed->Remove();\r\n");
+}
 fwrite($handler, "  // The zone names above are normalized to the request viewer's perspective.\r\n");
 fwrite($handler, "  // Use that same player for the destination so cross-player moves keep their owner.\r\n");
 fwrite($handler, "  \$destinationPlayer = intval(\$playerID) > 0 ? intval(\$playerID) : intval(\$player);\r\n");
@@ -1617,6 +1644,9 @@ for($i=0; $i<count($zones); ++$i) {
 
   //Remove function
   fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
+  if(($zone->BeforeRemove ?? null) !== null) {
+    fwrite($handler, "    if(!" . $zone->BeforeRemove . "(\$this, \$trigger)) return false;\r\n");
+  }
   fwrite($handler, "    \$this->removed = true;\r\n");
   if($hasIndexedProperties) {
     fwrite($handler, "    \$this->ClearIndex();\r\n");

@@ -1,0 +1,26 @@
+{
+    "name": "purifying-thurible-banishes-three-cards-from-the-opponents-graveyard-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:53:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LeyUk5auEP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LeyUk5auEP"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "draw-into-memory",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "(X)**, Banish CARDNAME:** Target opponent banishes **X** cards from their graveyard. If **X **is 3 or greater, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

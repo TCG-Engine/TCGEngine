@@ -1,0 +1,26 @@
+{
+    "name": "mirrorbound-covenant-maximum-influence-of-seven-discards-down-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:33:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "PKnOTdQJJ1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "PKnOTdQJJ1"
+        ],
+        "mechanics": [
+            "static",
+            "influence",
+            "discard",
+            "end-phase"
+        ],
+        "rulesClauses": [
+            "Each player's maximum **influence** is seven. *(As each player's end phase resolves, that player discards cards from their hand and/or memory until their **influence** is equal to their maximum influence.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

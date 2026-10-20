@@ -1,0 +1,23 @@
+{
+    "name": "thunderclap-base-cost-four-damage-to-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T17:19:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0xm513tj3j"
+    ],
+    "notes": "Base-cost path of Thunderclap. The level-3 discount and the champion-is-not-a-legal-target path are separate fixtures.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0xm513tj3j"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target ally."
+        ]
+    }
+}

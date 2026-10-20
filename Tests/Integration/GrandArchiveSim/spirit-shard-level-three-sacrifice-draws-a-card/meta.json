@@ -1,0 +1,26 @@
+{
+    "name": "spirit-shard-level-three-sacrifice-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3p5iqigcom"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3p5iqigcom"
+        ],
+        "mechanics": [
+            "level-gate",
+            "activated-ability",
+            "sacrifice-self",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Level 3+] **Sacrifice CARDNAME**: Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

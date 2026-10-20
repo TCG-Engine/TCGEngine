@@ -1,0 +1,24 @@
+{
+    "name": "chibi-battle-of-red-cliffs-ally-attack-declarations-cost-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "881gacexpv"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "881gacexpv"
+        ],
+        "mechanics": [
+            "restriction",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Players can't declare attacks with allies unless they pay (1) for each attack declaration."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

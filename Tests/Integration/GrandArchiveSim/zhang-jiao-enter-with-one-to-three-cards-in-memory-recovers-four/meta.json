@@ -1,0 +1,25 @@
+{
+    "name": "zhang-jiao-enter-with-one-to-three-cards-in-memory-recovers-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "el7cwdzin7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "el7cwdzin7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "condition",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter**: Depending on the amount of cards in your memory\u2014"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

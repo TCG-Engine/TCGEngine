@@ -1,0 +1,25 @@
+{
+    "name": "field-of-ranks-and-files-the-first-chessman-ally-each-turn-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:06:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "W0WfIEDs3n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "W0WfIEDs3n"
+        ],
+        "mechanics": [
+            "trigger",
+            "stat-change",
+            "chessman"
+        ],
+        "rulesClauses": [
+            "The first time a Chessman ally enters the field under your control during each of your turns, that ally gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

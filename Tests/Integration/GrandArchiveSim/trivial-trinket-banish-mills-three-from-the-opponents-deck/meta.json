@@ -1,0 +1,25 @@
+{
+    "name": "trivial-trinket-banish-mills-three-from-the-opponents-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nym5Y3JsO5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nym5Y3JsO5"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "mill",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Target opponent puts the top three cards of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

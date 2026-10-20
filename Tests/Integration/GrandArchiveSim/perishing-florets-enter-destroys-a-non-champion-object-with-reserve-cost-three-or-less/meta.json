@@ -1,0 +1,25 @@
+{
+    "name": "perishing-florets-enter-destroys-a-non-champion-object-with-reserve-cost-three-or-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:32:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Vwc52lmFvi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Vwc52lmFvi"
+        ],
+        "mechanics": [
+            "on-enter",
+            "destroy",
+            "cost-limit"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Destroy target non-champion object with reserve cost 3 or less or memory cost 0."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

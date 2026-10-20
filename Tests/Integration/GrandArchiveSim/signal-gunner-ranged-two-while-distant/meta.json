@@ -1,0 +1,23 @@
+{
+    "name": "signal-gunner-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fsudPn5GQH"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fsudPn5GQH"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2** *(As long as this unit is **distant**, its attacks get +2[POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

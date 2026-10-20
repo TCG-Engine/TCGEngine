@@ -1,0 +1,24 @@
+{
+    "name": "duxal-proclamation-with-an-opposing-ally-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "473gyf0w3v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "473gyf0w3v"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only if each opponent controls no allies."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

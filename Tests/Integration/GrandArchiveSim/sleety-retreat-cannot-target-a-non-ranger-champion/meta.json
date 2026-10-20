@@ -1,0 +1,25 @@
+{
+    "name": "sleety-retreat-cannot-target-a-non-ranger-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T20:37:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j9fkuzgg9i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j9fkuzgg9i"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target Ranger unit becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

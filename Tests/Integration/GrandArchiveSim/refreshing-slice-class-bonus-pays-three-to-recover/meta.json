@@ -1,0 +1,27 @@
+{
+    "name": "refreshing-slice-class-bonus-pays-three-to-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:54:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oLGzDmCBQ9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oLGzDmCBQ9"
+        ],
+        "mechanics": [
+            "combat",
+            "on-attack",
+            "class-bonus",
+            "optional-cost",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack: **You may pay (3). If you do, **recover 3**+**LV**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

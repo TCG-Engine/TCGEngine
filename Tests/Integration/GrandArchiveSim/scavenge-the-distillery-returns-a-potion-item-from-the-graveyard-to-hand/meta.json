@@ -1,0 +1,24 @@
+{
+    "name": "scavenge-the-distillery-returns-a-potion-item-from-the-graveyard-to-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rqtjot4nmx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rqtjot4nmx"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Return up to one target Potion item card from your graveyard to your hand."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

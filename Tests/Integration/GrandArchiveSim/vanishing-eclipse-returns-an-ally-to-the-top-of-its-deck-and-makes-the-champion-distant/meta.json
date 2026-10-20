@@ -1,0 +1,25 @@
+{
+    "name": "vanishing-eclipse-returns-an-ally-to-the-top-of-its-deck-and-makes-the-champion-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:19:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gamylrj1fc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gamylrj1fc"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Return target ally to the top of its owner's deck. Your champion becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

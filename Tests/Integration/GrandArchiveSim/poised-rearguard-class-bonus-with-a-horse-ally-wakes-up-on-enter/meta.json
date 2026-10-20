@@ -1,0 +1,26 @@
+{
+    "name": "poised-rearguard-class-bonus-with-a-horse-ally-wakes-up-on-enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qso7cbzrky"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qso7cbzrky"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] ***Equestrian*** \u2014 **On Enter:** If you control a Horse ally, wake up CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

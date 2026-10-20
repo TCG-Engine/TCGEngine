@@ -1,0 +1,25 @@
+{
+    "name": "stargazers-portent-copies-the-next-starcalled-activation-with-a-new-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:12:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "btjuxztaug"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "btjuxztaug"
+        ],
+        "mechanics": [
+            "starcalling",
+            "copy",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "The next time you **starcall** a card this turn, copy that activation. You may choose new targets for the copy."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

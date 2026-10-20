@@ -1,0 +1,24 @@
+{
+    "name": "bandit-gaze-leader-enter-scavenges-six-for-a-raccoon-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:02:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Yuj8xCUejq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Yuj8xCUejq"
+        ],
+        "mechanics": [
+            "on-enter",
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**On Enter:** **Scavenge 6** for a Raccoon ally card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

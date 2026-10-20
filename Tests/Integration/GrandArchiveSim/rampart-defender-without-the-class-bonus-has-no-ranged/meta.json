@@ -1,0 +1,23 @@
+{
+    "name": "rampart-defender-without-the-class-bonus-has-no-ranged",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Znvu05tvWC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Znvu05tvWC"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "ranged",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 3**"
+        ]
+    },
+    "behaviorFamily": true
+}

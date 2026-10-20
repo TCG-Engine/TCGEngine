@@ -1,0 +1,26 @@
+{
+    "name": "possessed-reaping-returns-killed-ally-among-duplicate-graveyard-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T19:56:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oqDz2jIBZI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oqDz2jIBZI"
+        ],
+        "mechanics": [
+            "combat",
+            "trigger",
+            "identity",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "The exact killed ally returns without stealing either earlier same-name graveyard card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

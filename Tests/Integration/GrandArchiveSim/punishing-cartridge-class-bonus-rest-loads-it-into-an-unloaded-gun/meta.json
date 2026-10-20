@@ -1,0 +1,26 @@
+{
+    "name": "punishing-cartridge-class-bonus-rest-loads-it-into-an-unloaded-gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "XgzTexcCSA"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "XgzTexcCSA"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "rest",
+            "load"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: Load Punishing Cartridge into target unloaded Gun weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

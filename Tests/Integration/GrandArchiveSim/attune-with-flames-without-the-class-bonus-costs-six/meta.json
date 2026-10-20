@@ -1,0 +1,25 @@
+{
+    "name": "attune-with-flames-without-the-class-bonus-costs-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:04:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nvx7mnu1xh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nvx7mnu1xh"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

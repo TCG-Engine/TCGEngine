@@ -1,0 +1,27 @@
+{
+    "name": "buffeting-hurricane-class-bonus-suppressing-an-object-deals-two-damage-to-target-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CjL1WPvWHw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CjL1WPvWHw"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "suppress",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you **suppress** an object, deal 2 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

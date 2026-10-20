@@ -1,0 +1,24 @@
+{
+    "name": "submerged-fatestone-champions-you-dont-control-get-minus-one-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:51:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zfb0pzm6qp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zfb0pzm6qp"
+        ],
+        "mechanics": [
+            "static",
+            "level-change"
+        ],
+        "rulesClauses": [
+            "Champions you don't control get -1 level."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

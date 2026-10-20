@@ -1,0 +1,26 @@
+{
+    "name": "calculated-foresight-mills-two-and-banishing-a-floating-memory-card-gives-ranged-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:50:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sl7dedg616"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sl7dedg616"
+        ],
+        "mechanics": [
+            "mill",
+            "banish",
+            "floating-memory",
+            "ranged"
+        ],
+        "rulesClauses": [
+            "Put the top two cards of your deck into your graveyard. Then you may banish a card with **floating memory** from your graveyard. If you do, your champion gains **ranged 3** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "psychopomps-gale-target-player-banishes-their-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:19:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LHFUG6stdS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LHFUG6stdS"
+        ],
+        "mechanics": [
+            "banish",
+            "graveyard",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target player banishes all cards in their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

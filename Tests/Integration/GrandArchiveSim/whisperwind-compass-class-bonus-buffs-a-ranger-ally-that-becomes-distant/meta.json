@@ -1,0 +1,26 @@
+{
+    "name": "whisperwind-compass-class-bonus-buffs-a-ranger-ally-that-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UXqhPZEq0X"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UXqhPZEq0X"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "distant",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever a Ranger ally you control becomes **distant**, if that ally has no **buff** counters on it, put a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

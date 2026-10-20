@@ -1,0 +1,26 @@
+{
+    "name": "recursive-confidant-class-bonus-enter-lets-you-activate-a-warrior-attack-from-the-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:07:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KfC8fwcF2T"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KfC8fwcF2T"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "banishment-activation",
+            "attack"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Until end of turn, you may activate target Warrior attack card in your banishment."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

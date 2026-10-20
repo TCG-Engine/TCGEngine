@@ -1,0 +1,24 @@
+{
+    "name": "eternal-directive-without-the-class-bonus-adds-no-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WRDbeFfnar"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WRDbeFfnar"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** Put a **buff** counter on the attacker."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

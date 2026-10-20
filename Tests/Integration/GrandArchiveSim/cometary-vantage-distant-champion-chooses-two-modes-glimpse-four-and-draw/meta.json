@@ -1,0 +1,26 @@
+{
+    "name": "cometary-vantage-distant-champion-chooses-two-modes-glimpse-four-and-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:13:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4c89re0bd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4c89re0bd"
+        ],
+        "mechanics": [
+            "modal",
+            "distant",
+            "glimpse",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Choose one. If your champion is **distant**, choose two instead\u2014 \u2022 **Glimpse 4**. \u2022 Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

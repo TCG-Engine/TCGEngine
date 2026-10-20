@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p1GlobalEffects-0",
         "property": "CardID",
-        "value": "MECS7RHRZ8"
+        "value": "MECS7RHRZ8",
+        "semantic": true,
+        "label": "On Attack: the champion gets +1 level until end of turn"
     },
     {
         "step": 5,

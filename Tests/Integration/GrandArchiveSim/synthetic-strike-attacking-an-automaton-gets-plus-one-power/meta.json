@@ -1,0 +1,25 @@
+{
+    "name": "synthetic-strike-attacking-an-automaton-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:34:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7nau5sw9f8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7nau5sw9f8"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as the attacker is attacking an Automaton unit, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

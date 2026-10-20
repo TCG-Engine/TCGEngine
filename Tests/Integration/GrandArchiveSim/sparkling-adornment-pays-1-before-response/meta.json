@@ -1,0 +1,24 @@
+{
+    "name": "sparkling-adornment-pays-1-before-response",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:50:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "okZKM5DGRu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "okZKM5DGRu"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sheen"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, remove one or more **sheen** counters from an object on the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "surging-obstruction-an-odd-cost-card-must-pay-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:31:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VpM6CAp4ts"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VpM6CAp4ts"
+        ],
+        "mechanics": [
+            "negate",
+            "pay-or-negate",
+            "odd-cost"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller pays (1). If that card has an odd reserve cost, **negate** its activation unless its controller pays (3) instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

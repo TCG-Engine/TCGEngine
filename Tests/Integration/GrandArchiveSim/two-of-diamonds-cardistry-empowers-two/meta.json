@@ -1,0 +1,26 @@
+{
+    "name": "two-of-diamonds-cardistry-empowers-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:03:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mzwTQzuXZa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mzwTQzuXZa"
+        ],
+        "mechanics": [
+            "cardistry",
+            "empower",
+            "cost-reduction",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** -- (2): **Empower 2**. This ability costs (1) less to activate for each Suited object you control with different reserve costs. Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

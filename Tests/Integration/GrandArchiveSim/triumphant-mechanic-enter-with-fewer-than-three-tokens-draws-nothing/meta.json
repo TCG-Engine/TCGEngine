@@ -1,0 +1,25 @@
+{
+    "name": "triumphant-mechanic-enter-with-fewer-than-three-tokens-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tQTQqCnaZU"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tQTQqCnaZU"
+        ],
+        "mechanics": [
+            "on-enter",
+            "tokens",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control three or more tokens"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

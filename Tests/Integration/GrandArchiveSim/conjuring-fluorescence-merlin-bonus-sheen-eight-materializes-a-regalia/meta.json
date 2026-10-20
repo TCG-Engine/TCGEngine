@@ -1,0 +1,23 @@
+{
+    "name": "conjuring-fluorescence-merlin-bonus-sheen-eight-materializes-a-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:14:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Erpyb3AGgp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Erpyb3AGgp"
+        ],
+        "mechanics": [
+            "materialize"
+        ],
+        "rulesClauses": [
+            "Materialize a regalia card from your material deck. *(You still pay for its costs.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

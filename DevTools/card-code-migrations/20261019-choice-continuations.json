@@ -1,0 +1,25 @@
+{
+  "root": "GrandArchiveSim",
+  "patches": [
+    {
+      "card_id": "40lgjj1yS3",
+      "macro_name": "ActivateAbility",
+      "fields": {
+        "ability_code": {
+          "before": "$sourceObj = &GetZoneObject($mzID);\nif($sourceObj === null || $sourceObj->Status != 2) return;\n$champMZ = FindChampionMZ($player);\nif($champMZ === null) return;\n$champObj = GetZoneObject($champMZ);\nif($champObj === null || GetPrepCounterCount($champObj) < 1) return;\n$targets = array_merge(\n    ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\", \"PHANTASIA\"]),\n    ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\", \"PHANTASIA\"])\n);\n$targets = FilterSpellshroudTargets($targets);\nif(empty($targets)) return;\n$targetStr = implode(\"&\", $targets);\n$target = await $player.MZChoose($targetStr);\n$sourceObj2 = &GetZoneObject($mzID);\nif($sourceObj2 !== null) $sourceObj2->Status = 1;\nRemoveCounters($player, $champMZ, \"preparation\", 1);\n$targetObj = GetZoneObject($target);\nif($targetObj === null || $targetObj->removed) return;\n$damage = 1 + GetCounterCount($targetObj, \"sheen\");\nDealDamage($player, $mzID, $target, $damage);",
+          "after": "$sourceObj = &GetZoneObject($mzID);\nif($sourceObj === null || $sourceObj->Status != 2) return;\n$champMZ = FindChampionMZ($player);\nif($champMZ === null) return;\n$champObj = GetZoneObject($champMZ);\nif($champObj === null || GetPrepCounterCount($champObj) < 1) return;\n$targets = array_merge(\n    ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\", \"PHANTASIA\"]),\n    ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\", \"PHANTASIA\"])\n);\n$targets = FilterSpellshroudTargets($targets);\nif(empty($targets)) return;\n$targetStr = implode(\"&\", $targets);\n$target = await $player.MZChoose($targetStr);\n$sourceObj2 = &GetZoneObject($mzID);\nif($sourceObj2 !== null) $sourceObj2->Status = 1;\n$champMZ = FindChampionMZ($player);\nif($champMZ !== null) RemoveCounters($player, $champMZ, \"preparation\", 1);\n$targetObj = GetZoneObject($target);\nif($targetObj === null || $targetObj->removed) return;\n$damage = 1 + GetCounterCount($targetObj, \"sheen\");\nDealDamage($player, $mzID, $target, $damage);"
+        }
+      }
+    },
+    {
+      "card_id": "rYyOEGB3tD",
+      "macro_name": "LeaveField",
+      "fields": {
+        "ability_code": {
+          "before": "if(!IsAliceBonusActive($player)) return;\n$leavingObj = GetZoneObject($mzID);\nif($leavingObj === null) return;\n$buffCount = GetCounterCount($leavingObj, \"buff\");\nif($buffCount <= 0) return;\n$pawns = [];\n$field = GetField($player);\nforeach($field as $i => $fObj) {\n    if($fObj->removed) continue;\n    if(!PropertyContains(EffectiveCardType($fObj), \"ALLY\")) continue;\n    if(!PropertyContains(EffectiveCardSubtypes($fObj), \"PAWN\")) continue;\n    $pawns[] = \"myField-\" . $i;\n}\nif(empty($pawns)) return;\n$targetStr = implode(\"&\", $pawns);\n$chosen = await $player.MZChoose($targetStr);\nif($chosen === \"\" || $chosen === \"-\" || $chosen === \"PASS\") return;\n$leavingObj = GetZoneObject($mzID);\nif($leavingObj === null) return;\n$buffCount = GetCounterCount($leavingObj, \"buff\");\nif($buffCount > 0) {\n    AddCounters($player, $chosen, \"buff\", $buffCount);\n}",
+          "after": "if(!IsAliceBonusActive($player)) return;\n$leavingObj = GetZoneObject($mzID);\nif($leavingObj === null) return;\n$buffCount = GetCounterCount($leavingObj, \"buff\");\nif($buffCount <= 0) return;\nDecisionQueueController::StoreVariable(\"TurmBuffCount\", strval($buffCount));\n$pawns = [];\n$field = GetField($player);\nforeach($field as $i => $fObj) {\n    if($fObj->removed) continue;\n    if(!PropertyContains(EffectiveCardType($fObj), \"ALLY\")) continue;\n    if(!PropertyContains(EffectiveCardSubtypes($fObj), \"PAWN\")) continue;\n    $pawns[] = \"myField-\" . $i;\n}\nif(empty($pawns)) return;\n$targetStr = implode(\"&\", $pawns);\n$chosen = await $player.MZChoose($targetStr);\nif($chosen === \"\" || $chosen === \"-\" || $chosen === \"PASS\") return;\n$buffCount = intval(DecisionQueueController::GetVariable(\"TurmBuffCount\"));\nif($buffCount > 0) {\n    AddCounters($player, $chosen, \"buff\", $buffCount);\n}\nDecisionQueueController::ClearVariable(\"TurmBuffCount\");"
+        }
+      }
+    }
+  ]
+}

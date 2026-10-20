@@ -1,0 +1,25 @@
+{
+    "name": "the-eternal-kingdom-class-bonus-domains-you-control-have-reservable",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:42:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fyoz23yfzk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fyoz23yfzk"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "reservable",
+            "static"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Domains you control have **reservable**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

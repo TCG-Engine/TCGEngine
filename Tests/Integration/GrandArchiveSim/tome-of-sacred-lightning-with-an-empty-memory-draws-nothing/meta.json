@@ -1,0 +1,24 @@
+{
+    "name": "tome-of-sacred-lightning-with-an-empty-memory-draws-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MyUTeqUJ0H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MyUTeqUJ0H"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If a card was banished this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

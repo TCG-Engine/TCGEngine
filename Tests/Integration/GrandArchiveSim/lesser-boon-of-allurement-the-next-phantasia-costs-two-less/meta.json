@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-allurement-the-next-phantasia-costs-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:41:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JuKoCVIvCG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JuKoCVIvCG"
+        ],
+        "mechanics": [
+            "class-locked",
+            "cost-reduction",
+            "phantasia"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, the next phantasia card you activate this turn costs (2) less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

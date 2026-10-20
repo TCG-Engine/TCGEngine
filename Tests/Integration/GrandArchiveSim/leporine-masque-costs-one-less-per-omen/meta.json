@@ -16,7 +16,9 @@
             "cost",
             "omen"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "(6), Banish Leporine Masque: Draw a card into your memory. This ability costs (X) less to activate, where X is the amount of omens you have."
+        ]
     },
     "engineBug": {
         "status": "fixed",

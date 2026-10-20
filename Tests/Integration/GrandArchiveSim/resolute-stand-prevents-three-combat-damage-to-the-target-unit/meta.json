@@ -1,0 +1,25 @@
+{
+    "name": "resolute-stand-prevents-three-combat-damage-to-the-target-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:53:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "o6gb0op3nq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "o6gb0op3nq"
+        ],
+        "mechanics": [
+            "prevention",
+            "combat",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "If target unit would be dealt combat damage this turn, prevent 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

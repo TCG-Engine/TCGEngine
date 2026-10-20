@@ -1,0 +1,25 @@
+{
+    "name": "fireworks-display-deals-one-damage-to-all-of-a-players-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:11:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sx6q3p6i0i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sx6q3p6i0i"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to all units target player controls."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

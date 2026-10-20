@@ -37,7 +37,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "dSSRtNnPtw"
+        "value": "dSSRtNnPtw",
+        "semantic": true,
+        "label": "Water Resonance Bauble banished itself as the cost"
     },
     {
         "step": 3,

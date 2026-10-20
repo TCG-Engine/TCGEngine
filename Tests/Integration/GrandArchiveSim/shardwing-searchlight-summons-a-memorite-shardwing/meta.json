@@ -1,0 +1,23 @@
+{
+    "name": "shardwing-searchlight-summons-a-memorite-shardwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:03:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8bRp3n2IAn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8bRp3n2IAn"
+        ],
+        "mechanics": [
+            "summon"
+        ],
+        "rulesClauses": [
+            "**Summon** a Memorite Shardwing token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

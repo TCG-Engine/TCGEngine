@@ -1,0 +1,25 @@
+{
+    "name": "charged-assailant-on-enter-without-a-powercell-gains-no-agility",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:18:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ffy4dwavco"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ffy4dwavco"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control a Powercell"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

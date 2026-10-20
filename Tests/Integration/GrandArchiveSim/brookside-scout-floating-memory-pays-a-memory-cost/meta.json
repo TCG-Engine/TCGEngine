@@ -1,0 +1,23 @@
+{
+    "name": "brookside-scout-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:09:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9asvHr4bsz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9asvHr4bsz"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    },
+    "behaviorFamily": true
+}

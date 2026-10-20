@@ -1,0 +1,25 @@
+{
+    "name": "fractured-memories-merlin-bonus-ally-kill-puts-the-killed-allys-sheen-counters-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UAJGQFbXjs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UAJGQFbXjs"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-ally-kill",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] Your champion has \"**On Ally Kill:** Put **X** **sheen** counters onto your Fractured Memories, where **X** is the amount of **sheen** counters that were on the killed ally.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

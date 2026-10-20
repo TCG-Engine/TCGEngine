@@ -1,0 +1,24 @@
+{
+    "name": "yunzhou-cavalry-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ann23jkuys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ann23jkuys"
+        ],
+        "mechanics": [
+            "vigor",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

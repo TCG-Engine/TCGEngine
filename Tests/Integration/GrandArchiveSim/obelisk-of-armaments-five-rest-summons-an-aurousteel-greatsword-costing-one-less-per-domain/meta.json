@@ -1,0 +1,27 @@
+{
+    "name": "obelisk-of-armaments-five-rest-summons-an-aurousteel-greatsword-costing-one-less-per-domain",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:17:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wk0pw0y6is"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wk0pw0y6is"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "summon",
+            "token",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "(5), [REST]: **Summon** an Aurousteel Greatsword token. This ability costs (1) less to activate for each domain you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

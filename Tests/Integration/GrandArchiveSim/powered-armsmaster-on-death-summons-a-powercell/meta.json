@@ -1,0 +1,25 @@
+{
+    "name": "powered-armsmaster-on-death-summons-a-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fpvw2ifz1n"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fpvw2ifz1n"
+        ],
+        "mechanics": [
+            "on-death",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "**On Death: Summon** a Powercell token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

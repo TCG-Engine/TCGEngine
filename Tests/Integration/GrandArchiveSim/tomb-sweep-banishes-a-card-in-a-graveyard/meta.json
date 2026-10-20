@@ -1,0 +1,24 @@
+{
+    "name": "tomb-sweep-banishes-a-card-in-a-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uLuofHw9os"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uLuofHw9os"
+        ],
+        "mechanics": [
+            "banish",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Banish target card in a graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

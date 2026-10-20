@@ -1,0 +1,25 @@
+{
+    "name": "fraternal-garrison-without-jin-gets-no-power-when-another-ally-enters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:13:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ln926ymxdc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ln926ymxdc"
+        ],
+        "mechanics": [
+            "champion-bonus",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Jin Bonus]"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

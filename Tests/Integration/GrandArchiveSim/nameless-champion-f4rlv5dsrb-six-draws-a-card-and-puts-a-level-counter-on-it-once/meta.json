@@ -1,0 +1,26 @@
+{
+    "name": "nameless-champion-f4rlv5dsrb-six-draws-a-card-and-puts-a-level-counter-on-it-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "f4rlv5dsrb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "f4rlv5dsrb"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "counter",
+            "once-per-game"
+        ],
+        "rulesClauses": [
+            "(6)**:** Draw a card and put a **level** counter on CARDNAME. Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

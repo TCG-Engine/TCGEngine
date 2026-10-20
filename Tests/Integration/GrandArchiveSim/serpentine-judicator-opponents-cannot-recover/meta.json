@@ -1,0 +1,25 @@
+{
+    "name": "serpentine-judicator-opponents-cannot-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:13:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "koyegh1snb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "koyegh1snb"
+        ],
+        "mechanics": [
+            "static-ability",
+            "recover",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Your opponents can't **recover**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

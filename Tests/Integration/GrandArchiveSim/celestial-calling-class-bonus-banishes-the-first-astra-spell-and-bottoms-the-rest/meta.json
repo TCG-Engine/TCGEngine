@@ -1,0 +1,26 @@
+{
+    "name": "celestial-calling-class-bonus-banishes-the-first-astra-spell-and-bottoms-the-rest",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:26:24+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "izm6h38lrj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "izm6h38lrj"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "reveal",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Reveal cards from the top of your deck until you reveal an astra element Spell card. Banish that card and put the rest on the bottom of your deck in a random order."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

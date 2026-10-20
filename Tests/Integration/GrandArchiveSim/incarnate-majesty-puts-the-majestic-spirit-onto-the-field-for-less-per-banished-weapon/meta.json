@@ -1,0 +1,26 @@
+{
+    "name": "incarnate-majesty-puts-the-majestic-spirit-onto-the-field-for-less-per-banished-weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:24:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7dl5j4lx6x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7dl5j4lx6x"
+        ],
+        "mechanics": [
+            "cost-modification",
+            "zone-movement",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "This card costs 1 less to activate for each regalia weapon card in your banishment.",
+            "Put a card named The Majestic Spirit from your material deck or banishment onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

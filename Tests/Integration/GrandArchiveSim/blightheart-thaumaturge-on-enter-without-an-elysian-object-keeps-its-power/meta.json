@@ -1,0 +1,24 @@
+{
+    "name": "blightheart-thaumaturge-on-enter-without-an-elysian-object-keeps-its-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2zCWq2DUDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2zCWq2DUDt"
+        ],
+        "mechanics": [
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If you control an Elysian object"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

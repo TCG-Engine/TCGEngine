@@ -71,7 +71,7 @@ function GetAvailableWeapons($player) {
             $isFunctionalWeapon = PropertyContains($weaponSubtypes, "GUN")
                 || PropertyContains($weaponSubtypes, "BOW")
                 || PropertyContains($weaponSubtypes, "AETHERWING");
-            if($isFunctionalWeapon && !FunctionalWeaponIsLoaded($obj)) continue;
+            if($isFunctionalWeapon && !FunctionalWeaponIsLoaded($obj) && !GreaterBoonOfDetachmentLoadsWeapon($player, $obj)) continue;
             if($isFunctionalWeapon && $hasAttackCardsInIntent) continue;
             // Mechanized Smasher (qsm3n9yvn1): can't be used with attack cards
             if($obj->CardID === "qsm3n9yvn1" && !empty($intentCards)) continue;
@@ -107,8 +107,17 @@ function GetAvailableWeapons($player) {
     return $available;
 }
 
+// Greater Boon of Detachment (MzGWQK0E2o): "You may declare attacks with unloaded Ranger weapons you control as though they were loaded."
+function GreaterBoonOfDetachmentLoadsWeapon($player, $weaponObj) {
+    if(!PropertyContains(CardClasses($weaponObj->CardID), "RANGER")) return false;
+    foreach(GetField($player) as $boonObj) {
+        if($boonObj !== null && !$boonObj->removed && $boonObj->CardID === "MzGWQK0E2o" && !HasNoAbilities($boonObj)) return true;
+    }
+    return false;
+}
+
 function GetAttackWeaponChoices($player, $attackerObj) {
-    if($attackerObj === null || $attackerObj->removed) return [];
+    if($attackerObj === null || $attackerObj->removed || GASwordMayAttackAsAlly($attackerObj)) return [];
     $cardType = EffectiveCardType($attackerObj);
     if(PropertyContains($cardType, "CHAMPION")) {
         return GetAvailableWeapons($player);
@@ -281,6 +290,13 @@ function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
                 $totalPower += $weaponPower;
             }
         }
+    }
+
+    // Merlin, Kingslayer (rz1bqry41l): "CARDNAME's attacks get +2 [POWER] until end of turn" once the recollection trigger found an even level count.
+    // It is the champion's attack that gets the bonus (counted once, whatever mix of weapon and attack card it uses), not each attack card.
+    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "CHAMPION") && $attackerObj->CardID === "rz1bqry41l"
+       && !HasNoAbilities($attackerObj) && in_array("rz1bqry41l", $attackerObj->TurnEffects)) {
+        $totalPower += 2;
     }
 
     // Beguiling Coup (q1b6htzcox): [Element Bonus] if this is one of your omens and
@@ -595,7 +611,13 @@ function AttackBypassesInterceptAndTaunt($attackerMZ, $player) {
     }
     if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) return true;
     if($attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) return true;
-    if($attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) return true;
+    if($attacker !== null) {
+        if(array_intersect(["5v598k3m1w_ATTACK", "5v598k3m1w-SHENJU_ATTACK"], $attacker->TurnEffects)) return true;
+        // Before target selection, preview the next attack's unblockable. A Command
+        // granted during combat must wait for the following attack.
+        if(DecisionQueueController::GetVariable("CombatTarget") === null
+            && array_intersect(["5v598k3m1w", "5v598k3m1w-SHENJU"], $attacker->TurnEffects)) return true;
+    }
     if($attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) return true;
     if($attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) return true;
 
@@ -677,6 +699,15 @@ function GetFieldObjectUniqueID($mzID, $perspectivePlayer = null) {
 }
 
 function ClearCombatAttackerState() {
+    // Remove the consumed Command bonus on every combat exit, including a missing attacker.
+    foreach([1, 2] as $owner) {
+        foreach(GetField($owner) as $obj) {
+            if($obj === null) continue;
+            $obj->TurnEffects = array_values(array_filter($obj->TurnEffects ?? [], fn($effect) => !str_starts_with($effect, "yakyp6odw3-RANGED_")));
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects ?? [],
+                ["5v598k3m1w_ATTACK", "5v598k3m1w-SHENJU_ATTACK"]));
+        }
+    }
     DecisionQueueController::ClearVariable("CombatAttacker");
     DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
 }
@@ -1006,6 +1037,8 @@ function HasAmbush($fieldObj, array $ownField): bool {
     if(HasNoAbilities($fieldObj)) return false;
     if(HasKeyword_Ambush($fieldObj)) return true;
     if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) return true;
+    // Mary Ann, Maladroit Maid (mt5zs1w6c0): has ambush while one of your omens has ambush
+    if(MaryAnnOmensHaveKeyword($fieldObj, "Ambush")) return true;
     // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
     if(PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
         && EffectiveCardElement($fieldObj) === "UMBRA") {
@@ -1116,7 +1149,8 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
     $retaliatorOptions = [];
 
     // The actual defender can retaliate if ready and has power
-    if($targetObj->Status == 2 && ObjectCurrentPower($targetObj) > 0) {
+    // Steadfast: "can retaliate while rested".
+    if(($targetObj->Status == 2 || HasSteadfast($targetObj)) && ObjectCurrentPower($targetObj) > 0) {
         $retaliatorOptions[] = $defenderMZ_fromDefender;
     }
 
@@ -1124,7 +1158,7 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
         if($fieldObj === null || $fieldObj->removed) continue;
         $mzID = "myField-" . $i; // defender's perspective
         if($mzID === $defenderMZ_fromDefender) continue; // actual defender already handled above
-        if($fieldObj->Status != 2) continue;
+        if($fieldObj->Status != 2 && !HasSteadfast($fieldObj)) continue;
         if(ObjectCurrentPower($fieldObj) <= 0) continue;
         if(GetCounterCount($fieldObj, "frenzy") > 0) continue;
         // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
@@ -1185,7 +1219,7 @@ function GetCleaveRetaliatorMZs(int $defenderPlayer): array {
     $retaliators = [];
     foreach(GetField($defenderPlayer) as $i => $fieldObj) {
         if($fieldObj === null || $fieldObj->removed) continue;
-        if($fieldObj->Status != 2) continue;
+        if($fieldObj->Status != 2 && !HasSteadfast($fieldObj)) continue;
         $type = EffectiveCardType($fieldObj);
         if(!PropertyContains($type, "ALLY") && !PropertyContains($type, "CHAMPION")) continue;
         if(ObjectCurrentPower($fieldObj) <= 0) continue;
@@ -1410,6 +1444,30 @@ $customDQHandlers["CommandAutomatonAttack"] = function($player, $parts, $lastDec
  *   2.e  Reconcile restrictions (Taunt, etc.).
  *        If at any point the attack becomes illegal, reverse all steps.
  */
+/**
+ * Fervent Lancer: "As long as there's a card banished by this ally, it must attack a champion each turn if able."
+ * True when the turn player controls an awake Lancer holding a banished card that still has a champion to attack
+ * (it is a power-positive attacker, and it is not the first player's first turn).
+ */
+function FerventLancerMustAttack($player) {
+    global $playerID;
+    if(GetTurnNumber() == 1 && $player == GetFirstPlayer()) return false;
+    $field = GetField($player);
+    for($fi = 0; $fi < count($field); ++$fi) {
+        $obj = $field[$fi];
+        if($obj->removed || $obj->CardID !== "aws20fsihd" || HasNoAbilities($obj) || $obj->Status != 2) continue;
+        if(!is_array($obj->Counters) || empty($obj->Counters['banished_card'])) continue;
+        if(ObjectCurrentPower($obj) <= 0) continue;
+        if(function_exists("TotalWhiteoutSuppressesActivatedAbilities") && TotalWhiteoutSuppressesActivatedAbilities($obj)) continue;
+        $mz = (($player == $playerID) ? "myField-" : "theirField-") . $fi;
+        foreach(GetValidAttackTargets($mz) as $targetMZ) {
+            $targetObj = GetZoneObject($targetMZ);
+            if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return true;
+        }
+    }
+    return false;
+}
+
 function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
@@ -1429,9 +1487,8 @@ function BeginCombatPhase($actionCard) {
 
     // Only allies and champions can declare attacks as the attacking unit.
     // Exception: Spirit Blade: Ensoul (CQ1bxUyi0Q) allows Sword weapons to attack as allies.
-    $ensoulSwordAttacking = PropertyContains($cardType, "WEAPON")
-        && PropertyContains(CardSubtypes($obj->CardID), "SWORD")
-        && GlobalEffectCount($turnPlayer, "CQ1bxUyi0Q_SWORDS_AS_ALLY") > 0;
+    $ensoulSwordAttacking = GASwordMayAttackAsAlly($obj);
+    $countsAsAllyAttacker = $countsAsAllyAttacker || $ensoulSwordAttacking;
     if(!$ensoulSwordAttacking
        && !$countsAsAllyAttacker && !PropertyContains($cardType, "CHAMPION")) {
         SetFlashMessage("Only allies and champions can declare attacks.");
@@ -1505,8 +1562,9 @@ function BeginCombatPhase($actionCard) {
     }
 
     // Crowd's Favor (gpmJdGYqoC): pay (1) for each attack declaration.
-    // Effect is stored on the current holder; check both players for safety.
-    $crowdFavorActive = (GlobalEffectCount($turnPlayer, "gpmJdGYqoC") > 0 || GlobalEffectCount($prOpp, "gpmJdGYqoC") > 0);
+    // Only attacks that target an object the status holder controls pay: in a two-player game that is the attacker's opponent holding the status
+    // (the holder's own attacks are free).
+    $crowdFavorActive = GlobalEffectCount($prOpp, "gpmJdGYqoC") > 0;
     if($crowdFavorActive) {
         $hand = GetZone("myHand");
         if(count($hand) < 1) {
@@ -1825,6 +1883,9 @@ function OnAttackTrigger($player, $mzID) {
     // pass during any of that would otherwise still see (and skip) an object that no longer needs
     // protecting, silently leaving it uncompacted with nothing left to purge it until much later.
     ClearProtectedRemovedCardUniqueIDs();
+    // Generated "Whenever ... attacks" listeners (Inflamed Bladehand, Brooch X Ultra, AquaTech Shell). Nothing dispatched the
+    // OnAttack macro listeners before, so those three abilities never ran.
+    DispatchMacroListeners("OnAttack", $player, ["mzID" => $mzID], ["Field"]);
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
@@ -1844,6 +1905,8 @@ function OnAttackTrigger($player, $mzID) {
         foreach($intentCards as $iMZ) {
             AddTurnEffect($iMZ, "suo6gb0op3");
         }
+        // A weapon attack has no attack card in the intent: the bonus goes on the champion itself (as Servile Possessions does).
+        if(empty($intentCards)) AddTurnEffect($mzID, "suo6gb0op3");
     }
 
     // Tonoris, Might of Humanity (yevpmu6gvn): next attack +3 POWER — consume and apply
@@ -1863,6 +1926,15 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && in_array("yevpmu6gvn", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "yevpmu6gvn_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["yevpmu6gvn"]));
+    }
+
+    // Suzaku's Command applies to this attack only; pending effects expire unused at end of turn.
+    if($obj !== null) {
+        foreach(["5v598k3m1w", "5v598k3m1w-SHENJU"] as $commandEffect) {
+            if(!in_array($commandEffect, $obj->TurnEffects)) continue;
+            AddTurnEffect($mzID, $commandEffect . "_ATTACK");
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, [$commandEffect]));
+        }
     }
 
     // Take Aim (vnta6qsesw): next attack this turn gets +2 POWER — consume and apply
@@ -1979,6 +2051,18 @@ function OnAttackTrigger($player, $mzID) {
     if(GlobalEffectCount($player, "f0jbv5n196_NEXT_ATTACK") > 0) {
         RemoveGlobalEffect($player, "f0jbv5n196_NEXT_ATTACK");
         AddTurnEffect($mzID, "f0jbv5n196_POWER");
+    }
+
+    // Greater Boon of Inari (ozltjoTDQe): each agility gained this turn gave "your champion's next attack this turn against a champion gets +2 POWER".
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION") && GlobalEffectCount($player, "INARI_NEXT_ATTACK") > 0) {
+        $inariTarget = DecisionQueueController::GetVariable("CombatTarget");
+        $inariTargetObj = ($inariTarget !== null && $inariTarget !== "" && $inariTarget !== "-") ? GetZoneObject($inariTarget) : null;
+        if($inariTargetObj !== null && PropertyContains(EffectiveCardType($inariTargetObj), "CHAMPION")) {
+            while(GlobalEffectCount($player, "INARI_NEXT_ATTACK") > 0) {
+                RemoveGlobalEffect($player, "INARI_NEXT_ATTACK");
+                AddTurnEffect($mzID, "ozltjoTDQe_POWER");
+            }
+        }
     }
 
     // Ingress of Sanguine Ire (dfchplzf6m): first attack this turn gets +3 POWER — consume active marker
@@ -2201,6 +2285,8 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
             QueueHitTriggeredAbility($player, $iObj->CardID, $iMZ);
         }
+        // Cometary Vantage: the intent card gained "On Hit: Load this card into an Aetherwing weapon you control."
+        if(in_array("y4c89re0bd_LOAD_ON_HIT", $iObj->TurnEffects ?? [])) GAQueueIntentAetherwingLoad($player, $iMZ);
     }
 
     // Dispatch On Hit for combat weapon
@@ -2451,7 +2537,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // deals combat damage to a champion while CARDNAME is awake, may sacrifice to deal 3.
     $attackerObj = GetZoneObject($attackerMZ);
     if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")
-       && EffectiveCardElement($attackerObj) === "FIRE") {
+       && PropertyContains(EffectiveCardElement($attackerObj), "FIRE")) {
         $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
         if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
             $hitObj = GetZoneObject($hitTarget);
@@ -2547,37 +2633,32 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         }
     }
 
-    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn
-    $attackerObj = GetZoneObject($attackerMZ);
-    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")) {
-        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
-            $hitObj = GetZoneObject($hitTarget);
-            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
-                $myField = GetZone("myField");
-                foreach($myField as $fi => $fObj) {
-                    if($fObj === null) continue;
-                    if(!$fObj->removed && $fObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($fObj)) {
-                        if(IsMerlinBonusActive($player) && !in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) {
-                            // Check champion has prep counter
-                            foreach($myField as $ci => $cObj) {
-                                if($cObj === null) continue;
-                                if(!$cObj->removed && PropertyContains(EffectiveCardType($cObj), "CHAMPION")) {
-                                    if(GetPrepCounterCount($cObj) >= 1) {
-                                        DecisionQueueController::StoreVariable("VorpalSwordMZ", "myField-" . $fi);
-                                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", "myField-" . $ci);
-                                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
-                                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                                            tooltip:"Remove_prep_counter_to_wake_attacker?");
-                                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        break;
+    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn.
+    // On a weapon, On Hit means "when an attack using this deals combat damage" (rule: On Hit, 3), so the trigger belongs to the attack made WITH the Sword
+    // (the champion's weapon attack, or the Sword itself attacking as though it were an ally), not to every ally attack while the Sword is in play.
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+        $hitObj = GetZoneObject($hitTarget);
+        if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
+            foreach([GetCombatWeapon(), $attackerMZ] as $vorpalMZ) {
+                if($vorpalMZ === null || $vorpalMZ === "-") continue;
+                $fObj = GetZoneObject($vorpalMZ);
+                if($fObj === null || $fObj->removed || $fObj->CardID !== "PIcB5KuuMd" || HasNoAbilities($fObj)) continue;
+                if(!IsMerlinBonusActive($player) || in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) break;
+                $vorpalZone = strpos($vorpalMZ, "their") === 0 ? "theirField" : "myField";
+                foreach(GetZone($vorpalZone) as $ci => $cObj) {
+                    if($cObj === null || $cObj->removed || !PropertyContains(EffectiveCardType($cObj), "CHAMPION")) continue;
+                    if(GetPrepCounterCount($cObj) >= 1) {
+                        DecisionQueueController::StoreVariable("VorpalSwordMZ", $vorpalMZ);
+                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", $vorpalZone . "-" . $ci);
+                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                            tooltip:"Remove_prep_counter_to_wake_attacker?");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
                     }
+                    break;
                 }
+                break;
             }
         }
     }
@@ -2622,7 +2703,7 @@ $_combatKillEvents = [];
  * Mark that a combat kill just occurred. Called from OnDealDamage when
  * damage >= HP and a CombatAttacker variable is set (indicating combat context).
  */
-function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = null, $hp = null) {
+function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = null, $hp = null, $destinationToken = "") {
     global $_combatKillEvents;
     $killedCardID = $killedCardID ?? "";
     $sheenCount = max(0, intval($sheenCount));
@@ -2633,6 +2714,7 @@ function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = n
         $eventParts[] = strval($power ?? 0);
         $eventParts[] = strval($hp ?? 0);
     }
+    if($destinationToken !== "") $eventParts[] = $destinationToken;
     $event = implode("~", $eventParts);
     $stored = DecisionQueueController::GetVariable("CombatKillEvents");
     $kills = ($stored === null || $stored === "") ? [] : explode("|", $stored);
@@ -2642,7 +2724,8 @@ function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = n
         "cardID" => $killedCardID,
         "sheenCount" => $sheenCount,
         "power" => $power,
-        "hp" => $hp
+        "hp" => $hp,
+        "destinationToken" => $destinationToken
     ];
 }
 
@@ -2666,7 +2749,8 @@ function ConsumeCombatKill() {
                 "cardID" => $cardID,
                 "sheenCount" => intval($parts[1] ?? "0"),
                 "power" => array_key_exists(2, $parts) ? max(0, intval($parts[2])) : null,
-                "hp" => array_key_exists(3, $parts) ? max(0, intval($parts[3])) : null
+                "hp" => array_key_exists(3, $parts) ? max(0, intval($parts[3])) : null,
+                "destinationToken" => strval($parts[4] ?? "")
             ];
         }
     }
@@ -2703,7 +2787,9 @@ function DispatchCombatKillTriggers($player, $attackerMZ, $killEvents) {
         DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($sheenCount));
         if($power !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval(max(0, intval($power))));
         if($hp !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval(max(0, intval($hp))));
+        DecisionQueueController::StoreVariable("CombatKilledDestinationToken", strval($killEvent["destinationToken"] ?? ""));
         OnKillTrigger($player, $attackerMZ);
+        DecisionQueueController::ClearVariable("CombatKilledDestinationToken");
         DecisionQueueController::ClearVariable("CombatKilledPower");
         DecisionQueueController::ClearVariable("CombatKilledHP");
     }
@@ -3455,7 +3541,9 @@ $customDQHandlers["CleaveCombatKillTrigger"] = function($player, $parts, $lastDe
     DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($killedSheenCount));
     if($killedPower !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval($killedPower));
     if($killedHP !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval($killedHP));
+    DecisionQueueController::StoreVariable("CombatKilledDestinationToken", strval($parts[6] ?? ""));
     OnKillTrigger($attackerPlayer, $attackerMZ);
+    DecisionQueueController::ClearVariable("CombatKilledDestinationToken");
     DecisionQueueController::ClearVariable("CombatKilledPower");
     DecisionQueueController::ClearVariable("CombatKilledHP");
     DecisionQueueController::ClearVariable("CombatKilledCardID");
@@ -3839,7 +3927,7 @@ $customDQHandlers["MechanicalHareGYChoice"] = function($player, $parts, $lastDec
 $customDQHandlers["MechanicalHareBanish1"] = function($player, $parts, $lastDecision) {
     $gyRef = $parts[0];
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
     // Second pick
     $gyCards = ZoneSearch($gyRef);
     if(empty($gyCards)) return;
@@ -3850,7 +3938,7 @@ $customDQHandlers["MechanicalHareBanish1"] = function($player, $parts, $lastDeci
 
 $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myBanish");
+    MZMove($player, $lastDecision, BanishDestinationOf($lastDecision));
 };
 
 /**
@@ -3930,6 +4018,18 @@ function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
     }
     DecisionQueueController::AddDecision($sourceController, "YESNO", "-", 1, tooltip:"Recover_2?");
     DecisionQueueController::AddDecision($sourceController, "CUSTOM", "DanteHemomancerRecover", 1);
+}
+
+// Combat damage is dealt by the combat's attacker to its target, or back by the target; damage from any other source
+// while a combat is open (a Spell cast in response, for one) is not combat damage.
+function IsCombatDamageFrom($source) {
+    if(DecisionQueueController::GetVariable("CombatAttacker") === null) return false;
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj === null) return false;
+    $sourceUID = intval($sourceObj->UniqueID ?? 0);
+    if($sourceUID <= 0) return false;
+    return $sourceUID === intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0")
+        || $sourceUID === intval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? "0");
 }
 
 function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
@@ -4013,8 +4113,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // Potion Infusion: Frostbite — next water damage to this unit +4
-    $sourceObj = ($source === null || $source === "") ? null : GetZoneObject($source); // (damage with no source object, e.g. Storm Tyrant's Eye, is not an element-tagged hit)
-    if($sourceObj !== null && CardElement($sourceObj->CardID) === "WATER") {
+    $frostbiteInfo = ResolveDamageSourceCardInfo($source, $player);
+    $frostbiteSource = $frostbiteInfo['obj'];
+    $frostbiteElement = $frostbiteSource !== null && ($frostbiteSource->Location ?? '') === 'Field'
+        ? EffectiveCardElement($frostbiteSource) : CardElement($frostbiteInfo['cardID']);
+    if(PropertyContains($frostbiteElement, "WATER")) {
         if(in_array("FROSTBITE_WATER_VULN", $targetObj->TurnEffects ?? [])) {
             $amount += 4;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FROSTBITE_WATER_VULN"));
@@ -4073,7 +4176,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
     if($sourceInfo["cardID"] !== null) {
         $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : CardElement($sourceInfo["cardID"]);
-        if($sourceElement === "FIRE") {
+        if(PropertyContains($sourceElement, "FIRE")) {
             $sourceController = $sourceInfo["controller"] ?? $player;
             if(GlobalEffectCount($sourceController, "ecZsQQAYJJ") > 0) {
                 DealUnpreventableDamage($player, $source, $target, $amount);
@@ -4081,7 +4184,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             }
             $scField = &GetField($sourceController);
             foreach($scField as $scObj) {
-                if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb") {
+                if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb" && !HasNoAbilities($scObj)) {
                     // Fire source + Varuck present → unpreventable
                     DealUnpreventableDamage($player, $source, $target, $amount);
                     return;
@@ -4138,7 +4241,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Suzaku's Command Shenju (5v598k3m1w-SHENJU): combat damage is unpreventable
     if($isCombatContext) {
         $sourceObj = GetZoneObject($source);
-        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects ?? [])) {
+        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU_ATTACK", $sourceObj->TurnEffects ?? [])) {
             DealUnpreventableDamage($player, $source, $target, $amount);
             return;
         }
@@ -4267,8 +4370,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Shangxiang, Fierce Princess (s2tzwv1uw3): if imbued, prevent 2 damage from non-norm sources
     if($amount > 0 && $targetObj->CardID === "s2tzwv1uw3" && !HasNoAbilities($targetObj)
        && in_array("IMBUED", $targetObj->TurnEffects)) {
-        $sourceObj = GetZoneObject($source);
-        if($sourceObj !== null && EffectiveCardElement($sourceObj) !== "NORM") {
+        $shangxiangInfo = ResolveDamageSourceCardInfo($source, $player);
+        $sourceObj = $shangxiangInfo['obj'];
+        $sourceElement = $sourceObj !== null && ($sourceObj->Location ?? '') === 'Field'
+            ? EffectiveCardElement($sourceObj) : CardElement($shangxiangInfo['cardID']);
+        if($sourceElement !== null && !PropertyContains($sourceElement, "NORM")) {
             $amount -= 2;
             if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
@@ -4421,8 +4527,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count
     if($targetObj->CardID === "0mz09ojy0t" && !HasNoAbilities($targetObj) && $amount > 3) {
         $ptController = $targetObj->Controller ?? $player;
-        $handCount = count(array_filter(GetZone($ptController == 1 ? "myHand" : "theirHand"), fn($c) => !$c->removed));
-        $memCount = count(array_filter(GetZone($ptController == 1 ? "myMemory" : "theirMemory"), fn($c) => !$c->removed));
+        // GetHand/GetMemory take the player directly; the old "myHand"/"theirHand" pick assumed the viewer was player 1 and compared the wrong player's zones on player 2's turn.
+        $handCount = count(array_filter(GetHand($ptController), fn($c) => !$c->removed));
+        $memCount = count(array_filter(GetMemory($ptController), fn($c) => !$c->removed));
         if($handCount === $memCount) {
             $amount = 3;
         }
@@ -4467,6 +4574,18 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     DecisionQueueController::AddDecision($targetPlayer, "MZMAYCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_with_omen_counter?_(Return_to_the_Depths)");
                     DecisionQueueController::AddDecision($targetPlayer, "CUSTOM", "ReturnToDepthsOmen", 1);
                 }
+            }
+        }
+        // Searing Rebuke (hdvpug4d5m): prevent the next 3 damage to your champion; [Class Bonus] whenever damage is prevented this
+        // way, deal 3 damage to target champion you don't control.
+        if(in_array("SEARING_REBUKE_3", $targetObj->TurnEffects)) {
+            $rebukePrevented = min(3, $amount);
+            $amount -= $rebukePrevented;
+            $rebukeCB = in_array("SEARING_REBUKE_CB", $targetObj->TurnEffects);
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "SEARING_REBUKE_3" && $e !== "SEARING_REBUKE_CB"));
+            if($rebukePrevented > 0 && $rebukeCB) {
+                $rebukeOpponent = ($targetObj->Controller == 1) ? 2 : 1;
+                DealChampionDamage($rebukeOpponent, 3, $targetObj->Controller);
             }
         }
         foreach($targetObj->TurnEffects as $te) {
@@ -4560,8 +4679,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     break;
                 case "zadf9q1vk8": // Prototype Shield: [CB] prevent 3 while linked unit is attacking
                     if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
-                        $combatAttackerCheck = DecisionQueueController::GetVariable("CombatAttacker");
-                        if($combatAttackerCheck !== null && $combatAttackerCheck === $target) {
+                        // CombatAttacker is stored from the attacker's perspective, so comparing it with $target missed the damage a retaliating defender deals (the card says it is prevented too); compare unique ids.
+                        $combatAttackerUID = intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0");
+                        if($combatAttackerUID > 0 && intval($targetObj->UniqueID ?? 0) === $combatAttackerUID) {
                             $amount -= 3;
                         }
                     }
@@ -4674,6 +4794,27 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
+    // Hector, Praetorian Guard (AsDKTmP3kp): [Class Bonus] if damage would be dealt to one or more non-token neos element units you control, prevent X of that damage
+    // where X is the amount of tokens you control. Apply this replacement effect only once per turn.
+    if($amount > 0 && (PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION"))
+       && !PropertyContains(EffectiveCardType($targetObj), "TOKEN") && EffectiveCardElement($targetObj) === "NEOS") {
+        $hcController = $targetObj->Controller ?? $player;
+        foreach(GetField($hcController) as $hcObj) {
+            if($hcObj === null || $hcObj->removed || $hcObj->CardID !== "AsDKTmP3kp" || HasNoAbilities($hcObj)) continue;
+            if(in_array("AsDKTmP3kp_USED", $hcObj->TurnEffects ?? [])) break;
+            if(!IsClassBonusActive($hcController, ["GUARDIAN"])) break;
+            $hcTokens = 0;
+            foreach(GetField($hcController) as $hcToken) {
+                if($hcToken !== null && !$hcToken->removed && PropertyContains(EffectiveCardType($hcToken), "TOKEN")) ++$hcTokens;
+            }
+            if($hcTokens <= 0) break;
+            $hcObj->TurnEffects[] = "AsDKTmP3kp_USED";
+            $amount -= min($amount, $hcTokens);
+            break;
+        }
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
+    }
+
     // Radiant Repudiation (RO2CcBrILQ): prevent up to N damage to this neos unit,
     // and when damage is prevented this way, deal 2 damage to stored target.
     if($amount > 0) {
@@ -4689,12 +4830,16 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 } else {
                     $targetObj->TurnEffects[$idx] = "RADIANT_REPUDIATION_" . $remaining;
                 }
-                if($prevented > 0 && isset($targetObj->Counters['_radiantTarget'])) {
-                    $rtMZ = $targetObj->Counters['_radiantTarget'];
-                    $rtObj = GetZoneObject($rtMZ);
-                    if($rtObj !== null && !$rtObj->removed) {
-                        $rtPlayer = $rtObj->Controller ?? $player;
-                        DealDamage($rtPlayer, $target, $rtMZ, 2);
+                if($prevented > 0 && isset($targetObj->Counters['_radiantTargetUID'])) {
+                    // Find the stored target by UniqueID on either field (the zone name depends on which seat is resolving).
+                    $rtUID = intval($targetObj->Counters['_radiantTargetUID']);
+                    foreach(["myField", "theirField"] as $rtZone) {
+                        foreach(GetZone($rtZone) as $rtIdx => $rtCandidate) {
+                            if($rtCandidate === null || $rtCandidate->removed || intval($rtCandidate->UniqueID ?? 0) !== $rtUID) continue;
+                            $rtMZ = $rtZone . "-" . $rtIdx;
+                            DealDamage($rtCandidate->Controller ?? $player, $target, $rtMZ, 2);
+                            break 2;
+                        }
                     }
                 }
                 break;
@@ -4716,7 +4861,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
-    $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    $isCombat = IsCombatDamageFrom($source);
     if(!$isCombat && $amount > 0 && $targetObj->CardID === "ifmmvbm26h" && !HasNoAbilities($targetObj)) {
         if(IsClassBonusActive($targetObj->Controller ?? $player, ["CLERIC", "WARRIOR"])) {
             $amount = max(0, $amount - 2);
@@ -4965,8 +5110,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $controllerField = &GetField($targetController);
         foreach ($controllerField as $blancheObj) {
             if ($blancheObj === null || $blancheObj->removed) continue;
-            if ($blancheObj->CardID === "5k1vt1cn1t"
-                    && PlayerLevel($targetController) >= 2) {
+            // The [Level 2+] on Blanche's text gates only her Fast Activation; the prevention is unconditional (it was wrongly gated on level 2).
+            if ($blancheObj->CardID === "5k1vt1cn1t" && !HasNoAbilities($blancheObj)) {
                 $memoryCount = count(GetMemory($targetController));
                 $amount = max(0, $amount - $memoryCount);
                 break;
@@ -4993,7 +5138,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 } else {
                     SetFlashMessage('REVEAL:' . $revealedCard->CardID);
                 }
-                if(CardElement($revealedCard->CardID) === "WIND") {
+                if(PropertyContains(EffectiveCardElement($revealedCard), "WIND")) {
                     $amount = max(0, $amount - 3);
                 }
                 $targetObj->TurnEffects[] = "pal7cpvn96";
@@ -5057,9 +5202,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $sourceSpellCardID = $sourceInfoSpell["cardID"];
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
+        // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
+        if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
-            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
+            $amount += GreaterBoonOfIsisBonus($sourceController);
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
@@ -5124,8 +5271,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $field = GetField($targetController);
         foreach($field as $idx => $fieldObj) {
             if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "tsvbgl6ffq" || HasNoAbilities($fieldObj)) continue;
-            $majesticMZ = ($targetController == 1 ? "myField-" : "theirField-") . $idx;
-            if($majesticMZ === $targetMZ) continue;
+            // "Another" object: compare the objects themselves (the old string compare built the zone name as if the viewer were player 1).
+            if($fieldObj === $targetObj || (isset($fieldObj->UniqueID, $targetObj->UniqueID) && $fieldObj->UniqueID === $targetObj->UniqueID)) continue;
             $amount = intdiv($amount, 2);
             if($amount <= 0) {
                 $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
@@ -5222,7 +5369,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     $everflameSourceCardID = null;
     $everflameSourceController = intval($sourceInfo2["controller"] ?? $player);
     $everflameSourceCardID = $sourceInfo2["cardID"];
-    if($everflameSourceCardID !== null && CardElement($everflameSourceCardID) === "FIRE"
+    $everflameElement = $sourceObj2 !== null && ($sourceObj2->Location ?? "") === "Field"
+        ? EffectiveCardElement($sourceObj2) : CardElement($everflameSourceCardID);
+    if($everflameSourceCardID !== null && PropertyContains($everflameElement, "FIRE")
         && PropertyContains(CardSubtypes($everflameSourceCardID), "SPELL")) {
         $sourceController = $everflameSourceController;
         global $playerID;
@@ -5272,22 +5421,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
     }
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
-            if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
-                $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
-                DecisionQueueController::AddDecision(
-                    $player,
-                    "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
-                    100
-                );
-            }
-        }
-        AllyDestroyed($player, $target);
+        GAResolveLethalDamage($player, $target);
     }
 }
 
@@ -5397,9 +5531,11 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         $sourceSpellCardID = $sourceInfoSpell["cardID"];
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
+        // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
+        if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
-            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
+            $amount += GreaterBoonOfIsisBonus($sourceController);
 
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
@@ -5507,21 +5643,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
     }
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
-            if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
-                $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
-                DecisionQueueController::AddDecision(
-                    $player,
-                    "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
-                    100
-                );
-            }
-        }
-        AllyDestroyed($player, $target);
+        GAResolveLethalDamage($player, $target);
     }
 }
 

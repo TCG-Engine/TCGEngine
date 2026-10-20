@@ -1,0 +1,25 @@
+{
+    "name": "merlin-kingslayer-the-even-count-bonus-does-not-boost-an-allys-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:39:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rz1bqry41l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rz1bqry41l"
+        ],
+        "mechanics": [
+            "recollection",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put a **level** counter on CARDNAME. Then, if there's an even amount of **level** counters on CARDNAME, draw a card and CARDNAME's attacks get +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

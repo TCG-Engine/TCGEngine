@@ -1,0 +1,24 @@
+{
+    "name": "flowerbud-token-sits-on-the-field-as-a-vanilla-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:32:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yn78t73w1p"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yn78t73w1p"
+        ],
+        "mechanics": [
+            "token",
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Flowerbud token (no text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

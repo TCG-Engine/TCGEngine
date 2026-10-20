@@ -1,0 +1,25 @@
+{
+    "name": "illuminating-charge-reveals-memory-and-puts-up-to-two-animal-cards-onto-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:59:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6ddfdn8y9f"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6ddfdn8y9f"
+        ],
+        "mechanics": [
+            "reveal",
+            "zone-movement",
+            "animal"
+        ],
+        "rulesClauses": [
+            "Reveal all cards in your memory. You may put up to two Animal cards from among them onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

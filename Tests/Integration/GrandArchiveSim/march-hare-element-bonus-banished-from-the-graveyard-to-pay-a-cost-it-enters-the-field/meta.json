@@ -1,0 +1,25 @@
+{
+    "name": "march-hare-element-bonus-banished-from-the-graveyard-to-pay-a-cost-it-enters-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:31:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7w4v1hgl3e"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7w4v1hgl3e"
+        ],
+        "mechanics": [
+            "element-bonus",
+            "banish",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Element Bonus] Whenever this card is banished from your graveyard to pay for a reserve cost, put it onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

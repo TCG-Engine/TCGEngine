@@ -1,0 +1,26 @@
+{
+    "name": "powercell-pay-one-rest-and-sacrifice-gives-an-automaton-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:54+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qzzadf9q1v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qzzadf9q1v"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice-self",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(1), [REST]**, Sacrifice CARDNAME:** Target Automaton ally gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

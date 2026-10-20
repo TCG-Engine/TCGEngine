@@ -1,0 +1,24 @@
+{
+    "name": "demolition-deals-three-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7iak6hyh6b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7iak6hyh6b"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 3 damage to target unit or Siegeable domain."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

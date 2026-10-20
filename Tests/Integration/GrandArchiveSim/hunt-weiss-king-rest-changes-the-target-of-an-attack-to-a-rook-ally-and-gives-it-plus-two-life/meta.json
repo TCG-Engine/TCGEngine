@@ -1,0 +1,25 @@
+{
+    "name": "hunt-weiss-king-rest-changes-the-target-of-an-attack-to-a-rook-ally-and-gives-it-plus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:57:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Y6PZntlVDl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Y6PZntlVDl"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "modal",
+            "redirect"
+        ],
+        "rulesClauses": [
+            "\u2022 Change the target of an attack to a Chessman Rook ally you control. If you do, that ally gets +2 [LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

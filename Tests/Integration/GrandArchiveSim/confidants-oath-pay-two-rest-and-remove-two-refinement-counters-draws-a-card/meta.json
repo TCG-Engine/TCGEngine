@@ -1,0 +1,27 @@
+{
+    "name": "confidants-oath-pay-two-rest-and-remove-two-refinement-counters-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:52:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nlufjh84vm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nlufjh84vm"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "rest",
+            "remove-counters",
+            "draw"
+        ],
+        "rulesClauses": [
+            "(2), [REST], **Remove two refinement counters from Confidant's Oath:** Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

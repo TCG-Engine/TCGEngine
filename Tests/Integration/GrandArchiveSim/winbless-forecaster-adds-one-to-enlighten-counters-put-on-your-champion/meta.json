@@ -1,0 +1,24 @@
+{
+    "name": "winbless-forecaster-adds-one-to-enlighten-counters-put-on-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:43:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dm44nt1lyk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dm44nt1lyk"
+        ],
+        "mechanics": [
+            "replacement-effect",
+            "counter"
+        ],
+        "rulesClauses": [
+            "If one or more **enlighten** counters would be put on your champion, that many plus one **enlighten** counters are put on your champion instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

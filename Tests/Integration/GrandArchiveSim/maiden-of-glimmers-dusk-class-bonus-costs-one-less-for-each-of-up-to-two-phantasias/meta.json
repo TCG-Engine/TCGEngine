@@ -1,0 +1,25 @@
+{
+    "name": "maiden-of-glimmers-dusk-class-bonus-costs-one-less-for-each-of-up-to-two-phantasias",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qa4ke7txh0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qa4ke7txh0"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "scaling"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate for each of up to two phantasias you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

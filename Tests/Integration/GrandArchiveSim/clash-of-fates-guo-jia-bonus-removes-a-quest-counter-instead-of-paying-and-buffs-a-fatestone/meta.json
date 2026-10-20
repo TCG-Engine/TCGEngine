@@ -1,0 +1,26 @@
+{
+    "name": "clash-of-fates-guo-jia-bonus-removes-a-quest-counter-instead-of-paying-and-buffs-a-fatestone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:27:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9rbziyasag"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9rbziyasag"
+        ],
+        "mechanics": [
+            "guo-jia-bonus",
+            "alternative-cost",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Guo Jia Bonus] You may remove a **quest** counter from your champion rather than pay this card's reserve cost.",
+            "Put a **buff** counter on target Fatestone or Fatebound object."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

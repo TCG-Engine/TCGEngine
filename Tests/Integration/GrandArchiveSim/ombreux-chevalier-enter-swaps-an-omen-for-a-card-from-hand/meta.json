@@ -16,6 +16,8 @@
             "omen",
             "zone-movement"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "On Enter: Return one of your omens to your hand. If you do, banish a card from your hand and put an omen counter on it."
+        ]
     }
 }

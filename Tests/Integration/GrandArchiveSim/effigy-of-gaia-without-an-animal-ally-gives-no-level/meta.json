@@ -1,0 +1,25 @@
+{
+    "name": "effigy-of-gaia-without-an-animal-ally-gives-no-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:45:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "akb1k0zi5h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "akb1k0zi5h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level",
+            "condition"
+        ],
+        "rulesClauses": [
+            "as long as you control an Animal or Beast ally"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

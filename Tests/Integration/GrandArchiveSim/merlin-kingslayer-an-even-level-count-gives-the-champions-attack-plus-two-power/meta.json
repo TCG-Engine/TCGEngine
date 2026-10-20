@@ -1,0 +1,25 @@
+{
+    "name": "merlin-kingslayer-an-even-level-count-gives-the-champions-attack-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-17T21:38:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rz1bqry41l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rz1bqry41l"
+        ],
+        "mechanics": [
+            "recollection",
+            "stat-change",
+            "attack"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put a **level** counter on CARDNAME. Then, if there's an even amount of **level** counters on CARDNAME, draw a card and CARDNAME's attacks get +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

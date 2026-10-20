@@ -1,0 +1,23 @@
+{
+    "name": "eternal-magistrate-imbued-is-marked-imbued",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "taug52u81v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "taug52u81v"
+        ],
+        "mechanics": [
+            "imbue"
+        ],
+        "rulesClauses": [
+            "**Imbue 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

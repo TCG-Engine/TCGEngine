@@ -1,0 +1,26 @@
+{
+    "name": "set-the-traps-mills-two-and-class-bonus-prepares",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:32:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xipHhhsgJy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xipHhhsgJy"
+        ],
+        "mechanics": [
+            "mill",
+            "class-bonus",
+            "preparation"
+        ],
+        "rulesClauses": [
+            "Target player puts the top two cards of their deck into their graveyard.",
+            "[Class Bonus] Put a **preparation** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

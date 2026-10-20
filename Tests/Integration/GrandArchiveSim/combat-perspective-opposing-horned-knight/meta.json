@@ -1,0 +1,25 @@
+{
+    "name": "combat-perspective-opposing-horned-knight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:26:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vjdbqgku4z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vjdbqgku4z"
+        ],
+        "mechanics": [
+            "combat",
+            "power",
+            "perspective"
+        ],
+        "rulesClauses": [
+            "While attacking an ally, this gets one additional power."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

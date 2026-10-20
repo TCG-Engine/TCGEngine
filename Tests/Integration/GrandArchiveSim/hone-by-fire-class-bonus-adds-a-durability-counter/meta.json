@@ -1,0 +1,24 @@
+{
+    "name": "hone-by-fire-class-bonus-adds-a-durability-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:03:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yuvuxnrw8q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yuvuxnrw8q"
+        ],
+        "mechanics": [
+            "counter",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Class Bonus: Put a durability counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

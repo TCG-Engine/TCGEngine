@@ -1,0 +1,26 @@
+{
+    "name": "en-passant-a-pawn-that-kills-with-it-gets-two-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pZAA0nHyXM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pZAA0nHyXM"
+        ],
+        "mechanics": [
+            "command-chessman",
+            "on-kill",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as a Chessman Pawn ally is attacking with CARDNAME, it has \"**On Kill: **If there are no **buff** counters on this ally, put two **buff** counters on it.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "lesser-boon-of-notus-lets-the-champion-activate-a-wind-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:16:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bFoUoGdZBX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bFoUoGdZBX"
+        ],
+        "mechanics": [
+            "static",
+            "element"
+        ],
+        "rulesClauses": [
+            "WIND element is enabled for you."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

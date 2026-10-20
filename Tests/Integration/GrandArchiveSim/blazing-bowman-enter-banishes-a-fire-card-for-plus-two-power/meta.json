@@ -1,0 +1,25 @@
+{
+    "name": "blazing-bowman-enter-banishes-a-fire-card-for-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qry41lw9n0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qry41lw9n0"
+        ],
+        "mechanics": [
+            "on-enter",
+            "banish",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "On Enter: You may banish a fire element card from your graveyard. If you do, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

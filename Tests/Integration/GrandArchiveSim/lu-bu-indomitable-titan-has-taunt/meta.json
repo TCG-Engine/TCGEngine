@@ -1,0 +1,24 @@
+{
+    "name": "lu-bu-indomitable-titan-has-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:46:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xyan7zbtxi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xyan7zbtxi"
+        ],
+        "mechanics": [
+            "keyword",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "**Taunt**, **Vigor**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "fervent-lancer-banishes-the-exia-card-it-resolves-and-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:22:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "aws20fsihd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "aws20fsihd"
+        ],
+        "mechanics": [
+            "trigger",
+            "zone-movement",
+            "power-modifier"
+        ],
+        "rulesClauses": [
+            "Whenever you activate an exia element card, you may banish it as it resolves.",
+            "As long as there's a card banished by CARDNAME, it gets +2 [POWER]"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

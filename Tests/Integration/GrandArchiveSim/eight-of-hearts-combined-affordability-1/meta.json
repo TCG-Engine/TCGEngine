@@ -1,0 +1,24 @@
+{
+    "name": "eight-of-hearts-combined-affordability-1",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:29:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YGz8gN8M69"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YGz8gN8M69"
+        ],
+        "mechanics": [
+            "cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "Each ally sacrificed this way pays for 3 of that cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

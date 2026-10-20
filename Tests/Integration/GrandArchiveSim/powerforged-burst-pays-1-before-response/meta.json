@@ -1,0 +1,28 @@
+{
+    "name": "powerforged-burst-pays-1-before-response",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:41:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OWnWJNstCO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OWnWJNstCO"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "damage",
+            "targeting",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice **X** Powercell items. **X** can't be more than 3.",
+            "Deal 2 damage to target unit **X** times. If **X** is 3, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

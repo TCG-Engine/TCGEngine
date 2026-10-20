@@ -1,0 +1,25 @@
+{
+    "name": "cerulean-decree-not-imbued-chooses-draw-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:35:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ipl6gt7lh9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ipl6gt7lh9"
+        ],
+        "mechanics": [
+            "modal-spell",
+            "imbue",
+            "draw-into-memory"
+        ],
+        "rulesClauses": [
+            "Choose one. If CARDNAME is **imbued**, choose two instead\u2014 Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "lesser-boon-of-scriveners-scavenges-ten-for-a-spell-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nJOde7e1Xc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nJOde7e1Xc"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, **scavenge 10** for a Spell card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

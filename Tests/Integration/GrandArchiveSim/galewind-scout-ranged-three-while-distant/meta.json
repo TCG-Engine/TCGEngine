@@ -1,0 +1,23 @@
+{
+    "name": "galewind-scout-ranged-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:22:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8gv9f4a0nk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8gv9f4a0nk"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 3**"
+        ]
+    },
+    "behaviorFamily": true
+}

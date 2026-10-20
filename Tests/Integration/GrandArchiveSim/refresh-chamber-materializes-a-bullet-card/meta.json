@@ -1,0 +1,26 @@
+{
+    "name": "refresh-chamber-materializes-a-bullet-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:36:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7nk45swaf8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7nk45swaf8"
+        ],
+        "mechanics": [
+            "materialize",
+            "floating-memory",
+            "banish",
+            "put-into-memory"
+        ],
+        "rulesClauses": [
+            "Materialize a Bullet card from your material deck. Then you may banish a card with **floating memory** from your graveyard. If you do, put CARDNAME into its owner's memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

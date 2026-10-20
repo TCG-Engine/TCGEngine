@@ -1,0 +1,25 @@
+{
+    "name": "glacial-binding-banishes-a-floating-memory-card-from-the-graveyard-instead-of-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:17:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cthZxfkdsY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cthZxfkdsY"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "floating-memory",
+            "banish"
+        ],
+        "rulesClauses": [
+            "You may banish a card with **floating memory** from your graveyard rather than pay this card\u2019s reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

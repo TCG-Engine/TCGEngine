@@ -1,0 +1,24 @@
+{
+    "name": "iron-halo-forcefield-node-prevents-two-damage-to-another-object-you-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:25:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8GTa6NS2RG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8GTa6NS2RG"
+        ],
+        "mechanics": [
+            "prevention",
+            "domain"
+        ],
+        "rulesClauses": [
+            "If damage would be dealt to another object you control, prevent 2 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

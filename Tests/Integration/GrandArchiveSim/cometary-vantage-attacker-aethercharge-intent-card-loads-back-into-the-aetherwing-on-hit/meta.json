@@ -1,0 +1,26 @@
+{
+    "name": "cometary-vantage-attacker-aethercharge-intent-card-loads-back-into-the-aetherwing-on-hit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:15:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y4c89re0bd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y4c89re0bd"
+        ],
+        "mechanics": [
+            "modal",
+            "grant-ability",
+            "on-hit",
+            "load"
+        ],
+        "rulesClauses": [
+            "\u2022 If a unit is attacking, each Aethercharge card in that attacker's intent gains \"**On Hit**: Load this card into an Aetherwing weapon you control.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

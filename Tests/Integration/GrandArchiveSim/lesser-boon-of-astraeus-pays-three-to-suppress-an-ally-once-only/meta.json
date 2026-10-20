@@ -1,0 +1,26 @@
+{
+    "name": "lesser-boon-of-astraeus-pays-three-to-suppress-an-ally-once-only",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:05:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ZpWIJAmSC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ZpWIJAmSC"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "suppress",
+            "activation-limit",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "(3): As a Spell, **suppress** target ally, item, or weapon. Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

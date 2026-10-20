@@ -15,7 +15,9 @@
             "destroy",
             "banish-self"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Destroy target non-champion object. Banish Nocturne's Oblivion."
+        ]
     },
     "engineBug": {
         "status": "fixed",

@@ -1,0 +1,25 @@
+{
+    "name": "diana-haunt-reminiscence-class-bonus-ranged-grows-with-the-curse-cards-in-the-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:55:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qp2r93Bgpj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qp2r93Bgpj"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "ranged",
+            "lineage"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME has **ranged 3+X**, where **X** is three times the amount of Curse cards in your champion's lineage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

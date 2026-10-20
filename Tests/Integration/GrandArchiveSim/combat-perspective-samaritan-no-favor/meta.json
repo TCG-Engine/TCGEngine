@@ -1,0 +1,25 @@
+{
+    "name": "combat-perspective-samaritan-no-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:36:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MskPCrbv0L"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MskPCrbv0L"
+        ],
+        "mechanics": [
+            "combat",
+            "perspective",
+            "status"
+        ],
+        "rulesClauses": [
+            "Gain Crowds Favor only when the attacked unit is not controlled by the caster."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

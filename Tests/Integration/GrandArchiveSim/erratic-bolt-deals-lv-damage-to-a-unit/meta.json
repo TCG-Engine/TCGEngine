@@ -1,0 +1,25 @@
+{
+    "name": "erratic-bolt-deals-lv-damage-to-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:45:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DqtlaMGMvd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DqtlaMGMvd"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "lv"
+        ],
+        "rulesClauses": [
+            "Deal **LV** damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "name": "sigil-of-budding-embers-hindered-enters-the-field-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:41:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "g31dg6zl3j"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "g31dg6zl3j"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This object enters the field rested.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

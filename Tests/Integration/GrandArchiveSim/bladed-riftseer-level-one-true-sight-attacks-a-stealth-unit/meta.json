@@ -1,0 +1,24 @@
+{
+    "name": "bladed-riftseer-level-one-true-sight-attacks-a-stealth-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZSYwzoUEdz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZSYwzoUEdz"
+        ],
+        "mechanics": [
+            "level-gate",
+            "keyword",
+            "true-sight",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **True Sight**"
+        ]
+    },
+    "behaviorFamily": true
+}

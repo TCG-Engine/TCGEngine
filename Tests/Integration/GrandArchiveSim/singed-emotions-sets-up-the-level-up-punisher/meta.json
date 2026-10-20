@@ -1,0 +1,24 @@
+{
+    "name": "singed-emotions-sets-up-the-level-up-punisher",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TieUdzJ2B2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TieUdzJ2B2"
+        ],
+        "mechanics": [
+            "global-effect",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Until the beginning of your next turn, whenever a champion levels up, deal 4 damage to that champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

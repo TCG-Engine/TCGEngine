@@ -1,0 +1,25 @@
+{
+    "name": "reflected-blight-returns-a-graveyard-card-to-memory-and-goes-to-the-lineage-hurting-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:02:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1leLWsgBkb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1leLWsgBkb"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "lineage",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Return target card from your graveyard to your memory. Then put CARDNAME on the bottom of your champion's lineage. When you do, deal 1 unpreventable damage to your champion for each Curse card in your champion\u2019s lineage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

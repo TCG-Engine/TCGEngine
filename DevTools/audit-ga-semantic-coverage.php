@@ -21,6 +21,12 @@ foreach (array_slice($argv, 1) as $arg) {
 
 require_once __DIR__ . '/GaSemanticCoverage.php';
 
+$behaviorDefinitions = [];
+if ($rootName === 'GrandArchiveSim') {
+    require_once __DIR__ . '/ga-fixtures/behavior-families/suites.php';
+    $behaviorDefinitions = gaBehaviorDefinitions() + gaSourceDefinitions();
+}
+
 $fixtureRoot = $repoRoot . '/Tests/Integration/' . $rootName;
 if (!is_dir($fixtureRoot)) {
     fwrite(STDERR, "Fixture directory not found: {$fixtureRoot}\n");
@@ -29,15 +35,22 @@ if (!is_dir($fixtureRoot)) {
 
 $totals = ['fixtures' => 0, 'legacy' => 0, 'complete' => 0, 'incomplete' => 0, 'semanticAssertions' => 0];
 $cards = [];
-foreach (scandir($fixtureRoot) as $slug) {
-    if ($slug === '.' || $slug === '..' || !is_dir($fixtureRoot . '/' . $slug)) continue;
+foreach (array_unique(array_merge(scandir($fixtureRoot), array_keys($behaviorDefinitions))) as $slug) {
+    if ($slug === '.' || $slug === '..' || (!is_dir($fixtureRoot . '/' . $slug) && !isset($behaviorDefinitions[$slug]))) continue;
     $metaPath = $fixtureRoot . '/' . $slug . '/meta.json';
     $assertionsPath = $fixtureRoot . '/' . $slug . '/assertions.json';
     $actionsPath = $fixtureRoot . '/' . $slug . '/actions.json';
-    if (!is_file($assertionsPath)) continue; // not a real fixture dir
-    $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
-    $assertions = json_decode(file_get_contents($assertionsPath), true);
-    $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
+    if (isset($behaviorDefinitions[$slug])) {
+        $def = $behaviorDefinitions[$slug];
+        $meta = ['testedCards' => $def['testedCards']] + $def['meta'];
+        $assertions = $def['assertions'] ?? [];
+        $actions = $def['actions'];
+    } else {
+        if (!is_file($assertionsPath)) continue; // not a real fixture dir
+        $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
+        $assertions = json_decode(file_get_contents($assertionsPath), true);
+        $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
+    }
     if (!is_array($meta)) $meta = [];
     if (!is_array($assertions)) $assertions = [];
     if (!is_array($actions)) $actions = [];

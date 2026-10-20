@@ -1,0 +1,26 @@
+{
+    "name": "purified-shot-class-bonus-on-champion-hit-banishes-up-to-x-cards-from-their-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:52:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dcgw05q66h"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dcgw05q66h"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-champion-hit",
+            "banish",
+            "graveyard"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Champion Hit:** Banish up to **X** cards from that opponent\u2019s graveyard, where X is the amount of damage dealt by this hit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

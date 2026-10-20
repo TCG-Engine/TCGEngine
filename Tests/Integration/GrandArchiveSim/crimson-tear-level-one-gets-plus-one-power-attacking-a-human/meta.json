@@ -1,0 +1,25 @@
+{
+    "name": "crimson-tear-level-one-gets-plus-one-power-attacking-a-human",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:43:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9q1wl8ao8b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9q1wl8ao8b"
+        ],
+        "mechanics": [
+            "level-gate",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+] As long as CARDNAME is attacking or retaliating against a Human, CARDNAME gets +1 [POWER]. "
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

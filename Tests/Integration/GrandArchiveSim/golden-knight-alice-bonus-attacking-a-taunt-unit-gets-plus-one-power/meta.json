@@ -1,0 +1,26 @@
+{
+    "name": "golden-knight-alice-bonus-attacking-a-taunt-unit-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dJlNMQ5rWP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dJlNMQ5rWP"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] As long as CARDNAME is attacking a unit with **intercept** or **taunt**, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

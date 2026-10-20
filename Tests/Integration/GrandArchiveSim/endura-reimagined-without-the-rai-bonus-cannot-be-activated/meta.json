@@ -1,0 +1,24 @@
+{
+    "name": "endura-reimagined-without-the-rai-bonus-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:18:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "X7rh3Yi26A"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "X7rh3Yi26A"
+        ],
+        "mechanics": [
+            "rai-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Rai Bonus] **Remove three enlighten counters from your champion,  [REST]:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

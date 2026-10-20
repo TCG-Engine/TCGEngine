@@ -1,0 +1,26 @@
+{
+    "name": "absolving-flames-class-bonus-banishes-four-fire-cards-to-draw-another",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:09:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3fbpyhm271"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3fbpyhm271"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "class-bonus",
+            "banish"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may banish four fire element cards from your graveyard. If you do, draw a card."
+        ]
+    },
+    "notes": "Regression: the banish loop moved the same graveyard card four times, so one card was banished instead of four.",
+    "sourceScenario": {
+        "seed": 42
+    }
+}

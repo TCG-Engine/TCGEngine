@@ -1,0 +1,24 @@
+{
+    "name": "lunete-frostbinder-priest-opponents-allies-enter-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "TqCo3xlf93"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "TqCo3xlf93"
+        ],
+        "mechanics": [
+            "static-ability",
+            "enters-rested"
+        ],
+        "rulesClauses": [
+            "Allies your opponents control enter the field rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

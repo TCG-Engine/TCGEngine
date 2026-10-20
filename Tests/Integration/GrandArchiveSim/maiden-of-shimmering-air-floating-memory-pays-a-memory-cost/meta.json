@@ -1,0 +1,23 @@
+{
+    "name": "maiden-of-shimmering-air-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3n4l6aoj4t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3n4l6aoj4t"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

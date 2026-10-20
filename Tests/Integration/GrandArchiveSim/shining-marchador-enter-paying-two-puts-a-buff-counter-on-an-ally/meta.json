@@ -1,0 +1,26 @@
+{
+    "name": "shining-marchador-enter-paying-two-puts-a-buff-counter-on-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lnl94ijbi1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lnl94ijbi1"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-cost",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2). When you do, put a **buff** counter on target ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

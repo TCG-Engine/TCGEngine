@@ -1,0 +1,22 @@
+{
+    "name": "mourning-veilbound-stealth-cannot-be-targeted-by-attacks",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zyEMI5XNHt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zyEMI5XNHt"
+        ],
+        "mechanics": [
+            "keyword",
+            "stealth"
+        ],
+        "rulesClauses": [
+            "**Stealth** *(This unit can’t be targeted by attacks unless permitted by **true sight**.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

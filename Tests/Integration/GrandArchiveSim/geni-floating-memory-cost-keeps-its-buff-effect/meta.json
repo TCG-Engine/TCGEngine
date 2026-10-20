@@ -1,0 +1,25 @@
+{
+    "name": "geni-floating-memory-cost-keeps-its-buff-effect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:44:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wuir99sx6q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wuir99sx6q"
+        ],
+        "mechanics": [
+            "cost",
+            "floating-memory",
+            "counter"
+        ],
+        "rulesClauses": [
+            "If the banished card had floating memory, put two buff counters on an Automaton ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

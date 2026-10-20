@@ -1,0 +1,25 @@
+{
+    "name": "sun-quan-level-two-buffed-allies-lose-pride",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:50:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c5hgwip1ik"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c5hgwip1ik"
+        ],
+        "mechanics": [
+            "level-gate",
+            "static",
+            "pride"
+        ],
+        "rulesClauses": [
+            "[Level 2+] Allies you control with a **buff** counter on them lose **pride**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

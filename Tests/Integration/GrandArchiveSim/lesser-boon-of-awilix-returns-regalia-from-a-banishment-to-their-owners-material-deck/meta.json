@@ -1,0 +1,24 @@
+{
+    "name": "lesser-boon-of-awilix-returns-regalia-from-a-banishment-to-their-owners-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:17:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jQMIfe3Xvw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jQMIfe3Xvw"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "As you gain this boon, put up to four target regalia cards from any banishment into their owner\u2019s material deck."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

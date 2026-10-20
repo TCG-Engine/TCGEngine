@@ -1,0 +1,25 @@
+{
+    "name": "backdash-class-bonus-level-two-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mf0jmealoy"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mf0jmealoy"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "draw"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

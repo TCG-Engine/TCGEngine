@@ -1,0 +1,24 @@
+{
+    "name": "tithe-proclamation-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:53:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q8sdbzr5zs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q8sdbzr5zs"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

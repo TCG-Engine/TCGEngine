@@ -1,0 +1,21 @@
+{
+    "name": "sturdy-droid-class-bonus-vigor-wakes-it-at-the-end-of-the-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:23:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YOk6yLd7M0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YOk6yLd7M0"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Vigor**"
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "frozen-divinity-is-sacrificed-at-the-end-phase-if-your-champion-did-not-level-up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:01:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1PrDQ1EX0F"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1PrDQ1EX0F"
+        ],
+        "mechanics": [
+            "end-phase",
+            "sacrifice",
+            "condition"
+        ],
+        "rulesClauses": [
+            "At the beginning of your end phase, if your champion didn't level up this turn, sacrifice CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -21,16 +21,17 @@ function MaterializePhase() {
 
 
     $hasMaterial = MaterializeChoice();
+    // The checks below are independent of the materialize choice: queue them with dontSkipOnPass so declining to materialize (PASS) does not skip them.
     // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1, "", 1);
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1, "", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1, "", 1);
     if(ShouldQueueCapacitanceMaterialCheck(GetTurnPlayer())) {
-        DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "CAPACITANCE_MATERIAL_CHECK", 1);
+        DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "CAPACITANCE_MATERIAL_CHECK", 1, "", 1);
     }
     // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1, "", 1);
     
     // If the player has no cards left in material, run the same path as a skipped
     // materialize callback (lastDecision="-") so phase progression remains consistent.
@@ -170,11 +171,31 @@ function QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCos
     return true;
 }
 
+// The source object's PlayerID is its material-deck owner, independent of the request viewer.
+function GAFindMaterialCard($player, $cardID) {
+    foreach(GetMaterial($player) as $obj) if($obj !== null && !$obj->removed && $obj->CardID === $cardID) return $obj;
+    return null;
+}
+function GAMaterialCanLeave($obj, $trigger = "") {
+    if($obj === null || ($obj->Location ?? "") !== "Material") return true;
+    $owner = 0;
+    foreach([1, 2] as $seat) foreach(GetMaterial($seat) as $candidate) {
+        if($candidate === $obj) { $owner = $seat; break 2; }
+    }
+    if($owner !== 1 && $owner !== 2) return false;
+    if(GetCurrentPhase() === "MAT" && intval(GetTurnPlayer()) === $owner) return true;
+    foreach(GetField($owner === 1 ? 2 : 1) as $magistrate) {
+        if($magistrate === null || $magistrate->removed || $magistrate->CardID !== "taug52u81v" || HasNoAbilities($magistrate)) continue;
+        if(in_array("IMBUED", $magistrate->TurnEffects ?? [], true)) return false;
+    }
+    return true;
+}
+
 function GetLegalMaterializeChoices($player) {
     $material = GetMaterial($player);
     $choices = [];
     for($i = 0; $i < count($material); ++$i) {
-        if($material[$i]->removed) continue;
+        if($material[$i]->removed || !GAMaterialCanLeave($material[$i])) continue;
         if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) continue;
         if(PropertyContains(CardType($material[$i]->CardID), "CHAMPION")
             && !CanMaterializeChampion($player, $material[$i]->CardID)) continue;
@@ -257,6 +278,7 @@ $customDQHandlers["VARUCKAN_MATERIAL_CHECK"] = function($player, $parts, $lastDe
 };
 
 $customDQHandlers["VaruckanMaterialFromDeck"] = function($player, $parts, $lastDecision) {
+    if(!GAMaterialCanLeave(GetZoneObject($lastDecision))) return;
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $varuckanMZ = $lastDecision;
     $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
@@ -269,6 +291,8 @@ $customDQHandlers["VaruckanMaterialFromDeck"] = function($player, $parts, $lastD
 };
 
 $customDQHandlers["VaruckanMaterialBanish"] = function($player, $parts, $lastDecision) {
+    $pending = DecisionQueueController::GetVariable("VaruckanMaterialMZ");
+    if($pending !== null && !GAMaterialCanLeave(GetZoneObject($pending))) return;
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         DecisionQueueController::ClearVariable("VaruckanMaterialMZ");
         return;
@@ -315,6 +339,7 @@ $customDQHandlers["FRAMEWORK_SIDEARM_MATERIAL_CHECK"] = function($player, $parts
 };
 
 $customDQHandlers["FrameworkSidearmMaterialActivate"] = function($player, $parts, $lastDecision) {
+    if(!GAMaterialCanLeave(GetZoneObject($lastDecision))) return;
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     for($i = 0; $i < 3; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -364,7 +389,7 @@ function ReciprocityMaterialActivationCost($player) {
 }
 
 function CanActivateReciprocityFromMaterial($player, $obj) {
-    return $obj !== null
+    return GAMaterialCanLeave($obj) && $obj !== null
         && !$obj->removed
         && $obj->CardID === "mSOHJGjrIu"
         && IsTonorisBonusActive($player)
@@ -419,7 +444,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         : (isset($parts[0]) && $parts[0] === "NOCOST");
     //First pay memory cost (unless cost is being ignored)
     $materializeCard = &GetZoneObject($mzCard);
-    if($materializeCard === null || $materializeCard->removed) return;
+    if($materializeCard === null || $materializeCard->removed || !GAMaterialCanLeave($materializeCard)) return;
     if(!CanPlayerUseCardElement($player, $materializeCard->CardID)) return;
 
     global $AllyLink_Cards;
@@ -1000,10 +1025,13 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
         $banishedObj = GetZoneObject($mzCard);
         if($banishedObj === null || $banishedObj->removed) continue;
         $banishedCardID = $banishedObj->CardID;
-        MZMove($player, $mzCard, "myBanish");
+        // A card banished from an OPPONENT's graveyard (Orchestrated Seizure) goes to its owner's banishment, not the payer's.
+        MZMove($player, $mzCard, strpos($mzCard, "their") === 0 ? "theirBanish" : "myBanish");
         if($banishedCardID !== null) {
             PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
             WeavingManastreamOnFloatingBanished($player, $banishedCardID);
+            // Nico's lash counter and Poisonous Apple's 2 unpreventable damage ("whenever a card with floating memory is banished from your graveyard"): the materialize payment skipped them.
+            NicoOnFloatingMemoryBanished($player);
         }
         ++$paid;
     }
@@ -1032,6 +1060,12 @@ $customDQHandlers["MaterializeXCost"] = function($player, $parts, $lastDecision)
 };
 
 $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecision) {
+    $pending = DecisionQueueController::GetVariable("PendingMatCard");
+    if($pending !== null && $pending !== "" && !GAMaterialCanLeave(GetZoneObject($pending))) {
+        DecisionQueueController::ClearVariable("PendingMatCard");
+        DecisionQueueController::ClearVariable("MemoryCost");
+        return;
+    }
     $memoryCost = max(0, intval(DecisionQueueController::GetVariable("MemoryCost")));
     for($i = 0; $i < $memoryCost; ++$i) {
         MZMove($player, "myMemory-" . $i, "myBanish");//TODO: Make random
@@ -1079,9 +1113,10 @@ function CraggyFatestoneMaterializeTrigger($player, $memoryCost) {
     }
 }
 
-function DoMaterialize($player, $mzCard) {
+function DoMaterialize($player, $mzCard, $wasPlayed = true) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+    if($sourceObject === null || $sourceObject->removed || !GAMaterialCanLeave($sourceObject)) return;
     $sourceId = $sourceObject->CardID;
     $pendingMaterializeXCost = DecisionQueueController::GetVariable("PendingMaterializeXCost");
     DecisionQueueController::ClearVariable("PendingMaterializeXCost");
@@ -1206,6 +1241,7 @@ function DoMaterialize($player, $mzCard) {
                     $incomingObj->Counters = [];
                 }
                 foreach($existingCounters as $counterType => $counterVal) {
+                    if($counterType === "gaTopUnplayed" || $counterType === "gaLineageUnplayed") continue;
                     if(!isset($incomingObj->Counters[$counterType])) {
                         $incomingObj->Counters[$counterType] = $counterVal;
                     } else {
@@ -1223,6 +1259,15 @@ function DoMaterialize($player, $mzCard) {
                 )));
             }
         }
+
+        // Played provenance follows each lineage card; effect-driven level-up is not materialization.
+        $incomingObj = GetZoneObject($mzCard);
+        $history = $existingCounters['gaLineageUnplayed'] ?? array_fill(0, count($existingSubcards), 0);
+        if(!is_array($history)) $history = array_fill(0, count($existingSubcards), 0);
+        if($existingChampionCardID !== null) array_unshift($history, intval($existingCounters['gaTopUnplayed'] ?? 0));
+        unset($incomingObj->Counters['gaTopUnplayed'], $incomingObj->Counters['gaLineageUnplayed']);
+        if(!$wasPlayed) $incomingObj->Counters['gaTopUnplayed'] = 1;
+        if(in_array(1, $history, true)) $incomingObj->Counters['gaLineageUnplayed'] = $history;
 
         // Move new champion to field
         $newObj = MZMove($player, $mzCard, "myField");
@@ -1422,7 +1467,12 @@ function DoMaterialize($player, $mzCard) {
             $field = &GetZone($fZone);
             for($mfi = 0; $mfi < count($field); ++$mfi) {
                 if($field[$mfi]->removed || $field[$mfi]->CardID !== "fekR8D4FpB" || HasNoAbilities($field[$mfi])) continue;
-                DoSacrificeFighter($player, $fZone . "-" . $mfi);
+                // The champion that just levelled up left a removed husk at the front of the field: purge it first and find Martial Flowstate again by unique id, or the sacrifice (which compacts the field) hits the NEW champion.
+                $flowstateUniqueID = intval($field[$mfi]->UniqueID ?? 0);
+                DecisionQueueController::CleanupRemovedCards();
+                $flowstateMZ = FindFieldMzByUniqueID($flowstateUniqueID);
+                if($flowstateMZ === "") break;
+                DoSacrificeFighter($player, $flowstateMZ);
                 DecisionQueueController::CleanupRemovedCards();
                 DrawIntoMemory($player, 1);
                 $champMZ = FindChampionMZ($player);
@@ -1443,10 +1493,11 @@ function DoMaterialize($player, $mzCard) {
             // gets sacrificed and the field compacts before later triggers resolve.
             for($fwi = count($field) - 1; $fwi >= 0; --$fwi) {
                 if($field[$fwi]->removed || $field[$fwi]->CardID !== "qVtWCAx3zb" || HasNoAbilities($field[$fwi])) continue;
-                $fractalMZ = $fZone . "-" . $fwi;
+                // The level-up removes the old champion and appends the new one, so the Fractal's field index shifts before the answer comes back: carry its UniqueID instead of the index.
+                $fractalUniqueID = intval($field[$fwi]->UniqueID ?? 0);
                 DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                     tooltip:"Sacrifice_Fractal_of_Waves_to_draw_2_into_memory?");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalMZ, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalUniqueID, 1);
             }
         }
 
@@ -1520,16 +1571,6 @@ function DoMaterialize($player, $mzCard) {
         }
     }
 
-    // Duplicitous Replication (owq8s5fefw): if the opponent has this effect active and
-    // the card that just entered the field is REGALIA, summon a token copy on the opponent's field.
-    $opponent = ($player == 1) ? 2 : 1;
-    if(GlobalEffectCount($opponent, "owq8s5fefw") > 0) {
-        if(PropertyContains(CardType($sourceId), "REGALIA")) {
-            RemoveGlobalEffect($opponent, "owq8s5fefw");
-            MZAddZone($opponent, "myField", $sourceId);
-        }
-    }
-
     // Excalibur, Cursed Sword (4sm14RaEkg): whenever you materialize a card, deal 2 damage to your champion
     {
         global $playerID;
@@ -1578,7 +1619,7 @@ function DoMaterialize($player, $mzCard) {
 
 $customDQHandlers["FractalOfWavesLevel3"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $fractalMZ = $parts[0] ?? "";
+    $fractalMZ = FindFieldMzByUniqueID(intval($parts[0] ?? 0));
     if($fractalMZ === "") return;
     $obj = GetZoneObject($fractalMZ);
     if($obj === null || $obj->removed || $obj->CardID !== "qVtWCAx3zb") return;

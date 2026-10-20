@@ -1,0 +1,25 @@
+{
+    "name": "eight-of-hearts-casting-it-does-not-draw-cards-for-free",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:27:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YGz8gN8M69"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YGz8gN8M69"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cardistry",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Cardistry -- (8): Draw two cards. (an ability of the card on the field, not an effect of playing it)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

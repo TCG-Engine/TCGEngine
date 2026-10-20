@@ -1,0 +1,25 @@
+{
+    "name": "reciprocity-dorumegias-call-tonoris-bonus-pay-six-to-activate-it-from-the-material-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:21:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mSOHJGjrIu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mSOHJGjrIu"
+        ],
+        "mechanics": [
+            "tonoris-bonus",
+            "activate-from-material",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Tonoris Bonus] You may pay (6) to activate this card from your material deck. It costs (3) less to activate this way for each non-token domain you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

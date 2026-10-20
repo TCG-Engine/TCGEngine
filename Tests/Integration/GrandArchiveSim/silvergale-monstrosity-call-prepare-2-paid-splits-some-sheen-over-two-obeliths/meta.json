@@ -16,7 +16,9 @@
             "sheen",
             "split-assign"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Summon a Memorite Obelith token. If CARDNAME was prepared, move any amount of sheen counters from your Fractured Memories onto any amount of allies named Memorite Obelith you control."
+        ]
     },
     "engineBug": {
         "status": "fixed",

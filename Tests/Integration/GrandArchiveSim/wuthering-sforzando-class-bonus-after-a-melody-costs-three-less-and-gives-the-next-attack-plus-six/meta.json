@@ -1,0 +1,28 @@
+{
+    "name": "wuthering-sforzando-class-bonus-after-a-melody-costs-three-less-and-gives-the-next-attack-plus-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:21:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nlw3ZpjSxw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nlw3ZpjSxw"
+        ],
+        "mechanics": [
+            "melody",
+            "class-bonus",
+            "cost-reduction",
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you've activated a Melody card this turn, this card costs 3 less to activate.",
+            "Target ally's next attack this turn gets +6[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "powerforged-burst-with-no-powercells-uses-zero",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T15:41:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "OWnWJNstCO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OWnWJNstCO"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "damage"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice **X** Powercell items. **X** can't be more than 3."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

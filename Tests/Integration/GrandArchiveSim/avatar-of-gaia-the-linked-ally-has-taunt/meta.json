@@ -1,0 +1,24 @@
+{
+    "name": "avatar-of-gaia-the-linked-ally-has-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:44:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fqsuo6gb0o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fqsuo6gb0o"
+        ],
+        "mechanics": [
+            "ally-link",
+            "taunt"
+        ],
+        "rulesClauses": [
+            "Linked ally has **taunt** and loses **pride**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

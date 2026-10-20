@@ -1,0 +1,25 @@
+{
+    "name": "orbiting-cosmos-banish-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:23:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qM9yzxQbfF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qM9yzxQbfF"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw-into-memory",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(3)**, Banish CARDNAME: **Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

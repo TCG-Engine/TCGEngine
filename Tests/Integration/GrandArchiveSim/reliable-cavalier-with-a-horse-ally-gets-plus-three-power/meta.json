@@ -1,0 +1,25 @@
+{
+    "name": "reliable-cavalier-with-a-horse-ally-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:08:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bXxU1ZzMpR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bXxU1ZzMpR"
+        ],
+        "mechanics": [
+            "equestrian",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "***Equestrian \u2014*** As long as you control a Horse ally, CARDNAME gets +3[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

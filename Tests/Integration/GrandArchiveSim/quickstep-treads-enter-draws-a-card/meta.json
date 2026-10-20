@@ -1,0 +1,24 @@
+{
+    "name": "quickstep-treads-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rZ6LEFqqIS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rZ6LEFqqIS"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**On Enter: **Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

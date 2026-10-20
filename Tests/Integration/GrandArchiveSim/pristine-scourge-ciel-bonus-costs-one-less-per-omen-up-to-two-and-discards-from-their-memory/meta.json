@@ -1,0 +1,25 @@
+{
+    "name": "pristine-scourge-ciel-bonus-costs-one-less-per-omen-up-to-two-and-discards-from-their-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:47:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kugriwszxr"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kugriwszxr"
+        ],
+        "mechanics": [
+            "look",
+            "discard",
+            "memory"
+        ],
+        "rulesClauses": [
+            "Look at target opponent's memory and discard a card from among them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

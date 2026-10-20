@@ -1,0 +1,24 @@
+{
+    "name": "liu-bei-becomes-distant-whenever-another-unit-you-control-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:39:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a53rqmuqxf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a53rqmuqxf"
+        ],
+        "mechanics": [
+            "distant",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Whenever another unit you control becomes **distant**, CARDNAME becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

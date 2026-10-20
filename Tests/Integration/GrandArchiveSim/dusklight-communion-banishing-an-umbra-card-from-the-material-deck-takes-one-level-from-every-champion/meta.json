@@ -1,0 +1,26 @@
+{
+    "name": "dusklight-communion-banishing-an-umbra-card-from-the-material-deck-takes-one-level-from-every-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:51:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5upufyoz23"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5upufyoz23"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "material-deck",
+            "level"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish an astra or umbra element card from your material deck.",
+            "If the banished card was umbra element, CARDNAME gains \"Champions get -1 level.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

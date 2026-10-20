@@ -1,0 +1,27 @@
+{
+    "name": "fabricator-slime-class-bonus-rest-summons-a-baby-slime-per-buff-counter-up-to-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:14:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rpELNyrSrM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rpELNyrSrM"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "activated-ability",
+            "rest",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [REST]: For each of up to three **buff** counters on CARDNAME, **summon** a Baby Slime token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

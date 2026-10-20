@@ -1,0 +1,26 @@
+{
+    "name": "forgelight-blade-enter-deals-four-damage-to-your-champion-and-class-bonus-adds-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:31:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ly4wiffei7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ly4wiffei7"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "static-ability",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "On Enter: Deal 4 damage to your champion. [Class Bonus] CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

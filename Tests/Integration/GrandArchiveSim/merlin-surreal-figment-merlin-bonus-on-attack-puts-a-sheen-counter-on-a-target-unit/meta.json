@@ -1,0 +1,26 @@
+{
+    "name": "merlin-surreal-figment-merlin-bonus-on-attack-puts-a-sheen-counter-on-a-target-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:10:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "P8RBSywC30"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "P8RBSywC30"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "on-attack",
+            "counter",
+            "sheen"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus] **On Attack: **Put a **sheen** counter on target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

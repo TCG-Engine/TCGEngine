@@ -1,0 +1,25 @@
+{
+    "name": "deep-sea-fractal-on-enter-mills-the-top-card-of-each-deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:49:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hjdu50pces"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hjdu50pces"
+        ],
+        "mechanics": [
+            "on-enter",
+            "mill",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Each player puts the top card of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -14,7 +14,9 @@
         "mechanics": [
             "actions-resolve-generated-enter-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Deal 2 damage to target champion."
+        ]
     },
     "engineBug": {
         "status": "fixed",

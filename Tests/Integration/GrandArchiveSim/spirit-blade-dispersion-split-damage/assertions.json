@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p1Banish-0",
         "property": "CardID",
-        "value": "m31WVJ9F04"
+        "value": "m31WVJ9F04",
+        "semantic": true,
+        "label": "Clarent, Sword of Peace was banished after its durability counters were removed"
     },
     {
         "step": 4,
@@ -44,7 +46,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-1",
         "property": "Damage",
-        "value": "2"
+        "value": "2",
+        "semantic": true,
+        "label": "The 2 damage (Clarent's durability counters) was assigned to the Dungeon Guide"
     },
     {
         "step": 4,

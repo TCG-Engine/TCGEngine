@@ -198,6 +198,8 @@ function HasFoster($obj) {
         "zihslnhzj4" => true, // Cell Generator
         "8sugly4wif" => true, // Krustallan Patrol
         "ioLmt0S7op" => true, // Sanctified Paladin
+        "GRlUlcYRmV" => true, // Sasha, Purifying Acolyte (printed Foster; missing from this list, so it could never become fostered)
+        "46neis2lho" => true, // Imperial Panzer (printed Foster, likewise missing)
     ];
     if(isset($fosterCards[$obj->CardID])) return true;
     // [Class Bonus] Foster cards
@@ -227,7 +229,10 @@ function IsFostered($obj) {
  * @param string $mzID   The mzID of the ally.
  */
 function BecomeFostered($player, $mzID) {
+    $fosterObj = GetZoneObject($mzID);
+    $wasFostered = $fosterObj !== null && IsFostered($fosterObj);
     AddTurnEffect($mzID, "FOSTERED");
+    if(!$wasFostered && function_exists("GreaterBoonOfDuxOnFostered")) GreaterBoonOfDuxOnFostered($fosterObj->Controller ?? $player);
 }
 
 /**
@@ -428,7 +433,7 @@ function MisteyeArcherLook($player, $mzID) {
     $tempCards = ZoneSearch("myTempZone");
     if(empty($tempCards)) return;
     $topCard = GetZoneObject($tempCards[count($tempCards) - 1]);
-    if($topCard !== null && CardElement($topCard->CardID) === "WATER") {
+    if($topCard !== null && !$topCard->removed && PropertyContains(EffectiveCardElement($topCard), "WATER")) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_water_card_into_graveyard?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "MisteyeArcherFinish|" . $mzID, 1);
     } else {
@@ -442,17 +447,16 @@ function MisteyeArcherLook($player, $mzID) {
 
 function CoiledFatestoneEnter($player) {
     // Discard two cards at random. For each fire element card discarded this way, draw a card.
-    $hand = &GetHand($player);
-    if(count($hand) === 0) return;
     $fireCount = 0;
-    $discardCount = min(2, count($hand));
-    for($i = 0; $i < $discardCount; ++$i) {
+    for($i = 0; $i < 2; ++$i) {
         $hand = &GetHand($player);
-        if(count($hand) === 0) break;
-        $randIdx = EngineRandomInt(0, count($hand) - 1);
+        $liveIndices = [];
+        foreach($hand as $index => $card) if(!$card->removed) $liveIndices[] = $index;
+        if(empty($liveIndices)) break;
+        $randIdx = $liveIndices[EngineRandomInt(0, count($liveIndices) - 1)];
         $discObj = $hand[$randIdx];
-        $element = CardElement($discObj->CardID);
-        if($element === "FIRE") ++$fireCount;
+        $element = EffectiveCardElement($discObj);
+        if(PropertyContains($element, "FIRE")) ++$fireCount;
         DoDiscardCard($player, "myHand-" . $randIdx);
     }
     if($fireCount > 0) {
@@ -670,8 +674,8 @@ function WildgrowthFatestoneOnEnterCheck($player, $enteredMZ) {
     if(!IsGuoJiaBonus($player)) return;
     $enteredObj = GetZoneObject($enteredMZ);
     if($enteredObj === null || $enteredObj->removed) return;
-    $enteredElement = CardElement($enteredObj->CardID);
-    if($enteredElement !== "WIND") return;
+    $enteredElement = EffectiveCardElement($enteredObj);
+    if(!PropertyContains($enteredElement, "WIND")) return;
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = &GetField($player);
@@ -706,7 +710,6 @@ $customDQHandlers["WildgrowthFatestoneTransform"] = function($player, $parts, $l
 // ============================================================================
 
 function FatestoneOfBalanceOnOpponentActivated($activatingPlayer) {
-    if(!IsGuoJiaBonus($activatingPlayer)) return; // The owner has Guo Jia, not the activating player
     // Check if the OPPONENT of the activating player has a Fatestone of Balance
     $owner = ($activatingPlayer == 1) ? 2 : 1;
     if(!IsGuoJiaBonus($owner)) return;

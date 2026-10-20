@@ -1,0 +1,25 @@
+{
+    "name": "gusttech-shield-links-to-an-ally-which-gets-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:54:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MTm7r2KOSS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MTm7r2KOSS"
+        ],
+        "mechanics": [
+            "ally-link",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**Ally Link**",
+            "Linked ally has **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

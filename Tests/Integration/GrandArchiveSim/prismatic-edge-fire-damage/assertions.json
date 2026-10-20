@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "CardID",
-        "value": "FxYwR2azTt"
+        "value": "FxYwR2azTt",
+        "semantic": true,
+        "label": "Prismatic Edge materialized onto the field"
     },
     {
         "step": 4,
@@ -86,7 +88,9 @@
         "type": "card_property_equals",
         "mzId": "p2Graveyard-0",
         "property": "CardID",
-        "value": "em6eEh9q8y"
+        "value": "em6eEh9q8y",
+        "semantic": true,
+        "label": "The 3-life Dungeon Guide died and is in its owner's graveyard"
     },
     {
         "step": 4,
@@ -100,7 +104,9 @@
         "type": "card_property_equals",
         "mzId": "p2Graveyard-0",
         "property": "Damage",
-        "value": "3"
+        "value": "3",
+        "semantic": true,
+        "label": "A fire card was revealed: 3 damage was dealt to the opposing Dungeon Guide"
     },
     {
         "step": 4,

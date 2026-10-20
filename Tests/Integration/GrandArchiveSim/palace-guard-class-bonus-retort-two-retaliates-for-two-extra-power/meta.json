@@ -1,0 +1,23 @@
+{
+    "name": "palace-guard-class-bonus-retort-two-retaliates-for-two-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k940jhff6v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k940jhff6v"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Retort 2** *(As long as this ally is retaliating, it gets +2 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

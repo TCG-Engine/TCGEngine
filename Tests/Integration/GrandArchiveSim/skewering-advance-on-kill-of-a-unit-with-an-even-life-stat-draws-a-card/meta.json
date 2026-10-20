@@ -1,0 +1,26 @@
+{
+    "name": "skewering-advance-on-kill-of-a-unit-with-an-even-life-stat-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:49:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "no5tu5412v"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "no5tu5412v"
+        ],
+        "mechanics": [
+            "command-chessman",
+            "on-kill",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Kill**: If the killed unit had an even life stat, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

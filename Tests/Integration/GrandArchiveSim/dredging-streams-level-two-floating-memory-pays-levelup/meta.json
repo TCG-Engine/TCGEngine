@@ -19,5 +19,8 @@
         "rulesClauses": [
             "[Level 2+] Floating Memory: while paying for a memory cost you may banish this card from your graveyard to pay for 1 of that cost (champion level 2 or higher)."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

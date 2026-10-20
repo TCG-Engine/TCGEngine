@@ -1,0 +1,25 @@
+{
+    "name": "leran-pastoral-hymns-end-phase-damages-a-champion-with-influence-eight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CGdu1Vmlok"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CGdu1Vmlok"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "influence"
+        ],
+        "rulesClauses": [
+            "At the beginning of each player's end phase, if that player's influence is eight or more, deal X-7 damage to that player's champion, where X is that player's influence."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

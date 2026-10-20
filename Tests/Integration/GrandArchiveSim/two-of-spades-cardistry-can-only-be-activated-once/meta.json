@@ -1,0 +1,25 @@
+{
+    "name": "two-of-spades-cardistry-can-only-be-activated-once",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:39:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e8ygl32jef"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e8ygl32jef"
+        ],
+        "mechanics": [
+            "cardistry",
+            "once-per-game",
+            "activated-ability"
+        ],
+        "rulesClauses": [
+            "Activate this ability only once."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

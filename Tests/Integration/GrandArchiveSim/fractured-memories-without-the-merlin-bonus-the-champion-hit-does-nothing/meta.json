@@ -1,0 +1,24 @@
+{
+    "name": "fractured-memories-without-the-merlin-bonus-the-champion-hit-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:12:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "UAJGQFbXjs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "UAJGQFbXjs"
+        ],
+        "mechanics": [
+            "merlin-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Merlin Bonus]Your champion has \"**On Champion Hit:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "greater-boon-of-parvati-does-not-pay-regalias-native-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T16:47:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WOTtcgwVc9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WOTtcgwVc9"
+        ],
+        "mechanics": [
+            "granted-ability",
+            "cost",
+            "rest",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "Regalia you control have REST: Prevent the next 1 damage to target unit this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

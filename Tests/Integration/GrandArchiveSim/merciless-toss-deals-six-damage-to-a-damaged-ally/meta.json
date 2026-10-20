@@ -1,0 +1,25 @@
+{
+    "name": "merciless-toss-deals-six-damage-to-a-damaged-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ZIU4bH6D9q"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ZIU4bH6D9q"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 6 damage to target ally if it's damaged. Otherwise, deal 2 damage to it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

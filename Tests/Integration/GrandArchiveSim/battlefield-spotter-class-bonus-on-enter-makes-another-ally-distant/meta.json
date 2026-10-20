@@ -1,0 +1,26 @@
+{
+    "name": "battlefield-spotter-class-bonus-on-enter-makes-another-ally-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:51:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "44vm5kt3q2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "44vm5kt3q2"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Another target ally you control becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

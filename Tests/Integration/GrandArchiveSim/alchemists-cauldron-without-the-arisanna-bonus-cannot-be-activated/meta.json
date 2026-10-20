@@ -1,0 +1,24 @@
+{
+    "name": "alchemists-cauldron-without-the-arisanna-bonus-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:19:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Bt9xeTum94"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Bt9xeTum94"
+        ],
+        "mechanics": [
+            "arisanna-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Arisanna Bonus] (3)**, Banish CARDNAME:"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

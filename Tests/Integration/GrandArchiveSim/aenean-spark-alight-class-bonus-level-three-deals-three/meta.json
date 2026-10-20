@@ -1,0 +1,25 @@
+{
+    "name": "aenean-spark-alight-class-bonus-level-three-deals-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cm1pdhFEz7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cm1pdhFEz7"
+        ],
+        "mechanics": [
+            "damage",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus][Level 3+] Deal 3 unpreventable damage to that unit instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "wulin-lancer-gets-plus-two-power-when-the-currents-change-from-north-to-west",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:18:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1i2luu7dft"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1i2luu7dft"
+        ],
+        "mechanics": [
+            "currents",
+            "trigger",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Whenever your Shifting Currents change from facing North to West, CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

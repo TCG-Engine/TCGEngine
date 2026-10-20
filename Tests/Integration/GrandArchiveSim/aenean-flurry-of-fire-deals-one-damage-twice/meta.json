@@ -1,0 +1,24 @@
+{
+    "name": "aenean-flurry-of-fire-deals-one-damage-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6Sv5qIpglQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6Sv5qIpglQ"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 1 damage to target unit twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

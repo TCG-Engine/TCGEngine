@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-poseidon-without-the-boon-the-water-card-cannot-be-activated",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:16:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xTY2LZ01o7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xTY2LZ01o7"
+        ],
+        "mechanics": [
+            "static",
+            "element",
+            "condition"
+        ],
+        "rulesClauses": [
+            "WATER element is enabled for you."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

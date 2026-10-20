@@ -1,0 +1,25 @@
+{
+    "name": "performance-enthusiast-activating-a-melody-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "FXPxYpv8nV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "FXPxYpv8nV"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "melody"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a Harmony or Melody card, if there are no **buff** counters on CARDNAME, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

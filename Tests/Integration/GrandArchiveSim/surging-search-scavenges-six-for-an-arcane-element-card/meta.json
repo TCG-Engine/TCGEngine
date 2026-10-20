@@ -1,0 +1,23 @@
+{
+    "name": "surging-search-scavenges-six-for-an-arcane-element-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h0vBIZjzrI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h0vBIZjzrI"
+        ],
+        "mechanics": [
+            "scavenge"
+        ],
+        "rulesClauses": [
+            "**Scavenge 6** for an arcane element card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

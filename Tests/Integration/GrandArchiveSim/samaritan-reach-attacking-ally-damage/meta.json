@@ -7,10 +7,20 @@
         "MskPCrbv0L"
     ],
     "semanticCoverage": {
-        "testedCards": ["MskPCrbv0L"],
-        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "testedCards": [
+            "MskPCrbv0L"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "damage",
+            "condition"
+        ],
         "rulesClauses": [
             "Deal 3 damage to target attacking ally you don't control."
         ]
+    },
+    "sourceScenario": {
+        "seed": 42
     }
 }

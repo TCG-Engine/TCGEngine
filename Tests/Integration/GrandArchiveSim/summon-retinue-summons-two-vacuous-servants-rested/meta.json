@@ -1,0 +1,25 @@
+{
+    "name": "summon-retinue-summons-two-vacuous-servants-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7qg90wqPHs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7qg90wqPHs"
+        ],
+        "mechanics": [
+            "token",
+            "summon",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Summon** two Vacuous Servant tokens rested. Then if you have three or more **omens**, wake them up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

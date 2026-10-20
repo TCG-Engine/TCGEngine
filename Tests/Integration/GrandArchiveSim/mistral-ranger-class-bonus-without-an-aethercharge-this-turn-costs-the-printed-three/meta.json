@@ -1,0 +1,25 @@
+{
+    "name": "mistral-ranger-class-bonus-without-an-aethercharge-this-turn-costs-the-printed-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:19:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lClyP34mj6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lClyP34mj6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you've activated an Aethercharge card this turn"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

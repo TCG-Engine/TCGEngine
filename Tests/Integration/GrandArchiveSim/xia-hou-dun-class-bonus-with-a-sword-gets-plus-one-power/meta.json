@@ -1,0 +1,26 @@
+{
+    "name": "xia-hou-dun-class-bonus-with-a-sword-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:59:16+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gc18dq28my"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "gc18dq28my"
+        ],
+        "mechanics": [
+            "static-ability",
+            "class-bonus",
+            "weapon-condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you control a Sword or Bow weapon, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "oasis-trading-post-four-rest-gathers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:20:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uy4xippor7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uy4xippor7"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "gather"
+        ],
+        "rulesClauses": [
+            "(4), [REST]: **Gather**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "skirting-step-not-imbued-only-makes-the-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:11:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "brq9x9z2k2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "brq9x9z2k2"
+        ],
+        "mechanics": [
+            "imbue",
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

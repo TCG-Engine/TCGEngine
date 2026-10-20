@@ -1,0 +1,24 @@
+{
+    "name": "weiss-knight-commanded-will-adds-one-power-to-a-command-attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:49:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "IBXLKkBUe1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "IBXLKkBUe1"
+        ],
+        "mechanics": [
+            "keyword",
+            "commanded-will"
+        ],
+        "rulesClauses": [
+            "**Commanded Will 1** *(As long as this unit is attacking using a Command card, it gets +1 [POWER].)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

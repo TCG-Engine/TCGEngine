@@ -1,0 +1,25 @@
+{
+    "name": "glorious-presence-paying-only-the-printed-cost-is-not-enough",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:03:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5s2aumgjzn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5s2aumgjzn"
+        ],
+        "mechanics": [
+            "static",
+            "cost-increase",
+            "shenju"
+        ],
+        "rulesClauses": [
+            "As long as you control a Shenju ally, advanced element cards your opponents activate cost 2 more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "razorblade-execution-imbued-class-bonus-on-kill-puts-a-preparation-counter-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:32:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "myvztzk3v8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "myvztzk3v8"
+        ],
+        "mechanics": [
+            "imbue",
+            "class-bonus",
+            "on-kill",
+            "counter",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Imbue 3**",
+            "[Class Bonus] **On Kill**: If Razorblade Execution is **imbued**, put a **preparation** counter on your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

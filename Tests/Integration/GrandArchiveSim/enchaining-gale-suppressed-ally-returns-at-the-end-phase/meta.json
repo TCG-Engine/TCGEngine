@@ -1,0 +1,23 @@
+{
+    "name": "enchaining-gale-suppressed-ally-returns-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:28:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xhs5jwsl7d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xhs5jwsl7d"
+        ],
+        "mechanics": [
+            "suppress"
+        ],
+        "rulesClauses": [
+            "**Suppress** target ally. *(To **suppress** an ally, banish it and return it to the field under its owner's control at the beginning of the next end phase.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

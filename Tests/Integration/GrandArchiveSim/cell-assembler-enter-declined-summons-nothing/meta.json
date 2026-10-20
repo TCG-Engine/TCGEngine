@@ -1,0 +1,24 @@
+{
+    "name": "cell-assembler-enter-declined-summons-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vc8sugly4w"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vc8sugly4w"
+        ],
+        "mechanics": [
+            "on-enter",
+            "optional-cost"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may pay (2). If you do, **summon** a Powercell token rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

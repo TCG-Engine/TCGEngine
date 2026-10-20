@@ -1,0 +1,25 @@
+{
+    "name": "ravenous-pyre-class-bonus-enter-draws-then-discards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:37:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pjdsfqbgit"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pjdsfqbgit"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw-discard",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Draw a card and discard a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

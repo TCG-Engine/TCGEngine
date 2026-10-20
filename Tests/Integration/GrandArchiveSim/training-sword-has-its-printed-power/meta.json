@@ -1,0 +1,23 @@
+{
+    "name": "training-sword-has-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b0qlk9j6le"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b0qlk9j6le"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            "Training Sword (no rules text)"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

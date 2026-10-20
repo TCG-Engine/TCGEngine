@@ -1,0 +1,26 @@
+{
+    "name": "bubble-mage-without-the-class-bonus-only-rests",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:44:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0n0DM1T9gz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0n0DM1T9gz"
+        ],
+        "mechanics": [
+            "on-enter",
+            "rest",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Class Bonus:** Until end of turn, if that unit would take damage, it takes that much damage plus 1 instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

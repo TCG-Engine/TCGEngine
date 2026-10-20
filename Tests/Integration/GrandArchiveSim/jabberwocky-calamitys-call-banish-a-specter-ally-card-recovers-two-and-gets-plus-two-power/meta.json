@@ -1,0 +1,27 @@
+{
+    "name": "jabberwocky-calamitys-call-banish-a-specter-ally-card-recovers-two-and-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:57:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yicNKtzC3H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yicNKtzC3H"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "recover",
+            "stat-change",
+            "cost"
+        ],
+        "rulesClauses": [
+            "(2)**, Banish a Specter ally card from your graveyard:** **Recover 2** and CARDNAME gets +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

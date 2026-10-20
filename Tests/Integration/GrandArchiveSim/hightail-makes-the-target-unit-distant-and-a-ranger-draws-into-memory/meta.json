@@ -1,0 +1,26 @@
+{
+    "name": "hightail-makes-the-target-unit-distant-and-a-ranger-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Xy8loj55gJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Xy8loj55gJ"
+        ],
+        "mechanics": [
+            "distant",
+            "draw-into-memory",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes **distant**. If that unit is a Ranger, draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

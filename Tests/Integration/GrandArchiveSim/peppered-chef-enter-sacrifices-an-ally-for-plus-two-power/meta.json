@@ -1,0 +1,26 @@
+{
+    "name": "peppered-chef-enter-sacrifices-an-ally-for-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:17:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lcy0lw1veb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lcy0lw1veb"
+        ],
+        "mechanics": [
+            "on-enter",
+            "additional-effect",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "On Enter: You may sacrifice another ally. If you do, Peppered Chef gets +2 [POWER] until end of turn."
+        ]
+    },
+    "notes": "Regression: the Chef was tagged through its pre-sacrifice mz id, which pointed at an empty slot after the field compacted, so it never got the +2 POWER.",
+    "sourceScenario": {
+        "seed": 42
+    }
+}

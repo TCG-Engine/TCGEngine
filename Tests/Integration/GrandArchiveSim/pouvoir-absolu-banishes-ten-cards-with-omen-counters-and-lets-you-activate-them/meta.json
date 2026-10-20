@@ -6,5 +6,22 @@
     "testedCards": [
         "OylAWd6Tew",
         "nn48ne8a05"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "OylAWd6Tew",
+            "nn48ne8a05"
+        ],
+        "mechanics": [
+            "omen",
+            "banish",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "[Ciel Bonus] Banish the top ten cards of your deck and put an omen counter on each of them. For the rest of the game, you may activate your omens."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
 }

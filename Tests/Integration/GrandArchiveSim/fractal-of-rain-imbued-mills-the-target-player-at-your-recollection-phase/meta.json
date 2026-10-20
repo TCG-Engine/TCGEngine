@@ -1,0 +1,27 @@
+{
+    "name": "fractal-of-rain-imbued-mills-the-target-player-at-your-recollection-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T18:57:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3zb9p4lgdl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3zb9p4lgdl"
+        ],
+        "mechanics": [
+            "imbue",
+            "triggered-ability",
+            "recollection",
+            "mill",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, if CARDNAME is **imbued**, target player puts the top card of their deck into their graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

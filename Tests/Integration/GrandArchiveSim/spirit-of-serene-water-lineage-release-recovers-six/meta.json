@@ -1,0 +1,24 @@
+{
+    "name": "spirit-of-serene-water-lineage-release-recovers-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zq9ox7u6wz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zq9ox7u6wz"
+        ],
+        "mechanics": [
+            "lineage-release",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**Lineage Release** -- **Recover 6**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

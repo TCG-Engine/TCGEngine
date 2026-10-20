@@ -1,0 +1,27 @@
+{
+    "name": "cardiac-vessel-class-bonus-moves-all-damage-counters-onto-it-and-draws-with-fifteen-or-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:19:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "5xjzPh6l2M"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "5xjzPh6l2M"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "on-enter",
+            "damage-counters",
+            "draw"
+        ],
+        "rulesClauses": [
+            "Move all damage counters from your champion onto CARDNAME. If fifteen or more counters were moved this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

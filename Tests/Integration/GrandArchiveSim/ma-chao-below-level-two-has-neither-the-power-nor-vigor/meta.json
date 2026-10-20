@@ -1,0 +1,25 @@
+{
+    "name": "ma-chao-below-level-two-has-neither-the-power-nor-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:39:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fw8yvhf3mz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fw8yvhf3mz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+]"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

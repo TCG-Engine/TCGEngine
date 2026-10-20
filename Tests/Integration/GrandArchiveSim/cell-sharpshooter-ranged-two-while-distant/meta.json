@@ -1,0 +1,25 @@
+{
+    "name": "cell-sharpshooter-ranged-two-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:46:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "etaebjlwab"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "etaebjlwab"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "energetic-beastbonder-lets-a-pride-beast-obey-by-raising-your-champion-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:21:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "q2okpDFJw5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "q2okpDFJw5"
+        ],
+        "mechanics": [
+            "static-ability",
+            "level-gate",
+            "pride"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

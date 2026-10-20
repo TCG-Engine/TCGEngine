@@ -1,0 +1,23 @@
+{
+    "name": "rile-the-abyss-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:11:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ye7f7o5yut"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ye7f7o5yut"
+        ],
+        "mechanics": [
+            "draw-discard"
+        ],
+        "rulesClauses": [
+            "Draw a card. Then discard up to two Specter cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "frigid-bash-costs-two-less-while-you-control-a-shield-item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:57:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k2c7wklzjm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k2c7wklzjm"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate If you control a Shield item."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

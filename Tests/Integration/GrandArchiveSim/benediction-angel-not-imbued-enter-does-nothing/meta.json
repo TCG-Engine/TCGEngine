@@ -1,0 +1,25 @@
+{
+    "name": "benediction-angel-not-imbued-enter-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:34:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kl4bTg57Cj"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kl4bTg57Cj"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter:** If CARDNAME is **imbued**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

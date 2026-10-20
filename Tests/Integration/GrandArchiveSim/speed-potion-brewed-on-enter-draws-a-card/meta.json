@@ -1,0 +1,26 @@
+{
+    "name": "speed-potion-brewed-on-enter-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:44:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0Z1r8GC8a8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0Z1r8GC8a8"
+        ],
+        "mechanics": [
+            "brew",
+            "on-enter",
+            "draw"
+        ],
+        "rulesClauses": [
+            "**Brew \u2014** Two Herbs",
+            "**On Enter:** If CARDNAME was **brewed**, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

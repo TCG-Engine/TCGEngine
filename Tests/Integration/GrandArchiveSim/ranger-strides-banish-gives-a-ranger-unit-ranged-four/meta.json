@@ -1,0 +1,26 @@
+{
+    "name": "ranger-strides-banish-gives-a-ranger-unit-ranged-four",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:23:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "pvxb5hrfsu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "pvxb5hrfsu"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "ranged",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish Ranger Strides:** Target Ranger unit gains **ranged 4** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

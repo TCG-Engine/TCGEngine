@@ -16,7 +16,10 @@
             "additional-cost-discard",
             "auto-rest"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "(2), Discard a Chessman Command card: Target Chessman ally you control gets +1 [LIFE] until end of turn. Draw a card into your memory.",
+            "An activated ability only rests its source when its cost includes [REST]."
+        ]
     },
     "engineBug": {
         "status": "fixed",

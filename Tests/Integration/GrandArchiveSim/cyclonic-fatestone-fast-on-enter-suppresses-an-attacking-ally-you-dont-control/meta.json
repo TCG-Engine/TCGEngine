@@ -1,0 +1,28 @@
+{
+    "name": "cyclonic-fatestone-fast-on-enter-suppresses-an-attacking-ally-you-dont-control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:19:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l6410a85dn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l6410a85dn"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation",
+            "on-enter",
+            "suppress",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Fast Activation**",
+            "**On Enter**: **Suppress** target attacking ally you don't control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

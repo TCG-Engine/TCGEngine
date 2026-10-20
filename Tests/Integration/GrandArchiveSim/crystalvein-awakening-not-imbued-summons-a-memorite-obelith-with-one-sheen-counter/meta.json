@@ -1,0 +1,26 @@
+{
+    "name": "crystalvein-awakening-not-imbued-summons-a-memorite-obelith-with-one-sheen-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:14:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jH3ZOavGPR"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jH3ZOavGPR"
+        ],
+        "mechanics": [
+            "summon",
+            "token",
+            "counter",
+            "imbue"
+        ],
+        "rulesClauses": [
+            "**Summon** a Memorite Obelith token with a **sheen** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

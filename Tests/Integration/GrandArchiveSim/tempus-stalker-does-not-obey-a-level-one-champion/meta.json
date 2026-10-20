@@ -1,0 +1,24 @@
+{
+    "name": "tempus-stalker-does-not-obey-a-level-one-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xp6qqi6vwf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xp6qqi6vwf"
+        ],
+        "mechanics": [
+            "pride",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Pride 2**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

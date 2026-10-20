@@ -1,0 +1,25 @@
+{
+    "name": "tempest-silverback-without-the-class-bonus-has-its-printed-stats",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HWFWO0TB8l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HWFWO0TB8l"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +2 [POWER] and +2 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

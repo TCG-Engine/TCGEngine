@@ -1,0 +1,25 @@
+{
+    "name": "vanishing-shot-rests-to-load-itself-into-an-unloaded-gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:50:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0iqmyn2rz3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0iqmyn2rz3"
+        ],
+        "mechanics": [
+            "load",
+            "rest",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

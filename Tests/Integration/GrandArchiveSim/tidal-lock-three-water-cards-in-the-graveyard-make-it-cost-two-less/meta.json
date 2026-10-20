@@ -1,0 +1,24 @@
+{
+    "name": "tidal-lock-three-water-cards-in-the-graveyard-make-it-cost-two-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:40:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c4poa10ezw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c4poa10ezw"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "graveyard-count"
+        ],
+        "rulesClauses": [
+            "As long as you have three or more water element cards in your graveyard, this card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

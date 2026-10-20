@@ -1,0 +1,25 @@
+{
+    "name": "saprotrophy-enter-recovers-two-plus-the-tera-cards-in-the-banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:35:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qSxEKgmQ0I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qSxEKgmQ0I"
+        ],
+        "mechanics": [
+            "on-enter",
+            "recover",
+            "banishment"
+        ],
+        "rulesClauses": [
+            "**On Enter: ** **Recover 2+X**, where **X** is the amount of tera element cards in your banishment."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "ardus-floodborne-deacon-enter-puts-the-top-three-cards-into-the-graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:30:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EKiMJfgvSI"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EKiMJfgvSI"
+        ],
+        "mechanics": [
+            "on-enter",
+            "mill"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Put the top three cards of your deck into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

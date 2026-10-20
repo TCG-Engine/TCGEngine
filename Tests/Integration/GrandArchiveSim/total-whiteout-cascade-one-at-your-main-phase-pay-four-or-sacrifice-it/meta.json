@@ -1,0 +1,26 @@
+{
+    "name": "total-whiteout-cascade-one-at-your-main-phase-pay-four-or-sacrifice-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:03:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "O4mD40xpbY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "O4mD40xpbY"
+        ],
+        "mechanics": [
+            "cascade",
+            "main-phase",
+            "cost",
+            "sacrifice"
+        ],
+        "rulesClauses": [
+            "At the beginning of your main phase, **cascade**\u2014 \u2022 1\u2014  Pay (4) or sacrifice CARDNAME.  \u2022 2\u2014 Sacrifice CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

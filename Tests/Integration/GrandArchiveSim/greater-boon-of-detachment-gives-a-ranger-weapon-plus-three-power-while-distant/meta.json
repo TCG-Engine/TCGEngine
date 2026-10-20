@@ -1,0 +1,26 @@
+{
+    "name": "greater-boon-of-detachment-gives-a-ranger-weapon-plus-three-power-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:46:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MzGWQK0E2o"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MzGWQK0E2o"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "stat-change",
+            "once-per-turn",
+            "distant"
+        ],
+        "rulesClauses": [
+            "(3): Target Ranger weapon gets +3[POWER] until end of turn. Activate this ability only once during each of your turns, and only if your champion is **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "aenean-cyclic-winds-below-level-five-returns-only-the-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:08:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "3GjTPUfsp3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "3GjTPUfsp3"
+        ],
+        "mechanics": [
+            "level-gate",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 5+] Reveal up to two wind element cards from your memory"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

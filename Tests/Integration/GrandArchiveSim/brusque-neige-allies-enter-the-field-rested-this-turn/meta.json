@@ -1,0 +1,23 @@
+{
+    "name": "brusque-neige-allies-enter-the-field-rested-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:36:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "irt72g89zc"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "irt72g89zc"
+        ],
+        "mechanics": [
+            "enters-rested"
+        ],
+        "rulesClauses": [
+            "Until end of turn, allies enter the field rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

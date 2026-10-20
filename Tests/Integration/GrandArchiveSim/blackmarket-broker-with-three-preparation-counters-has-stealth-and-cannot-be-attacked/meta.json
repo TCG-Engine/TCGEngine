@@ -1,0 +1,25 @@
+{
+    "name": "blackmarket-broker-with-three-preparation-counters-has-stealth-and-cannot-be-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:36:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hHVf5xyjob"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hHVf5xyjob"
+        ],
+        "mechanics": [
+            "stealth",
+            "condition",
+            "counter"
+        ],
+        "rulesClauses": [
+            "CARDNAME has **stealth** as long as your champion has three or more **preparation** counters on them."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

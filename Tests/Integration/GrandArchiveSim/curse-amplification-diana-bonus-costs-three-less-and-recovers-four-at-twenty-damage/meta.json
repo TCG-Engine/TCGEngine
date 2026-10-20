@@ -1,0 +1,26 @@
+{
+    "name": "curse-amplification-diana-bonus-costs-three-less-and-recovers-four-at-twenty-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:07:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x9z2k2a5ig"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x9z2k2a5ig"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "cost-reduction",
+            "recover",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] This card costs 3 less to activate. If your champion has twenty or more damage counters on them, **recover 4**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

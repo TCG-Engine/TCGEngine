@@ -1,0 +1,26 @@
+{
+    "name": "omen-elements-chrysalis-dual",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:44:44+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wsqvfsyid4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wsqvfsyid4"
+        ],
+        "mechanics": [
+            "omen",
+            "element",
+            "condition",
+            "suppress"
+        ],
+        "rulesClauses": [
+            "Ciel Bonus On Enter: two or more wind omens enable suppression."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

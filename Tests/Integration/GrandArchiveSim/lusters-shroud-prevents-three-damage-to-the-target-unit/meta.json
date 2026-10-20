@@ -1,0 +1,24 @@
+{
+    "name": "lusters-shroud-prevents-three-damage-to-the-target-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:33:20+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tizLamFGPS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tizLamFGPS"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "The next time target unit would be dealt damage this turn, prevent 3 of that damage."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

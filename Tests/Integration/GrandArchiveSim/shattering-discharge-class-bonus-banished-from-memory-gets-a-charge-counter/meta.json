@@ -1,0 +1,26 @@
+{
+    "name": "shattering-discharge-class-bonus-banished-from-memory-gets-a-charge-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uutqo9hm33"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uutqo9hm33"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "banish",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever this card is banished from your memory, put a **charge** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

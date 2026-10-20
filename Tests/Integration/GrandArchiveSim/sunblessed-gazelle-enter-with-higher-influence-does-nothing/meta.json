@@ -1,0 +1,25 @@
+{
+    "name": "sunblessed-gazelle-enter-with-higher-influence-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:54:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4ilomec3u3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4ilomec3u3"
+        ],
+        "mechanics": [
+            "on-enter",
+            "influence",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**On Enter**: If your **influence** is three or less, draw a card and **recover 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

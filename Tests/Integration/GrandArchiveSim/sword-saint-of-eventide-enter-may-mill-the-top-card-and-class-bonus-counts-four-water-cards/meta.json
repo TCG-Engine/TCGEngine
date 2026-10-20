@@ -1,0 +1,29 @@
+{
+    "name": "sword-saint-of-eventide-enter-may-mill-the-top-card-and-class-bonus-counts-four-water-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:01:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lve1my3486"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lve1my3486"
+        ],
+        "mechanics": [
+            "on-enter",
+            "look",
+            "mill",
+            "class-bonus",
+            "deluge",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Look at the top card of your deck. You may put it into your graveyard.",
+            "[Class Bonus] As long as you have four or more water element cards in your graveyard, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

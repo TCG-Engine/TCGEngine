@@ -1,0 +1,25 @@
+{
+    "name": "hymn-of-gaias-grace-puts-an-animal-ally-from-hand-onto-the-field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:07:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "okDVkV1l76"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "okDVkV1l76"
+        ],
+        "mechanics": [
+            "glimpse",
+            "draw",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "**Glimpse 3**. Draw a card. You may put an Animal or Beast ally card with reserve cost **LV** or less from your hand onto the field."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "novice-healer-class-bonus-enter-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b9p4lgdlx7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b9p4lgdlx7"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Recover 3**."
+        ]
+    },
+    "behaviorFamily": true
+}

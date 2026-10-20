@@ -1,0 +1,24 @@
+{
+    "name": "longtail-grovesward-fast-activation-can-be-played-from-a-response-window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:16:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jn4mwv930y"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jn4mwv930y"
+        ],
+        "mechanics": [
+            "keyword",
+            "fast-activation"
+        ],
+        "rulesClauses": [
+            "**Fast Activation** *(You may activate this card at fast speed.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

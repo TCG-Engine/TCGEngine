@@ -1,0 +1,26 @@
+{
+    "name": "misty-whispertail-sacrifice-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:48:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tJAIMX3C4R"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tJAIMX3C4R"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "sacrifice",
+            "draw-into-memory",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Sacrifice CARDNAME:** If CARDNAME was not **ephemeral**, draw a card into your memory. Otherwise, **recover 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

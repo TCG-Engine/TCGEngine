@@ -1,0 +1,24 @@
+{
+    "name": "beastbond-ears-without-an-animal-or-beast-has-no-level-bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:16:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JPcFmCpdiF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JPcFmCpdiF"
+        ],
+        "mechanics": [
+            "static-ability",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

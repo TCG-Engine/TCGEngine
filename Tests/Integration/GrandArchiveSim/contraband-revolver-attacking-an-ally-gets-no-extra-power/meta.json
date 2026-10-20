@@ -1,0 +1,24 @@
+{
+    "name": "contraband-revolver-attacking-an-ally-gets-no-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:40:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8iopvc8sug"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8iopvc8sug"
+        ],
+        "mechanics": [
+            "condition",
+            "on-attack"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** If the attacker is attacking a champion, CARDNAME gets +2 [POWER] for this attack."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

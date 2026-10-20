@@ -1,0 +1,24 @@
+{
+    "name": "orbiting-cosmos-glimpses-one-more-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:06:47+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qM9yzxQbfF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qM9yzxQbfF"
+        ],
+        "mechanics": [
+            "glimpse",
+            "replacement"
+        ],
+        "rulesClauses": [
+            "If you would **glimpse** an amount, **glimpse X** instead, where **X** is that amount plus 1."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

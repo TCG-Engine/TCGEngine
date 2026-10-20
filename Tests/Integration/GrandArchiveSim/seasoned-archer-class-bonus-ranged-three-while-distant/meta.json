@@ -1,0 +1,24 @@
+{
+    "name": "seasoned-archer-class-bonus-ranged-three-while-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fvyhuxzjk8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fvyhuxzjk8"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Ranged 3** *(As long as this unit is **distant**, its attacks get +3 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

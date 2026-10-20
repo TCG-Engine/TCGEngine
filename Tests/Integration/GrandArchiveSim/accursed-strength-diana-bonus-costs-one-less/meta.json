@@ -1,0 +1,24 @@
+{
+    "name": "accursed-strength-diana-bonus-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T14:07:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "j3fkza233s"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "j3fkza233s"
+        ],
+        "mechanics": [
+            "diana-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Diana Bonus] This card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

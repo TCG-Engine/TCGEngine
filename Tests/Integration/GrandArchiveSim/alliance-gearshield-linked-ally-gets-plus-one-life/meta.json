@@ -1,0 +1,24 @@
+{
+    "name": "alliance-gearshield-linked-ally-gets-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "c8ljyevpmu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "c8ljyevpmu"
+        ],
+        "mechanics": [
+            "link",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Linked ally gets +1 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "organize-the-alliance-class-bonus-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:37:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ch2bbmoqk2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ch2bbmoqk2"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Floating Memory** *(While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

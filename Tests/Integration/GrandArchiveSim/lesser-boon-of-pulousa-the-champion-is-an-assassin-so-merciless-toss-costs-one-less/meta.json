@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-pulousa-the-champion-is-an-assassin-so-merciless-toss-costs-one-less",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:15:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "V6yubXhzYB"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "V6yubXhzYB"
+        ],
+        "mechanics": [
+            "static",
+            "class-grant",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Your champion is an Assassin class in addition to their other types."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

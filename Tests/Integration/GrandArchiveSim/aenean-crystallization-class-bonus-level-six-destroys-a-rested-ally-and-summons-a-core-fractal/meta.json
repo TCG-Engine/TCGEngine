@@ -1,0 +1,29 @@
+{
+    "name": "aenean-crystallization-class-bonus-level-six-destroys-a-rested-ally-and-summons-a-core-fractal",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:09:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YDjxpBd8Fm"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YDjxpBd8Fm"
+        ],
+        "mechanics": [
+            "destroy",
+            "targeting",
+            "class-bonus",
+            "level-gate",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "Destroy target rested ally.",
+            "[Class Bonus] [Level 6+] **Summon** a Core Fractal token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

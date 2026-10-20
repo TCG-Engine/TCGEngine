@@ -1,0 +1,26 @@
+{
+    "name": "pyrolysis-sage-class-bonus-enter-banishes-a-fire-card-to-empower-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:13:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VJdQQmnL2Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VJdQQmnL2Z"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "banish",
+            "empower"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** You may banish a fire element card from your graveyard. If you do, **empower 2**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

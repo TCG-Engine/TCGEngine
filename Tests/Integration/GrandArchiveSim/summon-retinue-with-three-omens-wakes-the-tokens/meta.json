@@ -1,0 +1,25 @@
+{
+    "name": "summon-retinue-with-three-omens-wakes-the-tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:44:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7qg90wqPHs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "7qg90wqPHs"
+        ],
+        "mechanics": [
+            "omen",
+            "status",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Then if you have three or more **omens**, wake them up."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

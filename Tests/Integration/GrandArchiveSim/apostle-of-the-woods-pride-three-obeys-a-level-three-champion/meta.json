@@ -1,0 +1,22 @@
+{
+    "name": "apostle-of-the-woods-pride-three-obeys-a-level-three-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:26:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sg2ghTKuDt"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sg2ghTKuDt"
+        ],
+        "mechanics": [
+            "pride",
+            "keyword",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "**Pride 3**"
+        ]
+    }
+}

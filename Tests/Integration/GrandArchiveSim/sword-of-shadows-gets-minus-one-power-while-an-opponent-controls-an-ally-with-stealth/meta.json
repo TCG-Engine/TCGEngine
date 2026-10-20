@@ -1,0 +1,25 @@
+{
+    "name": "sword-of-shadows-gets-minus-one-power-while-an-opponent-controls-an-ally-with-stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:25:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zcvq77mdgd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zcvq77mdgd"
+        ],
+        "mechanics": [
+            "condition",
+            "stealth",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "As long as an opponent controls an ally with **stealth**, Sword of Shadows gets -1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

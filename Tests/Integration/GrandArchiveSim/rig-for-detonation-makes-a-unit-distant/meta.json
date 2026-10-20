@@ -1,0 +1,24 @@
+{
+    "name": "rig-for-detonation-makes-a-unit-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Tx3kHOY6vh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Tx3kHOY6vh"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target unit becomes distant."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "windstream-mutt-on-enter-reveals-a-wind-memory-card-and-buffs-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:43:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1o0tKizBZ6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1o0tKizBZ6"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "reveal-look",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Reveal a card at random from your memory. If that card is wind element, choose another ally you control and put a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

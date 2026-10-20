@@ -1,0 +1,25 @@
+{
+    "name": "fan-of-insight-banish-returns-a-card-from-memory-to-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sz1ty7vq6z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sz1ty7vq6z"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "zone-movement",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Return a card from your memory to your hand."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "scars-of-old-class-bonus-buffs-each-damaged-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:42:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lD0sK81PZT"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lD0sK81PZT"
+        ],
+        "mechanics": [
+            "counter",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put a buff counter on each damaged ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

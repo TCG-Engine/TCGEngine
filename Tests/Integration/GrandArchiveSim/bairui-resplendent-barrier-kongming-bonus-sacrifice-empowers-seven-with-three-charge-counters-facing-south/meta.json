@@ -1,0 +1,27 @@
+{
+    "name": "bairui-resplendent-barrier-kongming-bonus-sacrifice-empowers-seven-with-three-charge-counters-facing-south",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:47:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "sqGcyYocLW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "sqGcyYocLW"
+        ],
+        "mechanics": [
+            "kongming-bonus",
+            "sacrifice",
+            "empower",
+            "condition",
+            "shifting-currents"
+        ],
+        "rulesClauses": [
+            "[Kongming Bonus] **Sacrifice CARDNAME:** **Empower 7**. Activate this ability only if there are three **charge** counters on CARDNAME and only if your Shifting Currents face South."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

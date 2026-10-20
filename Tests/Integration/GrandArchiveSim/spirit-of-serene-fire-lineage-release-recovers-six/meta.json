@@ -1,0 +1,24 @@
+{
+    "name": "spirit-of-serene-fire-lineage-release-recovers-six",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:24:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "da2ha4dk88"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "da2ha4dk88"
+        ],
+        "mechanics": [
+            "lineage-release",
+            "recover"
+        ],
+        "rulesClauses": [
+            "**Lineage Release** -- **Recover 6**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

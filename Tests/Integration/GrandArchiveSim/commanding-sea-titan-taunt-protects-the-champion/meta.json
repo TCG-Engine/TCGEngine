@@ -1,0 +1,24 @@
+{
+    "name": "commanding-sea-titan-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:47:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "y5e4a8a23l"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "y5e4a8a23l"
+        ],
+        "mechanics": [
+            "taunt",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "**Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

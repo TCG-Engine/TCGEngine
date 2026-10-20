@@ -1,0 +1,23 @@
+{
+    "name": "fatebound-caracal-third-printing-intercept-redirects-the-attack-on-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "r1nS4nDTyM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "r1nS4nDTyM"
+        ],
+        "mechanics": [
+            "keyword",
+            "intercept",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

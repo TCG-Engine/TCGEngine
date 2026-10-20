@@ -1,0 +1,25 @@
+{
+    "name": "lost-spirit-enter-draws-seven-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cFdWXaILRT"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cFdWXaILRT"
+        ],
+        "mechanics": [
+            "on-enter",
+            "draw",
+            "champion"
+        ],
+        "rulesClauses": [
+            "**On Enter:** Draw seven cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

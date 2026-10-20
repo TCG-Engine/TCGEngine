@@ -1,0 +1,23 @@
+{
+    "name": "hardy-veteran-class-bonus-without-a-weapon-has-no-retort",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "VmCVxy9J9J"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "VmCVxy9J9J"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "condition",
+            "retort"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you control a weapon, CARDNAME has **retort 3**."
+        ]
+    },
+    "behaviorFamily": true
+}

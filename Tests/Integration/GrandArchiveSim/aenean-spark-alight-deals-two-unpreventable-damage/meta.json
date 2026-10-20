@@ -1,0 +1,25 @@
+{
+    "name": "aenean-spark-alight-deals-two-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cm1pdhFEz7"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cm1pdhFEz7"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "unpreventable"
+        ],
+        "rulesClauses": [
+            "Deal 2 unpreventable damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

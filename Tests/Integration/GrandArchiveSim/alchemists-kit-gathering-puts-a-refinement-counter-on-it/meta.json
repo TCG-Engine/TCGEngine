@@ -1,0 +1,25 @@
+{
+    "name": "alchemists-kit-gathering-puts-a-refinement-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:44:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ettczb14m4"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ettczb14m4"
+        ],
+        "mechanics": [
+            "trigger",
+            "counter",
+            "gather"
+        ],
+        "rulesClauses": [
+            "Whenever you **gather**, put a **refinement** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

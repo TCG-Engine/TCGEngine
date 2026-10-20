@@ -1,0 +1,24 @@
+{
+    "name": "crimson-rupture-below-twenty-damage-costs-its-full-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:13:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qeZRvGbXkF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qeZRvGbXkF"
+        ],
+        "mechanics": [
+            "damage-threshold",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Damage 20+] This card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

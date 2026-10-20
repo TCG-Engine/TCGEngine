@@ -1,0 +1,22 @@
+{
+    "name": "thunderclap-rejects-a-champion-target",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T17:19:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0xm513tj3j"
+    ],
+    "notes": "Negative path of Thunderclap: the champion is refused as a target, then the ally is chosen.",
+    "semanticCoverage": {
+        "testedCards": [
+            "0xm513tj3j"
+        ],
+        "mechanics": [
+            "targeting",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target ally."
+        ]
+    }
+}

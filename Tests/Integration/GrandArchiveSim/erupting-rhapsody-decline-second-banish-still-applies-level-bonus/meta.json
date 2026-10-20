@@ -15,7 +15,9 @@
             "optional-choice-decline",
             "turn-effect"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "Banish any amount of fire element cards from your graveyard. Your champion gets +1 level until end of turn for each card banished this way."
+        ]
     },
     "engineBug": {
         "status": "fixed",

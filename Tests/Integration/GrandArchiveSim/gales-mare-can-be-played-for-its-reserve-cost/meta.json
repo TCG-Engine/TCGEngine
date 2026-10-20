@@ -1,0 +1,23 @@
+{
+    "name": "gales-mare-can-be-played-for-its-reserve-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "flHhosV3nC"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "flHhosV3nC"
+        ],
+        "mechanics": [
+            "vanilla"
+        ],
+        "rulesClauses": [
+            ""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

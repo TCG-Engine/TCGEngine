@@ -1,0 +1,25 @@
+{
+    "name": "bill-chimney-sweep-alice-bonus-ephemerate-skips-the-sacrifice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:43:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s9ICPMYPNx"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s9ICPMYPNx"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "ephemerate",
+            "cost"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] **Ephemerate \u2014 **(5), Discard a card. *(You may activate this card from your graveyard by paying this cost. Ally cards played this way become **ephemeral** as they enter the field.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

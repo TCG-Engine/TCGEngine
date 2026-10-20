@@ -1,0 +1,27 @@
+{
+    "name": "torrential-blast-class-bonus-mills-two-and-deals-damage-equal-to-water-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:21:41+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vwbcizm6h3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vwbcizm6h3"
+        ],
+        "mechanics": [
+            "mill",
+            "damage",
+            "class-bonus",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Put the top two cards of your deck into your graveyard.",
+            "Deal an amount of damage to up to one target ally equal to the amount of water element cards in your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

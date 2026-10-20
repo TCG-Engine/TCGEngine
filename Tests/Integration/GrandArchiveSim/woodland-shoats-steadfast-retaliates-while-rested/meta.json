@@ -1,0 +1,23 @@
+{
+    "name": "woodland-shoats-steadfast-retaliates-while-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:11:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0qmwwihhn2"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "0qmwwihhn2"
+        ],
+        "mechanics": [
+            "keyword",
+            "steadfast",
+            "retaliate"
+        ],
+        "rulesClauses": [
+            "**Steadfast** *(This ally can retaliate while rested and doesn't rest to do so.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

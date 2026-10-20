@@ -1,0 +1,25 @@
+{
+    "name": "fiery-momentum-without-the-class-bonus-deals-its-printed-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "LUfgfsWTTO"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "LUfgfsWTTO"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER] for each fire element card in your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

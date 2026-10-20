@@ -1,0 +1,27 @@
+{
+    "name": "aenean-reclaim-level-3-returns-the-ally-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:27:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "DCzUre54F9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "DCzUre54F9"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "draw-into-memory",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "Return target ally you control to its owner\u2019s hand.",
+            "[Class Bonus] [Level 3+] Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

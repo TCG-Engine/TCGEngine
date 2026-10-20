@@ -1,0 +1,27 @@
+{
+    "name": "merlin-memory-thief-rest-banishes-a-graveyard-card-and-a-floating-memory-card-gives-a-level-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:19:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "umSsPWqb5H"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "umSsPWqb5H"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "banish",
+            "counter",
+            "condition",
+            "rest"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Choose a card from a graveyard and banish it. If that card has **floating memory**, put a **level** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

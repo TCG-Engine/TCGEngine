@@ -1,0 +1,25 @@
+{
+    "name": "perfusive-envelopment-recollection-recovers-the-amount-of-blood-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:18:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rRfRKqCBqF"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rRfRKqCBqF"
+        ],
+        "mechanics": [
+            "recollection",
+            "recover",
+            "blood"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, **recover X**, where **X** is the amount of **blood** counters on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

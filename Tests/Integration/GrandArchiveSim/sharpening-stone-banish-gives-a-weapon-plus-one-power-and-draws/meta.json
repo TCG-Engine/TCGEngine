@@ -1,0 +1,27 @@
+{
+    "name": "sharpening-stone-banish-gives-a-weapon-plus-one-power-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:23:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "usb5FgKvZX"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "usb5FgKvZX"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "stat-change",
+            "draw",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Up to one target Dagger or Sword weapon you control gets +1 [POWER] until end of turn. Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

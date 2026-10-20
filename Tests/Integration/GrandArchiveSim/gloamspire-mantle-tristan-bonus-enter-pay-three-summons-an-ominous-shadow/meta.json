@@ -1,0 +1,27 @@
+{
+    "name": "gloamspire-mantle-tristan-bonus-enter-pay-three-summons-an-ominous-shadow",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T09:11:28+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fooz13xfpk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fooz13xfpk"
+        ],
+        "mechanics": [
+            "tristan-bonus",
+            "on-enter",
+            "payment",
+            "summon",
+            "token"
+        ],
+        "rulesClauses": [
+            "[Tristan Bonus] **On Enter:** You may pay (3). If you do, **summon** an Ominous Shadow token."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "command-the-hunt-gives-allies-plus-two-power-and-vigor-for-two-less-if-no-unit-attacked",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:36:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rxxwQT054x"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rxxwQT054x"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "stat-change",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "This card costs 2 less to activate if no units have attacked this turn. Allies you control get +2 [POWER] and gain **vigor** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

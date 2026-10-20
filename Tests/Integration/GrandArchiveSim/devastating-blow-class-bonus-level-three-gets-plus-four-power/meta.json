@@ -1,0 +1,25 @@
+{
+    "name": "devastating-blow-class-bonus-level-three-gets-plus-four-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:34:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "At1UNRG7F0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "At1UNRG7F0"
+        ],
+        "mechanics": [
+            "combat",
+            "class-bonus",
+            "level-gate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Level 3+] CARDNAME gets +4 [POWER] and can't be retaliated."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

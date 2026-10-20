@@ -1,0 +1,25 @@
+{
+    "name": "dong-zhou-false-liege-declining-the-rest-does-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:45:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lrbcgpny3d"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lrbcgpny3d"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "optional"
+        ],
+        "rulesClauses": [
+            "You may rest CARDNAME. If you do, choose two"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

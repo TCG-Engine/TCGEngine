@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tcgengine-grandarchive-card-code",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "vars": { "CARD_CODE_ROOT": "GrandArchiveSim" },
+  "triggers": { "crons": ["0 0 * * *"] },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "tcgengine-grandarchive-card-code",
+    "database_id": "f2ff71ec-7570-461f-a759-7847625ff3f3",
+    "migrations_dir": "migrations"
+  }]
+}

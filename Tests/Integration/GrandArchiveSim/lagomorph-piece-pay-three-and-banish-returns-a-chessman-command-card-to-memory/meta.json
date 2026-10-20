@@ -1,0 +1,26 @@
+{
+    "name": "lagomorph-piece-pay-three-and-banish-returns-a-chessman-command-card-to-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T22:01:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "JwgigfOaG8"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JwgigfOaG8"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "zone-movement",
+            "targeting",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(3), **Banish CARDNAME: **Return target Chessman Command card from your graveyard to your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

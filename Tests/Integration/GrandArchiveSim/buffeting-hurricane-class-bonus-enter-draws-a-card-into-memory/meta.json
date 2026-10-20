@@ -1,0 +1,26 @@
+{
+    "name": "buffeting-hurricane-class-bonus-enter-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:28:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CjL1WPvWHw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CjL1WPvWHw"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

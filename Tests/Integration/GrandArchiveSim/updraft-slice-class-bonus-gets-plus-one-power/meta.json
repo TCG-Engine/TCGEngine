@@ -1,0 +1,25 @@
+{
+    "name": "updraft-slice-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T14:04:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "k5RG5TNLAp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "k5RG5TNLAp"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

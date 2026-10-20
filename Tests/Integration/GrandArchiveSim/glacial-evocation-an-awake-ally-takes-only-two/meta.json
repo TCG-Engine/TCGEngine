@@ -1,0 +1,25 @@
+{
+    "name": "glacial-evocation-an-awake-ally-takes-only-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:30:59+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mr1lmsbjcf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mr1lmsbjcf"
+        ],
+        "mechanics": [
+            "damage",
+            "condition",
+            "rested"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to target ally. If that unit is rested, deal 3 damage to it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

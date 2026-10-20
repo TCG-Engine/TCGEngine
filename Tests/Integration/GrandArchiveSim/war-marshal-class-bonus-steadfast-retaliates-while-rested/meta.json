@@ -1,0 +1,24 @@
+{
+    "name": "war-marshal-class-bonus-steadfast-retaliates-while-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:38:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dlvr8wunhg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dlvr8wunhg"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "keyword",
+            "steadfast",
+            "retaliate"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Steadfast** *(This ally can retaliate while rested and doesn't rest to do so.)*"
+        ]
+    },
+    "behaviorFamily": true
+}

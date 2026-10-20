@@ -1,0 +1,24 @@
+{
+    "name": "freezing-steel-makes-the-next-items-enter-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:19:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "x7mdk0xhi5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "x7mdk0xhi5"
+        ],
+        "mechanics": [
+            "enters-rested",
+            "item"
+        ],
+        "rulesClauses": [
+            "The next time one or more items would enter the field this turn, those items enter the field rested instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

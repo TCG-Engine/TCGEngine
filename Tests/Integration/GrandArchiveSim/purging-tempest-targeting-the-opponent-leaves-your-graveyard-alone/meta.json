@@ -1,0 +1,24 @@
+{
+    "name": "purging-tempest-targeting-the-opponent-leaves-your-graveyard-alone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:03:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "yuo7dbge3b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "yuo7dbge3b"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "if one or more cards would enter target player's graveyard"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "vaporjet-shieldbearer-class-bonus-on-hit-may-mill-the-top-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:11:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8lrj52215u"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "8lrj52215u"
+        ],
+        "mechanics": [
+            "on-hit",
+            "class-bonus",
+            "look",
+            "mill"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Hit:** Look at the top card of your deck. You may put that card into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

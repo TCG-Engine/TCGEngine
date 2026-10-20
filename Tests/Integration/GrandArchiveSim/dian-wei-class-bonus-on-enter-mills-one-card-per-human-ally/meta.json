@@ -1,0 +1,26 @@
+{
+    "name": "dian-wei-class-bonus-on-enter-mills-one-card-per-human-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T15:00:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "h42l1w67ry"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "h42l1w67ry"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "mill",
+            "human"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter**: For each Human ally you control, put the top card of your deck into your graveyard."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

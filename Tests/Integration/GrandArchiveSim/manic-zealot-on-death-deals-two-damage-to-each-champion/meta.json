@@ -1,0 +1,24 @@
+{
+    "name": "manic-zealot-on-death-deals-two-damage-to-each-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:20:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ttkk39i1f0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ttkk39i1f0"
+        ],
+        "mechanics": [
+            "on-death",
+            "damage"
+        ],
+        "rulesClauses": [
+            "On Death: Deal 2 damage to each champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

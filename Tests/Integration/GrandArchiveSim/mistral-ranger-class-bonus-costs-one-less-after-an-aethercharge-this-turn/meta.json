@@ -1,0 +1,25 @@
+{
+    "name": "mistral-ranger-class-bonus-costs-one-less-after-an-aethercharge-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:19:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lClyP34mj6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lClyP34mj6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] As long as you've activated an Aethercharge card this turn, this card costs 1 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

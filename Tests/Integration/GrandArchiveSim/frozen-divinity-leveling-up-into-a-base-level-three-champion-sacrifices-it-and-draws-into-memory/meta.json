@@ -1,0 +1,27 @@
+{
+    "name": "frozen-divinity-leveling-up-into-a-base-level-three-champion-sacrifices-it-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:02:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1PrDQ1EX0F"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1PrDQ1EX0F"
+        ],
+        "mechanics": [
+            "trigger",
+            "level-up",
+            "sacrifice",
+            "draw",
+            "memory"
+        ],
+        "rulesClauses": [
+            "Whenever your champion levels up into a champion with base level 3, sacrifice CARDNAME and draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

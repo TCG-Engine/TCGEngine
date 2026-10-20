@@ -1,0 +1,26 @@
+{
+    "name": "zhao-yun-dragonsblood-class-bonus-on-attack-trades-two-damage-for-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:19:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mwfrfo3wzq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mwfrfo3wzq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "self-damage",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack:** You may have CARDNAME deal 2 unpreventable damage to your champion. If you do, this attack gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

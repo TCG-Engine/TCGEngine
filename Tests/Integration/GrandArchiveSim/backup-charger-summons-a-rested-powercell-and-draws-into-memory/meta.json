@@ -1,0 +1,26 @@
+{
+    "name": "backup-charger-summons-a-rested-powercell-and-draws-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9gv4vm4kj3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9gv4vm4kj3"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "summon",
+            "draw-into-memory",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "(3), **Banish CARDNAME:** **Summon** a Powercell token rested. Draw a card into your memory."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

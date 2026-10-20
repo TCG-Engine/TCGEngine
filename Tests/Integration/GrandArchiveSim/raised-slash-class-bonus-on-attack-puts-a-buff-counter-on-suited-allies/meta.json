@@ -1,0 +1,26 @@
+{
+    "name": "raised-slash-class-bonus-on-attack-puts-a-buff-counter-on-suited-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:58:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fuqfxq13uz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fuqfxq13uz"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "counter",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: Put a **buff** counter on up to two target Suited allies you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

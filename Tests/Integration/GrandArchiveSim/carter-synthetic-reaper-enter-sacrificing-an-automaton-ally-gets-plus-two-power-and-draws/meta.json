@@ -1,0 +1,27 @@
+{
+    "name": "carter-synthetic-reaper-enter-sacrificing-an-automaton-ally-gets-plus-two-power-and-draws",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:59:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1wl8ao8bls"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1wl8ao8bls"
+        ],
+        "mechanics": [
+            "on-enter",
+            "sacrifice",
+            "stat-change",
+            "draw",
+            "optional"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You may sacrifice another ally. If you do, Carter gets +2 [POWER] until end of turn. If an Automaton ally was sacrificed this way, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

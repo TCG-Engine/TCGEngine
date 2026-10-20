@@ -1,0 +1,26 @@
+{
+    "name": "priestess-of-flame-class-bonus-enter-deals-three-to-your-champion-and-gathers-twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T23:14:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "opvc8sugly"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "opvc8sugly"
+        ],
+        "mechanics": [
+            "on-enter",
+            "damage",
+            "gather",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: You may have CARDNAME deal 3 damage to your champion. If you do, gather twice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

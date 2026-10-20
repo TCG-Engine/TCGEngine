@@ -1,0 +1,24 @@
+{
+    "name": "sidestep-gives-an-ally-stealth-until-end-of-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:49+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "voy5ttkk39"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "voy5ttkk39"
+        ],
+        "mechanics": [
+            "stealth",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target ally gains **stealth** until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

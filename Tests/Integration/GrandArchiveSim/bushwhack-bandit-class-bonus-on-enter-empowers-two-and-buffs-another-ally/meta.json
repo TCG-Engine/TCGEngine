@@ -1,0 +1,28 @@
+{
+    "name": "bushwhack-bandit-class-bonus-on-enter-empowers-two-and-buffs-another-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "kT8CeTFj82"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "kT8CeTFj82"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "empower",
+            "trigger",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Empower 2**.",
+            "[Class Bonus] Whenever you **empower**, put a **buff** counter on another target ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

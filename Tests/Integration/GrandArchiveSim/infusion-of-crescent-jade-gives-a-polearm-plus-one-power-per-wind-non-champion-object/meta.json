@@ -1,0 +1,24 @@
+{
+    "name": "infusion-of-crescent-jade-gives-a-polearm-plus-one-power-per-wind-non-champion-object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:34:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "91jnc6v71t"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "91jnc6v71t"
+        ],
+        "mechanics": [
+            "stat-change",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Polearm weapon gets +1 [POWER] until end of turn for each wind element non-champion object you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

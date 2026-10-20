@@ -1,0 +1,25 @@
+{
+    "name": "nuriel-without-three-advanced-cards-is-not-imbued-and-gets-no-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:47:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b9lli2PE7I"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b9lli2PE7I"
+        ],
+        "mechanics": [
+            "imbue",
+            "advanced-imbue",
+            "condition"
+        ],
+        "rulesClauses": [
+            "**Advanced Imbue 3**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

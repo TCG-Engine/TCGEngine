@@ -1,0 +1,24 @@
+{
+    "name": "labyrinth-jeweled-opus-class-bonus-costs-three-less-to-activate",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:32:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A58xZJJMz6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "A58xZJJMz6"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 3 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

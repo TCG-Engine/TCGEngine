@@ -1,0 +1,25 @@
+{
+    "name": "breezy-looper-level-zero-on-enter-returns-nothing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:23:39+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "hWgb4jDmEg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "hWgb4jDmEg"
+        ],
+        "mechanics": [
+            "on-enter",
+            "level-gate",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Level 1+] **On Enter:**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

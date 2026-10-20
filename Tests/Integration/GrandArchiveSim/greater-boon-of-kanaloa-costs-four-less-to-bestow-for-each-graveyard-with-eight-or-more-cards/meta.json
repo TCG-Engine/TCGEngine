@@ -1,0 +1,24 @@
+{
+    "name": "greater-boon-of-kanaloa-costs-four-less-to-bestow-for-each-graveyard-with-eight-or-more-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:51:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xqkjh2YMT1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xqkjh2YMT1"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "graveyard"
+        ],
+        "rulesClauses": [
+            "This card costs 4 less to bestow for each graveyard with eight or more cards in it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

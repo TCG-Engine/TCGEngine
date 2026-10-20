@@ -1,0 +1,25 @@
+{
+    "name": "refabrication-influence-five-or-less-draws-two-cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:15:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cri23mf3vs"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cri23mf3vs"
+        ],
+        "mechanics": [
+            "influence",
+            "draw",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your **influence** is five or less, draw two cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

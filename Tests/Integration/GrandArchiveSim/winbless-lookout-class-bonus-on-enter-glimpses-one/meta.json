@@ -1,0 +1,25 @@
+{
+    "name": "winbless-lookout-class-bonus-on-enter-glimpses-one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:30:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oqcHHAmYCW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oqcHHAmYCW"
+        ],
+        "mechanics": [
+            "on-enter",
+            "class-bonus",
+            "glimpse"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** **Glimpse 1**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "axis-gale-scholar-north-currents-give-it-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:21:58+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "384b3yjlhu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "384b3yjlhu"
+        ],
+        "mechanics": [
+            "currents",
+            "stat-change",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as your Shifting Currents face North, CARDNAME gets +2 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

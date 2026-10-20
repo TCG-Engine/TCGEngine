@@ -1,0 +1,26 @@
+{
+    "name": "wicked-gildbreaker-against-influence-nine-has-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YZQ8JOHehb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "YZQ8JOHehb"
+        ],
+        "mechanics": [
+            "influence",
+            "condition",
+            "stealth",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "As long as an opponent has **influence** nine or more, CARDNAME has **stealth** and **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

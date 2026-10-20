@@ -1,0 +1,25 @@
+{
+    "name": "the-elysian-astrolabe-rest-lets-you-pay-nothing-for-starcalling-costs-this-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:42:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4nmxqsm4o9"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4nmxqsm4o9"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "starcalling"
+        ],
+        "rulesClauses": [
+            "[REST]**:** Until end of turn, you may pay (0) rather than pay a card's **starcalling** costs."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "conduit-of-the-mad-mage-floating-memory-pays-a-memory-cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:48:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6SXL09rEzS"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6SXL09rEzS"
+        ],
+        "mechanics": [
+            "floating-memory",
+            "memory-cost",
+            "banish"
+        ],
+        "rulesClauses": [
+            "**Floating Memory**"
+        ]
+    },
+    "behaviorFamily": true
+}

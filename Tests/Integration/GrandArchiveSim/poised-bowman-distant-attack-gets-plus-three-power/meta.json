@@ -1,0 +1,25 @@
+{
+    "name": "poised-bowman-distant-attack-gets-plus-three-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T01:45:02+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wkz77mbyj0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wkz77mbyj0"
+        ],
+        "mechanics": [
+            "keyword",
+            "ranged",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Ranged 3** *(As long as this unit is **distant**, its attacks get +3 [POWER].)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

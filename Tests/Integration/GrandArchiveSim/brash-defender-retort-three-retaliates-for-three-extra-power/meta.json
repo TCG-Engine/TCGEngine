@@ -1,0 +1,23 @@
+{
+    "name": "brash-defender-retort-three-retaliates-for-three-extra-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:10:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "i1sh9r9rda"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "i1sh9r9rda"
+        ],
+        "mechanics": [
+            "keyword",
+            "retort",
+            "combat"
+        ],
+        "rulesClauses": [
+            "**Retort 3** *(As long as this ally is retaliating, it gets +3 [POWER].)*"
+        ]
+    },
+    "behaviorFamily": true
+}

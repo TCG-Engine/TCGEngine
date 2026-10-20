@@ -1,0 +1,24 @@
+{
+    "name": "volcanic-crescendo-banishes-fire-cards-to-empower-by-three-plus-x",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "W3FveBmY0Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "W3FveBmY0Z"
+        ],
+        "mechanics": [
+            "empower",
+            "banish"
+        ],
+        "rulesClauses": [
+            "Banish any amount of fire element cards from your graveyard. Empower 3+X, where X is the amount of cards banished this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -16,7 +16,9 @@
             "diana-bonus",
             "on-attack"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Diana Bonus] On Attack: You may banish up to X fire element cards from your graveyard where X is the amount of Aethercharge cards in the attacker's intent. This attack gets +1 [POWER] for each card banished this way."
+        ]
     },
     "engineBug": {
         "status": "fixed",

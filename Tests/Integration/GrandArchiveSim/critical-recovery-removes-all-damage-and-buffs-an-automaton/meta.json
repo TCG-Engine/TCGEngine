@@ -1,0 +1,26 @@
+{
+    "name": "critical-recovery-removes-all-damage-and-buffs-an-automaton",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:50:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rx6p3p5iqi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rx6p3p5iqi"
+        ],
+        "mechanics": [
+            "heal",
+            "counter",
+            "condition",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Remove all temporary damage from target ally. If that ally is an Automaton, put a **buff** counter on it."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

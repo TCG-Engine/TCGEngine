@@ -1,0 +1,24 @@
+{
+    "name": "stellarion-shift-graveyard-prevention-absorbs-the-next-non-combat-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T02:17:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ms2x2v4qe3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ms2x2v4qe3"
+        ],
+        "mechanics": [
+            "graveyard-ability",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] [Element Bonus] (2), **Banish this card from your graveyard**: Your champion gains **stealth** until end of turn. Prevent the next 4 non-combat damage that would be dealt to them this turn. Activate this ability only if your champion is **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

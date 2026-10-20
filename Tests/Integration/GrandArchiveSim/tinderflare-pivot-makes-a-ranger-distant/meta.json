@@ -1,0 +1,24 @@
+{
+    "name": "tinderflare-pivot-makes-a-ranger-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:10:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s3bqtjayfn"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s3bqtjayfn"
+        ],
+        "mechanics": [
+            "distant",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Target Ranger unit becomes distant and gains ranged 1 until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

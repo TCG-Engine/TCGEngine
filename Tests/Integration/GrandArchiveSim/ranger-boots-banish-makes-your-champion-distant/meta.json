@@ -16,7 +16,9 @@
             "distant",
             "banish-self"
         ],
-        "rulesClauses": []
+        "rulesClauses": [
+            "[Class Bonus] [REST], Banish Ranger Boots: Your champion becomes distant."
+        ]
     },
     "engineBug": {
         "status": "fixed",

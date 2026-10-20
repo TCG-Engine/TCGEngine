@@ -1,0 +1,24 @@
+{
+    "name": "aqueous-enchanting-can-give-plus-one-life-instead",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:35:12+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fMv7tIOZwL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fMv7tIOZwL"
+        ],
+        "mechanics": [
+            "stat-change",
+            "choice"
+        ],
+        "rulesClauses": [
+            "Allies you control get your choice of +1 [POWER] or +1 [LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

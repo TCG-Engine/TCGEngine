@@ -1,0 +1,26 @@
+{
+    "name": "ravaging-tempest-banishes-all-allies-and-their-controllers-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:42:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "WsunZX4IlW"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "WsunZX4IlW"
+        ],
+        "mechanics": [
+            "banish",
+            "draw",
+            "efficiency"
+        ],
+        "rulesClauses": [
+            "**Efficiency** *(This card costs **LV** less to activate. **LV** refers to your champion's level.)*",
+            "Banish all allies. For each ally banished this way, its controller draws a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

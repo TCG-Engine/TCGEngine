@@ -1,0 +1,27 @@
+{
+    "name": "glacier-remnants-recollection-removes-durability-counters-and-recovers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T14:55:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vftUL7ZjFM"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vftUL7ZjFM"
+        ],
+        "mechanics": [
+            "triggered-ability",
+            "recollection",
+            "durability",
+            "recover",
+            "domain"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, remove up to two **durability** counters from CARDNAME. Then **recover X**, where **X** is the amount of counters removed this way."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

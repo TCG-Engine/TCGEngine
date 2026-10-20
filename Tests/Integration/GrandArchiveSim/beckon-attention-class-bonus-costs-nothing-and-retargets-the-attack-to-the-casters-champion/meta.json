@@ -1,0 +1,28 @@
+{
+    "name": "beckon-attention-class-bonus-costs-nothing-and-retargets-the-attack-to-the-casters-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:31:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rTesQpssPz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "rTesQpssPz"
+        ],
+        "mechanics": [
+            "reaction",
+            "class-bonus",
+            "cost-reduction",
+            "retarget",
+            "crowds-favor"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate.",
+            "Change the target of an attack that targets a unit you don't control to your champion. If you do, you gain the Crowd's Favor status."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

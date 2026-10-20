@@ -1,0 +1,25 @@
+{
+    "name": "razorgale-calling-deals-one-damage-to-a-champion-whenever-you-activate-a-wind-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "1m48260b7b"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "1m48260b7b"
+        ],
+        "mechanics": [
+            "trigger",
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Whenever you activate a wind element card, deal 1 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

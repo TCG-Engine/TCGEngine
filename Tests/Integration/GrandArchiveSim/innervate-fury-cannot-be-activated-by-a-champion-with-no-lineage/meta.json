@@ -1,0 +1,24 @@
+{
+    "name": "innervate-fury-cannot-be-activated-by-a-champion-with-no-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:11:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wpbhigka5a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wpbhigka5a"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "restriction"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, **delevel** your champion and **recover 5**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

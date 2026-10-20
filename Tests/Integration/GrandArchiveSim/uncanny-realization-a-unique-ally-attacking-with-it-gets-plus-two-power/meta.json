@@ -1,0 +1,26 @@
+{
+    "name": "uncanny-realization-a-unique-ally-attacking-with-it-gets-plus-two-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:56:38+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Nr5GpfLNrh"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Nr5GpfLNrh"
+        ],
+        "mechanics": [
+            "command-automaton",
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as a unique ally is attacking with CARDNAME, it gets +2[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

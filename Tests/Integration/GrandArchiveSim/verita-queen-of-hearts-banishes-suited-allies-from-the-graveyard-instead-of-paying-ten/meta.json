@@ -1,0 +1,25 @@
+{
+    "name": "verita-queen-of-hearts-banishes-suited-allies-from-the-graveyard-instead-of-paying-ten",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T01:32:01+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4qc47amgpp"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4qc47amgpp"
+        ],
+        "mechanics": [
+            "alternative-cost",
+            "banish",
+            "suited"
+        ],
+        "rulesClauses": [
+            "You may banish three or more Suited ally cards with total reserve cost 10 from your graveyard rather than pay this card's reserve cost."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

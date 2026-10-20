@@ -1,0 +1,25 @@
+{
+    "name": "nagas-fang-removing-a-preparation-counter-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:13:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "n67ghdh1t6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "n67ghdh1t6"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "counter",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**Remove a preparation counter from your champion:** CARDNAME gets +1 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

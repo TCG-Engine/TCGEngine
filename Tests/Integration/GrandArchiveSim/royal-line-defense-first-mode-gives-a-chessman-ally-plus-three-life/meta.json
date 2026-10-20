@@ -1,0 +1,25 @@
+{
+    "name": "royal-line-defense-first-mode-gives-a-chessman-ally-plus-three-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:34:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "9urNxU7SZw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "9urNxU7SZw"
+        ],
+        "mechanics": [
+            "reaction",
+            "modal",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Target Chessman ally gets +3[LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

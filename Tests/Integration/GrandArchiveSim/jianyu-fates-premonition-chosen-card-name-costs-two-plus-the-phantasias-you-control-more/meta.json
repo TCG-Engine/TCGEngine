@@ -1,0 +1,24 @@
+{
+    "name": "jianyu-fates-premonition-chosen-card-name-costs-two-plus-the-phantasias-you-control-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T02:03:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "qv0vn6tuow"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "qv0vn6tuow"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

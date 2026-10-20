@@ -1,0 +1,25 @@
+{
+    "name": "lesser-boon-of-distance-the-third-resolution-draws-a-card-into-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:42:55+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l8PytM9CpG"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "l8PytM9CpG"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw-into-memory",
+            "counter"
+        ],
+        "rulesClauses": [
+            "If this is the third time this ability has resolved, draw a card into your memory. Activate this ability only thrice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

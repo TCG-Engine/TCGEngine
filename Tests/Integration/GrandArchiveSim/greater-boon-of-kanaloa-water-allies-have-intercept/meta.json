@@ -1,0 +1,25 @@
+{
+    "name": "greater-boon-of-kanaloa-water-allies-have-intercept",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:51:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xqkjh2YMT1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "xqkjh2YMT1"
+        ],
+        "mechanics": [
+            "static",
+            "intercept",
+            "water"
+        ],
+        "rulesClauses": [
+            "Water element allies you control get +1[POWER] and +1[LIFE], and have **intercept** and **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

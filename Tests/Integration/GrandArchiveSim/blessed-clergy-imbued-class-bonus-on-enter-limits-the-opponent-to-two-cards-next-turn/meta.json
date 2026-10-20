@@ -1,0 +1,26 @@
+{
+    "name": "blessed-clergy-imbued-class-bonus-on-enter-limits-the-opponent-to-two-cards-next-turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:36:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "a3pmmloejo"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "a3pmmloejo"
+        ],
+        "mechanics": [
+            "imbue",
+            "on-enter",
+            "class-bonus",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** If CARDNAME is **imbued**, target player can\u2019t play more than two cards during their next turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

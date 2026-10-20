@@ -1,0 +1,24 @@
+{
+    "name": "scout-the-land-reorders-the-top-four-and-draws-the-new-top-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:03:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u68a4mwrg3"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "u68a4mwrg3"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "look"
+        ],
+        "rulesClauses": [
+            "Look at the top four cards of your deck and put them back in any order. Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

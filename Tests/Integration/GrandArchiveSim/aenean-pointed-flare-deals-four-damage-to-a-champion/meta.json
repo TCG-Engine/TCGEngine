@@ -1,0 +1,25 @@
+{
+    "name": "aenean-pointed-flare-deals-four-damage-to-a-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:58:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "BTapvu1Zvd"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "BTapvu1Zvd"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting",
+            "cost"
+        ],
+        "rulesClauses": [
+            "Deal 4 damage to target champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

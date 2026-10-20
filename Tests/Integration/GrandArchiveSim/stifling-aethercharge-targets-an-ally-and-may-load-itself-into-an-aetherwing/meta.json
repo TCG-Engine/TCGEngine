@@ -1,0 +1,24 @@
+{
+    "name": "stifling-aethercharge-targets-an-ally-and-may-load-itself-into-an-aetherwing",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T13:58:00+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bYrLVjKSCL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "bYrLVjKSCL"
+        ],
+        "mechanics": [
+            "target",
+            "load"
+        ],
+        "rulesClauses": [
+            "You may load CARDNAME into an Aetherwing weapon you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

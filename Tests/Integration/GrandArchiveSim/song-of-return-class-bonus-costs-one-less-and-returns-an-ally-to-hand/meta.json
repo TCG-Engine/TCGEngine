@@ -1,0 +1,26 @@
+{
+    "name": "song-of-return-class-bonus-costs-one-less-and-returns-an-ally-to-hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:41:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MwXulmKsIg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "MwXulmKsIg"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "class-bonus",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate. *(Apply this effect only if your champion's class matches this card's class.)*",
+            "Return up to two target allies you control to their owner's hands."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

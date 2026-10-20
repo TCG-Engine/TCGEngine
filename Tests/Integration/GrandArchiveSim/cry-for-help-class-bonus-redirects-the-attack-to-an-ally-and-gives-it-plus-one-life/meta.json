@@ -1,0 +1,25 @@
+{
+    "name": "cry-for-help-class-bonus-redirects-the-attack-to-an-ally-and-gives-it-plus-one-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:38:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "nIKhHFa0rK"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "nIKhHFa0rK"
+        ],
+        "mechanics": [
+            "redirect",
+            "combat",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "Change the target of an attack that targets your champion to an ally you control. **Class Bonus:** That ally gets +1 [LIFE] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

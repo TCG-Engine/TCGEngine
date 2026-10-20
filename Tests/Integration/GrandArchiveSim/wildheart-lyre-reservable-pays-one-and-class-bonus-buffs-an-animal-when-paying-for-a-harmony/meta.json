@@ -1,0 +1,26 @@
+{
+    "name": "wildheart-lyre-reservable-pays-one-and-class-bonus-buffs-an-animal-when-paying-for-a-harmony",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:54:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "50pcescfpw"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "50pcescfpw"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "trigger",
+            "buff",
+            "harmony"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you rest CARDNAME to pay for the reserve cost of a Harmony or Melody activation, put a **buff** counter on an Animal or Beast ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "luxeras-map-ability-cannot-be-activated-at-fast-speed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:01:34+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "s23UHXgcZq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "s23UHXgcZq"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "slow-speed",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Activate this ability only at slow speed."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

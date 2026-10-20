@@ -1,0 +1,24 @@
+{
+    "name": "aenean-repudiation-second-activation-costs-two-more-from-aenean-progression",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T15:39:50+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "t91W06HOqY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "t91W06HOqY"
+        ],
+        "mechanics": [
+            "aenean-progression",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "**Aenean Progression** *(This card costs (2) more to activate for each time you've resolved a card with **Aenean progression** this game.)*"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

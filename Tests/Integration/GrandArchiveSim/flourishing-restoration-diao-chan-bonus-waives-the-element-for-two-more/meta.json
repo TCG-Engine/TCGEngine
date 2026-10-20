@@ -1,0 +1,25 @@
+{
+    "name": "flourishing-restoration-diao-chan-bonus-waives-the-element-for-two-more",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-18T01:58:25+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "alnjt7DyZL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "alnjt7DyZL"
+        ],
+        "mechanics": [
+            "diao-chan-bonus",
+            "element-waiver",
+            "cost-increase"
+        ],
+        "rulesClauses": [
+            "[Diao Chan Bonus] You may ignore this card's elemental requirements as you activate it. If you do, it costs 2 more to activate."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

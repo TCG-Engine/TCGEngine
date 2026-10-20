@@ -1,0 +1,25 @@
+{
+    "name": "fatal-timepiece-recollection-without-a-materialization-deals-two-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:11:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6gvnta6qse"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6gvnta6qse"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition",
+            "damage"
+        ],
+        "rulesClauses": [
+            "At the beginning of each player's recollection phase, if they did not materialize a card this turn, deal 2 unpreventable damage to their champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

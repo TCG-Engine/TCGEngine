@@ -1,0 +1,25 @@
+{
+    "name": "plasma-vanguard-class-bonus-with-eleven-damage-gets-no-buff-counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T03:17:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wAabqFjdM5"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "wAabqFjdM5"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "If your champion has ten or less damage counters on them"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

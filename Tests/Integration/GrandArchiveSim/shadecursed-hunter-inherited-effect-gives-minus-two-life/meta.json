@@ -1,0 +1,24 @@
+{
+    "name": "shadecursed-hunter-inherited-effect-gives-minus-two-life",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:55:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "oqk2c7wklz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "oqk2c7wklz"
+        ],
+        "mechanics": [
+            "inherited-effect",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "**Inherited Effect:** This object gets -2 [LIFE]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

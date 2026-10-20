@@ -1,0 +1,25 @@
+{
+    "name": "hunt-weiss-king-rest-puts-a-buff-counter-on-a-knight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:56:26+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Y6PZntlVDl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "Y6PZntlVDl"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "modal",
+            "buff"
+        ],
+        "rulesClauses": [
+            "\u2022 Put a **buff** counter on a Chessman Knight ally."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "tweedledee-contrarian-poet-class-bonus-taunt-protects-the-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T13:58:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "EwUKdNL4bk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "EwUKdNL4bk"
+        ],
+        "mechanics": [
+            "taunt",
+            "class-bonus",
+            "attack-declaration"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **Taunt**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

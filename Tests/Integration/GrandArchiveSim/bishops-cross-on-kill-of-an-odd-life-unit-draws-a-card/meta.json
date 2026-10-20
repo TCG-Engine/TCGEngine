@@ -1,0 +1,28 @@
+{
+    "name": "bishops-cross-on-kill-of-an-odd-life-unit-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T21:31:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "lsKJCCuFJV"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "lsKJCCuFJV"
+        ],
+        "mechanics": [
+            "command-chessman",
+            "on-kill",
+            "draw-discard",
+            "combat",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "**Command Chessman**",
+            "**On Kill:** If the killed unit had an odd life stat, draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

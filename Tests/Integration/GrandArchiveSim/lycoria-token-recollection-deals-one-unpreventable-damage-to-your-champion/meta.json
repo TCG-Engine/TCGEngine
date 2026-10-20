@@ -1,0 +1,25 @@
+{
+    "name": "lycoria-token-recollection-deals-one-unpreventable-damage-to-your-champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:31:45+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "89nl1vcn33"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "89nl1vcn33"
+        ],
+        "mechanics": [
+            "recollection",
+            "self-damage",
+            "token"
+        ],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, deal 1 unpreventable damage to your champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

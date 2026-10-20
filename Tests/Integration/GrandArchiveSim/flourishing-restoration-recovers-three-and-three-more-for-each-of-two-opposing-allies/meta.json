@@ -1,0 +1,25 @@
+{
+    "name": "flourishing-restoration-recovers-three-and-three-more-for-each-of-two-opposing-allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T07:36:32+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "alnjt7DyZL"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "alnjt7DyZL"
+        ],
+        "mechanics": [
+            "recover",
+            "for-each",
+            "diao-chan-bonus"
+        ],
+        "rulesClauses": [
+            "**Recover 3**. Then for each of up to two allies you don't control, **recover 3** again."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

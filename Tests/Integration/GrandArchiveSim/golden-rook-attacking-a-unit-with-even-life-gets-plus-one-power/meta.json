@@ -1,0 +1,25 @@
+{
+    "name": "golden-rook-attacking-a-unit-with-even-life-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:19:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iCgcAFU458"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iCgcAFU458"
+        ],
+        "mechanics": [
+            "condition",
+            "stat-change",
+            "combat"
+        ],
+        "rulesClauses": [
+            "As long as CARDNAME is attacking a unit with an even life stat, CARDNAME gets +1[POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

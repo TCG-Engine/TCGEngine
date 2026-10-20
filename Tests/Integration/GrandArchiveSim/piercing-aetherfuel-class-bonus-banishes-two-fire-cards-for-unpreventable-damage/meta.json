@@ -1,0 +1,26 @@
+{
+    "name": "piercing-aetherfuel-class-bonus-banishes-two-fire-cards-for-unpreventable-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T22:30:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "vo5q7letxz"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "vo5q7letxz"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "banish",
+            "unpreventable",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] You may banish two fire element cards from your graveyard. If you do, your champion's next attack this turn using an Aetherwing weapon gains \"Combat damage dealt by this attack is unpreventable.\""
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

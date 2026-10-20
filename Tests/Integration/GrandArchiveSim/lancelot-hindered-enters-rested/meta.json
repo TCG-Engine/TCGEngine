@@ -1,0 +1,21 @@
+{
+    "name": "lancelot-hindered-enters-rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:28:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "w9n0wpbhig"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "w9n0wpbhig"
+        ],
+        "mechanics": [
+            "keyword",
+            "hindered"
+        ],
+        "rulesClauses": [
+            "**Hindered** *(This ally enters the field rested.)*"
+        ]
+    }
+}

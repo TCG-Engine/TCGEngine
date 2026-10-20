@@ -1,0 +1,24 @@
+{
+    "name": "shu-frontliner-without-a-horse-ally-costs-the-printed-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:37:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uhaao91ee1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uhaao91ee1"
+        ],
+        "mechanics": [
+            "cost-reduction",
+            "condition"
+        ],
+        "rulesClauses": [
+            "As long as you control a Horse ally"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

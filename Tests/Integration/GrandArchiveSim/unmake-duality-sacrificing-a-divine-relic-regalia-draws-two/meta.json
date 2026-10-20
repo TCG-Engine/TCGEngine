@@ -1,0 +1,26 @@
+{
+    "name": "unmake-duality-sacrificing-a-divine-relic-regalia-draws-two",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:58:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uWLKGJz1GY"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uWLKGJz1GY"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sacrifice",
+            "draw"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a regalia with **divine relic**.",
+            "Draw two cards."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

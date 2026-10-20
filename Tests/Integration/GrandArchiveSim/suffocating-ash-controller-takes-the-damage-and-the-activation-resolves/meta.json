@@ -1,0 +1,26 @@
+{
+    "name": "suffocating-ash-controller-takes-the-damage-and-the-activation-resolves",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T00:58:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d6xkecLJ5S"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "d6xkecLJ5S"
+        ],
+        "mechanics": [
+            "negate",
+            "damage",
+            "optional-cost",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "**Negate** target card activation unless its controller has CARDNAME deal 3+**LV** unpreventable damage to their champion."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

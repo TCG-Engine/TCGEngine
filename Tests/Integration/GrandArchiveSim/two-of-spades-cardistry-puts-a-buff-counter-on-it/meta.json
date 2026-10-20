@@ -1,0 +1,25 @@
+{
+    "name": "two-of-spades-cardistry-puts-a-buff-counter-on-it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:39:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "e8ygl32jef"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "e8ygl32jef"
+        ],
+        "mechanics": [
+            "cardistry",
+            "activated-ability",
+            "counter"
+        ],
+        "rulesClauses": [
+            "***Cardistry*** \u2014 (2): Put a **buff** counter on Two of Spades."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

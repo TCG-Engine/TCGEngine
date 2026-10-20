@@ -1,0 +1,25 @@
+{
+    "name": "golden-knight-without-the-alice-bonus-has-its-printed-power-against-taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:32:08+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "dJlNMQ5rWP"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "dJlNMQ5rWP"
+        ],
+        "mechanics": [
+            "alice-bonus",
+            "condition",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Alice Bonus] As long as CARDNAME is attacking a unit with **intercept** or **taunt**, CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

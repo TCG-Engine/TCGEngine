@@ -1,0 +1,25 @@
+{
+    "name": "combat-perspective-opposing-golden-rook",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:26:40+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "iCgcAFU458"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "iCgcAFU458"
+        ],
+        "mechanics": [
+            "combat",
+            "power",
+            "perspective"
+        ],
+        "rulesClauses": [
+            "While attacking a unit with even life, this gets one additional power."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

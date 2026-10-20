@@ -1,0 +1,23 @@
+{
+    "name": "cell-production-summons-two-rested-powercells",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T20:49:09+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "m6lGw6bQtb"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "m6lGw6bQtb"
+        ],
+        "mechanics": [
+            "summon"
+        ],
+        "rulesClauses": [
+            "**Summon** two Powercell tokens rested."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

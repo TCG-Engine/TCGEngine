@@ -1,0 +1,104 @@
+<?php
+/**
+ * Phase 3d (Norm): allies, second batch (combat keywords: intercept, retort, steadfast, ambush, stealth, true sight). 'quiet' deck.
+ */
+
+// ---- Fatebound Caracal (both printings) ----
+
+gaNormIntercept('fatebound-caracal-intercept-redirects-the-attack-on-the-champion', 'Fatebound Caracal', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
+gaNormRetort('fatebound-caracal-retort-two-retaliates-for-two-extra-power', 'Fatebound Caracal', 3, 'Retaliating with 1 + 2 power', '**Retort 2** *(As long as this ally is retaliating, it gets +2 [POWER].)*');
+gaNormIntercept('fatebound-caracal-second-printing-intercept-redirects-the-attack-on-the-champion', '#x8wc254ris', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
+gaNormRetort('fatebound-caracal-second-printing-retort-two-retaliates-for-two-extra-power', '#x8wc254ris', 3, 'Retaliating with 1 + 2 power', '**Retort 2** *(As long as this ally is retaliating, it gets +2 [POWER].)*');
+
+// ---- Brash Defender ----
+
+gaNormRetort('brash-defender-retort-three-retaliates-for-three-extra-power', 'Brash Defender', 4, 'Retaliating with 1 + 3 power', '**Retort 3** *(As long as this ally is retaliating, it gets +3 [POWER].)*');
+
+gaVigorMatrix('Brash Defender', 'Brash Defender', ['level-gate', 'vigor'], '[Level 1+] **Vigor** *(This unit wakes up at the beginning of your end phase. Apply this effect only if your champion is level 1 or higher.)*', [
+    'brash-defender-level-one-vigor-wakes-it-at-the-end-of-the-turn' => [['level' => 1], '2', 'Level 1: vigor woke the Defender at the end phase'],
+    'brash-defender-below-level-one-stays-rested' => [['level' => 0], '1', 'Level 0: no vigor, the Defender stays rested', ['level-gate', 'vigor'], '[Level 1+] **Vigor**'],
+]);
+
+// ---- Pride's Vanguard ----
+
+gaNormRetort('prides-vanguard-retort-two-retaliates-for-two-extra-power', 'Pride\'s Vanguard', 3, 'Retaliating with 1 + 2 power', '**Retort 2** *(As long as this ally is retaliating, it gets +2[POWER].)*');
+
+gaScenario('prides-vanguard-ambush-retaliates-for-another-ally-with-retort')
+    ->deckTemplate('quiet', 'Pride\'s Vanguard')
+    ->readyFor('Pride\'s Vanguard')
+    ->seed('myField', 'Dungeon Guide')
+    ->seed('myField', 'Pride\'s Vanguard')
+    ->seed('myField', 'Dungeon Guide', player: 2)
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)->answer(1, 'myField-2')
+    ->expectDamage('p2Field-1', 3, 'The ambusher retaliated for another ally: 1 + 2 retort power')
+    ->expectDamage('p1Field-2', 0, 'The Vanguard took no damage: it was never the defender')
+    ->tested('Pride\'s Vanguard')
+    ->covers(['keyword', 'ambush', 'retaliate'], '**Ambush** *(This ally may retaliate against attackers while not defending.)*')
+    ->register();
+
+// ---- Woodland Shoats ----
+
+gaNormRetort('woodland-shoats-steadfast-retaliates-while-rested', 'Woodland Shoats', 3, 'A rested steadfast ally retaliated with its 3 power', '**Steadfast** *(This ally can retaliate while rested and doesn\'t rest to do so.)*', false, ['keyword', 'steadfast', 'retaliate'], ['Status' => 1]);
+
+// ---- Hardy Veteran ----
+
+gaNormIntercept('hardy-veteran-intercept-redirects-the-attack-on-the-champion', 'Hardy Veteran', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
+gaNormRetort('hardy-veteran-class-bonus-with-a-weapon-has-retort-three', 'Hardy Veteran', 4, '[Class Bonus] With a weapon: retaliating with 1 + 3 power', '[Class Bonus] As long as you control a weapon, CARDNAME has **retort 3**.', true, ['class-bonus', 'condition', 'retort', 'combat'], [], [['myField', 'Zephyr\'s Edge']]);
+gaNormRetort('hardy-veteran-class-bonus-without-a-weapon-has-no-retort', 'Hardy Veteran', 1, '[Class Bonus] No weapon: retaliating with its printed 1 power', '[Class Bonus] As long as you control a weapon, CARDNAME has **retort 3**.', true, ['class-bonus', 'condition', 'retort']);
+
+// ---- Palace Guard ----
+
+gaNormRetort('palace-guard-class-bonus-retort-two-retaliates-for-two-extra-power', 'Palace Guard', 3, '[Class Bonus] Retaliating with 1 + 2 power', '[Class Bonus] **Retort 2** *(As long as this ally is retaliating, it gets +2 [POWER].)*', true, ['class-bonus', 'retort', 'combat']);
+gaNormRetort('palace-guard-without-the-class-bonus-retaliates-for-its-printed-power', 'Palace Guard', 1, 'No class bonus: retaliating with 1 power', '[Class Bonus] **Retort 2**', false, ['class-bonus', 'retort', 'condition']);
+
+// ---- Dreamy Unicorn ----
+
+gaNormIntercept('dreamy-unicorn-intercept-redirects-the-attack-on-the-champion', 'Dreamy Unicorn', '**Intercept** *(Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)*');
+
+gaOnDeathCase('dreamy-unicorn-on-death-puts-a-preparation-counter-on-the-champion', 'Dreamy Unicorn', 'Rotund Squirrel')
+    ->expectCardExists('myGraveyard', 'Dreamy Unicorn', 'The Unicorn took 2 damage and died')
+    ->expectProperty('p1Field-0', 'Counters', '{"preparation":1}', 'On Death: a preparation counter went on the champion')
+    ->tested('Dreamy Unicorn')
+    ->covers(['on-death', 'counter'], '**On Death**: Put a **preparation** counter on your champion.')
+    ->register();
+
+// ---- Stealth family ----
+
+gaNormStealth('imperial-assassin-class-bonus-stealth-cannot-be-targeted-by-attacks', 'Imperial Assassin', '[Class Bonus] **Stealth** *(This unit can\'t be targeted by attacks unless permitted by **true sight**.)*', true, ['class-bonus', 'keyword', 'stealth']);
+gaNormStealth('kingdom-informant-stealth-cannot-be-targeted-by-attacks', 'Kingdom Informant', '**Stealth** *(This unit can\'t be targeted by attacks unless permitted by **true sight**.)*');
+gaNormStealth('lurching-rogue-class-bonus-stealth-cannot-be-targeted-by-attacks', 'Lurching Rogue', '[Class Bonus] **Stealth** *(This unit can’t be targeted by attacks unless permitted by** true sight**.)*', true, ['class-bonus', 'keyword', 'stealth']);
+gaNormStealth('mourning-veilbound-stealth-cannot-be-targeted-by-attacks', 'Mourning Veilbound', '**Stealth** *(This unit can’t be targeted by attacks unless permitted by **true sight**.)*');
+gaNormStealth('proto-archive-scout-awake-has-stealth', 'Proto Archive Scout', 'CARDNAME has **stealth** as long as it’s awake.', false, ['condition', 'keyword', 'stealth']);
+
+gaScenario('proto-archive-scout-rested-has-no-stealth')
+    ->deckTemplate('quiet', 'Proto Archive Scout')
+    ->readyFor('Proto Archive Scout')
+    ->seed('myField', 'Proto Archive Scout', properties: ['Status' => 1])
+    ->seed('myField', 'Dungeon Guide', player: 2, properties: ['Status' => 2])
+    ->endTurn()
+    ->attack('myField-1', 'theirField-1', player: 2)
+    ->expectDamage('p1Field-1', 1, 'Rested: no stealth, so it could be attacked')
+    ->tested('Proto Archive Scout')
+    ->covers(['condition', 'keyword', 'stealth'], 'CARDNAME has **stealth** as long as it’s awake.')
+    ->register();
+
+// ---- True sight family ----
+
+gaNormTrueSight('ghostsight-mare-true-sight-attacks-a-stealth-unit', 'Ghostsight Mare', '**True Sight** *(This ally can attack units with **stealth**.)*');
+gaNormTrueSight('gray-lupindroid-true-sight-attacks-a-stealth-unit', 'Gray Lupindroid', '**True Sight** *(This ally can attack units with **stealth**.)*');
+gaNormTrueSight('bladed-riftseer-level-one-true-sight-attacks-a-stealth-unit', 'Bladed Riftseer', '[Level 1+] **True Sight**', false, 1, ['level-gate', 'keyword', 'true-sight', 'stealth']);
+
+gaScenario('bladed-riftseer-below-level-one-cannot-attack-a-stealth-unit')
+    ->deckTemplate('quiet', 'Bladed Riftseer')
+    ->readyFor('Bladed Riftseer', level: 0)
+    ->seed('myField', 'Bladed Riftseer')
+    ->seed('myField', 'Haze Droid', player: 2)
+    ->reachTurnThree()
+    ->action(1, 10002, 'myField-1!FSM!')
+    ->rejects(1, 'theirField-1', 'Level 0: no true sight, the stealth Haze Droid is not a legal target')
+    ->answer(1, 'theirField-0')
+    ->expectDamage('p2Field-1', 0, 'The Haze Droid was not attacked')
+    ->tested('Bladed Riftseer')
+    ->covers(['level-gate', 'true-sight', 'condition'], '[Level 1+] **True Sight**')
+    ->register();

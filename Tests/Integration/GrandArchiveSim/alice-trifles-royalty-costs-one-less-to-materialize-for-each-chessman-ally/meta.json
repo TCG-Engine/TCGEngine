@@ -1,0 +1,24 @@
+{
+    "name": "alice-trifles-royalty-costs-one-less-to-materialize-for-each-chessman-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T01:27:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "tzV8YfYdHg"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "tzV8YfYdHg"
+        ],
+        "mechanics": [
+            "materialize",
+            "cost-reduction"
+        ],
+        "rulesClauses": [
+            "This card costs 1 less to materialize for each Chessman ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

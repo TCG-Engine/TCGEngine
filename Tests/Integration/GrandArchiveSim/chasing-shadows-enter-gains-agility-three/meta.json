@@ -1,0 +1,24 @@
+{
+    "name": "chasing-shadows-enter-gains-agility-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T08:52:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CyiA6N2geQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "CyiA6N2geQ"
+        ],
+        "mechanics": [
+            "on-enter",
+            "agility"
+        ],
+        "rulesClauses": [
+            "**On Enter:** You gain **agility 3** for this turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

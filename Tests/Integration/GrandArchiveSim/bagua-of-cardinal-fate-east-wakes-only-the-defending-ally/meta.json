@@ -1,0 +1,24 @@
+{
+    "name": "bagua-of-cardinal-fate-east-wakes-only-the-defending-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T20:07:30+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "jgyx38zpl0"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "jgyx38zpl0"
+        ],
+        "mechanics": [
+            "status",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "\u2022 East\u2014 Wake up each defending ally. They each get +2 [POWER] until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

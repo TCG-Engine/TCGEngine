@@ -1,0 +1,25 @@
+{
+    "name": "bestial-frenzy-choosing-the-first-mode-gives-the-champion-plus-one-level",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:04:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "HsaWNAsmAQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "HsaWNAsmAQ"
+        ],
+        "mechanics": [
+            "modal",
+            "level",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "Your champion gets +1 level until end of turn."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

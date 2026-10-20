@@ -1,0 +1,26 @@
+{
+    "name": "yunzhou-cavalry-class-bonus-the-only-ally-gets-a-buff-counter-at-the-end-phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ann23jkuys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ann23jkuys"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "end-phase",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your end phase, if CARDNAME is the only ally you control, put a **buff** counter on CARDNAME."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

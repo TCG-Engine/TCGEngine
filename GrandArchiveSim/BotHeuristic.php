@@ -97,11 +97,7 @@ function GABotChooseActionHeuristic(array $actions, array $legal) {
     $player = intval($legal['playerID'] ?? 0);
 
     if ($kind === 'decision') {
-        // BotLegalActions.php already picked the single safe/conservative response for every
-        // decision type it recognizes (pay reserve with first hand card, decline YES/NO, decline
-        // optional choices, pick the first candidate for a required target choice) — nothing left
-        // to choose between here.
-        return $actions[0];
+        return GABotChooseDecision($actions, $legal);
     }
 
     // Free play. Prefer materializing (developing the board) over attacking on principle — a

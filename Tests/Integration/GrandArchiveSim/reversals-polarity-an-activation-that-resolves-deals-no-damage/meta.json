@@ -1,0 +1,24 @@
+{
+    "name": "reversals-polarity-an-activation-that-resolves-deals-no-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:52:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zVdqJRbsk1"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zVdqJRbsk1"
+        ],
+        "mechanics": [
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Whenever an arcane element card activation you control is **negated**"
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

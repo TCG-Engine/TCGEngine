@@ -1,0 +1,26 @@
+{
+    "name": "sinon-rest-and-sacrificing-a-powercell-cascades",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:51:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "GhxADim7Kf"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "GhxADim7Kf"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "rest",
+            "sacrifice",
+            "cascade"
+        ],
+        "rulesClauses": [
+            "**[REST], Sacrifice a Powercell:** **Cascade**\u2014 "
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

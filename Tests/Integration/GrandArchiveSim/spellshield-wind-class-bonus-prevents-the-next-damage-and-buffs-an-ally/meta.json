@@ -1,0 +1,27 @@
+{
+    "name": "spellshield-wind-class-bonus-prevents-the-next-damage-and-buffs-an-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-12T19:59:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "99sx6q3p6i"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "99sx6q3p6i"
+        ],
+        "mechanics": [
+            "prevent-damage",
+            "class-bonus",
+            "cost-reduction",
+            "counter"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "The next time damage would be dealt to your champion this turn, prevent that damage. If 3 or more damage was prevented this way, put a **buff** counter on an ally you control."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

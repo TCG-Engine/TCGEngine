@@ -1,0 +1,22 @@
+{
+    "name": "allied-warpriestess-class-bonus-gets-plus-one-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:30:43+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2tsn0ye3ae"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2tsn0ye3ae"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "stat-change"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 [POWER]."
+        ]
+    },
+    "behaviorFamily": true
+}

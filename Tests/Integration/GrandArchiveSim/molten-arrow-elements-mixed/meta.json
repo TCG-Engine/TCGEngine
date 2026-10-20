@@ -1,0 +1,26 @@
+{
+    "name": "molten-arrow-elements-mixed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T18:20:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "mvfcd0ukk6"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "mvfcd0ukk6"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "cost",
+            "element",
+            "load"
+        ],
+        "rulesClauses": [
+            "Fire membership includes Exalted Fire at each sequential cost choice."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

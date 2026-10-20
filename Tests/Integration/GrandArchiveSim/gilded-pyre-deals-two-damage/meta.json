@@ -1,0 +1,24 @@
+{
+    "name": "gilded-pyre-deals-two-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "eAoEELWtHi"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eAoEELWtHi"
+        ],
+        "mechanics": [
+            "damage",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to target unit."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

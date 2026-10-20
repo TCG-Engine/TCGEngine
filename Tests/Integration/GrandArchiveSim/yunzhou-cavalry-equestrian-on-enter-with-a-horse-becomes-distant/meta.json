@@ -1,0 +1,25 @@
+{
+    "name": "yunzhou-cavalry-equestrian-on-enter-with-a-horse-becomes-distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:27:18+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "ann23jkuys"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "ann23jkuys"
+        ],
+        "mechanics": [
+            "on-enter",
+            "distant",
+            "condition"
+        ],
+        "rulesClauses": [
+            "***Equestrian*** \u2014 **On Enter:** If you control a Horse ally, CARDNAME becomes **distant**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

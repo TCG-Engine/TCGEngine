@@ -1,0 +1,25 @@
+{
+    "name": "exsanguinating-wallop-class-bonus-on-attack-recovers-three",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T00:46:53+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "cicanyx695"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "cicanyx695"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-attack",
+            "recover"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Attack**: **Recover 3**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

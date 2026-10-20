@@ -1,0 +1,25 @@
+{
+    "name": "slipstream-target-cost-no-class",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-16T17:54:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6ilt42sehq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6ilt42sehq"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "class-bonus"
+        ],
+        "rulesClauses": [
+            "The class discount requires the actual target to be unique."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "pyroclastic-flow-deals-two-damage-to-all-units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-11T21:59:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4wiffei7ch"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "4wiffei7ch"
+        ],
+        "mechanics": [
+            "damage",
+            "sweep"
+        ],
+        "rulesClauses": [
+            "Deal 2 damage to all units."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

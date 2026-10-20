@@ -1,0 +1,26 @@
+{
+    "name": "mark-of-fervor-links-to-an-ally-for-plus-one-power-plus-one-life-and-vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T13:58:15+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "80mttsvbgl"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "80mttsvbgl"
+        ],
+        "mechanics": [
+            "ally-link",
+            "stat-change",
+            "vigor"
+        ],
+        "rulesClauses": [
+            "**Ally Link**",
+            "Linked ally gets +1 [POWER] and +1 [LIFE], and has **vigor**."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

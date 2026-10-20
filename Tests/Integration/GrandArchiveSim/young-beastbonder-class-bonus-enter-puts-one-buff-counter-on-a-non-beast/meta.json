@@ -1,0 +1,26 @@
+{
+    "name": "young-beastbonder-class-bonus-enter-puts-one-buff-counter-on-a-non-beast",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T15:13:35+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NwswAHojeq"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "NwswAHojeq"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "on-enter",
+            "counter",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] **On Enter:** Put a **buff** counter on another target ally you control. If that ally is a Beast, put two **buff** counters on it instead."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

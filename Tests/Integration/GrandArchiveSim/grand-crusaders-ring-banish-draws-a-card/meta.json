@@ -1,0 +1,25 @@
+{
+    "name": "grand-crusaders-ring-banish-draws-a-card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-13T21:08:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "2gv7DC0KID"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "2gv7DC0KID"
+        ],
+        "mechanics": [
+            "activated-ability",
+            "draw",
+            "banish-self"
+        ],
+        "rulesClauses": [
+            "**Banish CARDNAME:** Draw a card."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}

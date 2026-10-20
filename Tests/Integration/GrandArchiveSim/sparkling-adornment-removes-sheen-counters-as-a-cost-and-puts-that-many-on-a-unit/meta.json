@@ -1,0 +1,26 @@
+{
+    "name": "sparkling-adornment-removes-sheen-counters-as-a-cost-and-puts-that-many-on-a-unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-14T02:28:46+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "okZKM5DGRu"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "okZKM5DGRu"
+        ],
+        "mechanics": [
+            "additional-cost",
+            "sheen",
+            "counter-move"
+        ],
+        "rulesClauses": [
+            "As an additional cost to activate this card, remove one or more **sheen** counters from an object on the field.",
+            "Put **X** **sheen** counters on target unit, where **X** is the amount of counters removed."
+        ]
+    },
+    "sourceScenario": {
+        "seed": 42
+    }
+}
