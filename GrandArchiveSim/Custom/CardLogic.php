@@ -6,7 +6,9 @@ function GADatabaseGrantedAbilities($obj) {
     if(GAStaticProperty($obj->Controller, 'grantElysianEmpower', $obj) > 0) {
         $grants[] = ['cardID'=>'Ss991TWKR9', 'name'=>'REST: Empower 1'];
     }
-    if(GAStaticProperty($obj->Controller, 'grantNuminousSpell', $obj) > 0) {
+    // Numinous Monk only grants to regalia, including transformed objects.
+    if(PropertyContains(EffectiveCardType($obj), 'REGALIA')
+        && GAStaticProperty($obj->Controller, 'grantNuminousSpell', $obj) > 0) {
         $grants[] = ['cardID'=>'NBf2d3iqXp', 'name'=>'REST: As a Spell, deal 1 damage to a unit'];
     }
     return $grants;
@@ -55,11 +57,13 @@ function GAStaticProperty($player, $property, $subjectObj = null) {
     if(!in_array(intval($player), [1, 2], true) || !function_exists('EvaluateStaticPropertyModifier')) return 0;
     $value = 0;
     foreach(GetField($player) as $source) {
-        if($source === null || $source->removed || HasNoAbilities($source)) continue;
+        // Most field cards have no continuous modifier. Avoid suppression and
+        // evaluator work for them on every legality/observation query.
+        if($source === null || $source->removed || CardStaticPropertyModifierCount($source->CardID) <= 0 || HasNoAbilities($source)) continue;
         $value += EvaluateStaticPropertyModifier($source->CardID, $player, $property, $subjectObj, $source);
     }
     foreach(GetGlobalEffects($player) as $effect) {
-        if($effect === null || $effect->removed) continue;
+        if($effect === null || $effect->removed || CardStaticPropertyModifierCount($effect->CardID) <= 0) continue;
         $source = clone $effect;
         $source->Controller = $player;
         $source->_sourceZone = "GlobalEffects";

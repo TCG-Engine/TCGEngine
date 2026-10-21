@@ -23,6 +23,12 @@ try {
     $enemy=MZAddZone(2,'myField',CardNameToID('Bauble of Abundance'));
     remainingCheck(count(GADatabaseGrantedAbilities($regalia))===1, 'Monk grants a Spell ability to own regalia');
     remainingCheck(GADatabaseGrantedAbilities($enemy)===[], 'Monk does not grant to opposing regalia');
+    $ally=MZAddZone(1,'myField',CardNameToID('Esteemed Knight'));
+    remainingCheck(GADatabaseGrantedAbilities($ally)===[], 'Monk does not grant to ordinary allies');
+    ApplyPersistentOverride($ally->GetMzID(), ['type'=>'REGALIA']);
+    remainingCheck(count(GADatabaseGrantedAbilities($ally))===1, 'Monk recognizes an ally transformed into regalia');
+    ApplyPersistentOverride($ally->GetMzID(), ['type'=>'ALLY']);
+    remainingCheck(GADatabaseGrantedAbilities($ally)===[], 'Losing the regalia type removes the Monk grant');
     $regalia->Status=1;
     remainingCheck(GADatabaseGrantedAbilities($regalia)===[], 'Rested regalia cannot pay the granted REST cost');
     $regalia->Status=2;

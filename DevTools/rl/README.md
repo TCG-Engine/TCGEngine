@@ -240,3 +240,27 @@ The Python trainer is useful if the policy later moves to Python ML libraries, b
 - Run several PHP daemon workers in parallel, one per game, and aggregate trajectories in Python.
 - Keep an optional PHP-side rollout loop that receives a policy/checkpoint from Python, runs full episodes in-process, and returns trajectories.
 - Add timing counters for JSON encode/decode and stdio read/write separately so bridge overhead can be tracked independently from engine apply/snapshot/enumerate time.
+
+## Runtime performance comparison
+
+Compare two prepared local runtimes with the same deck, seeds and episode limits:
+
+```bash
+python3 DevTools/rl/benchmark_runtime.py --baseline /path/to/baseline --episodes 20 --repeats 3 --output /tmp/rl-performance.json
+```
+
+The candidate defaults to this checkout. Both runtimes need their generated files
+and local card dictionaries. The tool alternates execution order, retains trainer
+artifacts and logs, reports median steps/second and total run time, and rejects
+runs with engine/action failures. Timing uses a monotonic clock and includes PHP
+startup and final checkpoint writing; the trainer's own timing is retained separately. It also records timeouts and total steps: rules changes can change action
+paths even with identical seeds, so throughput is not a like-for-like latency test.
+The requested memory-only mode falls back to disk when APCu is unavailable; the
+report records the actual storage mode from the replay. Compare on the same machine
+without competing training jobs. For Azuki, add `--root AzukiSim --deck-file
+DevTools/rl/azuki_raizan.txt`.
+
+`benchmark_control_ga.txt` is a synthetic Grand Archive control deck with repeated
+vanilla allies, intended to keep action paths comparable across targeting changes.
+It is not a tournament-legal deck. The report includes the final replay action hash
+so equal step counts can also be checked against the recorded decisions.

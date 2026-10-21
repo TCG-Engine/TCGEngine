@@ -1,9 +1,9 @@
 <?php
 // Tristan Lineage stays with the champion after leveling. The database owns its effects.
 function GATristanAscendantSource($obj) {
-    return $obj !== null && !$obj->removed && !HasNoAbilities($obj)
-        && PropertyContains(EffectiveCardType($obj), 'CHAMPION')
-        && ($obj->CardID === 'sSIDPfkmkw' || in_array('sSIDPfkmkw', $obj->Subcards ?? [], true));
+    return $obj !== null && !$obj->removed
+        && ($obj->CardID === 'sSIDPfkmkw' || in_array('sSIDPfkmkw', $obj->Subcards ?? [], true))
+        && !HasNoAbilities($obj) && PropertyContains(EffectiveCardType($obj), 'CHAMPION');
 }
 function GATristanAscendantCanActivate($obj) {
     return GATristanAscendantSource($obj) && PropertyContains(EffectiveCardType($obj), 'ASCENDANT')
