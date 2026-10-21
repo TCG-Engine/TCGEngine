@@ -1,0 +1,76 @@
+{
+  "root": "GrandArchiveSim",
+  "cards": {
+    "NBf2d3iqXp": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "if($property !== \"grantNuminousSpell\" || $subjectObj === null) return 0;\nreturn PropertyContains(EffectiveCardType($subjectObj), \"REGALIA\") ? 1 : 0;"
+      },
+      {
+        "macroName": "GrantedAbility",
+        "abilityCode": "$source = DecisionQueueController::GetVariable(\"NuminousSpellSource\");\n$targets = FilterSpellshroudTargets(array_merge(ZoneSearch(\"myField\", [\"ALLY\", \"CHAMPION\"]), ZoneSearch(\"theirField\", [\"ALLY\", \"CHAMPION\"])));\nif(!empty($targets)) {\n$choices = implode(\"&\", $targets);\n$target = await $player.MZChoose($choices, \"Choose_a_unit_for_the_granted_Spell\");\n$obj = GetZoneObject($target);\nif($obj === null || $obj->removed || HasSpellshroud($obj)) return;\nDealDamage($player, $source, $target, 1);\n}"
+      }
+    ],
+    "mekutzp19y": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "REST: Seal up to two banished cards",
+        "abilityCode": "$targets = GAOrbTargets();\nif(!empty($targets)) {\n    $choices = implode(\"&\", $targets);\n    $first = await $player.MZMayChoose($choices, \"Choose_the_first_card_to_seal_or_pass\");\n    if(in_array($first, [\"\", \"-\", \"PASS\"], true)) return;\n    $zone = explode(\"-\", $first)[0];\n    $others = array_values(array_diff(GAOrbTargets($zone), [$first]));\n    $selection = $first;\n    if(!empty($others)) {\n        $choices = implode(\"&\", $others);\n        $second = await $player.MZMayChoose($choices, \"Choose_a_second_card_in_the_same_banishment_or_pass\");\n        if(!in_array($second, [\"\", \"-\", \"PASS\"], true)) $selection .= \"&\" . $second;\n    }\n    GAOrbSeal($player, $selection);\n}"
+      },
+      {
+        "macroName": "LeaveField",
+        "abilityCode": "GAOrbUnseal();"
+      }
+    ],
+    "1wqqUKG6pD": [
+      {
+        "macroName": "ReserveCostModifier",
+        "abilityCode": "if($subjectObj->CardID !== \"1wqqUKG6pD\" || $sourceObj->CardID !== \"1wqqUKG6pD\") return 0;\nreturn IsMerlinBonusActive($player) && GetSheenCount($player) >= 15 ? -3 : 0;"
+      },
+      {
+        "macroName": "PlayCard",
+        "abilityCode": "if(!IsMerlinBonusActive($player)) return;\nGASoulGainClasses($player);\nDecisionQueueController::StoreVariable(\"soulMaterialLook\", $player . \":\" . (3 - $player));\n$targets = GASoulMaterialChoices($player);\nif(!empty($targets)) {\n    $choices = implode(\"&\", $targets);\n    $chosen = await $player.MZMayChoose($choices, \"Look_at_the_opponents_material_deck_and_choose_a_regalia_or_pass\");\n    DecisionQueueController::ClearVariable(\"soulMaterialLook\");\n    GASoulMaterialize($player, $chosen);\n} else {\n    $done = await $player.Modal(1, 1, \"Done_looking\", \"Look_at_the_opponents_material_deck\");\n    DecisionQueueController::ClearVariable(\"soulMaterialLook\");\n}"
+      }
+    ],
+    "y7o97Xbidv": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Banish floating memory: Negate opposing activations unless they pay 2",
+        "prereqCode": "return IsMordredBonusActive($player) && GetZoneObject($mzID)->Location === \"Intent\";",
+        "abilityCode": "GARegulusNegateOpposing($player);"
+      },
+      {
+        "macroName": "HandActivatedAbility",
+        "abilityName": "2, Discard: Next non-Command attack does not rest its attacker",
+        "prereqCode": "return IsMordredBonusActive($player) && GetZoneObject($mzID)->Location === \"Hand\" && CountAvailableReservePayments($player) >= 3;",
+        "abilityCode": "AddGlobalEffects($player, \"REGULUS_NEXT_ATTACK\");"
+      }
+    ],
+    "sSIDPfkmkw": [
+      {
+        "macroName": "ActivateAbility",
+        "abilityName": "Tristan Lineage (2025): Summon Ominous Shadows",
+        "prereqCode": "return GATristanAscendantCanActivate(GetZoneObject($mzID));",
+        "abilityCode": "if(GlobalEffectCount($player, \"TRISTAN_ASCENDANT_ATTACKS\") === 0) AddGlobalEffects($player, \"TRISTAN_ASCENDANT_ATTACKS\");\n$shadows = [];\n$more = \"YES\";\nwhile($more === \"YES\") {\n    $more = await $player.YesNo(\"Summon_another_Ominous_Shadow?\");\n    if($more === \"YES\") $shadows[] = CardNameToID(\"Ominous Shadow\");\n}\nGAPutFieldGroup($player, $shadows);"
+      },
+      {
+        "macroName": "GrantedAbility",
+        "abilityCode": "$token = DecisionQueueController::GetVariable(\"tristanIntentToken\");\n$targets = GATristanAttackChoices($player);\nif(!empty($targets)) {\n    $choices = implode(\"&\", $targets);\n    $chosen = await $player.MZMayChoose($choices, \"Rest_and_attack_with_a_phantasial_ally_or_pass\");\n    GATristanQueueAttack($player, $token, $chosen);\n} else {\n    GATristanReleaseIntent($player, $token);\n}"
+      }
+    ],
+    "RBco1DfZ1B": [
+      {
+        "macroName": "StaticPropertyModifier",
+        "abilityCode": "return $property === \"shareMemoryReveals\" && IsZanderBonusActive($player) ? 1 : 0;"
+      },
+      {
+        "macroName": "Enter",
+        "abilityCode": "GARevealMemoryGroup($player);"
+      },
+      {
+        "macroName": "BeginEnd",
+        "abilityCode": "$uid = intval(DecisionQueueController::GetVariable(\"dtrEventUID\"));\n$ref = FindFieldMzByUniqueID($uid);\nif($ref !== \"\" && $ref !== null) DoSacrificeFighter($player, $ref);"
+      }
+    ]
+  }
+}

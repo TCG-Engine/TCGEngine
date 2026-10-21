@@ -61,7 +61,7 @@ function GADTRQueueEvent($obj, $macro, $context = []) {
 }
 function GADTRFireEvent($player,$cardID) {
     $macro=DecisionQueueController::GetVariable('dtrEventMacro');
-    if(!in_array($macro,['BecameDistant','BeginRecollection','BeginEnd','EscortHit'],true)) return;
+    if(!in_array($macro,['BecameDistant','BeginRecollection','BeginEnd','EscortHit','GrantedAbility'],true)) return;
     $ref=FindFieldMzByUniqueID(intval(DecisionQueueController::GetVariable('dtrEventUID')));
     DecisionQueueController::StoreVariable('mzID',$ref ?? '');
     $table=lcfirst($macro).'Abilities';

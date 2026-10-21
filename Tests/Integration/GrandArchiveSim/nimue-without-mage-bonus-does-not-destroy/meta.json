@@ -1,0 +1,24 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "l52lVIFvpy"
+        ],
+        "mechanics": [
+            "class-bonus",
+            "targeting"
+        ],
+        "rulesClauses": [
+            "An inactive class bonus leaves the ally alive and the action resolves on its declared target."
+        ]
+    },
+    "name": "nimue-without-mage-bonus-does-not-destroy",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T18:15:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l52lVIFvpy"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

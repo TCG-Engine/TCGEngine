@@ -3665,3 +3665,8 @@ $activationCostModifierAbilities["AJeuUDTPmV:0"] = function($player, $subjectObj
   $discount = GAMaxDistinctElementCount($slimeIDs);
   return max(0, intval($currentValue) - $discount) - intval($currentValue);
 };
+
+// New declarations use the database-authored resolution; old saved games keep
+// the existing resolution path and its historical choice protocol.
+GAWrapDeclaredTargetResolvers($cardActivatedAbilities, $declaredCardResolutionAbilities ?? []);
+GAWrapDeclaredTargetResolvers($playCardAbilities, $declaredPlayResolutionAbilities ?? []);

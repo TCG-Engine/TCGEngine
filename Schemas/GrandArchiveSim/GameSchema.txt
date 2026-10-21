@@ -30,6 +30,11 @@ Macro: Name=ReserveCostModifier(subjectObj,currentValue,sourceObj); MacroType=Va
 Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=ActivationCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=GrantedAbility(mzID); Action={}
+Macro: Name=CardActivationDeclared(cardID,element,type,targets); Action={}
+Macro: Name=ActivationTargets(mzID); Action={}
+Macro: Name=ActivationCompleted(mzID); Action={}
+Macro: Name=DeclaredCardResolution(mzID); Action={}
+Macro: Name=DeclaredPlayResolution(mzID); Action={}
 Macro: Name=StaticPropertyModifier(property,subjectObj,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}

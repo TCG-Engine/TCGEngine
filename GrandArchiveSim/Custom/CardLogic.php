@@ -6,11 +6,15 @@ function GADatabaseGrantedAbilities($obj) {
     if(GAStaticProperty($obj->Controller, 'grantElysianEmpower', $obj) > 0) {
         $grants[] = ['cardID'=>'Ss991TWKR9', 'name'=>'REST: Empower 1'];
     }
+    if(GAStaticProperty($obj->Controller, 'grantNuminousSpell', $obj) > 0) {
+        $grants[] = ['cardID'=>'NBf2d3iqXp', 'name'=>'REST: As a Spell, deal 1 damage to a unit'];
+    }
     return $grants;
 }
 $customDQHandlers['GADatabaseGrantedAbility'] = function($player, $parts, $lastDecision) {
     global $grantedAbilityAbilities;
     $key = ($parts[0] ?? '') . ':0';
+    if(($parts[0] ?? '') === 'NBf2d3iqXp') DecisionQueueController::StoreVariable('NuminousSpellSource', $parts[1] ?? '');
     if(isset($grantedAbilityAbilities[$key])) $grantedAbilityAbilities[$key]($player);
 };
 function GAElysianGraveyardTargets() {
@@ -1004,5 +1008,212 @@ function WeavingManastreamOnFloatingBanished($player, $banishedCardID) {
 }
 
 
-?>
 
+
+// Carry the ability's Spell classification and last-known source through priority
+// and deferred damage choices without changing the regalia's printed types.
+function GAAsSpellSource($obj) {
+    return 'GASPELL:' . base64_encode(json_encode([
+        'cardID' => $obj->CardID, 'controller' => intval($obj->Controller),
+        'uid' => intval($obj->UniqueID ?? 0),
+    ]));
+}
+
+function GABanishFaceDown($obj) {
+    return $obj !== null && ($obj->Location ?? '') === 'Banish'
+        && (!empty($obj->Counters['_sealFaceDown']) || !empty($obj->Counters['_shadowreaverFaceDown']));
+}
+function GAOrbTargets($zone = null) {
+    $targets = [];
+    foreach($zone === null ? ['myBanish', 'theirBanish'] : [$zone] as $name) {
+        if(!in_array($name, ['myBanish', 'theirBanish'], true)) continue;
+        foreach(ZoneSearch($name) as $ref) {
+            $obj = GetZoneObject($ref);
+            if($obj === null || $obj->removed || GABanishFaceDown($obj)) continue;
+            $type = EffectiveCardType($obj);
+            if(PropertyContains($type, 'CHAMPION') || PropertyContains($type, 'REGALIA')) continue;
+            $targets[] = $ref;
+        }
+    }
+    return $targets;
+}
+function GAOrbSeal($player, $selection) {
+    $refs = array_values(array_unique(array_filter(explode('&', $selection))));
+    if(count($refs) > 2) return false;
+    $zone = null;
+    $legal = GAOrbTargets();
+    foreach($refs as $ref) {
+        if(!in_array($ref, $legal, true)) return false;
+        $current = explode('-', $ref)[0];
+        if($zone !== null && $zone !== $current) return false;
+        $zone = $current;
+    }
+    foreach($refs as $ref) {
+        AddCounters($player, $ref, 'seal', 1);
+        GetZoneObject($ref)->Counters['_sealFaceDown'] = 1;
+    }
+    return true;
+}
+function GAOrbUnseal() {
+    foreach([1, 2] as $seat) foreach(GetBanish($seat) as $obj) {
+        if($obj->removed || GetCounterCount($obj, 'seal') <= 0) continue;
+        unset($obj->Counters['seal'], $obj->Counters['_sealFaceDown'], $obj->Counters['_shadowreaverFaceDown']);
+    }
+}
+
+function GASoulGainClasses($player) {
+    $ownRef = FindChampionMZ($player);
+    $otherRef = FindChampionMZ(3 - $player);
+    $own = $ownRef === null ? null : GetZoneObject($ownRef);
+    $other = $otherRef === null ? null : GetZoneObject($otherRef);
+    if($own === null || $other === null) return;
+    $classes = array_values(array_unique(array_filter(array_merge(
+        $own->Counters['soulClasses'] ?? [], explode(',', EffectiveCardClasses($other) ?? '')
+    ))));
+    $own->Counters['soulClasses'] = $classes;
+}
+function GASoulCanLookMaterial($viewer, $owner) {
+    return in_array(intval($viewer), [1, 2], true)
+        && DecisionQueueController::GetVariable('soulMaterialLook') === $viewer . ':' . $owner;
+}
+function GASoulMaterialChoices($player) {
+    $choices = [];
+    foreach(ZoneSearch('theirMaterial', ['REGALIA']) as $ref) {
+        $obj = GetZoneObject($ref);
+        if($obj === null || $obj->removed || !GAMaterialCanLeave($obj)) continue;
+        $cost = CardMemoryCost($obj);
+        if($cost > CountAvailableMaterializeMemoryPayments($player, $ref)) continue;
+        if($cost === 0) {
+            $blocked = false;
+            foreach(GetField(3 - $player) as $enemy) {
+                if(!$enemy->removed && !HasNoAbilities($enemy) && in_array($enemy->CardID, ['40oe1wf79p', 'WZKo8sYPxS'], true)) $blocked = true;
+            }
+            if($blocked) continue;
+        }
+        $choices[] = $ref;
+    }
+    return $choices;
+}
+function GASoulMaterialize($player, $ref) {
+    if(!in_array($ref, GASoulMaterialChoices($player), true)) return;
+    QueueMaterializePayment($player, $ref, CardMemoryCost(GetZoneObject($ref)));
+}
+
+function GARegulusNegateOpposing($player) {
+    $targets = [];
+    foreach(GetEffectStack() as $obj) {
+        if($obj === null || $obj->removed || intval($obj->Controller) === intval($player)) continue;
+        if(!in_array($obj->TriggerType ?? '', ['', '-'], true) || in_array('CANT_BE_NEGATED', $obj->TurnEffects ?? [], true)) continue;
+        $serial = intval(GetUniqueIDCounter()) + 1;
+        SetUniqueIDCounter($serial);
+        $obj->Counters['regulusTarget'] = $serial;
+        $targets[] = 'REGULUS:' . $serial;
+    }
+    if(empty($targets)) return;
+    DecisionQueueController::StoreVariable('NegateByCardTargets', implode(',', $targets));
+    DecisionQueueController::StoreVariable('NegateByCardDestination', 'default');
+    DecisionQueueController::StoreVariable('NegateByCardPay', '2');
+    DecisionQueueController::StoreVariable('NegateByCardPlayer', strval($player));
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'NegateByCardContinue|0', 1);
+}
+function GARegulusStackRef($token) {
+    if(!str_starts_with($token, 'REGULUS:')) return $token;
+    $serial = intval(substr($token, 8));
+    foreach(GetEffectStack() as $i => $obj) {
+        if(!$obj->removed && intval($obj->Counters['regulusTarget'] ?? 0) === $serial) return 'EffectStack-' . $i;
+    }
+    return '';
+}
+function GARegulusMarkActivation($player, $obj) {
+    if($obj === null || !PropertyContains(EffectiveCardType($obj), 'ATTACK') || PropertyContains(EffectiveCardSubtypes($obj), 'COMMAND')) return;
+    if(GlobalEffectCount($player, 'REGULUS_NEXT_ATTACK') <= 0) return;
+    while(RemoveGlobalEffect($player, 'REGULUS_NEXT_ATTACK')) {}
+    $obj->TurnEffects[] = 'REGULUS_NO_REST';
+}
+function GARegulusIntentNoRest($player, $consume = false) {
+    $found = false;
+    foreach(GetIntent($player) as $obj) {
+        if($obj->removed || !in_array('REGULUS_NO_REST', $obj->TurnEffects ?? [], true)) continue;
+        $found = true;
+        if($consume) $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ['REGULUS_NO_REST']));
+    }
+    return $found;
+}
+$doesGlobalEffectApply['REGULUS_NEXT_ATTACK'] = function($obj) { return false; };
+
+function GARevealedCardIdentity($authoredID) {
+    return DecisionQueueController::GetVariable('revealAbilityID') === $authoredID
+        ? (DecisionQueueController::GetVariable('revealIdentityCardID') ?: $authoredID) : $authoredID;
+}
+function GALightweaverResetRevealGroup() {
+    $GLOBALS['gaMemoryRevealGroup'] = [];
+}
+function GALightweaverCopyReveal($player, $recipient, $donor) {
+    global $revealAbilities;
+    if(!isset($revealAbilities[$donor['cardID'] . ':0'])) return;
+    QueueTriggeredAbility($player, $donor['cardID'], 'REVEAL_CARD', [
+        'revealedMZ'=>NormalizeMzIDForController($recipient['ref'], $player),
+        'revealSourceZone'=>'myMemory', 'revealAbilityID'=>$donor['cardID'],
+        'revealIdentityCardID'=>$recipient['cardID'],
+    ]);
+}
+function GALightweaverObserveReveal($player, $ref, $obj) {
+    if(($obj->Location ?? '') !== 'Memory' || intval($obj->PlayerID ?? 0) !== intval($player)
+        || HasNoAbilities($obj) || GAStaticProperty($player, 'shareMemoryReveals') <= 0) return;
+    $group = $GLOBALS['gaMemoryRevealGroup'][$player] ?? [];
+    // Revealing the same card again starts another event, rather than copying itself.
+    foreach($group as $previous) if($previous['ref'] === $ref) { $group = []; break; }
+    $current = ['ref'=>$ref, 'cardID'=>$obj->CardID];
+    foreach($group as $previous) {
+        GALightweaverCopyReveal($player, $current, $previous);
+        GALightweaverCopyReveal($player, $previous, $current);
+    }
+    $group[] = $current;
+    $GLOBALS['gaMemoryRevealGroup'][$player] = $group;
+}
+function GARevealMemoryGroup($player) {
+    global $playerID;
+    GALightweaverResetRevealGroup();
+    BeginTriggeredAbilityBatch();
+    $zone = $player == $playerID ? 'myMemory' : 'theirMemory';
+    foreach(ZoneSearch($zone) as $ref) DoRevealCard($player, $ref);
+    EndTriggeredAbilityBatch();
+}
+
+function IsZanderBonusActive($player) {
+    foreach(GetField($player) as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), 'CHAMPION') && str_starts_with(CardName($obj->CardID), 'Zander,')) return true;
+    }
+    return false;
+}
+
+function GALightweaverNeedsOrderChoice($group) {
+    $copied = false;
+    $distinct = [];
+    foreach($group as $entry) {
+        if(isset($entry['context']['revealIdentityCardID'])) $copied = true;
+        $distinct[$entry['cardID'] . ':' . ($entry['context']['revealIdentityCardID'] ?? $entry['cardID'])] = true;
+    }
+    return $copied && count($distinct) > 1;
+}
+function GALightweaverOrderPick($player) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable('PendingTriggerOrderGroup') ?? ''), true) ?: [];
+    if(count($group) <= 1) { FinishTriggerOrderChoice($player); return; }
+    $labels = [];
+    foreach($group as $entry) {
+        $recipient = $entry['context']['revealIdentityCardID'] ?? $entry['cardID'];
+        $labels[] = str_replace([' ', '&', '|'], ['_', '', ''], CardName($entry['cardID']) . ' ability on ' . CardName($recipient));
+    }
+    DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|' . implode('&', $labels), 100, 'Choose_the_reveal_ability_to_resolve_next');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'LightweaverOrderPick', 100);
+}
+$customDQHandlers['LightweaverOrderPick'] = function($player, $parts, $answer) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable('PendingTriggerOrderGroup') ?? ''), true) ?: [];
+    $chosen = json_decode(base64_decode(DecisionQueueController::GetVariable('PendingTriggerOrderChosen') ?? ''), true) ?: [];
+    if(!ctype_digit(strval($answer)) || !isset($group[intval($answer)])) { GALightweaverOrderPick($player); return; }
+    $chosen[] = $group[intval($answer)];
+    array_splice($group, intval($answer), 1);
+    DecisionQueueController::StoreVariable('PendingTriggerOrderGroup', base64_encode(json_encode($group)));
+    DecisionQueueController::StoreVariable('PendingTriggerOrderChosen', base64_encode(json_encode($chosen)));
+    GALightweaverOrderPick($player);
+};

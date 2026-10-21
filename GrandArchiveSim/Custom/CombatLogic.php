@@ -279,6 +279,7 @@ function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
     foreach($intentCards as $mzID) {
         if($ignoredIntentMZ !== null && $mzID === $ignoredIntentMZ) continue;
         $intentObj = &GetZoneObject($mzID);
+        if(in_array('TRISTAN_CLEANED', $intentObj->TurnEffects ?? [], true)) continue;
         $intentPower = ObjectCurrentPower($intentObj);
         if($intentPower > 0) {
             $totalPower += $intentPower;
@@ -1276,6 +1277,10 @@ function ClearIntent($player) {
     // Work backwards so index removal doesn't shift remaining cards
     for($i = count($intentCards) - 1; $i >= 0; --$i) {
         $iObj = GetZoneObject($intentCards[$i]);
+        if(GATristanHold($iObj)) {
+            if(!in_array('TRISTAN_CLEANED', $iObj->TurnEffects, true)) $iObj->TurnEffects[] = 'TRISTAN_CLEANED';
+            continue;
+        }
         $intentCard = $intentCards[$i];
         $zone = "myGraveyard";
         if($iObj !== null && in_array("CURSE_TO_LINEAGE", $iObj->TurnEffects)) {
@@ -1339,7 +1344,7 @@ function DeclareChampionAttack($player) {
     $champion = &GetZoneObject($championMZ);
 
     // Champion must be awake to attack
-    if($champion->Status != 2) {
+    if($champion->Status != 2 && !GARegulusIntentNoRest($player)) {
         SetFlashMessage("Champion must be awake to attack.");
         // Intent cards stay until end of turn
         return false;
@@ -1385,7 +1390,7 @@ function DeclareChampionAttack($player) {
     }
 
     // Rest the champion as cost (Grand Archive: "rest" = exhaust)
-    RestCard($player, $championMZ);
+    if(!GARegulusIntentNoRest($player, true)) RestCard($player, $championMZ);
 
     // Store attacker context before resolving the attacker's UniqueID.
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
@@ -1507,9 +1512,10 @@ function FerventLancerMustAttack($player) {
     return false;
 }
 
-function BeginCombatPhase($actionCard) {
+function BeginCombatPhase($actionCard, $fromEffect = false) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
+    if($fromEffect && $obj !== null) $turnPlayer = intval($obj->Controller);
     if(GALinkedProperty($obj, "cannotUseInAttack") > 0) return false;
     if(function_exists("TotalWhiteoutSuppressesActivatedAbilities") && TotalWhiteoutSuppressesActivatedAbilities($obj)) {
         SetFlashMessage("Total Whiteout prevents that rested object from being used for an attack.");
@@ -1520,7 +1526,7 @@ function BeginCombatPhase($actionCard) {
         || ($obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
 
     // Attacks are slow-speed only: cannot declare while anything is pending on EffectStack.
-    if(function_exists("GetLiveEffectStackEntries") && !empty(GetLiveEffectStackEntries())) {
+    if(!$fromEffect && function_exists("GetLiveEffectStackEntries") && !empty(GetLiveEffectStackEntries())) {
         SetFlashMessage("Cannot attack while an effect is pending on the stack.");
         return false;
     }
@@ -1902,6 +1908,7 @@ function OnAttackTrigger($player, $mzID) {
     foreach($intentCards as $iMZ) {
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
+        if(in_array('TRISTAN_CLEANED', $iObj->TurnEffects ?? [], true)) continue;
         if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
             QueueAttackTriggeredAbility($player, $iObj->CardID, $mzID, $iMZ);
         }
@@ -2357,6 +2364,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         if(!HasNoAbilities($iObj)) foreach($iObj->TurnEffects ?? [] as $grant) {
             if($grant === "BIREFRINGENCE_ON_HIT") QueueHitTriggeredAbility($player, "wuTQLLq5US", $iMZ);
         }
+        GATristanQueueHit($player, $iMZ);
         // Cometary Vantage: the intent card gained "On Hit: Load this card into an Aetherwing weapon you control."
         if(in_array("y4c89re0bd_LOAD_ON_HIT", $iObj->TurnEffects ?? [])) GAQueueIntentAetherwingLoad($player, $iMZ);
     }
@@ -4965,7 +4973,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 } else {
                     $targetObj->TurnEffects[$idx] = "RADIANT_REPUDIATION_" . $remaining;
                 }
-                if($prevented > 0 && isset($targetObj->Counters['_radiantTargetUID'])) {
+                if($prevented > 0 && isset($targetObj->Counters['_radiantCaster'])) {
+                    QueueTriggeredAbility(intval($targetObj->Counters['_radiantCaster']), 'RO2CcBrILQ', 'DTR_EVENT', ['dtrEventMacro'=>'GrantedAbility','dtrEventUID'=>'0']);
+                } elseif($prevented > 0 && isset($targetObj->Counters['_radiantTargetUID'])) {
                     // Find the stored target by UniqueID on either field (the zone name depends on which seat is resolving).
                     $rtUID = intval($targetObj->Counters['_radiantTargetUID']);
                     foreach(["myField", "theirField"] as $rtZone) {
@@ -5316,7 +5326,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     if($amount > 0) {
         $sourceInfoWR = ResolveDamageSourceCardInfo($source, $player);
         $sourceCardIDWR = $sourceInfoWR["cardID"];
-        if($sourceCardIDWR !== null && PropertyContains(CardSubtypes($sourceCardIDWR), "SPELL")) {
+        if($sourceCardIDWR !== null && (!empty($sourceInfoWR["asSpell"]) || PropertyContains(CardSubtypes($sourceCardIDWR), "SPELL"))) {
             foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
                 if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
                     $wrBonus = intval(substr($wrEffect, 11));
@@ -5339,7 +5349,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
 
         // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
         if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
-        if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
+        if($sourceSpellCardID !== null && $isUnitTarget && (!empty($sourceInfoSpell["asSpell"]) || PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL"))) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
             $amount += GreaterBoonOfIsisBonus($sourceController);
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
@@ -5648,7 +5658,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if($amount > 0) {
         $sourceInfoWR2 = ResolveDamageSourceCardInfo($source, $player);
         $sourceCardIDWR2 = $sourceInfoWR2["cardID"];
-        if($sourceCardIDWR2 !== null && PropertyContains(CardSubtypes($sourceCardIDWR2), "SPELL")) {
+        if($sourceCardIDWR2 !== null && (!empty($sourceInfoWR2["asSpell"]) || PropertyContains(CardSubtypes($sourceCardIDWR2), "SPELL"))) {
             foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
                 if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
                     $wrBonus = intval(substr($wrEffect, 11));
@@ -5671,7 +5681,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
 
         // Aenean Cryosalvo: "if a Fractal source you control would deal damage" -- Fractals are phantasias, never Spells, so this cannot sit inside the Spell-source block below (it was dead there).
         if($sourceSpellCardID !== null && $isUnitTarget) $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
-        if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
+        if($sourceSpellCardID !== null && $isUnitTarget && (!empty($sourceInfoSpell["asSpell"]) || PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL"))) {
             $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
             $amount += GreaterBoonOfIsisBonus($sourceController);
 

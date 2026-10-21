@@ -176,6 +176,18 @@ final class RemoteCardAbilityRepository
         return (string)$this->loadCardWithRevision($rootName, $cardId)['revision'];
     }
 
+    /** Read a consistent root snapshot for revision-checked bulk migrations. */
+    public function loadCardsWithRevisions($rootName): array
+    {
+        require_once __DIR__ . '/CardCodeServiceDB.php';
+        $groups = [];
+        foreach ($this->snapshot($rootName, true)['abilities'] ?? [] as $row) $groups[$row['card_id']][] = $row;
+        $cards = [];
+        foreach ($groups as $id => $rows) $cards[$id] = ['abilities'=>$rows, 'revision'=>CardCodeServiceDB::RevisionForRows($rows)];
+        return $cards;
+    }
+
+
     public function replaceCardAbilities($rootName, $cardId, array $abilities, bool $cardImplemented, ?string $baseRevision): array
     {
         $result = $this->request('save', 'POST', ['root' => $this->remoteRoot($rootName), 'cardId' => $cardId, 'abilities' => $abilities, 'cardImplemented' => $cardImplemented, 'baseRevision' => $baseRevision]);

@@ -1,0 +1,25 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "NBf2d3iqXp"
+        ],
+        "mechanics": [
+            "grant",
+            "rest",
+            "damage"
+        ],
+        "rulesClauses": [
+            "Regalia pays REST for the granted Spell and deals one damage."
+        ]
+    },
+    "name": "remaining-numinous-monk-granted-spell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T17:08:51+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "NBf2d3iqXp"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}

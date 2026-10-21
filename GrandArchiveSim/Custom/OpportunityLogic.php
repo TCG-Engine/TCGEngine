@@ -414,6 +414,9 @@ function GAVaultShieldNegatesResolvingActivation($selection) {
 function NegateCardActivation($player, $targetMZ, $destinationMode = "default") {
     $target = GetZoneObject($targetMZ);
     if($target === null || $target->removed) return false;
+    if(($target->TriggerType ?? '') === 'DTR_EVENT' && !empty($target->Counters['tristanIntentToken'])) {
+        GATristanReleaseIntent(intval($target->Controller), $target->Counters['tristanIntentToken']);
+    }
     $cardID = $target->CardID;
     $controller = intval($target->Controller);
     $dest = NegatedActivationDestination($targetMZ, $destinationMode);
@@ -519,8 +522,8 @@ $customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecis
     $negatingPlayer = intval(DecisionQueueController::GetVariable("NegateByCardPlayer") ?? $player);
     $destinationMode = DecisionQueueController::GetVariable("NegateByCardDestination") ?? "default";
     $payAmount = intval(DecisionQueueController::GetVariable("NegateByCardPay") ?? "-1");
-    $targetMZ = $targets[$index];
-    $targetObj = GetZoneObject($targetMZ);
+    $targetMZ = GARegulusStackRef($targets[$index]);
+    $targetObj = $targetMZ === "" ? null : GetZoneObject($targetMZ);
     if($targetObj === null || $targetObj->removed) {
         DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($index + 1), 1);
         return;
@@ -1425,10 +1428,23 @@ $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDec
     $activation = $effectStack[count($effectStack) - 1];
     if(in_array($activation->TriggerType ?? "", ["", "-"], true)
         && empty($activation->Counters["activationDeclared"])) {
-        $dispatched = DispatchMacroListeners("CardActivationDeclared", intval($activation->Controller), [
+        if(GACompletePostCostTargets(intval($activation->Controller), $activation)) return;
+        $activation->Counters["activationDeclared"] = 1;
+        DecisionQueueController::StoreVariable('DispatchingActivation', 'YES');
+        BeginTriggeredAbilityBatch();
+        foreach(json_decode($activation->Counters['activationCostTriggers'] ?? '[]', true) ?: [] as $entry) {
+            QueueTriggeredAbility($entry['player'], $entry['cardID'], $entry['triggerType'], $entry['context'], $entry['sourceMZ']);
+        }
+        unset($activation->Counters['activationCostTriggers']);
+        GAActivationCompleted(intval($activation->Controller), $activation);
+        DispatchMacroListeners("CardActivationDeclared", intval($activation->Controller), [
             "cardID" => $activation->CardID, "element" => EffectiveCardElement($activation),
+            "type" => EffectiveCardType($activation),
+            "targets" => $activation->Counters['activationTargets'] ?? '{}',
         ], ["Field", "GlobalEffects"]);
-        if($dispatched > 0) $activation->Counters["activationDeclared"] = 1;
+        EndTriggeredAbilityBatch();
+        DecisionQueueController::ClearVariable('DispatchingActivation');
+        if(DecisionQueueController::GetVariable('PendingTriggerOrderGroup')) return;
     }
     if(!QueueEffectStackOpportunityRound($player, GetEffectStackWindowId())) {
         ResolveTopOfEffectStack();
@@ -1613,6 +1629,13 @@ function NormalizeMzIDForController($mzID, $controller) {
  */
 function QueueTriggeredAbility($player, $cardID, $triggerType, $context = [], $sourceMZ = null) {
     global $__pendingTriggerBatch;
+    $pendingActivation = GAPendingDeclaredActivation();
+    if($pendingActivation !== null) {
+        $entries = json_decode($pendingActivation->Counters['activationCostTriggers'] ?? '[]', true) ?: [];
+        $entries[] = ['player'=>$player,'cardID'=>$cardID,'triggerType'=>$triggerType,'context'=>$context,'sourceMZ'=>$sourceMZ ?? ($context['mzID'] ?? null)];
+        $pendingActivation->Counters['activationCostTriggers'] = json_encode($entries);
+        return true;
+    }
     if (($__pendingTriggerBatch['depth'] ?? 0) > 0) {
         $__pendingTriggerBatch['entries'][] = [
             'player' => $player,
@@ -1641,7 +1664,7 @@ function PushTriggeredAbilityNow($player, $cardID, $triggerType, $context = []) 
     );
     if($stackObj === null) return false;
 
-    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES" && DecisionQueueController::GetVariable("DispatchingActivation") !== "YES") {
         // dontSkipOnPass:1 is load-bearing. When the push happens from inside a handler that is itself
         // running in an ExecuteStaticMethods() loop whose $lastDecision is "PASS" (e.g. CombatApplyAttackerDamage
         // after the defender declined "Retaliate?"), the nested ExecuteStaticMethods() below is a no-op (same
@@ -1699,6 +1722,7 @@ function EndTriggeredAbilityBatch() {
     $__pendingTriggerBatch['depth']--;
     if ($__pendingTriggerBatch['depth'] > 0) return;
 
+    GALightweaverResetRevealGroup();
     $entries = $__pendingTriggerBatch['entries'];
     $__pendingTriggerBatch['entries'] = [];
     if (empty($entries)) return;
@@ -1732,6 +1756,12 @@ function EndTriggeredAbilityBatch() {
  * sourceMZ is missing or two candidates share one (can't render a choice that isn't unambiguous).
  */
 function QueueTriggerStackOrderChoice($controller, $group) {
+    if(GALightweaverNeedsOrderChoice($group)) {
+        DecisionQueueController::StoreVariable('PendingTriggerOrderGroup', base64_encode(json_encode($group)));
+        DecisionQueueController::StoreVariable('PendingTriggerOrderChosen', base64_encode(json_encode([])));
+        GALightweaverOrderPick($controller);
+        return;
+    }
     $sourceMZs = array_map(fn($e) => $e['sourceMZ'], $group);
     if (in_array(null, $sourceMZs, true) || in_array("", $sourceMZs, true) || count(array_unique($sourceMZs)) !== count($sourceMZs)) {
         PushOrderedTriggeredAbilities($group);
@@ -1807,7 +1837,7 @@ function PushOrderedTriggeredAbilities($orderedEntries) {
         );
         if ($stackObj !== null) { $pushed = true; $lastPlayer = $e['player']; }
     }
-    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES" && DecisionQueueController::GetVariable("DispatchingActivation") !== "YES") {
         DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100, dontSkipOnPass:1);
         $dqController = new DecisionQueueController();
         $dqController->ExecuteStaticMethods($lastPlayer, "-");
@@ -1861,6 +1891,10 @@ function ResolveTopOfEffectStack() {
     // Slipstream Vault's shield travels with the card activations it was cast over (Counters["vaultShield"], replayed below); an entry that
     // carries none must not inherit the previous entry's.
     DecisionQueueController::ClearVariable("vaultShield");
+    DecisionQueueController::ClearVariable('activationTargets');
+    DecisionQueueController::ClearVariable('activationTargetsFizzle');
+    DecisionQueueController::ClearVariable('revealAbilityID');
+    DecisionQueueController::ClearVariable('revealIdentityCardID');
 
     // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
     // that were captured into this entry's Counters slot when it was queued -- ability
@@ -2004,6 +2038,7 @@ function ResolveTopOfEffectStack() {
         //  - Tracks MacroTurnIndex
         //  - Calls OnCardActivated (moves card, fires abilities)
         //  - Calls ExecuteStaticMethods to process any ability decisions
+        GASetTargetResolutionContext($cardOwner, $topObj);
         CardActivated($cardOwner, $topMZ);
     }
     EndTriggeredAbilityBatch();

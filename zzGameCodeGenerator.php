@@ -2002,6 +2002,11 @@ fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
 for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
   fwrite($handler, "\$canSeePrivatePlayer{$cspSeat} = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === {$cspSeat};\r\n");
 }
+if($rootName === 'GrandArchiveSim') {
+  for($seat = 1; $seat <= 2; ++$seat) {
+    fwrite($handler, "\$canSeeMaterialPlayer{$seat} = \$canSeePrivatePlayer{$seat} || (!\$viewerInfo['isSpectator'] && GASoulCanLookMaterial(intval(\$viewerInfo['viewerSeat'] ?? 0), {$seat}));\r\n");
+  }
+}
 fwrite($handler, "\$spectatorCanSeeHands = SimGameViewerCanSeeHands('" . $rootName . "', \$gameName, \$viewerInfo);\r\n");
 fwrite($handler, "\$authKey = TryGet(\"authKey\", \"\");\r\n");
 fwrite($handler, "if(\$viewerInfo[\"viewerID\"] === \"\") {\r\n");
@@ -2528,7 +2533,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
+        if ($rootName === 'GrandArchiveSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (!empty(\$obj->Counters['_sealFaceDown'])) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
@@ -2575,7 +2583,7 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
-        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : (($rootName === 'GrandArchiveSim' && $zone->Name === 'Material') ? 'canSeeMaterialPlayer' : "canSeePrivatePlayer");
         $faceUpArsenal = $rootName === 'FaBSim' && $zone->Name === 'Arsenal';
         $getNextTurn .= "  if(\$" . $selfFlag . $player . ($faceUpArsenal ? ' || true' : '') . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
@@ -2629,7 +2637,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
+        if ($rootName === 'GrandArchiveSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (!empty(\$obj->Counters['_sealFaceDown'])) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
@@ -4999,6 +5010,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          if ($rootName === 'GrandArchiveSim' && $macroName === 'Reveal') { require_once __DIR__ . '/GrandArchiveSim/Custom/CodeGeneration.php'; $code = GAPrepareRevealCode($code, $cardId); }
           if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
           $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;

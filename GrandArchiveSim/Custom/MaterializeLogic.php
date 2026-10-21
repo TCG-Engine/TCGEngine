@@ -1567,6 +1567,12 @@ function DoMaterialize($player, $mzCard, $wasPlayed = true) {
         if($polarisFromMaterial) {
             $sourceObject->Status = 1;
         }
+        // Effects may materialize a regalia from an opponent's material deck.
+        // Establish ownership before the field-entry event and keep control with the caster.
+        if(($sourceObject->Location ?? '') === 'Material') {
+            $sourceObject->Owner = intval($sourceObject->PlayerID ?? $player);
+            $sourceObject->Controller = intval($player);
+        }
         $newObj = MZMove($player, $mzCard, "myField");
         if($newObj !== null && $sourceId === "1keruycrwi" && $chosenMaterializeX !== null && $chosenMaterializeX > 0) {
             AddCounters($player, $newObj->GetMzID(), "gem", $chosenMaterializeX);

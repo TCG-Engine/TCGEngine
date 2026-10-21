@@ -1,0 +1,26 @@
+{
+    "semanticCoverage": {
+        "testedCards": [
+            "l52lVIFvpy"
+        ],
+        "mechanics": [
+            "cost",
+            "sacrifice",
+            "split-damage",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "Kindling declares allocation, sacrifices its Herb, pays reserve, then triggers Nimue."
+        ]
+    },
+    "name": "nimue-kindling-pays-sacrifice-and-reserve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-10-21T18:18:31+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "l52lVIFvpy"
+    ],
+    "sourceScenario": {
+        "seed": 42
+    }
+}
