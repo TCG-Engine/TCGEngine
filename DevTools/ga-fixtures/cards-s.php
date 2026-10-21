@@ -4803,8 +4803,12 @@ gaAbilitySandbox('seed-of-nature-ability-1-pays-its-printed-cost', 'Seed of Natu
     ->register();
 
 gaAbilitySandbox('sordelle-unmoored-exception-ability-1-pays-its-printed-cost', 'Sordelle, Unmoored Exception', classes: 'CLERIC', cardPatch: ['Status' => 2])
+    ->deckTop(['Dungeon Guide', 'Caretaker Drone'])
     ->action(1, 10001, 'myField-1!CustomInput!Activate:0')->pay(3)->target('myField-2')
+    ->expectCardExists('myHand', 'Caretaker Drone', 'Scavenge 6 put the Automaton from the top six cards into the hand')
+    ->expectCostFootprint(hand: 11, memory: 5, banish: 0, graveyard: 3, field: 7)
     ->tested('Sordelle, Unmoored Exception')
+    ->covers(['scavenge', 'sacrifice', 'cost'], '**(3), [REST], Sacrifice a Powercell: ****Scavenge 6** for an Automaton card.')
     ->register();
 
 // Sablier Guard (tu7jvjf2gh): "+1 POWER and +1 LIFE for each omen you have with different reserve costs."

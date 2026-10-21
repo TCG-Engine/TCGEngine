@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-10-21T00:57:42+00:00",
+    "generatedAt": "2026-10-21T01:23:56+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 2477,
         "cardsInStarterDecks": 619,
-        "cardsNeedingSemanticCoverage": 1,
+        "cardsNeedingSemanticCoverage": 0,
         "mechanics": {
             "condition": 1332,
             "zone-movement": 860,
@@ -26,25 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "ROjhG3L1iy",
-            "name": "Sordelle, Unmoored Exception",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [
-                "sordelle-unmoored-exception-ability-1-pays-its-printed-cost"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 43
-        },
         {
             "cardId": "7mmve2l328",
             "name": "Band of Burning Verdict",
@@ -19645,6 +19626,27 @@
             "semanticFixtures": [
                 "slime-party-puts-a-buff-counter-on-each-slime-ally",
                 "slime-party-silvie-bonus-costs-one-less-per-different-element-slime"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "ROjhG3L1iy",
+            "name": "Sordelle, Unmoored Exception",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "sordelle-unmoored-exception-ability-1-pays-its-printed-cost"
+            ],
+            "semanticFixtures": [
+                "sordelle-unmoored-exception-ability-1-pays-its-printed-cost"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,

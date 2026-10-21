@@ -3,7 +3,7 @@
 Implemented cards: **2477**
 Cards linked to an existing fixture: **2477**
 Implemented cards in an official starter deck: **619**
-Implemented cards still needing semantic coverage: **1**
+Implemented cards still needing semantic coverage: **0**
 
 ## Mechanic groups
 
@@ -26,7 +26,6 @@ Implemented cards still needing semantic coverage: **1**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Sordelle, Unmoored Exception (`ROjhG3L1iy`) | UNIQUE,ALLY | 2 | status, token, trigger | — | sordelle-unmoored-exception-ability-1-pays-its-printed-cost |
 | Band of Burning Verdict (`7mmve2l328`) | REGALIA,ITEM | 3 | targeting, draw-discard, status, combat, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | band-of-burning-verdict-ability-1-pays-its-printed-cost, band-of-burning-verdict-enter-draw, band-of-burning-verdict-play-without-tamer-bonus, band-of-burning-verdict-rest-buff-requires-activation |
 | Fatestone of Heaven (`al6pqkmgmz`) | ITEM | 3 | cost, targeting, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | fatestone-of-heaven-enter-destroy-cheap-object, fatestone-of-heaven-enter-destroy-item-fires-diaochan-trigger |
 | Hemoflux Drain (`zHhOcG9MfK`) | ACTION | 3 | cost, targeting, damage, recover, condition | Dante, Hemomancer Starter Deck | hemoflux-drain-damage20-control, hemoflux-drain-damage20-discount |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **1**
 | Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | protect-her-at-all-costs-merlin-bonus-summon-token |
 | Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | ranger-boots-banish-makes-your-champion-distant |
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | combat-perspective-samaritan-no-favor, samaritan-reach-attacking-ally-damage |
+| Scepter of Fascination (`4864k12no2`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, trigger, condition | Diao Chan Re:Collection, Idyll Corsage | scepter-of-fascination-enter-draw-and-diao-chan-wake |

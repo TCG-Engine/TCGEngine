@@ -1,7 +1,20 @@
 {
+    "semanticCoverage": {
+        "testedCards": [
+            "ROjhG3L1iy"
+        ],
+        "mechanics": [
+            "scavenge",
+            "sacrifice",
+            "cost"
+        ],
+        "rulesClauses": [
+            "**(3), [REST], Sacrifice a Powercell: ****Scavenge 6** for an Automaton card."
+        ]
+    },
     "name": "sordelle-unmoored-exception-ability-1-pays-its-printed-cost",
     "rootName": "GrandArchiveSim",
-    "createdAt": "2026-10-20T02:26:35+00:00",
+    "createdAt": "2026-10-21T01:23:51+00:00",
     "createdBy": "batch-script",
     "testedCards": [
         "ROjhG3L1iy"
