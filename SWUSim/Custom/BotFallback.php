@@ -432,10 +432,12 @@ function _SWUBotUnitTargetValue(array $att, array $def, array $W): float {
     // A phase-end kill: the defender still stands (and blocks, as a Sentinel) for the rest of this phase, can be saved by a heal
     // or a bounce, and leaves no Overwhelm excess.
     $killF = $late ? SWU_BOT_PHASE_EXPIRY_KILL : 1.0;
+    // PROPOSAL 'exhausteddiscount' (default OFF): the body share of a kill on an EXHAUSTED enemy — it has no attack left this round.
+    $exhF = (SWUBotProposalOn('exhausteddiscount') && empty($def['ready'])) ? SWUBotLeverNum('EXHAUSTED_KILL_SHARE', 0.75) : 1.0;
     switch ($out) {
         case 'kill-survive':
             // 'lockpiece' (p35): an attack is a free kill — the locked bomb may still come down this round.
-            $v = $killF * ($W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
+            $v = $killF * ($exhF * $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
                            + _SWUBotKillExtras($def, $W, intval($att['controller'])))
                  + ($late ? 0.0 : $breach());
             // The Overwhelm excess reaches the base — which also makes Aggro prefer the lowest-HP kill.
@@ -449,7 +451,7 @@ function _SWUBotUnitTargetValue(array $att, array $def, array $W): float {
                 $spent = floatval($W['base']) * max(0, intval($def['attackPower']));
                 _SWUBotFired('spenttrade', intval($att['controller']));
             }
-            return $killF * ($W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
+            return $killF * ($exhF * $W['kill'] * (SWUBotUnitValue($def) + _SWUBotLockFreeKillExtra($def)) + _SWUBotThreatRemoved($att, $def, $W)
                              + _SWUBotKillExtras($def, $W, intval($att['controller'])) + $spent)
                    - $lossF * $W['loss'] * $lossBody + _SWUBotWdAttackPayoff($att, $def, true, $W)
                    + ($late ? 0.0 : $breach()) - _SWUBotObserverTax($att, $W);
@@ -799,6 +801,18 @@ function _SWUBotTriggerScore(array $ctx, string $candidate): float {
 }
 
 
+// Feature 'readythreat' (p57, owner 2026-10-20): "a ready unit should be worth more to a defensive strategy … if a 5/4 is exhausted and a
+// 3/3 is ready and i have no sentinel, then i should hit the 3/3 if i can trade or survive the kill." For a CONTROL seat (soft or hard), a
+// READY enemy unit the attack kills (kill-survive or trade) is worth its current attack power more, in kill currency — W['kill'] x power,
+// the attack it still has this round — when no friendly Sentinel stands in its arena to take that attack. A ready 3/3 (value 2) then
+// prices as 5, level with an exhausted 5/4 (value 5), and 'readytie' sends the tie to the ready one.
+function _SWUBotReadyThreatPremium(array $ctx, int $seat, array $att, array $def, array $W): float {
+    if (!SWUBotFeatureOn('readythreat') || empty($def['ready']) || SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3) return 0.0;
+    if (!in_array(SWUBotCombatOutcome($att, $def), ['kill-survive', 'trade'], true)) return 0.0;
+    foreach (SWUBotUnits($seat) as $mine) if (!empty($mine['sentinel']) && $mine['arena'] === $def['arena']) return 0.0;
+    return floatval($W['kill']) * max(0, intval($def['attackPower']));
+}
+
 function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $seat = intval($ctx['seat']);
     $W = SWUBotWeights(strval($ctx['style']), $seat);
@@ -1047,7 +1061,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // Feature 'observerfirst' (p31): the kill waits for the HK-47 that turns it into base damage.
                 if (SWUBotFeatureOn('observerfirst') && _SWUBotKillWaitsForObserver($seat, $i, $cid)) return min($v, -0.4);
                 // Feature 'wipeaware' (p30): not into a shown per-unit wipe's lethal range.
-                if (SWUBotFeatureOn('wipeaware') && ($per = _SWUBotShownPerUnitWipe($seat)) > 0 && _SWUBotPlayEntersWipeRange($seat, $action, $per)) return min($v, -0.5);
+                if (SWUBotFeatureOn('wipeaware') && ($per = _SWUBotShownPerUnitWipe($seat)) > 0 && _SWUBotPlayEntersWipeRange($seat, $action, $per)) {
+                    if (!_SWUBotRebuildAfterWipe($seat)) return min($v, -0.5);
+                    _SWUBotFired('rebuildafterwipe', $seat);   // proposal 'rebuildafterwipe': they spent the wipe, rebuild now
+                }
                 // Feature 'attackreserve' (p42): the token a ready "On Attack: You may pay N …, create a token" unit would lose.
                 if (SWUBotFeatureOn('attackreserve')) $v -= SWUBotLeverNum('ATTACK_RESERVE_MULT', 1.0) * _SWUBotAttackReserveCost($seat, $obj, $W);
                 // Feature 'mandoclaim' (p42): a play that spends the resource the claim's draw needs is charged that draw.
@@ -1402,7 +1419,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             _SWUBotFired('sentinelbreak', $seat);
             return SWUBotTargetValue($att, null, $W) + $sg['gain'];
         }
-        return $def === null ? -$index * 1e-6 : SWUBotTargetValue($att, $def, $W);
+        if ($def === null) return -$index * 1e-6;
+        // Feature 'readytie' (p57): between kills of equal value, the READY unit — it can still attack this round.
+        $readyTie = (SWUBotFeatureOn('readytie') && !empty($def['ready']) && SWUBotCombatOutcome($att, $def) === 'kill-survive') ? 0.001 : 0.0;
+        return SWUBotTargetValue($att, $def, $W) + $readyTie + _SWUBotReadyThreatPremium($ctx, $seat, $att, $def, $W);
     }
 
     // Twin Suns (3-4 seats) targeting rules (owner, 2026-10-01): which unit/base for an exhaust, bounce, capture, defeat,
@@ -1451,6 +1471,15 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         // Feature 'powerdamage' (p49): "deal damage equal to its power" carries the dealer's power (ASH_102#0|<dealer uid>).
         if ($amt === 0 && $hostile && function_exists('SWUBotPowerDamageAmount')) $amt = SWUBotPowerDamageAmount($head, $next);
         $s = _SWUBotTargetsScore($seat, $c, $hostile, $amt, $head, $W, $hostile ? _SWUBotWeaknessCount($tip, $next) : 0);
+        // FEATURE 'noglorywd' (p60), the 2-seat half: "take control of …, then defeat it" (JTL_043) — the stolen unit's When Defeated fires
+        // for ME, priced as that much more unit value at the kill rate (the 3-4 seat picker adds it to the same metric, _SWUBotTSUnitPick).
+        // Until 2026-10-21 the feature lived only in that Twin Suns picker, so a 1v1 game never reached it (0 fires in 660 games).
+        $tl = strtolower(str_replace('_', ' ', $tip));
+        if ($s !== null && $hostile && SWUBotFeatureOn('noglorywd') && SWUBotIsEnemyMz($seat, $c) && str_contains($tl, 'take control') && str_contains($tl, 'defeat')
+            && ($sv = SWUBotViewForMz($seat, $c)) !== null && ($swd = _SWUBotStolenWdValue($seat, $sv)) > 0) {
+            $s += $swd * (1.0 + floatval($W['kill']));
+            _SWUBotFired('noglorywd', $seat);
+        }
         // Feature 'strikeleader' (p49): the strike that kills an enemy leader unit takes it.
         if ($s !== null && $hostile && function_exists('SWUBotStrikeLeaderPremium')) $s += SWUBotStrikeLeaderPremium($seat, $c, $amt, $head, $W);
         // PROPOSAL 'removalready' (default OFF): among enemy targets, prefer a READY one — an exhausted unit cannot
@@ -1675,9 +1704,10 @@ function _SWUBotTSUnitPick(int $seat, string $c, string $tip, string $head, stri
     // 5 — capture / take control: the most valuable enemy unit.
     if (preg_match('/\bcaptur|\btake control\b/', $t) || str_starts_with($head, 'CAPTURE')) {
         $metric = SWUBotUnitValue($v);
-        // 2026-10-10 human-game screen, proposal 'noglorywd': "take control of …, then defeat it" — the unit dies under MY control, so its
+        // FEATURE 'noglorywd' (p60, shipped 2026-10-21): "take control of …, then defeat it" — the unit dies under MY control, so its
         // When Defeated fires for me (a plain capture/steal keeps the unit, so it gets nothing here).
-        if ($enemy && SWUBotProposalOn('noglorywd') && preg_match('/\btake control\b/', $t) && preg_match('/\bdefeat\b/', $t)) $metric += _SWUBotStolenWdValue($seat, $v);
+        if ($enemy && SWUBotFeatureOn('noglorywd') && preg_match('/\btake control\b/', $t) && preg_match('/\bdefeat\b/', $t)
+            && ($swd = _SWUBotStolenWdValue($seat, $v)) > 0) { $metric += $swd; _SWUBotFired('noglorywd', $seat); }
         return $hostileVs($metric);
     }
     // 3 — exhaust: the highest-power READY enemy unit (exhausting an exhausted one does nothing).
@@ -2053,6 +2083,13 @@ function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
     if (!$isLando || !_SWUBotLandoMillsTheirs($seat, $post)) return null;
     $theirDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
     if ($theirDeck <= SWU_BOT_LANDO_MILL_KILL) return 10.0;            // milling them out is the plan now
+    // PROPOSAL 'millclock' (owner 2026-10-21): "after flip, if Lando blue has 10+ resources or Lando LC has 8+ resources, then mill the
+    // opponent" — the mill's denial (their removal and bombs) and deck clock, not the Credit, are the point now, so it is a real play: just
+    // above the initiative claim, which ends my round and outscored the 0.02 spare play (5,572 traced rounds), and never the −0.5 below.
+    if ($post && SWUBotProposalOn('millclock') && SWUResourceCount($seat) >= _SWUBotLandoMillClockAt($seat)) {
+        _SWUBotFired('millclock', $seat);
+        return floatval($W['initiative'] ?? 0.05) + 0.01;
+    }
     $biggest = 0;
     foreach (GetHand($seat) as $o) { if ($o !== null && empty($o->removed)) $biggest = max($biggest, intval(CardCost(strval($o->CardID ?? '')))); }
     if ($biggest > 0 && SWUTotalPaymentCapacity($seat) >= $biggest) return -0.5;   // nothing left to ramp toward
@@ -2061,6 +2098,12 @@ function _SWUBotLandoAbilityScore(array $ctx, array $action, array $W): ?float {
 
 // Their deck at or under this, and the mill outranks the round's plays: each card they cannot draw is damage.
 const SWU_BOT_LANDO_MILL_KILL = 5;
+// 'millclock': the resource count from which the post-flip mill is a real play — 8 on Lake Country (JTL_031), 10 otherwise (owner 2026-10-21).
+const SWU_BOT_LANDO_MILLCLOCK_AT = 10;
+const SWU_BOT_LANDO_MILLCLOCK_AT_LC = 8;
+function _SWUBotLandoMillClockAt(int $seat): int {
+    return strval((GetBase($seat)[0] ?? null)->CardID ?? '') === 'JTL_031' ? SWU_BOT_LANDO_MILLCLOCK_AT_LC : SWU_BOT_LANDO_MILLCLOCK_AT;
+}
 
 // What losing one of my units costs: its value (cost + what dies with it), less what its When Defeated
 // ability gives back. Owner: Krennic's sacrificial ramp spends cheap units with beneficial When Defeated.
@@ -2471,8 +2514,8 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W, string $fromZone = '
 // Chosen over the two 'creditbank' proposals, which protected a whole 6R line and measured WORSE vs Ahsoka Blue (they
 // pushed plays below PASS everywhere); this one holds only a cheap play that NEEDS the Credit, so the bot still plays
 // every card its resources pay for.
-// Only a credit-RAMP deck banks: 'credit-ramp' without 'tempo' (BotFlavours.php) — Krennic. Lando's Credits are a
-// tempo engine ('credit-ramp' + 'tempo') and keep being spent.
+// Only a credit-RAMP deck banks — Krennic. Lando (LAW_018) spends his Credits up to the flip turn: a LANDO plan, not a tempo rule
+// (owner, 2026-10-20 — Lando Blue "is not really tempo"); it was keyed off the hand-kept 'tempo' tag until detection replaced it.
 // Feature 'earlycredits' (p40) lifts the hold below in rounds 1-3 against an aggro leader. Autopsy 2026-10-06: the bot held 1.0-1.3
 // Credits every round while behind on board (R2: 0.9 units vs the owner's 2.2). Owner: "Spend by R3, then bank". The 2026-10-03 report
 // that started 'bigcredit' was vs HMW_008, not an aggro leader, and stays held.
@@ -2482,7 +2525,7 @@ const SWU_BOT_BIGCREDIT_TAGS = ['removal', 'wipe', 'debuff-all-enemy-units', 'da
 
 function SWUBotBanksCredits(int $seat): bool {
     $f = function_exists('SWUBotDeckFlavours') ? SWUBotDeckFlavours($seat) : [];
-    return in_array('credit-ramp', $f, true) && !in_array('tempo', $f, true);
+    return in_array('credit-ramp', $f, true) && strval((GetLeader($seat)[0] ?? null)->CardID ?? '') !== 'LAW_018';
 }
 
 // How many banked Credits playing hand card $cid takes: the shortfall the ready resources cannot cover (the engine
@@ -4230,6 +4273,21 @@ function _SWUBotShownPerUnitWipe(int $seat): int {
     }
     return $per;
 }
+// PROPOSAL 'rebuildafterwipe' (owner 2026-10-21, Lando Blue vs Hemlock DV's repeated Single Reactor Ignitions): "rebuild is best especially
+// if their wipe cost them all their resources". True while an opponent has SHOWN a wipe (a 'wipe'-tagged card in their discard) and cannot
+// pay for that card again this round; the 'wipeaware' and 'wipecap' holds lift then. Public information only.
+function _SWUBotRebuildAfterWipe(int $seat): bool {
+    if (!SWUBotProposalOn('rebuildafterwipe')) return false;
+    foreach (SWUBotOpponents($seat) as $o) {
+        $cap = SWUTotalPaymentCapacity($o);
+        foreach (GetDiscard($o) as $c) {
+            if ($c === null || !empty($c->removed)) continue;
+            $cid = strval($c->CardID ?? '');
+            if (in_array('wipe', SWUBotCardTags($cid), true) && $cap < intval(CardCost($cid))) return true;
+        }
+    }
+    return false;
+}
 // Does this play leave me with enough units — tokens included, so it is read off the lookahead — for that wipe to finish my
 // base? Only a play that ADDS units counts: one that does not was never the overextension.
 function _SWUBotPlayEntersWipeRange(int $seat, array $action, int $per): bool {
@@ -5610,13 +5668,24 @@ function _SWUBotEngineActionValue(array $ctx, int $seat, array $action, array $W
 // 'landoflipbomb' (G4-16) — LAW_018 Lando: "When Deployed: You may defeat a friendly Credit token. If you do, create 3 Credit tokens." The
 // flip round with a banked Credit is 6R + 3C: Bo-Katan (9) was drawn by R4 in 129 Lando Colossus games and cast by R5 in only 28 (17-11 when
 // it was). On that round the deploy goes first and every other play waits while a 9-drop it makes castable is in hand.
+// Feature 'landolc' (p59, owner 2026-10-20): Lando on Lake Country (JTL_031) goes into the flip with 5R + 3C = 8 for The Mandalorian / Liberty —
+// his 1-resource Action first (levers/plan_landolc.php), so the deploy does not jump ahead of it and the bomb bar is 8. Every other base: 9.
+function _SWUBotLandoLC(int $seat): bool {
+    if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) return false;   // 2-player only (spec)
+    return SWUBotFeatureOn('landolc') && strval((GetBase($seat)[0] ?? null)->CardID ?? '') === 'JTL_031';
+}
+function _SWUBotLandoBombCost(int $seat): int {
+    return _SWUBotLandoLC($seat) ? 8 : 9;
+}
 function _SWUBotLandoBombFlip(array $ctx, int $seat): bool {
     if (!SWUBotFeatureOn('landoflipbomb') || _SWUBotLeaderFront($seat, 'LAW_018') === null) return false;
     if (_SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'deploy') === null) return false;
+    if (_SWUBotLandoLC($seat) && _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability') !== null) return false;   // 'landolc': the Action first
     $credits = function_exists('SWUUsableCreditTokenMzIDs') ? count(SWUUsableCreditTokenMzIDs($seat)) : 0;
     if ($credits < 1) return false;
     $after = SWUResourceCount($seat, true) + $credits + 2;
-    foreach (_SWUBotHandCards($seat) as $cid) if (intval(CardCost($cid)) >= 9 && _SWUBotSeatCost($seat, $cid) <= $after) return true;
+    $bar = _SWUBotLandoBombCost($seat);
+    foreach (_SWUBotHandCards($seat) as $cid) if (intval(CardCost($cid)) >= $bar && _SWUBotSeatCost($seat, $cid) <= $after) return true;
     return false;
 }
 

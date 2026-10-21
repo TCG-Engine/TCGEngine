@@ -11,6 +11,7 @@
 # Variant: Combo
 # Archetype (owner's label, 2026-10-01, for 3.0 — not relabelled for this list): Soft control
 # Style: softcontrol
+# Flavours: tempo
 
 Leader
 1 HMW_016

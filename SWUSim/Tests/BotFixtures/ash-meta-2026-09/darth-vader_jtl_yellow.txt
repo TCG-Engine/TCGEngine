@@ -4,7 +4,7 @@
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (29 entries).
 # Archetype (owner's label): Space aggro
 # Style: hyperaggro
-# Flavours: space
+# Flavours: space, tempo
 
 Leader
 1 JTL_006

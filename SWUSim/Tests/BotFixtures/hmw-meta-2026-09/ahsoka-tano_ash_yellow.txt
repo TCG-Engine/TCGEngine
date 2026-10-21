@@ -1,7 +1,8 @@
-# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Kyyyalstaad Swamp
-# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #9 of 39 (4-2-0), player NXS_ArthurDDL
-#   https://melee.gg/Decklist/View/aa53a3df-388d-4456-918a-b4df000a8b23 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
-#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Ahsoka Tano (ASH) Yellow archetype in this event — the only list of it.
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Freetown
+# Source: melee.gg 463642 (Datacup II - El Abismo de Helm Wargames, 2026-10-18), #5 of 52, match record 5-1-1 (from the set's results), player PORG_Nacho
+#   https://melee.gg/Decklist/View/7508e415-183a-4082-ac90-b4e60028d29b — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture — UPDATED 2026-10-20 (owner: "update the fixtures with the better performers"): the best match record of the
+#   Ahsoka Tano (ASH) Yellow archetype across the HMW set's three events. Replaced melee 480807 NXS_ArthurDDL (3-2-0).
 #   Main 50 (base minimum 50), sideboard 10.
 # Archetype (owner's label, 2026-10-11): hyperaggro — the classifier read hyperaggro (shape, low confidence: shape score 0.48 (avg cost 2.82, 21 cheap, 1 big, 0 removal, 0 wipe, 0 draw); nearest labelled list ahsoka-tano_ash_yellow is only 64%)
 # Style: hyperaggro
@@ -11,32 +12,34 @@ Leader
 1 ASH_009
 
 Base
-1 HMW_031
+1 ASH_026
 
 Deck
+3 ASH_110
 3 LOF_191
-3 JTL_203
+3 HMW_254
 3 SEC_111
+3 HMW_208
 3 ASH_248
-3 SEC_101
-2 ASH_110
+3 HMW_213
 2 JTL_103
-1 ASH_224
+2 JTL_203
+2 SEC_101
+1 HMW_115
 3 SEC_213
 3 SEC_099
 3 ASH_201
 3 JTL_221
-2 SEC_204
+3 ASH_222
 2 JTL_217
-2 JTL_102
-3 HMW_254
-3 HMW_136
-3 HMW_208
-3 HMW_213
+2 JTL_249
+2 JTL_250
+1 SEC_204
 
 Sideboard
-3 SEC_233
-2 HMW_124
-2 ASH_234
+2 JTL_235
+2 ASH_224
+2 HMW_136
 2 IBH_052
-1 ASH_224
+1 SEC_233
+1 LOF_100

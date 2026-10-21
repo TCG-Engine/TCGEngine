@@ -5,6 +5,8 @@
 #   Main 53 (base minimum 50), sideboard 10.
 # Archetype (owner's label, 2026-10-11): softcontrol — the classifier read softcontrol (shape, high confidence: shape score 2.88 (avg cost 3.98, 12 cheap, 10 big, 11 removal, 3 wipe, 0 draw))
 # Style: softcontrol
+# Flavours: tempo
+#   tempo: 29% by detection (rule > 28%, BotTempo.php)
 
 Leader
 1 HMW_016

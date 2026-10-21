@@ -506,3 +506,35 @@ WithP1GroundArena: HMW_141:1:0
 P2BASEDMG:5
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# BaseGrantedRaid_VerdantFortress_NotBuffed
+#// Bug Report game 1647080 (2026-10-20): "I've played Rex - Outserved His Purpose and it's not applying on my beasts." NOT A BUG under
+#// the owner's ruling (2026-09-16, see cards/hmw/Rex_OutservedHisPurpose.php): "no abilities" = no printed text AND no GAINED abilities.
+#// That player had HMW_126 Verdant Fortress on their base — "Attached base gains: 'Friendly units gain Raid 1.'" — so every friendly
+#// unit, the vanilla HMW_T03 Beast tokens included, has gained Raid, and Rex's +1/+1 does not reach them. A base-hosted (Fortify)
+#// grant was the one route the other *_NotBuffed sections did not cover. Beast stays 3/3 (Raid adds power only while attacking).
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_126
+WithP1GroundArena: [HMW_T03:1:0 HMW_141:1:0]
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Raid
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:3
+
+---
+
+# BaseGrantedRaid_Control_NoFortress_Buffed
+#// The pair's control: the same Beast token and Rex without Verdant Fortress — the Beast has no abilities and gets Rex's +1/+1 (4/4).
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [HMW_T03:1:0 HMW_141:1:0]
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:4

@@ -1,7 +1,8 @@
-# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Mos Eisley
-# Source: melee.gg 480807 (Nexus Open: Homeworlds, 2026-10-10), #23 of 39 (3-3-0), player tractix
-#   https://melee.gg/Decklist/View/d7bf5e28-1103-4326-b11e-b4de012f1c5e — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
-#   HMW meta 2026-09 fixture (owner 2026-10-11): the best-finishing list of the Ahsoka Tano (ASH) Yellow (Tatooine) archetype in this event — the only list of it.
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Freetown
+# Source: melee.gg 463642 (Datacup II - El Abismo de Helm Wargames, 2026-10-18), #3 of 52, match record 6-2-0 (from the set's results), player K5Zar
+#   https://melee.gg/Decklist/View/f92098c3-bc7d-49ee-a6fe-b4e5017e1a6e — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture — UPDATED 2026-10-20 (owner: "update the fixtures with the better performers"): the best match record of the
+#   Ahsoka Tano (ASH) Yellow (Tatooine) archetype across the HMW set's three events. Replaced melee 480807 tractix (3-3-0).
 #   Base trait (Tatooine) is part of the archetype: a card in the deck or sideboard cares about a Tatooine base.
 #   Main 50 (base minimum 50), sideboard 10.
 # Archetype (owner's label, 2026-10-11): softaggro — the classifier read softaggro (shape, medium confidence: shape score 0.67 (avg cost 3.08, 20 cheap, 4 big, 0 removal, 0 wipe, 0 draw); nearest labelled list ahsoka-tano_ash_yellow is only 38%)
@@ -12,32 +13,34 @@ Leader
 1 ASH_009
 
 Base
-1 JTL_030
+1 ASH_026
 
 Deck
-3 LOF_191
+3 HMW_254
 3 SEC_098
+3 HMW_117
 3 SEC_111
 3 LAW_067
+3 HMW_136
+3 HMW_208
 3 ASH_248
 3 SEC_101
-3 LAW_223
-2 LAW_146
+3 HMW_213
+2 LOF_191
+2 JTL_203
+2 LAW_221
+2 HMW_124
+1 ASH_255
+1 HMW_234
 3 SEC_213
 3 SEC_099
-2 SEC_204
-2 JTL_096
-3 HMW_254
-3 HMW_136
-3 HMW_213
-2 HMW_117
-2 HMW_208
-2 HMW_124
-2 HMW_234
+2 HMW_047
+2 ASH_222
 
 Sideboard
-3 HMW_267
-2 SEC_233
-2 ASH_112
-2 ASH_222
-1 HMW_048
+2 LOF_100
+2 ASH_206
+2 LAW_149
+2 HMW_048
+1 HMW_234
+1 ASH_222

@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Fortress of the Great Mothers
+# Source: given by the owner as JSON 2026-10-20 — "Director Krennic (LAW) / Blue – Countdown866 (1)", player Countdown866.
+#   HMW meta 2026-09 fixture, ADDED beside the event lists (owner 2026-10-20: "update some HMW lists" → add as new archetypes).
+#   Main 51, sideboard 10.
+# Archetype (owner 2026-10-20: use the classifier): softcontrol — the classifier read softcontrol (shape, medium confidence: shape score 2.80 — 0% aggro side (17 units ≤3 cost, 0 burn, 0 attack/buff cards); 15 units ≥6 cost, 5 removal events, 3 wipes)
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 ASH_019
+
+Deck
+3 ASH_116
+3 LAW_097
+3 JTL_032
+3 SEC_110
+2 SOR_033
+3 ASH_097
+3 LAW_159
+3 ASH_048
+2 ASH_079
+1 HMW_110
+2 LOF_070
+3 ASH_053
+1 ASH_133
+3 JTL_119
+3 ASH_052
+2 SEC_088
+1 LAW_101
+1 JTL_121
+1 SEC_073
+3 JTL_043
+2 LAW_133
+3 LOF_091
+
+Sideboard
+1 SEC_073
+1 ASH_079
+2 LAW_132
+2 SEC_078
+1 LAW_101
+1 ASH_133
+1 ASH_102
+1 JTL_041

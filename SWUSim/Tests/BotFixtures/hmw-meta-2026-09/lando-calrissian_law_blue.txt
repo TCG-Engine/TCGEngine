@@ -1,0 +1,44 @@
+# Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Fortress of the Great Mothers
+# Source: given by the owner as JSON 2026-10-20 — "Lando Calrissian (LAW) / Blue – T85Challenge (1)", player T85Challenge.
+#   HMW meta 2026-09 fixture, ADDED beside the event lists (owner 2026-10-20: "update some HMW lists" → add as new archetypes).
+#   Main 50, sideboard 10.
+# Archetype (owner 2026-10-20: use the classifier): softcontrol — the classifier read softcontrol (label, high confidence: matches lando-calrissian_law_blue (94% of cards))
+# Style: softcontrol
+# Flavours: credit-ramp
+
+Leader
+1 LAW_018
+
+Base
+1 ASH_019
+
+Deck
+2 LAW_112
+3 LOF_057
+2 ASH_044
+3 LAW_118
+2 LOF_046
+2 ASH_060
+3 SEC_046
+3 LAW_089
+3 ASH_079
+3 ASH_062
+1 LAW_086
+3 LOF_070
+1 LAW_095
+1 LOF_200
+1 ASH_053
+3 SEC_051
+3 ASH_052
+2 ASH_065
+3 JTL_078
+3 LAW_133
+3 SEC_078
+
+Sideboard
+2 SEC_204
+2 LAW_132
+2 ASH_063
+2 SEC_077
+1 LOF_200
+1 ASH_053

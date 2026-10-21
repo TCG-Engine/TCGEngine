@@ -1,0 +1,52 @@
+# Real-deck self-play fixture — The Mandalorian, We Can't Keep Running - Colossus
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #7 of 32 (2-4-0), player NXS_Redrufus10
+#   https://melee.gg/Decklist/View/30014d10-6aa4-470f-a4b3-b4df00e03324 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the The Mandalorian (ASH) Colossus archetype in this event — the only list of it.
+#   Main 64 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): hardcontrol (label, high confidence) — matches the-mandalorian_ash_colossus (75% of cards)
+# Style: hardcontrol
+# Flavours: hard, combo
+
+Leader
+1 ASH_014
+
+Base
+1 JTL_021
+
+Deck
+3 LOF_070
+3 SEC_051
+3 LAW_097
+3 SEC_148
+3 LAW_045
+2 LAW_118
+2 HMW_166
+2 ASH_031
+2 ASH_259
+3 JTL_153
+1 ASH_052
+3 SEC_179
+3 LOF_077
+3 SEC_180
+3 LAW_133
+3 JTL_180
+3 ASH_163
+2 SEC_182
+2 LAW_208
+2 SEC_078
+2 JTL_080
+2 LAW_044
+2 LAW_132
+3 HMW_081
+2 HMW_172
+2 LOF_138
+
+Sideboard
+3 LAW_191
+1 SEC_182
+1 ASH_052
+1 SEC_078
+1 LOF_147
+1 LAW_149
+1 LAW_044
+1 LAW_132

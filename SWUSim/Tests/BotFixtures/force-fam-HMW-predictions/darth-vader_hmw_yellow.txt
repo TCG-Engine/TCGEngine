@@ -18,6 +18,7 @@
 #   round for 1 resource (Hauler 5 + Knight of Ren 4+1+2). Plan vs Wicket: bait Aggressive Negotiations onto a unit or discard it with
 #   Remnant Lookouts.
 # Style: softaggro
+# Flavours: tempo
 
 Leader
 1 HMW_007

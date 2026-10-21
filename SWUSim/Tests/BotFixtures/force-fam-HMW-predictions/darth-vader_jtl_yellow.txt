@@ -12,7 +12,8 @@
 #   Intelligence Agency), average cost 2.56. Victor Leader / Clone Combat Squadron / Victor Squadron pay off going wide in
 #   space; ground is only Plot/disruption (Garindan, Palpatine, Lifetree Caravan).
 # Style: hyperaggro
-# Flavours: space
+# Flavours: space, tempo
+#   tempo: 30% by detection (rule > 28%, BotTempo.php)
 
 Leader
 1 JTL_006

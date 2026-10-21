@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Canto Bight
+# Source: given by the owner as JSON 2026-10-20 — "Ahsoka Tano (ASH) / Yellow 27hp Multiaspect – NT_srpatatas (2)", player NT_srpatatas.
+#   HMW meta 2026-09 fixture, ADDED beside the event lists (owner 2026-10-20: "update some HMW lists" → add as new archetypes).
+#   Main 50, sideboard 10.
+# Archetype (owner 2026-10-20: use the classifier): softaggro — the classifier read softaggro (shape, medium confidence: shape score 0.66 — 94% aggro side (32 units ≤3 cost, 0 burn, 15 attack/buff cards); 2 units ≥6 cost, 0 removal events, 0 wipes)
+# Style: softaggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 LAW_028
+
+Deck
+3 LOF_191
+3 HMW_254
+3 LAW_037
+3 HMW_208
+3 ASH_248
+2 HMW_221
+3 SEC_111
+3 HMW_213
+3 ASH_079
+2 JTL_103
+3 JTL_203
+3 SEC_101
+2 ASH_224
+3 ASH_203
+3 JTL_249
+3 JTL_221
+3 SEC_099
+2 HMW_236
+
+Sideboard
+2 ASH_236
+2 ASH_220
+2 LAW_078
+2 ASH_112
+2 IBH_052

@@ -1,15 +1,15 @@
 {
  "meta": "hmw",
- "events": 2,
+ "events": 3,
  "dates": "2026-10-10 \u2013 2026-10-18",
- "eyebrow": "SWUSim meta baseline \u00b7 HMW (Nexus Open: Homeworlds + Datacup II)",
+ "eyebrow": "SWUSim meta baseline \u00b7 HMW (Nexus Open + Nexus Invitational: Homeworlds + Datacup II)",
  "matrixTitle": "HMW Bot vs Real Matchups",
  "curatedFixtures": "SWUSim/Tests/BotFixtures/hmw-meta-2026-09",
- "source": "melee 480807 \u2014 Nexus Open: Homeworlds (2026-10-10, 39 players, 26 public lists, 24 usable); melee 463642 \u2014 Datacup II - El Abismo de Helm Wargames (2026-10-18, 52 players, 50 public lists, all usable; added 2026-10-18, owner). 196 matches with both lists public.",
+ "source": "melee 480807 \u2014 Nexus Open: Homeworlds (2026-10-10, 39 players, 26 public lists, 24 usable); melee 463642 \u2014 Datacup II - El Abismo de Helm Wargames (2026-10-18, 52 players, 50 public lists, all usable; added 2026-10-18, owner); melee 480819 \u2014 Nexus Invitational: Homeworlds (2026-10-15, 32 players, 30 public lists, 30 usable; added 2026-10-20, owner). 273 matches with both lists public.",
  "superset": true,
  "seedPrefix": "tb",
  "matrixArtifact": "https://claude.ai/artifact/7WWPM4jigHT6ss89YGwV7a",
- "decks": 74,
+ "decks": 104,
  "analyzeArgs": "--min 3 --cell-min 2",
  "matrixArgs": "--min 1"
 }
