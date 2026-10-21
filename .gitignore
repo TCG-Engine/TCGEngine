@@ -174,3 +174,7 @@ SWUDeck/SimulationConfig.local.php
 # Python bytecode caches
 __pycache__/
 *.pyc
+
+# newhost/setup-box.sh: the filled-in config holds the DB password; the kit writes its backups next to itself
+newhost/box.conf
+newhost/newhost-backups-*/

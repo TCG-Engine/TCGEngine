@@ -1,0 +1,91 @@
+# newhost/box.conf — settings for setup-box.sh.
+#
+# Copy to newhost/box.conf (gitignored: it holds the DB password) and fill in. It is plain bash,
+# sourced by setup-box.sh, so keep it to simple assignments.
+#
+#   cp newhost/box.conf.example newhost/box.conf && nano newhost/box.conf
+#   sudo newhost/setup-box.sh                       # or: --config /path/to/box.conf
+
+# ── Sites ────────────────────────────────────────────────────────────────────────────────────
+# One line per hostname this box serves: "<domain>|<Root>|<db>"
+#   <domain>  the apex domain; www.<domain> is added as an alias automatically.
+#   <Root>    the app folder whose site renders, as in Database/SiteRegistry.php ('site' => true).
+#   <db>      the database the vhost binds to (SetEnv MYSQL_DATABASE_NAME). It must map back to
+#             <Root> in SiteRegistry.php, or SharedUI/ActiveSite.php throws (site-wide 500).
+SITES=(
+  "petranaki.net|SWUSim|swusim"
+  # "swustats.net|SWUDeck|swudeck"     # the old box's SWUStats DB may be named 'swuonline' (registry alias)
+)
+
+# Roots whose GENERATED code / card data must exist before a site can render (all gitignored, so a
+# fresh clone has none). Order matters for cards: a shared corpus first. Default: each site's Root.
+GAME_ROOTS=(SWUSim)          # zzGameCodeGenerator.php rootName=<Root>
+CARD_ROOTS=(SWUSim)          # zzCardCodeGenerator.php rootName=<Root> (withPreview=1 when no cache yet)
+
+# ── Database ─────────────────────────────────────────────────────────────────────────────────
+# The app connects as this MariaDB user (not root). REQUIRED. No spaces, quotes, $, ` or \ —
+# it is written into Apache SetEnv lines. Generate one with:  openssl rand -hex 24
+DB_APP_USER="tcgengine"
+DB_APP_PASS=""
+
+# Dumps to restore: a directory holding <db>.sql or <db>.sql.gz per database. A database that is
+# EMPTY on this box is loaded from its dump; one that already has tables is never touched.
+# Leave empty for a fresh schema (Database/database.sql + the card schemas).
+RESTORE_DIR=""
+
+# ── Secrets (never in git) ───────────────────────────────────────────────────────────────────
+# A directory you copied to the box (scp -r) holding the gitignored files the app reads:
+#   APIKeys.php                 -> installed as APIKeys/APIKeys.php
+#   SimulationConfig.local.php  -> installed as SWUDeck/SimulationConfig.local.php
+#   <db>.env                    -> KEY=VALUE lines added to that site's vhost as SetEnv, e.g.
+#                                  SWUSTATS_CLIENT_ID=..., SWUSTATS_CLIENT_SECRET=...,
+#                                  SWUSTATS_REDIRECT_URI=..., DISCORD_REDIRECT_URI=...
+# Files already present on the box are never overwritten.
+SECRETS_DIR=""
+
+# ── Access ───────────────────────────────────────────────────────────────────────────────────
+# Addresses allowed to SSH in (CIDR or single IP). The address you are connected from right now
+# is always allowed too, so the run cannot lock you out. Empty = SSH open to all (with a warning;
+# then restrict it in the provider's firewall).
+ADMIN_IPS=()                 # e.g. ("203.0.113.7" "198.51.100.0/24")
+SSH_PORT=22
+# auto = key-only login (no passwords) when /root/.ssh/authorized_keys has a key; 0 = leave sshd alone.
+HARDEN_SSH="auto"
+# 1 = ports 80/443 accept Cloudflare's ranges only (the origin is unreachable around the CDN).
+CF_ONLY_WEB=1
+
+# ── TLS between Cloudflare and this box ─────────────────────────────────────────────────────
+# A Cloudflare Origin Certificate (SSL/TLS > Origin Server > Create) lets Cloudflare run in
+# "Full (strict)". Without one a self-signed cert is used and Cloudflare must be "Full".
+ORIGIN_CERT=""               # e.g. /root/secrets/origin.pem
+ORIGIN_KEY=""                # e.g. /root/secrets/origin.key
+
+# ── Code ─────────────────────────────────────────────────────────────────────────────────────
+REPO_URL="https://github.com/TCG-Engine/TCGEngine.git"
+REPO_BRANCH="main"
+APP_PARENT="/var/www/html"   # the checkout lands at $APP_PARENT/TCGEngine (URLs are /TCGEngine/...)
+
+# ── Runtime sizing (blank = sized from RAM) ──────────────────────────────────────────────────
+PHP_VERSION="8.2"
+PHP_MEMORY_LIMIT="512M"
+APCU_SHM="128M"              # live games' seat keys live in APCu; a full APCu locks every game
+APACHE_MAX_WORKERS=""
+MARIADB_BUFFER_POOL=""
+SWAP_SIZE="2G"               # created only when RAM < 2 GB and there is no swap yet
+TIMEZONE="UTC"
+INSTALL_REDIS=0              # the app runs with Redis off (Core/NetworkingLibraries.php)
+
+# ── Patching ─────────────────────────────────────────────────────────────────────────────────
+# Unattended security upgrades, INCLUDING the PHP package source, so a PHP fix lands on its own.
+# A PHP upgrade restarts Apache, which clears APCu (live games' seat keys), so it runs at a quiet
+# hour. UTC, HH:MM.
+UNATTENDED_UPGRADES=1
+UPGRADE_TIME="09:00"         # 09:00 UTC = 03:00/04:00 America/Chicago
+
+# ── Backups (newhost/backup-db.sh, nightly) ──────────────────────────────────────────────────
+BACKUP_DIR="/var/backups/tcgengine"
+BACKUP_KEEP_DAYS=14
+BACKUP_TIME="08:30"          # UTC, HH:MM
+# Off-box copy: an rclone remote you set up once with `rclone config`, e.g. "b2:my-bucket/tcgengine".
+# Strongly recommended — backups that live only on this box die with it.
+BACKUP_RCLONE_REMOTE=""
