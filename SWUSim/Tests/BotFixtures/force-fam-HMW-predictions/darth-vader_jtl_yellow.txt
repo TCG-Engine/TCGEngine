@@ -1,20 +1,25 @@
-# Self-play fixture — "Vader Yellow 9.3 sw" (Darth Vader, Victor Squadron Leader - Amnesty Housing)
-# Source: the HMW-meta list of Darth Abacus (export author "Abacus"), given by the owner 2026-10-07 as JSON.
-#   Converted 2026-10-07. 50 main-deck cards, 10 sideboard.
+# Self-play fixture — "Vader Yellow v9.4" (Darth Vader, Victor Squadron Leader - Freetown)
+# Source: the HMW-meta list of Darth Abacus (export author "Abacus"), given by the owner as JSON — his latest (v9.4, 2026-10-20).
+#   50 main-deck cards, 10 sideboard. Premier-legal (SWUCheckFormat, 2026-10-20). History:
+#   v9.3 (2026-10-07, "Vader Yellow 9.3 sw") -> v9.4 (2026-10-20, this): base Amnesty Housing -> Freetown;
+#     -3 Emissary's Sheathipede, -1 Snub Fighter Squadron, -1 Intelligence Agency; +3 Forged Starfighter, +2 Death Space Skirmisher.
+#     Sideboard was 2 Tip the Scale, 2 TIE Dagger Vanguard, 2 Nightbrother, 2 Arrest, 2 Commandeer; now 1 Snub Fighter Squadron,
+#     2 The Axe Forgets, 1 Death Space Skirmisher, 2 Commandeer, 2 Watch This, 1 Intelligence Agency, 1 Lifetree Caravan.
 # Author: Darth Abacus
 # Archetype (interpreted 2026-10-07; the owner asked for a read rather than giving a label): Space aggro.
-#   Same archetype as ash-meta-2026-09/darth-vader_jtl_yellow (melee #2, hyperaggro + space). 44 units, 41 of them
-#   in space-heavy go-wide shells: 17 one-cost cards (A-Wing, Screeching TIE, First Order TIE, Y-Wing, Outland
-#   Protector, Intelligence Agency), average cost 2.6. Victor Leader / Clone Combat Squadron / Victor Squadron pay
-#   off going wide in space; ground is only Plot/disruption (Garindan, Palpatine, Lifetree Caravan).
+#   Same archetype as ash-meta-2026-09/darth-vader_jtl_yellow (melee #2, hyperaggro + space). v9.4: 45 units, 37 of them in
+#   space; 19 one-cost cards (A-Wing, Screeching TIE, First Order TIE, Y-Wing, Outland Protector, Forged Starfighter,
+#   Intelligence Agency), average cost 2.56. Victor Leader / Clone Combat Squadron / Victor Squadron pay off going wide in
+#   space; ground is only Plot/disruption (Garindan, Palpatine, Lifetree Caravan).
 # Style: hyperaggro
-# Flavours: space
+# Flavours: space, tempo
+#   tempo: 30% by detection (rule > 28%, BotTempo.php)
 
 Leader
 1 JTL_006
 
 Base
-1 SEC_025
+1 ASH_026
 
 Deck
 3 JTL_085
@@ -22,7 +27,7 @@ Deck
 3 SEC_213
 3 SEC_185
 3 SEC_189
-2 HMW_205
+1 HMW_205
 3 SEC_186
 2 HMW_136
 1 SEC_195
@@ -32,13 +37,16 @@ Deck
 3 JTL_115
 3 HMW_203
 3 JTL_212
-3 ASH_194
-3 SEC_215
+2 ASH_194
+3 LOF_228
+2 JTL_217
 3 JTL_221
 
 Sideboard
-2 LOF_226
-2 JTL_239
-2 HMW_204
-2 SEC_195
+1 ASH_194
+2 LAW_246
+1 JTL_217
 2 JTL_235
+2 IBH_052
+1 HMW_205
+1 HMW_136

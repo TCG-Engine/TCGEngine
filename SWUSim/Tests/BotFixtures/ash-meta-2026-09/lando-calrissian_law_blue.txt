@@ -13,7 +13,7 @@
 #   Those numbers are not comparable with anything measured after today.
 # DeckStyle: softcontrol
 #   What the deck IS, for the Main Menu's auto-pick: the owner's own label above. Unchanged by the piloting result.
-# Flavours: credit-ramp, tempo
+# Flavours: credit-ramp
 #   ⚠ 'tempo' has done NOTHING since 2026-09-23 — SWU_BOT_FLAVOUR_RANK_SHIFT is empty (BotFlavours.php).
 
 Leader

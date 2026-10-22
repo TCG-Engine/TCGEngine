@@ -1,0 +1,51 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Crystal Caves
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #14 of 32 (1-4-0), player SHC_Lounas
+#   https://melee.gg/Decklist/View/4a12492e-30d3-4cb2-9eb9-b4e00096f273 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the Mother Talzin (LOF) Yellow Force archetype in this event — the only list of it.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): midrange (shape, high confidence) — shape score 2.08 — 7% aggro side (21 units ≤3 cost, 0 burn, 5 attack/buff cards); 9 units ≥6 cost, 3 removal events, 2 wipes; nearest labelled list mother-talzin_lof_yellow-force is only 73%
+# Style: midrange
+# Flavours: tempo, force
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_029
+
+Deck
+3 LOF_231
+3 LOF_031
+3 HMW_055
+3 LOF_061
+3 LOF_183
+3 LOF_035
+3 SEC_028
+2 ASH_219
+2 ASH_053
+2 LAW_086
+1 LOF_070
+1 ASH_224
+1 LOF_229
+1 HMW_062
+2 ASH_052
+2 ASH_191
+2 ASH_194
+2 HMW_203
+1 HMW_204
+1 SEC_179
+1 JTL_235
+1 JTL_043
+1 LOF_079
+1 LAW_132
+3 LOF_261
+2 LOF_215
+
+Sideboard
+2 ASH_078
+2 JTL_235
+2 SEC_192
+1 ASH_052
+1 ASH_042
+1 ASH_219
+1 ASH_194

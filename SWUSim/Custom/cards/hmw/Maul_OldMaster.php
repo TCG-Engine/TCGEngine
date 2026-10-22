@@ -125,7 +125,9 @@ function _SWUHmw016ThenDefeat(int $player, string $placedMz): void {
     $newUID = ($newMz !== null) ? intval((GetZoneObject($newMz)->UniqueID) ?? 0) : 0;
     // Held entry triggers mean ActivateCard did NOT run its action-end (SWUAfterAction), which is where a second
     // copy of a unique queues its CR uniqueness choose-and-defeat — so raise that choice here, as it would have.
-    if ($batching && $newUID > 0) SWUEnforceUniqueness(intval($player));
+    // INLINE ($closesAction false): HMW_016#1 below owns the close. The choice is normally queued already — CollectEntryTriggers
+    // raises it the moment the copy enters (2026-10-20) — and a closing call here would upgrade it to close as well (twice).
+    if ($batching && $newUID > 0) SWUEnforceUniqueness(intval($player), intval($player), false);
     if ($newUID > 0 && _SWUMaulUniquenessPending(intval($player))) {
         if ($batching) SWUFlushDeferredEntryTriggers(intval($player));   // the defeat waits a step: old separate batches
         DecisionQueueController::AddDecision(intval($player), 'CUSTOM',

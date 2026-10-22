@@ -5,6 +5,7 @@
 // "Archetype vocabulary"), as tagged in SWUSim/Tests/BotFixtures/ash-meta-2026-09/README.md (bot_flavours_test.php
 // checks every fixture header against this table).
 require_once __DIR__ . '/../Rl/CardTags.php';
+require_once __DIR__ . '/BotTempo.php';
 
 const SWU_BOT_FLAVOURS = [
     'ASH_009|Vigilance' => ['ground', 'combo'],          // Ahsoka, Blue
@@ -15,14 +16,13 @@ const SWU_BOT_FLAVOURS = [
     'LAW_004|*'         => ['hard'],                     // Aurra Sing
     'SEC_010|*'         => ['hard'],                     // Dedra Meero
     'LAW_008|*'         => ['credit-ramp'],              // Director Krennic
-    'LAW_018|*'         => ['credit-ramp', 'tempo'],     // Lando (LAW)
+    'LAW_018|*'         => ['credit-ramp'],              // Lando (LAW)
     'JTL_005|*'         => ['capital-ship'],             // Admiral Piett — red (Normal) and blue (Control)
     'JTL_012|*'         => ['space', 'combo', 'pilot'],  // Luke (JTL)
-    'LOF_009|*'         => ['tempo', 'force'],           // Darth Maul
-    'LOF_002|*'         => ['tempo', 'force'],           // Mother Talzin
-    // HMW (owner, 2026-10-01): Doctor Hemlock softens the opponent — lowers their stats (Weakness tokens) until their
-    // units can't do anything. Tarfful (HMW_010) deliberately has none yet.
-    'HMW_003|*'         => ['tempo'],                    // Doctor Hemlock (HMW)
+    'LOF_009|*'         => ['force'],                    // Darth Maul
+    'LOF_002|*'         => ['force'],                    // Mother Talzin
+    // 'tempo' is no longer listed here: BotTempo.php DETECTS it from the deck's own cards (2026-10-21). (HMW, owner 2026-10-01: Doctor
+    // Hemlock softens the opponent with Weakness tokens — his lists still read tempo, by detection.)
     // Second fixture batch (2026-09-15). A label that names a BASE is keyed by the base's CardID (owner: "the flavor
     // profiles should come from the leader/base combo"); one that names a colour, by the aspect.
     'ASH_001|JTL_028'   => ['go-tall', 'upgrades'],      // The Armorer, Nabat Village
@@ -54,7 +54,7 @@ const SWU_BOT_FLAVOURS = [
 // ⚠ OPEN: Lando is now one step below where it played best. Labelling it `hardcontrol` is NOT the same as the old
 // shift — the shift moved only SWUBotRacingRank (weights, kill ladder), while a label also moves SWUBotStyleRank
 // (the resourcer, control-wipe, threathold) — so it needs its own 3-arm run before anyone changes that fixture.
-// ⚠ Tempo still means NOTHING. The sequencing layer the owner described has not been built.
+// Tempo is now DETECTED (BotTempo.php) and has a behaviour layer: the 'tempo' levers (Custom/levers/tempo_*.php, feature group p58).
 // Records: bot-sweeps/2026-09-23_maul_tempo_2x2_*, _talzin_tempo_*, _lando_tempo_*.
 const SWU_BOT_FLAVOUR_RANK_SHIFT = [];
 
@@ -77,6 +77,8 @@ function SWUBotDeckFlavours(int $seat): array {
     // Feature 'bobaspace' (p43; 2026-10-07 gap screen): Boba Fett (JTL) is a SPACE deck (owner: "space midrange, 27 of 41 units space"); with
     // only 'burn', Krennic's resourcing read space aggro off the board and resourced Hyperspace Disaster against him (14 games, all lost).
     if ($leader === 'JTL_009' && function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('bobaspace') && !in_array('space', $f, true)) $f[] = 'space';
+    // 'tempo' (spec 2026-10-20-swusim-tempo-flavour-design.md): from this seat's own cards + leader, not the registry.
+    if (function_exists('SWUBotSeatIsTempo') && SWUBotSeatIsTempo($seat)) $f[] = 'tempo';
     return $f;
 }
 

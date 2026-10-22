@@ -5,7 +5,7 @@
 #   Main 61 (base minimum 60), sideboard 10.
 # Archetype (owner's label, 2026-10-11): softaggro — the classifier read midrange (shape, low confidence: shape score 1.58 (avg cost 3.98, 15 cheap, 9 big, 0 removal, 0 wipe, 2 draw); nearest labelled list greef-karga_ash_data-vault is only 62%)
 # Style: softaggro
-# Flavours: go-wide, mixed
+# Flavours: go-wide, mixed, tempo
 
 Leader
 1 ASH_017

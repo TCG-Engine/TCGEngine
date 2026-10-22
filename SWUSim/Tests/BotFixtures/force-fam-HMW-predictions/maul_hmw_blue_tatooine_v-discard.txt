@@ -12,6 +12,7 @@
 # Archetype (owner's label, 2026-10-12): Soft control — "value trades. hand hate. soft control tempo deck." Hand hate: 3 Remnant
 #   Lookouts ASH_220, 3 Intelligence Agency HMW_205, 2 Garindan SEC_186, 2 Beguile SEC_233.
 # Style: softcontrol
+# Flavours: tempo
 
 Leader
 1 HMW_016

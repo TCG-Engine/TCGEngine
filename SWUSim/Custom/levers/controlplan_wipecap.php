@@ -33,6 +33,9 @@ SWUBotLeverRegister('controlplan', 'wipecap', [
         if (($w = _SWUBotLvExpectedWipe($seat)) === null) return null;
         $atCap = count(SWUBotUnits($seat)) >= SWU_BOT_LV_WIPECAP_UNITS;
         $underBudget = $w['budget'] !== null && intval(CardHp($cid)) <= $w['budget'];
-        return ($atCap || $underBudget) ? $v - SWU_BOT_LV_WIPECAP : null;
+        if (!$atCap && !$underBudget) return null;
+        // Proposal 'rebuildafterwipe' (owner 2026-10-21): an opponent who has spent a shown wipe and cannot pay for it again this round — rebuild.
+        if (function_exists('_SWUBotRebuildAfterWipe') && _SWUBotRebuildAfterWipe($seat)) { _SWUBotFired('rebuildafterwipe', $seat); return null; }
+        return $v - SWU_BOT_LV_WIPECAP;
     },
 ]);

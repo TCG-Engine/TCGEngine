@@ -5,6 +5,7 @@
 #   Main 52 (base minimum 50), sideboard 10.
 # Archetype (owner's label, 2026-10-11): softaggro — the classifier read midrange (shape, high confidence: shape score 2.16 (avg cost 2.60, 13 cheap, 0 big, 3 removal, 0 wipe, 0 draw))
 # Style: softaggro
+# Flavours: tempo
 
 Leader
 1 JTL_018

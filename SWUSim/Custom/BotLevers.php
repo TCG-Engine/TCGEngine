@@ -29,7 +29,10 @@ $GLOBALS['SWUBotLevers'] = $GLOBALS['SWUBotLevers'] ?? [];   // name => ['theme'
 // SHIPPED levers (feature group p54, BotFeatures.php): default ON — active unless "@no-<name>" (or its group) switches the feature off. They are
 // FEATURES, so they leave the proposal list; every other registered lever stays an off-by-default proposal.
 function _SWUBotShippedLevers(): array {
-    return array_merge(defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [], defined('SWU_BOT_PART56_FEATURES') ? SWU_BOT_PART56_FEATURES : []);   // p54 + p56
+    return array_merge(defined('SWU_BOT_PART54_FEATURES') ? SWU_BOT_PART54_FEATURES : [], defined('SWU_BOT_PART56_FEATURES') ? SWU_BOT_PART56_FEATURES : [],
+                       defined('SWU_BOT_PART57_FEATURES') ? SWU_BOT_PART57_FEATURES : [],    // p54 + p56 + p57 (only 'readykill' of p57 is a registry lever)
+                       defined('SWU_BOT_PART58_FEATURES') ? SWU_BOT_PART58_FEATURES : [],    // + p58 (the tempo layer, levers/tempo_*.php)
+                       defined('SWU_BOT_PART59_FEATURES') ? SWU_BOT_PART59_FEATURES : []);   // + p59 (the tempo deck plans, levers/plan_*.php)
 }
 
 function SWUBotLeverRegister(string $theme, string $name, array $hooks): void {

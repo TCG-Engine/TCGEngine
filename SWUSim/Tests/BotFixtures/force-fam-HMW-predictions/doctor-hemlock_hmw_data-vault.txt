@@ -8,7 +8,7 @@
 #   shape — score 2.91, 0% aggro side (24 units <= 3 cost, 0 burn, 0 attack/buff cards; 10 units >= 6 cost, 7 removal events, 8 wipes);
 #   no labelled list of this leader is a 75% match.
 # Style: softcontrol
-# Flavours: tempo
+# Flavours: 
 
 Leader
 1 HMW_003

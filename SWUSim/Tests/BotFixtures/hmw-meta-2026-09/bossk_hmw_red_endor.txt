@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Bossk, Cruel Hunter - Dendroid Wilds
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #29 of 32 (0-5-0), player IB_Bourbon
+#   https://melee.gg/Decklist/View/08d6a02b-6a8d-4187-8000-b4e0009c1a89 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the Bossk (HMW) Red (Endor) archetype in this event — the only list of it.
+#   Base trait (Endor) is part of the archetype: a card in the deck or sideboard cares about a Endor base.
+#   Main 51 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): softaggro (shape, high confidence) — shape score 0.83 — 83% aggro side (26 units ≤3 cost, 8 burn, 9 attack/buff cards); 7 units ≥6 cost, 0 removal events, 0 wipes
+# Style: softaggro
+# Flavours: tempo
+
+Leader
+1 HMW_015
+
+Base
+1 HMW_029
+
+Deck
+3 LAW_174
+3 HMW_177
+3 LAW_191
+3 LAW_173
+3 ASH_192
+3 LOF_130
+3 HMW_202
+3 LOF_183
+3 SEC_133
+2 HMW_159
+2 LAW_075
+3 JTL_140
+3 HMW_203
+2 HMW_204
+2 JTL_242
+2 ASH_194
+3 HMW_207
+3 HMW_193
+2 LAW_217
+
+Sideboard
+3 LAW_076
+2 JTL_143
+2 ASH_171
+2 LAW_077
+1 JTL_235

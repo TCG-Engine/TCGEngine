@@ -7,7 +7,7 @@
 #   (vs Lando Blue, Maul Blue): heal to full with Chimaera / Lost and Forgotten, stop resourcing ~11, hold answers, close
 #   with General Grievous. Her earlier list measured soft control 83% vs midrange 68% vs Krennic Splash in self-play.
 # Style: softcontrol
-# Flavours: tempo
+# Flavours: 
 
 Leader
 1 HMW_003

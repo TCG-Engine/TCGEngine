@@ -162,23 +162,28 @@ P1BASEDMG:4
 ---
 
 # TwoFetchedUnits_BothWhenPlayedsResolveInOrder
-#// The multi-pick case: each play's triggers drain BEFORE the next unit plays (the queue orders them),
-#// so two Crumbs heal 2 total. A batch implementation that placed both and fired triggers once — or
-#// jumped the second play over the first's pending trigger — lands on 5 or 4 instead of 3.
+#// The multi-pick case: each play's triggers drain BEFORE the next unit plays (the queue orders them), so both heals land.
+#// Two DIFFERENT unique units (owner 2026-10-20 — two copies of one unique can never stay in play for one player; the old
+#// fixture fetched two SHD_080 Salacious Crumbs and asserted both stayed): SHD_080 Salacious Crumb ("When Played: Heal 1 damage
+#// from your base") and TS26_41 Twilight ("When Played: If there are 5 or more cards in your discard pile, heal 3 damage from
+#// your base"; a ship — it lands in space). 5 damage → 1. A batch implementation that placed both and fired triggers once — or jumped the second play over
+#// the first's pending trigger — lands on 4 or 2 instead.
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myResources:7;myBaseDamage:5}
 P1OnlyActions: true
 WithP1Hand: SOR_104
-WithP1Deck: [SHD_080 SHD_080 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171]
+WithP1Discard: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP1Deck: [SHD_080 TS26_41 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:SHD_080,SHD_080
+- P1>AnswerDecision:SHD_080,TS26_41
 
 ## EXPECT
-P1GROUNDARENACOUNT:2
-P1BASEDMG:3
+P1GROUNDARENACOUNT:1
+P1SPACEARENACOUNT:1
+P1BASEDMG:1
 
 ---
 

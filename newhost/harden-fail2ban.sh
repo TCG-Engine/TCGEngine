@@ -28,7 +28,10 @@
 # rewrites them from this script every run, exactly like harden-htaccess.sh owns
 # the docroot .htaccess.
 #
-# Assumes: XAMPP at /opt/lampp, Debian/Ubuntu (apt), Apache via mod_php, run as root.
+# Assumes: Debian/Ubuntu (apt), Apache via mod_php, run as root, and one of two stacks:
+#   STACK=lampp  - XAMPP at /opt/lampp (the original boxes)
+#   STACK=native - the distro apache2 package (/etc/apache2), as built by setup-box.sh
+# Auto-detected: /opt/lampp present -> lampp, else /etc/apache2 present -> native.
 #
 set -euo pipefail
 
@@ -36,10 +39,26 @@ set -euo pipefail
 # Config (override via environment)
 # ---------------------------------------------------------------------------
 LAMPP_ROOT="${LAMPP_ROOT:-/opt/lampp}"
-HTTPD_CONF="${HTTPD_CONF:-$LAMPP_ROOT/etc/httpd.conf}"
-ACCESS_LOG="${ACCESS_LOG:-$LAMPP_ROOT/logs/access_log}"
-ERROR_LOG="${ERROR_LOG:-$LAMPP_ROOT/logs/error_log}"
-REMOTEIP_CONF="${REMOTEIP_CONF:-$LAMPP_ROOT/etc/extra/httpd-remoteip.conf}"
+if [ -z "${STACK:-}" ]; then
+  if [ -d "$LAMPP_ROOT" ]; then STACK=lampp
+  elif [ -d /etc/apache2 ]; then STACK=native
+  else STACK=lampp; fi   # preflight below reports the missing LAMPP
+fi
+case "$STACK" in lampp|native) ;; *) echo "STACK must be lampp or native (got '$STACK')" >&2; exit 2 ;; esac
+if [ "$STACK" = native ]; then
+  HTTPD_CONF="${HTTPD_CONF:-/etc/apache2/apache2.conf}"
+  LOG_DIR="${LOG_DIR:-/var/log/apache2}"
+  ACCESS_LOG="${ACCESS_LOG:-$LOG_DIR/access.log}"
+  ERROR_LOG="${ERROR_LOG:-$LOG_DIR/error.log}"
+  REMOTEIP_CONF="${REMOTEIP_CONF:-/etc/apache2/conf-available/remoteip-cdn.conf}"
+  VHOST_ACCESS_GLOB="$LOG_DIR/*-access.log"     # setup-box.sh vhosts log to <app>-access.log
+else
+  HTTPD_CONF="${HTTPD_CONF:-$LAMPP_ROOT/etc/httpd.conf}"
+  ACCESS_LOG="${ACCESS_LOG:-$LAMPP_ROOT/logs/access_log}"
+  ERROR_LOG="${ERROR_LOG:-$LAMPP_ROOT/logs/error_log}"
+  REMOTEIP_CONF="${REMOTEIP_CONF:-$LAMPP_ROOT/etc/extra/httpd-remoteip.conf}"
+  VHOST_ACCESS_GLOB="$LAMPP_ROOT/logs/*-access_log"   # provision-vhost.sh vhosts log to <app>-access_log
+fi
 CF_IPS_CACHE="${CF_IPS_CACHE:-/etc/fail2ban/cloudflare-ips.local}"
 
 # The real-client-IP header. Cloudflare sends CF-Connecting-IP. If you sit behind a
@@ -105,9 +124,24 @@ backup() {
 # Preflight
 # ---------------------------------------------------------------------------
 [ "$(id -u)" -eq 0 ] || die "must run as root (sudo)."
-[ -d "$LAMPP_ROOT" ] || die "LAMPP not found at $LAMPP_ROOT (set LAMPP_ROOT=...)."
+if [ "$STACK" = lampp ]; then
+  [ -d "$LAMPP_ROOT" ] || die "LAMPP not found at $LAMPP_ROOT (set LAMPP_ROOT=..., or STACK=native for a distro apache2)."
+else
+  [ -f "$HTTPD_CONF" ] || die "native stack: $HTTPD_CONF not found (is apache2 installed?)."
+fi
 command -v python3 >/dev/null 2>&1 || die "python3 not found (fail2ban itself needs it)."
-log "Tuning fail2ban for $LAMPP_ROOT  (backups -> $BACKUP_DIR)"
+log "Tuning fail2ban for the $STACK stack  (backups -> $BACKUP_DIR)"
+
+# Apache control for the active stack.
+apache_test() {
+  if [ "$STACK" = native ]; then apache2ctl -t; else "$LAMPP_ROOT/bin/httpd" -t; fi
+}
+apache_can_test() {
+  if [ "$STACK" = native ]; then command -v apache2ctl >/dev/null 2>&1; else [ -x "$LAMPP_ROOT/bin/httpd" ]; fi
+}
+apache_restart() {
+  if [ "$STACK" = native ]; then systemctl restart apache2; else "$LAMPP_ROOT/lampp" restart; fi
+}
 
 # ---------------------------------------------------------------------------
 # 1. fail2ban present
@@ -198,7 +232,57 @@ IGNORE_LIST="$LOCAL_IGNORE $(printf '%s' "$CF_IPS" | tr '\n' ' ')"
 # what makes the jails meaningful again.
 APACHE_CHANGED=0
 HTTPD_CONF_MODIFIED=0
-if [ "$SKIP_APACHE" -eq 0 ]; then
+NATIVE_ENABLED_MOD=0; NATIVE_ENABLED_CONF=0; REMOTEIP_CONF_EXISTED=0
+[ -f "$REMOTEIP_CONF" ] && REMOTEIP_CONF_EXISTED=1
+if [ "$SKIP_APACHE" -eq 0 ] && [ "$STACK" = native ]; then
+  # Distro apache2: the module ships in apache2-bin and is switched on with a2enmod; our conf
+  # lives in conf-available/ and is switched on with a2enconf — no Include lines to manage.
+  log "Configuring real-client-IP logging (mod_remoteip, header $REAL_IP_HEADER) — native apache2"
+  if [ ! -f /usr/lib/apache2/modules/mod_remoteip.so ]; then
+    warn "mod_remoteip.so not present in /usr/lib/apache2/modules — SKIPPING the Apache half."
+    warn "  Bans will keep targeting CDN edges; the ignoreip whitelist below is then the ONLY protection."
+  else
+    new_conf="$(mktemp)"
+    {
+      printf '# Managed by newhost/harden-fail2ban.sh — regenerated every run, do not hand-edit.\n'
+      printf '# Restores the real client IP from the CDN so logs, fail2ban and the app all see\n'
+      printf '# the player rather than the edge that relayed them.\n'
+      printf '<IfModule remoteip_module>\n'
+      printf '    RemoteIPHeader %s\n' "$REAL_IP_HEADER"
+      printf '    # Only these networks may assert a client IP; a direct hit on the origin cannot spoof it.\n'
+      printf '%s\n' "$CF_IPS" | sed 's|^|    RemoteIPTrustedProxy |'
+      printf '</IfModule>\n'
+    } > "$new_conf"
+    if cmp -s "$new_conf" "$REMOTEIP_CONF" 2>/dev/null; then
+      rm -f "$new_conf"; ok "$REMOTEIP_CONF already current"
+    else
+      backup "$REMOTEIP_CONF"; mv "$new_conf" "$REMOTEIP_CONF"; chmod 644 "$REMOTEIP_CONF"
+      APACHE_CHANGED=1; ok "wrote $REMOTEIP_CONF"
+    fi
+    if [ ! -e /etc/apache2/mods-enabled/remoteip.load ]; then
+      a2enmod -q remoteip >/dev/null; NATIVE_ENABLED_MOD=1; APACHE_CHANGED=1; ok "a2enmod remoteip"
+    else
+      ok "remoteip module already enabled"
+    fi
+    conf_name="$(basename "$REMOTEIP_CONF" .conf)"
+    if [ ! -e "/etc/apache2/conf-enabled/$conf_name.conf" ]; then
+      a2enconf -q "$conf_name" >/dev/null; NATIVE_ENABLED_CONF=1; APACHE_CHANGED=1; ok "a2enconf $conf_name"
+    else
+      ok "$conf_name already enabled"
+    fi
+    # Same LogFormat reasoning as the lampp branch below: %h -> %a on the nickname definitions,
+    # in place, so every `CustomLog ... combined` (the per-site vhosts too) logs the real client.
+    if grep -Eq '^[[:space:]]*LogFormat[[:space:]]+"%h ' "$HTTPD_CONF"; then
+      backup "$HTTPD_CONF"; HTTPD_CONF_MODIFIED=1; APACHE_CHANGED=1
+      sed -ri 's|^([[:space:]]*LogFormat[[:space:]]+")%h |\1%a |' "$HTTPD_CONF"
+      ok "LogFormat: %h -> %a in $HTTPD_CONF (log the real client, not the edge)"
+    else
+      ok "LogFormat already logs %a (or is defined elsewhere)"
+    fi
+    other_fmt="$(grep -rlE '^[[:space:]]*LogFormat[[:space:]]+"%h ' /etc/apache2/conf-enabled/ /etc/apache2/sites-enabled/ 2>/dev/null || true)"
+    [ -n "$other_fmt" ] && warn "these also define a %h LogFormat — review by hand: $(echo $other_fmt | tr '\n' ' ')"
+  fi
+elif [ "$SKIP_APACHE" -eq 0 ]; then
   log "Configuring real-client-IP logging (mod_remoteip, header $REAL_IP_HEADER)"
   if [ ! -f "$LAMPP_ROOT/modules/mod_remoteip.so" ]; then
     warn "mod_remoteip.so not present in $LAMPP_ROOT/modules — SKIPPING the Apache half."
@@ -293,10 +377,10 @@ ok "wrote filter.d/xampp-dos.conf"
 # be nearly empty there. Watch both. The glob is only emitted when it currently matches
 # something -- fail2ban complains about a logpath that resolves to nothing.
 ACCESS_PATHS="$ACCESS_LOG"
-if compgen -G "$LAMPP_ROOT/logs/*-access_log" >/dev/null 2>&1; then
+if compgen -G "$VHOST_ACCESS_GLOB" >/dev/null 2>&1; then
   ACCESS_PATHS="$ACCESS_LOG
-           $LAMPP_ROOT/logs/*-access_log"
-  ok "per-vhost access logs detected — added logs/*-access_log to the watch list"
+           $VHOST_ACCESS_GLOB"
+  ok "per-vhost access logs detected — added $VHOST_ACCESS_GLOB to the watch list"
 fi
 
 backup /etc/fail2ban/jail.local
@@ -348,6 +432,14 @@ maxretry = $RECIDIVE_MAXRETRY
 findtime = $RECIDIVE_FINDTIME
 bantime  = $RECIDIVE_BANTIME
 JAIL
+# The distro enables an [sshd] jail (jail.d/defaults-debian.conf) that reads /var/log/auth.log. A box
+# without rsyslog (Debian 12, minimal images) has no such file, and fail2ban then refuses to start AT
+# ALL ("Have not found any log file for sshd jail"), taking every jail above down with it. Read sshd
+# from the journal instead there. Boxes that have auth.log (the XAMPP ones) are unchanged.
+if [ ! -f /var/log/auth.log ]; then
+  printf '\n# No /var/log/auth.log on this box: read sshd from the systemd journal.\n[sshd]\nbackend = systemd\n' >> /etc/fail2ban/jail.local
+  ok "no /var/log/auth.log — [sshd] jail reads the systemd journal"
+fi
 ok "wrote jail.local (maxretry=$MAXRETRY/$FINDTIME s, bantime=$BANTIME s)"
 
 # ---------------------------------------------------------------------------
@@ -411,9 +503,18 @@ fi
 # 7. Validate the Apache edits, then apply them
 # ---------------------------------------------------------------------------
 if [ "$APACHE_CHANGED" -eq 1 ]; then
-  if [ -x "$LAMPP_ROOT/bin/httpd" ] && ! "$LAMPP_ROOT/bin/httpd" -t >/dev/null 2>&1; then
+  if apache_can_test && ! apache_test >/dev/null 2>&1; then
     warn "apache config test FAILED — output follows:"
-    "$LAMPP_ROOT/bin/httpd" -t || true
+    apache_test || true
+    if [ "$STACK" = native ]; then
+      # Undo exactly what this run switched on, so the next restart still comes up.
+      [ "$NATIVE_ENABLED_CONF" -eq 1 ] && a2disconf -q "$(basename "$REMOTEIP_CONF" .conf)" >/dev/null 2>&1 || true
+      [ "$NATIVE_ENABLED_MOD" -eq 1 ] && a2dismod -q remoteip >/dev/null 2>&1 || true
+      if [ "$REMOTEIP_CONF_EXISTED" -eq 1 ]; then
+        prev="$BACKUP_DIR/$(echo "$REMOTEIP_CONF" | sed 's#^/##; s#/#_#g')"
+        [ -f "$prev" ] && cp -p "$prev" "$REMOTEIP_CONF" || true
+      fi
+    fi
     # Same reasoning as provision-vhost.sh: Apache keeps serving from its in-memory
     # config, so a broken httpd.conf is invisible until some unrelated restart hours
     # later — a reboot, a cron job, an unrelated deploy — and then the box goes down
@@ -426,19 +527,21 @@ if [ "$APACHE_CHANGED" -eq 1 ]; then
         warn "could not revert $HTTPD_CONF — restore by hand from $BACKUP_DIR BEFORE any restart"
       fi
     fi
-    rm -f "$REMOTEIP_CONF"
+    # lampp: the conf is only live through httpd.conf's Include, which was just reverted, so
+    # remove it. native: keep a conf that predates this run (restored above), drop a new one.
+    if [ "$STACK" = lampp ] || [ "$REMOTEIP_CONF_EXISTED" -eq 0 ]; then rm -f "$REMOTEIP_CONF"; fi
     warn "the fail2ban half IS applied and live (lenient jails + CDN whitelist)."
     die "only the real-client-IP half failed. Fix the config above (originals in $BACKUP_DIR), then re-run."
   fi
   ok "apache config test passed"
   if [ "$SKIP_RESTART" -eq 0 ]; then
-    log "Restarting LAMPP to apply the Apache changes"
-    "$LAMPP_ROOT/lampp" restart || warn "LAMPP restart failed; restart it manually."
+    log "Restarting Apache ($STACK) to apply the Apache changes"
+    apache_restart || warn "Apache restart failed; restart it manually."
   else
-    warn "skipping LAMPP restart (--skip-restart) — real-client-IP logging is NOT live yet"
+    warn "skipping Apache restart (--skip-restart) — real-client-IP logging is NOT live yet"
   fi
 else
-  ok "no Apache changes needed; LAMPP not restarted"
+  ok "no Apache changes needed; Apache not restarted"
 fi
 
 # ---------------------------------------------------------------------------

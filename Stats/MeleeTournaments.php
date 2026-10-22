@@ -2,6 +2,10 @@
 include_once "../SharedUI/MenuBar.php";
 require_once "../SharedUI/Render/Head.php"; echo RenderSiteStyles("SWUDeck");
 include_once "../SharedUI/Header.php";
+require_once __DIR__ . "/../AccountFiles/AccountSessionAPI.php";
+// Tournaments arrive as packages (DevTools/melee-package.php) because melee.gg 403s this server;
+// only moderators may import them, the same gate APIs/ImportMeleeTournamentPackage.php enforces.
+$canImportPackages = CheckLoggedInUserModStrict() === '';
 ?>
 
 <!DOCTYPE html>
@@ -150,17 +154,40 @@ include_once "../SharedUI/Header.php";
             text-decoration: underline;
             color: var(--accent); /* Even brighter on hover */
         }
+        .package-hint { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text-muted); }
+        .package-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .package-row input[type="file"] { flex: 1 1 260px; min-width: 0; width: auto; color: var(--text); }
+        .package-row button { flex: 0 0 auto; width: auto; min-width: 120px; }
+        .package-message { margin-top: 12px; color: var(--text); }
+        /* divs, not ul/li: SharedUI menuStyles.css makes every ul and li display:flex */
+        .package-results { margin-top: 12px; }
+        .package-result { padding: 8px 0; border-top: 1px solid var(--border); color: var(--text); overflow-wrap: anywhere; }
+        .package-results .pkg-status { display: inline-block; min-width: 9em; margin-right: 0.75em; font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 0.04em; }
+        .package-results .pkg-failed { color: var(--danger, #e5534b); }
+        .package-results .pkg-ok { color: var(--success); }
+        .package-results .pkg-note { display: block; color: var(--text-muted); font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <h1>Melee Tournaments</h1>
-    
+
+<?php if ($canImportPackages): ?>
+    <div class="filters">
+        <h3>Import Tournaments</h3>
+        <form id="package-import-form">
+            <label for="package-input">Tournament packages <span class="package-hint">(.json.gz, up to 5)</span></label>
+            <div class="package-row">
+                <input type="file" id="package-input" name="packages[]" accept=".gz,application/gzip" multiple required>
+                <button type="submit" id="package-submit" class="hud-green">Import</button>
+            </div>
+            <div id="package-message" class="package-message" hidden></div>
+            <div id="package-results" class="package-results" hidden></div>
+        </form>
+    </div>
+<?php endif; ?>
+
     <div class="filters">
         <h3>Filter Tournaments</h3>
-        <form id="melee-link-search-form" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
-            <input type="url" id="melee-link-input" placeholder="Paste melee.gg tournament link here" style="flex: 1 1 400px; min-width: 0; color: var(--text); font-size: 1rem; padding: 10px 8px; height: 44px; display: block;" required>
-            <button type="submit" class="hud-green" style="flex: 0 0 auto; width: auto; min-width: 120px; font-size: 1rem; padding: 10px 18px; height: 44px; display: block; margin-top:-10px;">Go to Tournament</button>
-        </form>
         <form id="filterForm">
             <div class="filter-row">
             <div class="filter-group">
@@ -423,40 +450,74 @@ include_once "../SharedUI/Header.php";
                 .replace(/'/g, '&#039;');
         }
 
-        // Melee.gg link search logic
-        const meleeLinkForm = document.getElementById('melee-link-search-form');
-        const meleeLinkInput = document.getElementById('melee-link-input');
+        // Tournament package import (moderators only; the form is not rendered for anyone else)
+        const packageForm = document.getElementById('package-import-form');
+        if (packageForm) {
+            const MAX_PACKAGES = 5;
+            const packageInput = document.getElementById('package-input');
+            const packageSubmit = document.getElementById('package-submit');
+            const packageMessage = document.getElementById('package-message');
+            const packageResults = document.getElementById('package-results');
+            const STATUS_LABELS = { imported: 'Imported', already_imported: 'Already imported', failed: 'Failed' };
 
-        meleeLinkForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const link = meleeLinkInput.value.trim();
-            if (!link) return;
-            meleeLinkInput.disabled = true;
-            meleeLinkForm.querySelector('button[type="submit"]').disabled = true;
-            showLoading();
-            fetch('../APIs/FindOrImportMeleeTournament.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ melee_url: link })
-            })
-            .then(res => res.json())
-            .then(data => {
-                meleeLinkInput.disabled = false;
-                meleeLinkForm.querySelector('button[type="submit"]').disabled = false;
-                hideLoading();
-                if (data.success && data.tournament_id) {
-                    window.location.href = `MeleeTournamentResults.php?id=${data.tournament_id}`;
-                } else {
-                    showError(data.message || 'Tournament not found or could not be imported.');
+            const setMessage = (text) => {
+                packageMessage.textContent = text;
+                packageMessage.hidden = !text;
+            };
+
+            packageForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const files = [...packageInput.files];
+                packageResults.hidden = true;
+                packageResults.replaceChildren();
+                if (files.length === 0) { setMessage('Choose at least one tournament package.'); return; }
+                if (files.length > MAX_PACKAGES) { setMessage(`At most ${MAX_PACKAGES} packages at a time.`); return; }
+
+                const body = new FormData();
+                files.forEach(f => body.append('packages[]', f, f.name));
+                packageSubmit.disabled = true;
+                packageInput.disabled = true;
+                setMessage(`Importing ${files.length} package${files.length === 1 ? '' : 's'}…`);
+                try {
+                    const res = await fetch('../APIs/ImportMeleeTournamentPackage.php', { method: 'POST', body });
+                    const data = await res.json();
+                    if (!Array.isArray(data.results)) { setMessage(data.message || `Import failed (HTTP ${res.status}).`); return; }
+                    setMessage('');
+                    data.results.forEach(r => {
+                        const li = document.createElement('div');
+                        li.className = 'package-result';
+                        const status = document.createElement('span');
+                        status.className = 'pkg-status ' + (r.status === 'failed' ? 'pkg-failed' : 'pkg-ok');
+                        status.textContent = STATUS_LABELS[r.status] || r.status;
+                        li.append(status);
+                        if (r.tournament_id) {
+                            const a = document.createElement('a');
+                            a.className = 'tournament-link';
+                            a.href = `MeleeTournamentResults.php?id=${encodeURIComponent(r.tournament_id)}`;
+                            a.textContent = r.name || r.file;
+                            li.append(a, ` — ${r.decks} decks, ${r.matchups} matchups`);
+                        } else {
+                            li.append(r.file);
+                        }
+                        const notes = [r.status === 'failed' ? r.message : null, r.warning].filter(Boolean);
+                        notes.forEach(n => {
+                            const note = document.createElement('span');
+                            note.className = 'pkg-note';
+                            note.textContent = n;
+                            li.append(note);
+                        });
+                        packageResults.append(li);
+                    });
+                    packageResults.hidden = false;
+                    if (data.results.some(r => r.status === 'imported')) loadTournaments();
+                } catch (err) {
+                    setMessage('Import failed: ' + err.message);
+                } finally {
+                    packageSubmit.disabled = false;
+                    packageInput.disabled = false;
                 }
-            })
-            .catch(err => {
-                meleeLinkInput.disabled = false;
-                meleeLinkForm.querySelector('button[type="submit"]').disabled = false;
-                hideLoading();
-                showError('Error: ' + err.message);
             });
-        });
+        }
         // ---- aggregate selection handlers ----
         document.getElementById('clear-sel').addEventListener('click', () => {
             selected.clear();

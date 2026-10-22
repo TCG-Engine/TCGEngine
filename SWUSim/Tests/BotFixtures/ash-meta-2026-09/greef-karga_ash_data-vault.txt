@@ -4,7 +4,7 @@
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (20 entries).
 # Archetype (owner's label): Go-wide aggro / soft aggro (Support units, action-cheating)
 # Style: softaggro
-# Flavours: go-wide, mixed
+# Flavours: go-wide, mixed, tempo
 
 Leader
 1 ASH_017

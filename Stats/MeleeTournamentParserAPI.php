@@ -12,10 +12,11 @@ set_time_limit(1800);
 include_once '../Core/HTTPLibraries.php';
 include_once '../Database/ConnectionManager.php';
 include_once 'MeleeTournamentParser.php';
+include_once __DIR__ . '/MeleeFetch.php';
 
 // Bumped whenever this file's import logic changes. Echoed back in the API's failure payload
 // so a prod report proves which build actually ran (a stale deploy is otherwise invisible).
-if (!defined('MELEE_PARSER_VERSION')) define('MELEE_PARSER_VERSION', '2026-07-29.2');
+if (!defined('MELEE_PARSER_VERSION')) define('MELEE_PARSER_VERSION', '2026-10-22.1');
 
 // Returns how many standings rows melee.gg has for this round (0 if none / on error).
 // Top-cut bracket rounds can return a valid JSON payload with zero records, so a round
@@ -23,14 +24,9 @@ if (!defined('MELEE_PARSER_VERSION')) define('MELEE_PARSER_VERSION', '2026-07-29
 // $probe is filled with the raw outcome (http code, curl error, body snippet) so a failed
 // probe can be told apart from a genuinely empty round.
 function meleeRoundStandingsCount($roundId, &$probe = null) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://melee.gg/Standing/GetRoundStandings');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_POST, 1);
     // The endpoint is a server-side DataTables binding: without a `columns`/`order`
     // pair it 302s to an error page instead of returning JSON.
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+    $postBody = http_build_query([
         'draw' => 1,
         'start' => 0,
         'length' => 1,
@@ -40,23 +36,35 @@ function meleeRoundStandingsCount($roundId, &$probe = null) {
             ['data' => 'Rank', 'name' => 'Rank', 'searchable' => true, 'orderable' => true, 'search' => ['value' => '', 'regex' => false]],
         ],
         'order' => [['column' => 0, 'dir' => 'asc']],
-    ]));
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/x-www-form-urlencoded',
-        'Accept: application/json, text/javascript, */*; q=0.01',
-        'Referer: https://melee.gg/',
     ]);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, sys_get_temp_dir() . '/melee_cookies.txt');
-    curl_setopt($ch, CURLOPT_COOKIEFILE, sys_get_temp_dir() . '/melee_cookies.txt');
-    $response = curl_exec($ch);
+    $url = 'https://melee.gg/Standing/GetRoundStandings';
+    $fetched = SWUMeleeFetch('POST', $url, $postBody, function () use ($url, $postBody) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postBody);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json, text/javascript, */*; q=0.01',
+            'Referer: https://melee.gg/',
+        ]);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, sys_get_temp_dir() . '/melee_cookies.txt');
+        curl_setopt($ch, CURLOPT_COOKIEFILE, sys_get_temp_dir() . '/melee_cookies.txt');
+        $body = curl_exec($ch);
+        $result = ['status' => (int)curl_getinfo($ch, CURLINFO_HTTP_CODE), 'body' => $body, 'error' => curl_error($ch) ?: null];
+        curl_close($ch);
+        return $result;
+    });
+    $response = $fetched['body'];
     $probe = [
         'roundId'  => (int)$roundId,
-        'httpCode' => (int)curl_getinfo($ch, CURLINFO_HTTP_CODE),
-        'curlError' => curl_error($ch) ?: null,
+        'httpCode' => $fetched['status'],
+        'curlError' => $fetched['error'],
         'count'    => 0,
     ];
-    curl_close($ch);
     if (!$response) { $probe['note'] = 'empty response body'; return 0; }
     $json = json_decode($response, true);
     if (!is_array($json)) {
@@ -84,24 +92,29 @@ function meleeRoundStandingsCount($roundId, &$probe = null) {
 function getHighestRoundIdFromTournament($tournamentId, &$diag = null) {
     $diag = ['stage' => 'fetch_tournament_page', 'tournamentId' => (string)$tournamentId];
     $url = "https://melee.gg/Tournament/View/" . urlencode($tournamentId);
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language: en-US,en;q=0.9',
-        'Connection: keep-alive',
-        'Referer: https://melee.gg/',
-    ]);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, sys_get_temp_dir() . '/melee_cookies.txt');
-    curl_setopt($ch, CURLOPT_COOKIEFILE, sys_get_temp_dir() . '/melee_cookies.txt');
-    $html = curl_exec($ch);
-    $diag['pageHttpCode'] = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $fetched = SWUMeleeFetch('GET', $url, null, function () use ($url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language: en-US,en;q=0.9',
+            'Connection: keep-alive',
+            'Referer: https://melee.gg/',
+        ]);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, sys_get_temp_dir() . '/melee_cookies.txt');
+        curl_setopt($ch, CURLOPT_COOKIEFILE, sys_get_temp_dir() . '/melee_cookies.txt');
+        $body = curl_exec($ch);
+        $result = ['status' => (int)curl_getinfo($ch, CURLINFO_HTTP_CODE), 'body' => $body, 'error' => curl_error($ch) ?: null];
+        curl_close($ch);
+        return $result;
+    });
+    $html = $fetched['body'];
+    $diag['pageHttpCode'] = $fetched['status'];
     $diag['pageBytes'] = is_string($html) ? strlen($html) : 0;
-    $diag['pageCurlError'] = curl_error($ch) ?: null;
-    curl_close($ch);
+    $diag['pageCurlError'] = $fetched['error'];
     if (!$html) {
         $diag['error'] = 'Could not fetch the melee.gg tournament page.';
         return false;
@@ -209,8 +222,9 @@ function importMeleeTournamentById($tournamentId, $progressCallback = null, &$fa
     return false;
 }
 
-// If run directly (not included), allow CLI testing
-if (php_sapi_name() === 'cli' && isset($argv[1])) {
+// If run directly (not included), allow CLI testing. The script check matters: a CLI script that
+// includes this file (DevTools/melee-package.php) has its own argv.
+if (php_sapi_name() === 'cli' && isset($argv[1]) && realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
     $id = (int)$argv[1];
     importMeleeTournamentById($id, function($update) {
         echo json_encode($update, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) . "\n";

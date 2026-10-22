@@ -5,6 +5,7 @@
 #   Main 60 (base minimum 60), sideboard 10.
 # Archetype (owner's label, 2026-10-11): midrange — the classifier read midrange (shape, low confidence: shape score 2.41 (avg cost 3.35, 12 cheap, 0 big, 2 removal, 0 wipe, 3 draw))
 # Style: midrange
+# Flavours: tempo
 
 Leader
 1 SEC_017

@@ -5,7 +5,7 @@
 #   Every card checked against the melee list by name (50 + 10, 0 mismatches).
 # Archetype (owner's label): Soft aggro
 # Style: softaggro
-# Flavours: go-wide, mixed
+# Flavours: go-wide, mixed, tempo
 
 Leader
 1 ASH_017

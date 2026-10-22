@@ -21,4 +21,8 @@ $check(SWUBotFeatureOn('splits'), '… and the switches are restored when it ret
 SWUBotHeuristicChoose('normal', (array)$legal['actions'], $legal);
 $check(($GLOBALS['SWUBotLastDecisionDisabled'] ?? null) === [] && SWUBotFeatureOn('anything'), 'the next decision under the bare profile runs with everything on');
 
+// Every feature name is unique across the shipped groups: a name in two groups is ONE switch, so '@no-<group>' of one silently turns
+// off the other's behaviour too (final review 2026-10-21: the tempo lever 'handhate' (p58) collided with p44's 'handhate').
+$dups = array_keys(array_filter(array_count_values(SWUBotFeatureList()), fn($n) => $n > 1));
+$check($dups === [], 'no feature name is shipped twice: ' . json_encode($dups));
 bot_test_finish();

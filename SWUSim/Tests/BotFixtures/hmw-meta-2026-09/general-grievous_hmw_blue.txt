@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — General Grievous, Separatist Warlord - Great Grass Plains
+# Source: melee.gg 480819 (Nexus Invitational: Homeworlds, 2026-10-15), #20 of 32 (0-5-0), player LewisH
+#   https://melee.gg/Decklist/View/cc0d640a-9a92-48fb-801c-b4e00076f651 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard in the Sideboard section)
+#   HMW meta 2026-09 fixture (owner 2026-10-20, HMW meta set v3): the best-finishing list of the General Grievous (HMW) Blue archetype in this event — the only list of it.
+#   Main 50 (base minimum 50), sideboard 10.
+# Archetype (classifier, NOT yet owner-reviewed): midrange (shape, high confidence) — shape score 2.05 — 12% aggro side (33 units ≤3 cost, 0 burn, 3 attack/buff cards); 8 units ≥6 cost, 0 removal events, 3 wipes
+# Style: midrange
+
+Leader
+1 HMW_008
+
+Base
+1 HMW_020
+
+Deck
+3 ASH_116
+3 SEC_082
+3 JTL_032
+3 HMW_103
+3 LAW_037
+3 ASH_048
+3 LAW_097
+3 SEC_111
+3 ASH_079
+3 LAW_039
+3 HMW_136
+3 ASH_097
+3 ASH_053
+2 HMW_130
+1 ASH_045
+3 ASH_052
+2 SEC_119
+3 LOF_091
+
+Sideboard
+3 ASH_090
+3 ASH_135
+2 ASH_077
+1 SEC_119
+1 HMW_130
