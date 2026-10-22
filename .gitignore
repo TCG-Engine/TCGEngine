@@ -182,3 +182,7 @@ newhost/research/
 
 # DevTools/melee-package.php: recorded melee.gg tournament packages, uploaded to swustats.net by a moderator
 .melee-packages/
+
+# LocalBugReportLib.php: Petranaki bug report store (both players' hidden cards) and the local package inbox
+SWUSim/BugReports/
+.bugreports/

@@ -34,6 +34,7 @@ Apply in numeric order:
 | 16 | `16_meleetournamentdeck_sourceid.sql` | Adds `meleetournamentdeck.sourceID` (melee decklist GUID) — written by the melee importer, already on prod, missing from every tracked schema. Idempotent (no-op where present) | Melee tournament import |
 | 17 | `17_glicko_ratings.sql` | Creates `glicko_ratings`, `glicko_results`, `glicko_penalties` (Glicko-2 ratings per format + match type, rated-match log, abandon cooldowns). Apply to **every app DB that serves SWUSim logins**, before deploying the code that writes them; until then matches simply go unrated. Idempotent | SWUSim Meta Premier rated queue |
 | 18 | `18_swustats_link.sql` | Creates `swustats_links` (Petranaki account ↔ SWUStats account, OAuth tokens). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs linking is simply off. Idempotent | Petranaki ↔ SWUStats link |
+| 19 | `19_swusim_bug_reports.sql` | Creates `swusim_bug_reports` (Petranaki's own SWUSim bug reports; the reports themselves live on disk in `SWUSim/BugReports/`). Apply to the **SWUSim** app DB only. The code checks DBTableExists() first, so until it runs reports are saved to disk only. Idempotent | Petranaki local bug reports |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.

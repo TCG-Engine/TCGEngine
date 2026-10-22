@@ -97,5 +97,45 @@ $chk(strpos($allV, 'data-desc="Devastator did not set friendly-defeated"') !== f
 $errPage = BugReportViewerRenderPage(['ok' => false, 'error' => 'boom', 'reports' => []], 'SWUSim');
 $chk(strpos($errPage, 'boom') !== false && strpos($errPage, '<table') === false, 'fetch error rendered, no table');
 
+// ── Petranaki's own reports (LocalBugReportLib.php rows, source 'local') ──────────────────────────────
+$local = [
+    ['id' => 'P-7', 'number' => 7, 'source' => 'local', 'root_name' => 'SWUSim', 'game_name' => '812', 'origin' => 'engine-ui',
+     'discord_username' => 'drixx', 'status' => 'open', 'verified' => true, 'unverified_reason' => '', 'gamestate_hash' => str_repeat('c', 64),
+     'has_snapshot' => true, 'snapshot_format' => 'package-v1', 'created_at' => '2026-10-22 01:00:00', 'description' => 'Shield popped early'],
+    ['id' => 'P-8', 'number' => 8, 'source' => 'local', 'root_name' => 'SWUSim', 'game_name' => '999999', 'origin' => 'engine-ui',
+     'discord_username' => 'Unknown', 'status' => 'open', 'verified' => false, 'unverified_reason' => 'game not found', 'gamestate_hash' => '',
+     'has_snapshot' => false, 'snapshot_format' => 'package-v1', 'created_at' => '2026-10-22 02:00:00', 'description' => 'end screen froze'],
+];
+$mixed = ['ok' => true, 'error' => '', 'reports' => array_merge($local, $reports)];
+$lp = BugReportViewerRenderPage($mixed, 'SWUSim');
+$chk(strpos($lp, '>P-7<') !== false && strpos($lp, '>Petranaki<') !== false, 'local row: P-7 shown with Petranaki source');
+$chk(strpos($lp, '>Remote<') !== false, 'remote row: Remote source');
+$chk(strpos($lp, '?action=download&amp;report=P-7') !== false && strpos($lp, 'report=P-8') === false, 'local row: Download link only when has_snapshot');
+$chk(strpos($lp, 'unverified: game not found') !== false, 'local row: unverified badge with reason');
+$chk(strpos($lp, "brvLoad('P-") === false && strpos($lp, 'brvLoad(P-') === false, 'local row: no brvLoad buttons');
+$chk(strpos($lp, "brvLoad(5,'current')") !== false, 'remote SWUSim row keeps its Load buttons');
+$chk(strpos($lp, "brvClose('P-7', this)") !== false && strpos($lp, "brvDelete('P-7', this)") !== false, 'local row: Close + Delete');
+$chk(strpos($lp, 'function brvDelete') !== false, 'brvDelete JS emitted');
+$chk(strpos($lp, 'data-title="Bug Report P-7"') !== false && strpos($lp, 'data-title="Bug Report #5"') !== false, 'local row copy text starts "Bug Report P-7"');
+$noLoad = BugReportViewerRenderPage($mixed, 'SWUSim', false);
+$chk(strpos($noLoad, '<th>Load</th>') === false && strpos($noLoad, 'brvLoad(') === false && strpos($noLoad, 'brv-target-game') === false,
+    'allowLoad false: no Load column on SWUSim view');
+$errLocal = BugReportViewerRenderPage(['ok' => false, 'error' => 'remote down', 'reports' => $local], 'SWUSim');
+$chk(strpos($errLocal, 'remote down') !== false && strpos($errLocal, '<table') !== false && strpos($errLocal, '>P-7<') !== false,
+    'remote error + local rows: banner AND table');
+
+// ── final review fixes (2026-10-22) ────────────────────────────────────────────────────────────────
+$noticed = BugReportViewerRenderPage(['ok' => true, 'error' => '', 'reports' => [], 'notice' => '3 Petranaki bug reports are saved on disk but not in the database'], 'SWUSim');
+$chk(strpos($noticed, 'class="brv-error"') !== false && strpos($noticed, 'saved on disk but not in the database') !== false,
+    'unindexed reports: the notice is shown as a banner');
+// Delete is permanent: the first click only arms the button.
+$chk(strpos($lp, 'Confirm delete') !== false && strpos($lp, 'dataset.armed') !== false, 'Delete needs a second click (armed state)');
+// Close/Delete of a Petranaki report must come from this site's own page (no cross-site form POST).
+$chk(BugReportViewerIsSameOrigin(['HTTP_HOST' => 'petranaki.net', 'HTTP_ORIGIN' => 'https://petranaki.net']), 'same origin: matching Origin accepted');
+$chk(!BugReportViewerIsSameOrigin(['HTTP_HOST' => 'petranaki.net', 'HTTP_ORIGIN' => 'https://evil.example']), 'same origin: foreign Origin refused');
+$chk(BugReportViewerIsSameOrigin(['HTTP_HOST' => 'petranaki.net', 'HTTP_REFERER' => 'https://petranaki.net/TCGEngine/zzBugReportViewer.php?rootName=SWUSim']), 'same origin: matching Referer accepted when no Origin');
+$chk(!BugReportViewerIsSameOrigin(['HTTP_HOST' => 'petranaki.net', 'HTTP_REFERER' => 'https://petranaki.net.evil.example/x']), 'same origin: look-alike Referer refused');
+$chk(!BugReportViewerIsSameOrigin(['HTTP_HOST' => 'petranaki.net']), 'same origin: neither header → refused');
+
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

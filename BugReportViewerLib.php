@@ -147,6 +147,19 @@ function BugReportViewerResolve(string $apiUrl, string $apiKey, int $id, string 
     return ['success' => true, 'id' => $id, 'message' => (is_array($json) && isset($json['message'])) ? $json['message'] : 'Bug report #' . $id . ' closed.'];
 }
 
+// Close/Delete of a Petranaki report must come from this site's own page: Delete is permanent and the session
+// cookie rides along on a cross-site form POST. The Origin header (else the Referer) must name this host.
+function BugReportViewerIsSameOrigin(array $server): bool {
+    $host = strtolower(trim(strval($server['HTTP_HOST'] ?? '')));
+    if ($host === '') return false;
+    $source = strval($server['HTTP_ORIGIN'] ?? '');
+    if ($source === '' || $source === 'null') $source = strval($server['HTTP_REFERER'] ?? '');
+    $parts = $source !== '' ? parse_url($source) : false;
+    if (!is_array($parts) || !isset($parts['host'])) return false;
+    $sourceHost = strtolower($parts['host']) . (isset($parts['port']) ? ':' . $parts['port'] : '');
+    return hash_equals($host, $sourceHost);
+}
+
 // A stable label for a report's root (blank root → Discord-origin reports with no game).
 function BugReportViewerRootLabel(string $rootName): string {
     return $rootName === '' ? '(no root · Discord)' : $rootName;
@@ -166,13 +179,16 @@ function BugReportViewerRootCounts(array $reports): array {
 function _brvEsc($v): string { return htmlspecialchars(strval($v ?? ''), ENT_QUOTES, 'UTF-8'); }
 
 // Render the full HTML page: root filter bar + the reports table for the active root.
-function BugReportViewerRenderPage(array $fetch, string $rootName): string {
+// $fetch['reports'] may mix remote rows with Petranaki's own (LocalBugReportList, source 'local').
+// $allowLoad: the Load buttons overwrite a game on THIS machine, so the page passes IsLocalDevelopmentRequest()
+// and they never render on petranaki.net, where they would overwrite a live game.
+function BugReportViewerRenderPage(array $fetch, string $rootName, bool $allowLoad = true): string {
     $reports = $fetch['reports'];
     $counts  = BugReportViewerRootCounts($reports);
     $total   = count($reports);
     // Loading a snapshot into a local game only makes sense for SWUSim (undo rides in its gamestate),
     // so the Load controls appear only on the explicit SWUSim view.
-    $loadable = ($rootName === 'SWUSim');
+    $loadable = ($rootName === 'SWUSim') && $allowLoad;
 
     // Filter to the active root when one is given; '' (no param) shows everything.
     $rows = $rootName === '' ? $reports : array_values(array_filter($reports, fn($r) => strval($r['root_name'] ?? '') === $rootName));
@@ -181,9 +197,13 @@ function BugReportViewerRenderPage(array $fetch, string $rootName): string {
           . ($rootName !== '' ? ' · ' . _brvEsc($rootName) : '') . '</title>' . _brvViewerStyles() . '</head><body>';
     $out .= '<h1>Bug Report Viewer</h1>';
 
+    // A failing remote intake no longer hides the page: Petranaki's own reports still render below the banner.
     if (!$fetch['ok']) {
-        $out .= '<div class="brv-error">' . _brvEsc($fetch['error']) . '</div></body></html>';
-        return $out;
+        $out .= '<div class="brv-error">' . _brvEsc($fetch['error']) . '</div>';
+    }
+    // Reports saved on disk that can't be listed (LocalBugReportUnindexedNotice) — never hidden silently.
+    if (!empty($fetch['notice'])) {
+        $out .= '<div class="brv-error">' . _brvEsc($fetch['notice']) . '</div>';
     }
 
     // ── Root filter bar ─────────────────────────────────────────────────────
@@ -213,14 +233,15 @@ function BugReportViewerRenderPage(array $fetch, string $rootName): string {
               . ($rootName !== '' ? ' for <b>' . _brvEsc($rootName) . '</b>' : '') . ' yet.</div>';
     } else {
         $out .= '<div class="brv-count">' . count($rows) . ' report' . (count($rows) === 1 ? '' : 's') . '</div>';
-        $out .= '<table class="brv-table"><thead><tr>'
-              . '<th>#</th><th>When</th><th>Root</th><th>Game</th><th>Origin</th><th>Reporter</th>'
+        // The table scrolls inside its own box: twelve columns don't fit a phone, and the page must not scroll sideways.
+        $out .= '<div class="brv-table-wrap"><table class="brv-table"><thead><tr>'
+              . '<th>#</th><th>Source</th><th>When</th><th>Root</th><th>Game</th><th>Origin</th><th>Reporter</th>'
               . '<th>Status</th><th>Snapshot</th><th>Hash</th><th>Description</th>'
               . ($loadable ? '<th>Load</th>' : '') . '</tr></thead><tbody>';
         foreach ($rows as $r) {
-            $out .= _brvRenderRow($r, $loadable);
+            $out .= (($r['source'] ?? '') === 'local') ? _brvRenderLocalRow($r, $loadable) : _brvRenderRow($r, $loadable);
         }
-        $out .= '</tbody></table>';
+        $out .= '</tbody></table></div>';
     }
 
     if ($loadable) $out .= _brvLoadScript();
@@ -260,6 +281,7 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
     $viewBtn = ($desc !== '' && ($r['id'] ?? 0))
         ? ' <button class="brv-details-btn"'
             . ' data-id="' . intval($r['id']) . '"'
+            . ' data-title="Bug Report #' . intval($r['id']) . '"'
             . ' data-root="' . _brvEsc($r['root_name'] ?? '') . '"'
             . ' data-game="' . _brvEsc($r['game_name'] ?? '') . '"'
             . ' data-hash="' . _brvEsc($r['gamestate_hash'] ?? '') . '"'
@@ -287,6 +309,7 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
 
     return '<tr>'
         . '<td>' . _brvEsc($r['id'] ?? '') . '</td>'
+        . '<td>Remote</td>'
         . '<td class="brv-nowrap">' . _brvEsc($r['created_at'] ?? '') . '</td>'
         . '<td>' . _brvEsc(BugReportViewerRootLabel(strval($r['root_name'] ?? ''))) . '</td>'
         . '<td>' . _brvEsc($r['game_name'] ?? '') . '</td>'
@@ -297,6 +320,48 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
         . '<td>' . $hashCell . '</td>'
         . '<td class="brv-desc">' . $descCell . '</td>'
         . $loadCell
+        . '</tr>';
+}
+
+// A Petranaki report (LocalBugReportLib.php). Its id is "P-<n>"; Close/Delete post that id back to this page,
+// and a verified report links its package download (mod-strict, served by zzBugReportViewer.php).
+function _brvRenderLocalRow(array $r, bool $loadable = false): string {
+    $id = strval($r['id'] ?? '');
+    $jsId = "'" . _brvEsc($id) . "'";
+    $status = strval($r['status'] ?? 'open');
+    $statusCell = '<span class="brv-badge ' . ($status === 'resolved' ? 'brv-badge-resolved' : 'brv-badge-open') . '">' . _brvEsc($status) . '</span>';
+    if (empty($r['verified'])) {
+        $statusCell .= ' <span class="brv-badge brv-badge-unverified">unverified: ' . _brvEsc($r['unverified_reason'] ?? '') . '</span>';
+    }
+    if ($status !== 'resolved') $statusCell .= ' <button class="brv-close-btn" onclick="brvClose(' . $jsId . ', this)">Close</button>';
+    $statusCell .= ' <button class="brv-delete-btn" onclick="brvDelete(' . $jsId . ', this)">Delete</button>';
+
+    $snap = !empty($r['has_snapshot'])
+        ? '<a class="brv-dl" href="?action=download&amp;report=' . rawurlencode($id) . '">Download package</a>'
+        : '<span class="brv-muted">—</span>';
+    $hash = strval($r['gamestate_hash'] ?? '');
+    $hashCell = $hash !== '' ? '<code class="brv-hash" title="' . _brvEsc($hash) . '">' . _brvEsc(substr($hash, 0, 10)) . '…</code>' : '<span class="brv-muted">—</span>';
+    $desc = strval($r['description'] ?? '');
+    $descShort = mb_strlen($desc) > 140 ? mb_substr($desc, 0, 140) . '…' : $desc;
+    $viewBtn = $desc !== ''
+        ? ' <button class="brv-details-btn" data-id="' . _brvEsc($id) . '" data-title="Bug Report ' . _brvEsc($id) . '"'
+            . ' data-root="SWUSim" data-game="' . _brvEsc($r['game_name'] ?? '') . '" data-hash="' . _brvEsc($hash) . '"'
+            . ' data-desc="' . _brvEsc($desc) . '" onclick="brvDetails(this)" title="View full description + copy">view</button>'
+        : '';
+
+    return '<tr>'
+        . '<td>' . _brvEsc($id) . '</td>'
+        . '<td>Petranaki</td>'
+        . '<td class="brv-nowrap">' . _brvEsc($r['created_at'] ?? '') . '</td>'
+        . '<td>SWUSim</td>'
+        . '<td>' . _brvEsc($r['game_name'] ?? '') . '</td>'
+        . '<td><span class="brv-badge brv-badge-ui">in-game</span></td>'
+        . '<td>' . _brvEsc($r['discord_username'] ?? 'Unknown') . '</td>'
+        . '<td class="brv-nowrap">' . $statusCell . '</td>'
+        . '<td>' . $snap . '</td>'
+        . '<td>' . $hashCell . '</td>'
+        . '<td class="brv-desc"><span title="' . _brvEsc($desc) . '">' . _brvEsc($descShort) . '</span>' . $viewBtn . '</td>'
+        . ($loadable ? '<td class="brv-muted">—</td>' : '')
         . '</tr>';
 }
 
@@ -322,12 +387,38 @@ function _brvActionScript(): string {
           .catch(function(e){ if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+e; } if(btn){ btn.disabled=false; btn.textContent='Close'; } });
       }
 
+      // Delete a Petranaki report (its folder + row). Removes the row on success.
+      function brvDelete(id, btn){
+        // Permanent, so the first click only arms the button for a few seconds.
+        if(btn && btn.dataset.armed !== '1'){
+          btn.dataset.armed = '1'; btn.textContent = 'Confirm delete';
+          setTimeout(function(){ if(btn.dataset.armed === '1'){ btn.dataset.armed = ''; btn.textContent = 'Delete'; } }, 4000);
+          return;
+        }
+        if(btn) btn.dataset.armed = '';
+        var s = document.getElementById('brv-status');
+        if(btn){ btn.disabled = true; btn.textContent = 'Deleting…'; }
+        var body = new URLSearchParams({action:'delete', id:id});
+        fetch(window.location.pathname + window.location.search, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body})
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            if(j && j.success){
+              if(s){ s.className='brv-status brv-status-ok'; s.textContent='✅ '+(j.message||(id+' deleted.')); }
+              var tr = btn && btn.closest('tr'); if(tr) tr.remove();
+            } else {
+              if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+((j&&j.error)||'Delete failed.'); }
+              if(btn){ btn.disabled=false; btn.textContent='Delete'; }
+            }
+          })
+          .catch(function(e){ if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+e; } if(btn){ btn.disabled=false; btn.textContent='Delete'; } });
+      }
+
       // Full-description modal + Copy-to-Clipboard (for pasting a report into an AI agent). The button
       // carries the full text + game/root/hash in data-* attributes (dataset decodes them safely; we only
       // ever assign to textarea.value / textContent, so no HTML injection).
       function brvDetails(btn){
         var d = btn.dataset;
-        var text = 'Bug Report #' + d.id
+        var text = (d.title || ('Bug Report #' + d.id))
                  + '\\nRoot: ' + (d.root || '(none)') + '   Game: ' + (d.game || '-')
                  + '\\nGamestate hash: ' + (d.hash || '-')
                  + '\\n\\n' + (d.desc || '');
@@ -338,7 +429,7 @@ function _brvActionScript(): string {
 
         var box = document.createElement('div'); box.className = 'brv-detail-box';
         var title = document.createElement('div'); title.className = 'brv-detail-title';
-        title.textContent = 'Bug #' + d.id + ' · ' + (d.root || '(no root)') + (d.game ? (' · game ' + d.game) : '');
+        title.textContent = (d.title || ('Bug #' + d.id)) + ' · ' + (d.root || '(no root)') + (d.game ? (' · game ' + d.game) : '');
         var ta = document.createElement('textarea'); ta.className = 'brv-detail-text'; ta.readOnly = true; ta.value = text;
 
         var actions = document.createElement('div'); actions.className = 'brv-detail-actions';
@@ -393,6 +484,7 @@ function _brvViewerStyles(): string {
       .brv-chip span{background:#2a3543;border-radius:999px;padding:1px 7px;font-size:11px;color:#9fb0c0;}
       .brv-chip.brv-active{background:#1f6feb;border-color:#1f6feb;color:#fff;}
       .brv-chip.brv-active span{background:rgba(255,255,255,0.22);color:#fff;}
+      .brv-table-wrap{overflow-x:auto;max-width:100%;}
       .brv-table{border-collapse:collapse;width:100%;font-size:13px;}
       .brv-table th,.brv-table td{border-bottom:1px solid #222c38;padding:8px 10px;text-align:left;vertical-align:top;}
       .brv-table th{color:#8b98a5;font-weight:600;position:sticky;top:0;background:#0f141b;}
@@ -420,6 +512,11 @@ function _brvViewerStyles(): string {
       .brv-close-btn{background:#2a1e10;border:1px solid #5a4420;color:#ffcf8f;border-radius:6px;padding:2px 8px;margin-left:6px;font-size:11px;cursor:pointer;}
       .brv-close-btn:hover:not(:disabled){background:#7a5a1d;border-color:#7a5a1d;color:#fff;}
       .brv-close-btn:disabled{opacity:0.6;cursor:default;}
+      .brv-delete-btn{background:#2a1416;border:1px solid #5a2c32;color:#ffb3ba;border-radius:6px;padding:2px 8px;margin-left:6px;font-size:11px;cursor:pointer;}
+      .brv-delete-btn:hover:not(:disabled){background:#7a2c34;border-color:#7a2c34;color:#fff;}
+      .brv-delete-btn:disabled{opacity:0.6;cursor:default;}
+      .brv-badge-unverified{background:#3a1417;color:#ffb3ba;margin-left:4px;}
+      .brv-dl{color:#7fd3ff;white-space:nowrap;}
       .brv-details-btn{background:#16233a;border:1px solid #2a4a6b;color:#9fd0ff;border-radius:6px;padding:1px 7px;margin-left:6px;font-size:11px;cursor:pointer;vertical-align:middle;}
       .brv-details-btn:hover{background:#1f6feb;border-color:#1f6feb;color:#fff;}
       .brv-detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.66);display:flex;align-items:center;justify-content:center;z-index:10000;}

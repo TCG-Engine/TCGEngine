@@ -800,3 +800,30 @@ CREATE TABLE IF NOT EXISTS `glicko_penalties` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+
+-- Petranaki bug reports (Database/migrations/19_swusim_bug_reports.sql). Reports live on disk first
+-- (SWUSim/BugReports/P-<n>/); this table indexes them for the viewer, rate limits and dedupe.
+CREATE TABLE IF NOT EXISTS `swusim_bug_reports` (
+  `reportNumber`     int(11)       NOT NULL,              -- P-<n>
+  `createdAt`        int(11)       NOT NULL,              -- unix time
+  `gameName`         varchar(32)   NOT NULL DEFAULT '',
+  `playerID`         varchar(8)    NOT NULL DEFAULT '',
+  `verified`         tinyint(1)    NOT NULL DEFAULT 0,    -- game + seat key checked out
+  `unverifiedReason` varchar(255)  NOT NULL DEFAULT '',
+  `reporter`         varchar(64)   NOT NULL DEFAULT '',
+  `accountId`        int(11)       DEFAULT NULL,
+  `accountName`      varchar(64)   DEFAULT NULL,
+  `description`      text          NOT NULL,
+  `status`           varchar(16)   NOT NULL DEFAULT 'open',
+  `resolutionNote`   varchar(1000) NOT NULL DEFAULT '',
+  `gamestateHash`    char(64)      NOT NULL DEFAULT '',
+  `hasSnapshot`      tinyint(1)    NOT NULL DEFAULT 0,
+  `clientToken`      char(40)      NOT NULL,
+  `clientIp`         varchar(64)   NOT NULL DEFAULT '',
+  PRIMARY KEY (`reportNumber`),
+  UNIQUE KEY `clientToken` (`clientToken`),
+  KEY `seat_time` (`gameName`, `playerID`, `createdAt`),
+  KEY `ip_time` (`clientIp`, `createdAt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------

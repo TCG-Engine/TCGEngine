@@ -4599,6 +4599,23 @@ Conversational search (press Enter when the filter bar finds no cards):
           if (e.target === modalOverlay) cancelButton.onclick();
         });
 
+        // SWUSim: bring back an unsent draft, and keep it current as the player types.
+        if (_bugReportIsLocal()) {
+          const draft = _bugReportReadDraft();
+          if (draft) {
+            textEntry.value = draft.description || '';
+            reporterEntry.value = draft.reporter || '';
+          }
+          const saveDraft = function() {
+            const d = _bugReportReadDraft() || {};
+            d.description = textEntry.value;
+            d.reporter = reporterEntry.value;
+            _bugReportWriteDraft(d);
+          };
+          textEntry.addEventListener('input', saveDraft);
+          reporterEntry.addEventListener('input', saveDraft);
+        }
+
         buttonRow.appendChild(cancelButton);
         buttonRow.appendChild(submitButton);
 
@@ -4632,6 +4649,30 @@ Conversational search (press Enter when the filter bar finds no cards):
         statusText.style.color = '#c8d5e6';
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
+
+        if (_bugReportIsLocal()) {
+          const reporter = reporterEntry ? reporterEntry.value.trim() : '';
+          // One token per report: kept across retries and refreshes, replaced only if the text was changed since.
+          const draft = _bugReportReadDraft();
+          const clientToken = (draft && draft.clientToken && draft.submittedDescription === description)
+            ? draft.clientToken : _bugReportNewToken();
+          _bugReportWriteDraft({ description: description, reporter: reporter, clientToken: clientToken, submittedDescription: description });
+          try {
+            await _bugReportSubmitLocal({
+              description: description,
+              gameName: document.getElementById('gameName') ? document.getElementById('gameName').value : '',
+              playerID: document.getElementById('playerID') ? document.getElementById('playerID').value : '',
+              authKey: document.getElementById('authKey') ? document.getElementById('authKey').value : '',
+              folderPath: 'SWUSim',
+              reporter: reporter,
+              clientToken: clientToken
+            }, statusText);
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Report';
+          }
+          return;
+        }
 
         try {
           const payload = {
@@ -4672,6 +4713,124 @@ Conversational search (press Enter when the filter bar finds no cards):
           submitButton.disabled = false;
           submitButton.textContent = 'Submit Report';
         }
+      }
+
+      // SWUSim bug reports are stored on the Petranaki box itself (APIs/SubmitBugReport.php → LocalBugReportLib.php).
+      // Players said reports they sent never arrived, so for SWUSim only: the text stays in a localStorage draft
+      // until the server confirms; a network error, timeout or 5xx is retried with the SAME one-time clientToken (the
+      // server turns a repeat into the same report); a 400/429 is shown, never retried; and success shows a receipt
+      // with the report number. Every other root keeps the single-shot submit in submitBugReport above.
+      const BUG_REPORT_MAX_ATTEMPTS = 4;
+      const BUG_REPORT_BACKOFF_MS = [2000, 5000, 10000];
+      const BUG_REPORT_ATTEMPT_TIMEOUT_MS = 20000;
+
+      function _bugReportIsLocal() {
+        const el = document.getElementById('folderPath');
+        return !!el && el.value === 'SWUSim';
+      }
+      function _bugReportDraftKey() {
+        const g = document.getElementById('gameName');
+        return 'tcg:bugReportDraft:SWUSim:' + (g ? g.value : '');
+      }
+      function _bugReportReadDraft() {
+        try { return JSON.parse(localStorage.getItem(_bugReportDraftKey()) || 'null'); } catch (e) { return null; }
+      }
+      function _bugReportWriteDraft(draft) {
+        try { localStorage.setItem(_bugReportDraftKey(), JSON.stringify(draft)); } catch (e) {}
+      }
+      function _bugReportClearDraft() {
+        try { localStorage.removeItem(_bugReportDraftKey()); } catch (e) {}
+      }
+      function _bugReportNewToken() {
+        try { if (window.crypto && typeof crypto.randomUUID === 'function') return crypto.randomUUID(); } catch (e) {}
+        return (Date.now().toString(16) + Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2)).slice(0, 32);
+      }
+
+      async function _bugReportSubmitLocal(payload, statusText) {
+        const setStatus = function(text, color) {
+          statusText.textContent = text;
+          statusText.style.color = color || '#c8d5e6';
+        };
+        for (let attempt = 1; attempt <= BUG_REPORT_MAX_ATTEMPTS; attempt++) {
+          let response = null;
+          let data = null;
+          const controller = typeof AbortController === 'function' ? new AbortController() : null;
+          const timer = controller ? setTimeout(function() { controller.abort(); }, BUG_REPORT_ATTEMPT_TIMEOUT_MS) : null;
+          try {
+            response = await fetch('./APIs/SubmitBugReport.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              signal: controller ? controller.signal : undefined
+            });
+            data = await response.json().catch(function() { return null; });
+          } catch (e) {
+            response = null; // network error or timeout: retry
+          } finally {
+            if (timer) clearTimeout(timer);
+          }
+
+          if (response && response.ok && data && data.success) {
+            _bugReportClearDraft();
+            _bugReportShowReceipt(data.report_number);
+            return;
+          }
+          if (response && response.status < 500) {
+            setStatus((data && data.error) || ('Unable to submit the bug report (HTTP ' + response.status + ').'), '#ffb4b4');
+            return;
+          }
+          if (attempt === BUG_REPORT_MAX_ATTEMPTS) break;
+          setStatus('Connection problem — retrying (attempt ' + (attempt + 1) + ' of ' + BUG_REPORT_MAX_ATTEMPTS + ')…');
+          await new Promise(function(resolve) { setTimeout(resolve, BUG_REPORT_BACKOFF_MS[attempt - 1]); });
+        }
+        setStatus("Couldn't send the report after " + BUG_REPORT_MAX_ATTEMPTS
+          + " tries. Your text is saved here — try again in a minute, or post it on Discord.", '#ffb4b4');
+      }
+
+      // Replaces the modal's body with the receipt. It stays until closed: the number is what the player quotes.
+      function _bugReportShowReceipt(reportNumber) {
+        const overlay = document.getElementById('bugReportOverlay');
+        if (!overlay || !overlay.firstChild) return;
+        const box = overlay.firstChild;
+        box.replaceChildren();
+
+        const receipt = document.createElement('div');
+        receipt.id = 'bugReportReceipt';
+        receipt.style.color = '#FFFFFF';
+        const saved = document.createElement('div');
+        saved.textContent = 'Bug report ' + reportNumber + ' saved.';
+        saved.style.fontSize = '18px';
+        saved.style.fontWeight = 'bold';
+        saved.style.fontFamily = "'Orbitron', sans-serif";
+        saved.style.marginBottom = '10px';
+        const hint = document.createElement('div');
+        hint.textContent = 'Mention ' + reportNumber + ' if you bring it up on Discord.';
+        hint.style.color = '#c8d5e6';
+        hint.style.fontSize = '13px';
+        receipt.appendChild(saved);
+        receipt.appendChild(hint);
+
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'flex-end';
+        row.style.marginTop = '14px';
+        const close = document.createElement('button');
+        close.id = 'bugReportReceiptClose';
+        close.textContent = 'Close';
+        close.style.padding = '10px 18px';
+        close.style.background = '#334e68';
+        close.style.color = '#fff';
+        close.style.border = 'none';
+        close.style.borderRadius = '6px';
+        close.style.cursor = 'pointer';
+        close.onclick = function() {
+          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        };
+        row.appendChild(close);
+
+        box.appendChild(receipt);
+        box.appendChild(row);
+        close.focus();
       }
 
       function OnVersionChanged(newVersion, versionName) {

@@ -104,6 +104,15 @@ else
   log "  --  no secret files found to archive"
 fi
 
+# 2b. Petranaki's own bug reports (LocalBugReportLib.php) live on disk first; the database only indexes them.
+if [ -d "$APP_ROOT/SWUSim/BugReports" ]; then
+  if tar -czf "$DEST/bugreports.tgz" -C "$APP_ROOT/SWUSim" BugReports 2>/dev/null; then
+    log "  ok  bugreports.tgz  ($(du -h "$DEST/bugreports.tgz" | cut -f1))"
+  else
+    fail "bugreports.tgz"
+  fi
+fi
+
 ( cd "$DEST" && sha256sum -- * > SHA256SUMS )
 
 # 3. Rotate local runs (only our own timestamped dirs).
