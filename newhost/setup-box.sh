@@ -797,9 +797,12 @@ gen_run() {
   local name="$1"; shift
   local out="$LOG_DIR/gen-$name-$TS.log"
   # The CLI has no Apache SetEnv, and Database/ConnectionManager.php then falls back to root with an
-  # empty password — which MariaDB's socket auth refuses for www-data. Hand the app's credentials in.
-  if ( cd "$APP_ROOT" && as_web env MYSQL_SERVER_NAME=localhost MYSQL_SERVER_USER_NAME="$DB_APP_USER" \
-         MYSQL_ROOT_PASSWORD="$DB_APP_PASS" ${GEN_DB:+MYSQL_DATABASE_NAME="$GEN_DB"} "$@" ) > "$out" 2>&1 \
+  # empty password — which MariaDB's socket auth refuses for www-data. Hand the app's credentials in
+  # through the ENVIRONMENT (exported in this subshell; runuser without -l keeps it), never as
+  # `env VAR=...` arguments: arguments show up in `ps` for every user on the box, the environment does not.
+  if ( cd "$APP_ROOT" && export MYSQL_SERVER_NAME=localhost MYSQL_SERVER_USER_NAME="$DB_APP_USER" \
+         MYSQL_ROOT_PASSWORD="$DB_APP_PASS" && { [ -z "${GEN_DB:-}" ] || export MYSQL_DATABASE_NAME="$GEN_DB"; } \
+         && as_web "$@" ) > "$out" 2>&1 \
      && ! grep -qiE 'must be logged in|Fatal error|Uncaught' "$out"; then
     ok "$name  ($(wc -l < "$out" | tr -d ' ') lines of output, log $out)"
   else
