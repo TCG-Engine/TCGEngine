@@ -7,6 +7,18 @@ SWUMaintenanceRequire('SWUDeck', 'stats');
 // APIs/FindOrImportMeleeTournament.php
 header('Content-Type: application/json');
 
+// Moderators only (2026-10-22). The page no longer offers it — tournaments arrive as packages
+// (APIs/ImportMeleeTournamentPackage.php) because melee.gg 403s the server — and an open endpoint
+// would let anyone set the server fetching melee for minutes per call.
+if (session_status() === PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
+$authError = CheckLoggedInUserModStrict();
+if ($authError !== '') {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => $authError]);
+    exit;
+}
+
 // Only allow POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

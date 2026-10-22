@@ -8,6 +8,7 @@ set_time_limit(1800); // Set the maximum execution time to 30 minutes (1800 seco
 include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
+include_once __DIR__ . '/MeleeFetch.php';
 
 // Initialize database connection
 $conn = GetLocalMySQLConnection();
@@ -88,16 +89,19 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
             'search' => ['value' => '', 'regex' => false],
             'roundId' => $roundId,
         ];
-        $options = [
-            'http' => [
-                'header'  => "Content-Type: application/x-www-form-urlencoded\r\n" .
-                             "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data),
-            ],
-        ];
-        $context  = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
+        $postBody = http_build_query($data);
+        $response = SWUMeleeFetch('POST', $url, $postBody, function () use ($url, $postBody) {
+            $options = [
+                'http' => [
+                    'header'  => "Content-Type: application/x-www-form-urlencoded\r\n" .
+                                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
+                    'method'  => 'POST',
+                    'content' => $postBody,
+                ],
+            ];
+            $body = file_get_contents($url, false, stream_context_create($options));
+            return ['status' => $body === FALSE ? 0 : 200, 'body' => $body];
+        })['body'];
         if ($response === FALSE) {
             if ($progressCallback) $progressCallback(['error' => 'Error occurred while making the request.']);
             return false;
@@ -290,14 +294,16 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
       }
       if ($tournamentLink!=-1) {
         $tournamentViewUrl = "https://melee.gg/Tournament/View/".$tournamentLink;
-        $tournamentOptions = [
-            'http' => [
-                'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
-                'method' => 'GET',
-            ],
-        ];
-        $tournamentContext = stream_context_create($tournamentOptions);
-        $tournamentPageContent = file_get_contents($tournamentViewUrl, false, $tournamentContext);
+        $tournamentPageContent = SWUMeleeFetch('GET', $tournamentViewUrl, null, function () use ($tournamentViewUrl) {
+            $tournamentOptions = [
+                'http' => [
+                    'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
+                    'method' => 'GET',
+                ],
+            ];
+            $body = file_get_contents($tournamentViewUrl, false, stream_context_create($tournamentOptions));
+            return ['status' => $body === FALSE ? 0 : 200, 'body' => $body];
+        })['body'];
         
         if ($tournamentPageContent !== FALSE) {
           preg_match('/<title>(.*?)<\/title>/', $tournamentPageContent, $matches);
@@ -329,20 +335,23 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
 
       $decklistUrl = "https://melee.gg/Decklist/GetTournamentViewData/".$decklistId;
 
-      $decklistOptions = [
-          'http' => [
-              'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
-              'method' => 'GET',
-          ],
-      ];
-      $decklistContext = stream_context_create($decklistOptions);
+      $fetchDecklist = function () use ($decklistUrl) {
+        $decklistOptions = [
+            'http' => [
+                'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\r\n",
+                'method' => 'GET',
+            ],
+        ];
+        $body = @file_get_contents($decklistUrl, false, stream_context_create($decklistOptions));
+        return ['status' => $body === FALSE ? 0 : 200, 'body' => $body];
+      };
 
       // Retry once. A large event makes one sequential request per deck (1485 for the 2026
       // GC LCQ) and melee intermittently drops one; with no retry that deck was silently
       // lost. @-suppressed because a failed fetch is handled below, not warned about.
-      $decklistResponse = @file_get_contents($decklistUrl, false, $decklistContext);
+      $decklistResponse = SWUMeleeFetch('GET', $decklistUrl, null, $fetchDecklist)['body'];
       if ($decklistResponse === FALSE) {
-        $decklistResponse = @file_get_contents($decklistUrl, false, $decklistContext);
+        $decklistResponse = SWUMeleeFetch('GET', $decklistUrl, null, $fetchDecklist)['body'];
       }
 
       // Unwrap defensively: melee answers with {"Json": null} for a decklist that exists as
@@ -579,8 +588,9 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
 
 $conn->close(); // Close the database connection
 
-// Only output HTML if run directly, not when called as a function
-if (php_sapi_name() === 'cli' || (isset($_SERVER['SCRIPT_FILENAME']) && basename($_SERVER['SCRIPT_FILENAME']) === basename(__FILE__))) {
+// Only output HTML if run directly, not when called as a function (also not when another CLI script
+// includes it — DevTools/melee-package.php)
+if (isset($_SERVER['SCRIPT_FILENAME']) && basename($_SERVER['SCRIPT_FILENAME']) === basename(__FILE__)) {
     echo "Done.<br>";
     include_once '../SharedUI/Disclaimer.php';
 }

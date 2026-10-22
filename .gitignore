@@ -179,3 +179,6 @@ __pycache__/
 newhost/box.conf
 newhost/newhost-backups-*/
 newhost/research/
+
+# DevTools/melee-package.php: recorded melee.gg tournament packages, uploaded to swustats.net by a moderator
+.melee-packages/
