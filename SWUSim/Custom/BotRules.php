@@ -1172,7 +1172,7 @@ function _SWUBotWipeNextRound(int $seat): ?array {
         if ($cost <= $capNow || $cost > $capNext) continue;
         [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
         if ($theirs <= $mine) continue;
-        $arenas = _SWUBotWipeArenas($cid); $threat = _SWUBotWipeThreat($seat, $arenas);
+        $arenas = _SWUBotWipeArenas($cid); $threat = _SWUBotWipeThreatOf($seat, $cid);
         if ($best === null || $threat > $best['threat']) $best = ['cid' => $cid, 'arenas' => $arenas, 'threat' => $threat];
     }
     return $best;
@@ -1192,7 +1192,7 @@ function _SWUBotWipeDrawChance(int $seat): ?array {
         [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
         if ($theirs <= $mine) continue;
         $p = $d >= 2 ? 1.0 - $choose2($d - $k) / $choose2($d) : 1.0;
-        $threat = _SWUBotWipeThreat($seat, _SWUBotWipeArenas($cid));
+        $threat = _SWUBotWipeThreatOf($seat, $cid);
         if ($best === null || $p * $threat > $best['p'] * $best['threat']) $best = ['cid' => $cid, 'p' => $p, 'threat' => $threat];
     }
     return $best;

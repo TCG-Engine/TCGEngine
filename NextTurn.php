@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20261022.js?v=<?php echo filemtime('./Core/UILibraries20261022.js'); ?>"></script>
+    <script src="./Core/UILibraries20261023.js?v=<?php echo filemtime('./Core/UILibraries20261023.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -1500,7 +1500,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
               if (_goWinner > 0 && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
-                if (window.MatchReplayConfig && window.MatchReplayConfig.enabled) {
+                // Not inside a sealed replay: re-saving it is refused (Core/MatchReplay.php MatchReplayCanDownload).
+                if (window.MatchReplayConfig && window.MatchReplayConfig.enabled
+                    && !(window.MatchReplayConfig.playbackState && window.MatchReplayConfig.playbackState.sealed)) {
                   window.MatchReplayConfig.canDownload = true;
                   if (window.MatchReplayClient && typeof window.MatchReplayClient.renderPanelList === 'function') {
                     window.MatchReplayClient.renderPanelList();

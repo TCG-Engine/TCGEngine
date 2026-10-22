@@ -923,3 +923,60 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:POWER:1
 P1DISCARDUNIT:0:CARDID:ASH_050
 P1NODECISION
+
+---
+
+# Deployed_ReplayedAmbushUnit_StillAmbushes
+#// Bug report P-3 (Petranaki game 401, 2026-10-23): "Replayed Mae with Maul and it didn't ambush in." A unit the When Deployed
+#// plays from the discard is PLAYED, so its Ambush triggers like any played unit's. HMW_055 Mae (2/4, Ambush/Shielded/Grit) starts
+#// with 3 damage, so Grit makes her 5 power: she trades with one Battlefield Marine (3/3) and is defeated THIS phase. Maul deploys,
+#// replays her, and the OTHER Marine is a legal Ambush target. Her two entry triggers (Shielded = EffectStack-1, Ambush) are ordered;
+#// she enters undamaged at 2 power, her Shield takes the Marine's 3.
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:8;myLeader:HMW_016}
+P1OnlyActions: true
+WithP1GroundArena: HMW_055:1:3
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>DeployLeader
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:HMW_055
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# Deployed_ReplayedAmbushUnit_OnlyAHiddenEnemyPlayedThisPhase_NoAmbush
+#// The reported board itself: in game 401 both enemy ground units (SEC_148 Karis Nemik, HMW_162 Teebo) had been played THIS phase,
+#// and Hidden reads "This unit can't be attacked if it was played this phase", so Mae had nothing to Ambush — correct, not a bug.
+#// Here P2 plays Teebo after Mae's trade; the replayed Mae then raises no Ambush offer and Teebo is untouched. No P1OnlyActions:
+#// P2 has to take a real turn to play him. P1NODECISION is the load-bearing line: an Ambush wrongly raised against a Hidden
+#// unit would leave an Ambush (or trigger-order) prompt pending, while the damage line alone would still pass.
+## GIVEN
+CommonSetup: yyk/rrw/{myResources:8;myLeader:HMW_016;theirResources:4}
+WithP1GroundArena: HMW_055:1:3
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: HMW_162
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P2>PlayHand:0
+- P1>DeployLeader
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myDiscard-0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:HMW_055
+P2GROUNDARENAUNIT:0:CARDID:HMW_162
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION

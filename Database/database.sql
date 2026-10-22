@@ -121,7 +121,8 @@ CREATE TABLE `ownership` (
   `keyIndicator2` varchar(64) DEFAULT NULL,
   `keyIndicator3` varchar(64) DEFAULT NULL,
   `format` varchar(16) NOT NULL DEFAULT 'standard',
-  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `friendlyCode` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -465,7 +466,8 @@ ALTER TABLE `blocklist`
 ALTER TABLE `ownership`
   ADD PRIMARY KEY (`assetType`,`assetIdentifier`),
   ADD KEY `idx_owner_type` (`assetOwner`,`assetType`),
-  ADD KEY `assetVisibility` (`assetVisibility`,`keyIndicator1`,`keyIndicator2`) USING BTREE;
+  ADD KEY `assetVisibility` (`assetVisibility`,`keyIndicator1`,`keyIndicator2`) USING BTREE,
+  ADD UNIQUE KEY `idx_ownership_friendlyCode` (`friendlyCode`);
 
 CREATE TABLE `cardmetastats` (
   `cardID` varchar(16) NOT NULL,
@@ -800,6 +802,19 @@ CREATE TABLE IF NOT EXISTS `glicko_penalties` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+
+-- Petranaki <-> SWUStats account link (Database/migrations/18_swustats_link.sql). The code checks
+-- DBTableExists('swustats_links'), so linking stays off until its OAuth client is configured.
+CREATE TABLE IF NOT EXISTS `swustats_links` (
+  `usersId`          int(11)      NOT NULL,              -- Petranaki account (this DB's users.usersId)
+  `swustatsUserId`   int(11)      NOT NULL,              -- SWUStats users.usersId, from userinfo.php
+  `swustatsUsername` varchar(128) NOT NULL DEFAULT '',
+  `accessToken`      varchar(255) NOT NULL,
+  `refreshToken`     varchar(255) NOT NULL,              -- ROTATES on every refresh (SWUStats deletes the old one)
+  `accessExpires`    int(11)      NOT NULL,              -- unix time
+  `linkedAt`         int(11)      NOT NULL,
+  PRIMARY KEY (`usersId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Petranaki bug reports (Database/migrations/19_swusim_bug_reports.sql). Reports live on disk first
 -- (SWUSim/BugReports/P-<n>/); this table indexes them for the viewer, rate limits and dedupe.

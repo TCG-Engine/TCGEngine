@@ -198,6 +198,10 @@ function SWUSetupGame($lobby, $opts = []) {
     $currentPhase = 'APS';
     SetPhaseParameters("-");
 
+    // SWU-PGN writer: start recording a human 2-seat PvP game (a no-op otherwise). The decks are shuffled, so this
+    // captures their order; the setup frame it opens is committed just before the WriteGamestate below.
+    SwuPgnRecStart($lobby, $opts, $deckLoadOk);
+
     // ─── Steps 4–6: Draw opening hands, queue mulligan decisions, resource 2 ──────
     if ($deckLoadOk) {
         QueuePregameSetup($firstPlayer);
@@ -227,6 +231,7 @@ function SWUSetupGame($lobby, $opts = []) {
         SWUApplyHouseRules($lobby->houseRulesActive);
     }
 
+    SwuPgnRecFrameCommit();   // the setup frame SwuPgnRecStart opened (no-op for an unrecorded game)
     WriteGamestate(__DIR__ . "/");
     $lobby->gameName = $gameName;
     if (!SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby)) {

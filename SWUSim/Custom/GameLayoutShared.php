@@ -622,7 +622,12 @@ body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-
 .swu-mb-ov { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 3px;
     background-position: center; background-size: cover; background-repeat: no-repeat; }
 .swu-mb-ov-hidden { background-image: url('./Assets/Overlays/smoke-overlay.webp'); }
-/* Sentinel keeps the schema's opacity (0.71) and scale (1.15), but NOT its -4px offset — the wall
+/* Image overlays read brighter (player feedback 2026-10-23: "overlays in general are not bright enough"): the full board's
+   schema overlays (.card-image-overlay, Core's renderer) AND these preview-tile copies get the same light lift, so a thumbnail
+   and its "Zoom in" card still match. Image overlays only — the exhausted dimming layer is meant to darken and is untouched.
+   Visual check: SWUSim/Tests/Visual/Overlays_SentinelAndHidden_*.md; automated: DevTools/ui-harness/swusim-overlay-brightness-xbrowser.mjs. */
+.card-image-overlay, .swu-mb-ov { filter: brightness(1.2); }
+/* Sentinel keeps the schema's opacity (0.88 — raised from 0.71 on 2026-10-23, "too transparent"; keep the two equal) and scale (1.15), but NOT its -4px offset — the wall
    has to sit lower here than the schema's number produces.
    ⚠ WHY THE SCHEMA'S GEOMETRY DOES NOT TRANSFER. tech-wall.webp is SQUARE (413x405). The full board
    draws it over a PORTRAIT card, where `cover` crops the sides and the wall's bars land near the card
@@ -633,7 +638,7 @@ body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-
    pushed the element 17.5% of a card below its own box — measured at 5px INTO the thumbnail on the
    next grid row, whose gap is only 8% of a card. A background is clipped to the padding box, so the
    art moves and nothing can ever bleed into the row below. Keep it that way if you retune this. */
-.swu-mb-ov-sentinel { background-image: url('./Assets/Overlays/tech-wall.webp'); opacity: 0.71;
+.swu-mb-ov-sentinel { background-image: url('./Assets/Overlays/tech-wall.webp'); opacity: 0.88;
     background-size: 115% 115%;
     /* ⚠ THE ONE KNOB. Tuned against both failure directions on a live board: the schema's own offset
        put the wall's emblem over the title and its bottom bar well short of the card's bottom ("too
@@ -760,6 +765,11 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
 :root { --swu-mb-unit: 30px; --swu-mb-rows: 1; }
 .swu-mb-row::-webkit-scrollbar { height: 4px; }
 .swu-mb-row::-webkit-scrollbar-thumb { background: #334; border-radius: 2px; }
+/* A mini card whose any-player Action I may use (an opponent's TS26_15 C-3P0): the main board's cyan .unit-action glow.
+   The bare .unit-action rule (top of this sheet) is the same specificity and EARLIER, so .swu-mb-card's own box-shadow
+   above beat it and the class showed nothing. Before .mini-selectable on purpose: during a decision the target cue wins. */
+.swu-mb-card.unit-action { cursor: pointer; outline: 2px solid #5fd0ff; outline-offset: 0;
+    box-shadow: 0 0 9px 3px #5fd0ff; z-index: 3; }
 /* A legal-target mini card during a decision: green glow + clickable (mirrors the main board's
    .selectable-card). Overrides an exhausted card's dim so a valid target still reads clearly. */
 .swu-mb-card.mini-selectable { cursor: pointer; outline: 2px solid #2ecc71; outline-offset: 0;
@@ -993,8 +1003,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important;
     overflow: hidden !important;           /* the stats pane scrolls, not the panel */
     grid-template-columns: minmax(190px, 290px) minmax(0, 1fr) !important;
-    grid-template-rows: auto minmax(0, 1fr) !important;
-    grid-template-areas: "title title" "buttons stats" !important;
+    grid-template-rows: auto auto minmax(0, 1fr) !important;
+    grid-template-areas: "title title" "buttons stats" "replay stats" !important;
     column-gap: 24px !important; row-gap: 12px !important;
     align-items: stretch !important; justify-items: stretch !important;
 }
@@ -1064,8 +1074,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    space for an empty area. An unplaced child in a grid with named areas gets AUTO-placed into an
    implicit cell, which is why this needs its own area rather than just appearing in the DOM. */
 #game-over-overlay.has-subtitle {
-    grid-template-rows: auto auto minmax(0, 1fr) !important;
-    grid-template-areas: "title title" "subtitle subtitle" "buttons stats" !important;
+    grid-template-rows: auto auto auto minmax(0, 1fr) !important;
+    grid-template-areas: "title title" "subtitle subtitle" "buttons stats" "replay stats" !important;
 }
 #game-over-subtitle {
     grid-area: subtitle !important;
@@ -1126,6 +1136,11 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    cell instead: the right column on desktop, the row under the buttons on a phone. Scoped to .swu-table (set by
    SWUShowEndGameMenu for seatCount > 2) so the 2-seat layout is untouched. */
 #game-over-overlay.swu-table > .match-replay-stats-actions { grid-area: stats !important; align-self: start !important; }
+/* The 2-seat end screen: the save-replay row (Save Replay, Export SWUPGN) lands as a bare overlay child too, and the
+   catch-all put it in the BUTTONS cell — under the button stack (its caption ran beneath Report Bug on desktop; on a phone
+   the stack covered both buttons outright). It gets its own "replay" area: under the buttons on desktop (the stats span
+   both rows), between the buttons and the stats on a phone. The .swu-table rule above still wins for 3-4 seats. */
+#game-over-overlay > .match-replay-stats-actions { grid-area: replay !important; align-self: start !important; margin: 0 !important; }
 
 /* Best-of toggle → WHITE button, black text (SWUSim secondary-button style). MUST be
    scoped under #game-over-buttons: the general `#game-over-buttons button::before/::after`
@@ -1155,13 +1170,13 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     #game-over-overlay {
         inset: 10vh 10vw !important;          /* mobile: keep the panel centered (80% wide) */
         grid-template-columns: minmax(0, 1fr) !important;
-        grid-template-rows: auto auto minmax(0, 1fr) !important;
-        grid-template-areas: "title" "buttons" "stats" !important;
+        grid-template-rows: auto auto auto minmax(0, 1fr) !important;
+        grid-template-areas: "title" "buttons" "replay" "stats" !important;
         row-gap: 10px !important;
     }
     #game-over-overlay.has-subtitle {
-        grid-template-rows: auto auto auto minmax(0, 1fr) !important;
-        grid-template-areas: "title" "subtitle" "buttons" "stats" !important;
+        grid-template-rows: auto auto auto auto minmax(0, 1fr) !important;
+        grid-template-areas: "title" "subtitle" "buttons" "replay" "stats" !important;
     }
     #game-over-subtitle { font-size: clamp(12px, 2.6vw, 16px) !important; letter-spacing: 0.5px !important; }
     #game-over-buttons { align-self: start !important; }
@@ -1278,7 +1293,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    A prompt about an already-chosen unit rings that unit on the board, so the player can see WHICH one the
    question is about (reported 2026-09-28, SEC_010 Dedra Meero: "Deal 2 damage to your own unit?" named
    nothing, and the popup covers the board). The class is applied by ApplyYesNoDecisionHighlight
-   (Core/UILibraries20261022.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
+   (Core/UILibraries20261023.js) from the decision's "hilite:<UniqueID>" param, and the same code lightens
    the overlay dim to 15% — a ring under a 50% black wash would not have been visible.
    ⚠ z-index is DELIBERATELY NOT raised above the overlay (5000). Escaping a full-screen overlay's stacking
    context depends on every ancestor of the card, and the arenas clip and transform — the lighter dim is
@@ -1632,6 +1647,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 .swu-m-pile .swu-pile-count { font-size: 11px; bottom: 2px; padding: 0 5px; min-width: 18px; }
 </style>
 <script src="./SWUSim/SwuPgnViewerClient.js?v=<?= filemtime(__DIR__ . '/../SwuPgnViewerClient.js') ?>"></script><?php /* SWU-PGN replay viewer controls; inert unless ?swupgnViewer=1 */ ?>
+<script src="./SWUSim/SwuPgnExportClient.js?v=<?= filemtime(__DIR__ . '/../SwuPgnExportClient.js') ?>"></script><?php /* SWU-PGN "Export SWUPGN" on the end-game overlay (seated players) */ ?>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
     'JTL_001','JTL_003','JTL_006','JTL_008','JTL_009',
@@ -2716,7 +2732,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var ex = document.getElementById('swuUnitActionMenu');
         if (ex && ex.parentNode) ex.parentNode.removeChild(ex);
     }
-    function showUnitActionMenu(mzid, anchorEl) {
+    // abilityOnly: a unit I do NOT control whose Action any opponent may use (TS26_15 C-3P0, LAW_156, SHD_256) — it is not
+    // mine to attack with, so the menu offers the Ability alone. `mzid` is then the SERVER's id from the offer list
+    // ("their…" at 2 seats, "p{n}…" at 3-4), which is what CustomInput routes; never the rendered one.
+    function showUnitActionMenu(mzid, anchorEl, abilityOnly) {
         removeUnitActionMenu();
         var menu = document.createElement('div');
         menu.id = 'swuUnitActionMenu';
@@ -2746,7 +2765,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate'));
         });
 
-        menu.appendChild(atkBtn);
+        if (!abilityOnly) menu.appendChild(atkBtn);
         menu.appendChild(abilityBtn);
         document.body.appendChild(menu);
 
@@ -2773,11 +2792,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var el = e.target;
         while (el && el !== e.currentTarget) {
             if (el.classList && el.classList.contains('unit-action')) {
-                var mzid = el.getAttribute && el.getAttribute('data-mzid');
+                // An opponent's unit carries the server's offer id (refreshUnitActionGlows) — the rendered
+                // "their…" of a Twin Suns matchup view is not the seat the server's "their" names.
+                var actMz = el.getAttribute && el.getAttribute('data-swu-act-mz');
+                var mzid = actMz || (el.getAttribute && el.getAttribute('data-mzid'));
                 if (mzid) {
                     e.stopPropagation();
                     e.preventDefault();
-                    showUnitActionMenu(mzid, el);
+                    showUnitActionMenu(mzid, el, !!actMz);
                     return;
                 }
             }
@@ -2785,14 +2807,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
     function setupUnitActionClick() {
-        ['myGroundArenaSlot', 'mySpaceArenaSlot'].forEach(function(id) {
+        // The opponent's arenas too: an any-player Action (C-3P0, Hunter For Hire, Mercenary Gunship) sits on THEIR board.
+        // Only a glowing .unit-action element is intercepted, so every other click on their units is untouched.
+        ['myGroundArenaSlot', 'mySpaceArenaSlot', 'theirGroundArenaSlot', 'theirSpaceArenaSlot'].forEach(function(id) {
             var slot = document.getElementById(id);
             if (slot) slot.addEventListener('click', handleUnitActionClick, true);
         });
     }
     function refreshUnitActionGlows() {
         var d = window.myActionsData || {};
-        document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); });
+        document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); el.removeAttribute('data-swu-act-mz'); });
         document.querySelectorAll('.can-attack').forEach(function(el) { el.classList.remove('can-attack'); });
         // Read-only: a board that isn't yours (4-player other-pair) shows no "you can act" glows — the
         // actions data is computed for YOU, not the seat on screen, so its mzIDs don't apply here.
@@ -2800,8 +2824,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var abilityMz = {};
         (d.unitActions || []).forEach(function(mz) {
             abilityMz[mz] = true;
-            var el = document.querySelector('[data-mzid="' + mz + '"]');
-            if (el) el.classList.add('unit-action');
+            // An opponent's any-player Action is offered as "their…" (2 seats) or "p{n}…" (3-4 seats). The board draws
+            // the CURRENT view's opponent as "their…", so a p{n} id is mapped onto it (off-view → nothing on the board),
+            // and the element keeps the server id for the submit. The Twin Suns Home tiles carry p{n} ids as data-mz.
+            var rendered = mz, theirs = /^their/.test(mz);
+            var pm = /^p(\d+)(GroundArena|SpaceArena)-(\d+)$/.exec(mz);
+            if (pm) {
+                var frame = swuRenderedZoneForSeat(parseInt(pm[1], 10));
+                rendered = frame === 'their' ? ('their' + pm[2] + '-' + pm[3]) : null;
+                theirs = true;
+            }
+            var el = rendered ? document.querySelector('[data-mzid="' + rendered + '"]') : null;
+            if (el) { el.classList.add('unit-action'); if (theirs) el.setAttribute('data-swu-act-mz', mz); }
+            if (pm) {
+                var tile = document.querySelector('#swuHomeStrips .swu-mb-card[data-mz="' + mz + '"]');
+                if (tile) { tile.classList.add('unit-action'); tile.setAttribute('data-swu-act-mz', mz); }
+            }
         });
         // "Can attack" green glow — skip units already showing the cyan ability glow (their click menu
         // already offers Attack), so a unit never carries both highlights.
@@ -3703,6 +3741,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (typeof ShowZonePopup === 'function') ShowZonePopup(zoneBtn.getAttribute('data-zone'));
                 return;
             }
+            // A glowing tile unit with an any-player Action I may use (TS26_15 C-3P0 …) → the Ability menu, straight from
+            // the Home view — the surface Twin Suns players actually act from. Not during a decision: then a click picks.
+            var actTile = t.closest && t.closest('#swuHomeStrips .swu-mb-card.unit-action[data-swu-act-mz]');
+            if (actTile && !(window.SelectionMode && window.SelectionMode.active)) {
+                e.stopPropagation();
+                showUnitActionMenu(actTile.getAttribute('data-swu-act-mz'), actTile, true);
+                return;
+            }
             // A highlighted legal-target card → select it (cross-view targeting straight from the preview).
             var card = t.closest && t.closest('#swuHomeStrips .mini-selectable');
             if (card) swuPreviewTargetClick(card);
@@ -4482,6 +4528,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // Same reason as the two re-stamps above: the rebuild replaced the elements the playmat was
         // painted onto, so repaint AFTER innerHTML — never before.
         if (typeof window.swuPaintHomeStripPlaymats === 'function') window.swuPaintHomeStripPlaymats();
+        // …and the "you may use this unit's Action" glow on a tile (an opponent's TS26_15 C-3P0), for the same reason.
+        refreshUnitActionGlows();
     }
     window.swuRenderHomeStrips = swuRenderHomeStrips;   // the health-bar harness re-renders the tiles
 

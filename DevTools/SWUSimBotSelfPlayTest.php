@@ -159,7 +159,7 @@ $swuDir = __DIR__ . '/../SWUSim/';
 function SWUBotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
            'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null,
-           'memoryOnly' => false, 'workers' => 2, 'superset' => [], 'fork' => false];
+           'memoryOnly' => false, 'workers' => 2, 'superset' => [], 'fork' => false, 'swupgn' => false];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
@@ -176,6 +176,9 @@ function SWUBotTestParseArgs($argv) {
     elseif (str_starts_with($arg, '--chooser2=')) $args['chooser2'] = substr($arg, 11);
     elseif ($arg === '--verbose') $args['verbose'] = true;
     elseif ($arg === '--memory-only') $args['memoryOnly'] = true;
+    // Record the game as SWU-PGN although both seats are bots (the writer otherwise records two-seat PvP only):
+    // Games/<id>/Pgn/out/ gets the three files when it ends. For the writer's own tests.
+    elseif ($arg === '--swupgn') $args['swupgn'] = true;
     // FORK mode (2026-10-13, owner: "a one-time-paid setup and many games running there"): a sweep boots the engine ONCE and
     // pcntl_fork()s a child per game, instead of proc_open'ing a fresh PHP that re-loads ~1,600 card files (~0.3 s) per game.
     // Each child starts from the same untouched post-bootstrap image, so games stay as independent as separate processes.
@@ -697,6 +700,7 @@ $lobby->players = [
 
 $setupOpts = ['forcedFirstPlayer' => $args['firstPlayer']];
 if ($args['seed'] !== '' && $args['seed'] !== 'random') $setupOpts['rngSeed'] = $args['seed'];
+if ($args['swupgn']) $setupOpts['swupgnRecord'] = true;
 $gameName = SWUSetupGame($lobby, $setupOpts);
 if ($args['verbose']) echo "[INFO] rngSeed: " . ($setupOpts['rngSeed'] ?? '(random)') . "\n";
 if ($args['verbose']) echo "[INFO] game created: {$gameName}\n";

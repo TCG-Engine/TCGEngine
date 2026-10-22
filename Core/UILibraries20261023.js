@@ -571,7 +571,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             if (ovOffsetY !== 0) ovTransformParts.push("translateY(" + ovOffsetY + "%)");
             if (ovScale !== 1) ovTransformParts.push("scale(" + ovScale + ")");
             var ovTransform = ovTransformParts.length ? " transform:" + ovTransformParts.join(" ") + ";" : "";
-            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none; opacity:" + ovOpacity + ";" + ovTransform
+            // class: a hook for a sim's own stylesheet (SWUSim brightens these — GameLayoutShared.php); it carries no style here.
+            rv += "<div class='card-image-overlay' style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none; opacity:" + ovOpacity + ";" + ovTransform
               + " background-image:url(\"" + imagePath + "\"); background-size:cover; background-position:center; background-repeat:no-repeat;'></div>";
           });
           if (hasDistantOverlay) {

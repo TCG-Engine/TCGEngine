@@ -24,6 +24,7 @@ Apply in numeric order:
 | 04 | `04_azuki_deck_card_stats.sql` | Creates isolated `azukicarddeckstats` | AzukiSim/AzukiDeck bridge |
 | 05 | `05_azuki_card_event_stats.sql` | Adds draw, attack, and attack-target counters | Azuki card analytics |
 | 06 | `06_azuki_card_play_turn_stats.sql` | Adds play/win counters for full-turn cycles 1-9 and 10+ | Azuki turn analytics |
+| 06 | `06_ownership_friendlycode.sql` | Adds `ownership.friendlyCode` (12-char deck share code) + its unique index. Apply to **every app DB with an `ownership` table**: SWUStats deck creation (`CreateDeck.php` → `AssignFriendlyCode`) and share-code loads (`APIs/LoadDeck.php`) die without it. ⚠ Shares the number 06 with the Azuki migration above; it was missing from this table and from `database.sql`, which is how the rebuilt swustats.net lost deck creation on 2026-10-22. `DevTools/tdd-regression/test_database_sql_covers_migrations.php` now fails when a migration's tables/columns are not in `database.sql` | Deck share codes |
 | 07 | `07_auto_versioning.sql` | Adds a separate automatic-version graph and Azuki per-version W/L aggregates | Shared version graph + Azuki opt-in |
 | 08 | `08_engine_asset_versioning.sql` | Adds engine-level version aggregates and backfills existing Azuki W/L rows | Engine capability extraction |
 | 09 | `09_match_history.sql` | Creates private per-user match history with generic key-card slots | Shared simulator capability |

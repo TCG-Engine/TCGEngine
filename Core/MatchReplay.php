@@ -137,6 +137,8 @@ function MatchReplayNormalizeCommandState($decoded) {
   if (isset($decoded['sourceGameName'])) $state['sourceGameName'] = strval($decoded['sourceGameName']);
   if (isset($decoded['sourceSavedAt'])) $state['sourceSavedAt'] = strval($decoded['sourceSavedAt']);
   if (isset($decoded['sourceInitialUpdateNumber'])) $state['sourceInitialUpdateNumber'] = intval($decoded['sourceInitialUpdateNumber']);
+  // A sealed replay's playback (see MatchReplaySeal): absent for every plain replay, so their state is unchanged.
+  if (!empty($decoded['sealed'])) { $state['sealed'] = true; $state['sealedSeat'] = intval($decoded['sealedSeat'] ?? 0); }
   return $state;
 }
 
@@ -259,6 +261,7 @@ function MatchReplayIsGameOver() {
 
 function MatchReplayCanDownload() {
   if (!MatchReplayIsEnabled()) return false;
+  if (MatchReplayIsSealedPlayback()) return false;   // re-saving would hand out the plain game the seal protects
   if (!MatchReplayIsGameOver()) return false;
   if (MatchReplayGetInitialGamestateText() === '') return false;
   return count(MatchReplayGetCommandState()['actions'] ?? []) > 0;
@@ -284,6 +287,85 @@ function MatchReplayBuildDownloadPayload($rootName, $gameName) {
   return $payload;
 }
 
+// ── Sealed replays ──────────────────────────────────────────────────────────────────────────────
+// A root that defines GameMatchReplaySealPolicy() (true = this game must not hand out its plain replay — a game with
+// two humans, whose initial gamestate holds each player's hidden cards) and GameMatchReplaySealKey() (32 raw bytes)
+// gets SEALED downloads: the plain payload encrypted with AES-256-GCM, opened only by this server, played back from
+// the saver's seat. Roots that define neither keep the plain format exactly as before.
+const MATCH_REPLAY_SEALED_FORMAT = 'tcgengine-match-replay-sealed-v1';
+
+function MatchReplayShouldSeal(): bool {
+  return function_exists('GameMatchReplaySealPolicy') && GameMatchReplaySealPolicy();
+}
+
+function MatchReplayIsSealedPlayback(): bool {
+  if (!MatchReplayIsEnabled()) return false;
+  return !empty(MatchReplayGetCommandState()['sealed']);
+}
+
+function _MatchReplaySealKey(): string {
+  $key = function_exists('GameMatchReplaySealKey') ? strval(GameMatchReplaySealKey()) : '';
+  return strlen($key) === 32 ? $key : '';
+}
+
+// Every field outside the ciphertext is authenticated with it, so none can be edited.
+function _MatchReplaySealAad(array $r): string {
+  return json_encode([strval($r['format'] ?? ''), strval($r['rootName'] ?? ''), strval($r['gameName'] ?? ''), strval($r['savedAt'] ?? ''),
+    intval($r['winner'] ?? 0), intval($r['actionCount'] ?? 0), intval($r['seat'] ?? 0)], JSON_UNESCAPED_SLASHES);
+}
+
+// The sealed record for $seat, or null when this server cannot seal (no key).
+function MatchReplaySeal(array $payload, int $seat): ?array {
+  $key = _MatchReplaySealKey();
+  if ($key === '' || $seat < 1) return null;
+  $record = ['format' => MATCH_REPLAY_SEALED_FORMAT, 'rootName' => strval($payload['rootName'] ?? ''), 'gameName' => strval($payload['gameName'] ?? ''),
+    'savedAt' => strval($payload['savedAt'] ?? ''), 'winner' => intval($payload['winner'] ?? 0), 'actionCount' => intval($payload['actionCount'] ?? 0),
+    'seat' => $seat];
+  $nonce = random_bytes(12);
+  $tag = '';
+  $cipher = openssl_encrypt(json_encode(['payload' => $payload, 'seat' => $seat], JSON_UNESCAPED_SLASHES), 'aes-256-gcm', $key,
+    OPENSSL_RAW_DATA, $nonce, $tag, _MatchReplaySealAad($record), 16);
+  if ($cipher === false) return null;
+  $record['sealed'] = base64_encode($nonce . $tag . $cipher);
+  return $record;
+}
+
+// The playback game's seat keys. The returned key opens seat 1 of a plain replay (unchanged) — or ONLY the sealed seat
+// of a sealed one; every other seat and spectating get keys nobody is told, and caster mode is off.
+function MatchReplayImportAuthKeys(string $returnedKey, int $sealedSeat = 0): array {
+  $keys = SimGameDefaultAuthKeys();
+  $keys['p1'] = $returnedKey;
+  $keys['p2'] = bin2hex(random_bytes(16));
+  $keys['p3'] = bin2hex(random_bytes(16));
+  $keys['p4'] = bin2hex(random_bytes(16));
+  $keys['spectator'] = bin2hex(random_bytes(16));
+  $keys['isPrivate'] = true;
+  if ($sealedSeat > 0) {
+    $keys['p1'] = bin2hex(random_bytes(16));
+    $keys['p' . $sealedSeat] = $returnedKey;
+    $keys['casterMode'] = false;
+  }
+  return $keys;
+}
+
+// ['payload' => plain replay, 'seat' => int], or null for anything tampered, foreign or unreadable.
+function MatchReplayUnseal($record): ?array {
+  if (!is_array($record) || strval($record['format'] ?? '') !== MATCH_REPLAY_SEALED_FORMAT) return null;
+  $key = _MatchReplaySealKey();
+  $raw = base64_decode(strval($record['sealed'] ?? ''), true);
+  if ($key === '' || $raw === false || strlen($raw) <= 28) return null;
+  $plain = openssl_decrypt(substr($raw, 28), 'aes-256-gcm', $key, OPENSSL_RAW_DATA, substr($raw, 0, 12), substr($raw, 12, 16),
+    _MatchReplaySealAad($record));
+  if ($plain === false) return null;
+  $inner = json_decode($plain, true);
+  if (!is_array($inner) || !is_array($inner['payload'] ?? null)) return null;
+  $seat = intval($inner['seat'] ?? 0);
+  if ($seat < 1 || $seat !== intval($record['seat'] ?? 0)) return null;
+  if (MatchReplayValidateReplayPayload($inner['payload']) !== '') return null;
+  if (strval($inner['payload']['rootName']) !== strval($record['rootName'] ?? '')) return null;
+  return ['payload' => $inner['payload'], 'seat' => $seat];
+}
+
 function MatchReplayValidateReplayPayload($replay) {
   if (!is_array($replay)) return 'Replay payload must be a JSON object.';
   if (strval($replay['format'] ?? '') !== 'tcgengine-match-replay-v1') return 'Unsupported replay format.';
@@ -306,7 +388,7 @@ function MatchReplayPlaybackState() {
     'interrupted' => !empty($state['interrupted']),
     'sourceGameName' => strval($state['sourceGameName'] ?? ''),
     'sourceSavedAt' => strval($state['sourceSavedAt'] ?? ''),
-  ];
+  ] + (!empty($state['sealed']) ? ['sealed' => true] : []);
 }
 
 function MatchReplayEnterInterrupt($rootName, $gameName) {
@@ -319,6 +401,8 @@ function MatchReplayEnterInterrupt($rootName, $gameName) {
   global $updateNumber;
   $state = MatchReplayGetCommandState();
   if (empty($state['playback'])) return ['success' => false, 'message' => 'This game is not a replay playback session.'];
+  // A sealed replay is one seat's view; playing on from it is not offered (the free-play branch assumes seat 2 passive).
+  if (!empty($state['sealed'])) return ['success' => false, 'message' => 'Play from Here is not available in this replay.'];
   $state['interrupted'] = true;
   MatchReplaySetCommandState($state);
   // Move the client's monotonic reload counter forward so the panel re-renders in the interrupted mode
@@ -370,6 +454,7 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
   $newState['sourceInitialUpdateNumber'] = $sourceInitialUpdateNumber;
   if ($sourceGameName !== '') $newState['sourceGameName'] = $sourceGameName;
   if ($sourceSavedAt !== '') $newState['sourceSavedAt'] = $sourceSavedAt;
+  if (!empty($state['sealed'])) { $newState['sealed'] = true; $newState['sealedSeat'] = intval($state['sealedSeat'] ?? 0); }   // Reset keeps the seal
   MatchReplaySetCommandState($newState);
   MatchReplayMarkPlaybackGame($gameName);
   if (function_exists('SetFlashMessage')) {

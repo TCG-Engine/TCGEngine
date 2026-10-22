@@ -315,7 +315,7 @@ Counters: HasRestore=Image(Path=Assets/Icons/restore.webp,Position=Bottom,ShowZe
 Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
 # Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
 # Scaled up a touch so the wall frames around the card edges.
-Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.88,Scale=1.15,OffsetY=-4)
 AfterAdd: GroundArenaAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
@@ -384,7 +384,7 @@ Counters: HasRestore=Image(Path=Assets/Icons/restore.webp,Position=Bottom,ShowZe
 Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
 # Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
 # Scaled up a touch so the wall frames around the card edges.
-Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.88,Scale=1.15,OffsetY=-4)
 AfterAdd: SpaceArenaAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()

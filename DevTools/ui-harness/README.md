@@ -60,6 +60,7 @@ tag would double the main menu's weight and no functional test would notice.
 node swusim-log-styles-xbrowser.mjs [BASE] [SHOTS_DIR]      # game-log line styles, desktop + mobile layout
 node swusim-refill-slide-xbrowser.mjs [BASE]                # the Smuggle-refill deck → resources slide
 node swusim-resource-filter-xbrowser.mjs [BASE] [SHOTS_DIR] # resource box narrows to the offered resources
+node swusim-overlay-brightness-xbrowser.mjs [BASE] [SHOTS_DIR] # Sentinel opacity + brightened overlays: board (desktop + mobile) and Twin Suns preview tiles
 ```
 
 Both build their board from a `SWUSim/Tests/Visual/*.md` schema through the Test Schema Editor's own

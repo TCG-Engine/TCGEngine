@@ -480,6 +480,13 @@ function _SWUBotUnitArenas(int $seat): array {
 // the usual state of these ground-based control decks and what the owner's example assumes. A one-sided wipe
 // costs me nothing by its wording.
 function _SWUBotWipeLosses(int $seat, string $cid): array {
+    // Feature 'budgetwipe' (p61): a budget wipe takes only its kill set, and its player picks it — none of mine.
+    if (SWUBotFeatureOn('budgetwipe') && ($cap = _SWUBotWipeBudget($cid)) > 0) {
+        _SWUBotFired('budgetwipe', $seat);
+        $theirs = 0.0;
+        foreach (_SWUBotBudgetWipeKillSet($seat, $cap) as $u) $theirs += SWUBotUnitValue($u);
+        return [0.0, $theirs];
+    }
     $arenas = _SWUBotWipeArenas($cid);
     $sum = function (int $s, bool $enemy = false) use ($arenas) {
         $v = 0.0;
@@ -496,6 +503,46 @@ function _SWUBotWipeLosses(int $seat, string $cid): array {
     $mine = 0.0;
     if (!_SWUBotWipeIsOneSided($cid)) foreach (SWUBotFriendlySeats($seat) as $f) $mine += $sum($f);
     return [$mine, $theirs];
+}
+
+// ── Feature 'budgetwipe' (p61) (bug report P-1, Petranaki game 308, 2026-10-22) ──────────────────────────────────────────────────
+// A BUDGET wipe — ASH_053 Pre Vizsla: "Defeat any number of non-leader units with a total of 6 or less remaining HP" — kills only
+// what fits its budget, and never a leader. Valued like "defeat all units", it sent a Hemlock softcontrol bot to claim the initiative
+// in round 6 for a Pre Vizsla that could defeat nothing in round 7 (the enemy's units: a deployed Lando and Bo-Katan at 7 remaining HP).
+
+// The budget N of a budget wipe, else 0.
+function _SWUBotWipeBudget(string $cid): int {
+    return preg_match('/Defeat any number of non-leader units with a total of (\d+) or less remaining HP/i', strval(CardText($cid)), $m)
+        ? intval($m[1]) : 0;
+}
+
+// What a budget wipe would defeat now: the most valuable set of enemy non-leader units (not defeat-immune) whose remaining HP sums
+// to <= $cap — the 0/1 knapsack _SWUBotBudgetKillValue prices, keeping the units themselves so their threat can be summed too.
+function _SWUBotBudgetWipeKillSet(int $seat, int $cap): array {
+    $best = array_fill(0, max(0, $cap) + 1, [0.0, []]);
+    foreach (SWUBotOpponents($seat) as $o) {
+        foreach (SWUBotUnits($o) as $u) {
+            $hp = intval($u['remaining']);
+            if ($u['isLeader'] || SWUBotDefeatFizzles($u) || $hp <= 0 || $hp > $cap) continue;
+            $value = SWUBotUnitValue($u);
+            for ($h = $cap; $h >= $hp; $h--) {
+                if ($best[$h - $hp][0] + $value > $best[$h][0]) $best[$h] = [$best[$h - $hp][0] + $value, array_merge($best[$h - $hp][1], [$u])];
+            }
+        }
+    }
+    $top = [0.0, []];
+    foreach ($best as $b) if ($b[0] > $top[0]) $top = $b;
+    return $top[1];
+}
+
+// The base damage a wipe in hand would stop next round: every enemy unit in its arenas, or for a budget wipe only its kill set.
+function _SWUBotWipeThreatOf(int $seat, string $cid): int {
+    if (SWUBotFeatureOn('budgetwipe') && ($cap = _SWUBotWipeBudget($cid)) > 0) {
+        $t = 0;
+        foreach (_SWUBotBudgetWipeKillSet($seat, $cap) as $u) $t += SWUBotUnitBaseThreat($seat, $u);
+        return $t;
+    }
+    return _SWUBotWipeThreat($seat, _SWUBotWipeArenas($cid));
 }
 
 // Relevant = it covers EVERY arena the opponent is using. So Hyperspace Disaster answers a pure space board, but
