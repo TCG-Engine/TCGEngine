@@ -178,3 +178,4 @@ __pycache__/
 # newhost/setup-box.sh: the filled-in config holds the DB password; the kit writes its backups next to itself
 newhost/box.conf
 newhost/newhost-backups-*/
+newhost/research/

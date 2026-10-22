@@ -345,8 +345,13 @@ MaxAuthTries 4
 X11Forwarding no
 EOF
   then
+    # Ubuntu 24.04 socket-activates sshd: until a daemon has started, /run/sshd does not exist and
+    # `sshd -t` fails with "Missing privilege separation directory" — on a perfectly good config.
+    install -d -m 755 /run/sshd
     if sshd -t; then
-      systemctl reload ssh 2>/dev/null || systemctl reload sshd 2>/dev/null || warn "reload sshd by hand"
+      # Socket-activated and idle: nothing to reload; the next connection starts sshd with the new config.
+      if systemctl is-active --quiet ssh 2>/dev/null; then systemctl reload ssh
+      elif systemctl is-active --quiet sshd 2>/dev/null; then systemctl reload sshd; fi
       ok "sshd: key-only login (port $SSH_PORT). Keep this session open and test a NEW login first."
     else
       rm -f /etc/ssh/sshd_config.d/01-tcgengine-hardening.conf

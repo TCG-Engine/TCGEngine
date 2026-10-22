@@ -734,7 +734,7 @@ CREATE TABLE `lastdeck` (
 
 -- Glicko-2 ratings for rated queues (SWUSim Meta Premier first) — Database/migrations/17_glicko_ratings.sql
 
-CREATE TABLE IF NOT EXISTS). The code checks
+-- Idempotent (CREATE TABLE IF NOT EXISTS). The code checks
 -- DBTableExists() first, so a server that has not run this keeps working and simply does not rate matches.
 --
 -- glicko_ratings   — one row per account × format × match type (bo1/bo3) × season. Glicko-2 rating / RD / volatility.
